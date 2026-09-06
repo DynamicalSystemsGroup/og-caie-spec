@@ -73,6 +73,7 @@ before the agreement fails it.
 
 ```{include} ../generated/receipts.md
 ```
+Computational proof: [run the checks](../notebooks/checked-model.ipynb).
 :::
 
 :::{admonition} There is more in the model

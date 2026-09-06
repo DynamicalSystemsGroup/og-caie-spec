@@ -139,6 +139,7 @@ probe derived before the requirements, a recommendation resting on nothing, a
 session run by the domain expert, and an attestation by the account
 executive. Two model counterexamples fail theirs: a port no seam reaches, and
 a domain expert who applies probes.
+Computational proof: [run the checks](../notebooks/checked-evaluation.ipynb).
 :::
 
 :::{admonition} There is more in the model
