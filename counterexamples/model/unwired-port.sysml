@@ -1,6 +1,6 @@
 package UnwiredPort {
     doc /* Model counterexample: the recorder has a port no seam reaches.
-       M2-PortConnectedOnce must reject the graph of this package. Everything
+       M2-Part must reject the graph of this package. Everything
        else is a minimal, correctly wired assembly. */
     item def Dso { attribute id : ScalarValues::String; }
     item def Probe { attribute id : ScalarValues::String; }
