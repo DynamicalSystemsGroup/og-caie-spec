@@ -130,6 +130,14 @@ sources and rulings borrowed from `mission-twin-glossary`.
 - Input wires are unique, output wires may be shared because what flows
   is information whose use is nondestructive (R-25): one output port per
   item kind per actor, fanned out to its readers.
+- One nested model (R-33): the contracting lifecycle is the outer action
+  def; its `fulfil` step is `action fulfil : EvaluationProcess`, a black
+  box whose inputs (agreement, access) and outputs (report, recommendation)
+  are bound by `flow` from and to the contracting steps; the evaluation
+  process is the drill-down and conforms by typing (shape M4-Nesting).
+  The assembly performs one action, the contracting lifecycle. Deeper
+  refinement follows the same pattern: type a step by an action def, bind
+  its parameters, never restate its interface.
 - Wiring rules are defined over kinds of parts and kinds of ports and are
   checked locally (R-26): at the part (inputs present, outputs go
   somewhere) and at the wire (output port on a part to input port on a
@@ -146,7 +154,10 @@ sources and rulings borrowed from `mission-twin-glossary`.
 ## Toolchain
 
 - OpenSysML v0.4.3 pinned by digest (`toolchain/`). `-validate -strict`;
-  `-convert ttl` writes Turtle to stdout, deterministically, using the OMG
+  `accept` is a keyword (a step is `acceptDelivery`); a `flow` end must use
+  dot notation on both sides, so an action def's own parameter is bound to a
+  step's with `bind step.param = param;`. `-convert ttl` writes Turtle to
+  stdout, deterministically, using the OMG
   `sysml:` vocabulary plus `sysx:` for tool-specific facts (interface ends
   as `sysx:relatedFeature` feature-chain expressions). SHACL-SPARQL
   constraints may not contain VALUES; use BIND unions. Write successions

@@ -1,24 +1,28 @@
 {
  "artifact": {
-  "derived_triples": 218,
+  "derived_triples": 260,
   "path": "model/og-caie.model.ttl",
-  "sha256": "b39c5d4611b4d92044870181cd23db062fa97ff3a03296b0170467d026d0e70a",
+  "sha256": "9730ac94256b0bfc4d40f4c7ffd00cee67323e64b4a271bdd70e25a8ba6c68d2",
   "terms_used": [
    "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>",
    "ogm:consumerPort",
    "ogm:endPart",
    "ogm:first",
+   "ogm:flowSource",
+   "ogm:flowTarget",
    "ogm:resolvesTo",
    "ogm:supplierPort",
    "ogm:then",
    "sysml:ActionDefinition",
    "sysml:ActionUsage",
    "sysml:AttributeUsage",
+   "sysml:BindingConnectorAsUsage",
    "sysml:Documentation",
    "sysml:EnumerationDefinition",
    "sysml:EnumerationUsage",
    "sysml:FeatureChainExpression",
    "sysml:FeatureReferenceExpression",
+   "sysml:FlowUsage",
    "sysml:InterfaceDefinition",
    "sysml:InterfaceUsage",
    "sysml:ItemDefinition",
@@ -45,6 +49,7 @@
    "sysml:owner",
    "sysml:qualifiedName",
    "sysml:redefines",
+   "sysml:references",
    "sysml:referent",
    "sysml:specializes",
    "sysml:targetFeature",
@@ -56,7 +61,7 @@
    "sysx:relatedFeature",
    "sysx:sourceText"
   ],
-  "triples": 3737
+  "triples": 4297
  },
  "converter": {
   "invocation": "-convert ttl",
@@ -65,20 +70,20 @@
   "release": "OpenSysML v0.4.3"
  },
  "raw": {
-  "triples": 13237
+  "triples": 14442
  },
  "source": {
   "path": "model/og-caie.sysml",
-  "sha256": "0bb179ca01e7c3b20206f00e4256263b91655d526abfa39c0926860cb0edfe1d"
+  "sha256": "82fa43e786210766eb6b39f811afa5b42e6f158afd90c246eff751714593487d"
  },
  "term_map": {
   "path": "model/sysml_term_map.csv",
-  "sha256": "43b4c775ff3376879e62ad0b72b660047aad9e4746cabd1cc6a7123b1035f5a6",
-  "terms": 50
+  "sha256": "61c05465482866f0ebb3eb310e29bba6c347b946ef5d0c206e147d86a61e7777",
+  "terms": 55
  },
  "triple_budget": {
-  "headroom": 663,
+  "headroom": 903,
   "rationale": "Parsimony gate on the canonical model graph: the structure-only model plus resolved ends; bump with a rationale when a seam or a party is added.",
-  "value": 4400
+  "value": 5200
  }
 }

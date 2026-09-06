@@ -65,7 +65,7 @@ tr:SCI-10 a ogc:Trace ; rdfs:label "SCI-10 PartiesNamedAndAgreed" ;
     ogc:restsOn src:iso-9000-2026, src:iso-iec-17000-2020, rul:R-21, rul:R-23 .
 tr:SCI-11 a ogc:Trace ; rdfs:label "SCI-11 EndStateGuaranteed" ;
     rdfs:comment "The wiring guarantees the end state, checked locally over kinds of parts and ports: every wire runs from an output port on a part to an input port on a part carrying one item kind; at every part every input is present once and every output goes somewhere; every item kind reaches the recorder; the seven steps form a process DAG that produces every item kind; a conformant record then yields traceability in both directions and coverage, and answers why." ;
-    ogc:checkedBy ogc:M2-Wire, ogc:M2-Part, ogc:M3-RecordHub, ogc:M4-Steps, ogc:M4-ProcessDag, ogc:M4-EveryItemProduced ; ogc:tag "machine" ;
+    ogc:checkedBy ogc:M2-Wire, ogc:M2-Part, ogc:M3-RecordHub, ogc:M4-Steps, ogc:M4-ProcessDag, ogc:M4-EveryItemProduced, ogc:M4-Nesting ; ogc:tag "machine" ;
     ogc:usesTerm term:evaluation-process-ontology, term:evaluation-record, term:requirements-traceability, term:test-coverage, term:evaluation-team ;
     ogc:restsOn src:w3c-shacl, rul:R-17, rul:R-21, rul:R-22, rul:R-25, rul:R-26 .
 tr:SCI-12 a ogc:Trace ; rdfs:label "SCI-12 RolesDistinct" ;
@@ -75,6 +75,6 @@ tr:SCI-12 a ogc:Trace ; rdfs:label "SCI-12 RolesDistinct" ;
     ogc:restsOn src:iso-9000-2026, src:sevocab, rul:R-10, rul:R-23 .
 tr:SCI-13 a ogc:Trace ; rdfs:label "SCI-13 TwoLayersOfAssumptions" ;
     rdfs:comment "What the contract pins (the counterparties, the test item, the requirements' frame, the method) is recorded and closed before what the evaluation pins (the environment, the requirement set, the DSO release, the plan) is declared; the evaluation documents the first layer and cannot change it." ;
-    ogc:checkedBy ogc:S0-Layers ; ogc:tag "machine" ;
+    ogc:checkedBy ogc:S0-Layers, ogc:M4-Nesting ; ogc:tag "machine" ;
     ogc:usesTerm term:contract, term:operational-environment, term:operational-envelope, term:domain-specific-ontology, term:evaluation-process-ontology ;
-    ogc:restsOn src:sebok-2-14, src:iso-iec-17000-2020, src:bof-deck-2026-07, rul:R-32 .
+    ogc:restsOn src:sebok-2-14, src:iso-iec-17000-2020, src:bof-deck-2026-07, rul:R-32, rul:R-33 .

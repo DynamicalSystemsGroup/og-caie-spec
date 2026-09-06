@@ -670,3 +670,20 @@ rul:R-32 a ogc:Ruling ;
     prov:wasAttributedTo rul:Z ;
     prov:generatedAtTime "2026-09-06"^^xsd:date .
 
+rul:C-36 a ogc:Concern ;
+    rdfs:label "two cycles as two action defs, or one nested model" ;
+    ogc:problem """After R-32 the assembly performed two actions side by side, the contracting lifecycle and the evaluation, with the handoff stated only in prose. SysML can nest: an action usage typed by another action def is a black box with defined inputs and outputs, and that action def is its drill-down, conforming to the interface above by typing. Z asked whether OpenSysML gives us that power and, if so, to make it the way the two layers are modeled.""" ;
+    ogc:severity "M" ;
+    ogc:status "ruled" ;
+    ogc:surfacedOn "2026-09-06"^^xsd:date ;
+    ogc:surfacedHow "Z, after R-32" ;
+    prov:wasGeneratedBy rul:model-revision-planning-2026-09-06 .
+
+rul:R-33 a ogc:Ruling ;
+    ogc:order 33 ;
+    ogc:resolves rul:C-36 ;
+    ogc:rulingText """sysml is pretty powerful so one question i have as a relatively new user of opensysml is whether we have the power to demonstrate this is a nested model. that is to say the outer model essentially treats fulfillment as a back box (with well defined inputs and outputs) but then we essential drill down and specify it in more detail making that black box into a spec of its own which necessarily conforms to the inputs and outputs (and carries the assumptions) from the layer about. it is my preference for our two layer model to be one model exercising the nesting power of sysml. is this possible and if so can you make sure this is committed to plan and memory as what we are doing""" ;
+    ogc:changeNote "Possible, and done. Probed on OpenSysML v0.4.3: `action fulfil : EvaluationProcess;` inside the contracting action def validates strictly and converts to a sysml:ActionUsage typed by the inner def; `flow a.x to b.y` between steps converts to sysml:FlowUsage with two resolvable ends; a flow from an action def's own parameter is refused (both ends need dot notation), so `bind step.param = param;` binds it (sysml:BindingConnectorAsUsage). The contracting lifecycle now owns seven steps, need, propose, agree, access, fulfil, deliver, acceptDelivery; fulfil is the evaluation process as a black box, fed the agreement and the access by flows and feeding the report and the recommendation to deliver; the evaluation process binds its own parameters to its steps and flows its items between them; the assembly performs one action. Shape M4-Nesting checks that fulfil is typed by the evaluation process and that every input of the inner process is fed by a flow from the outer and every output used by one. The prune script resolves flow ends (an inline action resolves against its own parameters) and records them as ogm:flowSource and ogm:flowTarget; FlowUsage, BindingConnectorAsUsage and sysml:references join the term map; the budget rises to 5200 from measurement. Recorded in the plan and in memory as the way the layers are modeled: type a step by an action def, bind its parameters, never restate its interface." ;
+    prov:wasAttributedTo rul:Z ;
+    prov:generatedAtTime "2026-09-06"^^xsd:date .
+

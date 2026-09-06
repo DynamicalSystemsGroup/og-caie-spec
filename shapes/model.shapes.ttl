@@ -128,16 +128,16 @@ ogc:M3-RecordHub a sh:NodeShape ;
 ogc:M4-Steps a sh:NodeShape ;
     sh:targetClass sysml:ActionDefinition ;
     sh:sparql [
-        sh:message "The evaluation owns exactly six steps and the contracting lifecycle six (R-21, R-32)." ;
+        sh:message "The evaluation owns exactly six steps; the contracting lifecycle owns six of its own plus the nested fulfil step (R-21, R-32, R-33)." ;
         sh:select """
             PREFIX sysml: <https://www.omg.org/spec/SysML#>
             SELECT $this (COUNT(?a) AS ?value) WHERE {
                 $this sysml:declaredName ?n . FILTER(?n IN ("EvaluationProcess", "ContractingProcess"))
                 ?a a sysml:ActionUsage ; sysml:owner $this .
-            } GROUP BY $this HAVING (COUNT(?a) != 6)
+            } GROUP BY $this ?n HAVING ((?n = "EvaluationProcess" && COUNT(?a) != 6) || (?n = "ContractingProcess" && COUNT(?a) != 7))
         """ ] ;
     sh:sparql [
-        sh:message "The steps succeed one another in the fixed order: scope, declareRequirements, plan, execute, determineAndAttest, report for the evaluation; need, propose, agree, access, deliver, acceptDelivery for the contracting lifecycle." ;
+        sh:message "The steps succeed one another in the fixed order: scope, declareRequirements, plan, execute, determineAndAttest, report for the evaluation; need, propose, agree, access, fulfil, deliver, acceptDelivery for the contracting lifecycle." ;
         sh:select """
             PREFIX sysml: <https://www.omg.org/spec/SysML#>
             PREFIX ogm: <https://w3id.org/og-caie/model#>
@@ -150,13 +150,38 @@ ogc:M4-Steps a sh:NodeShape ;
                 UNION
                 { FILTER(?n = "ContractingProcess")
                   { { BIND("need" AS ?a) BIND("propose" AS ?b) } UNION { BIND("propose" AS ?a) BIND("agree" AS ?b) }
-                    UNION { BIND("agree" AS ?a) BIND("access" AS ?b) } UNION { BIND("access" AS ?a) BIND("deliver" AS ?b) }
-                    UNION { BIND("deliver" AS ?a) BIND("acceptDelivery" AS ?b) } } }
+                    UNION { BIND("agree" AS ?a) BIND("access" AS ?b) } UNION { BIND("access" AS ?a) BIND("fulfil" AS ?b) }
+                    UNION { BIND("fulfil" AS ?a) BIND("deliver" AS ?b) } UNION { BIND("deliver" AS ?a) BIND("acceptDelivery" AS ?b) } } }
                 BIND(CONCAT(?a, " then ", ?b) AS ?value)
                 FILTER NOT EXISTS {
                     ?s a sysml:SuccessionAsUsage ; sysml:owner $this ; ogm:first ?fa ; ogm:then ?tb .
                     ?fa sysml:declaredName ?a . ?tb sysml:declaredName ?b .
                 }
+            }
+        """ ] .
+
+ogc:M4-Nesting a sh:NodeShape ;
+    sh:targetClass sysml:ActionDefinition ;
+    sh:sparql [
+        sh:message "One nested model (R-33): the contracting lifecycle's fulfil step is a black box typed by the evaluation process." ;
+        sh:select """
+            PREFIX sysml: <https://www.omg.org/spec/SysML#>
+            SELECT $this WHERE {
+                $this sysml:declaredName "ContractingProcess" .
+                FILTER NOT EXISTS { ?f a sysml:ActionUsage ; sysml:owner $this ; sysml:declaredName "fulfil" ; sysml:type ?e . ?e sysml:declaredName "EvaluationProcess" }
+            }
+        """ ] ;
+    sh:sparql [
+        sh:message "The inner process conforms to the layer above: every input of the evaluation process is fed by a flow from a contracting step, and every output feeds one (R-33)." ;
+        sh:select """
+            PREFIX sysml: <https://www.omg.org/spec/SysML#>
+            PREFIX ogm: <https://w3id.org/og-caie/model#>
+            SELECT $this ?value WHERE {
+                $this sysml:declaredName "EvaluationProcess" .
+                ?value a sysml:ReferenceUsage ; sysml:owner $this ; sysml:direction ?d .
+                ?outer sysml:declaredName "ContractingProcess" .
+                FILTER( (?d = "in" && NOT EXISTS { ?fl a sysml:FlowUsage ; sysml:owner ?outer ; ogm:flowTarget ?value })
+                     || (?d = "out" && NOT EXISTS { ?value sysml:declaredName "record" } && NOT EXISTS { ?fl a sysml:FlowUsage ; sysml:owner ?outer ; ogm:flowSource ?value }) )
             }
         """ ] .
 

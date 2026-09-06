@@ -19,7 +19,7 @@ deployed AI system against the needs of a specific domain, written down as:
 ## Status (2026-09-06)
 
 - **Glossary: ratified.** 59 terms, 4 coined (DSO, EPO, CAIE, OG-CAIE),
-  settled through 32 rulings (R-01 to R-32) recorded verbatim in
+  settled through 33 rulings (R-01 to R-33) recorded verbatim in
   `rulings/adjudications.ttl`. 59 quotes are machine-located in content-hashed
   snapshots, 31 verified by Z against the ISO screenshots or the browsing
   platforms. No quote is pending. Concerns C-25 and C-26 are open.
@@ -43,7 +43,8 @@ deployed AI system against the needs of a specific domain, written down as:
   pruned RDF rendering `model/og-caie.model.ttl` is the canonical structure
   (R-22), checked by wiring shapes M1 to M5 over kinds of parts and ports:
   four parties, three actor categories within the testing organization, the
-  six-step EPO inside a six-step contracting lifecycle, both process DAGs,
+  six-step EPO nested as the fulfil step of the contracting lifecycle (one
+  model, R-33), both process DAGs,
   56 ports and 33 seams, every input wired
   once and every output somewhere. Three model counterexamples fail their
   shape. The essentials SCI-01 to SCI-12 live in `model/trace.ttl`.

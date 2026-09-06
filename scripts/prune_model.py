@@ -50,7 +50,9 @@ PREFIXES = {"sysml": SYS, "sysx": SYSX, "ogm": OGM, "elmt": Namespace("urn:sysml
 #   2026-09-06 bumped to 4400 (R-32): the contracting lifecycle as a second
 #     action def, three item kinds, six seams and nine ports; measured
 #     after the build, with headroom for the chapters' additions.
-TRIPLE_BUDGET = 4400
+#   2026-09-06 bumped to 5200 (R-33): the nested fulfil step, flows and
+#     binds in both action defs, measured after the build.
+TRIPLE_BUDGET = 5200
 TRIPLE_BUDGET_RATIONALE = ("Parsimony gate on the canonical model graph: the structure-only model "
                            "plus resolved ends; bump with a rationale when a seam or a party is added.")
 
@@ -93,9 +95,13 @@ def resolve(g: Graph, expr: URIRef):
     if SYS.FeatureChainExpression in kinds:
         head, _ = resolve(g, g.value(expr, SYS.argument))
         head_type = g.value(head, SYS.type)
-        if head_type is None:
-            raise SystemExit(f"chain head {head} has no type")
-        return feature_named(g, head_type, str(g.value(expr, SYS.targetFeature))), head
+        target = g.value(expr, SYS.targetFeature)
+        if isinstance(target, URIRef):  # the converter resolved the step itself; use its declared name
+            target = g.value(target, SYS.declaredName)
+        name = str(target)
+        # a typed usage resolves against its definition; an inline action
+        # (no type) against its own owned features (its parameters)
+        return feature_named(g, head_type if head_type is not None else head, name), head
     raise SystemExit(f"unexpected end expression {expr}: {kinds}")
 
 
@@ -113,6 +119,14 @@ def derive(raw: Graph, pruned: Graph) -> int:
             conj = raw.value(port, SYS.isConjugated)
             role = OGM.consumerPort if conj is not None and bool(conj.toPython()) else OGM.supplierPort
             pruned.add((iface, role, port)); n += 1
+    for flow in raw.subjects(RDF.type, SYS.FlowUsage):
+        ends = list(raw.objects(flow, SYSX.relatedFeature))
+        if len(ends) != 2:
+            raise SystemExit(f"{flow}: {len(ends)} ends")
+        src = next(e for e in ends if str(e).endswith("_pflowSource"))
+        tgt = next(e for e in ends if str(e).endswith("_pflowTarget"))
+        pruned.add((flow, OGM.flowSource, resolve(raw, src)[0])); n += 1
+        pruned.add((flow, OGM.flowTarget, resolve(raw, tgt)[0])); n += 1
     for succ in raw.subjects(RDF.type, SYS.SuccessionAsUsage):
         ends = sorted(raw.objects(succ, SYSX.relatedFeature), key=lambda e: int(raw.value(e, SYSX.endIndex)))
         if len(ends) != 2:

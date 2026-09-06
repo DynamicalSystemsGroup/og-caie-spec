@@ -4,7 +4,7 @@
 flowchart TB
   subgraph PARTIES["Contracting lifecycle: the parties (AccountableOrganization, SponsorOrganization, TestingOrganization; affected populations) pin the first layer of assumptions"]
     direction LR
-    c0[need] --> c1[propose] --> c2[agree] --> c3[access] --> c4[deliver] --> c5[acceptDelivery]
+    c0[need] --> c1[propose] --> c2[agree] --> c3[access] --> c4[fulfil] --> c5[deliver] --> c6[acceptDelivery]
   end
   subgraph EPO["Evaluation Process Ontology: the standard operating procedure, fixed across domains"]
     direction LR

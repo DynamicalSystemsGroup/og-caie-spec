@@ -269,18 +269,33 @@ package OGCAIE {
     action def ContractingProcess {
         doc /* The contracting lifecycle: the ISO/IEC/IEEE 15288 agreement
            processes as SEBoK describes them, ISO/IEC 17000's access,
-           scheme and acceptance, ISO 9000's contract (ruling R-32). */
-        action need { out need : Need; }
-        action propose { in need : Need; out proposal : Proposal; }
+           scheme and acceptance, ISO 9000's contract (ruling R-32). One
+           nested model (ruling R-33): the fulfil step is a black box typed
+           by the EvaluationProcess, whose inputs are what the contract
+           pinned and whose outputs are what the delivery carries; its
+           definition below is the drill-down, and it conforms to that
+           interface by typing. The flows say which item goes where. */
+        action need { out statedNeed : Need; }
+        action propose { in statedNeed : Need; out proposal : Proposal; }
         action agree { in proposal : Proposal; out agreement : ServiceAgreement; }
-        action access { in agreement : ServiceAgreement; out access : TestItemAccess; }
+        action access { in agreement : ServiceAgreement; out testItemAccess : TestItemAccess; }
+        action fulfil : EvaluationProcess;
         action deliver { in reportIn : Report; in recommendation : Recommendation; out delivery : Delivery; }
         action acceptDelivery { in delivery : Delivery; out acceptance : Acceptance; }
         succession first need then propose;
         succession first propose then agree;
         succession first agree then access;
-        succession first access then deliver;
+        succession first access then fulfil;
+        succession first fulfil then deliver;
         succession first deliver then acceptDelivery;
+        flow need.statedNeed to propose.statedNeed;
+        flow propose.proposal to agree.proposal;
+        flow agree.agreement to access.agreement;
+        flow agree.agreement to fulfil.agreement;
+        flow access.testItemAccess to fulfil.testItemAccess;
+        flow fulfil.reportOut to deliver.reportIn;
+        flow fulfil.recommendation to deliver.recommendation;
+        flow deliver.delivery to acceptDelivery.delivery;
     }
 
     action def EvaluationProcess {
@@ -289,14 +304,16 @@ package OGCAIE {
            the DSO enters as a parameter at the scope step; the record
            leaves as the result. */
         in agreement : ServiceAgreement;
-        in access : TestItemAccess;
+        in testItemAccess : TestItemAccess;
+        out reportOut : Report;
+        out recommendation : Recommendation;
         out record : EvaluationRecord;
         action scope { in agreement : ServiceAgreement; out input : StakeholderInput[0..*]; out dso : DsoRelease; }
         action declareRequirements { in agreement : ServiceAgreement; in dso : DsoRelease; in input : StakeholderInput[0..*];
             out requirements : RequirementSet; out criteria : AcceptanceCriterion[1..*]; out assessment : AppropriatenessAssessment; }
         action plan { in requirements : RequirementSet; in criteria : AcceptanceCriterion[1..*]; in dso : DsoRelease;
             out testPlan : TestPlan; out approval : PlanApproval; out strategy : Strategy[0..1]; out probes : Probe[1..*]; }
-        action execute { in testPlan : TestPlan; in probes : Probe[1..*]; in access : TestItemAccess;
+        action execute { in testPlan : TestPlan; in probes : Probe[1..*]; in testItemAccess : TestItemAccess;
             out sessions : Session[1..*]; out responses : Response[1..*]; out evidence : Evidence[1..*]; }
         action determineAndAttest { in evidence : Evidence[1..*]; in criteria : AcceptanceCriterion[1..*];
             out determinations : Determination[1..*]; out attestations : Attestation[1..*]; }
@@ -307,6 +324,23 @@ package OGCAIE {
         succession first plan then execute;
         succession first execute then determineAndAttest;
         succession first determineAndAttest then report;
+        bind scope.agreement = agreement;
+        bind declareRequirements.agreement = agreement;
+        bind execute.testItemAccess = testItemAccess;
+        bind reportOut = report.reportOut;
+        bind recommendation = report.recommendation;
+        flow scope.dso to declareRequirements.dso;
+        flow scope.input to declareRequirements.input;
+        flow scope.dso to plan.dso;
+        flow declareRequirements.requirements to plan.requirements;
+        flow declareRequirements.criteria to plan.criteria;
+        flow plan.testPlan to execute.testPlan;
+        flow plan.probes to execute.probes;
+        flow execute.evidence to determineAndAttest.evidence;
+        flow declareRequirements.criteria to determineAndAttest.criteria;
+        flow determineAndAttest.attestations to report.attestations;
+        flow determineAndAttest.determinations to report.determinations;
+        flow declareRequirements.criteria to report.criteria;
     }
 
     // ------------------------------------------------------------
@@ -507,7 +541,8 @@ package OGCAIE {
     // ------------------------------------------------------------
 
     part def OgCaieEvaluation {
-        doc /* Four parties wired along typed seams, performing the EPO. */
+        doc /* Four parties wired along typed seams, performing the
+           contracting lifecycle, whose fulfil step is the EPO (R-33). */
 
         interface needSeam : NeedSeam connect sponsor.needOut to testingOrg.recorder.needIn;
         interface needToExecutiveSeam : NeedSeam connect sponsor.needOut to testingOrg.accountExecutive.needIn;
@@ -549,7 +584,6 @@ package OGCAIE {
         part affected : AffectedPopulation[0..*];
 
         perform action contracting : ContractingProcess;
-        perform action process : EvaluationProcess;
     }
 
     // ------------------------------------------------------------

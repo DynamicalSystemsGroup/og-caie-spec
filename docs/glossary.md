@@ -92,9 +92,15 @@ given, documents them, and cannot change them. What the evaluation pins is
 the second layer: the operational environment, the requirement set, the DSO
 release, the plan. Every item kind in the record declares which layer fixes
 it, and a shape checks that the first layer is closed before the second
-opens (ruling R-32). What this specification adds to the standards is only
-the executable form: each step's inputs and outputs typed, each seam wired,
-each record checked.
+opens (ruling R-32). In the model the two cycles are one nested model
+(ruling R-33): the contracting lifecycle's fulfil step is a black box typed
+by the evaluation process, its inputs the agreement and the access the
+contract pinned, its outputs the report and the recommendation the delivery
+carries; the evaluation process is that box opened, and it conforms to the
+interface above it by typing, with a shape checking that every input is fed
+and every output used. What this specification adds to the standards is
+only the executable form: each step's inputs and outputs typed, each seam
+wired, each record checked.
 
 ```{include} ../generated/steps.md
 ```

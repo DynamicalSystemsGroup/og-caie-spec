@@ -9,6 +9,8 @@ InterfaceUsage,class,omg,the wiring of the assembly
 ActionDefinition,class,omg,the EPO
 ActionUsage,class,omg,the seven steps and the perform usage
 SuccessionAsUsage,class,omg,the order of the steps
+FlowUsage,class,omg,which step's output feeds which step's input (R-33)
+BindingConnectorAsUsage,class,omg,an action def's own parameter bound to a step's (R-33)
 ItemDefinition,class,omg,the item kinds
 ItemUsage,class,omg,the item each port carries
 AttributeUsage,class,omg,name and version on parties
@@ -39,6 +41,7 @@ argument,predicate,omg,the tail of an end path
 targetFeature,predicate,omg,the last step of an end path
 referent,predicate,omg,the root usage of an end path
 body,predicate,omg,documentation text
+references,predicate,omg,the bound feature of a binding connector
 relatedFeature,predicate,opensysml,the two ends of an interface usage or a succession
 sourceText,predicate,opensysml,the connect statement as written
 endIndex,predicate,opensysml,which end is which
@@ -49,3 +52,5 @@ supplierPort,predicate,derived,the resolved non-conjugated end of an interface u
 consumerPort,predicate,derived,the resolved conjugated end of an interface usage (computed)
 first,predicate,derived,the action a succession starts from (computed)
 then,predicate,derived,the action a succession leads to (computed)
+flowSource,predicate,derived,the parameter a flow starts from (computed)
+flowTarget,predicate,derived,the parameter a flow ends at (computed)
