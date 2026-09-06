@@ -395,3 +395,100 @@ rul:R-20 a ogc:Ruling ;
     ogc:changeNote "Evidence keeps only what it is: collected material (a response, a trajectory, or several) bearing on one criterion's expected result, under the test plan, attributed to its collector. Determination is a separate node, an earl:Assertion and prov:Activity: it uses one or more evidence items, tests the criterion, and records the EARL outcome passed, failed or cantTell, its mode and its assertor; the paper's word for it is judgment. The attestation aggregates the determinations for a criterion. Glossary: determination becomes a term (ISO 9000:2026 3.11.1, altLabel judgment); objective evidence's narrative corrected. Shapes: S5-Evidence without observed; S6-Determination; the closure rule and chain rule run attestation to determination to evidence. Model: Determination item def replaces the observed attribute." ;
     prov:wasAttributedTo rul:Z ;
     prov:generatedAtTime "2026-09-06"^^xsd:date .
+
+# ---------------------------------------------------------------------------
+# Model revision planning, 2026-09-06 (parties, EPO structure, role of SysML)
+# ---------------------------------------------------------------------------
+
+rul:model-revision-planning-2026-09-06 a prov:Activity ;
+    rdfs:label "Planning the deep revision of the SysML model with Z, 2026-09-06" ;
+    prov:wasAssociatedWith rul:Z ;
+    prov:startedAtTime "2026-09-06"^^xsd:date .
+
+rul:C-21 a ogc:Concern ;
+    rdfs:label "parties to the evaluation are implicit" ;
+    ogc:problem """The model and record name persons on an evaluation team and a system under test but no organizations: nobody sponsors the evaluation, nobody is accountable for the test item, nobody performs the testing as a service, and the affected stakeholders have no place. The wiring cannot guarantee an end state it does not know the parties to.""" ;
+    ogc:severity "H" ;
+    ogc:status "ruled" ;
+    ogc:surfacedOn "2026-09-06"^^xsd:date ;
+    ogc:surfacedHow "Z, entering plan mode for the model revision" ;
+    ogc:concernsTerm term:stakeholder ;
+    ogc:concernsTerm term:technical-expert ;
+    prov:wasGeneratedBy rul:model-revision-planning-2026-09-06 .
+
+rul:R-21 a ogc:Ruling ;
+    ogc:order 21 ;
+    ogc:resolves rul:C-21 ;
+    ogc:rulingText """switched you into plan mode so you can work. note that we want to introduce some explicit stakeholders: there are going to be affected stakeholders and there is going to be the organization responsible for the system under test (test item) and there is the organization performing the testing, there may also be an organization sponsoring the testing who is not the organization operating the test item. effected stakeholders are populations of actors where as the sponsor org, the org doing the testing and the org accountable for the system under test (test item) are concrete single entities. the the requirements are established and agreed upon by the the sponsor org and the org doing the testing (this is viewed as a contract to perform the OG-CAIE as a service), the organization that owns the system under test may or may not be the sponsor and members of the affected stakeholder classes may or may not be interviewed as part of the requirements development process. most often the interests of affected stakeholders are represented in the requirements on the basis of input from the domainexpert who is employed in the selection of the domain specific ontology and in the appropriateness assessment of the requirements; they may also participate in developing or approving test plans, and the interpretation of evidence collected to and attestations to the conformity (or not) of the system under test with regard to those requirements under those test plans. this Domain expert role is distinct from the expert role responsible for administering the tests and gathering the evidence per the test plan.
+
+part def and port def should allow us to specify this in an abstract wiring diagram before we test it out be creating concrete walk throughs that exercise the specification by providing a simple concrete demo case""" ;
+    ogc:changeNote "Parties become part defs: SponsorOrganization (ISO 9000:2026 customer), TestingOrganization (provider), AccountableOrganization (ISO/IEC 17000 first party), AffectedPopulation with multiplicity 0..*, EvaluationTeam (refined from audit team). A service agreement (ISO 9000:2026 contract) between sponsor and testing organization precedes the requirement set. Populations are interviewed (a StakeholderInput) or represented by a domain expert, and the record says which. The EPO becomes seven steps: agree, scope, declare requirements, plan, execute, determine and attest, report. Glossary: organization, customer, provider, first-, second- and third-party conformity assessment activity, contract, evaluation team added (this slice); model, shapes and record follow in the next slices." ;
+    prov:wasAttributedTo rul:Z ;
+    prov:generatedAtTime "2026-09-06"^^xsd:date .
+
+rul:C-22 a ogc:Concern ;
+    rdfs:label "which artifact is canonical: the SysML source or its RDF rendering" ;
+    ogc:problem """OpenSysML v0.4.3 cannot quantify over collections, so value-level guarantees cannot be written as SysML constraints; and the model's `-convert ttl` rendering is deterministic, uses the OMG SysML vocabulary with stable element IRIs, and is the form Flexo MMS ingests. The question was whether the SysML text or the rendered graph is the canonical structure, and what the SysML is for.""" ;
+    ogc:severity "H" ;
+    ogc:status "ruled" ;
+    ogc:surfacedOn "2026-09-06"^^xsd:date ;
+    ogc:surfacedHow "read-only probes of the toolchain during planning" ;
+    prov:wasGeneratedBy rul:model-revision-planning-2026-09-06 .
+
+rul:R-22 a ogc:Ruling ;
+    ogc:order 22 ;
+    ogc:resolves rul:C-22 ;
+    ogc:rulingText """we're using sysml primarily for part def and port def and wiring rules; we [Structure only: parts, ports, wiring rules; value checks live in SHACL] are use the rendered rdf version of those models for our canonical record and treating the sysml json as a view (even if its a view used for authoring) / opensysml allows us to render our sysml models as rdf triples because its designed to work with flexo mms / "The conversion is deterministic and uses OMG SysML vocabulary with stable IRIs, currently ~1.1 MB" we can use a parsimony heuristic where we prune tbox that is not required for our model. / i believe the parimony heuristic is applied and described in this repo /Users/z/Documents/GitHub/ADCS-lifecycle-demo""" ;
+    ogc:changeNote "Four messages joined with a slash. The bracketed clause is the option Z selected when the first message was cut off. SysML holds structure only: part defs, port defs, interface defs, the action def and the assembly; requirement defs and -satisfy leave the model. The pruned RDF rendering of the model (model/og-caie.model.ttl, committed, byte-identical in the gate) is the canonical structure and the SysML source is the authoring view. Wiring rules are SHACL shapes over the model graph; value and provenance rules stay SHACL shapes over the record. Parsimony follows ADCS-lifecycle-demo: a term map of the OMG terms kept, a manifest, and a triple budget with a rationale." ;
+    prov:wasAttributedTo rul:Z ;
+    prov:generatedAtTime "2026-09-06"^^xsd:date .
+
+rul:C-23 a ogc:Concern ;
+    rdfs:label "actor categories on the testing organization's side, and named persons in the demo" ;
+    ogc:problem """The plan carried two human roles (domain expert, evaluator) and no signatory for the service agreement; and the worked example used anonymous role-holders (an epidemiologist, a community educator, a red-teamer).""" ;
+    ogc:severity "M" ;
+    ogc:status "ruled" ;
+    ogc:surfacedOn "2026-09-06"^^xsd:date ;
+    ogc:surfacedHow "Z, rejecting the first submitted plan" ;
+    ogc:concernsTerm term:technical-expert ;
+    prov:wasGeneratedBy rul:model-revision-planning-2026-09-06 .
+
+rul:R-23 a ogc:Ruling ;
+    ogc:order 23 ;
+    ogc:resolves rul:C-23 ;
+    ogc:rulingText """you need a domain expert and an evaluation operator they are abstract actor categories that populate distinct slots in the EPO. there is also an account executive on the side of the evaluation org who is the signatory on the contract and the legal representative of the org performing the eval. 
+
+our worked example names the HI executive (Mala), the Domain Expert Annie and the eval operator Theo. this are references to real people but the case is synthetic. the real people will read this and appreciate having their roles recognized but are not being asked to make attestations within the demo case which is a simplified synthetic walkthrough of the process""" ;
+    ogc:changeNote "Three abstract actor categories, each a distinct part def and EPO slot: DomainExpert, EvaluationOperator (headword evaluation operator, refined from the SEVOCAB operator; AI evaluation expert becomes its altLabel) and AccountExecutive (signatory and legal representative of the testing organization; no evidence, determination or attestation port). The worked example names Mala (account executive), Annie (domain expert) and Theo (evaluation operator); the record and the record page state that the case is synthetic, that the names recognise the roles of real people, and that no attestation in the record was made by them." ;
+    prov:wasAttributedTo rul:Z ;
+    prov:generatedAtTime "2026-09-06"^^xsd:date .
+
+rul:C-24 a ogc:Concern ;
+    rdfs:label "contract: no capture of ISO 9000:2026 clause 3.3.13" ;
+    ogc:problem """The 37 screenshots skip clauses 3.3.9 to 3.3.15, so the 2026 wording of contract is not held. The glossary entry carries the 2015 wording (3.4.7, "binding agreement") as a pending quote naming the screenshot still to be captured (iso-9000-2026-obp-38). Z: capture 3.3.9 to 3.3.15 and tick sheet 03 row 7.""" ;
+    ogc:severity "L" ;
+    ogc:status "open" ;
+    ogc:surfacedOn "2026-09-06"^^xsd:date ;
+    ogc:surfacedHow "clause map of the screenshots during planning" ;
+    ogc:concernsTerm term:contract ;
+    prov:wasGeneratedBy rul:model-revision-planning-2026-09-06 .
+
+rul:C-25 a ogc:Concern ;
+    rdfs:label "first, second and third party: three adopted terms or one refined term" ;
+    ogc:problem """ISO/IEC 17000 defines first-, second- and third-party conformity assessment activity as three headwords. The glossary adopts all three verbatim (no coinage); the alternative is one refined term, conformity assessment party, with the three as altLabels, which would be a fourth coinage. Z to confirm the three-term reading or rule otherwise.""" ;
+    ogc:severity "L" ;
+    ogc:status "open" ;
+    ogc:surfacedOn "2026-09-06"^^xsd:date ;
+    ogc:surfacedHow "party anchoring during planning" ;
+    ogc:concernsTerm term:first-party-conformity-assessment-activity ;
+    prov:wasGeneratedBy rul:model-revision-planning-2026-09-06 .
+
+rul:C-26 a ogc:Concern ;
+    rdfs:label "account executive: canonical anchor" ;
+    ogc:problem """No ranked source defines account executive. The entry is anchored, provisionally, as a specialization of ISO 9000:2026 3.1.3 top management (the person top management authorizes to sign for the organization); ISO/IEC 17000 4.3 Note 1 (parties to a contract) and 4.6 conformity assessment body are the alternatives. Z to confirm or redirect.""" ;
+    ogc:severity "L" ;
+    ogc:status "open" ;
+    ogc:surfacedOn "2026-09-06"^^xsd:date ;
+    ogc:surfacedHow "R-23 implementation" ;
+    ogc:concernsTerm term:account-executive ;
+    prov:wasGeneratedBy rul:model-revision-planning-2026-09-06 .

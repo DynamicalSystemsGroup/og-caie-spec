@@ -120,7 +120,7 @@ src:iso-iec-17000-2020 a prov:Entity, ogc:Source ;
     ogc:rank "reserve" ; ogc:kind "web" ; ogc:posture "citeOnly" ;
     ogc:url <https://www.iso.org/obp/ui/en/#iso:std:73029:en> ;
     ogc:digest "sources/digests/iso-iec-17000-2020.md" ;
-    ogc:licenceNote "ISO copyright; clause 3 publicly browsable; one term (attestation) quoted" .
+    ogc:licenceNote "ISO copyright; the vocabulary is publicly browsable; short attributed quotations only (attestation, object, the three party terms)" .
 
 src:incose-gtwr-v4 a prov:Entity, ogc:Source ;
     rdfs:label "INCOSE Guide to Writing Requirements v4, Summary Sheet (INCOSE-TP-2010-006-04, June 2023)" ;
