@@ -9,3 +9,4 @@ __pycache__/
 # held-locally source snapshots (ruling R-04): hashes are committed, files are not
 sources/local/
 .cache/
+.claude/worktrees/

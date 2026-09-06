@@ -780,3 +780,20 @@ rul:R-38 a ogc:Ruling ;
     prov:wasAttributedTo rul:Z ;
     prov:generatedAtTime "2026-09-06"^^xsd:date .
 
+rul:C-42 a ogc:Concern ;
+    rdfs:label "every chapter says there is more in the model, but a human reader has only the files and the CLI to find it" ;
+    ogc:problem """The site curates; block 5 of every chapter points to the repository and to ogc. A human reader without a shell has no interface to the model behind the pages, and the prose grows to compensate.""" ;
+    ogc:severity "L" ;
+    ogc:status "ruled" ;
+    ogc:surfacedOn "2026-09-06"^^xsd:date ;
+    ogc:surfacedHow "Z, after the views landed" ;
+    prov:wasGeneratedBy rul:model-revision-planning-2026-09-06 .
+
+rul:R-39 a ogc:Ruling ;
+    ogc:order 39 ;
+    ogc:resolves rul:C-42 ;
+    ogc:rulingText "one other idea i have which i think is interesting would be to put a knowledge graph explorer as an appendix. this would be modeled after work we've done in d3 for several other repos. since we keep saying \"there is more\" it might be easiest to cut down on text and just provide links to the knowledge graph explorer. you have variants in commander, in dsg-ant-private and likely other repos. since we're doing lots of owl, shacl sparql work and we already have the machine navigation tools, it would be good to create the human facing graph exploration interface as the appendix. noting this should backup to the rdf model (you can use oxigraph if it helps with speed). ideally you can get this going in parallel with subagents so we can keep working on the main body. the nice thing about this approach to the appendix is that its an alternative user interface not new content" ;
+    ogc:changeNote "An appendix page with a d3 knowledge graph explorer rendered deterministically from the RDF (vocabulary, sources, rulings, essentials, shapes, crosswalk, process, model graph, measles record), each view with its perspective, every node naming the ogc command that prints it; served as static files next to the site; block 5 of every chapter links to it. Built on the branch explorer-appendix, merged after the gate." ;
+    prov:wasAttributedTo rul:Z ;
+    prov:generatedAtTime "2026-09-06"^^xsd:date .
+
