@@ -208,6 +208,29 @@ def render_record_chapter(chapter: str) -> str:
     return "\n".join(lines) + "\n"
 
 
+def render_layers_walkthrough() -> str:
+    """The record split by layer (S0-Layers): for each layer, the item kinds pinned there, how many items, their date span and who made them."""
+    from rdflib import Namespace as NS
+    EPO = NS("https://w3id.org/og-caie/epo#")
+    PROV = NS("http://www.w3.org/ns/prov#")
+    EARL = NS("http://www.w3.org/ns/earl#")
+    g = Graph()
+    for f in ("vocabulary/epo.ttl", "track/measles-run.ttl"):
+        g.parse(ROOT / f)
+    lines = ["| Layer | Item kinds | Items | First | Last | Who |", "|---|---|---|---|---|---|"]
+    for layer in sorted(g.subjects(RDF.type, EPO.Layer), key=lambda l: 0 if str(l).endswith("contract") else 1):
+        classes = sorted(g.subjects(OGC.pinnedAt, layer), key=str)
+        items, whos, dates = [], [], []
+        for c in classes:
+            for n in g.subjects(RDF.type, c):
+                items.append(n)
+                dates += [str(d)[:10] for d in (g.value(n, PROV.generatedAtTime), g.value(n, PROV.startedAtTime)) if d]
+                whos += [str(g.value(a, RDFS.label) or a).split(" (")[0] for pr in (EARL.assertedBy, EPO.approvedBy, EPO.signedBy, PROV.wasAttributedTo, PROV.wasAssociatedWith) for a in g.objects(n, pr)]
+        kinds = ", ".join(str(c).rsplit("#", 1)[-1] for c in classes if any(True for _ in g.subjects(RDF.type, c)))
+        lines.append(f"| {str(layer).rsplit('#', 1)[-1]} | {kinds} | {len(items)} | {min(dates) if dates else ''} | {max(dates) if dates else ''} | {', '.join(sorted(set(whos)))} |")
+    return "\n".join(lines) + "\n"
+
+
 def render_more(page: str, fragments: list[str], commands: list[str], files: list[str]) -> str:
     """Block 5 of the page pattern: this page is a view; the model is the repository."""
     lines = ["This page is a view. The model is the repository, and it holds more than the page shows.", "",
@@ -296,6 +319,15 @@ def main_all() -> int:
         ["steps-contracting.md", "wiring-contracting.md", "wiring-table-contracting.md", "sci-contracting.md", "record-contracting.md"],
         ["ogc view contracting", "ogc views", "ogc steps", "ogc sci SCI-10", "ogc term mission", "ogc term customer", "ogc term provider", "ogc term contract", "ogc verify iso-iec-17000-2020", "ogc sparql"],
         ["model/og-caie.sysml", "model/og-caie.model.ttl", "vocabulary/epo.ttl", "shapes/epo.shapes.ttl (S0)", "shapes/model.shapes.ttl (M1, M5)", "ogc/views.py", "track/measles-run.ttl"]))
+    (OUT / "layers-walkthrough.md").write_text(render_layers_walkthrough())
+    (OUT / "more-evaluation.md").write_text(render_more("evaluation",
+        ["steps-evaluation.md", "wiring-evaluation.md", "wiring-table-evaluation.md", "sci-evaluation.md", "record-evaluation.md"],
+        ["ogc view evaluation", "ogc steps", "ogc sci SCI-06", "ogc term evidence", "ogc term determination", "ogc term attestation", "ogc term trajectory", "ogc rulings --term evidence", "ogc sparql"],
+        ["model/og-caie.sysml", "model/og-caie.model.ttl", "vocabulary/epo.ttl", "shapes/epo.shapes.ttl (S1 to S8)", "shapes/model.shapes.ttl (M2 to M5)", "track/measles-run.ttl", "counterexamples/", "queries/coverage.rq", "queries/traceback.rq"]))
+    (OUT / "more-model.md").write_text(render_more("model",
+        ["layers.md", "layers-walkthrough.md", "receipts.md"],
+        ["ogc view layers", "ogc view assemblage", "ogc steps", "ogc sci SCI-11", "ogc sparql --model"],
+        ["model/og-caie.sysml", "model/og-caie.model.ttl", "model/model_manifest.json", "model/sysml_term_map.csv", "scripts/prune_model.py", "shapes/model.shapes.ttl (M4)", "shapes/epo.shapes.ttl (S0-Layers)"]))
     (ROOT / "rulings" / "sheets" / "05-blocks-and-wires.md").write_text(render_signoff_sheet())
     return 0
 

@@ -10,7 +10,7 @@ from rdflib import Namespace
 
 SKOS = Namespace("http://www.w3.org/2004/02/skos/core#")
 PROSE = [ROOT / "index.md", *sorted((ROOT / "docs").glob("*.md")), ROOT / "README.md"]
-WORD_BUDGET = 5500  # raised 2026-09-06 while the assemblage and record pages coexist with the new chapters
+WORD_BUDGET = 5500
 RETIRED = {"adequacy", "adequate", "inadequate"}
 
 
@@ -90,7 +90,7 @@ def test_word_budget():
 
 
 PATTERN = ["What the standards say", "The specification", "The walkthrough", "Checked", "There is more in the model"]
-CHAPTERS = ["contracting.md"]  # evaluation, model and guarantees join as their slices land
+CHAPTERS = ["contracting.md", "evaluation.md", "model.md"]  # guarantees joins as its slice lands
 
 
 def test_chapter_pages_follow_the_pattern():
@@ -112,6 +112,7 @@ def test_every_essential_has_a_page_and_each_chapter_shows_its_own():
     from conftest import OGC as O
     pages = {str(t).rsplit("#", 1)[-1]: str(g.value(t, O.page)) for t in g.subjects(RDF.type, O.Trace)}
     assert set(pages.values()) <= {"contracting", "evaluation", "guarantees"}, pages
-    frag = (ROOT / "generated" / "sci-contracting.md").read_text()
-    for sid, pg in pages.items():
-        assert (sid in frag) == (pg == "contracting"), sid
+    for chapter in ("contracting", "evaluation"):
+        frag = (ROOT / "generated" / f"sci-{chapter}.md").read_text()
+        for sid, pg in pages.items():
+            assert (sid in frag) == (pg == chapter), (chapter, sid)

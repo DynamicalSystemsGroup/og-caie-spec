@@ -2,6 +2,9 @@
 acceptance criteria
 : A specific, checkable condition a response must meet for a requirement to count as satisfied. The unit that coverage is measured over: each criterion either traces to an attested outcome or it does not. Source: IEEE Computer Society, acceptance criteria, p. 4: "criteria that a system or component is required to satisfy to be accepted by a user, customer, or other authorized entity" (machine). Also: acceptance criterion.
 
+account executive
+: The person who signs the contract for the testing organization and is its legal representative to the sponsor. The account executive reads the record and delivers the report and the recommendation to the sponsor, an activity of its own, and makes no determination and no attestation. An abstract actor category, filled by exactly one named person in each evaluation. Source: ISO 9000:2026(en) Quality management — Fundamentals and vocabulary, 3.1.3: "person or group of people who directs and controls an organization at the highest level" (human). Also: signatory, top management. Ruling R-23.
+
 appropriateness
 : The expert judgment that the declared context (operational environment, requirement set and Domain-Specific Ontology) was the right frame for the judgment being made. Not whether the system passed, and not whether there was enough evidence. Source: Hawkins, Section 3.2 Asserted context, p. 7: "it is being asserted that the context is appropriate for the argument elements to which it applies" (machine). Ruling R-08.
 
@@ -26,11 +29,17 @@ customer
 determination
 : The ruling, made on one or more evidence items, that a criterion's expected result was met, was not met, or cannot be told. It is the codomain of evidence, recorded with an EARL outcome of passed, failed or cannot tell, made by machine or by a named person, and it is what an attestation aggregates for a criterion. The paper calls it a judgment. Source: ISO 9000:2026(en) Quality management — Fundamentals and vocabulary, 3.11.1: "activity to find out one or more characteristics and their characteristic values" (human). Also: judgment. Ruling R-20.
 
+dialogue
+: The ordered prompts to, and responses by, the system under test within one session. Its recorded form is the trajectory. Source: NIST AI 700-2, Appendix A, Dialogue, p. 16: "A set of prompts to, and responses by, an application." (machine). Also: conversation. Ruling R-13.
+
 Domain-Specific Ontology
 : The vocabulary and relations of the problem domain, imported from an existing ontology or supplied by domain experts, that equip one evaluation with the concepts it needs. A domain expert supplies or approves the release used. It changes when the domain changes. Source: Humane Intelligence, Section 1C, DSO (Domain-Specific Ontology). Also: DSO. Ruling R-09.
 
 evaluation
 : Systematically determining how far something meets its specified criteria. An OG-CAIE evaluation determines, for a declared requirement set, which criteria the system under test met, and reports coverage and performance separately. Source: IEEE Computer Society, evaluation, p. 155: "systematic determination of the extent to which an entity meets its specified criteria" (machine). Also: AI evaluation.
+
+evaluation operator
+: The technical expert who operates the evaluation: declares the requirement set with the sponsor, writes the test plan, administers the probes to the test item, collects the responses and the evidence per the plan, and drafts the report and the recommendation. The operator makes determinations but does not attest; attestation belongs to the domain expert. An abstract actor category, filled by a named person in each evaluation. Source: IEEE Computer Society, operator, p. 283 (ISO/IEC/IEEE 12207:2026, 3.1.40): "entity that performs the operation of a system" (machine). Also: AI evaluation expert, operator, red teamer. Ruling R-23.
 
 Evaluation Process Ontology
 : The reusable, domain-independent description of how a rigorous evaluation is run: the standard operating procedure whose six steps, performed inside the contracting lifecycle, make a coverage claim checkable when followed. It assumes a Domain-Specific Ontology is in place and does not change across domains. Source: Humane Intelligence, Section 1C, EPO (Evaluation Process Ontology). Also: EPO. Ruling R-09, R-31.
@@ -41,11 +50,20 @@ evaluation record
 expected results
 : What the system under test should observably do if it meets an acceptance criterion under the probe's conditions. Stated on the criterion before testing, so the criterion is defined in terms of evidence a test can collect, and the attestation is a judgment that the actual result did or did not correspond. Source: IEEE Computer Society, expected results, p. 160: "observable predicted behavior of the test item under specified conditions based on its specification or another source" (machine). Also: expected result. Ruling R-12.
 
+guardrail
+: A requirement on the system stating what may be shared with a user and what must be withheld. Recommendations at the end of an evaluation typically propose changes to guardrails. Source: NIST AI 700-2, Appendix A, Guardrail, p. 17: "An application requirement specifying both 1) permitted information that can be shared with a user, and 2) prohibited information that should be withheld from a user." (machine).
+
+measurement uncertainty
+: A non-negative number that says how dispersed the values attributed to a measured quantity are. A probe pass rate estimated from replicate sessions carries one; coverage, counted exactly over the record, does not. Source: JCGM 200:2012 International vocabulary of metrology, 2.26 measurement uncertainty, p. 41: "non-negative parameter characterizing the dispersion of the quantity values being attributed to a measurand, based on the information used" (machine). Also: uncertainty. Ruling R-13.
+
 mission
 : The sponsor organization's purpose for existing, as its top management expresses it, and with it the obligations and duties it holds towards the affected populations. Recorded before the need is stated, it is the context the contract answers to: what the sponsor owes the people the test item will serve. Pinned at the contract. Source: ISO 9000:2026(en) Quality management — Fundamentals and vocabulary, 3.4.11: "organization's purpose for existing as expressed by top management" (pending). Also: mandate, obligations to the affected populations. Ruling R-37.
 
 monitoring
 : Determining the status of a system at different stages or times. After an evaluation, a sponsor may require the accountable organization to change the system per the findings and then require new testing to certify that the flagged issues were addressed; in conformity assessment that repeat is called surveillance. Observed in practice; not a step of the contracting lifecycle. Source: ISO 9000:2026(en) Quality management — Fundamentals and vocabulary, 3.11.3: "determining the status of a system, a process or an activity" (pending). Also: re-evaluation, surveillance (ISO/IEC 17000 8.1). Ruling R-36.
+
+non-deterministic system
+: A system that, given the same inputs and starting state, will not always produce the same outputs. The system under test is one, which is why a single probe is weak evidence and why pass rates are estimated over replicate sessions. Source: IEEE Computer Society, non-deterministic system, p. 272 (ISO/IEC TR 29119-11:2020, testing of AI-based systems): "system which, given a particular set of inputs and starting state, will not always produce the same set of outputs and final state" (machine). Also: nondeterministic system. Ruling R-13.
 
 objective evidence
 : Data that supports the existence or truth of something. Here, what is collected as the basis for a determination: a response at one turn, a session's trajectory, or several of them rolled up over a test suite, as in a robustness battery. Each evidence item bears on one acceptance criterion's expected result and is bound to the test plan it was collected under. Evidence is the domain; the determination made on it, passed, failed or cannot tell, is the codomain. On its own evidence verifies nothing; a determination rules on it and an attestation judges it. Source: ISO 9000:2026(en) Quality management — Fundamentals and vocabulary, 3.8.6: "data supporting the existence or verity of something" (human). Also: evidence. Ruling R-18, R-20.
@@ -62,17 +80,35 @@ operational environment
 outcome
 : The result recorded for a judgment: passed, failed, cannot tell, inapplicable, or untested. Not binary on purpose. Source: W3C, Section 2.7 OutcomeValue Class: "a value or expression that describes a resulting condition from carrying out the test" (machine).
 
+performance
+: A measurable result. Here: how the system did on what was exercised, reported as the pass, fail and cannot-tell fractions of the covered criteria. Never merged with coverage. Source: ISO 9000:2026(en) Quality management — Fundamentals and vocabulary, 3.7.3: "measurable result" (human).
+
 probe
 : A scenario tied to the acceptance criteria it exercises, derived from the Domain-Specific Ontology and checked for consistency before use, applied at one turn of a session. Its run yields one prompt and response pair; the response is the evidence. A test plan may list its probes or choose them by a test strategy as the trajectory unfolds. Source: IEEE Computer Society, test case, p. 432: "set of test inputs, execution conditions, and expected results developed for a particular objective" (machine). Also: prompt, task, test case (SEVOCAB, tied to criteria).
 
 provider
 : The organization that provides the evaluation as a service: the testing organization. Its account executive signs the contract, its evaluation team does the work, and its machines keep the record. Independent of the accountable organization, its activity is second-party when a sponsor with a user interest commissions it (ISO/IEC 17000 4.4, Note 2) and third-party when no interested party does. Source: ISO 9000:2026(en) Quality management — Fundamentals and vocabulary, 3.1.9: "organization that provides a product or a service" (human). Also: contractor, supplier, testing organization. Ruling R-21.
 
+red teaming
+: A testing level in which human testers probe the system adversarially to see whether it stays within its guardrails. One way to run the probes in step four. Source: NIST AI 700-2, Appendix A, Red teaming, p. 17: "Testing level which evaluates whether applications adhere to guardrails in response to adversarial prompting or stress testing by human testers." (machine).
+
+repeatability
+: How closely results agree when the same measurement is repeated under the same conditions: same system version, same procedure, same operator or policy, same session protocol, over a short period. Replicate sessions under repeatability conditions are what turn a probe into a pass rate. Source: JCGM 200:2012 International vocabulary of metrology, 2.21 measurement repeatability, p. 40: "measurement precision under a set of repeatability conditions of measurement" (machine). Ruling R-13.
+
+reproducibility
+: How closely results agree when the measurement is repeated under changed conditions: different operators, different sessions, a different evaluation team. Two evaluations that share a requirement set and a DSO release are comparable to the extent their results reproduce. Source: JCGM 200:2012 International vocabulary of metrology, 2.25 measurement reproducibility, p. 41: "measurement precision under reproducibility conditions of measurement" (machine). Ruling R-13.
+
 requirement
 : Something the system must do, or a condition it must meet, to be fit for its purpose. Broad requirements are decomposed into acceptance criteria that can be checked one at a time. Source: ISO 9000:2026(en) Quality management — Fundamentals and vocabulary, 3.5.1: "need or expectation that is stated, generally implied or obligatory" (human).
 
 requirements traceability
 : The documented path linking what was required to how it was tested and what was found, so a coverage claim can be checked by anyone holding the record. Source: IEEE Computer Society, requirements traceability, p. 352: "identification and documentation of the derivation path (upward) and allocation/ flow-down path (downward) of requirements in the requirements set" (machine). Ruling R-15.
+
+risk-based testing
+: Testing in which what is tested, and how much, is chosen according to analyzed risk. Deployment sensitivity is the weight that makes coverage reflect consequence. Source: IEEE Computer Society, risk-based testing, p. 362: "testing in which the management, selection, prioritization, and use of testing activities and resources are consciously based on corresponding types and levels of analyzed risk" (machine).
+
+scenario
+: A step-by-step description of a situation the system is put through: the user, their circumstances, and what they ask. A scenario becomes a probe once it is tied to the criteria it exercises. Source: IEEE Computer Society, scenario, p. 369: "step-by-step description of a series of events that occur concurrently or sequentially" (machine).
 
 session
 : One pairing of one tester with one system under test, in which a sequence of turns is run. Sessions are stateful: what the system says at a later turn depends on everything said before, so evidence belongs to its session, not only to its probe. Source: NIST AI 700-2, Appendix A, Session, p. 17: "A single unit of ARIA testing, consisting of a pairing of one tester and one application." (machine). Ruling R-13.
@@ -83,6 +119,9 @@ stakeholder
 sufficiency
 : The expert judgment that the evidence gathered is enough to support the claim being made. A quantity judgment, distinct from appropriateness. A judgment with no evidence cannot record a pass or a fail. Source: Hawkins, Section 3.3 Asserted solution, p. 10: "it is being asserted that the evidence put forward is sufficient to support the claim" (machine). Ruling R-08.
 
+technical expert
+: A person who provides specific knowledge or expertise to the evaluation team. Two kinds sit on the team. The domain expert is expert in the Domain-Specific Ontology: they supply or approve its release, attest that it is appropriate for the case being evaluated (this system under test, these requirements, this operational environment), and may be consulted on interpreting evidence. The evaluation operator is expert in performing the tests the Evaluation Process Ontology specifies, conditioned on the DSO, and in assembling the evidence. Source: ISO 9000:2026(en) Quality management — Fundamentals and vocabulary, 3.12.9: "person who provides specific knowledge or expertise to the audit team" (human). Also: domain expert, subject matter expert. Ruling R-10.
+
 test coverage
 : How much of the declared acceptance criteria the evaluation actually reached, as a share weighted by deployment sensitivity. It says how much was evaluated, not how well the system did. Source: IEEE Computer Society, test coverage, p. 433: "degree, expressed as a percentage, to which specified test coverage items have been exercised by a test case or test cases" (machine). Also: coverage. Ruling R-01.
 
@@ -92,7 +131,19 @@ test item
 test plan
 : The statement, made before any test runs, of what the evaluation will test and how: which acceptance criteria are its objectives, which probes are its means, and what each probe is expected to show. Derived from the requirement set and the Domain-Specific Ontology in step three; every attestation is bound to the plan that produced its evidence. Source: IEEE Computer Society, test plan, p. 437: "detailed description of test objectives to be achieved and the means and schedule for achieving them, organized to coordinate testing activities for some test item or set of test items" (machine). Ruling R-12.
 
+test strategy
+: The part of a test plan that decides which probe comes next from the trajectory so far, grounded in the Domain-Specific Ontology, rather than listing probes in advance. It closes a loop: the system's outputs feed back into the choice of the next input. A human red teamer following their own judgment is one such strategy; a written policy is another. Source: IEEE Computer Society, test strategy, p. 439: "part of the test plan that describes the approach to testing for a specific project, test level, or test type" (machine). Also: semantic state feedback, state feedback policy, strategy. Ruling R-13.
+
+test suite
+: A set of sessions run together, for example replicate sessions of one strategy, or the varied sessions of a sensitivity test or robustness battery. Evidence rolled up over a suite is evidence at the third level, above probe and session. Source: IEEE Computer Society, test suite, p. 439: "set of test cases or test procedures" (machine). Also: battery, robustness battery. Ruling R-18.
+
+third-party conformity assessment activity
+: Evaluation performed by an organization independent of the provider of the test item and with no user interest in it, and not on behalf of anyone who has one. Independence of the testing organization from the accountable organization is what makes an OG-CAIE result independent; the record states it as a fact about the parties rather than assuming it, and states separately whether the sponsor has a user interest. Source: ISO/IEC 17000:2020(en) Conformity assessment — Vocabulary and general principles, 4.5 third-party conformity assessment activity: "conformity assessment activity that is performed by a person or organization that is independent of the provider of the object of conformity assessment and has no user interest in the object" (human). Also: independent testing, third party. Ruling R-21.
+
 trajectory
 : The recorded sequence of prompt and response pairs of a session, in order. The system's internal state is never observed; the trajectory is the observable realization, and plays the role a time series of measurements plays in system identification. A small change early in a trajectory can change everything after it. Source: IEC 60050-351:2013 International Electrotechnical Vocabulary, 351-41-10 trajectory: "representation of the solution x(t) of the state equation as connecting line of the ends of the vector x(t) in state space with time as parameter" (human). Also: history, realization. Ruling R-13.
+
+verification
+: Confirming with objective evidence that specified requirements were fulfilled. Applied to the evaluation itself: did it exercise what it declared, and was its declared process followed. Both are mechanical checks over the record. Source: ISO 9000:2026(en) Quality management — Fundamentals and vocabulary, 3.11.12: "confirmation, through the provision of objective evidence, that specified requirements have been fulfilled" (human).
 
 ```

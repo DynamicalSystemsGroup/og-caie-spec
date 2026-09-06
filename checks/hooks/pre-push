@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Refuse to push unless the gate passes. Install with:
+# Refuse to push unless the gate passes on the committed HEAD (not on the
+# working tree, which may be mid-edit). Install with:
 #   git config core.hooksPath checks/hooks
 cd "$(git rev-parse --show-toplevel)"
-bash checks/run-checks.sh
+bash checks/gate-head.sh

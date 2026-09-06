@@ -123,8 +123,10 @@ sources and rulings borrowed from `mission-twin-glossary`.
 - Pre-push hook runs the gate (`git config core.hooksPath checks/hooks`).
 - TDD: tests before substrate. Lambda discipline (Z, 2026-09-06): targeted
   tests inline, then commit on the fast feed; the full gate runs in the
-  background as the slow bar; push only after it prints `CHECKS: PASS`;
-  CI watched to conclusion.
+  background as the slow bar, on the committed HEAD in a detached worktree
+  (`bash checks/gate-head.sh`, which the pre-push hook also runs) so that
+  editing may continue meanwhile; push only after it prints
+  `CHECKS: PASS`; CI watched to conclusion.
 
 ## Git
 
