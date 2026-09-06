@@ -18,6 +18,16 @@ numbers, and a padded number would not survive. What no shape checks is
 whether the experts were right. That is theirs, and it is recorded with their
 names.
 
+The chain the shapes close is the one that makes a requirement a useful
+concept: the requirement, as a hypothesis that may be falsified; its
+acceptance criteria, each stating the expected result a test could observe;
+the test plan, whose objectives are those criteria and whose means are the
+probes; the run of a probe against the system, producing the evidence; and
+the attestation, a named person's judgment that the actual result did or did
+not correspond to the expected one, bound to that evidence and to the probe
+under the plan that produced it. An attestation off the plan, one that
+interprets evidence no probe for its criterion produced, fails the chain rule.
+
 ```{include} ../generated/record.md
 ```
 

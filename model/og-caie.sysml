@@ -108,7 +108,10 @@ package OGCAIE {
     item def AcceptanceCriterion {
         doc /* SEVOCAB: criteria that a system or component is required
            to satisfy to be accepted. The coverage item (ruling R-01).
-           Verifiable per INCOSE GtWR v4 C7. weight is the deployment
+           Verifiable per INCOSE GtWR v4 C7. Each criterion states its
+           expected result (SEVOCAB: observable predicted behavior of the
+           test item under specified conditions), so it is defined in terms
+           of evidence a test can collect (ruling R-12). weight is the deployment
            sensitivity (ruling R-05: specializes risk-based testing).
            covered means at least one attestation with an outcome of
            passed, failed or cantTell exists for it; coveredWeight is
@@ -116,6 +119,7 @@ package OGCAIE {
         attribute id : ScalarValues::String;
         attribute derivedFromRequirement : ScalarValues::Boolean;
         attribute verifiable : ScalarValues::Boolean;
+        attribute expectedResultStated : ScalarValues::Boolean;
         attribute weight : ScalarValues::Real;
         attribute minPassRate : ScalarValues::Real;
         attribute attestationCount : ScalarValues::Integer;
@@ -128,9 +132,23 @@ package OGCAIE {
            SEVOCAB test case). Derived from the DSO release, checked for
            consistency by machine before any expert sees it. */
         attribute id : ScalarValues::String;
+        attribute planId : ScalarValues::String;
         attribute exercisedCriteria : ScalarValues::Integer;
         attribute derivedFromDso : ScalarValues::Boolean;
         attribute consistencyPassed : ScalarValues::Boolean;
+        attribute derivedAt : ScalarValues::Real;
+    }
+
+    item def TestPlan {
+        doc /* SEVOCAB test plan: the test objectives to be achieved (the
+           acceptance criteria) and the means for achieving them (the
+           probes, with their expected results), derived in step three from
+           the requirement set and the DSO release before any run. Every
+           attestation is bound to the probe, under the plan, whose run
+           produced the evidence it interprets (ruling R-12). */
+        attribute id : ScalarValues::String;
+        attribute objectives : ScalarValues::Integer;
+        attribute means : ScalarValues::Integer;
         attribute derivedAt : ScalarValues::Real;
     }
 
@@ -139,6 +157,7 @@ package OGCAIE {
            under test produced when a probe was run against it, with the
            SUT version and the named operator of the run. */
         attribute id : ScalarValues::String;
+        attribute probeId : ScalarValues::String;
         attribute sutVersioned : ScalarValues::Boolean;
         attribute operatorNamed : ScalarValues::Boolean;
         attribute runStartedAt : ScalarValues::Real;
@@ -150,8 +169,13 @@ package OGCAIE {
            demonstrated. One criterion, one named human assertor, an EARL
            outcome, the appropriateness and sufficiency judgments, and the
            EPO step. The closure rule: passed or failed requires at least
-           one piece of evidence. */
+           one piece of evidence. The chain rule (R-12): the attestation is
+           bound to the evidence it interprets and to the probe, under the
+           test plan, whose run produced it; SEVOCAB test result: whether
+           the actual results correspond to the expected results. */
         attribute criterionId : ScalarValues::String;
+        attribute probeId : ScalarValues::String;
+        attribute evidenceId : ScalarValues::String;
         attribute assertorNamed : ScalarValues::Boolean;
         attribute mode : Mode;
         attribute outcome : Outcome;
@@ -235,20 +259,27 @@ package OGCAIE {
     }
 
     part def DomainExpert :> HumanAgent {
-        doc /* The technical expert (ISO 9000:2026 3.12.9): supplies or
-           approves the DSO release and attests, for the criteria in their
-           expertise, outcome, appropriateness of the declared context and
-           sufficiency of the evidence. The drawing's Annie. */
+        doc /* A technical expert (ISO 9000:2026 3.12.9) in the Domain-
+           Specific Ontology (ruling R-10). Supplies or approves the DSO
+           release; attests that the DSO is appropriate for the case being
+           evaluated (this system under test, these requirements, this
+           operational environment); attests outcome and sufficiency for
+           the criteria in their expertise; may be consulted on the
+           interpretation of evidence. The drawing's Annie. */
         item dso : DsoRelease;
         port dsoOut : DsoWrite;
         port attestationOut : AttestationWrite;
     }
 
     part def Evaluator :> HumanAgent {
-        doc /* Project lead, red teamer or analyst: declares the requirement
+        doc /* A technical expert in AI evaluation (ruling R-10): the red
+           teamer or analyst who knows how to perform the tests the EPO
+           specifies, conditioned on the domain expert's DSO, and whose job
+           is to assemble and interpret evidence. Declares the requirement
            set with the domain experts, runs probes against the system
-           under test, attests, and writes the recommendation. The
-           drawing's Theo. */
+           under test, attests, and writes the recommendation. Both kinds
+           of expert belong to the evaluation team; assessors of the
+           assessment are out of scope (ruling R-11). The drawing's Theo. */
         item requirements : RequirementSet;
         item recommendation : Recommendation;
         port requirementsOut : RequirementSetWrite;
@@ -303,6 +334,7 @@ package OGCAIE {
         item a1 : AcceptanceCriterion;
         item a2 : AcceptanceCriterion;
         item a3 : AcceptanceCriterion;
+        item plan : TestPlan;
         item probe : Probe;
         item evidence : Evidence;
         item attestation1 : Attestation;
@@ -400,19 +432,26 @@ package OGCAIE {
 
     requirement def <'SCI-03'> CriteriaWellFormed {
         doc /* machine (shape S2). Every acceptance criterion derives from
-           a requirement, is verifiable (INCOSE GtWR v4 C7), and carries a
-           weight greater than zero. */
+           a requirement, is verifiable (INCOSE GtWR v4 C7), states its
+           expected result (R-12), and carries a weight greater than
+           zero. */
         subject ev : OgCaieEvaluation;
+        require constraint { ev.recorder.a1.expectedResultStated and ev.recorder.a2.expectedResultStated and ev.recorder.a3.expectedResultStated }
         require constraint { ev.recorder.a1.derivedFromRequirement and ev.recorder.a1.verifiable and ev.recorder.a1.weight > 0.0 }
         require constraint { ev.recorder.a2.derivedFromRequirement and ev.recorder.a2.verifiable and ev.recorder.a2.weight > 0.0 }
         require constraint { ev.recorder.a3.derivedFromRequirement and ev.recorder.a3.verifiable and ev.recorder.a3.weight > 0.0 }
     }
 
     requirement def <'SCI-04'> ProbesDerivedAndChecked {
-        doc /* machine (shape S3). Every probe names the criteria it
-           exercises, derives from the DSO release, and passed an
-           automatic consistency check before any expert saw it. */
+        doc /* machine (shape S3). A test plan states its objectives and
+           means and precedes every run (R-12); every probe belongs to it,
+           names the criteria it exercises, derives from the DSO release,
+           and passed an automatic consistency check before any expert saw
+           it. */
         subject ev : OgCaieEvaluation;
+        require constraint { ev.recorder.plan.objectives >= 1 and ev.recorder.plan.means >= 1 }
+        require constraint { ev.recorder.probe.planId == ev.recorder.plan.id }
+        require constraint { ev.recorder.plan.derivedAt < ev.recorder.evidence.runStartedAt }
         require constraint { ev.recorder.probe.exercisedCriteria >= 1 }
         require constraint { ev.recorder.probe.derivedFromDso }
         require constraint { ev.recorder.probe.consistencyPassed }
@@ -513,11 +552,11 @@ package OGCAIE {
             part :>> sponsor { attribute :>> name = "public-health-sponsor"; }
             part :>> systemUnderTest {
                 attribute :>> name = "measles-chatbot"; attribute :>> version = "v1";
-                item :>> evidence { attribute :>> id = "evidence-1"; attribute :>> sutVersioned = true; attribute :>> operatorNamed = true; attribute :>> runStartedAt = 4.0; }
+                item :>> evidence { attribute :>> id = "evidence-1"; attribute :>> probeId = "probe-1"; attribute :>> sutVersioned = true; attribute :>> operatorNamed = true; attribute :>> runStartedAt = 4.0; }
             }
             part :>> probeDeriver {
                 attribute :>> name = "probe-deriver"; attribute :>> version = "0.1";
-                item :>> probe { attribute :>> id = "probe-1"; attribute :>> exercisedCriteria = 2; attribute :>> derivedFromDso = true; attribute :>> consistencyPassed = true; attribute :>> derivedAt = 3.0; }
+                item :>> probe { attribute :>> id = "probe-1"; attribute :>> planId = "plan-1"; attribute :>> exercisedCriteria = 2; attribute :>> derivedFromDso = true; attribute :>> consistencyPassed = true; attribute :>> derivedAt = 3.0; }
             }
             part :>> conformityChecker {
                 attribute :>> name = "pyshacl"; attribute :>> version = "0.27";
@@ -527,13 +566,14 @@ package OGCAIE {
                 attribute :>> name = "recorder"; attribute :>> version = "0.1";
                 item :>> dso { attribute :>> version = "apollo-sv-r1"; attribute :>> approvedBy = "epidemiologist"; attribute :>> approved = true; attribute :>> approvedAt = 1.0; }
                 item :>> requirements { attribute :>> environment = "public information service during an active measles outbreak"; attribute :>> declaredAt = 2.0; }
-                item :>> a1 { attribute :>> id = "a1"; attribute :>> derivedFromRequirement = true; attribute :>> verifiable = true; attribute :>> weight = 2.0; attribute :>> minPassRate = 0.95; attribute :>> attestationCount = 1; attribute :>> covered = true; attribute :>> coveredWeight = 2.0; }
-                item :>> a2 { attribute :>> id = "a2"; attribute :>> derivedFromRequirement = true; attribute :>> verifiable = true; attribute :>> weight = 1.0; attribute :>> minPassRate = 0.95; attribute :>> attestationCount = 1; attribute :>> covered = true; attribute :>> coveredWeight = 1.0; }
-                item :>> a3 { attribute :>> id = "a3"; attribute :>> derivedFromRequirement = true; attribute :>> verifiable = true; attribute :>> weight = 1.0; attribute :>> minPassRate = 0.95; attribute :>> attestationCount = 0; attribute :>> covered = false; attribute :>> coveredWeight = 0.0; }
-                item :>> probe { attribute :>> id = "probe-1"; attribute :>> exercisedCriteria = 2; attribute :>> derivedFromDso = true; attribute :>> consistencyPassed = true; attribute :>> derivedAt = 3.0; }
-                item :>> evidence { attribute :>> id = "evidence-1"; attribute :>> sutVersioned = true; attribute :>> operatorNamed = true; attribute :>> runStartedAt = 4.0; }
-                item :>> attestation1 { attribute :>> criterionId = "a1"; attribute :>> assertorNamed = true; attribute :>> mode = Mode::manual; attribute :>> outcome = Outcome::failed; attribute :>> appropriateness = Appropriateness::appropriate; attribute :>> sufficiency = Sufficiency::insufficient; attribute :>> step = EpoStep::runAndAttest; attribute :>> evidenceCount = 1; }
-                item :>> attestation2 { attribute :>> criterionId = "a2"; attribute :>> assertorNamed = true; attribute :>> mode = Mode::manual; attribute :>> outcome = Outcome::failed; attribute :>> appropriateness = Appropriateness::appropriate; attribute :>> sufficiency = Sufficiency::insufficient; attribute :>> step = EpoStep::runAndAttest; attribute :>> evidenceCount = 1; }
+                item :>> plan { attribute :>> id = "plan-1"; attribute :>> objectives = 2; attribute :>> means = 1; attribute :>> derivedAt = 3.0; }
+                item :>> a1 { attribute :>> id = "a1"; attribute :>> derivedFromRequirement = true; attribute :>> verifiable = true; attribute :>> expectedResultStated = true; attribute :>> weight = 2.0; attribute :>> minPassRate = 0.95; attribute :>> attestationCount = 1; attribute :>> covered = true; attribute :>> coveredWeight = 2.0; }
+                item :>> a2 { attribute :>> id = "a2"; attribute :>> derivedFromRequirement = true; attribute :>> verifiable = true; attribute :>> expectedResultStated = true; attribute :>> weight = 1.0; attribute :>> minPassRate = 0.95; attribute :>> attestationCount = 1; attribute :>> covered = true; attribute :>> coveredWeight = 1.0; }
+                item :>> a3 { attribute :>> id = "a3"; attribute :>> derivedFromRequirement = true; attribute :>> verifiable = true; attribute :>> expectedResultStated = true; attribute :>> weight = 1.0; attribute :>> minPassRate = 0.95; attribute :>> attestationCount = 0; attribute :>> covered = false; attribute :>> coveredWeight = 0.0; }
+                item :>> probe { attribute :>> id = "probe-1"; attribute :>> planId = "plan-1"; attribute :>> exercisedCriteria = 2; attribute :>> derivedFromDso = true; attribute :>> consistencyPassed = true; attribute :>> derivedAt = 3.0; }
+                item :>> evidence { attribute :>> id = "evidence-1"; attribute :>> probeId = "probe-1"; attribute :>> sutVersioned = true; attribute :>> operatorNamed = true; attribute :>> runStartedAt = 4.0; }
+                item :>> attestation1 { attribute :>> criterionId = "a1"; attribute :>> probeId = "probe-1"; attribute :>> evidenceId = "evidence-1"; attribute :>> assertorNamed = true; attribute :>> mode = Mode::manual; attribute :>> outcome = Outcome::failed; attribute :>> appropriateness = Appropriateness::appropriate; attribute :>> sufficiency = Sufficiency::insufficient; attribute :>> step = EpoStep::runAndAttest; attribute :>> evidenceCount = 1; }
+                item :>> attestation2 { attribute :>> criterionId = "a2"; attribute :>> probeId = "probe-1"; attribute :>> evidenceId = "evidence-1"; attribute :>> assertorNamed = true; attribute :>> mode = Mode::manual; attribute :>> outcome = Outcome::failed; attribute :>> appropriateness = Appropriateness::appropriate; attribute :>> sufficiency = Sufficiency::insufficient; attribute :>> step = EpoStep::runAndAttest; attribute :>> evidenceCount = 1; }
             }
             part :>> coverageCalculator {
                 attribute :>> name = "coverage-calculator"; attribute :>> version = "0.1";

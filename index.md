@@ -77,3 +77,12 @@ Terms are used, not owned. Each term cites one canonical source, chosen in
 this order: ISO 9000:2026, SEVOCAB, NIST AI 700-2, then W3C and OMG
 specifications for the technical binding only. Exactly three terms are coined:
 Domain-Specific Ontology, Evaluation Process Ontology, and OG-CAIE itself.
+
+## Where this goes
+
+Two offers close this specification. Use OG-CAIE: the process, the
+vocabulary and the record format are open, and the measles example shows the
+whole chain on one page. Or have your own AI evaluation practice audited
+against it: every requirement here is checkable, so an existing practice can
+be walked through the nine essentials and shown where its record would and
+would not conform.

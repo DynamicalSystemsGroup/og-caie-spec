@@ -26,8 +26,8 @@ term:requirement a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "requirement"@en ;
     skos:definition "Something the system must do, or a condition it must meet, to be fit for its purpose. Broad requirements are decomposed into acceptance criteria that can be checked one at a time."@en ;
     ogc:class "adopted" ;
-    ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.5.1" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-12.png" ;
-                    ogc:quote "need or expectation that is stated, generally implied or obligatory" ; ogc:quoteStatus "pending" ] ;
+    ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.5.1" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-11.png" ;
+                    ogc:quote "need or expectation that is stated, generally implied or obligatory" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:binding "sysml RequirementDefinition; epo:Requirement" .
 
 term:conformity a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -57,7 +57,7 @@ term:verification a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:definition "Confirming with objective evidence that specified requirements were fulfilled. Applied to the evaluation itself: did it exercise what it declared, and was its declared process followed. Both are mechanical checks over the record."@en ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.11.12" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-32.png" ;
-                    ogc:quote "confirmation, through the provision of objective evidence, that specified requirements have been fulfilled" ; ogc:quoteStatus "pending" ] ;
+                    ogc:quote "confirmation, through the provision of objective evidence, that specified requirements have been fulfilled" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "verification, p. 470" ; ogc:pdfPage 470 ;
                   ogc:quote "confirmation, through the provision of objective evidence, that specified requirements have been fulfilled" ; ogc:quoteStatus "machine" ] ;
     ogc:binding "SHACL shapes S1-S8 (machine); SCI requirements tagged machine" .
@@ -67,7 +67,7 @@ term:validation a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:definition "Confirming with objective evidence that the requirements for a specific intended use were fulfilled. Applied to the evaluation itself: was it aimed at the right problem and is the evidence enough. Both are human judgments, recorded in the attestation."@en ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.11.14" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-32.png" ;
-                    ogc:quote "confirmation, through the provision of objective evidence, that the requirements for a specific intended use or application have been fulfilled" ; ogc:quoteStatus "pending" ] ;
+                    ogc:quote "confirmation, through the provision of objective evidence, that the requirements for a specific intended use or application have been fulfilled" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "validation, p. 464" ; ogc:pdfPage 464 ;
                   ogc:quote "confirmation, through the provision of objective evidence, that the requirements for a specific intended use or application have been fulfilled" ; ogc:quoteStatus "machine" ] ;
     ogc:binding "epo:Attestation (human); SCI requirements tagged human" .
@@ -77,8 +77,10 @@ term:test a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:definition "Finding out whether requirements for a specific intended use are met. Running a probe against the system under test is a test; the evidence it yields feeds the attestation."@en ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.11.13" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-32.png" ;
-                    ogc:quote "determination according to requirements for a specific intended use or application" ; ogc:quoteStatus "pending" ] ;
-    ogc:binding "epo:ProbeRun, a prov:Activity" .
+                    ogc:quote "determination according to requirements for a specific intended use or application" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
+    ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "test execution, p. 434" ; ogc:pdfPage 434 ;
+                  ogc:quote "process of running a test on the test item, producing actual results" ; ogc:quoteStatus "machine" ] ;
+    ogc:binding "epo:ProbeRun, a prov:Activity (test execution; its evidence is the actual result)" .
 
 term:record a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "record"@en ;
@@ -94,7 +96,7 @@ term:stakeholder a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:definition "A person or organization that can affect, be affected by, or believe itself affected by a decision or activity. The sponsor, the evaluators and the domain experts are the stakeholders named in this specification."@en ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.1.4" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-02.png" ;
-                    ogc:quote "person or organization that can affect, be affected by, or perceive itself to be affected by a decision or activity" ; ogc:quoteStatus "pending" ] ;
+                    ogc:quote "person or organization that can affect, be affected by, or perceive itself to be affected by a decision or activity" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "stakeholder, p. 403" ; ogc:pdfPage 403 ;
                   ogc:quote "individual or organization having a right, share, claim, or interest in a system or in its possession of characteristics that meet their needs and expectations" ; ogc:quoteStatus "machine" ] ;
     ogc:binding "sysml part defs Sponsor, Evaluator, DomainExpert; prov:Person, prov:Organization" .
@@ -103,20 +105,20 @@ term:performance a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "performance"@en ;
     skos:definition "A measurable result. Here: how the system did on what was exercised, reported as the pass, fail and cannot-tell fractions of the covered criteria. Never merged with coverage."@en ;
     ogc:class "adopted" ;
-    ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.7.3" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-19.png" ;
+    ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.7.3" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-17.png" ;
                     ogc:quote "measurable result" ; ogc:quoteStatus "pending" ] ;
     ogc:binding "epo:Report passRate, failRate, cantTellRate" .
 
 term:technical-expert a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "technical expert"@en ;
-    skos:altLabel "domain expert"@en ; skos:altLabel "subject matter expert"@en ;
-    skos:definition "A person who provides specific knowledge or expertise. Here: the domain expert who supplies or approves the Domain-Specific Ontology and attests to the appropriateness of the declared context."@en ;
+    skos:altLabel "domain expert"@en ; skos:altLabel "AI evaluation expert"@en ; skos:altLabel "subject matter expert"@en ;
+    skos:definition "A person who provides specific knowledge or expertise to the evaluation team. Two kinds sit on the team. The domain expert is expert in the Domain-Specific Ontology: they supply or approve its release, attest that it is appropriate for the case being evaluated (this system under test, these requirements, this operational environment), and may be consulted on interpreting evidence. The AI evaluation expert, the red teamer, is expert in performing the tests the Evaluation Process Ontology specifies, conditioned on the DSO, and in assembling and interpreting the evidence."@en ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.12.9" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-34.png" ;
-                    ogc:quote "person who provides specific knowledge or expertise to the audit team" ; ogc:quoteStatus "pending" ] ;
-    ogc:binding "sysml part def DomainExpert; prov:Person" .
-
-# ------------------------------------------------------------------ SEVOCAB
+                    ogc:quote "person who provides specific knowledge or expertise to the audit team" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
+    ogc:scopeNote "Ruling R-10: the ISO entry is marked <audit>; here the team is an evaluation team, not an audit team, and both the domain expert and the AI evaluation expert are technical experts on it. Assessors of the assessment are out of scope (R-11)." ;
+    prov:wasDerivedFrom rul:R-10 ;
+    ogc:binding "sysml part defs DomainExpert and Evaluator; prov:Person" .
 
 term:acceptance-criteria a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "acceptance criteria"@en ;
@@ -189,6 +191,8 @@ term:scenario a skos:Concept ; skos:inScheme ogc:Glossary ;
                     ogc:quote "step-by-step description of a series of events that occur concurrently or sequentially" ; ogc:quoteStatus "machine" ] ;
     ogc:seeAlso [ ogc:cites src:nist-ai-700-2 ; ogc:locator "Appendix A, Scenario, p. 17" ; ogc:pdfPage 24 ;
                   ogc:quote "The context in which structured AI evaluation activities are performed." ; ogc:quoteStatus "machine" ] ;
+    ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "test scenario, p. 438 (ISO/IEC TR 29119-11:2020, testing of AI-based systems)" ; ogc:pdfPage 438 ;
+                  ogc:quote "situation or setting for a test item used as the basis for generating test cases" ; ogc:quoteStatus "machine" ] ;
     ogc:binding "epo:Probe carries the scenario text" .
 
 term:risk-based-testing a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -209,6 +213,25 @@ term:evaluation a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:seeAlso [ ogc:cites src:nist-ai-100-1 ; ogc:locator "Section 3, p. 35" ; ogc:pdfPage 40 ;
                   ogc:quote "Test, Evaluation, Verification, and Validation (TEVV) tasks are performed throughout the AI lifecycle." ; ogc:quoteStatus "machine" ] ;
     ogc:binding "sysml part def OgCaieEvaluation; action def EvaluationProcess" .
+
+term:test-plan a skos:Concept ; skos:inScheme ogc:Glossary ;
+    skos:prefLabel "test plan"@en ;
+    skos:definition "The statement, made before any test runs, of what the evaluation will test and how: which acceptance criteria are its objectives, which probes are its means, and what each probe is expected to show. Derived from the requirement set and the Domain-Specific Ontology in step three; every attestation is bound to the plan that produced its evidence."@en ;
+    ogc:class "adopted" ;
+    ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "test plan, p. 437" ; ogc:pdfPage 437 ;
+                    ogc:quote "detailed description of test objectives to be achieved and the means and schedule for achieving them, organized to coordinate testing activities for some test item or set of test items" ; ogc:quoteStatus "machine" ] ;
+    prov:wasDerivedFrom rul:R-12 ;
+    ogc:binding "epo:TestPlan, a prov:Entity; sysml item def TestPlan" .
+
+term:expected-results a skos:Concept ; skos:inScheme ogc:Glossary ;
+    skos:prefLabel "expected results"@en ;
+    skos:altLabel "expected result"@en ;
+    skos:definition "What the system under test should observably do if it meets an acceptance criterion under the probe's conditions. Stated on the criterion before testing, so the criterion is defined in terms of evidence a test can collect, and the attestation is a judgment that the actual result did or did not correspond."@en ;
+    ogc:class "adopted" ;
+    ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "expected results, p. 160" ; ogc:pdfPage 160 ;
+                    ogc:quote "observable predicted behavior of the test item under specified conditions based on its specification or another source" ; ogc:quoteStatus "machine" ] ;
+    prov:wasDerivedFrom rul:R-12 ;
+    ogc:binding "epo:expectedResult on AcceptanceCriterion; sysml attribute expectedResultStated" .
 
 # ------------------------------------------------------------ NIST AI 700-2
 
@@ -237,7 +260,9 @@ term:attestation a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "7.3" ;
                     ogc:quote "issue of a statement, based on a decision, that fulfilment of specified requirements has been demonstrated" ; ogc:quoteStatus "pending" ] ;
-    ogc:binding "epo:Attestation, an earl:Assertion and a prov:Activity" .
+    ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "test result, p. 438" ; ogc:pdfPage 438 ;
+                  ogc:quote "indication of whether a specific test case has passed or failed, i.e. if the actual results correspond to the expected results or if deviations were observed" ; ogc:quoteStatus "machine" ] ;
+    ogc:binding "epo:Attestation, an earl:Assertion and a prov:Activity; bound to the evidence and to the probe under the test plan that produced it" .
 
 term:appropriateness a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "appropriateness"@en ;
@@ -247,8 +272,8 @@ term:appropriateness a skos:Concept ; skos:inScheme ogc:Glossary ;
                     ogc:quote "it is being asserted that the context is appropriate for the argument elements to which it applies" ; ogc:quoteStatus "machine" ] ;
     ogc:seeAlso [ ogc:cites src:isa-500 ; ogc:locator "paragraph 5(b)" ; ogc:pdfPage 2 ;
                   ogc:quote "The measure of the quality of audit evidence; that is, its relevance and its reliability" ; ogc:quoteStatus "machine" ] ;
-    ogc:seeAlso [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.11.2 review" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-32.png" ;
-                  ogc:quote "determination of the suitability, adequacy or effectiveness of an object to achieve established objectives" ; ogc:quoteStatus "pending" ] ;
+    ogc:seeAlso [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.11.2 review" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-30.png" ;
+                  ogc:quote "determination of the suitability, adequacy or effectiveness of an object to achieve established objectives" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     prov:wasDerivedFrom rul:R-08 ;
     ogc:binding "epo:appropriateness on Attestation; sysml enum Appropriateness" .
 
@@ -330,7 +355,7 @@ term:operational-envelope a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:definition "The declared acceptable range of the system's behavior for its operational environment: the requirements, their acceptance criteria and their weights, written down before any probe is run. Coverage is measured over it and only over it."@en ;
     ogc:class "refined" ;
     ogc:anchorRelation "specializes" ;
-    ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.5.1 requirement" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-12.png" ;
+    ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.5.1 requirement" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-11.png" ;
                     ogc:quote "need or expectation that is stated, generally implied or obligatory" ; ogc:quoteStatus "pending" ] ;
     ogc:scopeNote "Ruling R-03: a house label for the declared requirement set, defined by composition of adopted terms; not a coinage." ;
     prov:wasDerivedFrom rul:R-03 ;

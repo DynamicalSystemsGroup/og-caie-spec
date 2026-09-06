@@ -20,20 +20,21 @@ tr:SCI-02 a ogc:Trace ; rdfs:label "SCI-02 RequirementsDeclaredBeforeRuns" ;
     ogc:restsOn src:sevocab, rul:R-02, rul:R-03 .
 tr:SCI-03 a ogc:Trace ; rdfs:label "SCI-03 CriteriaWellFormed" ;
     ogc:checkedBy ogc:S2-AcceptanceCriterion ; ogc:tag "machine" ;
-    ogc:usesTerm term:acceptance-criteria, term:requirement, term:deployment-sensitivity ;
+    ogc:usesTerm term:acceptance-criteria, term:requirement, term:deployment-sensitivity, term:expected-results ;
     ogc:restsOn src:sevocab, src:incose-gtwr-v4, rul:R-05 .
 tr:SCI-04 a ogc:Trace ; rdfs:label "SCI-04 ProbesDerivedAndChecked" ;
     ogc:checkedBy ogc:S3-Probe ; ogc:tag "machine" ;
-    ogc:usesTerm term:probe, term:scenario, term:conformity, term:domain-specific-ontology ;
-    ogc:restsOn src:sevocab, src:w3c-shacl .
+    ogc:checkedBy ogc:S3-TestPlan ;
+    ogc:usesTerm term:probe, term:scenario, term:conformity, term:domain-specific-ontology, term:test-plan ;
+    ogc:restsOn src:sevocab, src:w3c-shacl, rul:R-12 .
 tr:SCI-05 a ogc:Trace ; rdfs:label "SCI-05 EvidenceFromNamedRuns" ;
     ogc:checkedBy ogc:S4-ProbeRun, ogc:S5-Evidence ; ogc:tag "machine" ;
     ogc:usesTerm term:objective-evidence, term:test, term:system-under-test, term:red-teaming ;
     ogc:restsOn src:iso-9000-2026, src:nist-ai-700-2, src:w3c-prov-o .
 tr:SCI-06 a ogc:Trace ; rdfs:label "SCI-06 AttestationsWellFormed" ;
     ogc:checkedBy ogc:S6-Attestation ; ogc:tag "machine for form; human for the judgment" ;
-    ogc:usesTerm term:attestation, term:outcome, term:appropriateness, term:sufficiency, term:validation ;
-    ogc:restsOn src:iso-iec-17000-2020, src:hawkins-2011, src:w3c-earl, rul:R-08 .
+    ogc:usesTerm term:attestation, term:outcome, term:appropriateness, term:sufficiency, term:validation, term:test-plan, term:expected-results ;
+    ogc:restsOn src:iso-iec-17000-2020, src:hawkins-2011, src:w3c-earl, rul:R-08, rul:R-12 .
 tr:SCI-07 a ogc:Trace ; rdfs:label "SCI-07 CoverageRecomputable" ;
     ogc:checkedBy ogc:S7-Report ; ogc:tag "machine" ;
     ogc:usesTerm term:test-coverage, term:conformity, term:verification, term:evaluation-record ;

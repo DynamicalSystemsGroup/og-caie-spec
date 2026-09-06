@@ -1,11 +1,13 @@
-# The five facets every recommendation must trace to: the evidence, the
-# experiments run (and against what, by whom), the assessments made (and who
-# made them), the DSO release selected (and who approved it), and the EPO step.
+# The facets every recommendation must trace to: the evidence, the experiments
+# run (which probe under which test plan, against what, by whom), the
+# assessments made (and who made them, against which expected result), the
+# DSO release selected (and who approved it), and the EPO step. Ruling R-12:
+# the chain requirement, criterion, plan, probe, run, evidence, attestation.
 PREFIX epo:  <https://w3id.org/og-caie/epo#>
 PREFIX earl: <http://www.w3.org/ns/earl#>
 PREFIX prov: <http://www.w3.org/ns/prov#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-SELECT ?recommendation ?author ?step ?attestation ?assertor ?criterion ?outcome ?evidence ?run ?operator ?sut ?dso ?dsoApprover
+SELECT ?recommendation ?author ?step ?attestation ?assertor ?criterion ?expected ?outcome ?evidence ?run ?operator ?sut ?probe ?plan ?dso ?dsoApprover
 WHERE {
   ?recommendation a epo:Recommendation ;
       prov:wasAttributedTo ?authorNode ; epo:step ?stepNode ;
@@ -16,10 +18,14 @@ WHERE {
       earl:result ?res ; prov:used ?evidence .
   ?res earl:outcome ?outcomeNode .
   ?assertorNode rdfs:label ?assertor .
-  ?criterionNode epo:text ?criterion .
+  ?criterionNode epo:text ?criterion ; epo:expectedResult ?expected .
+  ?attestation epo:underPlan ?probe .
+  ?probe epo:exercises ?criterionNode .
+  ?plan a epo:TestPlan ; epo:means ?probe .
+  ?recommendation prov:wasDerivedFrom ?plan .
   BIND(STRAFTER(STR(?outcomeNode), "#") AS ?outcome)
   ?evidence a epo:Evidence ; prov:wasGeneratedBy ?run .
-  ?run prov:wasAssociatedWith ?operatorNode ; prov:wasAssociatedWith ?sutNode .
+  ?run prov:used ?probe ; prov:wasAssociatedWith ?operatorNode ; prov:wasAssociatedWith ?sutNode .
   ?operatorNode a prov:Person ; rdfs:label ?operator .
   ?sutNode a prov:SoftwareAgent ; rdfs:label ?sut .
   ?dso a epo:DsoRelease ; epo:approvedBy ?approverNode .

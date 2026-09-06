@@ -58,18 +58,55 @@ ogc:S2-AcceptanceCriterion a sh:NodeShape ;
                   sh:message "Every acceptance criterion derives from a requirement." ] ;
     sh:property [ sh:path epo:text ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ;
                   sh:message "A criterion is a statement (GtWR C7: verifiable)." ] ;
+    sh:property [ sh:path epo:expectedResult ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ;
+                  sh:message "A criterion states its expected result: the observable behavior a test can collect (R-12)." ] ;
     sh:property [ sh:path epo:weight ; sh:minCount 1 ; sh:maxCount 1 ; sh:minExclusive 0 ;
                   sh:message "Deployment sensitivity: weight greater than zero." ] ;
     sh:property [ sh:path epo:minPassRate ; sh:minCount 1 ; sh:maxCount 1 ; sh:minInclusive 0 ; sh:maxInclusive 1 ] .
 
-# S3 <-> SCI-04: every probe names the criteria it exercises, derives from a
-# DSO release, and passed an automatic consistency check.
+# S3 <-> SCI-04: a test plan states its objectives (criteria) and its means
+# (probes), derives from the requirement set and the DSO release, and is
+# attributed; every probe belongs to a plan, names the criteria it exercises,
+# derives from a DSO release, and passed an automatic consistency check.
+ogc:S3-TestPlan a sh:NodeShape ;
+    sh:targetClass epo:TestPlan ;
+    sh:property [ sh:path epo:objective ; sh:minCount 1 ; sh:class epo:AcceptanceCriterion ;
+                  sh:message "A test plan states at least one objective, an acceptance criterion." ] ;
+    sh:property [ sh:path epo:means ; sh:minCount 1 ; sh:class epo:Probe ;
+                  sh:message "A test plan states its means: at least one probe." ] ;
+    sh:property [ sh:path prov:wasAttributedTo ; sh:minCount 1 ; sh:class prov:Person ] ;
+    sh:property [ sh:path prov:generatedAtTime ; sh:minCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:sparql [
+        sh:message "S3: a test plan derives from the requirement set and a DSO release." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            SELECT $this WHERE {
+                FILTER NOT EXISTS { $this prov:wasDerivedFrom ?r . ?r a epo:RequirementSet . $this prov:wasDerivedFrom ?d . ?d a epo:DsoRelease }
+            }
+        """ ] ;
+    sh:sparql [
+        sh:message "S3: every probe a plan names as a means exercises at least one of the plan's objectives." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            SELECT $this WHERE {
+                $this epo:means ?p .
+                FILTER NOT EXISTS { $this epo:objective ?a . ?p epo:exercises ?a }
+            }
+        """ ] .
+
 ogc:S3-Probe a sh:NodeShape ;
     sh:targetClass epo:Probe ;
     sh:property [ sh:path epo:exercises ; sh:minCount 1 ; sh:class epo:AcceptanceCriterion ;
                   sh:message "A probe names at least one acceptance criterion it exercises." ] ;
     sh:property [ sh:path epo:derivedFromDso ; sh:minCount 1 ; sh:class epo:DsoRelease ] ;
     sh:property [ sh:path prov:generatedAtTime ; sh:minCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:sparql [
+        sh:message "S3: every probe is a means of some test plan." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            SELECT $this WHERE { FILTER NOT EXISTS { ?plan a epo:TestPlan ; epo:means $this } }
+        """ ] ;
     sh:sparql [
         sh:message "S3: no passed automatic consistency check exists for this probe." ;
         sh:select """
@@ -127,6 +164,21 @@ ogc:S6-Attestation a sh:NodeShape ;
     sh:property [ sh:path epo:step ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue epo:runAndAttest ] ;
     sh:property [ sh:path prov:endedAtTime ; sh:minCount 1 ; sh:datatype xsd:dateTime ] ;
     sh:sparql [
+        sh:message "S6 chain rule (R-12): an attestation is bound to the probe whose run produced the evidence it interprets, and that probe exercises the attested criterion." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX earl: <http://www.w3.org/ns/earl#>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            SELECT $this WHERE {
+                $this earl:test ?a ; prov:used ?e . ?e a epo:Evidence .
+                FILTER NOT EXISTS {
+                    $this epo:underPlan ?p .
+                    ?p epo:exercises ?a .
+                    ?e prov:wasGeneratedBy ?run . ?run prov:used ?p .
+                }
+            }
+        """ ] ;
+    sh:sparql [
         sh:message "S6 closure rule: an attestation with outcome passed or failed must use at least one piece of evidence; with none it can only say cantTell." ;
         sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
@@ -183,6 +235,13 @@ ogc:S8-Recommendation a sh:NodeShape ;
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX prov: <http://www.w3.org/ns/prov#>
             SELECT $this WHERE { FILTER NOT EXISTS { $this prov:wasDerivedFrom ?a . ?a a epo:Attestation } }
+        """ ] ;
+    sh:sparql [
+        sh:message "S8: a recommendation must name the test plan its evidence was produced under." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            SELECT $this WHERE { FILTER NOT EXISTS { $this prov:wasDerivedFrom ?t . ?t a epo:TestPlan } }
         """ ] ;
     sh:sparql [
         sh:message "S8: a recommendation must name the DSO release it rests on." ;

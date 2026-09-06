@@ -13,11 +13,13 @@ cx:sut a prov:Agent, prov:SoftwareAgent, earl:TestSubject ; epo:version "v1" .
 cx:checker a prov:Agent, prov:SoftwareAgent ; epo:version "0.27" .
 cx:dso a epo:DsoRelease ; epo:version "r1" ; epo:approvedBy cx:person ; prov:generatedAtTime "2026-08-01T00:00:00Z"^^xsd:dateTime .
 cx:R a epo:Requirement ; epo:partOf cx:reqs ; epo:text "r" .
-cx:a a epo:AcceptanceCriterion ; prov:wasDerivedFrom cx:R ; epo:text "criterion" ; epo:weight 1 ; epo:minPassRate 0.9 .
+cx:a a epo:AcceptanceCriterion ; prov:wasDerivedFrom cx:R ; epo:text "criterion" ; epo:expectedResult "shown" ; epo:weight 1 ; epo:minPassRate 0.9 .
 
 cx:reqs a epo:RequirementSet ; epo:environment "stated" ; prov:wasAttributedTo cx:person ;
     prov:generatedAtTime "2026-08-20T00:00:00Z"^^xsd:dateTime .
 
+cx:plan a epo:TestPlan ; epo:objective cx:a ; epo:means cx:probe ; prov:wasDerivedFrom cx:reqs ; prov:wasDerivedFrom cx:dso ;
+    prov:wasAttributedTo cx:person ; prov:generatedAtTime "2026-08-03T00:00:00Z"^^xsd:dateTime .
 cx:probe a epo:Probe ; epo:exercises cx:a ; epo:derivedFromDso cx:dso ; prov:generatedAtTime "2026-08-03T00:00:00Z"^^xsd:dateTime .
 cx:check a epo:ConsistencyCheck ; earl:subject cx:probe ; earl:mode earl:automatic ; earl:assertedBy cx:checker ;
     earl:result [ a earl:TestResult ; earl:outcome earl:passed ] .

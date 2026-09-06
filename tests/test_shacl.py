@@ -14,6 +14,7 @@ COUNTEREXAMPLES = {
     "counterexamples/attestation-without-evidence.ttl": "S6-Attestation",
     "counterexamples/probe-before-requirements.ttl": "S2-RequirementSet",
     "counterexamples/recommendation-untraced.ttl": "S8-Recommendation",
+    "counterexamples/attestation-off-plan.ttl": "S6-Attestation",
 }
 
 
@@ -44,7 +45,7 @@ def test_each_counterexample_fails_on_its_shape_only():
 def test_eight_shapes_one_per_sci_group():
     g = shapes()
     names = sorted(str(s).rsplit("/", 1)[-1] for s in g.subjects(RDF.type, SH.NodeShape))
-    assert names == ["S1-DsoRelease", "S2-AcceptanceCriterion", "S2-RequirementSet", "S3-Probe",
+    assert names == ["S1-DsoRelease", "S2-AcceptanceCriterion", "S2-RequirementSet", "S3-Probe", "S3-TestPlan",
                      "S4-ProbeRun", "S5-Evidence", "S6-Attestation", "S7-Report", "S8-Recommendation"]
 
 

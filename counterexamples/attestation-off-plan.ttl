@@ -1,0 +1,37 @@
+@prefix cx:   <https://w3id.org/og-caie/run/counterexample#> .
+@prefix epo:  <https://w3id.org/og-caie/epo#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix earl: <http://www.w3.org/ns/earl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+# Counterexample for the S6 chain rule (R-12): an attestation about criterion
+# cx:b that interprets evidence produced by running a probe which exercises
+# only cx:a. The verdict may be sincere, but it is off the plan: no probe was
+# run for cx:b, so the evidence cannot bear on it. Must fail on
+# ogc:S6-Attestation and nothing else.
+
+cx:person a prov:Agent, prov:Person .
+cx:expert a prov:Agent, prov:Person .
+cx:sut a prov:Agent, prov:SoftwareAgent, earl:TestSubject ; epo:version "v1" .
+cx:checker a prov:Agent, prov:SoftwareAgent ; epo:version "0.27" .
+cx:dso a epo:DsoRelease ; epo:version "r1" ; epo:approvedBy cx:expert ; prov:generatedAtTime "2026-08-01T00:00:00Z"^^xsd:dateTime .
+cx:reqs a epo:RequirementSet ; epo:environment "stated" ; prov:wasAttributedTo cx:person ; prov:generatedAtTime "2026-08-02T00:00:00Z"^^xsd:dateTime .
+cx:R a epo:Requirement ; epo:partOf cx:reqs ; epo:text "r" .
+cx:a a epo:AcceptanceCriterion ; prov:wasDerivedFrom cx:R ; epo:text "criterion a" ; epo:expectedResult "a shown" ; epo:weight 1 ; epo:minPassRate 0.9 .
+cx:b a epo:AcceptanceCriterion ; prov:wasDerivedFrom cx:R ; epo:text "criterion b" ; epo:expectedResult "b shown" ; epo:weight 1 ; epo:minPassRate 0.9 .
+cx:plan a epo:TestPlan ; epo:objective cx:a ; epo:means cx:probe ; prov:wasDerivedFrom cx:reqs ; prov:wasDerivedFrom cx:dso ;
+    prov:wasAttributedTo cx:person ; prov:generatedAtTime "2026-08-03T00:00:00Z"^^xsd:dateTime .
+cx:probe a epo:Probe ; epo:exercises cx:a ; epo:derivedFromDso cx:dso ; prov:generatedAtTime "2026-08-03T00:00:00Z"^^xsd:dateTime .
+cx:check a epo:ConsistencyCheck ; earl:subject cx:probe ; earl:mode earl:automatic ; earl:assertedBy cx:checker ;
+    earl:result [ a earl:TestResult ; earl:outcome earl:passed ] .
+cx:run a epo:ProbeRun ; prov:used cx:probe ; prov:wasAssociatedWith cx:sut ; prov:wasAssociatedWith cx:person ;
+    prov:startedAtTime "2026-08-10T00:00:00Z"^^xsd:dateTime .
+cx:evidence a epo:Evidence ; epo:text "a response" ; prov:wasGeneratedBy cx:run .
+
+cx:attestation a epo:Attestation ;
+    earl:test cx:b ; earl:subject cx:sut ; earl:mode earl:manual ; earl:assertedBy cx:expert ;
+    prov:used cx:evidence ; epo:underPlan cx:probe ;
+    earl:result [ a earl:TestResult ; earl:outcome earl:failed ] ;
+    epo:appropriateness epo:appropriate ; epo:sufficiency epo:sufficient ;
+    epo:step epo:runAndAttest ;
+    prov:endedAtTime "2026-08-11T09:00:00Z"^^xsd:dateTime .

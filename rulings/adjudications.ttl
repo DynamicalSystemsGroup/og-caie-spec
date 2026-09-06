@@ -194,3 +194,65 @@ rul:C-10 a ogc:Concern ;
     ogc:surfacedOn "2026-09-06"^^xsd:date ;
     ogc:surfacedHow "SEVOCAB entry check while building the glossary" ;
     ogc:concernsTerm term:system-under-test .
+
+# ------------------------------------------------ rulings taken 2026-09-06 (sheet 01 walkthrough)
+
+rul:sheet-01-walkthrough-2026-09-06 a prov:Activity ;
+    rdfs:label "row-by-row verification of the pending ISO quotes against Z's screenshots, 2026-09-06" ;
+    prov:wasAssociatedWith rul:Z ;
+    prov:endedAtTime "2026-09-06"^^xsd:date .
+
+rul:C-11 a ogc:Concern ;
+    rdfs:label "technical expert: one kind or several on the evaluation team" ;
+    ogc:problem """ISO 9000:2026 3.12.9 defines technical expert in the audit context as a person who provides specific knowledge or expertise to the audit team. The glossary had bound it only to the DomainExpert part. Who else on the evaluation team is a technical expert, and in what.""" ;
+    ogc:severity "M" ;
+    ogc:status "ruled" ;
+    ogc:surfacedOn "2026-09-06"^^xsd:date ;
+    ogc:surfacedHow "row 6 of rulings sheet 01" ;
+    ogc:concernsTerm term:technical-expert ;
+    prov:wasGeneratedBy rul:sheet-01-walkthrough-2026-09-06 .
+
+rul:R-10 a ogc:Ruling ;
+    ogc:order 10 ;
+    ogc:resolves rul:C-11 ;
+    ogc:rulingText "in our world model we have more than one kind of technical expert. the DomainExpert is a technical expert in the domain-specific-ontology. someone who can attest to the appropriateness of the the Domain Specific Ontology for a particular Case being evaluated (does this system under test, pass these requirements in this operating environment). The redteamer are also technical experts but not in the auditing sense. their expertise is in AI evaluation and they know how to performing tests specified by the EPO conditioned on the domain expert supplied DSO, their job is to assemble and interpret evidence. the DomainExperts may be called to consult on the interpretation of the resulting evidence. in my view both domain experts and AI experts belong on the evaluation team." ;
+    ogc:changeNote "Glossary: technical expert kept as the genus (ISO 9000:2026 3.12.9), narrative rewritten to name the two kinds on the evaluation team and what each is expert in; bound to both DomainExpert and Evaluator. Model: doc comments of DomainExpert and Evaluator state their expertise and the case (system under test, requirement set, operational environment) the appropriateness judgment is about." ;
+    prov:wasAttributedTo rul:Z ;
+    prov:generatedAtTime "2026-09-06"^^xsd:date .
+
+rul:C-12 a ogc:Concern ;
+    rdfs:label "assessing the assessors" ;
+    ogc:problem """Technical experts may in principle have mirrored counterparts who assess the assessment (second-party review, as in the June prototype's audit module). Does this specification model them.""" ;
+    ogc:severity "L" ;
+    ogc:status "ruled" ;
+    ogc:surfacedOn "2026-09-06"^^xsd:date ;
+    ogc:surfacedHow "row 6 of rulings sheet 01" ;
+    prov:wasGeneratedBy rul:sheet-01-walkthrough-2026-09-06 .
+
+rul:R-11 a ogc:Ruling ;
+    ogc:order 11 ;
+    ogc:resolves rul:C-12 ;
+    ogc:rulingText "in principle they may have mirrored counterparts who assess the assessment but for the purpose of this document i don't think we want to get into assessing the assessors. except plausible as a final call to action offering the reader OG-CAIE or an audit of the readers AI eval practice against our OG-CAIE spec." ;
+    ogc:changeNote "No assessor-of-assessors parts or shapes. The front page closes with a call to action: use OG-CAIE, or have an AI evaluation practice audited against this specification." ;
+    prov:wasAttributedTo rul:Z ;
+    prov:generatedAtTime "2026-09-06"^^xsd:date .
+
+rul:C-13 a ogc:Concern ;
+    rdfs:label "the chain from requirement to attestation: is the test plan explicit" ;
+    ogc:problem """The record linked requirement to criterion, probe to criterion, run to probe, evidence to run, and attestation to criterion and evidence. It had no test plan node, no expected result on the criterion, and no binding from the attestation to the probe whose run produced its evidence, so the interpretation was not mechanically tied to the plan that produced what it interpreted.""" ;
+    ogc:severity "H" ;
+    ogc:status "ruled" ;
+    ogc:surfacedOn "2026-09-06"^^xsd:date ;
+    ogc:surfacedHow "row 7 of rulings sheet 01 (requirement), Z's question" ;
+    ogc:concernsTerm term:requirement ;
+    ogc:concernsTerm term:acceptance-criteria ;
+    ogc:concernsTerm term:attestation ;
+    prov:wasGeneratedBy rul:sheet-01-walkthrough-2026-09-06 .
+
+rul:R-12 a ogc:Ruling ;
+    ogc:order 12 ;
+    ogc:resolves rul:C-13 ;
+    ogc:rulingText "in my experience the traceability from the requirement (as hypothesis that may be falsified) and the epistemically valid process that collects and interprets evidence to render the judgement is critical for requirements to be useful concepts. i do not want you to overwrite the definitions i want you to ensure we have a chain of evidence connecting test plans to the evidence they would produce to the implementation of those plans to that produces evidence to the interpretation of that evidence to make a justified attestation that a requirement is or is not met bound to that evidence and the test plan that produced it. this is the level of abstraction at which we are encoding our abstract EPO." ;
+    ogc:changeNote "Added, never overwriting: glossary terms test plan and expected results (SEVOCAB, 29119); seeAlso test execution on test, test result on attestation, test scenario (29119-11) on scenario. EPO: TestPlan (objectives, means), expectedResult on the criterion, underPlan from attestation to probe. Record: the plan, expected results on a1-a3, both attestations bound to probe-1, recommendation derived from the plan. Shapes: S2 criterion requires an expected result; S3-TestPlan; S3 probe must be a plan's means; S6 chain rule (evidence used comes from a run of the bound probe which exercises the attested criterion); S8 recommendation names the plan. Counterexample attestation-off-plan. Model: TestPlan item, expectedResultStated, probeId on the attestation, SCI-04 and SCI-06 extended. Traceback query returns plan, probe and expected result." ;
+    prov:wasAttributedTo rul:Z ;
+    prov:generatedAtTime "2026-09-06"^^xsd:date .

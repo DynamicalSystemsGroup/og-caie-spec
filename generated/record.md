@@ -41,6 +41,7 @@ Covered criteria: 2 of 3; the third criterion is untested and counts for nothing
 | Graph | Conforms | Shapes violated | Message |
 |---|---|---|---|
 | `track/measles-run.ttl` | True | | |
+| `counterexamples/attestation-off-plan.ttl` | False | S6-Attestation | S6 chain rule (R-12): an attestation is bound to the probe whose run produced the evidence it interprets, and that probe exercises the attested criterion. |
 | `counterexamples/attestation-without-evidence.ttl` | False | S6-Attestation | S6 closure rule: an attestation with outcome passed or failed must use at least one piece of evidence; with none it can only say cantTell. |
 | `counterexamples/probe-before-requirements.ttl` | False | S2-RequirementSet | S2: a probe run started, or a probe was generated, before the requirement set was declared. |
-| `counterexamples/recommendation-untraced.ttl` | False | S8-Recommendation | S8: a recommendation must derive from at least one attestation. / S8: a recommendation must name the DSO release it rests on. |
+| `counterexamples/recommendation-untraced.ttl` | False | S8-Recommendation | S8: a recommendation must derive from at least one attestation. / S8: a recommendation must name the DSO release it rests on. / S8: a recommendation must name the test plan its evidence was produced under. |

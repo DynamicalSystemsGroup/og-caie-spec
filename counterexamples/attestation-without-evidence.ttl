@@ -8,7 +8,7 @@
 # behind it. Must fail on ogc:S6-Attestation and nothing else.
 
 cx:R a epo:Requirement ; epo:text "r" .
-cx:a a epo:AcceptanceCriterion ; prov:wasDerivedFrom cx:R ; epo:text "criterion" ; epo:weight 1 ; epo:minPassRate 0.9 .
+cx:a a epo:AcceptanceCriterion ; prov:wasDerivedFrom cx:R ; epo:text "criterion" ; epo:expectedResult "shown" ; epo:weight 1 ; epo:minPassRate 0.9 .
 cx:person a prov:Agent, prov:Person .
 cx:sut a prov:Agent, prov:SoftwareAgent, earl:TestSubject ; epo:version "v1" .
 
