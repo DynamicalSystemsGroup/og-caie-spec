@@ -100,7 +100,7 @@ term:record a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:definition "A document stating results achieved or giving evidence of activities performed. The evaluation record is the record of one evaluation."@en ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.8.12" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-23.png" ;
-                    ogc:quote "document stating results achieved or providing evidence of activities performed" ; ogc:quoteStatus "pending" ] ;
+                    ogc:quote "document stating results achieved or providing evidence of activities performed" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:binding "prov:Bundle" .
 
 term:stakeholder a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -119,7 +119,7 @@ term:performance a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:definition "A measurable result. Here: how the system did on what was exercised, reported as the pass, fail and cannot-tell fractions of the covered criteria. Never merged with coverage."@en ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.7.3" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-17.png" ;
-                    ogc:quote "measurable result" ; ogc:quoteStatus "pending" ] ;
+                    ogc:quote "measurable result" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:binding "epo:Report passRate, failRate, cantTellRate" .
 
 term:technical-expert a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -457,13 +457,15 @@ term:deployment-sensitivity a skos:Concept ; skos:inScheme ogc:Glossary ;
 term:evaluation-record a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "evaluation record"@en ;
     skos:altLabel "record"@en ; skos:altLabel "test log"@en ;
-    skos:definition "The record of one evaluation: the DSO release, the declared requirement set, the probes, the evidence, the attestations, the report and the recommendations, with who did what and when. Coverage and performance are computed over it; conformity to the EPO is checked over it."@en ;
+    skos:definition "The record of one evaluation, bound by the Evaluation Process Ontology: the DSO release, the requirement set, the test plan, the probes, the sessions and their trajectories, the evidence, the attestations, the report and the recommendations, with who did what and when. The EPO determines what must be present for requirements traceability in both directions and for coverage, and makes all three checkable by machine; a conformant record therefore provides both traceability directions and coverage."@en ;
     ogc:class "refined" ;
     ogc:anchorRelation "specializes" ;
     ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.8.12 record" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-23.png" ;
-                    ogc:quote "document stating results achieved or providing evidence of activities performed" ; ogc:quoteStatus "pending" ] ;
+                    ogc:quote "document stating results achieved or providing evidence of activities performed" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "test log, p. 436" ; ogc:pdfPage 436 ;
                   ogc:quote "chronological record of relevant details about the execution of tests" ; ogc:quoteStatus "machine" ] ;
+    ogc:scopeNote "Ruling R-17. Downward: requirement to acceptance criteria to test plan to probes (shapes S2, S3). Upward: attestation to evidence to turn to probe to criterion to requirement (shapes S6, S8; queries/traceback.rq). Coverage: the weighted share of criteria with an attested outcome (shape S7; queries/coverage.rq)." ;
+    prov:wasDerivedFrom rul:R-17 ;
     ogc:binding "track/measles-run.ttl; a prov:Bundle" .
 
 term:operational-envelope a skos:Concept ; skos:inScheme ogc:Glossary ;

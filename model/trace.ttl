@@ -19,7 +19,7 @@ tr:SCI-02 a ogc:Trace ; rdfs:label "SCI-02 RequirementsDeclaredBeforeRuns" ;
     ogc:usesTerm term:operational-envelope, term:operational-environment, term:requirement, term:test ;
     ogc:restsOn src:sevocab, rul:R-02, rul:R-03 .
 tr:SCI-03 a ogc:Trace ; rdfs:label "SCI-03 CriteriaWellFormed" ;
-    ogc:checkedBy ogc:S2-AcceptanceCriterion ; ogc:tag "machine" ;
+    ogc:checkedBy ogc:S2-AcceptanceCriterion, ogc:S2-Requirement ; ogc:tag "machine" ;
     ogc:usesTerm term:acceptance-criteria, term:requirement, term:deployment-sensitivity, term:expected-results ;
     ogc:restsOn src:sevocab, src:incose-gtwr-v4, rul:R-05 .
 tr:SCI-04 a ogc:Trace ; rdfs:label "SCI-04 ProbesDerivedAndChecked" ;

@@ -54,6 +54,19 @@ ogc:S2-RequirementSet a sh:NodeShape ;
             }
         """ ] .
 
+ogc:S2-Requirement a sh:NodeShape ;
+    sh:targetClass epo:Requirement ;
+    sh:property [ sh:path epo:partOf ; sh:minCount 1 ; sh:maxCount 1 ; sh:class epo:RequirementSet ;
+                  sh:message "A requirement belongs to the requirement set." ] ;
+    sh:property [ sh:path epo:text ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ;
+    sh:sparql [
+        sh:message "S2 downward traceability (R-17): a requirement with no acceptance criterion derived from it cannot be covered and is not traceable." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            SELECT $this WHERE { FILTER NOT EXISTS { ?a a epo:AcceptanceCriterion ; prov:wasDerivedFrom $this } }
+        """ ] .
+
 ogc:S2-AcceptanceCriterion a sh:NodeShape ;
     sh:targetClass epo:AcceptanceCriterion ;
     sh:property [ sh:path prov:wasDerivedFrom ; sh:minCount 1 ; sh:class epo:Requirement ;

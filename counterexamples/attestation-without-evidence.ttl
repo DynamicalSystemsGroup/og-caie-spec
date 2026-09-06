@@ -7,7 +7,10 @@
 # Counterexample for S6 (closure rule): a verdict of failed with nothing
 # behind it. Must fail on ogc:S6-Attestation and nothing else.
 
-cx:R a epo:Requirement ; epo:text "r" .
+cx:person0 a prov:Agent, prov:Person .
+cx:sut0 a prov:Agent, prov:SoftwareAgent, earl:TestSubject ; epo:version "v1" .
+cx:reqs a epo:RequirementSet ; epo:environment "stated" ; epo:systemUnderTest cx:sut0 ; prov:wasAttributedTo cx:person0 ; prov:generatedAtTime "2026-08-02T00:00:00Z"^^xsd:dateTime .
+cx:R a epo:Requirement ; epo:partOf cx:reqs ; epo:text "r" .
 cx:a a epo:AcceptanceCriterion ; prov:wasDerivedFrom cx:R ; epo:text "criterion" ; epo:expectedResult "shown" ; epo:weight 1 ; epo:minPassRate 0.9 .
 cx:person a prov:Agent, prov:Person .
 cx:sut a prov:Agent, prov:SoftwareAgent, earl:TestSubject ; epo:version "v1" .

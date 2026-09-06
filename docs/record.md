@@ -3,7 +3,11 @@
 One evaluation record, `track/measles-run.ttl`, in plain Turtle: PROV-O for
 who did what and when, EARL for assertions and their outcomes, and the
 Evaluation Process Ontology's handle classes (`vocabulary/epo.ttl`) for what
-the five steps produce. It is the paper's worked example: a public-health
+the five steps produce. It is a record in the ISO 9000:2026 sense, a
+document stating results achieved or providing evidence of activities
+performed, and the standard's own note on the term (3.8.12, Note 1) says what
+records are for: to formalize traceability and to provide evidence of
+verification. That is the whole job of this file. It is the paper's worked example: a public-health
 chatbot during a measles outbreak, one requirement, three acceptance criteria,
 one probe run by red teaming, one response, two attestations by two named
 domain experts, a report, and a recommendation. The traceback query below is
