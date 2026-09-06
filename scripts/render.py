@@ -124,9 +124,9 @@ def render_record() -> str:
     # traceback
     rows = list(g.query((ROOT / "queries" / "traceback.rq").read_text()))
     out.append("\n### The recommendation, traced back\n")
-    out.append("| Assessment (who) | Criterion | Outcome | Evidence | Experiment (operator, system) | DSO release (approver) | EPO step |\n|---|---|---|---|---|---|---|")
+    out.append("| Assessment (who) | Criterion | Expected result | Outcome | Evidence | Experiment (probe under plan; operator; system) | DSO release (approver) | EPO step |\n|---|---|---|---|---|---|---|---|")
     for r in rows:
-        out.append(f"| `{str(r.attestation).rsplit('#', 1)[-1]}` ({cell(r.assertor)}) | {cell(r.criterion)} | {cell(r.outcome)} | `{str(r.evidence).rsplit('#', 1)[-1]}` | `{str(r.run).rsplit('#', 1)[-1]}` ({cell(r.operator)}; {cell(r.sut)}) | `{str(r.dso).rsplit('#', 1)[-1]}` ({cell(r.dsoApprover)}) | {cell(r.step)} |")
+        out.append(f"| `{str(r.attestation).rsplit('#', 1)[-1]}` ({cell(r.assertor)}) | {cell(r.criterion)} | {cell(r.expected)} | {cell(r.outcome)} | `{str(r.evidence).rsplit('#', 1)[-1]}` | `{str(r.run).rsplit('#', 1)[-1]}` of `{str(r.probe).rsplit('#', 1)[-1]}` under `{str(r.plan).rsplit('#', 1)[-1]}`; {cell(r.operator)}; {cell(r.sut)} | `{str(r.dso).rsplit('#', 1)[-1]}` ({cell(r.dsoApprover)}) | {cell(r.step)} |")
     # conformity and counterexamples
     shapes = Graph().parse(ROOT / "shapes" / "epo.shapes.ttl")
     SH = Namespace("http://www.w3.org/ns/shacl#")
