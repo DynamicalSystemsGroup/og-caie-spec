@@ -406,7 +406,7 @@ class Builder:
              "the step and the kind each item instantiates, one click away in the panel; the vocabulary and the rulings.",
              run_core),
             ("essentials", "Essentials",
-             "the twelve essentials, the shapes that check each (M over the model graph, S over the record), and the terms each is stated in.",
+             "the thirteen essentials, the shapes that check each (M over the model graph, S over the record), and the terms each is stated in.",
              "what each essential rests on, sources and rulings, and the record the S-shapes run over.",
              sci_core | touching(of("sci"), "term")),
             ("crosswalk", "Crosswalk",

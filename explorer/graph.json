@@ -11441,6 +11441,112 @@
     ]
    ]
   },
+  "https://w3id.org/og-caie/rulings#C-44": {
+   "in": [],
+   "out": [
+    [
+     "ogc:problem",
+     {
+      "text": "The knowledge graph explorer names, on every node, the ogc command that prints it. For record items (track/measles-run.ttl) there is none: the record is not among the files ogc loads, so the node points at a DESCRIBE of the item's class. A --record flag on ogc sparql, or a reader of the record, would close this."
+     }
+    ],
+    [
+     "ogc:severity",
+     {
+      "text": "L"
+     }
+    ],
+    [
+     "ogc:status",
+     {
+      "text": "open"
+     }
+    ],
+    [
+     "ogc:surfacedHow",
+     {
+      "text": "building the explorer appendix (R-39)"
+     }
+    ],
+    [
+     "ogc:surfacedOn",
+     {
+      "text": "2026-09-06 (date)"
+     }
+    ],
+    [
+     "prov:wasGeneratedBy",
+     {
+      "text": "rul:model-revision-planning-2026-09-06"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "ogc:Concern"
+     }
+    ],
+    [
+     "rdfs:label",
+     {
+      "text": "ogc has no reader for the record: explorer nodes for record items point at their class, not the item"
+     }
+    ]
+   ]
+  },
+  "https://w3id.org/og-caie/rulings#C-45": {
+   "in": [],
+   "out": [
+    [
+     "ogc:problem",
+     {
+      "text": "counterexamples/model/no-obligation.sysml is built to fail M1-Obligation and does, but its bare testing organization declares no account executive, so M5-Cardinality fires too; the test only asks that the named shape is among those fired. Either the counterexample gains an account executive so that it fails M1-Obligation alone, or the claim is read as sufficiency."
+     }
+    ],
+    [
+     "ogc:severity",
+     {
+      "text": "L"
+     }
+    ],
+    [
+     "ogc:status",
+     {
+      "text": "open"
+     }
+    ],
+    [
+     "ogc:surfacedHow",
+     {
+      "text": "the contracting proof notebook, which prints every shape a counterexample fires"
+     }
+    ],
+    [
+     "ogc:surfacedOn",
+     {
+      "text": "2026-09-06 (date)"
+     }
+    ],
+    [
+     "prov:wasGeneratedBy",
+     {
+      "text": "rul:model-revision-planning-2026-09-06"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "ogc:Concern"
+     }
+    ],
+    [
+     "rdfs:label",
+     {
+      "text": "the model counterexample no-obligation also fires M5-Cardinality"
+     }
+    ]
+   ]
+  },
   "https://w3id.org/og-caie/rulings#R-01": {
    "in": [],
    "out": [
@@ -42507,6 +42613,22 @@
    "page": "../rulings"
   },
   {
+   "cls": "concern",
+   "desc": "ogc has no reader for the record: explorer nodes for record items point at their class, not the item (L, open). The knowledge graph explorer names, on every node, the ogc command that prints it. For record items (track/measles-run.ttl) there is none: the record is not among the files ogc loads, so the node points at a DESCRIBE of the item's class. A --record flag on ogc sparql, or a reader of the record, would close this.",
+   "id": "https://w3id.org/og-caie/rulings#C-44",
+   "label": "C-44",
+   "ogc": "ogc concern C-44",
+   "page": "../rulings"
+  },
+  {
+   "cls": "concern",
+   "desc": "the model counterexample no-obligation also fires M5-Cardinality (L, open). counterexamples/model/no-obligation.sysml is built to fail M1-Obligation and does, but its bare testing organization declares no account executive, so M5-Cardinality fires too; the test only asks that the named shape is among those fired. Either the counterexample gains an account executive so that it fails M1-Obligation alone, or the claim is read as sufficiency.",
+   "id": "https://w3id.org/og-caie/rulings#C-45",
+   "label": "C-45",
+   "ogc": "ogc concern C-45",
+   "page": "../rulings"
+  },
+  {
    "cls": "ruling",
    "desc": "Adopt SEVOCAB test coverage; add the distinction as a note",
    "id": "https://w3id.org/og-caie/rulings#R-01",
@@ -45692,6 +45814,8 @@
     "https://w3id.org/og-caie/rulings#C-41",
     "https://w3id.org/og-caie/rulings#C-42",
     "https://w3id.org/og-caie/rulings#C-43",
+    "https://w3id.org/og-caie/rulings#C-44",
+    "https://w3id.org/og-caie/rulings#C-45",
     "https://w3id.org/og-caie/rulings#R-01",
     "https://w3id.org/og-caie/rulings#R-02",
     "https://w3id.org/og-caie/rulings#R-03",
@@ -46104,7 +46228,7 @@
    ]
   },
   {
-   "focus": "the twelve essentials, the shapes that check each (M over the model graph, S over the record), and the terms each is stated in.",
+   "focus": "the thirteen essentials, the shapes that check each (M over the model graph, S over the record), and the terms each is stated in.",
    "id": "essentials",
    "label": "Essentials",
    "leaves_out": "what each essential rests on, sources and rulings, and the record the S-shapes run over.",
@@ -46559,6 +46683,8 @@
     "https://w3id.org/og-caie/rulings#C-41",
     "https://w3id.org/og-caie/rulings#C-42",
     "https://w3id.org/og-caie/rulings#C-43",
+    "https://w3id.org/og-caie/rulings#C-44",
+    "https://w3id.org/og-caie/rulings#C-45",
     "https://w3id.org/og-caie/rulings#R-01",
     "https://w3id.org/og-caie/rulings#R-02",
     "https://w3id.org/og-caie/rulings#R-03",
