@@ -1,4 +1,4 @@
-# What the record proves
+# Records and reporting
 
 The claim of this specification is an end state: an evaluation that
 follows the wiring leaves a {term}`record` from which {term}`test coverage`

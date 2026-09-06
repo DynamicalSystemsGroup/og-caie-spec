@@ -11885,6 +11885,112 @@
     ]
    ]
   },
+  "https://w3id.org/og-caie/rulings#C-48": {
+   "in": [],
+   "out": [
+    [
+     "ogc:problem",
+     {
+      "text": "Glossary, Contracting, The evaluation, What the record proves: each named a page after its device rather than its subject, so the outline read as a list of parts, not as what a reader would find."
+     }
+    ],
+    [
+     "ogc:severity",
+     {
+      "text": "L"
+     }
+    ],
+    [
+     "ogc:status",
+     {
+      "text": "ruled"
+     }
+    ],
+    [
+     "ogc:surfacedHow",
+     {
+      "text": "Z, reading the outline after Appendix C"
+     }
+    ],
+    [
+     "ogc:surfacedOn",
+     {
+      "text": "2026-09-06 (date)"
+     }
+    ],
+    [
+     "prov:wasGeneratedBy",
+     {
+      "text": "rul:model-revision-planning-2026-09-06"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "ogc:Concern"
+     }
+    ],
+    [
+     "rdfs:label",
+     {
+      "text": "the outline's page names did not tell a skimming reader what the site contains"
+     }
+    ]
+   ]
+  },
+  "https://w3id.org/og-caie/rulings#C-49": {
+   "in": [],
+   "out": [
+    [
+     "ogc:problem",
+     {
+      "text": "The site says it is executable and the gate proves it, but no page tells a reader what the environment is, what is pinned, and how to reproduce the checks; without it the computational paradigm reads as another document."
+     }
+    ],
+    [
+     "ogc:severity",
+     {
+      "text": "M"
+     }
+    ],
+    [
+     "ogc:status",
+     {
+      "text": "ruled"
+     }
+    ],
+    [
+     "ogc:surfacedHow",
+     {
+      "text": "Z, after Appendix C"
+     }
+    ],
+    [
+     "ogc:surfacedOn",
+     {
+      "text": "2026-09-06 (date)"
+     }
+    ],
+    [
+     "prov:wasGeneratedBy",
+     {
+      "text": "rul:model-revision-planning-2026-09-06"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "ogc:Concern"
+     }
+    ],
+    [
+     "rdfs:label",
+     {
+      "text": "the toolchain that makes the specification executable was nowhere reviewed for the reader"
+     }
+    ]
+   ]
+  },
   "https://w3id.org/og-caie/rulings#R-01": {
    "in": [],
    "out": [
@@ -13790,6 +13896,100 @@
      "ogc:rulingText",
      {
       "text": "i think i want ruling moved to an appendix. it is an important concept but the truth is most readers won't care. the rulings are already part of the knowledge graph explorer but i think they fit better as appendix C. since the knowledge graph explorer is allowing navigation of the whole model. the computational proofs demonstrate the guarantees or model can actually prove computationally, this would make appendix C the acknowledgement of the subjective choices, judgements and interpretations that model is grounded in. these subjectivities are implicit in the objective results produced by the computational proofs, and the claim that this is scientific holds with these judgements as auxilliary assumptions. we can frame appendix C as holding ourselves to our own definition of science."
+     }
+    ],
+    [
+     "prov:generatedAtTime",
+     {
+      "text": "2026-09-06 (date)"
+     }
+    ],
+    [
+     "prov:wasAttributedTo",
+     {
+      "text": "rul:Z"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "ogc:Ruling"
+     }
+    ]
+   ]
+  },
+  "https://w3id.org/og-caie/rulings#R-42": {
+   "in": [],
+   "out": [
+    [
+     "ogc:changeNote",
+     {
+      "text": "Page titles renamed as Z lists them, in the site's sentence case; file names and links unchanged. The nested model keeps its name."
+     }
+    ],
+    [
+     "ogc:order",
+     {
+      "text": "42"
+     }
+    ],
+    [
+     "ogc:resolves",
+     {
+      "ref": "https://w3id.org/og-caie/rulings#C-48"
+     }
+    ],
+    [
+     "ogc:rulingText",
+     {
+      "text": "we can also tighten up naming: Glossary -> Standards and Definitions; Contracting -> Stakeholders and Contracting; The evaluation -> Context and Evaluation; what the record proves -> Records and Reporting; Conclusion. i think this gives a reader who skims the outline a much clearer picture of the website contains. the appendices provide the first rung of backup and the repo as a whole provides an even richer backup. so the reader doesn't need to just trust us. they can verify themselves"
+     }
+    ],
+    [
+     "prov:generatedAtTime",
+     {
+      "text": "2026-09-06 (date)"
+     }
+    ],
+    [
+     "prov:wasAttributedTo",
+     {
+      "text": "rul:Z"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "ogc:Ruling"
+     }
+    ]
+   ]
+  },
+  "https://w3id.org/og-caie/rulings#R-43": {
+   "in": [],
+   "out": [
+    [
+     "ogc:changeNote",
+     {
+      "text": "Appendix D, toolchain and reproducibility, after Appendix C: rendered from the lock file, the pinned converter digests, the gate script and the CI workflow, never typed by hand; a reviewer recipe modeled on the SciPy proceedings supplementary material (uv sync, the gate, ogc doctor, the site)."
+     }
+    ],
+    [
+     "ogc:order",
+     {
+      "text": "43"
+     }
+    ],
+    [
+     "ogc:resolves",
+     {
+      "ref": "https://w3id.org/og-caie/rulings#C-49"
+     }
+    ],
+    [
+     "ogc:rulingText",
+     {
+      "text": "and i think we could even add an Appendix D which provides a detailed review of our toolchain from virtual environments to packages we used. \"Appendix D: Toolchain and Reproducibility\" modeled after the portion of the scipy-proceedings suplemental materials that covered the same subject. i am really pushing for the reader to see this is a computational paradigm not just another document."
      }
     ],
     [
@@ -37321,6 +37521,16 @@
    "target": "https://w3id.org/og-caie/rulings#C-47"
   },
   {
+   "rel": "resolves",
+   "source": "https://w3id.org/og-caie/rulings#R-42",
+   "target": "https://w3id.org/og-caie/rulings#C-48"
+  },
+  {
+   "rel": "resolves",
+   "source": "https://w3id.org/og-caie/rulings#R-43",
+   "target": "https://w3id.org/og-caie/rulings#C-49"
+  },
+  {
    "rel": "type",
    "source": "https://w3id.org/og-caie/run/measles#R1",
    "target": "https://w3id.org/og-caie/epo#Requirement"
@@ -44013,6 +44223,22 @@
    "page": "../rulings"
   },
   {
+   "cls": "concern",
+   "desc": "the outline's page names did not tell a skimming reader what the site contains (L, ruled). Glossary, Contracting, The evaluation, What the record proves: each named a page after its device rather than its subject, so the outline read as a list of parts, not as what a reader would find.",
+   "id": "https://w3id.org/og-caie/rulings#C-48",
+   "label": "C-48",
+   "ogc": "ogc concern C-48",
+   "page": "../rulings"
+  },
+  {
+   "cls": "concern",
+   "desc": "the toolchain that makes the specification executable was nowhere reviewed for the reader (M, ruled). The site says it is executable and the gate proves it, but no page tells a reader what the environment is, what is pinned, and how to reproduce the checks; without it the computational paradigm reads as another document.",
+   "id": "https://w3id.org/og-caie/rulings#C-49",
+   "label": "C-49",
+   "ogc": "ogc concern C-49",
+   "page": "../rulings"
+  },
+  {
    "cls": "ruling",
    "desc": "Adopt SEVOCAB test coverage; add the distinction as a note",
    "id": "https://w3id.org/og-caie/rulings#R-01",
@@ -44338,6 +44564,22 @@
    "id": "https://w3id.org/og-caie/rulings#R-41",
    "label": "R-41",
    "ogc": "ogc ruling R-41",
+   "page": "../rulings"
+  },
+  {
+   "cls": "ruling",
+   "desc": "we can also tighten up naming: Glossary -> Standards and Definitions; Contracting -> Stakeholders and Contracting; The evaluation -> Context and Evaluation; what the record proves -> Records and Reporting; Conclusion. i think this gives a reader who skims the outline a much clearer picture of the website contains. the appendices provide the first rung of backup and the repo as a whole provides an even richer backup. so the reader doesn't need to just trust us. they can verify themselves",
+   "id": "https://w3id.org/og-caie/rulings#R-42",
+   "label": "R-42",
+   "ogc": "ogc ruling R-42",
+   "page": "../rulings"
+  },
+  {
+   "cls": "ruling",
+   "desc": "and i think we could even add an Appendix D which provides a detailed review of our toolchain from virtual environments to packages we used. \"Appendix D: Toolchain and Reproducibility\" modeled after the portion of the scipy-proceedings suplemental materials that covered the same subject. i am really pushing for the reader to see this is a computational paradigm not just another document.",
+   "id": "https://w3id.org/og-caie/rulings#R-43",
+   "label": "R-43",
+   "ogc": "ogc ruling R-43",
    "page": "../rulings"
   },
   {
@@ -47308,6 +47550,8 @@
     "https://w3id.org/og-caie/rulings#C-45",
     "https://w3id.org/og-caie/rulings#C-46",
     "https://w3id.org/og-caie/rulings#C-47",
+    "https://w3id.org/og-caie/rulings#C-48",
+    "https://w3id.org/og-caie/rulings#C-49",
     "https://w3id.org/og-caie/rulings#R-01",
     "https://w3id.org/og-caie/rulings#R-02",
     "https://w3id.org/og-caie/rulings#R-03",
@@ -47349,6 +47593,8 @@
     "https://w3id.org/og-caie/rulings#R-39",
     "https://w3id.org/og-caie/rulings#R-40",
     "https://w3id.org/og-caie/rulings#R-41",
+    "https://w3id.org/og-caie/rulings#R-42",
+    "https://w3id.org/og-caie/rulings#R-43",
     "https://w3id.org/og-caie/terms#acceptance-criteria",
     "https://w3id.org/og-caie/terms#account-executive",
     "https://w3id.org/og-caie/terms#appropriateness",
@@ -48206,6 +48452,8 @@
     "https://w3id.org/og-caie/rulings#C-45",
     "https://w3id.org/og-caie/rulings#C-46",
     "https://w3id.org/og-caie/rulings#C-47",
+    "https://w3id.org/og-caie/rulings#C-48",
+    "https://w3id.org/og-caie/rulings#C-49",
     "https://w3id.org/og-caie/rulings#R-01",
     "https://w3id.org/og-caie/rulings#R-02",
     "https://w3id.org/og-caie/rulings#R-03",
@@ -48247,6 +48495,8 @@
     "https://w3id.org/og-caie/rulings#R-39",
     "https://w3id.org/og-caie/rulings#R-40",
     "https://w3id.org/og-caie/rulings#R-41",
+    "https://w3id.org/og-caie/rulings#R-42",
+    "https://w3id.org/og-caie/rulings#R-43",
     "https://w3id.org/og-caie/run/measles#R1",
     "https://w3id.org/og-caie/run/measles#a1",
     "https://w3id.org/og-caie/run/measles#a2",

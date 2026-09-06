@@ -19,7 +19,7 @@ deployed AI system against the needs of a specific domain, written down as:
 ## Status (2026-09-06)
 
 - **Glossary: ratified.** 62 terms, 4 coined (DSO, EPO, CAIE, OG-CAIE),
-  settled through 41 rulings (R-01 to R-41) recorded verbatim in
+  settled through 43 rulings (R-01 to R-43) recorded verbatim in
   `rulings/adjudications.ttl`. 76 quotes are machine-located in
   content-hashed snapshots, 34 verified by Z against the ISO screenshots or
   the browsing platforms, 13 transcribed and awaiting Z's tick on rulings
@@ -39,8 +39,9 @@ deployed AI system against the needs of a specific domain, written down as:
   three appendices.** The
   front page runs from why this counts as science to the bridge into the
   engineering standards; the vocabulary page shows exactly the terms the
-  site uses, with hover definitions; four chapters (Contracting, The
-  evaluation, The nested model, What the record proves) each pair the
+  site uses, with hover definitions; four chapters (Stakeholders and
+  contracting, Context and evaluation, The nested model, Records and
+  reporting) each pair the
   specification with the measles walkthrough in five fixed blocks and close
   with the separation principle; the conclusion reads the crosswalk
   backwards. Figures are views from a registry (`ogc/views.py`), each
@@ -63,7 +64,7 @@ deployed AI system against the needs of a specific domain, written down as:
   `ogc/executor.py` walks the process as the model states it and emits a
   record; the run conforms to S0 to S9, is complete against the model, has
   a recomputable coverage and traces fully, and eight mutations are each
-  caught by a named check (`ogc execute`, chapter What the record proves).
+  caught by a named check (`ogc execute`, chapter Records and reporting).
   Two findings are open as concern C-43: a record without a plan approval
   or an access grant conforms to the shapes and is caught only by
   completeness or the traceback. Z's block-by-block and wire-by-wire

@@ -1,4 +1,4 @@
-# Glossary
+# Standards and definitions
 
 The front page ends at the bridge from a plain account of science to the
 engineering standards for evaluation. This chapter gives the terms on the
@@ -14,12 +14,13 @@ each chapter claims, and C records the judgments the model is grounded in,
 as [Rulings](rulings.md). The
 [front page](../index.md) sets the bar for science in plain terms and
 crosses the bridge into the standards; this page gives the terms and the
-two cycles; [Contracting](contracting.md) is the outer cycle, from need to
-acceptance; [The evaluation](evaluation.md) is the inner cycle, scope to
-report; [The nested model](model.md) shows why the two are one model;
-[What the record proves](guarantees.md) runs the checks; the
-[Conclusion](conclusion.md) returns to the front page's terms. Each chapter
-from Contracting on keeps one rhythm: what the standards say, the
+two cycles; [Stakeholders and contracting](contracting.md) is the outer cycle, from
+need to acceptance; [Context and evaluation](evaluation.md) is the inner
+cycle, scope to report; [The nested model](model.md) shows why the two are
+one model; [Records and reporting](guarantees.md) runs the checks and
+shows what the record proves; the [Conclusion](conclusion.md) returns to
+the front page's terms. Each chapter from the contracting on keeps one
+rhythm: what the standards say, the
 specification, the walkthrough, what was checked, and there is more in the
 model.
 

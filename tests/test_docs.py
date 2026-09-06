@@ -85,7 +85,10 @@ def test_term_roles_resolve_and_key_terms_match():
 
 
 def test_word_budget():
-    words = sum(len(p.read_text().split()) for p in PROSE if p.name != "README.md")
+    """The budget guards the main path, calibrated for a human reader (R-34);
+    the appendices are backup a reader may skip and are not counted."""
+    main_path = [p for p in PROSE if p.name != "README.md" and p.name != "rulings.md" and not p.name.startswith("appendix-")]
+    words = sum(len(p.read_text().split()) for p in main_path)
     assert words < WORD_BUDGET, words
 
 

@@ -1,4 +1,4 @@
-# The evaluation
+# Context and evaluation
 
 Between access and delivery, the contract's `fulfil` step is the whole
 evaluation. This chapter opens that black box: the six steps of the

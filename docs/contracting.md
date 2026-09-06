@@ -1,4 +1,4 @@
-# Contracting
+# Stakeholders and contracting
 
 An evaluation is work done under a contract. Before any test runs, a
 {term}`customer` has stated a need, a {term}`provider` has answered it, the
