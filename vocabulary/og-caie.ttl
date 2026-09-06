@@ -563,7 +563,7 @@ term:organization a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:definition "A person or group of people with its own functions, responsibilities and authorities. Three organizations are parties to every OG-CAIE evaluation: the sponsor organization that commissions it, the testing organization that performs it, and the organization accountable for the test item. Any two of them may be the same organization, and the record says whether they are."@en ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.1.1" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-01.png" ;
-                    ogc:quote "person or group of people that has its own functions with responsibilities, authorities and relationships to achieve its objectives" ; ogc:quoteStatus "pending" ] ;
+                    ogc:quote "person or group of people that has its own functions with responsibilities, authorities and relationships to achieve its objectives" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     prov:wasDerivedFrom rul:R-21 ;
     ogc:binding "sysml part def Organization; prov:Organization" .
 
@@ -573,7 +573,7 @@ term:customer a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:definition "The organization that receives the evaluation as a service: the sponsor. It agrees the requirement set with the testing organization under a contract, and receives the report and the recommendation. It may or may not be the organization accountable for the test item."@en ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.9.1" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-24.png" ;
-                    ogc:quote "person or organization that can or does receive a product or a service that is intended for or required by this person or organization" ; ogc:quoteStatus "pending" ] ;
+                    ogc:quote "person or organization that can or does receive a product or a service that is intended for or required by this person or organization" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:scopeNote "Ruling R-21: the sponsor organization. When the sponsor is not the accountable organization, its position is that of a second party in ISO/IEC 17000's sense (it has a user interest in the test item)." ;
     prov:wasDerivedFrom rul:R-21 ;
     ogc:binding "sysml part def SponsorOrganization; epo:sponsorRole on the service agreement, the report and the recommendation" .
@@ -584,7 +584,7 @@ term:provider a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:definition "The organization that provides the evaluation as a service: the testing organization. Its account executive signs the contract, its evaluation team does the work, and its machines keep the record. Independent of the accountable organization, its activity is second-party when a sponsor with a user interest commissions it (ISO/IEC 17000 4.4, Note 2) and third-party when no interested party does."@en ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.1.9" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-03.png" ;
-                    ogc:quote "organization that provides a product or a service" ; ogc:quoteStatus "pending" ] ;
+                    ogc:quote "organization that provides a product or a service" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:scopeNote "Ruling R-21: the testing organization. ISO 9000:2026 3.1.9 Note 2 says a provider in a contractual situation is sometimes called a contractor, hence the altLabel." ;
     prov:wasDerivedFrom rul:R-21 ;
     ogc:binding "sysml part def TestingOrganization; epo:testingOrganizationRole on the service agreement" .
@@ -595,7 +595,7 @@ term:first-party-conformity-assessment-activity a skos:Concept ; skos:inScheme o
     skos:definition "Evaluation performed by the organization that provides or is accountable for the test item. In OG-CAIE the accountable organization is a party to every evaluation, since it grants access to the test item, but it does not perform the evaluation unless it is also the sponsor and the testing organization, and the record says so."@en ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "4.3 first-party conformity assessment activity" ;
-                    ogc:quote "conformity assessment activity that is performed by the person or organization that provides or that is the object of conformity assessment" ; ogc:quoteStatus "pending" ] ;
+                    ogc:quote "conformity assessment activity that is performed by the person or organization that provides or that is the object of conformity assessment" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:scopeNote "Ruling R-21: the organization accountable for the test item. ISO/IEC 17000 4.3 Note 1: the first-, second- and third-party descriptors are not the legal identification of the parties to a contract; the contract here is between the sponsor and the testing organization. Concern C-25 asks whether the three party terms stay three adopted headwords." ;
     prov:wasDerivedFrom rul:R-21 ;
     ogc:binding "sysml part def AccountableOrganization; epo:accountableOrganizationRole on the test-item access" .
@@ -606,7 +606,7 @@ term:second-party-conformity-assessment-activity a skos:Concept ; skos:inScheme 
     skos:definition "Evaluation performed by, or on behalf of, an organization with a user interest in the test item: a purchaser, a regulator, a deploying agency. A sponsor that is not the accountable organization commissions the evaluation in this position."@en ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "4.4 second-party conformity assessment activity" ;
-                    ogc:quote "conformity assessment activity that is performed by a person or organization that has a user interest in the object of conformity assessment" ; ogc:quoteStatus "pending" ] ;
+                    ogc:quote "conformity assessment activity that is performed by a person or organization that has a user interest in the object of conformity assessment" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     prov:wasDerivedFrom rul:R-21 ;
     ogc:binding "epo:sponsorRole when the sponsor is not the accountable organization (record fact, S0)" .
 
@@ -616,7 +616,7 @@ term:third-party-conformity-assessment-activity a skos:Concept ; skos:inScheme o
     skos:definition "Evaluation performed by an organization independent of the provider of the test item and with no user interest in it, and not on behalf of anyone who has one. Independence of the testing organization from the accountable organization is what makes an OG-CAIE result independent; the record states it as a fact about the parties rather than assuming it, and states separately whether the sponsor has a user interest."@en ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "4.5 third-party conformity assessment activity" ;
-                    ogc:quote "conformity assessment activity that is performed by a person or organization that is independent of the provider of the object of conformity assessment and has no user interest in the object" ; ogc:quoteStatus "pending" ] ;
+                    ogc:quote "conformity assessment activity that is performed by a person or organization that is independent of the provider of the object of conformity assessment and has no user interest in the object" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     prov:wasDerivedFrom rul:R-21 ;
     ogc:binding "epo:independentOfAccountable on the testing organization (record fact, S0)" .
 
@@ -640,7 +640,7 @@ term:evaluation-team a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "evaluator, p. 157 (ISO/IEC 25000:2014, 4.18)" ; ogc:pdfPage 157 ;
                     ogc:quote "individual or organization that performs an evaluation" ; ogc:quoteStatus "machine" ] ;
     ogc:seeAlso [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.12.7" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-34.png" ;
-                  ogc:quote "one or more persons conducting an audit, supported if needed by technical experts" ; ogc:quoteStatus "pending" ] ;
+                  ogc:quote "one or more persons conducting an audit, supported if needed by technical experts" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "assessment team, p. 30 (ISO/IEC 33001:2015, 3.2.10)" ; ogc:pdfPage 30 ;
                   ogc:quote "one or more individuals who jointly perform a process assessment" ; ogc:quoteStatus "machine" ] ;
     ogc:scopeNote "Ruling R-28 (concern C-31): anchored to the SQuaRE evaluator, the same family as the adopted term evaluation (ISO/IEC 25001), with ISO 9000:2026 audit team and SEVOCAB assessment team as the two neighbours. ISO 9000:2026 3.12.1 defines an audit as a systematic and independent process for obtaining evidence and evaluating it objectively, with no legal bearing; the connotation is the reader's, and it is avoided. Rulings R-10 and R-21: the technical experts are members, not support." ;
@@ -666,7 +666,7 @@ term:account-executive a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:class "refined" ;
     ogc:anchorRelation "specializes" ;
     ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.1.3" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-01.png" ;
-                    ogc:quote "person or group of people who directs and controls an organization at the highest level" ; ogc:quoteStatus "pending" ] ;
+                    ogc:quote "person or group of people who directs and controls an organization at the highest level" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:scopeNote "Ruling R-23. Concern C-26: the anchor is provisional; the account executive is the person top management authorizes to sign for the organization." ;
     prov:wasDerivedFrom rul:R-23 ;
     ogc:binding "sysml part def AccountExecutive; epo:accountExecutiveRole on the service agreement and the report" .
