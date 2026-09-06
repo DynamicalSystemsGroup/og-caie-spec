@@ -28,4 +28,4 @@ When ticked, the citation's `ogc:quoteStatus` becomes `human` with `ogc:verified
 ## Open concern
 
 **C-10** system under test: SEVOCAB's only SUT entry is "parts of the CBSS to be tested" (ISO/IEC 14756:1999). 
-Options: (a) keep SUT as prefLabel with that quote (current); (b) make *test item* ("work product to be tested", ISO/IEC/IEEE 29119-2:2021) canonical with SUT as altLabel; (c) make *system-of-interest* canonical. Recommendation: (b).
+Options: (a) keep SUT as prefLabel with that quote (current); (b) make *test item* ("work product to be tested", ISO/IEC/IEEE 29119-2:2021) canonical with SUT as altLabel; (c) make *system-of-interest* canonical. Recommendation: (b). **Ruled R-19 (2026-09-06): (b) accepted.**

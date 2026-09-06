@@ -193,18 +193,26 @@ term:test-case a skos:Concept ; skos:inScheme ogc:Glossary ;
                     ogc:quote "set of test inputs, execution conditions, and expected results developed for a particular objective, such as to exercise a particular program path or to verify compliance with a specific requirement" ; ogc:quoteStatus "machine" ] ;
     ogc:binding "epo:Probe" .
 
-term:system-under-test a skos:Concept ; skos:inScheme ogc:Glossary ;
-    skos:prefLabel "system under test"@en ;
-    skos:altLabel "SUT"@en ; skos:altLabel "system of interest"@en ; skos:altLabel "application"@en ;
-    skos:definition "The deployed AI system being evaluated, taken as a black box: only what it is given and what it produces are recorded."@en ;
+term:test-item a skos:Concept ; skos:inScheme ogc:Glossary ;
+    skos:prefLabel "test item"@en ;
+    skos:altLabel "system under test"@en ; skos:altLabel "SUT"@en ; skos:altLabel "test object"@en ; skos:altLabel "application"@en ; skos:altLabel "system of interest"@en ;
+    skos:definition "The deployed AI system being evaluated, taken as a black box: only what it is given and what it produces are recorded. The prose calls it the system under test; the standard headword is test item."@en ;
     ogc:class "adopted" ;
-    ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "system under test (SUT), p. 423" ; ogc:pdfPage 423 ;
-                    ogc:quote "parts of the CBSS to be tested" ; ogc:quoteStatus "machine" ] ;
-    ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "test item, p. 435" ; ogc:pdfPage 435 ;
-                  ogc:quote "work product to be tested" ; ogc:quoteStatus "machine" ] ;
+    ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "test item, p. 435 (ISO/IEC/IEEE 29119-2:2021)" ; ogc:pdfPage 435 ;
+                    ogc:quote "work product to be tested" ; ogc:quoteStatus "machine" ] ;
+    ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "system-of-interest (SOI), p. 423 (ISO/IEC/IEEE 15288:2023)" ; ogc:pdfPage 423 ;
+                  ogc:quote "system whose life cycle is under consideration" ; ogc:quoteStatus "machine" ] ;
     ogc:seeAlso [ ogc:cites src:nist-ai-700-2 ; ogc:locator "Appendix A, Application, p. 16" ; ogc:pdfPage 23 ;
                   ogc:quote "A generative artificial intelligence-based system to which NIST is given API access to test." ; ogc:quoteStatus "machine" ] ;
-    ogc:binding "sysml part def SystemUnderTest; earl:TestSubject and prov:SoftwareAgent" .
+    ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "system under test (SUT), p. 423 (ISO/IEC 14756:1999)" ; ogc:pdfPage 423 ;
+                  ogc:quote "parts of the CBSS to be tested" ; ogc:quoteStatus "machine" ] ;
+    ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "artificial intelligence-based system, p. 28 (ISO/IEC TR 29119-11:2020)" ; ogc:pdfPage 28 ;
+                  ogc:quote "system including one or more components implementing artificial intelligence" ; ogc:quoteStatus "machine" ] ;
+    ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "4.2 object of conformity assessment" ;
+                  ogc:quote "entity to which specified requirements apply" ; ogc:quoteStatus "pending" ] ;
+    ogc:scopeNote "Ruling R-19: the only standard definition of the phrase system under test is a 1999 performance-measurement one (ISO/IEC 14756), so the headword is test item (29119-2), from the same family as test case, test plan and test strategy; the systems-engineering reading is system-of-interest (15288) and the AI-evaluation reading is NIST's application. The phrase system under test stays in prose and in the model as the alternative label." ;
+    prov:wasDerivedFrom rul:R-19 ;
+    ogc:binding "sysml part def SystemUnderTest; earl:TestSubject and prov:SoftwareAgent; epo:systemUnderTest on the requirement set" .
 
 term:operational-environment a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "operational environment"@en ;

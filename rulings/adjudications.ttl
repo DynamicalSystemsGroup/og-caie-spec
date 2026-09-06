@@ -190,10 +190,10 @@ rul:C-10 a ogc:Concern ;
     rdfs:label "system under test: weak canonical entry" ;
     ogc:problem """SEVOCAB's only entry for "system under test (SUT)" reads "parts of the CBSS to be tested" (ISO/IEC 14756:1999, a performance-measurement standard). The cleaner entries are "test item: work product to be tested" (ISO/IEC/IEEE 29119-2:2021) and "system-of-interest: system whose life cycle is under consideration" (ISO/IEC/IEEE 12207:2026). The paper says "system under test" throughout. Options: keep SUT as prefLabel with the weak quote (current), or make "test item" canonical with SUT as altLabel.""" ;
     ogc:severity "L" ;
-    ogc:status "open" ;
+    ogc:status "ruled" ;
     ogc:surfacedOn "2026-09-06"^^xsd:date ;
     ogc:surfacedHow "SEVOCAB entry check while building the glossary" ;
-    ogc:concernsTerm term:system-under-test .
+    ogc:concernsTerm term:test-item .
 
 # ------------------------------------------------ rulings taken 2026-09-06 (sheet 01 walkthrough)
 
@@ -366,5 +366,13 @@ rul:R-18 a ogc:Ruling ;
     ogc:resolves rul:C-19 ;
     ogc:rulingText "evidence can exist at the probe level but it can also exist at a session level, and it can also be rolled up to a multi-session scenario which might be from a sensitivity test or robustness battery. so its not necessarily bound to a probe (though it could be) rather evidence needs to be related to the test plan and in particular it maps to an expected result. the expected result being something that can be ruled on directly as a bool. did it or did it not happen." ;
     ogc:changeNote "EPO: Response (what the system produced at a turn) separated from Evidence; Evidence answers exactly one acceptance criterion's expected result with a Boolean observed value (a determination, ISO 9000:2026 3.11.1), derives from one or more responses or trajectories, is attributed to whoever determined it, and is bound to the test plan; TestSuite (SEVOCAB, altLabel battery) groups sessions for the multi-session level. Attestation binds to evidence; the chain rule now requires every evidence an attestation uses to answer the attested criterion under a plan that has it as an objective. Record: response-1, evidence-1a (a1, observed false), evidence-1b (a2, observed false). Shapes S5-Response, S5-Evidence, S4-TestSuite; S6 chain rule rewritten. Glossary: test suite added; objective evidence narrative rewritten. Model: Response and two Evidence items, level enum, SCI-05 and SCI-06 rewritten." ;
+    prov:wasAttributedTo rul:Z ;
+    prov:generatedAtTime "2026-09-06"^^xsd:date .
+
+rul:R-19 a ogc:Ruling ;
+    ogc:order 19 ;
+    ogc:resolves rul:C-10 ;
+    ogc:rulingText "i accept your recommendation" ;
+    ogc:changeNote "The recommendation accepted: headword test item (SEVOCAB, ISO/IEC/IEEE 29119-2:2021, work product to be tested) with system under test, SUT, test object, application and system of interest as alternative labels; seeAlso system-of-interest (15288), NIST AI 700-2 application, AI-based system (29119-11), object of conformity assessment (ISO/IEC 17000 4.2), and the 14756 system under test entry kept visible as the only standard definition of the phrase. Prose and the model keep saying system under test." ;
     prov:wasAttributedTo rul:Z ;
     prov:generatedAtTime "2026-09-06"^^xsd:date .

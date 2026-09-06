@@ -30,7 +30,7 @@ tr:SCI-04 a ogc:Trace ; rdfs:label "SCI-04 ProbesDerivedAndChecked" ;
 tr:SCI-05 a ogc:Trace ; rdfs:label "SCI-05 EvidenceFromNamedRuns" ;
     ogc:tag "machine" ;
     ogc:checkedBy ogc:S4-Session, ogc:S4-Turn, ogc:S4-TestSuite, ogc:S5-Evidence, ogc:S5-Response ;
-    ogc:usesTerm term:objective-evidence, term:test, term:system-under-test, term:red-teaming, term:session, term:dialogue, term:trajectory, term:non-deterministic-system, term:test-suite, term:expected-results ;
+    ogc:usesTerm term:objective-evidence, term:test, term:test-item, term:red-teaming, term:session, term:dialogue, term:trajectory, term:non-deterministic-system, term:test-suite, term:expected-results ;
     ogc:restsOn src:iso-9000-2026, src:nist-ai-700-2, src:w3c-prov-o, src:iec-60050-351, rul:R-13 .
 tr:SCI-06 a ogc:Trace ; rdfs:label "SCI-06 AttestationsWellFormed" ;
     ogc:checkedBy ogc:S6-Attestation ; ogc:tag "machine for form; human for the judgment" ;

@@ -9,6 +9,7 @@ definition is reproduced under the vocabulary's own terms:
 | Entry | p. | Verbatim (sense 1) | Cited standard |
 |---|---|---|---|
 | acceptance criteria | 4 | criteria that a system or component is required to satisfy to be accepted by a user, customer, or other authorized entity | ISO/IEC 33202:2024, 3.1 |
+| artificial intelligence-based system | 28 | system including one or more components implementing artificial intelligence | ISO/IEC TR 29119-11:2020, 3.1.9 |
 | conformance | 88 | fulfillment by a product, process or service of specified requirements | |
 | expected results | 160 | observable predicted behavior of the test item under specified conditions based on its specification or another source | ISO/IEC/IEEE 29119-4:2021, 3.32 |
 | exploratory testing | 161 | type of unscripted experience-based testing in which the tester spontaneously designs and executes tests based on the tester's existing relevant knowledge, prior exploration of the test item (including the results of previous tests), and heuristic "rules of thumb" regarding common software behaviors and types of failure | ISO/IEC/IEEE 29119-2:2021, 4.9 |
