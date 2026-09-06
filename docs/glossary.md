@@ -8,10 +8,11 @@ exhaustive. It lists exactly the terms this site uses. The full register of
 
 ## The map of the site
 
-Seven pages, each a view of the model in the repository, and three
+Seven pages, each a view of the model in the repository, and four
 appendices: A opens the same model as a knowledge graph, B runs the checks
-each chapter claims, and C records the judgments the model is grounded in,
-as [Rulings](rulings.md). The
+each chapter claims, C records the judgments the model is grounded in,
+as [Rulings](rulings.md), and
+[D](appendix-toolchain.md) reviews the toolchain and how to reproduce every check. The
 [front page](../index.md) sets the bar for science in plain terms and
 crosses the bridge into the standards; this page gives the terms and the
 two cycles; [Contracting](contracting.md) is the outer cycle, from need to

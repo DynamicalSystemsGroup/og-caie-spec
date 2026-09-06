@@ -140,9 +140,9 @@ def test_notebooks_are_the_last_toc_section_off_the_main_path():
     blocks = [e for e in toc if e.get("title") == "Appendix B: computational proofs"]
     assert len(blocks) == 1, toc
     last = blocks[0]
-    # off the main path: after the conclusion and Appendix A; only Appendix C (the rulings) follows
+    # off the main path: after the conclusion and Appendix A; only Appendix C (the rulings) and Appendix D (the toolchain) follow
     assert toc.index(last) > files.index("docs/appendix-explorer.md") > files.index("docs/conclusion.md")
-    assert [e.get("file") for e in toc[toc.index(last) + 1:]] == ["docs/rulings.md"]
+    assert [e.get("file") for e in toc[toc.index(last) + 1:]] == ["docs/rulings.md", "docs/appendix-toolchain.md"]
     listed = {ROOT / e["file"] for e in last["children"]}
     assert listed == set(NOTEBOOKS)
     for entry in toc[:-1]:
