@@ -64,8 +64,11 @@ plan, administers the probes, collects the evidence, and drafts the report.
 The account executive does neither.
 
 The model wires the parties, the seven-step process and the three actor
-categories; the record that exercises it is being rebuilt to match (rulings
-R-21 and R-23).
+categories, and the record exercises it (rulings R-21 to R-27). It is a
+draft: the blocks and wires have not yet been validated one by one by the
+authors, and the computational demonstration that the process guarantees a
+complete record with full traceability and coverage is still to come
+(concern C-30).
 
 ```{include} ../generated/sci.md
 ```

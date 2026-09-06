@@ -24,13 +24,22 @@ deployed AI system against the needs of a specific domain, written down as:
   snapshots, 23 verified by Z; eight quotes for the party terms added on
   2026-09-06 are on rulings sheet 03 awaiting Z's tick. Concerns C-25 and
   C-26 are open.
-- **Model: revised (R-21 to R-27).** SysML holds structure only; the pruned
-  RDF rendering `model/og-caie.model.ttl` is the canonical structure (R-22),
-  checked by wiring shapes M1 to M5 over kinds of parts and ports: four
-  parties, three actor categories within the testing organization, the
+- **Model: revised (R-21 to R-27), draft.** SysML holds structure only; the
+  pruned RDF rendering `model/og-caie.model.ttl` is the canonical structure
+  (R-22), checked by wiring shapes M1 to M5 over kinds of parts and ports:
+  four parties, three actor categories within the testing organization, the
   seven-step EPO as a process DAG, 47 ports and 27 seams, every input wired
   once and every output somewhere. Three model counterexamples fail their
   shape. The essentials SCI-01 to SCI-12 live in `model/trace.ttl`.
+- **Not yet done, in Z's words (2026-09-06):** "i still need to work through
+  the model step by step and validate all the individual blocks and wires.
+  and need to make sure we get a computational demonstration of our epo
+  guaranteeing a complete record with full traceability and coverage. that
+  is still work to come." The wiring shapes check that the structure is well
+  formed; they do not yet demonstrate that any run of the process must yield
+  a record that conforms to S0 to S8. That demonstration, and Z's
+  block-by-block and wire-by-wire validation, are the next tasks (concern
+  C-30).
 - **Record and shapes: current.** The measles record names the parties, the
   agreement, the access, the stakeholder input, the appropriateness
   assessment, the plan approval and the delivery; shapes S0 to S8 and nine

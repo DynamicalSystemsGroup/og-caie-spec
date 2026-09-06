@@ -108,6 +108,12 @@ sources and rulings borrowed from `mission-twin-glossary`.
 - Adding a `sysml:` term to the graph means adding a row to the term map
   with a rationale; a bigger graph means bumping the budget with one.
 
+## Next (C-30, open)
+
+- Z validates the model block by block and wire by wire; then a
+  computational demonstration that the EPO guarantees a complete record
+  with full traceability and coverage (every run conforms to S0..S8).
+
 ## Toolchain
 
 - OpenSysML v0.4.3 pinned by digest (`toolchain/`). `-validate -strict`;

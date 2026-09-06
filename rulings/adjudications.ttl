@@ -558,3 +558,12 @@ rul:R-27 a ogc:Ruling ;
     ogc:changeNote "Z captured the OBP page for clauses 3.3.9 to 3.3.13 (screenshot 38, hash in sources/sources.ttl): the 2026 wording of contract is the 2015 wording, binding agreement. The quote is verified by Z on 2026-09-06; sheet 03 row 7 ticked." ;
     prov:wasAttributedTo rul:Z ;
     prov:generatedAtTime "2026-09-06"^^xsd:date .
+
+rul:C-30 a ogc:Concern ;
+    rdfs:label "the revised model is a draft: block-by-block validation and the end-state demonstration are still to come" ;
+    ogc:problem """Z, on tagging v0.2.0: "i still need to work through the model step by step and validate all the individual blocks and wires. and need to make sure we get a computational demonstration of our epo guaranteeing a complete record with full traceability and coverage. that is still work to come." The M-shapes check that the wiring is well formed; nothing yet shows that every run of the process must yield a record conforming to S0 to S8.""" ;
+    ogc:severity "H" ;
+    ogc:status "open" ;
+    ogc:surfacedOn "2026-09-06"^^xsd:date ;
+    ogc:surfacedHow "Z, on moving the v0.2.0 tag" ;
+    prov:wasGeneratedBy rul:model-revision-planning-2026-09-06 .
