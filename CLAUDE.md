@@ -101,6 +101,10 @@ sources and rulings borrowed from `mission-twin-glossary`.
 - Input wires are unique, output wires may be shared because what flows
   is information whose use is nondestructive (R-25): one output port per
   item kind per actor, fanned out to its readers.
+- Wiring rules are defined over kinds of parts and kinds of ports and are
+  checked locally (R-26): at the part (inputs present, outputs go
+  somewhere) and at the wire (output port on a part to input port on a
+  part). The EPO is a process DAG; loops only by ruling.
 - Adding a `sysml:` term to the graph means adding a row to the term map
   with a rationale; a bigger graph means bumping the budget with one.
 

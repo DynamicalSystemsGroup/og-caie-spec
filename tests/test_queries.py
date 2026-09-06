@@ -34,6 +34,8 @@ def test_traceback_returns_the_five_facets():
         assert r.probe and r.plan and r.expected
         assert int(r.turnIndex) == 1
         assert str(r.determined) == "failed" and r.determiner
-    assert {str(r.assertor) for r in rows} == {
-        "Dr. A, epidemiologist (domain expert)", "B, community public-health educator (domain expert)"}
-    assert str(rows[0].step).startswith("5 report")
+        assert r.agreement and r.sponsor and r.testingOrg and r.accountable and r.delivery and r.deliverer
+    assert {str(r.assertor) for r in rows} == {"Annie (domain expert)"}
+    assert {str(r.determiner) for r in rows} == {"Annie (domain expert)", "Theo (evaluation operator)"}
+    assert {str(r.deliverer) for r in rows} == {"Mala (account executive)"}
+    assert str(rows[0].step).startswith("7 report")

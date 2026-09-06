@@ -172,6 +172,19 @@ def render_wiring() -> str:
             + mermaid("\n".join(lines)))
 
 
+def render_wiring_table() -> str:
+    g = graph()
+    rows = list(g.query((ROOT / "queries" / "wiring.rq").read_text()))
+    lines = ["## Every wire, explained locally\n",
+             "For each kind of part, each port: its direction, the item kind it carries, and the wire to the part and port at the other end "
+             "(`queries/wiring.rq` over the model graph, ruling R-26). An input has one row; an output has one row per reader.\n",
+             "| Part | Port | Direction | Carries | Wire | Other end |", "|---|---|---|---|---|---|"]
+    for r in rows:
+        arrow = "from" if str(r.direction) == "in" else "to"
+        lines.append(f"| {r.part} | {r.port} | {r.direction} | {r.carries} | {r.wire} | {arrow} {r.otherPart}.{r.otherPort} |")
+    return "\n".join(lines) + "\n"
+
+
 def trace_graph() -> Graph:
     g = Graph()
     for f in ("model/trace.ttl", "vocabulary/og-caie.ttl", "sources/sources.ttl", "rulings/adjudications.ttl"):
@@ -234,6 +247,7 @@ def main() -> int:
     OUT.mkdir(exist_ok=True)
     (OUT / "layers.md").write_text(render_layers())
     (OUT / "wiring.md").write_text(render_wiring())
+    (OUT / "wiring-table.md").write_text(render_wiring_table())
     (OUT / "sci.md").write_text(render_sci())
     (OUT / "receipts.md").write_text(render_receipts())
     (OUT / "trace.md").write_text(render_trace())

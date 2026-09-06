@@ -223,7 +223,7 @@ term:test-item a skos:Concept ; skos:inScheme ogc:Glossary ;
                   ogc:quote "entity to which specified requirements apply" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:scopeNote "Ruling R-19: the only standard definition of the phrase system under test is a 1999 performance-measurement one (ISO/IEC 14756), so the headword is test item (29119-2), from the same family as test case, test plan and test strategy; the systems-engineering reading is system-of-interest (15288) and the AI-evaluation reading is NIST's application. The phrase system under test stays in prose and in the model as the alternative label." ;
     prov:wasDerivedFrom rul:R-19 ;
-    ogc:binding "sysml part def SystemUnderTest; earl:TestSubject and prov:SoftwareAgent; epo:systemUnderTest on the requirement set" .
+    ogc:binding "sysml part def TestItem; earl:TestSubject and prov:SoftwareAgent; epo:systemUnderTest on the requirement set" .
 
 term:operational-environment a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "operational environment"@en ;
@@ -393,7 +393,7 @@ term:red-teaming a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:nist-ai-700-2 ; ogc:locator "Appendix A, Red teaming, p. 17" ; ogc:pdfPage 24 ;
                     ogc:quote "Testing level which evaluates whether applications adhere to guardrails in response to adversarial prompting or stress testing by human testers." ; ogc:quoteStatus "machine" ] ;
-    ogc:binding "sysml part def Evaluator (red teamer); epo:Session with a prov:Person operator" .
+    ogc:binding "sysml part def EvaluationOperator (red teamer); epo:Session with a prov:Person in the evaluation operator role" .
 
 term:guardrail a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "guardrail"@en ;
@@ -538,7 +538,7 @@ term:domain-specific-ontology a skos:Concept ; skos:inScheme ogc:Glossary ;
 term:evaluation-process-ontology a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "Evaluation Process Ontology"@en ;
     skos:altLabel "EPO"@en ;
-    skos:definition "The reusable, domain-independent description of how a rigorous evaluation is run: the standard operating procedure whose five steps, when followed, make a coverage claim checkable. It assumes a Domain-Specific Ontology is in place and does not change across domains."@en ;
+    skos:definition "The reusable, domain-independent description of how a rigorous evaluation is run: the standard operating procedure whose seven steps, when followed, make a coverage claim checkable. It assumes a Domain-Specific Ontology is in place and does not change across domains."@en ;
     ogc:class "coined" ;
     ogc:canonical [ ogc:cites src:term-contract-v5 ; ogc:locator "Section 1C, EPO (Evaluation Process Ontology)" ] ;
     ogc:seeAlso [ ogc:cites src:caie-epo-prototype ; ogc:locator "ontology/epo-core.ttl" ] ;

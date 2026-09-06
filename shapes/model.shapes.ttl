@@ -7,9 +7,13 @@
 # Wiring rules over the canonical model graph (model/og-caie.model.ttl,
 # ruling R-22). These are the structural half of the essentials: what the
 # part defs and port defs must collectively provide so that a conformant
-# record yields the end state (SCI-10 to SCI-12). Value and provenance
-# rules over the record are in shapes/epo.shapes.ttl. Shapes target by
-# declared name, so a counterexample package can reuse them.
+# record yields the end state (SCI-10 to SCI-12). Every rule is defined
+# over kinds of parts and kinds of ports and is checked locally (R-26): at
+# the part, all inputs present and all outputs going somewhere (M2-Part);
+# at the wire, from an output port on a part to an input port on a part,
+# one item kind (M2-Wire). Ports are how wires are addressed. Value and
+# provenance rules over the record are in shapes/epo.shapes.ttl. Shapes
+# target by declared name, so a counterexample package can reuse them.
 
 ogc:M1-Parties a sh:NodeShape ;
     sh:targetClass sysml:PartDefinition ;
@@ -38,14 +42,27 @@ ogc:M1-Parties a sh:NodeShape ;
             }
         """ ] .
 
-ogc:M2-Wiring a sh:NodeShape ;
+ogc:M2-Wire a sh:NodeShape ;
     sh:targetClass sysml:InterfaceUsage ;
     sh:property [ sh:path ogm:supplierPort ; sh:minCount 1 ; sh:maxCount 1 ;
-                  sh:message "An interface usage resolves to exactly one supplier (plain) port." ] ;
+                  sh:message "A wire comes from exactly one output port." ] ;
     sh:property [ sh:path ogm:consumerPort ; sh:minCount 1 ; sh:maxCount 1 ;
-                  sh:message "An interface usage resolves to exactly one consumer (conjugated) port." ] ;
+                  sh:message "A wire goes to exactly one input port." ] ;
     sh:sparql [
-        sh:message "The supplier port's type is the interface definition's supplier end type." ;
+        sh:message "A wire runs from an output port on a part to an input port on a part: the output end is a plain port owned by a part definition, the input end a conjugated one (R-26)." ;
+        sh:select """
+            PREFIX sysml: <https://www.omg.org/spec/SysML#>
+            PREFIX ogm: <https://w3id.org/og-caie/model#>
+            SELECT $this ?value WHERE {
+                { $this ogm:supplierPort ?value . FILTER( EXISTS { ?value sysml:isConjugated true } || EXISTS { ?value sysml:isEnd true }
+                    || NOT EXISTS { ?value sysml:owner ?d . ?d a sysml:PartDefinition } ) }
+                UNION
+                { $this ogm:consumerPort ?value . FILTER( NOT EXISTS { ?value sysml:isConjugated true } || EXISTS { ?value sysml:isEnd true }
+                    || NOT EXISTS { ?value sysml:owner ?d . ?d a sysml:PartDefinition } ) }
+            }
+        """ ] ;
+    sh:sparql [
+        sh:message "The output port's type is the wire's supplier end type: what flows is one item kind." ;
         sh:select """
             PREFIX sysml: <https://www.omg.org/spec/SysML#>
             PREFIX ogm: <https://w3id.org/og-caie/model#>
@@ -57,7 +74,7 @@ ogc:M2-Wiring a sh:NodeShape ;
             }
         """ ] ;
     sh:sparql [
-        sh:message "The consumer port's type is the interface definition's consumer end type, conjugated." ;
+        sh:message "The input port's type is the wire's consumer end type, conjugated: it receives the same item kind." ;
         sh:select """
             PREFIX sysml: <https://www.omg.org/spec/SysML#>
             PREFIX ogm: <https://w3id.org/og-caie/model#>
@@ -68,26 +85,28 @@ ogc:M2-Wiring a sh:NodeShape ;
             }
         """ ] .
 
-ogc:M2-InputsUniqueOutputsShared a sh:NodeShape ;
-    sh:targetClass sysml:PortUsage ;
+ogc:M2-Part a sh:NodeShape ;
+    sh:targetClass sysml:PartDefinition ;
     sh:sparql [
-        sh:message "Every port of every part is an end of some interface usage: an unwired port is a fact with nowhere to go." ;
+        sh:message "At the part: every input port is present on exactly one wire (input wires are unique, R-25, R-26)." ;
         sh:select """
             PREFIX sysml: <https://www.omg.org/spec/SysML#>
             PREFIX ogm: <https://w3id.org/og-caie/model#>
-            SELECT $this WHERE {
-                FILTER NOT EXISTS { $this sysml:isEnd true }
-                FILTER NOT EXISTS { ?e ogm:resolvesTo $this }
+            SELECT $this ?value WHERE {
+                ?value a sysml:PortUsage ; sysml:owner $this ; sysml:isConjugated true .
+                { FILTER NOT EXISTS { ?e ogm:resolvesTo ?value } }
+                UNION { ?e1 ogm:resolvesTo ?value . ?e2 ogm:resolvesTo ?value . FILTER(?e1 != ?e2) }
             }
         """ ] ;
     sh:sparql [
-        sh:message "An input (conjugated) port is the end of exactly one interface usage: input wires are unique (R-25)." ;
+        sh:message "At the part: every output port goes somewhere, on one wire or several, since what flows is information (R-25, R-26)." ;
         sh:select """
             PREFIX sysml: <https://www.omg.org/spec/SysML#>
             PREFIX ogm: <https://w3id.org/og-caie/model#>
-            SELECT $this WHERE {
-                $this sysml:isConjugated true .
-                ?e1 ogm:resolvesTo $this . ?e2 ogm:resolvesTo $this . FILTER(?e1 != ?e2)
+            SELECT $this ?value WHERE {
+                ?value a sysml:PortUsage ; sysml:owner $this .
+                FILTER NOT EXISTS { ?value sysml:isConjugated true } FILTER NOT EXISTS { ?value sysml:isEnd true }
+                FILTER NOT EXISTS { ?e ogm:resolvesTo ?value }
             }
         """ ] .
 
@@ -132,6 +151,19 @@ ogc:M4-Steps a sh:NodeShape ;
                     ?s a sysml:SuccessionAsUsage ; sysml:owner $this ; ogm:first ?fa ; ogm:then ?tb .
                     ?fa sysml:declaredName ?a . ?tb sysml:declaredName ?b .
                 }
+            }
+        """ ] .
+
+ogc:M4-ProcessDag a sh:NodeShape ;
+    sh:targetClass sysml:SuccessionAsUsage ;
+    sh:sparql [
+        sh:message "The EPO is a process DAG (R-26): no step succeeds itself, directly or through other steps." ;
+        sh:select """
+            PREFIX sysml: <https://www.omg.org/spec/SysML#>
+            PREFIX ogm: <https://w3id.org/og-caie/model#>
+            SELECT $this ?value WHERE {
+                $this ogm:first ?value .
+                ?value (^ogm:first/ogm:then)+ ?value .
             }
         """ ] .
 

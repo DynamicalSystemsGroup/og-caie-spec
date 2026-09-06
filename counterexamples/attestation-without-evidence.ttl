@@ -19,5 +19,16 @@ cx:attestation a epo:Attestation ;
     earl:test cx:a ; earl:subject cx:sut ; earl:mode earl:manual ; earl:assertedBy cx:person ;
     earl:result [ a earl:TestResult ; earl:outcome earl:failed ] ;
     epo:appropriateness epo:appropriate ; epo:sufficiency epo:sufficient ;
-    epo:step epo:runAndAttest ;
+    epo:step epo:determineAndAttest ;
     prov:endedAtTime "2026-08-11T09:00:00Z"^^xsd:dateTime .
+
+# parties (R-21, R-23), so that only the shape named above fails
+cx:sponsor a prov:Agent, prov:Organization ; epo:role epo:sponsorRole ; epo:isAccountable false .
+cx:testing a prov:Agent, prov:Organization ; epo:role epo:testingOrganizationRole ; epo:independentOfAccountable true .
+cx:accountable a prov:Agent, prov:Organization ; epo:role epo:accountableOrganizationRole .
+cx:exec a prov:Agent, prov:Person ; epo:role epo:accountExecutiveRole ; prov:actedOnBehalfOf cx:testing .
+cx:agreement a epo:ServiceAgreement ; epo:signedBy cx:sponsor ; epo:signedBy cx:exec ; prov:generatedAtTime "2026-07-31T00:00:00Z"^^xsd:dateTime ; epo:step epo:agree .
+cx:person0 epo:role epo:evaluationOperatorRole ; prov:actedOnBehalfOf cx:testing .
+cx:person epo:role epo:domainExpertRole ; prov:actedOnBehalfOf cx:testing .
+cx:reqs epo:underAgreement cx:agreement .
+cx:assessment a epo:AppropriatenessAssessment ; earl:subject cx:reqs ; earl:assertedBy cx:person ; epo:appropriateness epo:appropriate ; prov:endedAtTime "2026-08-02T01:00:00Z"^^xsd:dateTime .

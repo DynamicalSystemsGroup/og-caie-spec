@@ -26,3 +26,13 @@ cx:check a epo:ConsistencyCheck ; earl:subject cx:probe ; earl:mode earl:automat
 cx:session a epo:Session ; prov:wasAssociatedWith cx:sut ; prov:wasAssociatedWith cx:person ;
     prov:startedAtTime "2026-08-10T00:00:00Z"^^xsd:dateTime .
 cx:turn a epo:Turn ; epo:inSession cx:session ; epo:turnIndex 1 ; prov:used cx:probe .
+
+# parties (R-21, R-23), so that only the shape named above fails
+cx:sponsor a prov:Agent, prov:Organization ; epo:role epo:sponsorRole ; epo:isAccountable false .
+cx:testing a prov:Agent, prov:Organization ; epo:role epo:testingOrganizationRole ; epo:independentOfAccountable true .
+cx:accountable a prov:Agent, prov:Organization ; epo:role epo:accountableOrganizationRole .
+cx:exec a prov:Agent, prov:Person ; epo:role epo:accountExecutiveRole ; prov:actedOnBehalfOf cx:testing .
+cx:agreement a epo:ServiceAgreement ; epo:signedBy cx:sponsor ; epo:signedBy cx:exec ; prov:generatedAtTime "2026-07-31T00:00:00Z"^^xsd:dateTime ; epo:step epo:agree .
+cx:person epo:role epo:evaluationOperatorRole ; epo:role epo:domainExpertRole ; prov:actedOnBehalfOf cx:testing .
+cx:reqs epo:underAgreement cx:agreement .
+cx:assessment a epo:AppropriatenessAssessment ; earl:subject cx:reqs ; earl:assertedBy cx:person ; epo:appropriateness epo:appropriate ; prov:endedAtTime "2026-08-20T01:00:00Z"^^xsd:dateTime .

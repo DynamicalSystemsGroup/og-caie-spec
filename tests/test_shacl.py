@@ -16,6 +16,10 @@ COUNTEREXAMPLES = {
     "counterexamples/recommendation-untraced.ttl": "S8-Recommendation",
     "counterexamples/attestation-off-plan.ttl": "S6-Attestation",
     "counterexamples/attestation-off-turn.ttl": "S6-Attestation",
+    "counterexamples/requirements-before-agreement.ttl": "S0-Parties",
+    "counterexamples/population-unrepresented.ttl": "S0-Population",
+    "counterexamples/expert-administers-tests.ttl": "S4-Session",
+    "counterexamples/executive-attests.ttl": "S6-Attestation",
 }
 
 
@@ -43,23 +47,26 @@ def test_each_counterexample_fails_on_its_shape_only():
         assert violated_shapes(results) == {shape}, f"{path}: {violated_shapes(results)}"
 
 
-def test_eight_shapes_one_per_sci_group():
+def test_shapes_s0_to_s8():
     g = shapes()
     names = sorted(str(s).rsplit("/", 1)[-1] for s in g.subjects(RDF.type, SH.NodeShape))
-    assert names == ["S1-DsoRelease", "S2-AcceptanceCriterion", "S2-Requirement", "S2-RequirementSet", "S3-Probe", "S3-Strategy", "S3-TestPlan",
-                     "S4-Session", "S4-TestSuite", "S4-Turn", "S5-Evidence", "S5-Response", "S6-Attestation", "S6-Determination", "S7-Report", "S8-Recommendation"]
+    assert names == ["S0-Access", "S0-Parties", "S0-Population",
+                     "S1-DsoRelease", "S2-AcceptanceCriterion", "S2-Requirement", "S2-RequirementSet",
+                     "S3-PlanApproval", "S3-Probe", "S3-Strategy", "S3-TestPlan",
+                     "S4-Session", "S4-TestSuite", "S4-Turn", "S5-Evidence", "S5-Response", "S6-Attestation", "S6-Determination",
+                     "S7-Report", "S8-Delivery", "S8-Recommendation"]
 
 
 def test_epo_handles_subclass_prov_or_earl():
     g = load("vocabulary/epo.ttl")
     OWL = Namespace("http://www.w3.org/2002/07/owl#")
     for c in g.subjects(RDF.type, OWL.Class):
-        if c in (EPO.EpoStep, EPO.AppropriatenessValue, EPO.SufficiencyValue):
+        if c in (EPO.EpoStep, EPO.AppropriatenessValue, EPO.SufficiencyValue, EPO.Role):
             continue
         if c == EPO.Strategy:  # a prov:Plan, itself a prov:Entity
             continue
         supers = set(g.objects(c, RDFS.subClassOf))
-        assert supers & {PROV.Entity, PROV.Activity, EARL.Assertion}, c
+        assert supers & {PROV.Entity, PROV.Activity, PROV.Agent, EARL.Assertion}, c
 
 
 def test_record_names_every_human_judgment():
@@ -68,5 +75,19 @@ def test_record_names_every_human_judgment():
         who = g.value(att, EARL.assertedBy)
         assert (who, RDF.type, PROV.Person) in g
         assert g.value(att, EPO.appropriateness) is not None and g.value(att, EPO.sufficiency) is not None
+        assert (who, EPO.role, EPO.domainExpertRole) in g
     assert len(list(g.subjects(RDF.type, EPO.Attestation))) == 2
     assert len(list(g.subjects(RDF.type, EPO.AcceptanceCriterion))) == 3
+
+
+def test_record_names_the_parties_and_roles():
+    g = data("track/measles-run.ttl")
+    roles = {str(r).rsplit("#", 1)[-1] for r in g.objects(None, EPO.role)}
+    assert roles == {"sponsorRole", "testingOrganizationRole", "accountableOrganizationRole",
+                     "accountExecutiveRole", "domainExpertRole", "evaluationOperatorRole"}
+    persons = [a for a in g.subjects(RDF.type, PROV.Person)]
+    assert len(persons) == 3
+    for person in persons:
+        assert g.value(person, Namespace("http://www.w3.org/2004/02/skos/core#").note) is not None, "synthetic-case note (R-23)"
+    populations = list(g.subjects(RDF.type, EPO.Population))
+    assert len(populations) == 2

@@ -1,0 +1,60 @@
+## Every wire, explained locally
+
+For each kind of part, each port: its direction, the item kind it carries, and the wire to the part and port at the other end (`queries/wiring.rq` over the model graph, ruling R-26). An input has one row; an output has one row per reader.
+
+| Part | Port | Direction | Carries | Wire | Other end |
+|---|---|---|---|---|---|
+| AccountExecutive | agreementIn | in | AgreementWrite | agreementSeam | from SponsorOrganization.agreementOut |
+| AccountExecutive | recordIn | in | RecordWrite | recordToExecutiveSeam | from Recorder.recordOut |
+| AccountExecutive | agreementOut | out | AgreementWrite | countersignSeam | to Recorder.agreementIn |
+| AccountExecutive | deliveryOut | out | DeliveryWrite | deliveryRecordSeam | to Recorder.deliveryIn |
+| AccountExecutive | deliveryOut | out | DeliveryWrite | deliverySeam | to SponsorOrganization.deliveryIn |
+| AccountableOrganization | accessOut | out | AccessWrite | accessSeam | to Recorder.accessIn |
+| AffectedPopulation | inputOut | out | StakeholderInputWrite | stakeholderInputSeam | to Recorder.inputIn |
+| ConformanceChecker | recordIn | in | RecordWrite | recordToCheckerSeam | from Recorder.recordOut |
+| CoverageCalculator | recordIn | in | RecordWrite | recordToCalculatorSeam | from Recorder.recordOut |
+| CoverageCalculator | reportOut | out | ReportWrite | reportSeam | to Recorder.reportIn |
+| DomainExpert | recordIn | in | RecordWrite | recordToExpertSeam | from Recorder.recordOut |
+| DomainExpert | assessmentOut | out | AssessmentWrite | assessmentSeam | to Recorder.assessmentIn |
+| DomainExpert | attestationOut | out | AttestationWrite | attestationSeam | to Recorder.attestationIn |
+| DomainExpert | determinationOut | out | DeterminationWrite | expertDeterminationSeam | to Recorder.expertDeterminationIn |
+| DomainExpert | dsoOut | out | DsoWrite | dsoSeam | to Recorder.dsoIn |
+| DomainExpert | planApprovalOut | out | PlanApprovalWrite | planApprovalSeam | to Recorder.planApprovalIn |
+| EvaluationOperator | probesIn | in | ProbeWrite | derivedProbeSeam | from ProbeDeriver.probesOut |
+| EvaluationOperator | recordIn | in | RecordWrite | recordToOperatorSeam | from Recorder.recordOut |
+| EvaluationOperator | determinationOut | out | DeterminationWrite | operatorDeterminationSeam | to Recorder.operatorDeterminationIn |
+| EvaluationOperator | evidenceOut | out | EvidenceWrite | evidenceSeam | to Recorder.evidenceIn |
+| EvaluationOperator | planOut | out | PlanWrite | planSeam | to Recorder.planIn |
+| EvaluationOperator | probesToItem | out | ProbeWrite | probeRunSeam | to TestItem.probesIn |
+| EvaluationOperator | recommendationOut | out | RecommendationWrite | recommendationSeam | to Recorder.recommendationIn |
+| EvaluationOperator | requirementsOut | out | RequirementSetWrite | requirementSeam | to Recorder.requirementsIn |
+| ProbeDeriver | recordIn | in | RecordWrite | recordToDeriverSeam | from Recorder.recordOut |
+| ProbeDeriver | probesOut | out | ProbeWrite | derivedProbeSeam | to EvaluationOperator.probesIn |
+| ProbeDeriver | probesOut | out | ProbeWrite | probeRecordSeam | to Recorder.probeIn |
+| Recorder | accessIn | in | AccessWrite | accessSeam | from AccountableOrganization.accessOut |
+| Recorder | agreementIn | in | AgreementWrite | countersignSeam | from AccountExecutive.agreementOut |
+| Recorder | assessmentIn | in | AssessmentWrite | assessmentSeam | from DomainExpert.assessmentOut |
+| Recorder | attestationIn | in | AttestationWrite | attestationSeam | from DomainExpert.attestationOut |
+| Recorder | deliveryIn | in | DeliveryWrite | deliveryRecordSeam | from AccountExecutive.deliveryOut |
+| Recorder | dsoIn | in | DsoWrite | dsoSeam | from DomainExpert.dsoOut |
+| Recorder | evidenceIn | in | EvidenceWrite | evidenceSeam | from EvaluationOperator.evidenceOut |
+| Recorder | expertDeterminationIn | in | DeterminationWrite | expertDeterminationSeam | from DomainExpert.determinationOut |
+| Recorder | inputIn | in | StakeholderInputWrite | stakeholderInputSeam | from AffectedPopulation.inputOut |
+| Recorder | operatorDeterminationIn | in | DeterminationWrite | operatorDeterminationSeam | from EvaluationOperator.determinationOut |
+| Recorder | planApprovalIn | in | PlanApprovalWrite | planApprovalSeam | from DomainExpert.planApprovalOut |
+| Recorder | planIn | in | PlanWrite | planSeam | from EvaluationOperator.planOut |
+| Recorder | probeIn | in | ProbeWrite | probeRecordSeam | from ProbeDeriver.probesOut |
+| Recorder | recommendationIn | in | RecommendationWrite | recommendationSeam | from EvaluationOperator.recommendationOut |
+| Recorder | reportIn | in | ReportWrite | reportSeam | from CoverageCalculator.reportOut |
+| Recorder | requirementsIn | in | RequirementSetWrite | requirementSeam | from EvaluationOperator.requirementsOut |
+| Recorder | responseIn | in | ResponseWrite | responseSeam | from TestItem.responseOut |
+| Recorder | recordOut | out | RecordWrite | recordToCalculatorSeam | to CoverageCalculator.recordIn |
+| Recorder | recordOut | out | RecordWrite | recordToCheckerSeam | to ConformanceChecker.recordIn |
+| Recorder | recordOut | out | RecordWrite | recordToDeriverSeam | to ProbeDeriver.recordIn |
+| Recorder | recordOut | out | RecordWrite | recordToExecutiveSeam | to AccountExecutive.recordIn |
+| Recorder | recordOut | out | RecordWrite | recordToExpertSeam | to DomainExpert.recordIn |
+| Recorder | recordOut | out | RecordWrite | recordToOperatorSeam | to EvaluationOperator.recordIn |
+| SponsorOrganization | deliveryIn | in | DeliveryWrite | deliverySeam | from AccountExecutive.deliveryOut |
+| SponsorOrganization | agreementOut | out | AgreementWrite | agreementSeam | to AccountExecutive.agreementIn |
+| TestItem | probesIn | in | ProbeWrite | probeRunSeam | from EvaluationOperator.probesToItem |
+| TestItem | responseOut | out | ResponseWrite | responseSeam | to Recorder.responseIn |

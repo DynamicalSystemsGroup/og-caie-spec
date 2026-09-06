@@ -2,13 +2,15 @@
 # run (which probe at which turn of which session, under which test plan,
 # against what, by whom), the
 # assessments made (and who made them, against which expected result), the
-# DSO release selected (and who approved it), and the EPO step. Ruling R-12:
+# DSO release selected (and who approved it), and the EPO step; and, since
+# ruling R-21, the parties: the agreement, the sponsor, the testing
+# organization, the accountable organization and the delivery. Ruling R-12:
 # the chain requirement, criterion, plan, probe, run, evidence, attestation.
 PREFIX epo:  <https://w3id.org/og-caie/epo#>
 PREFIX earl: <http://www.w3.org/ns/earl#>
 PREFIX prov: <http://www.w3.org/ns/prov#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-SELECT ?recommendation ?author ?step ?attestation ?assertor ?criterion ?expected ?evidence ?determination ?determiner ?determined ?outcome ?run ?turnIndex ?operator ?sut ?probe ?plan ?dso ?dsoApprover
+SELECT ?recommendation ?author ?step ?attestation ?assertor ?criterion ?expected ?evidence ?determination ?determiner ?determined ?outcome ?run ?turnIndex ?operator ?sut ?probe ?plan ?dso ?dsoApprover ?agreement ?sponsor ?testingOrg ?accountable ?delivery ?deliverer
 WHERE {
   ?recommendation a epo:Recommendation ;
       prov:wasAttributedTo ?authorNode ; epo:step ?stepNode ;
@@ -34,5 +36,10 @@ WHERE {
   ?sutNode a prov:SoftwareAgent ; rdfs:label ?sut .
   ?dso a epo:DsoRelease ; epo:approvedBy ?approverNode .
   ?approverNode rdfs:label ?dsoApprover .
+  ?plan prov:wasDerivedFrom ?reqs . ?reqs a epo:RequirementSet ; epo:underAgreement ?agreement .
+  ?agreement epo:signedBy ?sponsorNode . ?sponsorNode a prov:Organization ; epo:role epo:sponsorRole ; rdfs:label ?sponsor .
+  ?agreement epo:signedBy ?execNode . ?execNode epo:role epo:accountExecutiveRole ; prov:actedOnBehalfOf ?testingNode . ?testingNode rdfs:label ?testingOrg .
+  ?access a epo:TestItemAccess ; epo:grantsAccessTo ?sutNode ; prov:wasAttributedTo ?accountableNode . ?accountableNode rdfs:label ?accountable .
+  ?delivery a epo:Delivery ; prov:wasDerivedFrom ?recommendation ; prov:wasAttributedTo ?delivererNode . ?delivererNode rdfs:label ?deliverer .
 }
 ORDER BY ?attestation

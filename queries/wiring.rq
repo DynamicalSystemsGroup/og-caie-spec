@@ -1,0 +1,20 @@
+# Explain every wiring locally (ruling R-26), over the canonical model graph
+# model/og-caie.model.ttl: for each port of each kind of part, its direction,
+# the item kind it carries, and the wire(s) with the part and port at the
+# other end. An input has exactly one row; an output has one row per reader.
+PREFIX sysml: <https://www.omg.org/spec/SysML#>
+PREFIX ogm:   <https://w3id.org/og-caie/model#>
+SELECT ?part ?port ?direction ?carries ?wire ?otherPart ?otherPort
+WHERE {
+  ?portNode a sysml:PortUsage ; sysml:owner ?partNode ; sysml:declaredName ?port ; sysml:type ?ptype .
+  ?partNode a sysml:PartDefinition ; sysml:declaredName ?part .
+  ?ptype sysml:declaredName ?carries .
+  FILTER NOT EXISTS { ?portNode sysml:isEnd true }
+  BIND(IF(EXISTS { ?portNode sysml:isConjugated true }, "in", "out") AS ?direction)
+  ?wireNode a sysml:InterfaceUsage ; sysml:declaredName ?wire .
+  { ?wireNode ogm:consumerPort ?portNode ; ogm:supplierPort ?otherNode }
+  UNION
+  { ?wireNode ogm:supplierPort ?portNode ; ogm:consumerPort ?otherNode }
+  ?otherNode sysml:declaredName ?otherPort ; sysml:owner ?otherPartNode . ?otherPartNode sysml:declaredName ?otherPart .
+}
+ORDER BY ?part ?direction ?port ?wire

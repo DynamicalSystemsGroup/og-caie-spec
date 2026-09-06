@@ -104,8 +104,10 @@ def render_record() -> str:
     out.append("| Step | Node | Who | When |\n|---|---|---|---|")
     PROV = Namespace("http://www.w3.org/ns/prov#")
     EARL = Namespace("http://www.w3.org/ns/earl#")
-    order = [EPO.DsoRelease, EPO.RequirementSet, EPO.Requirement, EPO.AcceptanceCriterion, EPO.TestPlan, EPO.Strategy, EPO.Probe,
-             EPO.ConsistencyCheck, EPO.TestSuite, EPO.Session, EPO.Turn, EPO.Trajectory, EPO.Response, EPO.Evidence, EPO.Determination, EPO.Attestation, EPO.CoverageComputation, EPO.Report, EPO.Recommendation]
+    order = [EPO.ServiceAgreement, EPO.TestItemAccess, EPO.StakeholderInput, EPO.DsoRelease, EPO.RequirementSet, EPO.Requirement, EPO.AcceptanceCriterion,
+             EPO.AppropriatenessAssessment, EPO.TestPlan, EPO.PlanApproval, EPO.Strategy, EPO.Probe,
+             EPO.ConsistencyCheck, EPO.TestSuite, EPO.Session, EPO.Turn, EPO.Trajectory, EPO.Response, EPO.Evidence, EPO.Determination, EPO.Attestation,
+             EPO.CoverageComputation, EPO.Report, EPO.Recommendation, EPO.Delivery]
     for cls in order:
         for n in sorted(g.subjects(RDF.type, cls), key=str):
             who = [g.value(a, RDFS.label) or str(a).rsplit("#", 1)[-1] for p in (EARL.assertedBy, EPO.approvedBy, PROV.wasAttributedTo, PROV.wasAssociatedWith) for a in g.objects(n, p)]

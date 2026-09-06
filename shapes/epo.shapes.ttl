@@ -5,11 +5,86 @@
 @prefix earl: <http://www.w3.org/ns/earl#> .
 @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
 
-# The EPO shapes S1..S8: the machine-checkable conformance facts (R-16). Each shape
-# is the RDF twin of one SCI requirement in model/og-caie.sysml. A record
+# The EPO shapes S0..S8: the machine-checkable conformance facts (R-16) over
+# the record. Each shape checks one or more of the essentials SCI-01 to
+# SCI-12 in model/trace.ttl (the structural half is checked by the M-shapes
+# over the model graph, shapes/model.shapes.ttl). A record
 # that conforms was produced by following the process, with its data shaped
 # and its required fields filled; what it cannot say is whether the
 # judgments in it are right. That is what the named humans attest.
+
+# S0 <-> SCI-02, SCI-10: the parties (rulings R-21, R-23). The service
+# agreement is signed by the sponsor organization and by the account
+# executive acting for the testing organization; the three organizations
+# are named with their roles and their two facts; the agreement precedes the
+# requirement set; access to the test item is granted by the accountable
+# organization; every affected population is interviewed or represented.
+ogc:S0-Parties a sh:NodeShape ;
+    sh:targetClass epo:ServiceAgreement ;
+    sh:property [ sh:path prov:generatedAtTime ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path epo:step ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue epo:agree ] ;
+    sh:sparql [
+        sh:message "S0: the agreement is signed by the sponsor organization (a prov:Organization in the sponsor role)." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            SELECT $this WHERE { FILTER NOT EXISTS { $this epo:signedBy ?o . ?o a prov:Organization ; epo:role epo:sponsorRole } }
+        """ ] ;
+    sh:sparql [
+        sh:message "S0: the agreement is signed by the account executive, a named person acting on behalf of the testing organization (R-23)." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            SELECT $this WHERE {
+                FILTER NOT EXISTS { $this epo:signedBy ?p . ?p a prov:Person ; epo:role epo:accountExecutiveRole ; prov:actedOnBehalfOf ?t . ?t a prov:Organization ; epo:role epo:testingOrganizationRole }
+            }
+        """ ] ;
+    sh:sparql [
+        sh:message "S0: exactly one organization holds each of the sponsor, testing and accountable roles, the sponsor says whether it is accountable, and the testing organization says whether it is independent (R-21)." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            SELECT $this ?value WHERE {
+                { BIND(epo:sponsorRole AS ?value) } UNION { BIND(epo:testingOrganizationRole AS ?value) } UNION { BIND(epo:accountableOrganizationRole AS ?value) }
+                { FILTER NOT EXISTS { ?o a prov:Organization ; epo:role ?value } }
+                UNION { ?o1 a prov:Organization ; epo:role ?value . ?o2 a prov:Organization ; epo:role ?value . FILTER(?o1 != ?o2) }
+                UNION { FILTER(?value = epo:sponsorRole) ?o a prov:Organization ; epo:role ?value . FILTER NOT EXISTS { ?o epo:isAccountable ?b } }
+                UNION { FILTER(?value = epo:testingOrganizationRole) ?o a prov:Organization ; epo:role ?value . FILTER NOT EXISTS { ?o epo:independentOfAccountable ?b } }
+            }
+        """ ] ;
+    sh:sparql [
+        sh:message "S0: the agreement precedes the requirement set: requirements are agreed under the contract, not before it (R-21)." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            SELECT $this WHERE { $this prov:generatedAtTime ?t0 . ?r a epo:RequirementSet ; prov:generatedAtTime ?t1 . FILTER(?t1 <= ?t0) }
+        """ ] .
+
+ogc:S0-Access a sh:NodeShape ;
+    sh:targetClass epo:TestItemAccess ;
+    sh:property [ sh:path epo:grantsAccessTo ; sh:minCount 1 ; sh:maxCount 1 ; sh:class earl:TestSubject ;
+                  sh:message "Access names the test item it is granted to." ] ;
+    sh:property [ sh:path prov:generatedAtTime ; sh:minCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:sparql [
+        sh:message "S0: access to the test item is granted by the accountable organization (ISO/IEC 17000 first party)." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            SELECT $this WHERE { FILTER NOT EXISTS { $this prov:wasAttributedTo ?o . ?o a prov:Organization ; epo:role epo:accountableOrganizationRole } }
+        """ ] .
+
+ogc:S0-Population a sh:NodeShape ;
+    sh:targetClass epo:Population ;
+    sh:sparql [
+        sh:message "S0: an affected population is interviewed (a stakeholder input attributed to it) or represented by a named domain expert (R-21)." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            SELECT $this WHERE {
+                FILTER NOT EXISTS { ?i a epo:StakeholderInput ; prov:wasAttributedTo $this }
+                FILTER NOT EXISTS { $this epo:representedBy ?p . ?p a prov:Person ; epo:role epo:domainExpertRole }
+            }
+        """ ] .
 
 # S1 <-> SCI-01: the DSO release is versioned, approved by a named person,
 # and approved before any probe derived from it was generated.
@@ -18,6 +93,12 @@ ogc:S1-DsoRelease a sh:NodeShape ;
     sh:property [ sh:path epo:version ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ;
     sh:property [ sh:path epo:approvedBy ; sh:minCount 1 ; sh:class prov:Person ;
                   sh:message "A DSO release is approved by a named person." ] ;
+    sh:sparql [
+        sh:message "S1: the DSO release is approved by a domain expert (R-21, R-23)." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            SELECT $this WHERE { FILTER NOT EXISTS { $this epo:approvedBy ?p . ?p epo:role epo:domainExpertRole } }
+        """ ] ;
     sh:property [ sh:path prov:generatedAtTime ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
     sh:sparql [
         sh:message "S1: a probe derived from this DSO release was generated before the release was approved." ;
@@ -42,6 +123,17 @@ ogc:S2-RequirementSet a sh:NodeShape ;
                   sh:message "The envelope names the one system under test it binds (R-14): this system, in this environment, must meet these requirements." ] ;
     sh:property [ sh:path prov:wasAttributedTo ; sh:minCount 1 ; sh:class prov:Person ] ;
     sh:property [ sh:path prov:generatedAtTime ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path epo:underAgreement ; sh:minCount 1 ; sh:maxCount 1 ; sh:class epo:ServiceAgreement ;
+                  sh:message "The requirement set is agreed under the service agreement (R-21)." ] ;
+    sh:sparql [
+        sh:message "S2: a domain expert has assessed the requirement set as appropriate for the populations and the environment (R-08, R-21)." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX earl: <http://www.w3.org/ns/earl#>
+            SELECT $this WHERE {
+                FILTER NOT EXISTS { ?a a epo:AppropriatenessAssessment ; earl:subject $this ; earl:assertedBy ?p ; epo:appropriateness epo:appropriate . ?p epo:role epo:domainExpertRole }
+            }
+        """ ] ;
     sh:sparql [
         sh:message "S2: a probe run started, or a probe was generated, before the requirement set was declared." ;
         sh:select """
@@ -119,6 +211,18 @@ ogc:S3-Strategy a sh:NodeShape ;
                   sh:message "A strategy is grounded in a DSO release." ] ;
     sh:property [ sh:path prov:wasAttributedTo ; sh:minCount 1 ; sh:class prov:Person ] .
 
+ogc:S3-PlanApproval a sh:NodeShape ;
+    sh:targetClass epo:PlanApproval ;
+    sh:property [ sh:path epo:approves ; sh:minCount 1 ; sh:maxCount 1 ; sh:class epo:TestPlan ] ;
+    sh:property [ sh:path prov:endedAtTime ; sh:minCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:sparql [
+        sh:message "S3: a test plan is approved by a domain expert (R-21)." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX earl: <http://www.w3.org/ns/earl#>
+            SELECT $this WHERE { FILTER NOT EXISTS { $this earl:assertedBy ?p . ?p epo:role epo:domainExpertRole } }
+        """ ] .
+
 ogc:S3-Probe a sh:NodeShape ;
     sh:targetClass epo:Probe ;
     sh:property [ sh:path epo:exercises ; sh:minCount 1 ; sh:class epo:AcceptanceCriterion ;
@@ -163,10 +267,11 @@ ogc:S4-Session a sh:NodeShape ;
             SELECT $this WHERE { FILTER NOT EXISTS { $this prov:wasAssociatedWith ?s . ?s a prov:SoftwareAgent ; epo:version ?v } }
         """ ] ;
     sh:sparql [
-        sh:message "S4: a session must be associated with a named person (the operator)." ;
+        sh:message "S4: a session must be associated with a named person in the evaluation operator role; administering tests is the operator's activity, not the domain expert's (R-10, R-23)." ;
         sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX prov: <http://www.w3.org/ns/prov#>
-            SELECT $this WHERE { FILTER NOT EXISTS { $this prov:wasAssociatedWith ?p . ?p a prov:Person } }
+            SELECT $this WHERE { FILTER NOT EXISTS { $this prov:wasAssociatedWith ?p . ?p a prov:Person ; epo:role epo:evaluationOperatorRole } }
         """ ] ;
     sh:sparql [
         sh:message "S4: a session has at least one turn." ;
@@ -234,6 +339,18 @@ ogc:S6-Determination a sh:NodeShape ;
                   sh:in ( earl:passed earl:failed earl:cantTell ) ;
                   sh:message "A determination's outcome is passed, failed or cantTell (EARL); not a Boolean." ] ;
     sh:sparql [
+        sh:message "S6: a determination is made by a domain expert, an evaluation operator, or a versioned software agent; never by the account executive (R-21, R-23)." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX earl: <http://www.w3.org/ns/earl#>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            SELECT $this WHERE {
+                $this earl:assertedBy ?p .
+                FILTER NOT EXISTS { ?p epo:role epo:domainExpertRole } FILTER NOT EXISTS { ?p epo:role epo:evaluationOperatorRole }
+                FILTER NOT EXISTS { ?p a prov:SoftwareAgent ; epo:version ?v }
+            }
+        """ ] ;
+    sh:sparql [
         sh:message "S6: every evidence item a determination uses must bear on the criterion the determination tests." ;
         sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
@@ -260,13 +377,20 @@ ogc:S6-Attestation a sh:NodeShape ;
     sh:property [ sh:path earl:test ; sh:minCount 1 ; sh:maxCount 1 ; sh:class epo:AcceptanceCriterion ] ;
     sh:property [ sh:path earl:assertedBy ; sh:minCount 1 ; sh:maxCount 1 ; sh:class prov:Person ;
                   sh:message "An attestation is made by one named person." ] ;
+    sh:sparql [
+        sh:message "S6: the attesting person holds the domain expert role; the operator collects and determines, the account executive signs and delivers, only the domain expert attests (R-21, R-23)." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX earl: <http://www.w3.org/ns/earl#>
+            SELECT $this WHERE { $this earl:assertedBy ?p . FILTER NOT EXISTS { ?p epo:role epo:domainExpertRole } }
+        """ ] ;
     sh:property [ sh:path earl:mode ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue earl:manual ] ;
     sh:property [ sh:path ( earl:result earl:outcome ) ; sh:minCount 1 ; sh:maxCount 1 ;
                   sh:in ( earl:passed earl:failed earl:cantTell earl:inapplicable ) ] ;
     sh:property [ sh:path epo:appropriateness ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ( epo:appropriate epo:inappropriate ) ;
                   sh:message "Appropriateness of the declared context is judged (R-08)." ] ;
     sh:property [ sh:path epo:sufficiency ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ( epo:sufficient epo:insufficient ) ] ;
-    sh:property [ sh:path epo:step ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue epo:runAndAttest ] ;
+    sh:property [ sh:path epo:step ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue epo:determineAndAttest ] ;
     sh:property [ sh:path prov:endedAtTime ; sh:minCount 1 ; sh:datatype xsd:dateTime ] ;
     sh:sparql [
         sh:message "S6 chain rule (R-12, R-18, R-20): every determination an attestation aggregates tests the attested criterion, and every evidence item it rules on bears on that criterion under a plan that has it as an objective." ;
@@ -368,5 +492,26 @@ ogc:S8-Recommendation a sh:NodeShape ;
             SELECT $this WHERE {
                 $this prov:wasDerivedFrom ?a . ?a a epo:Attestation .
                 FILTER NOT EXISTS { ?a prov:used ?d . ?d a epo:Determination ; prov:used ?e . ?e a epo:Evidence . $this prov:wasDerivedFrom ?e }
+            }
+        """ ] .
+
+# S8 <-> SCI-09, SCI-10: the delivery to the sponsor is the account
+# executive's activity (R-24): it carries the report and the recommendation
+# and goes to the sponsor organization.
+ogc:S8-Delivery a sh:NodeShape ;
+    sh:targetClass epo:Delivery ;
+    sh:property [ sh:path epo:deliveredTo ; sh:minCount 1 ; sh:maxCount 1 ; sh:class prov:Organization ] ;
+    sh:property [ sh:path epo:step ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue epo:report ] ;
+    sh:property [ sh:path prov:generatedAtTime ; sh:minCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:sparql [
+        sh:message "S8: a delivery is made by the account executive to the sponsor and carries the report and the recommendation." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            SELECT $this WHERE {
+                { FILTER NOT EXISTS { $this prov:wasAttributedTo ?p . ?p epo:role epo:accountExecutiveRole } }
+                UNION { FILTER NOT EXISTS { $this epo:deliveredTo ?o . ?o epo:role epo:sponsorRole } }
+                UNION { FILTER NOT EXISTS { $this prov:wasDerivedFrom ?r . ?r a epo:Report } }
+                UNION { FILTER NOT EXISTS { $this prov:wasDerivedFrom ?c . ?c a epo:Recommendation } }
             }
         """ ] .

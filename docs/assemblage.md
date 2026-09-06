@@ -29,6 +29,9 @@ assemblage performs it.
 ```{include} ../generated/wiring.md
 ```
 
+```{include} ../generated/wiring-table.md
+```
+
 Every fact passes through the recorder. Humans supply the DSO release, the
 requirement set, the attestations and the recommendation; determinations on
 evidence may be made by either; machines derive probes, check conformance,
@@ -68,10 +71,15 @@ R-21 and R-23).
 
 The essentials are checked in two places, by two families of SHACL
 shapes. The M-shapes (`shapes/model.shapes.ttl`) run over the canonical
-model graph and check structure: the parties are present, every seam joins a
-supplier port to its conjugate, every input port is wired exactly once and
-every output at least once, every item kind reaches the recorder, the seven steps produce every item kind in fixed
-order, and the three actor categories keep to their slots. The S-shapes
+model graph and check structure, locally and over kinds (ruling R-26): at
+every part, every input port is present on exactly one wire and every output
+port goes somewhere; at every wire, it runs from an output port on a part to
+an input port on a part and carries one item kind; the parties are present;
+every item kind reaches the recorder; the seven steps form a process DAG that
+produces every item kind; and the three actor categories keep to their slots.
+Ports are how wires are addressed, so the diagram above is a typed block
+diagram with directionality and the cardinality rule: one wire per input,
+outputs split freely because what flows is information. The S-shapes
 (`shapes/epo.shapes.ttl`, on the record page) run over the evaluation record
 and check values, provenance, time order, closure and chain. A requirement
 tagged *human* is still checked by machine for its form; only the value of

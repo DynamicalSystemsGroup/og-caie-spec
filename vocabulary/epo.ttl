@@ -8,7 +8,7 @@
 @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
 
 # The Evaluation Process Ontology, minimal form: handle classes for the
-# things the five steps produce, each a subclass of a PROV-O or EARL class,
+# things the seven steps produce, each a subclass of a PROV-O or EARL class,
 # with no new semantics. Import, don't mint. The DSO is referenced, never
 # imported. Prior art: DynamicalSystemsGroup/caie-epo-prototype (June 2026).
 
@@ -16,15 +16,35 @@ epo: a owl:Ontology ;
     rdfs:label "OG-CAIE Evaluation Process Ontology (EPO), minimal handles" ;
     rdfs:comment "Assembles PROV-O and EARL. A coined term (ruling R-09): the domain-independent standard operating procedure whose record, when it conforms to shapes/epo.shapes.ttl, shows the process was followed and lets coverage be computed." .
 
-# ---- the five steps
+# ---- the seven steps (ruling R-21)
 epo:EpoStep a owl:Class ; rdfs:label "EPO step" .
-epo:scope a epo:EpoStep ; rdfs:label "1 scope: build or select the DSO and declare the operational environment" .
-epo:declareRequirements a epo:EpoStep ; rdfs:label "2 declare the requirement set (operational envelope): requirements, acceptance criteria, weights" .
-epo:deriveProbes a epo:EpoStep ; rdfs:label "3 derive probes from the DSO and the requirement set" .
-epo:runAndAttest a epo:EpoStep ; rdfs:label "4 run probes against the system under test and attest" .
-epo:report a epo:EpoStep ; rdfs:label "5 report coverage and performance; recommend" .
+epo:agree a epo:EpoStep ; rdfs:label "1 agree: the sponsor and the testing organization sign the service agreement; the accountable organization grants access to the test item" .
+epo:scope a epo:EpoStep ; rdfs:label "2 scope: interview or represent the affected populations; build or select the DSO release; declare the operational environment" .
+epo:declareRequirements a epo:EpoStep ; rdfs:label "3 declare the requirement set (operational envelope): requirements, acceptance criteria, weights; the domain expert assesses its appropriateness" .
+epo:plan a epo:EpoStep ; rdfs:label "4 plan: the test plan, its probes or strategy, consistency-checked and approved" .
+epo:execute a epo:EpoStep ; rdfs:label "5 execute: sessions of turns against the test item; responses; evidence collected under the plan" .
+epo:determineAndAttest a epo:EpoStep ; rdfs:label "6 determine and attest: determinations on evidence; attestations by the domain expert" .
+epo:report a epo:EpoStep ; rdfs:label "7 report: coverage and performance computed; recommendation written; delivered to the sponsor" .
+
+# ---- parties and roles (rulings R-21, R-23)
+epo:Population a owl:Class ; rdfs:subClassOf prov:Agent ; rdfs:label "affected population: a population of actors affected by the test item (ISO 9000:2026 3.1.4 interested party), interviewed or represented" .
+epo:Role a owl:Class ; rdfs:subClassOf prov:Role ; rdfs:label "a party's role in one evaluation" .
+epo:sponsorRole a epo:Role ; rdfs:label "sponsor organization (ISO 9000:2026 customer): commissions the evaluation and receives the delivery" .
+epo:testingOrganizationRole a epo:Role ; rdfs:label "testing organization (ISO 9000:2026 provider): performs the evaluation as a service" .
+epo:accountableOrganizationRole a epo:Role ; rdfs:label "accountable organization (ISO/IEC 17000 first party): provides the test item" .
+epo:accountExecutiveRole a epo:Role ; rdfs:label "account executive: signs the agreement for the testing organization and delivers the report; never judges" .
+epo:domainExpertRole a epo:Role ; rdfs:label "domain expert: DSO, appropriateness, plan approval, determinations, attestations; represents populations not interviewed" .
+epo:evaluationOperatorRole a epo:Role ; rdfs:label "evaluation operator: requirement set, plan, sessions, evidence, determinations, recommendation" .
+epo:role a owl:ObjectProperty ; rdfs:domain prov:Agent ; rdfs:range epo:Role ; rdfs:comment "convenience handle: the role an agent fills in this record (the PROV form is a qualified association; one property keeps the shapes readable)" .
+epo:isAccountable a owl:DatatypeProperty ; rdfs:range xsd:boolean ; rdfs:comment "on the sponsor: whether it is also the organization accountable for the test item (R-21)" .
+epo:independentOfAccountable a owl:DatatypeProperty ; rdfs:range xsd:boolean ; rdfs:comment "on the testing organization: independent of the accountable organization with no user interest in the test item (ISO/IEC 17000 4.5, 5.4)" .
+epo:representedBy a owl:ObjectProperty ; rdfs:domain epo:Population ; rdfs:range prov:Person ; rdfs:comment "the domain expert who represents a population that was not interviewed (R-21)" .
 
 # ---- things (prov:Entity)
+epo:ServiceAgreement a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "service agreement: the contract (ISO 9000:2026 3.3.13) to perform OG-CAIE as a service, signed by the sponsor and the account executive (R-21, R-23)" .
+epo:TestItemAccess a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "test-item access: the accountable organization's grant of access to the versioned test item" .
+epo:StakeholderInput a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "stakeholder input: what an interviewed population said" .
+epo:Delivery a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "delivery: the report and the recommendation handed to the sponsor by the account executive (R-24)" .
 epo:DsoRelease a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "DSO release" .
 epo:RequirementSet a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "requirement set (operational envelope): the requirements one system under test must meet in one operational environment (R-14)" .
 epo:Requirement a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "requirement" .
@@ -46,6 +66,8 @@ epo:Session a owl:Class ; rdfs:subClassOf prov:Activity ; rdfs:label "session (N
 epo:Turn a owl:Class ; rdfs:subClassOf prov:Activity ; rdfs:label "turn: one probe applied within a session, producing one response" .
 epo:TestSuite a owl:Class ; rdfs:subClassOf prov:Activity ; rdfs:label "test suite (SEVOCAB 29119-1): a set of sessions run together, e.g. a robustness battery (R-18)" .
 epo:Attestation a owl:Class ; rdfs:subClassOf earl:Assertion, prov:Activity ; rdfs:label "attestation" .
+epo:AppropriatenessAssessment a owl:Class ; rdfs:subClassOf earl:Assertion, prov:Activity ; rdfs:label "appropriateness assessment: the domain expert's judgment that the requirement set is appropriate for the populations and the environment (R-08, R-21)" .
+epo:PlanApproval a owl:Class ; rdfs:subClassOf earl:Assertion, prov:Activity ; rdfs:label "plan approval: the domain expert's approval of a test plan (R-21)" .
 epo:CoverageComputation a owl:Class ; rdfs:subClassOf prov:Activity ; rdfs:label "coverage computation" .
 
 # ---- properties
@@ -70,7 +92,7 @@ epo:bearsOn a owl:ObjectProperty ; rdfs:domain epo:Evidence ; rdfs:range epo:Acc
 epo:inSuite a owl:ObjectProperty ; rdfs:domain epo:Session ; rdfs:range epo:TestSuite .
 epo:exercises a owl:ObjectProperty ; rdfs:domain epo:Probe ; rdfs:range epo:AcceptanceCriterion .
 epo:derivedFromDso a owl:ObjectProperty ; rdfs:subPropertyOf prov:wasDerivedFrom ; rdfs:domain epo:Probe ; rdfs:range epo:DsoRelease .
-epo:appropriateness a owl:ObjectProperty ; rdfs:domain epo:Attestation ; rdfs:range epo:AppropriatenessValue .
+epo:appropriateness a owl:ObjectProperty ; rdfs:range epo:AppropriatenessValue ; rdfs:comment "on an attestation (the declared context) or an appropriateness assessment (the requirement set)" .
 epo:sufficiency a owl:ObjectProperty ; rdfs:domain epo:Attestation ; rdfs:range epo:SufficiencyValue .
 epo:step a owl:ObjectProperty ; rdfs:range epo:EpoStep .
 epo:coverage a owl:DatatypeProperty ; rdfs:domain epo:Report ; rdfs:range xsd:decimal .
@@ -78,6 +100,11 @@ epo:passRate a owl:DatatypeProperty ; rdfs:domain epo:Report ; rdfs:range xsd:de
 epo:failRate a owl:DatatypeProperty ; rdfs:domain epo:Report ; rdfs:range xsd:decimal .
 epo:cantTellRate a owl:DatatypeProperty ; rdfs:domain epo:Report ; rdfs:range xsd:decimal .
 epo:targetsGuardrail a owl:DatatypeProperty ; rdfs:domain epo:Recommendation ; rdfs:range xsd:string .
+epo:signedBy a owl:ObjectProperty ; rdfs:subPropertyOf prov:wasAttributedTo ; rdfs:domain epo:ServiceAgreement ; rdfs:range prov:Agent .
+epo:underAgreement a owl:ObjectProperty ; rdfs:domain epo:RequirementSet ; rdfs:range epo:ServiceAgreement ; rdfs:comment "the requirement set is agreed under the service agreement (R-21)" .
+epo:grantsAccessTo a owl:ObjectProperty ; rdfs:domain epo:TestItemAccess ; rdfs:range earl:TestSubject .
+epo:approves a owl:ObjectProperty ; rdfs:domain epo:PlanApproval ; rdfs:range epo:TestPlan .
+epo:deliveredTo a owl:ObjectProperty ; rdfs:domain epo:Delivery ; rdfs:range prov:Organization .
 
 # ---- the two judgment values (Hawkins et al. 2011; ruling R-08)
 epo:AppropriatenessValue a owl:Class .
