@@ -567,3 +567,22 @@ rul:C-30 a ogc:Concern ;
     ogc:surfacedOn "2026-09-06"^^xsd:date ;
     ogc:surfacedHow "Z, on moving the v0.2.0 tag" ;
     prov:wasGeneratedBy rul:model-revision-planning-2026-09-06 .
+
+rul:C-31 a ogc:Concern ;
+    rdfs:label "evaluation team anchored to audit team: the word audit reads as legal" ;
+    ogc:problem """Z, reviewing sheet 03 row 8: "the word audit feels out of place. most people think of audits and evals differently, as an audit is expected to have legal bearing." The refined term evaluation team is anchored to ISO 9000:2026 3.12.7 audit team ("one or more persons conducting an audit, supported if needed by technical experts"), and technical expert (R-10) to 3.12.9, also marked <audit>. ISO's own definition of audit carries no legal bearing, but readers bring the connotation. Candidate re-anchors: SEVOCAB assessment team, "one or more individuals who jointly perform a process assessment" (ISO/IEC 33001:2015, 3.2.10, p. 30), with audit team as seeAlso; or keep the ISO anchor with a scope note that disclaims the legal reading.""" ;
+    ogc:severity "M" ;
+    ogc:status "ruled" ;
+    ogc:surfacedOn "2026-09-06"^^xsd:date ;
+    ogc:surfacedHow "Z, reviewing sheet 03 row 8" ;
+    ogc:concernsTerm term:evaluation-team ;
+    ogc:concernsTerm term:technical-expert ;
+    prov:wasGeneratedBy rul:model-revision-planning-2026-09-06 .
+
+rul:R-28 a ogc:Ruling ;
+    ogc:order 28 ;
+    ogc:resolves rul:C-31 ;
+    ogc:rulingText "go with evaluator but use the see also for the other two." ;
+    ogc:changeNote "Evaluation team is now refined from the SEVOCAB evaluator (ISO/IEC 25000:2014, 4.18: individual or organization that performs an evaluation), the same SQuaRE family as the adopted term evaluation; ISO 9000:2026 3.12.7 audit team (pending Z's tick, sheet 03 row 8) and SEVOCAB assessment team (ISO/IEC 33001:2015, 3.2.10) are seeAlso. The label evaluator leaves the evaluation operator's altLabels. Technical expert stays under R-10 with its scope note." ;
+    prov:wasAttributedTo rul:Z ;
+    prov:generatedAtTime "2026-09-06"^^xsd:date .

@@ -19,8 +19,8 @@ deployed AI system against the needs of a specific domain, written down as:
 ## Status (2026-09-06)
 
 - **Glossary: ratified, with nine party quotes pending.** 58 terms, 3 coined,
-  settled through 27 rulings (R-01 to R-27) recorded verbatim in
-  `rulings/adjudications.ttl`. 57 quotes are machine-located in content-hashed
+  settled through 28 rulings (R-01 to R-28) recorded verbatim in
+  `rulings/adjudications.ttl`. 59 quotes are machine-located in content-hashed
   snapshots, 23 verified by Z; eight quotes for the party terms added on
   2026-09-06 are on rulings sheet 03 awaiting Z's tick. Concerns C-25 and
   C-26 are open.

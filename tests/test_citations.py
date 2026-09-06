@@ -19,7 +19,7 @@ logging.getLogger("pypdf").setLevel(logging.ERROR)
 
 TERMS = 58
 COINED = 3
-MACHINE_QUOTES = 57
+MACHINE_QUOTES = 59
 COMMITTED_MACHINE_QUOTES = 11  # NIST AI 700-2 (7), NIST AI 100-1 (1), NIST TN 1297 (2), W3C EARL (1): always locatable, in CI too
 PENDING_QUOTES = 8
 HUMAN_QUOTES = 23

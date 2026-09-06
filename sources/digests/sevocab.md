@@ -42,3 +42,5 @@ definition is reproduced under the vocabulary's own terms:
 Absent from SEVOCAB (checked 2026-09-05): attestation, red teaming,
 operational envelope, probe (in our sense), coverage on its own.
 | operator | 283 | entity that performs the operation of a system | ISO/IEC/IEEE 12207:2026, 3.1.40 |
+| evaluator | 157 | individual or organization that performs an evaluation | ISO/IEC 25000:2014, 4.18 |
+| assessment team | 30 | one or more individuals who jointly perform a process assessment | ISO/IEC 33001:2015, 3.2.10 |

@@ -633,19 +633,23 @@ term:contract a skos:Concept ; skos:inScheme ogc:Glossary ;
 
 term:evaluation-team a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "evaluation team"@en ;
-    skos:altLabel "audit team"@en ; skos:altLabel "team"@en ;
-    skos:definition "The persons within the testing organization who conduct the evaluation: at least one domain expert and at least one evaluation operator. The team is to an evaluation what an audit team is to an audit, with the technical experts as members rather than as support."@en ;
+    skos:altLabel "evaluators"@en ; skos:altLabel "team"@en ;
+    skos:definition "The evaluators within the testing organization who jointly perform one evaluation: at least one domain expert and at least one evaluation operator, each an evaluator in the SQuaRE sense, the person who performs an evaluation. What ISO 9000 calls an audit team is the same shape of thing for an audit; the word audit is kept out of the headword because readers hear legal bearing in it that neither standard intends."@en ;
     ogc:class "refined" ;
     ogc:anchorRelation "specializes" ;
-    ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.12.7" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-34.png" ;
-                    ogc:quote "one or more persons conducting an audit, supported if needed by technical experts" ; ogc:quoteStatus "pending" ] ;
-    ogc:scopeNote "Rulings R-10 and R-21: the ISO entry is an audit team; here the team conducts an evaluation and its technical experts are its members." ;
-    prov:wasDerivedFrom rul:R-21 ;
+    ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "evaluator, p. 157 (ISO/IEC 25000:2014, 4.18)" ; ogc:pdfPage 157 ;
+                    ogc:quote "individual or organization that performs an evaluation" ; ogc:quoteStatus "machine" ] ;
+    ogc:seeAlso [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.12.7" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-34.png" ;
+                  ogc:quote "one or more persons conducting an audit, supported if needed by technical experts" ; ogc:quoteStatus "pending" ] ;
+    ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "assessment team, p. 30 (ISO/IEC 33001:2015, 3.2.10)" ; ogc:pdfPage 30 ;
+                  ogc:quote "one or more individuals who jointly perform a process assessment" ; ogc:quoteStatus "machine" ] ;
+    ogc:scopeNote "Ruling R-28 (concern C-31): anchored to the SQuaRE evaluator, the same family as the adopted term evaluation (ISO/IEC 25001), with ISO 9000:2026 audit team and SEVOCAB assessment team as the two neighbours. ISO 9000:2026 3.12.1 defines an audit as a systematic and independent process for obtaining evidence and evaluating it objectively, with no legal bearing; the connotation is the reader's, and it is avoided. Rulings R-10 and R-21: the technical experts are members, not support." ;
+    prov:wasDerivedFrom rul:R-28 ;
     ogc:binding "sysml part def EvaluationTeam inside TestingOrganization" .
 
 term:evaluation-operator a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "evaluation operator"@en ;
-    skos:altLabel "operator"@en ; skos:altLabel "AI evaluation expert"@en ; skos:altLabel "red teamer"@en ; skos:altLabel "evaluator"@en ;
+    skos:altLabel "operator"@en ; skos:altLabel "AI evaluation expert"@en ; skos:altLabel "red teamer"@en ;
     skos:definition "The technical expert who operates the evaluation: declares the requirement set with the sponsor, writes the test plan, administers the probes to the test item, collects the responses and the evidence per the plan, and drafts the report and the recommendation. The operator makes determinations but does not attest; attestation belongs to the domain expert. An abstract actor category, filled by a named person in each evaluation."@en ;
     ogc:class "refined" ;
     ogc:anchorRelation "specializes" ;

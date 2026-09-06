@@ -11,7 +11,7 @@ Rulings R-21 and R-23 introduced the parties. Z: tick each row after checking th
 | 5 | second-party conformity assessment activity | iso-iec-17000-2020 | 4.4 second-party conformity assessment activity | OBP clause 4 | conformity assessment activity that is performed by a person or organization that has a user interest in the object of conformity assessment | [ ] |
 | 6 | third-party conformity assessment activity | iso-iec-17000-2020 | 4.5 third-party conformity assessment activity | OBP clause 4 | conformity assessment activity that is performed by a person or organization that is independent of the provider of the object of conformity assessment and has no user interest in the object | [ ] |
 | 7 | contract | iso-9000-2026 | 3.3.13 | iso-9000-2026-obp-38.png | binding agreement | [x] 2026-09-06 |
-| 8 | evaluation team | iso-9000-2026 | 3.12.7 | iso-9000-2026-obp-34.png | one or more persons conducting an audit, supported if needed by technical experts | [ ] |
+| 8 | evaluation team (seeAlso audit team; canonical is now SEVOCAB evaluator, R-28) | iso-9000-2026 | 3.12.7 | iso-9000-2026-obp-34.png | one or more persons conducting an audit, supported if needed by technical experts | [ ] |
 | 9 | account executive | iso-9000-2026 | 3.1.3 | iso-9000-2026-obp-01.png | person or group of people who directs and controls an organization at the highest level | [ ] |
 
 Open concerns for Z alongside the ticks: C-25 (three adopted party terms, or one refined term) and C-26 (anchor for account executive).
