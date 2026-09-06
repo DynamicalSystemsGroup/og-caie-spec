@@ -95,6 +95,7 @@ they must: a requirement set declared before the agreement was signed fails
 the layer rule, and an affected population neither interviewed nor
 represented fails S0-Population. A model with a sponsor and populations but
 no obligation between them fails M1-Obligation.
+Computational proof: [run the checks](../notebooks/checked-contracting.ipynb).
 :::
 
 :::{admonition} There is more in the model
