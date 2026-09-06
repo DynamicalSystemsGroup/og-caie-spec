@@ -44,3 +44,8 @@ operational envelope, probe (in our sense), coverage on its own.
 | operator | 283 | entity that performs the operation of a system | ISO/IEC/IEEE 12207:2026, 3.1.40 |
 | evaluator | 157 | individual or organization that performs an evaluation | ISO/IEC 25000:2014, 4.18 |
 | assessment team | 30 | one or more individuals who jointly perform a process assessment | ISO/IEC 33001:2015, 3.2.10 |
+| test strategy and planning process | 439 | test management process used to design the test strategy, complete test planning, and create and maintain test plans | ISO/IEC/IEEE 29119-2:2021, 3.51 |
+| test design and implementation process | 433 | test process for deriving and specifying test cases and test procedures | ISO/IEC/IEEE 29119-2:2021, 3.32 |
+| test execution process | 435 | dynamic test process for executing test procedures created in the test design and implementation process in the prepared test environment and recording the results | ISO/IEC/IEEE 29119-2:2021, 3.40 |
+| test completion process | 433 | test management process that aims to ensure that useful test assets are made available for later use, test environments are left in a satisfactory condition, and the results of testing are recorded and communicated to relevant stakeholders | ISO/IEC/IEEE 29119-2:2021, 3.25 |
+| test process | 438 | set of testing activities performed to achieve a test objective | ISO/IEC/IEEE 29119-2:2021, 3.55 |

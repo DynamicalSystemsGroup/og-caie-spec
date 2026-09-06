@@ -11,7 +11,7 @@ from functools import lru_cache
 
 import pytest
 from pyshacl import validate
-from rdflib import RDF, SKOS
+from rdflib import RDF, SKOS, Namespace
 
 from conftest import OGC, ROOT, load, normalized
 
@@ -19,19 +19,25 @@ logging.getLogger("pypdf").setLevel(logging.ERROR)
 
 TERMS = 59
 COINED = 4
-MACHINE_QUOTES = 59
+MACHINE_QUOTES = 69
 COMMITTED_MACHINE_QUOTES = 11  # NIST AI 700-2 (7), NIST AI 100-1 (1), NIST TN 1297 (2), W3C EARL (1): always locatable, in CI too
-PENDING_QUOTES = 0
+PENDING_QUOTES = 7
 HUMAN_QUOTES = 31
 PENDING_ALLOWED_SOURCES = {"iso-9000-2026", "iso-iec-17000-2020", "iec-60050-351"}
 
 
 def union():
-    return load("vocabulary/og-caie.ttl", "sources/sources.ttl", "rulings/adjudications.ttl")
+    return load("vocabulary/og-caie.ttl", "vocabulary/epo.ttl", "sources/sources.ttl", "rulings/adjudications.ttl")
+
+
+def holders(g):
+    """Glossary terms and the seven EPO steps (ruling R-31): both carry citations."""
+    EPO = Namespace("https://w3id.org/og-caie/epo#")
+    return sorted(set(g.subjects(RDF.type, SKOS.Concept)) | set(g.subjects(RDF.type, EPO.EpoStep)), key=str)
 
 
 def citations(g):
-    for t in g.subjects(RDF.type, SKOS.Concept):
+    for t in holders(g):
         for p in (OGC.canonical, OGC.seeAlso):
             for c in g.objects(t, p):
                 yield t, c

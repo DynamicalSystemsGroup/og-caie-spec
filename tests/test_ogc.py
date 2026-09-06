@@ -15,7 +15,7 @@ SKOS = "http://www.w3.org/2004/02/skos/core#"
 COMMANDS = [
     ["schema"], ["find", "probe"], ["term", "probe"], ["define", "conformance"], ["quote", "attestation"],
     ["list", "--class", "coined"], ["source", "sevocab"], ["sources"], ["ruling", "r-16"], ["rulings", "--grep", "conformance"],
-    ["concern", "c-24"], ["concerns", "--open"], ["sci"], ["sci", "SCI-11"], ["crosswalk", "--class", "refined"], ["crosswalk", "--popper"],
+    ["concern", "c-24"], ["concerns", "--open"], ["sci"], ["sci", "SCI-11"], ["steps"], ["crosswalk", "--class", "refined"], ["crosswalk", "--popper"],
     ["check-word", "adequacy", "evidence", "probe"], ["verify", "conformance"], ["verify", "sevocab"],
     ["sparql", 'SELECT ?l WHERE { ?t a skos:Concept ; ogc:class "coined" ; skos:prefLabel ?l }'],
 ]
@@ -76,7 +76,7 @@ def test_verify_agrees_with_the_citation_tests():
     rows = json.loads(r.stdout)
     states = {x["state"] for x in rows}
     assert "NOT FOUND" not in states, [x for x in rows if x["state"] == "NOT FOUND"]
-    assert "pending" not in states
+    assert sum(1 for x in rows if x["state"] == "pending") == 7  # the 17000 step quotes on sheet 04
 
 
 def test_doctor_passes():

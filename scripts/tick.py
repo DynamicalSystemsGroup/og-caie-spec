@@ -14,16 +14,21 @@ VOCAB = ROOT / "vocabulary" / "og-caie.ttl"
 def main(argv):
     term, locator, date = argv[0], argv[1], argv[2]
     src = argv[argv.index("--source") + 1] if "--source" in argv else "iso-9000-2026"
-    t = VOCAB.read_text()
-    start = t.index(f"term:{term} a skos:Concept")
-    end = t.find("\nterm:", start + 1)
+    path = VOCAB
+    head = f"term:{term} a skos:Concept"
+    if ":" in term:  # a step in vocabulary/epo.ttl, e.g. epo:agree
+        path = ROOT / "vocabulary" / "epo.ttl"
+        head = f"{term} a epo:EpoStep"
+    t = path.read_text()
+    start = t.index(head)
+    end = t.find("\nterm:" if ":" not in term else "\nepo:", start + 1)
     block = t[start:end if end > 0 else len(t)]
     pat = re.compile(r'(ogc:cites src:' + re.escape(src) + r' ; ogc:locator "' + re.escape(locator) + r'"[^\]]*?ogc:quoteStatus ")pending(")')
     new, n = pat.subn(r'\1human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "' + date + r'"^^xsd:date' + "", block)
     # the replacement above leaves a stray closing quote from group 2; fix it
     new = new.replace('^^xsd:date"', '^^xsd:date')
     assert n == 1, f"{n} pending citations matched for {term} / {locator}"
-    VOCAB.write_text(t[:start] + new + t[start + len(block):])
+    path.write_text(t[:start] + new + t[start + len(block):])
     # tick the first matching untouched row on any rulings sheet; warn if none
     ticked = False
     for sheet in sorted((ROOT / "rulings" / "sheets").glob("*.md")):

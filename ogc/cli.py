@@ -117,6 +117,7 @@ def build_parser() -> argparse.ArgumentParser:
     add("concern", "one concern", (["id"], {}))
     add("concerns", "the concern register", (["--open"], dict(action="store_true")), (["--status"], {}), (["--severity"], {}))
     add("sci", "the essentials (SCI-01..12): statement, tag, shapes, terms, sources", (["id"], dict(nargs="?")))
+    add("steps", "the seven EPO steps and the canon step each matches (R-31)")
     add("crosswalk", "one row per term: class, anchor relation, canonical source and locator, binding; --popper for the Popper rows", (["--class"], dict(dest="klass")), (["--source"], {}), (["--popper"], dict(action="store_true")))
     add("check-word", "is this word a registered label, of which term, or retired; what to write", (["words"], dict(nargs="+")))
     add("verify", "per citation of a term or source (or --all): where the quote was found", (["what"], dict(nargs="?")), (["--all"], dict(action="store_true")))
@@ -285,6 +286,10 @@ def main(argv=None) -> int:
             d = rows[0]
             return emit(args, c, argstr, d, lambda: [f"## {d['id']} {d['name']}  ({d['tag']})", ""] + text.wrap(d["statement"]) + ["", f"checked by: {', '.join(d['shapes'])}", f"terms: {', '.join(d['terms'])}", f"rests on: {', '.join(d['rests_on'])}"])
         return emit(args, c, argstr, rows, lambda: text.table(rows, ["id", "name", "tag", "shapes", "terms"]))
+
+    if c == "steps":
+        rows = api.steps_table(g)
+        return emit(args, c, argstr, rows, lambda: [l for r in rows for l in ([f"## {r['label']}", f"  matches: {r['source']} {r['locator']}  [{r['status']}]"] + text.wrap(f'"{r["quote"]}"', "    ") + [f"  also: {a['source']} {a['locator']}" + (f"  [{a['status']}]" if a["status"] else "  (cite-only)") for a in r["also"]] + [""])])
 
     if c == "crosswalk":
         if args.popper:

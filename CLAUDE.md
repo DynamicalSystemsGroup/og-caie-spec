@@ -15,6 +15,9 @@ sources and rulings borrowed from `mission-twin-glossary`.
   (DSO), Evaluation Process Ontology (EPO), Contextual AI Evaluation (CAIE),
   OG-CAIE (CAIE performed with the EPO and DSO method). A fifth needs a
   ruling first.
+- The seven EPO steps each cite the canon step they match (R-31:
+  SEBoK/15288 processes, 29119-2 test processes via SEVOCAB, ISO/IEC
+  17000 functions); a new step needs a matching citation, never a coinage.
 - Refined terms carry a typed anchor (`specializes` / `corresponds` /
   `synonym`) and keep the source's word as `skos:altLabel`.
 - **conformity** = fulfilment of a requirement by the system (ISO 9000:2026

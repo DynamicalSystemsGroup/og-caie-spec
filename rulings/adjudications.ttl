@@ -633,3 +633,21 @@ rul:R-30 a ogc:Ruling ;
     prov:wasAttributedTo rul:Z ;
     prov:generatedAtTime "2026-09-06"^^xsd:date .
 
+rul:C-34 a ogc:Concern ;
+    rdfs:label "the seven steps were not bound to a citation" ;
+    ogc:problem """The EPO's seven steps carried labels and rulings but no citation to a documented process model, although the quality-management and systems-engineering canon documents evaluation processes. Without the binding the steps read as invented rather than operationalized.""" ;
+    ogc:severity "M" ;
+    ogc:status "ruled" ;
+    ogc:surfacedOn "2026-09-06"^^xsd:date ;
+    ogc:surfacedHow "Z, reading the front page after slice A" ;
+    ogc:concernsTerm term:evaluation-process-ontology ;
+    prov:wasGeneratedBy rul:model-revision-planning-2026-09-06 .
+
+rul:R-31 a ogc:Ruling ;
+    ogc:order 31 ;
+    ogc:resolves rul:C-34 ;
+    ogc:rulingText """the first page "OG-CAIE as an executable specification" is in good shape for now.  only one thing stood out to me. our "7 steps" are not bound to a citation. knowing incose canon and quality management there is almost certainly a process model already documented for evaluation and we should be citing that and matching our steps to its steps to further reinforce the fact that we are not making any of this op, we're just operationalizing it via executable code""" ;
+    ogc:changeNote "Each EPO step in vocabulary/epo.ttl now carries a canonical citation and seeAlso citations: agree, scope and declare requirements match the ISO/IEC/IEEE 15288 acquisition, stakeholder needs definition and system requirements definition processes as SEBoK v2.14 describes them (pp. 353, 549, 557; machine-located); plan, execute and report match the ISO/IEC/IEEE 29119-2 test strategy and planning (3.51), test execution (3.40) and test completion (3.25) processes as SEVOCAB defines them (machine-located); determine and attest matches ISO/IEC 17000 7.2 decision with 7.1 review, and Annex A's functions (selection, determination, review, decision and attestation) frame the whole, cited by heading. The EPO term cites 29119-2's test process, SEBoK's four 15288 process groups and 17000 4.1 Note 3. The seven ISO/IEC 17000 quotes are pending on sheet 04. Rendered as a table on the glossary page; `ogc steps` prints it; the citation tests and `ogc verify` cover the steps." ;
+    prov:wasAttributedTo rul:Z ;
+    prov:generatedAtTime "2026-09-06"^^xsd:date .
+

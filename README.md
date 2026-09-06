@@ -19,10 +19,16 @@ deployed AI system against the needs of a specific domain, written down as:
 ## Status (2026-09-06)
 
 - **Glossary: ratified.** 59 terms, 4 coined (DSO, EPO, CAIE, OG-CAIE),
-  settled through 30 rulings (R-01 to R-30) recorded verbatim in
+  settled through 31 rulings (R-01 to R-31) recorded verbatim in
   `rulings/adjudications.ttl`. 59 quotes are machine-located in content-hashed
   snapshots, 31 verified by Z against the ISO screenshots or the browsing
   platforms. No quote is pending. Concerns C-25 and C-26 are open.
+- **The seven steps are bound to the canon (R-31).** Each EPO step cites the
+  process step it matches: SEBoK's account of the ISO/IEC/IEEE 15288
+  acquisition, stakeholder needs and system requirements processes; the
+  ISO/IEC/IEEE 29119-2 test strategy and planning, execution and completion
+  processes via SEVOCAB; ISO/IEC 17000's review, decision and attestation.
+  Seven ISO/IEC 17000 quotes await Z's tick on rulings sheet 04.
 - **Site: being restructured one chapter at a time (R-29).** The front page
   runs from why this counts as science to the bridge into the engineering
   standards and ends at the Popper crosswalk; the glossary page shows exactly

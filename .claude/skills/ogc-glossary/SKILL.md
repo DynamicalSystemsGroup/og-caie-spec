@@ -77,6 +77,7 @@ unpadded forms work (`r-5`, `c-7`).
 | Why is it defined this way? | `ogc rulings --term <term>`; one ruling verbatim: `ogc ruling R-16` |
 | What was in doubt, and what is still open | `ogc concerns --open`; `ogc concern C-25` |
 | What must a scientific record contain? | `ogc sci`; one essential: `ogc sci SCI-07` |
+| Which canon step does each EPO step match? | `ogc steps` |
 | The anchor table, one row per term | `ogc crosswalk`, `ogc crosswalk --class refined`, `ogc crosswalk --source iso-9000-2026` |
 | Popper to the standards and back | `ogc crosswalk --popper` |
 | Anything else | `ogc sparql '<SELECT ...>'` or `ogc sparql @query.rq` (prefixes injected; read-only; `--model` adds the canonical model graph) |

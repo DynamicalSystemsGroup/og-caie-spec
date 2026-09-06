@@ -542,7 +542,14 @@ term:evaluation-process-ontology a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:class "coined" ;
     ogc:canonical [ ogc:cites src:term-contract-v5 ; ogc:locator "Section 1C, EPO (Evaluation Process Ontology)" ] ;
     ogc:seeAlso [ ogc:cites src:caie-epo-prototype ; ogc:locator "ontology/epo-core.ttl" ] ;
-    prov:wasDerivedFrom rul:R-09 ;
+    ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "test process, p. 438 (ISO/IEC/IEEE 29119-2:2021, 3.55)" ; ogc:pdfPage 438 ;
+                  ogc:quote "set of testing activities performed to achieve a test objective" ; ogc:quoteStatus "machine" ] ;
+    ogc:seeAlso [ ogc:cites src:sebok-2-14 ; ogc:locator "Applying Life Cycle Processes, p. 444 (ISO/IEC/IEEE 24748-2 on 15288)" ; ogc:pdfPage 444 ;
+                  ogc:quote "Each of the four process groups (Agreement Processes, Organizational Project-Enabling Processes, Technical Management Processes, and Technical Processes) can be used to establish a common understanding in a project." ; ogc:quoteStatus "machine" ] ;
+    ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "4.1 conformity assessment, Note 3" ;
+                  ogc:quote "Conformity assessment is explained in Annex A as a series of functions. Activities contributing to any of these functions can be described as conformity assessment activities." ; ogc:quoteStatus "pending" ] ;
+    ogc:scopeNote "Ruling R-31: the seven steps are not invented. Each step in vocabulary/epo.ttl cites the process step it matches: agree, scope and declare requirements match the ISO/IEC/IEEE 15288 acquisition, stakeholder needs definition and system requirements definition processes as SEBoK describes them; plan, execute and report match the ISO/IEC/IEEE 29119-2 test strategy and planning, test execution and test completion processes as SEVOCAB defines them; determine and attest matches ISO/IEC 17000's review, decision and attestation. The EPO operationalizes those steps as executable checks." ;
+    prov:wasDerivedFrom rul:R-09 ; prov:wasDerivedFrom rul:R-31 ;
     ogc:binding "vocabulary/epo.ttl; sysml action def EvaluationProcess" .
 
 term:contextual-ai-evaluation a skos:Concept ; skos:inScheme ogc:Glossary ;

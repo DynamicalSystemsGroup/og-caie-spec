@@ -178,6 +178,26 @@ def render_key_terms() -> str:
     return "\n".join(lines) + "\n"
 
 
+def render_steps() -> str:
+    EPO = Namespace("https://w3id.org/og-caie/epo#")
+    g = Graph()
+    for f in ("vocabulary/epo.ttl", "sources/sources.ttl"):
+        g.parse(ROOT / f)
+    steps = sorted(g.subjects(RDF.type, EPO.EpoStep), key=lambda x: str(g.value(x, RDFS.label)))
+
+    def citation(c):
+        src = g.value(c, OGC.cites)
+        label = str(g.value(src, RDFS.label)).split(" (")[0].split(", ")[0]
+        q = g.value(c, OGC.quote)
+        return f"{label}, {cell(g.value(c, OGC.locator))}" + (f': "{cell(q)}" ({cell(g.value(c, OGC.quoteStatus))})' if q else "")
+    lines = ["| Step | Matches | Also |", "|---|---|---|"]
+    for st in steps:
+        canon = citation(g.value(st, OGC.canonical))
+        also = "; ".join(citation(c) for c in sorted(g.objects(st, OGC.seeAlso), key=lambda c: (str(g.value(c, OGC.cites)), str(g.value(c, OGC.locator)))))
+        lines.append(f"| **{cell(g.value(st, RDFS.label))}** | {canon} | {also} |")
+    return "\n".join(lines) + "\n"
+
+
 def main_all() -> int:
     OUT.mkdir(exist_ok=True)
     (OUT / "rulings.md").write_text(render_rulings())
@@ -187,6 +207,7 @@ def main_all() -> int:
     (OUT / "popper.md").write_text(render_popper())
     (OUT / "popper-back.md").write_text(render_popper_back())
     (OUT / "key-terms.md").write_text(render_key_terms())
+    (OUT / "steps.md").write_text(render_steps())
     return 0
 
 

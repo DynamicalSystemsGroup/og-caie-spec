@@ -278,6 +278,19 @@ def sci_table(g: Graph, sid=None) -> list[dict]:
     return sorted(rows, key=lambda d: d["id"])
 
 
+def steps_table(g: Graph) -> list[dict]:
+    """The seven EPO steps with the canon step each matches (R-31)."""
+    rows = []
+    for st in g.subjects(RDF.type, EPO.EpoStep):
+        label = one(g, st, RDFS.label)
+        c = g.value(st, OGC.canonical)
+        canon = citation_record(g, c) if c is not None else {}
+        rows.append(dict(order=int(label.split(" ", 1)[0]), step=local(st), label=label, source=canon.get("source", ""), locator=canon.get("locator", ""),
+                         quote=canon.get("quote", ""), status=canon.get("status", ""),
+                         also=[{k: v for k, v in citation_record(g, x).items() if k != "node"} for x in sorted(g.objects(st, OGC.seeAlso), key=lambda x: (str(g.value(x, OGC.cites)), str(g.value(x, OGC.locator))))]))
+    return sorted(rows, key=lambda d: d["order"])
+
+
 def crosswalk(g: Graph, klass=None, source=None) -> list[dict]:
     """One row per term: its class, anchor relation, canonical source and locator, and binding."""
     rows = []
@@ -351,7 +364,7 @@ def verify_citations(g: Graph, root: Path, terms: list, only_src=None) -> list[d
             if only_src is not None and src != only_src:
                 continue
             state, where = locate(g, root, c)
-            rows.append(dict(term=one(g, t, SKOS.prefLabel), holder=holder, source=local(src), posture=one(g, src, OGC.posture),
+            rows.append(dict(term=one(g, t, SKOS.prefLabel) or one(g, t, RDFS.label).split(":")[0], holder=holder, source=local(src), posture=one(g, src, OGC.posture),
                              locator=one(g, c, OGC.locator), status=one(g, c, OGC.quoteStatus) or "none", state=state, where=where))
     return sorted(rows, key=lambda d: (d["term"].lower(), d["holder"], d["source"], d["locator"]))
 
@@ -368,7 +381,7 @@ def verify_source(g: Graph, root: Path, slug: str) -> list[dict] | None:
 
 
 def verify_all(g: Graph, root: Path) -> list[dict]:
-    return verify_citations(g, root, concepts(g))
+    return verify_citations(g, root, concepts(g) + sorted(g.subjects(RDF.type, EPO.EpoStep), key=str))
 
 
 def schema(g: Graph) -> dict:

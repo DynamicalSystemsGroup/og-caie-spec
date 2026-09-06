@@ -70,6 +70,22 @@ R-29).
 ```{include} ../generated/key-terms.md
 ```
 
+## The seven steps and the canon they match
+
+The {term}`Evaluation Process Ontology` has seven steps. None is invented:
+each cites the process step it operationalizes (ruling R-31). The first
+three are the ISO/IEC/IEEE 15288 processes as the SEBoK describes them:
+agreeing the service, defining stakeholder needs, defining system
+requirements. The next three are the ISO/IEC/IEEE 29119-2 test processes as
+SEVOCAB defines them: test strategy and planning, test execution, test
+completion. Between execution and completion sits ISO/IEC 17000's own
+function, review, decision and attestation. What this specification adds is
+only the executable form: each step's inputs and outputs typed, each seam
+wired, each record checked.
+
+```{include} ../generated/steps.md
+```
+
 ## Sources
 
 The register is `sources/sources.ttl`. Committed snapshots live under
