@@ -16,6 +16,7 @@ Ruling R-31 bound each EPO step to the canon step it matches. The SEBoK and SEVO
 | 10 | epo:deliver | 7.3 attestation, Note 1 | is intended to convey the assurance that the specified requirements have been fulfilled | [ ] |
 | 11 | epo:acceptDelivery | 9.6 acceptance | use of a conformity assessment result provided by another person or organization | [ ] |
 
-| 12 | epo:ContractingStep (the lifecycle itself) | 8.1 surveillance | systematic iteration of conformity assessment activities as a basis for maintaining the validity of the statement of conformity | [ ] |
+| 12 | monitoring (seeAlso) | 8.1 surveillance | systematic iteration of conformity assessment activities as a basis for maintaining the validity of the statement of conformity | [ ] |
+| 13 | monitoring | ISO 9000:2026 3.11.3, iso-9000-2026-obp-30.png | determining the status of a system, a process or an activity | [ ] |
 
 Rows 8 to 11 belong to the contracting lifecycle (ruling R-32); row 2's quote moved from the evaluation's agree step to the contracting step propose, and row 7's to deliver.

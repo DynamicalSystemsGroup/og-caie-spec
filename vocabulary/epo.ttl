@@ -54,8 +54,7 @@ epo:report a epo:EpoStep ; rdfs:label "6 report: coverage and performance comput
 # it pins is the first layer of assumptions: the parties, the object, the
 # specified requirements' frame and the methodology (ogc:pinnedAt epo:contract).
 epo:ContractingStep a owl:Class ; rdfs:label "contracting lifecycle step" ;
-    ogc:canonical [ ogc:cites src:sebok-2-14 ; ogc:locator "Stakeholder Needs (Acquisition and Supply), p. 353" ; ogc:pdfPage 353 ; ogc:quote "These needs and requirements are expressed in agreements between acquirers and suppliers." ; ogc:quoteStatus "machine" ] ;
-    ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "8.1 surveillance" ; ogc:quote "systematic iteration of conformity assessment activities as a basis for maintaining the validity of the statement of conformity" ; ogc:quoteStatus "pending" ] .
+    ogc:canonical [ ogc:cites src:sebok-2-14 ; ogc:locator "Stakeholder Needs (Acquisition and Supply), p. 353" ; ogc:pdfPage 353 ; ogc:quote "These needs and requirements are expressed in agreements between acquirers and suppliers." ; ogc:quoteStatus "machine" ] .
 epo:need a epo:ContractingStep ; rdfs:label "C1 need: the sponsor states the mission problem and what success would look like" ;
     ogc:canonical [ ogc:cites src:sebok-2-14 ; ogc:locator "Business or Mission Analysis, p. 543" ; ogc:pdfPage 543 ; ogc:quote "The purpose of Business or Mission Analysis is to understand a mission or market problem, threat, or opportunity, and to establish the goals, objectives and measures of success of a potential solution class." ; ogc:quoteStatus "machine" ] ;
     ogc:seeAlso [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.5.1 requirement" ; ogc:quote "need or expectation that is stated, generally implied or obligatory" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-11.png" ] .

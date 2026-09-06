@@ -686,3 +686,17 @@ term:account-executive a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:scopeNote "Ruling R-23. Concern C-26: the anchor is provisional; the account executive is the person top management authorizes to sign for the organization." ;
     prov:wasDerivedFrom rul:R-23 ;
     ogc:binding "sysml part def AccountExecutive; epo:accountExecutiveRole on the service agreement and the report" .
+
+term:monitoring a skos:Concept ; skos:inScheme ogc:Glossary ;
+    skos:prefLabel "monitoring"@en ;
+    skos:altLabel "surveillance (ISO/IEC 17000 8.1)"@en ; skos:altLabel "re-evaluation"@en ;
+    skos:definition "Determining the status of a system at different stages or times. After an evaluation, a sponsor may require the accountable organization to change the system per the findings and then require new testing to certify that the flagged issues were addressed; in conformity assessment that repeat is called surveillance. Observed in practice; not a step of the contracting lifecycle."@en ;
+    ogc:class "adopted" ;
+    ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.11.3" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-30.png" ;
+                    ogc:quote "determining the status of a system, a process or an activity" ; ogc:quoteStatus "pending" ] ;
+    ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "8.1 surveillance" ;
+                  ogc:quote "systematic iteration of conformity assessment activities as a basis for maintaining the validity of the statement of conformity" ; ogc:quoteStatus "pending" ] ;
+    ogc:scopeNote "Ruling R-36: the headword is ISO 9000's monitoring, the doctrine is ISO/IEC 17000's surveillance, kept as the alternative label with its clause so the concept stays mapped. Ruling R-35: narration in the Contracting chapter, outside the lifecycle." ;
+    prov:wasDerivedFrom rul:R-36 ;
+    ogc:binding "narration in docs/contracting.md; no node of the record" .
+

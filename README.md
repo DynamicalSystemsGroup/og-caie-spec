@@ -18,8 +18,8 @@ deployed AI system against the needs of a specific domain, written down as:
 
 ## Status (2026-09-06)
 
-- **Glossary: ratified.** 59 terms, 4 coined (DSO, EPO, CAIE, OG-CAIE),
-  settled through 35 rulings (R-01 to R-35) recorded verbatim in
+- **Glossary: ratified.** 60 terms, 4 coined (DSO, EPO, CAIE, OG-CAIE),
+  settled through 36 rulings (R-01 to R-36) recorded verbatim in
   `rulings/adjudications.ttl`. 59 quotes are machine-located in content-hashed
   snapshots, 31 verified by Z against the ISO screenshots or the browsing
   platforms. No quote is pending. Concerns C-25 and C-26 are open.

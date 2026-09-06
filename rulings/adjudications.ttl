@@ -726,3 +726,21 @@ note that we are not trying to say this is in the contracting loop per the stand
     prov:wasAttributedTo rul:Z ;
     prov:generatedAtTime "2026-09-06"^^xsd:date .
 
+rul:C-39 a ogc:Concern ;
+    rdfs:label "surveillance as a headword raises eyebrows" ;
+    ogc:problem """R-35 quoted ISO/IEC 17000 8.1 surveillance in the Contracting walkthrough. The clause is the formal doctrine for a repeat evaluation and must stay mapped, but the word reads badly to a general audience.""" ;
+    ogc:severity "L" ;
+    ogc:status "ruled" ;
+    ogc:surfacedOn "2026-09-06"^^xsd:date ;
+    ogc:surfacedHow "Z, reading the R-35 commit" ;
+    ogc:concernsTerm term:monitoring ;
+    prov:wasGeneratedBy rul:model-revision-planning-2026-09-06 .
+
+rul:R-36 a ogc:Ruling ;
+    ogc:order 36 ;
+    ogc:resolves rul:C-39 ;
+    ogc:rulingText """"surveillance" might cause some eyebrows to raise. we do need to citation to map to this concept since its the formal doctrine on the subject but we may need to choose an alternative headword. possibly monitoring or oversight.""" ;
+    ogc:changeNote "Headword monitoring, adopted from ISO 9000:2026 3.11.3 (determining the status of a system, a process or an activity; Note 3: carried out at different stages or at different times), which outranks 17000 by the precedence rule; surveillance (ISO/IEC 17000 8.1) is the alternative label with its clause and a seeAlso citation, so the doctrine stays mapped. Oversight is not a term of either standard. The walkthrough prose says monitoring; both quotes pending on sheet 04 (rows 12, 13)." ;
+    prov:wasAttributedTo rul:Z ;
+    prov:generatedAtTime "2026-09-06"^^xsd:date .
+
