@@ -10,20 +10,35 @@ import sys
 import nbformat
 import pytest
 import yaml
+from rdflib import RDF, Namespace
 
-from conftest import ROOT
+from conftest import ROOT, load
+from ogc import executor
 
 sys.path.insert(0, str(ROOT / "scripts"))
 from execute_notebooks import NOTEBOOKS, VERDICT, execute, outputs, stale  # noqa: E402
 
+SH = Namespace("http://www.w3.org/ns/shacl#")
 CHECKED_BLOCK = re.compile(r":::\{admonition\} Checked\n(.*?)\n:::", re.S)
 SHAPE_ID = re.compile(r"\b[SM]\d-\w+\b")
+SHAPE_RANGE = re.compile(r"\b([SM])(\d) to \1(\d)\b")  # "S1 to S8": every shape of those groups in its file
+SHAPE_FILES = {"S": "shapes/epo.shapes.ttl", "M": "shapes/model.shapes.ttl"}
 PROOF_LINK = re.compile(r"Computational proof: \[run the checks\]\(\.\./notebooks/(checked-[\w-]+\.ipynb)\)\.$")
-CHAPTERS = ["contracting.md"]  # evaluation, model and guarantees join as their slices land
+CHAPTERS = ["contracting.md", "evaluation.md", "model.md", "guarantees.md"]
 # The counterexamples each chapter's Checked block describes in prose, by file
 # name, since the prose names the fault and not the file.
 COUNTEREXAMPLES = {
     "contracting.md": ["requirements-before-agreement.ttl", "population-unrepresented.ttl", "no-obligation.sysml"],
+    "evaluation.md": ["attestation-without-evidence.ttl", "attestation-off-plan.ttl", "attestation-off-turn.ttl",
+                      "probe-before-requirements.ttl", "recommendation-untraced.ttl", "expert-administers-tests.ttl",
+                      "executive-attests.ttl", "unwired-port.sysml", "expert-administers-tests.sysml"],
+    "model.md": ["requirements-before-agreement.ttl"],
+    "guarantees.md": [],  # its counterexamples are the executor's mutations, built in memory: see CHECKS
+}
+# The guarantees chapter's Checked block names checks and mutations rather
+# than shapes; its notebook must call them by name.
+CHECKS = {
+    "guarantees.md": ["executor.demonstrate(", "executor.execute(", "isomorphic(", *(f'"{m}"' for m in executor.MUTATIONS)],
 }
 RETIRED = {"adequacy", "adequate", "inadequate"}
 
@@ -32,6 +47,18 @@ def checked_block(name):
     m = CHECKED_BLOCK.search((ROOT / "docs" / name).read_text())
     assert m, f"{name}: no Checked block"
     return m.group(1)
+
+
+def named_shapes(block):
+    """The shape ids a Checked block names, one by one or as a range such as
+    'S1 to S8', which stands for every shape of those groups in its file."""
+    names = set(SHAPE_ID.findall(block))
+    for letter, lo, hi in SHAPE_RANGE.findall(block):
+        for s in load(SHAPE_FILES[letter]).subjects(RDF.type, SH.NodeShape):
+            n = str(s).rsplit("/", 1)[-1]
+            if n[0] == letter and int(lo) <= int(n[1]) <= int(hi):
+                names.add(n)
+    return sorted(names)
 
 
 def linked_notebook(name):
@@ -61,10 +88,10 @@ def test_there_is_a_notebook_per_chapter():
 def test_every_named_shape_and_counterexample_is_exercised(chapter):
     nb = nbformat.read(linked_notebook(chapter), as_version=4)
     code = source(nb)
-    named = sorted(set(SHAPE_ID.findall(checked_block(chapter))))
-    assert named, chapter
-    missing = [s for s in named if f'"{s}"' not in code]
-    assert not missing, f"{chapter}: shapes claimed but not exercised: {missing}"
+    required = [f'"{s}"' for s in named_shapes(checked_block(chapter))] + CHECKS.get(chapter, [])
+    assert required, chapter
+    missing = [t for t in required if t not in code]
+    assert not missing, f"{chapter}: claimed but not exercised: {missing}"
     for cx in COUNTEREXAMPLES[chapter]:
         assert f'"{cx}"' in code, f"{chapter}: counterexample {cx} not exercised"
         assert (ROOT / "counterexamples" / cx).exists() or (ROOT / "counterexamples" / "model" / cx).exists(), cx
