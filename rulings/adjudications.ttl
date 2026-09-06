@@ -1,0 +1,165 @@
+@prefix ogc:  <https://w3id.org/og-caie/> .
+@prefix rul:  <https://w3id.org/og-caie/rulings#> .
+@prefix src:  <https://w3id.org/og-caie/sources#> .
+@prefix term: <https://w3id.org/og-caie/terms#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+# The judgment record. A concern is a question the substrate could not settle
+# by citation alone; a ruling is Z's answer, verbatim, attributed and dated.
+# Hand-edited source graph; docs/rulings.md is rendered from it.
+
+rul:Z a prov:Agent, prov:Person ; rdfs:label "Z (Michael Zargham), adjudicator" .
+rul:Julie a prov:Agent, prov:Person ; rdfs:label "Julie Hollek (Humane Intelligence), co-author" .
+
+rul:plan-walkthrough-2026-09-05 a prov:Activity ;
+    rdfs:label "plan-mode walkthrough of the open concerns, 2026-09-05 (Claude Code AskUserQuestion popups; Z selected one option per concern)" ;
+    prov:wasAssociatedWith rul:Z ;
+    prov:endedAtTime "2026-09-05"^^xsd:date .
+
+# ---------------------------------------------------------------- concerns
+
+rul:C-01 a ogc:Concern ;
+    rdfs:label "test coverage: abstract tests vs concrete applications" ;
+    ogc:problem """The paper draft conflates tests (abstract) that cover requirements with the concrete applications of those tests during a case, which produce the evidence. Z's comment on the draft (2026-09-05): "it seems to conflate tests (abstract) with (concrete) applications of those tests ... test coverage ... relates the requirements we carry about to tests (abstract) that cover them; Not the specific incidents (plural) of those tests applied during a specific case. the latter produces the evidence which is ultimately rolled up to support validating (or invalidating) the hypothesis that the requirement is met." SEVOCAB carries ISO/IEC/IEEE 29119-2:2021 3.28 test coverage, which supports the abstract reading.""" ;
+    ogc:severity "H" ;
+    ogc:status "ruled" ;
+    ogc:surfacedOn "2026-09-05"^^xsd:date ;
+    ogc:surfacedHow "Z's comment on the paper draft; SEVOCAB entry check" ;
+    ogc:concernsTerm term:test-coverage ;
+    prov:wasGeneratedBy rul:plan-walkthrough-2026-09-05 .
+
+rul:C-02 a ogc:Concern ;
+    rdfs:label "operating environment: which canonical anchor" ;
+    ogc:problem """Term contract v5 anchors "operating environment" to the automotive Operational Design Domain (SAE J3016, SAE J3259, ISO 34503), all paid sources outside the evaluation domain. SEVOCAB carries "operational environment" (IEEE 982-2024 3.1): physical context, setting, and circumstances used to support the in-service operation of a system.""" ;
+    ogc:severity "M" ;
+    ogc:status "ruled" ;
+    ogc:surfacedOn "2026-09-05"^^xsd:date ;
+    ogc:surfacedHow "term contract v5 review against SEVOCAB" ;
+    ogc:concernsTerm term:operational-environment ;
+    prov:wasGeneratedBy rul:plan-walkthrough-2026-09-05 .
+
+rul:C-03 a ogc:Concern ;
+    rdfs:label "operational envelope: no canonical entry" ;
+    ogc:problem """Neither ISO 9000:2026 nor SEVOCAB defines "operational envelope". Term contract v5 cites process-safety usage (CCPS "safe operating envelope"), a weak fit. Functionally the envelope is the declared requirement set with its acceptance criteria and weights for the operational environment.""" ;
+    ogc:severity "M" ;
+    ogc:status "ruled" ;
+    ogc:surfacedOn "2026-09-05"^^xsd:date ;
+    ogc:surfacedHow "term contract v5 review against ISO 9000:2026 and SEVOCAB" ;
+    ogc:concernsTerm term:operational-envelope ;
+    prov:wasGeneratedBy rul:plan-walkthrough-2026-09-05 .
+
+rul:C-04 a ogc:Concern ;
+    rdfs:label "redistribution of source snapshots" ;
+    ogc:problem """SEBoK v2.14 is CC BY-NC-SA; the ISO 9000:2026 OBP preview is copyrighted text captured as 37 screenshots. Committing either to a public repository is a licence exposure; not committing them weakens machine verification of quotes in CI.""" ;
+    ogc:severity "M" ;
+    ogc:status "ruled" ;
+    ogc:surfacedOn "2026-09-05"^^xsd:date ;
+    ogc:surfacedHow "source register design" ;
+    prov:wasGeneratedBy rul:plan-walkthrough-2026-09-05 .
+
+rul:C-05 a ogc:Concern ;
+    rdfs:label "deployment sensitivity: refined term or coinage" ;
+    ogc:problem """The weight on each acceptance criterion by consequence of failure. SEVOCAB carries risk-based testing (ISO/IEC/IEEE 29119-2:2021 3.16). Is "deployment sensitivity" a refinement of that or a fourth coinage.""" ;
+    ogc:severity "L" ;
+    ogc:status "ruled" ;
+    ogc:surfacedOn "2026-09-05"^^xsd:date ;
+    ogc:surfacedHow "coinage audit of term contract v5" ;
+    ogc:concernsTerm term:deployment-sensitivity ;
+    prov:wasGeneratedBy rul:plan-walkthrough-2026-09-05 .
+
+rul:C-06 a ogc:Concern ;
+    rdfs:label "IRI base: w3id now or Pages URL" ;
+    ogc:problem """Ontology and record IRIs need a stable base. w3id.org/og-caie requires a PR to perma-id/w3id.org and resolves nowhere until merged; the GitHub Pages URL resolves immediately but renaming later breaks every Turtle file.""" ;
+    ogc:severity "L" ;
+    ogc:status "ruled" ;
+    ogc:surfacedOn "2026-09-05"^^xsd:date ;
+    ogc:surfacedHow "repository design" ;
+    prov:wasGeneratedBy rul:plan-walkthrough-2026-09-05 .
+
+rul:C-07 a ogc:Concern ;
+    rdfs:label "scope: requirements and interfaces, or architecture too" ;
+    ogc:problem """Z's SEBoK screenshots draw the scope box around Concept Definition and System Requirements Definition (including Assess Interactions across Interfaces) and stop before Logical and Physical Architecture. The infra drawing (frontend, backend, data) is a realization sketch. Do part and port defs stay at the interface level or allocate to that drawing.""" ;
+    ogc:severity "M" ;
+    ogc:status "ruled" ;
+    ogc:surfacedOn "2026-09-05"^^xsd:date ;
+    ogc:surfacedHow "SEBoK v2.14 figures annotated by Z" ;
+    prov:wasGeneratedBy rul:plan-walkthrough-2026-09-05 .
+
+rul:C-08 a ogc:Concern ;
+    rdfs:label "adequacy vs appropriateness" ;
+    ogc:problem """The paper draft and term contract v5 label the attestation's context judgment "adequacy". The primary source for the pairing (Hawkins, Kelly, Knight and Graydon 2011, assurance claim points) uses "appropriateness" for asserted context and "sufficiency" for asserted solution; ISA 500 uses appropriateness (quality) and sufficiency (quantity). "Adequacy" also collides with ISO 9000:2026 3.11.2 review.""" ;
+    ogc:severity "H" ;
+    ogc:status "ruled" ;
+    ogc:surfacedOn "2026-09-05"^^xsd:date ;
+    ogc:surfacedHow "Z's correction during planning; verified against Hawkins et al. 2011 sections 3.2 and 3.3 and ISA 500 paragraphs 5(b), 5(f), A8" ;
+    ogc:concernsTerm term:appropriateness ;
+    ogc:concernsTerm term:sufficiency ;
+    prov:wasGeneratedBy rul:plan-walkthrough-2026-09-05 .
+
+# ----------------------------------------------------------------- rulings
+
+rul:R-01 a ogc:Ruling ;
+    ogc:order 1 ;
+    ogc:resolves rul:C-01 ;
+    ogc:rulingText "Adopt SEVOCAB test coverage; add the distinction as a note" ;
+    ogc:changeNote "Glossary cites ISO/IEC/IEEE 29119-2:2021 3.28 via SEVOCAB; scope note: acceptance criterion is the coverage item, probe is the test case, evidence is the concrete application. Paper asked to align." ;
+    prov:wasAttributedTo rul:Z ;
+    prov:generatedAtTime "2026-09-05"^^xsd:date .
+
+rul:R-02 a ogc:Ruling ;
+    ogc:order 2 ;
+    ogc:resolves rul:C-02 ;
+    ogc:rulingText "Adopt SEVOCAB 'operational environment'" ;
+    ogc:changeNote "prefLabel operational environment (IEEE 982-2024 via SEVOCAB); altLabel operating environment; ODD and SAE dropped from the canon." ;
+    prov:wasAttributedTo rul:Z ;
+    prov:generatedAtTime "2026-09-05"^^xsd:date .
+
+rul:R-03 a ogc:Ruling ;
+    ogc:order 3 ;
+    ogc:resolves rul:C-03 ;
+    ogc:rulingText "Keep as house label, define by composition, altLabel 'requirement set'" ;
+    ogc:changeNote "Class refined; anchored to ISO 9000:2026 3.5.1 requirement with relation specializes; not counted as coinage. SysML item def RequirementSet." ;
+    prov:wasAttributedTo rul:Z ;
+    prov:generatedAtTime "2026-09-05"^^xsd:date .
+
+rul:R-04 a ogc:Ruling ;
+    ogc:order 4 ;
+    ogc:resolves rul:C-04 ;
+    ogc:rulingText "Hold both locally; commit hashes + digests only" ;
+    ogc:changeNote "sources.ttl posture heldLocally for SEBoK v2.14 and the ISO 9000:2026 screenshots; digests with quotes and locators committed; CI verifies quotes against digests with pinned counts." ;
+    prov:wasAttributedTo rul:Z ;
+    prov:generatedAtTime "2026-09-05"^^xsd:date .
+
+rul:R-05 a ogc:Ruling ;
+    ogc:order 5 ;
+    ogc:resolves rul:C-05 ;
+    ogc:rulingText "Refined: specializes risk-based testing" ;
+    ogc:changeNote "Anchor SEVOCAB risk-based testing (29119-2 3.16), relation specializes, altLabel risk weight. Coinage stays at three." ;
+    prov:wasAttributedTo rul:Z ;
+    prov:generatedAtTime "2026-09-05"^^xsd:date .
+
+rul:R-06 a ogc:Ruling ;
+    ogc:order 6 ;
+    ogc:resolves rul:C-06 ;
+    ogc:rulingText "Author against w3id now, note the Pages fallback" ;
+    ogc:changeNote "All IRIs under https://w3id.org/og-caie/; PR to perma-id/w3id.org opened in S0; README states the Pages fallback until it merges." ;
+    prov:wasAttributedTo rul:Z ;
+    prov:generatedAtTime "2026-09-05"^^xsd:date .
+
+rul:R-07 a ogc:Ruling ;
+    ogc:order 7 ;
+    ogc:resolves rul:C-07 ;
+    ogc:rulingText "Yes: requirements + interfaces, no architecture" ;
+    ogc:changeNote "SysML carries part, port, interface, action and requirement defs only; no allocation, no physical structure; the infra drawing is cited as a realization sketch." ;
+    prov:wasAttributedTo rul:Z ;
+    prov:generatedAtTime "2026-09-05"^^xsd:date .
+
+rul:R-08 a ogc:Ruling ;
+    ogc:order 8 ;
+    ogc:resolves rul:C-08 ;
+    ogc:rulingText "\"adequacy/sufficiency\" i believe i misquoted in a previous version its appropriateness and sufficiency check the primary source and cite correctly. functionally my use was correct, just mislabed" ;
+    ogc:changeNote "Every artifact uses appropriateness (of the declared context) and sufficiency (of the evidence); citations to Hawkins et al. 2011 3.2/3.3 with ISA 500 5(b)/5(f)/A8 as seeAlso; paper and term contract v5 asked to align." ;
+    prov:wasAttributedTo rul:Z ;
+    prov:generatedAtTime "2026-09-05"^^xsd:date .

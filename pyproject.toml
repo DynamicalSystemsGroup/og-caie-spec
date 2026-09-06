@@ -1,0 +1,27 @@
+[project]
+name = "og-caie-spec"
+version = "0.1.0"
+description = "Ontology-Grounded Contextual AI Evaluation (OG-CAIE) as an executable specification"
+authors = [{ name = "Michael Zargham" }, { name = "Julie Hollek" }]
+license = { text = "CC-BY-SA-4.0" }
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "rdflib>=7.0",
+    "pyshacl>=0.27",
+    "pypdf>=6.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "pyyaml>=6.0",
+    "mystmd>=1.3",
+]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+filterwarnings = ["ignore::DeprecationWarning:rdflib"]
+testpaths = ["tests"]

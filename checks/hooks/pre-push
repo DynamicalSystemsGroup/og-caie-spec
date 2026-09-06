@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Refuse to push unless the gate passes. Install with:
+#   git config core.hooksPath checks/hooks
+cd "$(git rev-parse --show-toplevel)"
+bash checks/run-checks.sh

@@ -1,0 +1,45 @@
+version: 1
+project:
+  title: OG-CAIE as an executable specification
+  description: >
+    Ontology-Grounded Contextual AI Evaluation: the process, its vocabulary
+    grounded in ISO, IEEE and NIST canon, the human and machine assemblage
+    that runs it, and one evaluation record whose conformity is checked by
+    machine and whose judgments are attested by named people.
+  authors:
+    - name: Michael Zargham
+      orcid: 0000-0001-5279-690X
+      affiliations:
+        - Dynamical Systems Group
+    - name: Julie Hollek
+      affiliations:
+        - Humane Intelligence
+  license: CC-BY-SA-4.0
+  exclude:
+    - README.md
+    - CLAUDE.md
+    - LICENSE.md
+    - sources/digests/*.md
+  numbering:
+    headings: true
+  abbreviations:
+    OG-CAIE: Ontology-Grounded Contextual AI Evaluation
+    DSO: Domain-Specific Ontology
+    EPO: Evaluation Process Ontology
+    SEVOCAB: Software and Systems Engineering Vocabulary (IEEE Computer Society)
+    RDF: Resource Description Framework
+    SKOS: Simple Knowledge Organization System
+    PROV: Provenance Ontology (PROV-O)
+    EARL: Evaluation and Report Language
+    SHACL: Shapes Constraint Language
+    SPARQL: SPARQL Protocol and RDF Query Language
+  bibliography:
+    - references.bib
+  error_rules:
+    - rule: doi-exists
+      severity: ignore
+  toc:
+    - file: index.md
+    - file: docs/rulings.md
+site:
+  template: book-theme

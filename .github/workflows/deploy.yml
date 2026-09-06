@@ -1,0 +1,51 @@
+# Gate, then publish. checks/run-checks.sh (pinned toolchain, strict
+# validation, test suite, byte-identical regeneration, site build) must
+# PASS before the site deploys to GitHub Pages.
+name: checks-and-deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: python environment
+        run: uv sync
+      - name: full gate
+        run: bash checks/run-checks.sh
+      - name: build the site for Pages
+        env:
+          REPO_NAME: ${{ github.event.repository.name }}
+        run: BASE_URL="/${REPO_NAME}" uv run myst build --html
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _build/html
+
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: checks
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
