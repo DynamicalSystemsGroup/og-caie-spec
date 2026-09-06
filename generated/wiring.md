@@ -25,6 +25,8 @@ flowchart LR
   testingOrg_team_domainExpert -- "assessmentSeam" --> testingOrg_recorder
   testingOrg_team_domainExpert -- "attestationSeam" --> testingOrg_recorder
   testingOrg_accountExecutive -- "countersignSeam" --> testingOrg_recorder
+  testingOrg_accountExecutive -- "deliveryRecordSeam" --> testingOrg_recorder
+  testingOrg_accountExecutive -- "deliverySeam" --> sponsor
   testingOrg_probeDeriver -- "derivedProbeSeam" --> testingOrg_team_operator
   testingOrg_team_domainExpert -- "dsoSeam" --> testingOrg_recorder
   testingOrg_team_operator -- "evidenceSeam" --> testingOrg_recorder
@@ -34,7 +36,6 @@ flowchart LR
   testingOrg_team_operator -- "planSeam" --> testingOrg_recorder
   testingOrg_probeDeriver -- "probeRecordSeam" --> testingOrg_recorder
   testingOrg_team_operator -- "probeRunSeam" --> accountable_testItem
-  testingOrg_accountExecutive -- "recommendationDeliverySeam" --> sponsor
   testingOrg_team_operator -- "recommendationSeam" --> testingOrg_recorder
   testingOrg_recorder -- "recordToCalculatorSeam" --> testingOrg_coverageCalculator
   testingOrg_recorder -- "recordToCheckerSeam" --> testingOrg_conformanceChecker
@@ -42,7 +43,6 @@ flowchart LR
   testingOrg_recorder -- "recordToExecutiveSeam" --> testingOrg_accountExecutive
   testingOrg_recorder -- "recordToExpertSeam" --> testingOrg_team_domainExpert
   testingOrg_recorder -- "recordToOperatorSeam" --> testingOrg_team_operator
-  testingOrg_accountExecutive -- "reportDeliverySeam" --> sponsor
   testingOrg_coverageCalculator -- "reportSeam" --> testingOrg_recorder
   testingOrg_team_operator -- "requirementSeam" --> testingOrg_recorder
   accountable_testItem -- "responseSeam" --> testingOrg_recorder

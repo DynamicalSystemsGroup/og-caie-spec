@@ -10,4 +10,4 @@ $ sysml model/og-caie.sysml -validate -strict
 ```
 ### The canonical model graph
 
-`sysml -convert ttl` renders 10703 triples; the term map keeps 3005 (174 of them resolved ends computed by `scripts/prune_model.py`), within a budget of 3600. Conformance of the graph to the 9 wiring shapes M1 to M5: **conforms**.
+`sysml -convert ttl` renders 11240 triples; the term map keeps 3166 (174 of them resolved ends computed by `scripts/prune_model.py`), within a budget of 3600. Conformance of the graph to the 9 wiring shapes M1 to M5: **conforms**.

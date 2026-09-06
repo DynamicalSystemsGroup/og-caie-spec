@@ -25,7 +25,7 @@ MANIFEST = ROOT / "model" / "model_manifest.json"
 TERM_MAP = ROOT / "model" / "sysml_term_map.csv"
 SH = Namespace("http://www.w3.org/ns/shacl#")
 COUNTEREXAMPLES = {
-    "unwired-port": "M2-PortConnectedOnce",
+    "unwired-port": "M2-InputsUniqueOutputsShared",
     "expert-administers-tests": "M5-PortsBelongToRoles",
     "missing-accountable": "M1-Parties",
 }

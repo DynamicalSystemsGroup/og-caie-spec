@@ -83,9 +83,10 @@ elmt:OGCAIE__AccountExecutive___400
     sysml:body """ Signatory of the service agreement and legal representative
            of the testing organization (ruling R-23). Countersigns the
            agreement into the record, reads the record, and delivers the
-           report and the recommendation to the sponsor. No evidence,
-           determination or attestation port: the account executive
-           never judges the test item. The worked example's Mala. """ ;
+           report and the recommendation to the sponsor as one delivery
+           (an activity of its own, R-24). No evidence, determination or
+           attestation port: the account executive never judges the test
+           item. The worked example's Mala. """ ;
     sysml:owner elmt:OGCAIE__AccountExecutive ;
     sysml:qualifiedName "OGCAIE::AccountExecutive::@0" .
 
@@ -104,12 +105,12 @@ elmt:OGCAIE__AccountExecutive__agreementOut
     sysml:qualifiedName "OGCAIE::AccountExecutive::agreementOut" ;
     sysml:type elmt:OGCAIE__AgreementWrite .
 
-elmt:OGCAIE__AccountExecutive__recommendationOut
+elmt:OGCAIE__AccountExecutive__deliveryOut
     a sysml:PortUsage ;
-    sysml:declaredName "recommendationOut" ;
+    sysml:declaredName "deliveryOut" ;
     sysml:owner elmt:OGCAIE__AccountExecutive ;
-    sysml:qualifiedName "OGCAIE::AccountExecutive::recommendationOut" ;
-    sysml:type elmt:OGCAIE__RecommendationWrite .
+    sysml:qualifiedName "OGCAIE::AccountExecutive::deliveryOut" ;
+    sysml:type elmt:OGCAIE__DeliveryWrite .
 
 elmt:OGCAIE__AccountExecutive__recordIn
     a sysml:PortUsage ;
@@ -118,13 +119,6 @@ elmt:OGCAIE__AccountExecutive__recordIn
     sysml:owner elmt:OGCAIE__AccountExecutive ;
     sysml:qualifiedName "OGCAIE::AccountExecutive::recordIn" ;
     sysml:type elmt:OGCAIE__RecordWrite .
-
-elmt:OGCAIE__AccountExecutive__reportOut
-    a sysml:PortUsage ;
-    sysml:declaredName "reportOut" ;
-    sysml:owner elmt:OGCAIE__AccountExecutive ;
-    sysml:qualifiedName "OGCAIE::AccountExecutive::reportOut" ;
-    sysml:type elmt:OGCAIE__ReportWrite .
 
 elmt:OGCAIE__AccountableOrganization
     a sysml:PartDefinition ;
@@ -409,6 +403,64 @@ elmt:OGCAIE__CoverageCalculator__reportOut
     sysml:qualifiedName "OGCAIE::CoverageCalculator::reportOut" ;
     sysml:type elmt:OGCAIE__ReportWrite .
 
+elmt:OGCAIE__Delivery
+    a sysml:ItemDefinition ;
+    sysml:declaredName "Delivery" ;
+    sysml:owner elmt:OGCAIE ;
+    sysml:qualifiedName "OGCAIE::Delivery" .
+
+elmt:OGCAIE__DeliverySeam
+    a sysml:InterfaceDefinition ;
+    sysml:declaredName "DeliverySeam" ;
+    sysml:owner elmt:OGCAIE ;
+    sysml:qualifiedName "OGCAIE::DeliverySeam" .
+
+elmt:OGCAIE__DeliverySeam__consumer
+    a sysml:PortUsage ;
+    sysml:declaredName "consumer" ;
+    sysml:isConjugated "true"^^xsd:boolean ;
+    sysml:isEnd "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__DeliverySeam ;
+    sysml:qualifiedName "OGCAIE::DeliverySeam::consumer" ;
+    sysml:type elmt:OGCAIE__DeliveryWrite .
+
+elmt:OGCAIE__DeliverySeam__supplier
+    a sysml:PortUsage ;
+    sysml:declaredName "supplier" ;
+    sysml:isEnd "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__DeliverySeam ;
+    sysml:qualifiedName "OGCAIE::DeliverySeam::supplier" ;
+    sysml:type elmt:OGCAIE__DeliveryWrite .
+
+elmt:OGCAIE__DeliveryWrite
+    a sysml:PortDefinition ;
+    sysml:declaredName "DeliveryWrite" ;
+    sysml:owner elmt:OGCAIE ;
+    sysml:qualifiedName "OGCAIE::DeliveryWrite" .
+
+elmt:OGCAIE__DeliveryWrite__i
+    a sysml:ItemUsage ;
+    sysml:declaredName "i" ;
+    sysml:direction "out" ;
+    sysml:owner elmt:OGCAIE__DeliveryWrite ;
+    sysml:qualifiedName "OGCAIE::DeliveryWrite::i" ;
+    sysml:type elmt:OGCAIE__Delivery .
+
+elmt:OGCAIE__Delivery___400
+    a sysml:Documentation ;
+    sysml:body """ The report and the recommendation handed to the sponsor by
+           the account executive: the output of the delivery activity,
+           distinct from recommending (ruling R-24). """ ;
+    sysml:owner elmt:OGCAIE__Delivery ;
+    sysml:qualifiedName "OGCAIE::Delivery::@0" .
+
+elmt:OGCAIE__Delivery__id
+    a sysml:AttributeUsage ;
+    sysml:declaredName "id" ;
+    sysml:owner elmt:OGCAIE__Delivery ;
+    sysml:qualifiedName "OGCAIE::Delivery::id" ;
+    sysml:type "ScalarValues::String" .
+
 elmt:OGCAIE__Determination
     a sysml:ItemDefinition ;
     sysml:declaredName "Determination" ;
@@ -479,7 +531,8 @@ elmt:OGCAIE__DomainExpert___400
            (rulings R-10, R-21): supplies or approves the DSO release,
            assesses the appropriateness of the requirement set for the
            affected populations, approves test plans, may make
-           determinations on evidence, and attests. Represents the
+           determinations on evidence (an activity either expert may
+           perform, R-24), and attests. Represents the
            populations that are not interviewed. The worked example's
            Annie. """ ;
     sysml:owner elmt:OGCAIE__DomainExpert ;
@@ -814,6 +867,14 @@ elmt:OGCAIE__EvaluationProcess__declareRequirements
     sysml:owner elmt:OGCAIE__EvaluationProcess ;
     sysml:qualifiedName "OGCAIE::EvaluationProcess::declareRequirements" .
 
+elmt:OGCAIE__EvaluationProcess__declareRequirements__agreement
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "agreement" ;
+    sysml:direction "in" ;
+    sysml:owner elmt:OGCAIE__EvaluationProcess__declareRequirements ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::declareRequirements::agreement" ;
+    sysml:type elmt:OGCAIE__ServiceAgreement .
+
 elmt:OGCAIE__EvaluationProcess__declareRequirements__assessment
     a sysml:ReferenceUsage ;
     sysml:declaredName "assessment" ;
@@ -831,6 +892,24 @@ elmt:OGCAIE__EvaluationProcess__declareRequirements__criteria
     sysml:qualifiedName "OGCAIE::EvaluationProcess::declareRequirements::criteria" ;
     sysml:type elmt:OGCAIE__AcceptanceCriterion ;
     sysml:upperBound expr:OGCAIE__EvaluationProcess__declareRequirements__criteria_pupperBound .
+
+elmt:OGCAIE__EvaluationProcess__declareRequirements__dso
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "dso" ;
+    sysml:direction "in" ;
+    sysml:owner elmt:OGCAIE__EvaluationProcess__declareRequirements ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::declareRequirements::dso" ;
+    sysml:type elmt:OGCAIE__DsoRelease .
+
+elmt:OGCAIE__EvaluationProcess__declareRequirements__input
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "input" ;
+    sysml:direction "in" ;
+    sysml:lowerBound expr:OGCAIE__EvaluationProcess__declareRequirements__input_plowerBound ;
+    sysml:owner elmt:OGCAIE__EvaluationProcess__declareRequirements ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::declareRequirements::input" ;
+    sysml:type elmt:OGCAIE__StakeholderInput ;
+    sysml:upperBound expr:OGCAIE__EvaluationProcess__declareRequirements__input_pupperBound .
 
 elmt:OGCAIE__EvaluationProcess__declareRequirements__requirements
     a sysml:ReferenceUsage ;
@@ -856,6 +935,16 @@ elmt:OGCAIE__EvaluationProcess__determineAndAttest__attestations
     sysml:type elmt:OGCAIE__Attestation ;
     sysml:upperBound expr:OGCAIE__EvaluationProcess__determineAndAttest__attestations_pupperBound .
 
+elmt:OGCAIE__EvaluationProcess__determineAndAttest__criteria
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "criteria" ;
+    sysml:direction "in" ;
+    sysml:lowerBound expr:OGCAIE__EvaluationProcess__determineAndAttest__criteria_plowerBound ;
+    sysml:owner elmt:OGCAIE__EvaluationProcess__determineAndAttest ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::determineAndAttest::criteria" ;
+    sysml:type elmt:OGCAIE__AcceptanceCriterion ;
+    sysml:upperBound expr:OGCAIE__EvaluationProcess__determineAndAttest__criteria_pupperBound .
+
 elmt:OGCAIE__EvaluationProcess__determineAndAttest__determinations
     a sysml:ReferenceUsage ;
     sysml:declaredName "determinations" ;
@@ -866,11 +955,29 @@ elmt:OGCAIE__EvaluationProcess__determineAndAttest__determinations
     sysml:type elmt:OGCAIE__Determination ;
     sysml:upperBound expr:OGCAIE__EvaluationProcess__determineAndAttest__determinations_pupperBound .
 
+elmt:OGCAIE__EvaluationProcess__determineAndAttest__evidence
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "evidence" ;
+    sysml:direction "in" ;
+    sysml:lowerBound expr:OGCAIE__EvaluationProcess__determineAndAttest__evidence_plowerBound ;
+    sysml:owner elmt:OGCAIE__EvaluationProcess__determineAndAttest ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::determineAndAttest::evidence" ;
+    sysml:type elmt:OGCAIE__Evidence ;
+    sysml:upperBound expr:OGCAIE__EvaluationProcess__determineAndAttest__evidence_pupperBound .
+
 elmt:OGCAIE__EvaluationProcess__execute
     a sysml:ActionUsage ;
     sysml:declaredName "execute" ;
     sysml:owner elmt:OGCAIE__EvaluationProcess ;
     sysml:qualifiedName "OGCAIE::EvaluationProcess::execute" .
+
+elmt:OGCAIE__EvaluationProcess__execute__access
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "access" ;
+    sysml:direction "in" ;
+    sysml:owner elmt:OGCAIE__EvaluationProcess__execute ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::execute::access" ;
+    sysml:type elmt:OGCAIE__TestItemAccess .
 
 elmt:OGCAIE__EvaluationProcess__execute__evidence
     a sysml:ReferenceUsage ;
@@ -881,6 +988,16 @@ elmt:OGCAIE__EvaluationProcess__execute__evidence
     sysml:qualifiedName "OGCAIE::EvaluationProcess::execute::evidence" ;
     sysml:type elmt:OGCAIE__Evidence ;
     sysml:upperBound expr:OGCAIE__EvaluationProcess__execute__evidence_pupperBound .
+
+elmt:OGCAIE__EvaluationProcess__execute__probes
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "probes" ;
+    sysml:direction "in" ;
+    sysml:lowerBound expr:OGCAIE__EvaluationProcess__execute__probes_plowerBound ;
+    sysml:owner elmt:OGCAIE__EvaluationProcess__execute ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::execute::probes" ;
+    sysml:type elmt:OGCAIE__Probe ;
+    sysml:upperBound expr:OGCAIE__EvaluationProcess__execute__probes_pupperBound .
 
 elmt:OGCAIE__EvaluationProcess__execute__responses
     a sysml:ReferenceUsage ;
@@ -902,6 +1019,14 @@ elmt:OGCAIE__EvaluationProcess__execute__sessions
     sysml:type elmt:OGCAIE__Session ;
     sysml:upperBound expr:OGCAIE__EvaluationProcess__execute__sessions_pupperBound .
 
+elmt:OGCAIE__EvaluationProcess__execute__testPlan
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "testPlan" ;
+    sysml:direction "in" ;
+    sysml:owner elmt:OGCAIE__EvaluationProcess__execute ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::execute::testPlan" ;
+    sysml:type elmt:OGCAIE__TestPlan .
+
 elmt:OGCAIE__EvaluationProcess__plan
     a sysml:ActionUsage ;
     sysml:declaredName "plan" ;
@@ -916,6 +1041,24 @@ elmt:OGCAIE__EvaluationProcess__plan__approval
     sysml:qualifiedName "OGCAIE::EvaluationProcess::plan::approval" ;
     sysml:type elmt:OGCAIE__PlanApproval .
 
+elmt:OGCAIE__EvaluationProcess__plan__criteria
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "criteria" ;
+    sysml:direction "in" ;
+    sysml:lowerBound expr:OGCAIE__EvaluationProcess__plan__criteria_plowerBound ;
+    sysml:owner elmt:OGCAIE__EvaluationProcess__plan ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::plan::criteria" ;
+    sysml:type elmt:OGCAIE__AcceptanceCriterion ;
+    sysml:upperBound expr:OGCAIE__EvaluationProcess__plan__criteria_pupperBound .
+
+elmt:OGCAIE__EvaluationProcess__plan__dso
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "dso" ;
+    sysml:direction "in" ;
+    sysml:owner elmt:OGCAIE__EvaluationProcess__plan ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::plan::dso" ;
+    sysml:type elmt:OGCAIE__DsoRelease .
+
 elmt:OGCAIE__EvaluationProcess__plan__probes
     a sysml:ReferenceUsage ;
     sysml:declaredName "probes" ;
@@ -925,6 +1068,14 @@ elmt:OGCAIE__EvaluationProcess__plan__probes
     sysml:qualifiedName "OGCAIE::EvaluationProcess::plan::probes" ;
     sysml:type elmt:OGCAIE__Probe ;
     sysml:upperBound expr:OGCAIE__EvaluationProcess__plan__probes_pupperBound .
+
+elmt:OGCAIE__EvaluationProcess__plan__requirements
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "requirements" ;
+    sysml:direction "in" ;
+    sysml:owner elmt:OGCAIE__EvaluationProcess__plan ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::plan::requirements" ;
+    sysml:type elmt:OGCAIE__RequirementSet .
 
 elmt:OGCAIE__EvaluationProcess__plan__strategy
     a sysml:ReferenceUsage ;
@@ -958,6 +1109,44 @@ elmt:OGCAIE__EvaluationProcess__report
     sysml:owner elmt:OGCAIE__EvaluationProcess ;
     sysml:qualifiedName "OGCAIE::EvaluationProcess::report" .
 
+elmt:OGCAIE__EvaluationProcess__report__attestations
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "attestations" ;
+    sysml:direction "in" ;
+    sysml:lowerBound expr:OGCAIE__EvaluationProcess__report__attestations_plowerBound ;
+    sysml:owner elmt:OGCAIE__EvaluationProcess__report ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::report::attestations" ;
+    sysml:type elmt:OGCAIE__Attestation ;
+    sysml:upperBound expr:OGCAIE__EvaluationProcess__report__attestations_pupperBound .
+
+elmt:OGCAIE__EvaluationProcess__report__criteria
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "criteria" ;
+    sysml:direction "in" ;
+    sysml:lowerBound expr:OGCAIE__EvaluationProcess__report__criteria_plowerBound ;
+    sysml:owner elmt:OGCAIE__EvaluationProcess__report ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::report::criteria" ;
+    sysml:type elmt:OGCAIE__AcceptanceCriterion ;
+    sysml:upperBound expr:OGCAIE__EvaluationProcess__report__criteria_pupperBound .
+
+elmt:OGCAIE__EvaluationProcess__report__delivery
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "delivery" ;
+    sysml:direction "out" ;
+    sysml:owner elmt:OGCAIE__EvaluationProcess__report ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::report::delivery" ;
+    sysml:type elmt:OGCAIE__Delivery .
+
+elmt:OGCAIE__EvaluationProcess__report__determinations
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "determinations" ;
+    sysml:direction "in" ;
+    sysml:lowerBound expr:OGCAIE__EvaluationProcess__report__determinations_plowerBound ;
+    sysml:owner elmt:OGCAIE__EvaluationProcess__report ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::report::determinations" ;
+    sysml:type elmt:OGCAIE__Determination ;
+    sysml:upperBound expr:OGCAIE__EvaluationProcess__report__determinations_pupperBound .
+
 elmt:OGCAIE__EvaluationProcess__report__recommendation
     a sysml:ReferenceUsage ;
     sysml:declaredName "recommendation" ;
@@ -979,6 +1168,14 @@ elmt:OGCAIE__EvaluationProcess__scope
     sysml:declaredName "scope" ;
     sysml:owner elmt:OGCAIE__EvaluationProcess ;
     sysml:qualifiedName "OGCAIE::EvaluationProcess::scope" .
+
+elmt:OGCAIE__EvaluationProcess__scope__agreement
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "agreement" ;
+    sysml:direction "in" ;
+    sysml:owner elmt:OGCAIE__EvaluationProcess__scope ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::scope::agreement" ;
+    sysml:type elmt:OGCAIE__ServiceAgreement .
 
 elmt:OGCAIE__EvaluationProcess__scope__dso
     a sysml:ReferenceUsage ;
@@ -1272,6 +1469,28 @@ elmt:OGCAIE__OgCaieEvaluation__countersignSeam
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__countersignSeam_pend0, expr:OGCAIE__OgCaieEvaluation__countersignSeam_pend1 ;
     sysx:sourceText "interface countersignSeam : AgreementSeam connect testingOrg.accountExecutive.agreementOut to testingOrg.recorder.agreementIn;" .
 
+elmt:OGCAIE__OgCaieEvaluation__deliveryRecordSeam
+    a sysml:InterfaceUsage ;
+    ogm:consumerPort elmt:OGCAIE__Recorder__deliveryIn ;
+    ogm:supplierPort elmt:OGCAIE__AccountExecutive__deliveryOut ;
+    sysml:declaredName "deliveryRecordSeam" ;
+    sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
+    sysml:qualifiedName "OGCAIE::OgCaieEvaluation::deliveryRecordSeam" ;
+    sysml:type elmt:OGCAIE__DeliverySeam ;
+    sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__deliveryRecordSeam_pend0, expr:OGCAIE__OgCaieEvaluation__deliveryRecordSeam_pend1 ;
+    sysx:sourceText "interface deliveryRecordSeam : DeliverySeam connect testingOrg.accountExecutive.deliveryOut to testingOrg.recorder.deliveryIn;" .
+
+elmt:OGCAIE__OgCaieEvaluation__deliverySeam
+    a sysml:InterfaceUsage ;
+    ogm:consumerPort elmt:OGCAIE__SponsorOrganization__deliveryIn ;
+    ogm:supplierPort elmt:OGCAIE__AccountExecutive__deliveryOut ;
+    sysml:declaredName "deliverySeam" ;
+    sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
+    sysml:qualifiedName "OGCAIE::OgCaieEvaluation::deliverySeam" ;
+    sysml:type elmt:OGCAIE__DeliverySeam ;
+    sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__deliverySeam_pend0, expr:OGCAIE__OgCaieEvaluation__deliverySeam_pend1 ;
+    sysx:sourceText "interface deliverySeam : DeliverySeam connect testingOrg.accountExecutive.deliveryOut to sponsor.deliveryIn;" .
+
 elmt:OGCAIE__OgCaieEvaluation__derivedProbeSeam
     a sysml:InterfaceUsage ;
     ogm:consumerPort elmt:OGCAIE__EvaluationOperator__probesIn ;
@@ -1352,13 +1571,13 @@ elmt:OGCAIE__OgCaieEvaluation__planSeam
 elmt:OGCAIE__OgCaieEvaluation__probeRecordSeam
     a sysml:InterfaceUsage ;
     ogm:consumerPort elmt:OGCAIE__Recorder__probeIn ;
-    ogm:supplierPort elmt:OGCAIE__ProbeDeriver__probesToRecord ;
+    ogm:supplierPort elmt:OGCAIE__ProbeDeriver__probesOut ;
     sysml:declaredName "probeRecordSeam" ;
     sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
     sysml:qualifiedName "OGCAIE::OgCaieEvaluation::probeRecordSeam" ;
     sysml:type elmt:OGCAIE__ProbeSeam ;
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__probeRecordSeam_pend0, expr:OGCAIE__OgCaieEvaluation__probeRecordSeam_pend1 ;
-    sysx:sourceText "interface probeRecordSeam : ProbeSeam connect testingOrg.probeDeriver.probesToRecord to testingOrg.recorder.probeIn;" .
+    sysx:sourceText "interface probeRecordSeam : ProbeSeam connect testingOrg.probeDeriver.probesOut to testingOrg.recorder.probeIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__probeRunSeam
     a sysml:InterfaceUsage ;
@@ -1379,17 +1598,6 @@ elmt:OGCAIE__OgCaieEvaluation__process
     sysml:type elmt:OGCAIE__EvaluationProcess ;
     sysx:declaredPrefix "perform" .
 
-elmt:OGCAIE__OgCaieEvaluation__recommendationDeliverySeam
-    a sysml:InterfaceUsage ;
-    ogm:consumerPort elmt:OGCAIE__SponsorOrganization__recommendationIn ;
-    ogm:supplierPort elmt:OGCAIE__AccountExecutive__recommendationOut ;
-    sysml:declaredName "recommendationDeliverySeam" ;
-    sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
-    sysml:qualifiedName "OGCAIE::OgCaieEvaluation::recommendationDeliverySeam" ;
-    sysml:type elmt:OGCAIE__RecommendationSeam ;
-    sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__recommendationDeliverySeam_pend0, expr:OGCAIE__OgCaieEvaluation__recommendationDeliverySeam_pend1 ;
-    sysx:sourceText "interface recommendationDeliverySeam : RecommendationSeam connect testingOrg.accountExecutive.recommendationOut to sponsor.recommendationIn;" .
-
 elmt:OGCAIE__OgCaieEvaluation__recommendationSeam
     a sysml:InterfaceUsage ;
     ogm:consumerPort elmt:OGCAIE__Recorder__recommendationIn ;
@@ -1404,79 +1612,68 @@ elmt:OGCAIE__OgCaieEvaluation__recommendationSeam
 elmt:OGCAIE__OgCaieEvaluation__recordToCalculatorSeam
     a sysml:InterfaceUsage ;
     ogm:consumerPort elmt:OGCAIE__CoverageCalculator__recordIn ;
-    ogm:supplierPort elmt:OGCAIE__Recorder__recordToCalculator ;
+    ogm:supplierPort elmt:OGCAIE__Recorder__recordOut ;
     sysml:declaredName "recordToCalculatorSeam" ;
     sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
     sysml:qualifiedName "OGCAIE::OgCaieEvaluation::recordToCalculatorSeam" ;
     sysml:type elmt:OGCAIE__RecordSeam ;
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__recordToCalculatorSeam_pend0, expr:OGCAIE__OgCaieEvaluation__recordToCalculatorSeam_pend1 ;
-    sysx:sourceText "interface recordToCalculatorSeam : RecordSeam connect testingOrg.recorder.recordToCalculator to testingOrg.coverageCalculator.recordIn;" .
+    sysx:sourceText "interface recordToCalculatorSeam : RecordSeam connect testingOrg.recorder.recordOut to testingOrg.coverageCalculator.recordIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__recordToCheckerSeam
     a sysml:InterfaceUsage ;
     ogm:consumerPort elmt:OGCAIE__ConformanceChecker__recordIn ;
-    ogm:supplierPort elmt:OGCAIE__Recorder__recordToChecker ;
+    ogm:supplierPort elmt:OGCAIE__Recorder__recordOut ;
     sysml:declaredName "recordToCheckerSeam" ;
     sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
     sysml:qualifiedName "OGCAIE::OgCaieEvaluation::recordToCheckerSeam" ;
     sysml:type elmt:OGCAIE__RecordSeam ;
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__recordToCheckerSeam_pend0, expr:OGCAIE__OgCaieEvaluation__recordToCheckerSeam_pend1 ;
-    sysx:sourceText "interface recordToCheckerSeam : RecordSeam connect testingOrg.recorder.recordToChecker to testingOrg.conformanceChecker.recordIn;" .
+    sysx:sourceText "interface recordToCheckerSeam : RecordSeam connect testingOrg.recorder.recordOut to testingOrg.conformanceChecker.recordIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__recordToDeriverSeam
     a sysml:InterfaceUsage ;
     ogm:consumerPort elmt:OGCAIE__ProbeDeriver__recordIn ;
-    ogm:supplierPort elmt:OGCAIE__Recorder__recordToDeriver ;
+    ogm:supplierPort elmt:OGCAIE__Recorder__recordOut ;
     sysml:declaredName "recordToDeriverSeam" ;
     sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
     sysml:qualifiedName "OGCAIE::OgCaieEvaluation::recordToDeriverSeam" ;
     sysml:type elmt:OGCAIE__RecordSeam ;
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__recordToDeriverSeam_pend0, expr:OGCAIE__OgCaieEvaluation__recordToDeriverSeam_pend1 ;
-    sysx:sourceText "interface recordToDeriverSeam : RecordSeam connect testingOrg.recorder.recordToDeriver to testingOrg.probeDeriver.recordIn;" .
+    sysx:sourceText "interface recordToDeriverSeam : RecordSeam connect testingOrg.recorder.recordOut to testingOrg.probeDeriver.recordIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__recordToExecutiveSeam
     a sysml:InterfaceUsage ;
     ogm:consumerPort elmt:OGCAIE__AccountExecutive__recordIn ;
-    ogm:supplierPort elmt:OGCAIE__Recorder__recordToExecutive ;
+    ogm:supplierPort elmt:OGCAIE__Recorder__recordOut ;
     sysml:declaredName "recordToExecutiveSeam" ;
     sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
     sysml:qualifiedName "OGCAIE::OgCaieEvaluation::recordToExecutiveSeam" ;
     sysml:type elmt:OGCAIE__RecordSeam ;
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__recordToExecutiveSeam_pend0, expr:OGCAIE__OgCaieEvaluation__recordToExecutiveSeam_pend1 ;
-    sysx:sourceText "interface recordToExecutiveSeam : RecordSeam connect testingOrg.recorder.recordToExecutive to testingOrg.accountExecutive.recordIn;" .
+    sysx:sourceText "interface recordToExecutiveSeam : RecordSeam connect testingOrg.recorder.recordOut to testingOrg.accountExecutive.recordIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__recordToExpertSeam
     a sysml:InterfaceUsage ;
     ogm:consumerPort elmt:OGCAIE__DomainExpert__recordIn ;
-    ogm:supplierPort elmt:OGCAIE__Recorder__recordToExpert ;
+    ogm:supplierPort elmt:OGCAIE__Recorder__recordOut ;
     sysml:declaredName "recordToExpertSeam" ;
     sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
     sysml:qualifiedName "OGCAIE::OgCaieEvaluation::recordToExpertSeam" ;
     sysml:type elmt:OGCAIE__RecordSeam ;
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__recordToExpertSeam_pend0, expr:OGCAIE__OgCaieEvaluation__recordToExpertSeam_pend1 ;
-    sysx:sourceText "interface recordToExpertSeam : RecordSeam connect testingOrg.recorder.recordToExpert to testingOrg.team.domainExpert.recordIn;" .
+    sysx:sourceText "interface recordToExpertSeam : RecordSeam connect testingOrg.recorder.recordOut to testingOrg.team.domainExpert.recordIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__recordToOperatorSeam
     a sysml:InterfaceUsage ;
     ogm:consumerPort elmt:OGCAIE__EvaluationOperator__recordIn ;
-    ogm:supplierPort elmt:OGCAIE__Recorder__recordToOperator ;
+    ogm:supplierPort elmt:OGCAIE__Recorder__recordOut ;
     sysml:declaredName "recordToOperatorSeam" ;
     sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
     sysml:qualifiedName "OGCAIE::OgCaieEvaluation::recordToOperatorSeam" ;
     sysml:type elmt:OGCAIE__RecordSeam ;
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__recordToOperatorSeam_pend0, expr:OGCAIE__OgCaieEvaluation__recordToOperatorSeam_pend1 ;
-    sysx:sourceText "interface recordToOperatorSeam : RecordSeam connect testingOrg.recorder.recordToOperator to testingOrg.team.operator.recordIn;" .
-
-elmt:OGCAIE__OgCaieEvaluation__reportDeliverySeam
-    a sysml:InterfaceUsage ;
-    ogm:consumerPort elmt:OGCAIE__SponsorOrganization__reportIn ;
-    ogm:supplierPort elmt:OGCAIE__AccountExecutive__reportOut ;
-    sysml:declaredName "reportDeliverySeam" ;
-    sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
-    sysml:qualifiedName "OGCAIE::OgCaieEvaluation::reportDeliverySeam" ;
-    sysml:type elmt:OGCAIE__ReportSeam ;
-    sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__reportDeliverySeam_pend0, expr:OGCAIE__OgCaieEvaluation__reportDeliverySeam_pend1 ;
-    sysx:sourceText "interface reportDeliverySeam : ReportSeam connect testingOrg.accountExecutive.reportOut to sponsor.reportIn;" .
+    sysx:sourceText "interface recordToOperatorSeam : RecordSeam connect testingOrg.recorder.recordOut to testingOrg.team.operator.recordIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__reportSeam
     a sysml:InterfaceUsage ;
@@ -1737,7 +1934,8 @@ elmt:OGCAIE__ProbeDeriver
 elmt:OGCAIE__ProbeDeriver___400
     a sysml:Documentation ;
     sysml:body """ Derives probes from the DSO release and the requirement set
-           in the record; hands them to the operator and logs them. """ ;
+           in the record; one output read by the operator and the recorder
+           (an output wire may be shared, R-25). """ ;
     sysml:owner elmt:OGCAIE__ProbeDeriver ;
     sysml:qualifiedName "OGCAIE::ProbeDeriver::@0" .
 
@@ -1746,13 +1944,6 @@ elmt:OGCAIE__ProbeDeriver__probesOut
     sysml:declaredName "probesOut" ;
     sysml:owner elmt:OGCAIE__ProbeDeriver ;
     sysml:qualifiedName "OGCAIE::ProbeDeriver::probesOut" ;
-    sysml:type elmt:OGCAIE__ProbeWrite .
-
-elmt:OGCAIE__ProbeDeriver__probesToRecord
-    a sysml:PortUsage ;
-    sysml:declaredName "probesToRecord" ;
-    sysml:owner elmt:OGCAIE__ProbeDeriver ;
-    sysml:qualifiedName "OGCAIE::ProbeDeriver::probesToRecord" ;
     sysml:type elmt:OGCAIE__ProbeWrite .
 
 elmt:OGCAIE__ProbeDeriver__recordIn
@@ -1919,7 +2110,9 @@ elmt:OGCAIE__Recorder___400
     a sysml:Documentation ;
     sysml:body """ Keeps the evaluation record: the hub every item kind passes
            through (M3), with who did what and when. One conjugate port
-           per item kind in; one record port per reader out. """ ;
+           per item kind in, each wired once (input wires are unique);
+           one record port out, read by six (output wires are shared when
+           what flows is information, R-25). """ ;
     sysml:owner elmt:OGCAIE__Recorder ;
     sysml:qualifiedName "OGCAIE::Recorder::@0" .
 
@@ -1954,6 +2147,14 @@ elmt:OGCAIE__Recorder__attestationIn
     sysml:owner elmt:OGCAIE__Recorder ;
     sysml:qualifiedName "OGCAIE::Recorder::attestationIn" ;
     sysml:type elmt:OGCAIE__AttestationWrite .
+
+elmt:OGCAIE__Recorder__deliveryIn
+    a sysml:PortUsage ;
+    sysml:declaredName "deliveryIn" ;
+    sysml:isConjugated "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__Recorder ;
+    sysml:qualifiedName "OGCAIE::Recorder::deliveryIn" ;
+    sysml:type elmt:OGCAIE__DeliveryWrite .
 
 elmt:OGCAIE__Recorder__dsoIn
     a sysml:PortUsage ;
@@ -2027,46 +2228,11 @@ elmt:OGCAIE__Recorder__recommendationIn
     sysml:qualifiedName "OGCAIE::Recorder::recommendationIn" ;
     sysml:type elmt:OGCAIE__RecommendationWrite .
 
-elmt:OGCAIE__Recorder__recordToCalculator
+elmt:OGCAIE__Recorder__recordOut
     a sysml:PortUsage ;
-    sysml:declaredName "recordToCalculator" ;
+    sysml:declaredName "recordOut" ;
     sysml:owner elmt:OGCAIE__Recorder ;
-    sysml:qualifiedName "OGCAIE::Recorder::recordToCalculator" ;
-    sysml:type elmt:OGCAIE__RecordWrite .
-
-elmt:OGCAIE__Recorder__recordToChecker
-    a sysml:PortUsage ;
-    sysml:declaredName "recordToChecker" ;
-    sysml:owner elmt:OGCAIE__Recorder ;
-    sysml:qualifiedName "OGCAIE::Recorder::recordToChecker" ;
-    sysml:type elmt:OGCAIE__RecordWrite .
-
-elmt:OGCAIE__Recorder__recordToDeriver
-    a sysml:PortUsage ;
-    sysml:declaredName "recordToDeriver" ;
-    sysml:owner elmt:OGCAIE__Recorder ;
-    sysml:qualifiedName "OGCAIE::Recorder::recordToDeriver" ;
-    sysml:type elmt:OGCAIE__RecordWrite .
-
-elmt:OGCAIE__Recorder__recordToExecutive
-    a sysml:PortUsage ;
-    sysml:declaredName "recordToExecutive" ;
-    sysml:owner elmt:OGCAIE__Recorder ;
-    sysml:qualifiedName "OGCAIE::Recorder::recordToExecutive" ;
-    sysml:type elmt:OGCAIE__RecordWrite .
-
-elmt:OGCAIE__Recorder__recordToExpert
-    a sysml:PortUsage ;
-    sysml:declaredName "recordToExpert" ;
-    sysml:owner elmt:OGCAIE__Recorder ;
-    sysml:qualifiedName "OGCAIE::Recorder::recordToExpert" ;
-    sysml:type elmt:OGCAIE__RecordWrite .
-
-elmt:OGCAIE__Recorder__recordToOperator
-    a sysml:PortUsage ;
-    sysml:declaredName "recordToOperator" ;
-    sysml:owner elmt:OGCAIE__Recorder ;
-    sysml:qualifiedName "OGCAIE::Recorder::recordToOperator" ;
+    sysml:qualifiedName "OGCAIE::Recorder::recordOut" ;
     sysml:type elmt:OGCAIE__RecordWrite .
 
 elmt:OGCAIE__Recorder__reportIn
@@ -2583,28 +2749,20 @@ elmt:OGCAIE__SponsorOrganization__agreementOut
     sysml:qualifiedName "OGCAIE::SponsorOrganization::agreementOut" ;
     sysml:type elmt:OGCAIE__AgreementWrite .
 
+elmt:OGCAIE__SponsorOrganization__deliveryIn
+    a sysml:PortUsage ;
+    sysml:declaredName "deliveryIn" ;
+    sysml:isConjugated "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__SponsorOrganization ;
+    sysml:qualifiedName "OGCAIE::SponsorOrganization::deliveryIn" ;
+    sysml:type elmt:OGCAIE__DeliveryWrite .
+
 elmt:OGCAIE__SponsorOrganization__isAccountable
     a sysml:AttributeUsage ;
     sysml:declaredName "isAccountable" ;
     sysml:owner elmt:OGCAIE__SponsorOrganization ;
     sysml:qualifiedName "OGCAIE::SponsorOrganization::isAccountable" ;
     sysml:type "ScalarValues::Boolean" .
-
-elmt:OGCAIE__SponsorOrganization__recommendationIn
-    a sysml:PortUsage ;
-    sysml:declaredName "recommendationIn" ;
-    sysml:isConjugated "true"^^xsd:boolean ;
-    sysml:owner elmt:OGCAIE__SponsorOrganization ;
-    sysml:qualifiedName "OGCAIE::SponsorOrganization::recommendationIn" ;
-    sysml:type elmt:OGCAIE__RecommendationWrite .
-
-elmt:OGCAIE__SponsorOrganization__reportIn
-    a sysml:PortUsage ;
-    sysml:declaredName "reportIn" ;
-    sysml:isConjugated "true"^^xsd:boolean ;
-    sysml:owner elmt:OGCAIE__SponsorOrganization ;
-    sysml:qualifiedName "OGCAIE::SponsorOrganization::reportIn" ;
-    sysml:type elmt:OGCAIE__ReportWrite .
 
 elmt:OGCAIE__StakeholderInput
     a sysml:ItemDefinition ;
@@ -2957,12 +3115,30 @@ expr:OGCAIE__EvaluationProcess__declareRequirements__criteria_pupperBound
     a sysml:LiteralInfinity ;
     sysx:sourceText "*" .
 
+expr:OGCAIE__EvaluationProcess__declareRequirements__input_plowerBound
+    a sysml:LiteralInteger ;
+    sysml:value "0"^^xsd:integer ;
+    sysx:sourceText "0" .
+
+expr:OGCAIE__EvaluationProcess__declareRequirements__input_pupperBound
+    a sysml:LiteralInfinity ;
+    sysx:sourceText "*" .
+
 expr:OGCAIE__EvaluationProcess__determineAndAttest__attestations_plowerBound
     a sysml:LiteralInteger ;
     sysml:value "1"^^xsd:integer ;
     sysx:sourceText "1" .
 
 expr:OGCAIE__EvaluationProcess__determineAndAttest__attestations_pupperBound
+    a sysml:LiteralInfinity ;
+    sysx:sourceText "*" .
+
+expr:OGCAIE__EvaluationProcess__determineAndAttest__criteria_plowerBound
+    a sysml:LiteralInteger ;
+    sysml:value "1"^^xsd:integer ;
+    sysx:sourceText "1" .
+
+expr:OGCAIE__EvaluationProcess__determineAndAttest__criteria_pupperBound
     a sysml:LiteralInfinity ;
     sysx:sourceText "*" .
 
@@ -2975,12 +3151,30 @@ expr:OGCAIE__EvaluationProcess__determineAndAttest__determinations_pupperBound
     a sysml:LiteralInfinity ;
     sysx:sourceText "*" .
 
+expr:OGCAIE__EvaluationProcess__determineAndAttest__evidence_plowerBound
+    a sysml:LiteralInteger ;
+    sysml:value "1"^^xsd:integer ;
+    sysx:sourceText "1" .
+
+expr:OGCAIE__EvaluationProcess__determineAndAttest__evidence_pupperBound
+    a sysml:LiteralInfinity ;
+    sysx:sourceText "*" .
+
 expr:OGCAIE__EvaluationProcess__execute__evidence_plowerBound
     a sysml:LiteralInteger ;
     sysml:value "1"^^xsd:integer ;
     sysx:sourceText "1" .
 
 expr:OGCAIE__EvaluationProcess__execute__evidence_pupperBound
+    a sysml:LiteralInfinity ;
+    sysx:sourceText "*" .
+
+expr:OGCAIE__EvaluationProcess__execute__probes_plowerBound
+    a sysml:LiteralInteger ;
+    sysml:value "1"^^xsd:integer ;
+    sysx:sourceText "1" .
+
+expr:OGCAIE__EvaluationProcess__execute__probes_pupperBound
     a sysml:LiteralInfinity ;
     sysx:sourceText "*" .
 
@@ -3002,6 +3196,15 @@ expr:OGCAIE__EvaluationProcess__execute__sessions_pupperBound
     a sysml:LiteralInfinity ;
     sysx:sourceText "*" .
 
+expr:OGCAIE__EvaluationProcess__plan__criteria_plowerBound
+    a sysml:LiteralInteger ;
+    sysml:value "1"^^xsd:integer ;
+    sysx:sourceText "1" .
+
+expr:OGCAIE__EvaluationProcess__plan__criteria_pupperBound
+    a sysml:LiteralInfinity ;
+    sysx:sourceText "*" .
+
 expr:OGCAIE__EvaluationProcess__plan__probes_plowerBound
     a sysml:LiteralInteger ;
     sysml:value "1"^^xsd:integer ;
@@ -3020,6 +3223,33 @@ expr:OGCAIE__EvaluationProcess__plan__strategy_pupperBound
     a sysml:LiteralInteger ;
     sysml:value "1"^^xsd:integer ;
     sysx:sourceText "1" .
+
+expr:OGCAIE__EvaluationProcess__report__attestations_plowerBound
+    a sysml:LiteralInteger ;
+    sysml:value "1"^^xsd:integer ;
+    sysx:sourceText "1" .
+
+expr:OGCAIE__EvaluationProcess__report__attestations_pupperBound
+    a sysml:LiteralInfinity ;
+    sysx:sourceText "*" .
+
+expr:OGCAIE__EvaluationProcess__report__criteria_plowerBound
+    a sysml:LiteralInteger ;
+    sysml:value "1"^^xsd:integer ;
+    sysx:sourceText "1" .
+
+expr:OGCAIE__EvaluationProcess__report__criteria_pupperBound
+    a sysml:LiteralInfinity ;
+    sysx:sourceText "*" .
+
+expr:OGCAIE__EvaluationProcess__report__determinations_plowerBound
+    a sysml:LiteralInteger ;
+    sysml:value "1"^^xsd:integer ;
+    sysx:sourceText "1" .
+
+expr:OGCAIE__EvaluationProcess__report__determinations_pupperBound
+    a sysml:LiteralInfinity ;
+    sysx:sourceText "*" .
 
 expr:OGCAIE__EvaluationProcess__scope__input_plowerBound
     a sysml:LiteralInteger ;
@@ -3256,6 +3486,80 @@ expr:OGCAIE__OgCaieEvaluation__countersignSeam_pend1_pa0_pa0
     a sysml:FeatureReferenceExpression ;
     sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
     sysx:sourceText "testingOrg" .
+
+expr:OGCAIE__OgCaieEvaluation__deliveryRecordSeam_pend0
+    a sysml:FeatureChainExpression ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__accountExecutive ;
+    ogm:resolvesTo elmt:OGCAIE__AccountExecutive__deliveryOut ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__deliveryRecordSeam_pend0_pa0 ;
+    sysml:targetFeature "deliveryOut" ;
+    sysx:endIndex "0"^^xsd:integer ;
+    sysx:sourceText "testingOrg.accountExecutive.deliveryOut" .
+
+expr:OGCAIE__OgCaieEvaluation__deliveryRecordSeam_pend0_pa0
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__deliveryRecordSeam_pend0_pa0_pa0 ;
+    sysml:targetFeature "accountExecutive" ;
+    sysx:sourceText "testingOrg.accountExecutive" .
+
+expr:OGCAIE__OgCaieEvaluation__deliveryRecordSeam_pend0_pa0_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
+    sysx:sourceText "testingOrg" .
+
+expr:OGCAIE__OgCaieEvaluation__deliveryRecordSeam_pend1
+    a sysml:FeatureChainExpression ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__recorder ;
+    ogm:resolvesTo elmt:OGCAIE__Recorder__deliveryIn ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__deliveryRecordSeam_pend1_pa0 ;
+    sysml:targetFeature "deliveryIn" ;
+    sysx:endIndex "1"^^xsd:integer ;
+    sysx:sourceText "testingOrg.recorder.deliveryIn" .
+
+expr:OGCAIE__OgCaieEvaluation__deliveryRecordSeam_pend1_pa0
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__deliveryRecordSeam_pend1_pa0_pa0 ;
+    sysml:targetFeature "recorder" ;
+    sysx:sourceText "testingOrg.recorder" .
+
+expr:OGCAIE__OgCaieEvaluation__deliveryRecordSeam_pend1_pa0_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
+    sysx:sourceText "testingOrg" .
+
+expr:OGCAIE__OgCaieEvaluation__deliverySeam_pend0
+    a sysml:FeatureChainExpression ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__accountExecutive ;
+    ogm:resolvesTo elmt:OGCAIE__AccountExecutive__deliveryOut ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__deliverySeam_pend0_pa0 ;
+    sysml:targetFeature "deliveryOut" ;
+    sysx:endIndex "0"^^xsd:integer ;
+    sysx:sourceText "testingOrg.accountExecutive.deliveryOut" .
+
+expr:OGCAIE__OgCaieEvaluation__deliverySeam_pend0_pa0
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__deliverySeam_pend0_pa0_pa0 ;
+    sysml:targetFeature "accountExecutive" ;
+    sysx:sourceText "testingOrg.accountExecutive" .
+
+expr:OGCAIE__OgCaieEvaluation__deliverySeam_pend0_pa0_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
+    sysx:sourceText "testingOrg" .
+
+expr:OGCAIE__OgCaieEvaluation__deliverySeam_pend1
+    a sysml:FeatureChainExpression ;
+    ogm:endPart elmt:OGCAIE__OgCaieEvaluation__sponsor ;
+    ogm:resolvesTo elmt:OGCAIE__SponsorOrganization__deliveryIn ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__deliverySeam_pend1_pa0 ;
+    sysml:targetFeature "deliveryIn" ;
+    sysx:endIndex "1"^^xsd:integer ;
+    sysx:sourceText "sponsor.deliveryIn" .
+
+expr:OGCAIE__OgCaieEvaluation__deliverySeam_pend1_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__OgCaieEvaluation__sponsor ;
+    sysx:sourceText "sponsor" .
 
 expr:OGCAIE__OgCaieEvaluation__derivedProbeSeam_pend0
     a sysml:FeatureChainExpression ;
@@ -3582,11 +3886,11 @@ expr:OGCAIE__OgCaieEvaluation__planSeam_pend1_pa0_pa0
 expr:OGCAIE__OgCaieEvaluation__probeRecordSeam_pend0
     a sysml:FeatureChainExpression ;
     ogm:endPart elmt:OGCAIE__TestingOrganization__probeDeriver ;
-    ogm:resolvesTo elmt:OGCAIE__ProbeDeriver__probesToRecord ;
+    ogm:resolvesTo elmt:OGCAIE__ProbeDeriver__probesOut ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__probeRecordSeam_pend0_pa0 ;
-    sysml:targetFeature "probesToRecord" ;
+    sysml:targetFeature "probesOut" ;
     sysx:endIndex "0"^^xsd:integer ;
-    sysx:sourceText "testingOrg.probeDeriver.probesToRecord" .
+    sysx:sourceText "testingOrg.probeDeriver.probesOut" .
 
 expr:OGCAIE__OgCaieEvaluation__probeRecordSeam_pend0_pa0
     a sysml:FeatureChainExpression ;
@@ -3665,40 +3969,6 @@ expr:OGCAIE__OgCaieEvaluation__probeRunSeam_pend1_pa0_pa0
     sysml:referent elmt:OGCAIE__OgCaieEvaluation__accountable ;
     sysx:sourceText "accountable" .
 
-expr:OGCAIE__OgCaieEvaluation__recommendationDeliverySeam_pend0
-    a sysml:FeatureChainExpression ;
-    ogm:endPart elmt:OGCAIE__TestingOrganization__accountExecutive ;
-    ogm:resolvesTo elmt:OGCAIE__AccountExecutive__recommendationOut ;
-    sysml:argument expr:OGCAIE__OgCaieEvaluation__recommendationDeliverySeam_pend0_pa0 ;
-    sysml:targetFeature "recommendationOut" ;
-    sysx:endIndex "0"^^xsd:integer ;
-    sysx:sourceText "testingOrg.accountExecutive.recommendationOut" .
-
-expr:OGCAIE__OgCaieEvaluation__recommendationDeliverySeam_pend0_pa0
-    a sysml:FeatureChainExpression ;
-    sysml:argument expr:OGCAIE__OgCaieEvaluation__recommendationDeliverySeam_pend0_pa0_pa0 ;
-    sysml:targetFeature "accountExecutive" ;
-    sysx:sourceText "testingOrg.accountExecutive" .
-
-expr:OGCAIE__OgCaieEvaluation__recommendationDeliverySeam_pend0_pa0_pa0
-    a sysml:FeatureReferenceExpression ;
-    sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
-    sysx:sourceText "testingOrg" .
-
-expr:OGCAIE__OgCaieEvaluation__recommendationDeliverySeam_pend1
-    a sysml:FeatureChainExpression ;
-    ogm:endPart elmt:OGCAIE__OgCaieEvaluation__sponsor ;
-    ogm:resolvesTo elmt:OGCAIE__SponsorOrganization__recommendationIn ;
-    sysml:argument expr:OGCAIE__OgCaieEvaluation__recommendationDeliverySeam_pend1_pa0 ;
-    sysml:targetFeature "recommendationIn" ;
-    sysx:endIndex "1"^^xsd:integer ;
-    sysx:sourceText "sponsor.recommendationIn" .
-
-expr:OGCAIE__OgCaieEvaluation__recommendationDeliverySeam_pend1_pa0
-    a sysml:FeatureReferenceExpression ;
-    sysml:referent elmt:OGCAIE__OgCaieEvaluation__sponsor ;
-    sysx:sourceText "sponsor" .
-
 expr:OGCAIE__OgCaieEvaluation__recommendationSeam_pend0
     a sysml:FeatureChainExpression ;
     ogm:endPart elmt:OGCAIE__EvaluationTeam__operator ;
@@ -3748,11 +4018,11 @@ expr:OGCAIE__OgCaieEvaluation__recommendationSeam_pend1_pa0_pa0
 expr:OGCAIE__OgCaieEvaluation__recordToCalculatorSeam_pend0
     a sysml:FeatureChainExpression ;
     ogm:endPart elmt:OGCAIE__TestingOrganization__recorder ;
-    ogm:resolvesTo elmt:OGCAIE__Recorder__recordToCalculator ;
+    ogm:resolvesTo elmt:OGCAIE__Recorder__recordOut ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__recordToCalculatorSeam_pend0_pa0 ;
-    sysml:targetFeature "recordToCalculator" ;
+    sysml:targetFeature "recordOut" ;
     sysx:endIndex "0"^^xsd:integer ;
-    sysx:sourceText "testingOrg.recorder.recordToCalculator" .
+    sysx:sourceText "testingOrg.recorder.recordOut" .
 
 expr:OGCAIE__OgCaieEvaluation__recordToCalculatorSeam_pend0_pa0
     a sysml:FeatureChainExpression ;
@@ -3788,11 +4058,11 @@ expr:OGCAIE__OgCaieEvaluation__recordToCalculatorSeam_pend1_pa0_pa0
 expr:OGCAIE__OgCaieEvaluation__recordToCheckerSeam_pend0
     a sysml:FeatureChainExpression ;
     ogm:endPart elmt:OGCAIE__TestingOrganization__recorder ;
-    ogm:resolvesTo elmt:OGCAIE__Recorder__recordToChecker ;
+    ogm:resolvesTo elmt:OGCAIE__Recorder__recordOut ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__recordToCheckerSeam_pend0_pa0 ;
-    sysml:targetFeature "recordToChecker" ;
+    sysml:targetFeature "recordOut" ;
     sysx:endIndex "0"^^xsd:integer ;
-    sysx:sourceText "testingOrg.recorder.recordToChecker" .
+    sysx:sourceText "testingOrg.recorder.recordOut" .
 
 expr:OGCAIE__OgCaieEvaluation__recordToCheckerSeam_pend0_pa0
     a sysml:FeatureChainExpression ;
@@ -3828,11 +4098,11 @@ expr:OGCAIE__OgCaieEvaluation__recordToCheckerSeam_pend1_pa0_pa0
 expr:OGCAIE__OgCaieEvaluation__recordToDeriverSeam_pend0
     a sysml:FeatureChainExpression ;
     ogm:endPart elmt:OGCAIE__TestingOrganization__recorder ;
-    ogm:resolvesTo elmt:OGCAIE__Recorder__recordToDeriver ;
+    ogm:resolvesTo elmt:OGCAIE__Recorder__recordOut ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__recordToDeriverSeam_pend0_pa0 ;
-    sysml:targetFeature "recordToDeriver" ;
+    sysml:targetFeature "recordOut" ;
     sysx:endIndex "0"^^xsd:integer ;
-    sysx:sourceText "testingOrg.recorder.recordToDeriver" .
+    sysx:sourceText "testingOrg.recorder.recordOut" .
 
 expr:OGCAIE__OgCaieEvaluation__recordToDeriverSeam_pend0_pa0
     a sysml:FeatureChainExpression ;
@@ -3868,11 +4138,11 @@ expr:OGCAIE__OgCaieEvaluation__recordToDeriverSeam_pend1_pa0_pa0
 expr:OGCAIE__OgCaieEvaluation__recordToExecutiveSeam_pend0
     a sysml:FeatureChainExpression ;
     ogm:endPart elmt:OGCAIE__TestingOrganization__recorder ;
-    ogm:resolvesTo elmt:OGCAIE__Recorder__recordToExecutive ;
+    ogm:resolvesTo elmt:OGCAIE__Recorder__recordOut ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__recordToExecutiveSeam_pend0_pa0 ;
-    sysml:targetFeature "recordToExecutive" ;
+    sysml:targetFeature "recordOut" ;
     sysx:endIndex "0"^^xsd:integer ;
-    sysx:sourceText "testingOrg.recorder.recordToExecutive" .
+    sysx:sourceText "testingOrg.recorder.recordOut" .
 
 expr:OGCAIE__OgCaieEvaluation__recordToExecutiveSeam_pend0_pa0
     a sysml:FeatureChainExpression ;
@@ -3908,11 +4178,11 @@ expr:OGCAIE__OgCaieEvaluation__recordToExecutiveSeam_pend1_pa0_pa0
 expr:OGCAIE__OgCaieEvaluation__recordToExpertSeam_pend0
     a sysml:FeatureChainExpression ;
     ogm:endPart elmt:OGCAIE__TestingOrganization__recorder ;
-    ogm:resolvesTo elmt:OGCAIE__Recorder__recordToExpert ;
+    ogm:resolvesTo elmt:OGCAIE__Recorder__recordOut ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__recordToExpertSeam_pend0_pa0 ;
-    sysml:targetFeature "recordToExpert" ;
+    sysml:targetFeature "recordOut" ;
     sysx:endIndex "0"^^xsd:integer ;
-    sysx:sourceText "testingOrg.recorder.recordToExpert" .
+    sysx:sourceText "testingOrg.recorder.recordOut" .
 
 expr:OGCAIE__OgCaieEvaluation__recordToExpertSeam_pend0_pa0
     a sysml:FeatureChainExpression ;
@@ -3954,11 +4224,11 @@ expr:OGCAIE__OgCaieEvaluation__recordToExpertSeam_pend1_pa0_pa0_pa0
 expr:OGCAIE__OgCaieEvaluation__recordToOperatorSeam_pend0
     a sysml:FeatureChainExpression ;
     ogm:endPart elmt:OGCAIE__TestingOrganization__recorder ;
-    ogm:resolvesTo elmt:OGCAIE__Recorder__recordToOperator ;
+    ogm:resolvesTo elmt:OGCAIE__Recorder__recordOut ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__recordToOperatorSeam_pend0_pa0 ;
-    sysml:targetFeature "recordToOperator" ;
+    sysml:targetFeature "recordOut" ;
     sysx:endIndex "0"^^xsd:integer ;
-    sysx:sourceText "testingOrg.recorder.recordToOperator" .
+    sysx:sourceText "testingOrg.recorder.recordOut" .
 
 expr:OGCAIE__OgCaieEvaluation__recordToOperatorSeam_pend0_pa0
     a sysml:FeatureChainExpression ;
@@ -3996,40 +4266,6 @@ expr:OGCAIE__OgCaieEvaluation__recordToOperatorSeam_pend1_pa0_pa0_pa0
     a sysml:FeatureReferenceExpression ;
     sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
     sysx:sourceText "testingOrg" .
-
-expr:OGCAIE__OgCaieEvaluation__reportDeliverySeam_pend0
-    a sysml:FeatureChainExpression ;
-    ogm:endPart elmt:OGCAIE__TestingOrganization__accountExecutive ;
-    ogm:resolvesTo elmt:OGCAIE__AccountExecutive__reportOut ;
-    sysml:argument expr:OGCAIE__OgCaieEvaluation__reportDeliverySeam_pend0_pa0 ;
-    sysml:targetFeature "reportOut" ;
-    sysx:endIndex "0"^^xsd:integer ;
-    sysx:sourceText "testingOrg.accountExecutive.reportOut" .
-
-expr:OGCAIE__OgCaieEvaluation__reportDeliverySeam_pend0_pa0
-    a sysml:FeatureChainExpression ;
-    sysml:argument expr:OGCAIE__OgCaieEvaluation__reportDeliverySeam_pend0_pa0_pa0 ;
-    sysml:targetFeature "accountExecutive" ;
-    sysx:sourceText "testingOrg.accountExecutive" .
-
-expr:OGCAIE__OgCaieEvaluation__reportDeliverySeam_pend0_pa0_pa0
-    a sysml:FeatureReferenceExpression ;
-    sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
-    sysx:sourceText "testingOrg" .
-
-expr:OGCAIE__OgCaieEvaluation__reportDeliverySeam_pend1
-    a sysml:FeatureChainExpression ;
-    ogm:endPart elmt:OGCAIE__OgCaieEvaluation__sponsor ;
-    ogm:resolvesTo elmt:OGCAIE__SponsorOrganization__reportIn ;
-    sysml:argument expr:OGCAIE__OgCaieEvaluation__reportDeliverySeam_pend1_pa0 ;
-    sysml:targetFeature "reportIn" ;
-    sysx:endIndex "1"^^xsd:integer ;
-    sysx:sourceText "sponsor.reportIn" .
-
-expr:OGCAIE__OgCaieEvaluation__reportDeliverySeam_pend1_pa0
-    a sysml:FeatureReferenceExpression ;
-    sysml:referent elmt:OGCAIE__OgCaieEvaluation__sponsor ;
-    sysx:sourceText "sponsor" .
 
 expr:OGCAIE__OgCaieEvaluation__reportSeam_pend0
     a sysml:FeatureChainExpression ;

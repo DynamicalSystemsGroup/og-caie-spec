@@ -68,7 +68,7 @@ ogc:M2-Wiring a sh:NodeShape ;
             }
         """ ] .
 
-ogc:M2-PortConnectedOnce a sh:NodeShape ;
+ogc:M2-InputsUniqueOutputsShared a sh:NodeShape ;
     sh:targetClass sysml:PortUsage ;
     sh:sparql [
         sh:message "Every port of every part is an end of some interface usage: an unwired port is a fact with nowhere to go." ;
@@ -81,11 +81,12 @@ ogc:M2-PortConnectedOnce a sh:NodeShape ;
             }
         """ ] ;
     sh:sparql [
-        sh:message "No port is an end of two interface usages." ;
+        sh:message "An input (conjugated) port is the end of exactly one interface usage: input wires are unique (R-25)." ;
         sh:select """
             PREFIX sysml: <https://www.omg.org/spec/SysML#>
             PREFIX ogm: <https://w3id.org/og-caie/model#>
             SELECT $this WHERE {
+                $this sysml:isConjugated true .
                 ?e1 ogm:resolvesTo $this . ?e2 ogm:resolvesTo $this . FILTER(?e1 != ?e2)
             }
         """ ] .
@@ -228,7 +229,7 @@ ogc:M5-PortsBelongToRoles a sh:NodeShape ;
             }
         """ ] ;
     sh:sparql [
-        sh:message "The service agreement is supplied only by the sponsor and the account executive; the account executive has no evidence, determination or attestation port (R-23)." ;
+        sh:message "The service agreement is supplied only by the sponsor and the account executive; the account executive supplies nothing but the countersigned agreement and the delivery, and never judges (R-23, R-24)." ;
         sh:select """
             PREFIX sysml: <https://www.omg.org/spec/SysML#>
             SELECT $this ?value WHERE {
@@ -236,6 +237,7 @@ ogc:M5-PortsBelongToRoles a sh:NodeShape ;
                 $this sysml:type ?t ; sysml:owner ?o . ?t sysml:declaredName ?tn . ?o sysml:declaredName ?value .
                 OPTIONAL { $this sysml:isConjugated ?c }
                 FILTER( (?tn = "AgreementWrite" && !BOUND(?c) && ?value NOT IN ("SponsorOrganization", "AccountExecutive"))
+                     || (?value = "AccountExecutive" && !BOUND(?c) && ?tn NOT IN ("AgreementWrite", "DeliveryWrite"))
                      || (?value = "AccountExecutive" && ?tn IN ("EvidenceWrite", "DeterminationWrite", "AttestationWrite")) )
             }
         """ ] .

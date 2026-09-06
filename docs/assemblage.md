@@ -69,8 +69,8 @@ R-21 and R-23).
 The essentials are checked in two places, by two families of SHACL
 shapes. The M-shapes (`shapes/model.shapes.ttl`) run over the canonical
 model graph and check structure: the parties are present, every seam joins a
-supplier port to its conjugate, every port is wired exactly once, every item
-kind reaches the recorder, the seven steps produce every item kind in fixed
+supplier port to its conjugate, every input port is wired exactly once and
+every output at least once, every item kind reaches the recorder, the seven steps produce every item kind in fixed
 order, and the three actor categories keep to their slots. The S-shapes
 (`shapes/epo.shapes.ttl`, on the record page) run over the evaluation record
 and check values, provenance, time order, closure and chain. A requirement

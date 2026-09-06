@@ -64,10 +64,10 @@ tr:SCI-10 a ogc:Trace ; rdfs:label "SCI-10 PartiesNamedAndAgreed" ;
     ogc:usesTerm term:organization, term:customer, term:provider, term:first-party-conformity-assessment-activity, term:second-party-conformity-assessment-activity, term:third-party-conformity-assessment-activity, term:contract, term:stakeholder, term:account-executive ;
     ogc:restsOn src:iso-9000-2026, src:iso-iec-17000-2020, rul:R-21, rul:R-23 .
 tr:SCI-11 a ogc:Trace ; rdfs:label "SCI-11 EndStateGuaranteed" ;
-    rdfs:comment "The wiring guarantees the end state: every seam joins a supplier port to its conjugate, every port is wired once, every item kind reaches the recorder, and the seven steps produce every item kind in fixed order; a conformant record then yields traceability in both directions and coverage." ;
-    ogc:checkedBy ogc:M2-Wiring, ogc:M2-PortConnectedOnce, ogc:M3-RecordHub, ogc:M4-Steps, ogc:M4-EveryItemProduced ; ogc:tag "machine" ;
+    rdfs:comment "The wiring guarantees the end state: every seam joins a supplier port to its conjugate, every input port is wired exactly once and every output at least once, every item kind reaches the recorder, and the seven steps produce every item kind in fixed order; a conformant record then yields traceability in both directions and coverage." ;
+    ogc:checkedBy ogc:M2-Wiring, ogc:M2-InputsUniqueOutputsShared, ogc:M3-RecordHub, ogc:M4-Steps, ogc:M4-EveryItemProduced ; ogc:tag "machine" ;
     ogc:usesTerm term:evaluation-process-ontology, term:evaluation-record, term:requirements-traceability, term:test-coverage, term:evaluation-team ;
-    ogc:restsOn src:w3c-shacl, rul:R-17, rul:R-21, rul:R-22 .
+    ogc:restsOn src:w3c-shacl, rul:R-17, rul:R-21, rul:R-22, rul:R-25 .
 tr:SCI-12 a ogc:Trace ; rdfs:label "SCI-12 RolesDistinct" ;
     rdfs:comment "The domain expert who approves the DSO, assesses appropriateness and attests is not the evaluation operator who administers tests and collects evidence, and neither is the account executive who signs the agreement; one account executive, one or more of each expert." ;
     ogc:checkedBy ogc:M5-Roles, ogc:M5-Cardinality, ogc:M5-PortsBelongToRoles, ogc:S6-Attestation ; ogc:tag "machine" ;

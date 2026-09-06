@@ -492,3 +492,38 @@ rul:C-26 a ogc:Concern ;
     ogc:surfacedHow "R-23 implementation" ;
     ogc:concernsTerm term:account-executive ;
     prov:wasGeneratedBy rul:model-revision-planning-2026-09-06 .
+
+rul:C-27 a ogc:Concern ;
+    rdfs:label "port reuse across actor categories: activities confused with actors" ;
+    ogc:problem """The first structure-only model let the account executive deliver the report and the recommendation through ports typed by the operator's RecommendationWrite and the calculator's ReportWrite, and the wiring test excused the reuse as by design. Delivering is a different activity from recommending, with its own output.""" ;
+    ogc:severity "M" ;
+    ogc:status "ruled" ;
+    ogc:surfacedOn "2026-09-06"^^xsd:date ;
+    ogc:surfacedHow "Z, reading the T2 wiring test" ;
+    ogc:concernsTerm term:account-executive ;
+    prov:wasGeneratedBy rul:model-revision-planning-2026-09-06 .
+
+rul:R-24 a ogc:Ruling ;
+    ogc:order 24 ;
+    ogc:resolves rul:C-27 ;
+    ogc:rulingText "port sharing seems like bad practice to me. i think you are confusing activities with actors. actors can perform multiple activities but the activities need precise inputs and outputs" ;
+    ogc:changeNote "Every step of the EPO action def now declares its inputs as well as its outputs. Delivery is an item kind of its own (the report and the recommendation handed to the sponsor), the output of the account executive's delivery activity, carried on DeliveryWrite through a delivery seam to the sponsor and a second seam into the record; the sponsor's report and recommendation ports and the executive's reuse of RecommendationWrite and ReportWrite are gone. Shape M5-PortsBelongToRoles now restricts the account executive to AgreementWrite and DeliveryWrite. The one activity two actor categories may both perform is determining on evidence (R-21), so DeterminationWrite is the only supplier port definition carried by two roles, and the wiring test says exactly that." ;
+    prov:wasAttributedTo rul:Z ;
+    prov:generatedAtTime "2026-09-06"^^xsd:date .
+
+rul:C-28 a ogc:Concern ;
+    rdfs:label "one wire per port, or shared output wires" ;
+    ogc:problem """The first wiring rule required every port to be the end of exactly one seam, which forced the recorder to carry six identical record outputs, the probe deriver two probe outputs and the account executive two delivery outputs, one per reader.""" ;
+    ogc:severity "M" ;
+    ogc:status "ruled" ;
+    ogc:surfacedOn "2026-09-06"^^xsd:date ;
+    ogc:surfacedHow "Z, reading the T2 model" ;
+    prov:wasGeneratedBy rul:model-revision-planning-2026-09-06 .
+
+rul:R-25 a ogc:Ruling ;
+    ogc:order 25 ;
+    ogc:resolves rul:C-28 ;
+    ogc:rulingText "input wires need to be unique, output wires can be shared as long as the thing that flows over those wires is information whose use is nondestructive" ;
+    ogc:changeNote "Shape M2-InputsUniqueOutputsShared replaces M2-PortConnectedOnce: every port is wired; an input (conjugated) port is the end of exactly one seam; an output port may feed several. The recorder has one record output read by six, the probe deriver one probe output read by the operator and the recorder, the account executive one delivery output read by the sponsor and the recorder: 47 ports, 27 seams. Everything that flows is information." ;
+    prov:wasAttributedTo rul:Z ;
+    prov:generatedAtTime "2026-09-06"^^xsd:date .

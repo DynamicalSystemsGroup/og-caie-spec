@@ -93,6 +93,14 @@ sources and rulings borrowed from `mission-twin-glossary`.
   byte-identically. Wiring rules are SHACL M-shapes over that graph;
   value and provenance rules are S-shapes over the record. The essentials
   SCI-01..12 live in `model/trace.ttl`.
+- Actors perform activities; activities have precise inputs and outputs
+  (R-24). One port def per item kind, one item kind per activity output;
+  never reuse another actor's output port for a different activity
+  (delivery is not recommending). DeterminationWrite is the one supplier
+  port two roles carry, because either expert may determine (R-21).
+- Input wires are unique, output wires may be shared because what flows
+  is information whose use is nondestructive (R-25): one output port per
+  item kind per actor, fanned out to its readers.
 - Adding a `sysml:` term to the graph means adding a row to the term map
   with a rationale; a bigger graph means bumping the budget with one.
 

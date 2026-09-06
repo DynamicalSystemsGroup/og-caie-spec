@@ -165,6 +165,12 @@ package OGCAIE {
            traceable to the attestations it rests on. */
         attribute id : ScalarValues::String;
     }
+    item def Delivery {
+        doc /* The report and the recommendation handed to the sponsor by
+           the account executive: the output of the delivery activity,
+           distinct from recommending (ruling R-24). */
+        attribute id : ScalarValues::String;
+    }
     item def EvaluationRecord {
         doc /* The record itself (ISO 9000:2026 3.8.12, refined): the hub
            every fact passes through, read by every machine and every
@@ -192,6 +198,7 @@ package OGCAIE {
     port def AttestationWrite { out item i : Attestation; }
     port def ReportWrite { out item i : Report; }
     port def RecommendationWrite { out item i : Recommendation; }
+    port def DeliveryWrite { out item i : Delivery; }
     port def RecordWrite { out item i : EvaluationRecord; }
 
     // ------------------------------------------------------------
@@ -214,12 +221,15 @@ package OGCAIE {
     interface def AttestationSeam { end supplier : AttestationWrite; end consumer : ~AttestationWrite; }
     interface def ReportSeam { end supplier : ReportWrite; end consumer : ~ReportWrite; }
     interface def RecommendationSeam { end supplier : RecommendationWrite; end consumer : ~RecommendationWrite; }
+    interface def DeliverySeam { end supplier : DeliveryWrite; end consumer : ~DeliveryWrite; }
     interface def RecordSeam { end supplier : RecordWrite; end consumer : ~RecordWrite; }
 
     // ------------------------------------------------------------
     // The EPO as a standard operating procedure: seven steps in fixed
-    // order, each obliged to produce typed items (ruling R-21). Every
-    // item kind is produced by some step or is the record itself (M4).
+    // order, each an activity with precise typed inputs and outputs
+    // (rulings R-21, R-24). Actors perform activities; an activity's
+    // outputs are what its performer's ports carry. Every item kind is
+    // produced by some step or is the record itself (M4).
     // ------------------------------------------------------------
 
     action def EvaluationProcess {
@@ -228,12 +238,17 @@ package OGCAIE {
            the result. */
         out record : EvaluationRecord;
         action agree { out agreement : ServiceAgreement; out access : TestItemAccess; }
-        action scope { out input : StakeholderInput[0..*]; out dso : DsoRelease; }
-        action declareRequirements { out requirements : RequirementSet; out criteria : AcceptanceCriterion[1..*]; out assessment : AppropriatenessAssessment; }
-        action plan { out testPlan : TestPlan; out approval : PlanApproval; out strategy : Strategy[0..1]; out probes : Probe[1..*]; }
-        action execute { out sessions : Session[1..*]; out responses : Response[1..*]; out evidence : Evidence[1..*]; }
-        action determineAndAttest { out determinations : Determination[1..*]; out attestations : Attestation[1..*]; }
-        action report { out reportOut : Report; out recommendation : Recommendation; }
+        action scope { in agreement : ServiceAgreement; out input : StakeholderInput[0..*]; out dso : DsoRelease; }
+        action declareRequirements { in agreement : ServiceAgreement; in dso : DsoRelease; in input : StakeholderInput[0..*];
+            out requirements : RequirementSet; out criteria : AcceptanceCriterion[1..*]; out assessment : AppropriatenessAssessment; }
+        action plan { in requirements : RequirementSet; in criteria : AcceptanceCriterion[1..*]; in dso : DsoRelease;
+            out testPlan : TestPlan; out approval : PlanApproval; out strategy : Strategy[0..1]; out probes : Probe[1..*]; }
+        action execute { in testPlan : TestPlan; in probes : Probe[1..*]; in access : TestItemAccess;
+            out sessions : Session[1..*]; out responses : Response[1..*]; out evidence : Evidence[1..*]; }
+        action determineAndAttest { in evidence : Evidence[1..*]; in criteria : AcceptanceCriterion[1..*];
+            out determinations : Determination[1..*]; out attestations : Attestation[1..*]; }
+        action report { in attestations : Attestation[1..*]; in determinations : Determination[1..*]; in criteria : AcceptanceCriterion[1..*];
+            out reportOut : Report; out recommendation : Recommendation; out delivery : Delivery; }
         succession first agree then scope;
         succession first scope then declareRequirements;
         succession first declareRequirements then plan;
@@ -272,22 +287,21 @@ package OGCAIE {
            may not be the accountable organization; the record says. */
         attribute isAccountable : ScalarValues::Boolean;
         port agreementOut : AgreementWrite;
-        port reportIn : ~ReportWrite;
-        port recommendationIn : ~RecommendationWrite;
+        port deliveryIn : ~DeliveryWrite;
     }
 
     part def AccountExecutive :> Person {
         doc /* Signatory of the service agreement and legal representative
            of the testing organization (ruling R-23). Countersigns the
            agreement into the record, reads the record, and delivers the
-           report and the recommendation to the sponsor. No evidence,
-           determination or attestation port: the account executive
-           never judges the test item. The worked example's Mala. */
+           report and the recommendation to the sponsor as one delivery
+           (an activity of its own, R-24). No evidence, determination or
+           attestation port: the account executive never judges the test
+           item. The worked example's Mala. */
         port agreementIn : ~AgreementWrite;
         port agreementOut : AgreementWrite;
         port recordIn : ~RecordWrite;
-        port reportOut : ReportWrite;
-        port recommendationOut : RecommendationWrite;
+        port deliveryOut : DeliveryWrite;
     }
 
     part def DomainExpert :> Person {
@@ -295,7 +309,8 @@ package OGCAIE {
            (rulings R-10, R-21): supplies or approves the DSO release,
            assesses the appropriateness of the requirement set for the
            affected populations, approves test plans, may make
-           determinations on evidence, and attests. Represents the
+           determinations on evidence (an activity either expert may
+           perform, R-24), and attests. Represents the
            populations that are not interviewed. The worked example's
            Annie. */
         port recordIn : ~RecordWrite;
@@ -358,10 +373,10 @@ package OGCAIE {
 
     part def ProbeDeriver :> Machine {
         doc /* Derives probes from the DSO release and the requirement set
-           in the record; hands them to the operator and logs them. */
+           in the record; one output read by the operator and the recorder
+           (an output wire may be shared, R-25). */
         port recordIn : ~RecordWrite;
         port probesOut : ProbeWrite;
-        port probesToRecord : ProbeWrite;
     }
 
     part def ConformanceChecker :> Machine {
@@ -381,7 +396,9 @@ package OGCAIE {
     part def Recorder :> Machine {
         doc /* Keeps the evaluation record: the hub every item kind passes
            through (M3), with who did what and when. One conjugate port
-           per item kind in; one record port per reader out. */
+           per item kind in, each wired once (input wires are unique);
+           one record port out, read by six (output wires are shared when
+           what flows is information, R-25). */
         port agreementIn : ~AgreementWrite;
         port accessIn : ~AccessWrite;
         port inputIn : ~StakeholderInputWrite;
@@ -398,12 +415,8 @@ package OGCAIE {
         port attestationIn : ~AttestationWrite;
         port reportIn : ~ReportWrite;
         port recommendationIn : ~RecommendationWrite;
-        port recordToDeriver : RecordWrite;
-        port recordToChecker : RecordWrite;
-        port recordToCalculator : RecordWrite;
-        port recordToOperator : RecordWrite;
-        port recordToExpert : RecordWrite;
-        port recordToExecutive : RecordWrite;
+        port deliveryIn : ~DeliveryWrite;
+        port recordOut : RecordWrite;
     }
 
     part def TestingOrganization :> Organization {
@@ -425,8 +438,9 @@ package OGCAIE {
     // ------------------------------------------------------------
     // The assemblage: one evaluation. Interface usages are declared
     // before the parts they connect (v0.4.3 materializes in declaration
-    // order). Every port of every part is an end of exactly one seam
-    // (M2); every item kind reaches the recorder (M3).
+    // order). Every input port is the end of exactly one seam and every
+    // output port of at least one (M2, R-25); every item kind reaches the
+    // recorder (M3).
     // ------------------------------------------------------------
 
     part def OgCaieEvaluation {
@@ -442,7 +456,7 @@ package OGCAIE {
         interface planSeam : PlanSeam connect testingOrg.team.operator.planOut to testingOrg.recorder.planIn;
         interface planApprovalSeam : PlanApprovalSeam connect testingOrg.team.domainExpert.planApprovalOut to testingOrg.recorder.planApprovalIn;
         interface derivedProbeSeam : ProbeSeam connect testingOrg.probeDeriver.probesOut to testingOrg.team.operator.probesIn;
-        interface probeRecordSeam : ProbeSeam connect testingOrg.probeDeriver.probesToRecord to testingOrg.recorder.probeIn;
+        interface probeRecordSeam : ProbeSeam connect testingOrg.probeDeriver.probesOut to testingOrg.recorder.probeIn;
         interface probeRunSeam : ProbeSeam connect testingOrg.team.operator.probesToItem to accountable.testItem.probesIn;
         interface responseSeam : ResponseSeam connect accountable.testItem.responseOut to testingOrg.recorder.responseIn;
         interface evidenceSeam : EvidenceSeam connect testingOrg.team.operator.evidenceOut to testingOrg.recorder.evidenceIn;
@@ -451,14 +465,14 @@ package OGCAIE {
         interface attestationSeam : AttestationSeam connect testingOrg.team.domainExpert.attestationOut to testingOrg.recorder.attestationIn;
         interface reportSeam : ReportSeam connect testingOrg.coverageCalculator.reportOut to testingOrg.recorder.reportIn;
         interface recommendationSeam : RecommendationSeam connect testingOrg.team.operator.recommendationOut to testingOrg.recorder.recommendationIn;
-        interface recordToDeriverSeam : RecordSeam connect testingOrg.recorder.recordToDeriver to testingOrg.probeDeriver.recordIn;
-        interface recordToCheckerSeam : RecordSeam connect testingOrg.recorder.recordToChecker to testingOrg.conformanceChecker.recordIn;
-        interface recordToCalculatorSeam : RecordSeam connect testingOrg.recorder.recordToCalculator to testingOrg.coverageCalculator.recordIn;
-        interface recordToOperatorSeam : RecordSeam connect testingOrg.recorder.recordToOperator to testingOrg.team.operator.recordIn;
-        interface recordToExpertSeam : RecordSeam connect testingOrg.recorder.recordToExpert to testingOrg.team.domainExpert.recordIn;
-        interface recordToExecutiveSeam : RecordSeam connect testingOrg.recorder.recordToExecutive to testingOrg.accountExecutive.recordIn;
-        interface reportDeliverySeam : ReportSeam connect testingOrg.accountExecutive.reportOut to sponsor.reportIn;
-        interface recommendationDeliverySeam : RecommendationSeam connect testingOrg.accountExecutive.recommendationOut to sponsor.recommendationIn;
+        interface recordToDeriverSeam : RecordSeam connect testingOrg.recorder.recordOut to testingOrg.probeDeriver.recordIn;
+        interface recordToCheckerSeam : RecordSeam connect testingOrg.recorder.recordOut to testingOrg.conformanceChecker.recordIn;
+        interface recordToCalculatorSeam : RecordSeam connect testingOrg.recorder.recordOut to testingOrg.coverageCalculator.recordIn;
+        interface recordToOperatorSeam : RecordSeam connect testingOrg.recorder.recordOut to testingOrg.team.operator.recordIn;
+        interface recordToExpertSeam : RecordSeam connect testingOrg.recorder.recordOut to testingOrg.team.domainExpert.recordIn;
+        interface recordToExecutiveSeam : RecordSeam connect testingOrg.recorder.recordOut to testingOrg.accountExecutive.recordIn;
+        interface deliverySeam : DeliverySeam connect testingOrg.accountExecutive.deliveryOut to sponsor.deliveryIn;
+        interface deliveryRecordSeam : DeliverySeam connect testingOrg.accountExecutive.deliveryOut to testingOrg.recorder.deliveryIn;
 
         part sponsor : SponsorOrganization;
         part testingOrg : TestingOrganization;

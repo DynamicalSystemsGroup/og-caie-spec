@@ -11,7 +11,7 @@ from conftest import load
 from test_model_graph import OGM, SYS
 
 SEAMS = 27
-PORTS = 54
+PORTS = 47
 
 
 def graph():
@@ -33,14 +33,25 @@ def test_seams_resolve_to_conjugate_pairs():
         assert g.value(sp, SYS.isConjugated) is None and bool(g.value(cp, SYS.isConjugated))
 
 
-def test_every_part_port_connected_exactly_once():
+def test_inputs_unique_outputs_shared():
+    """R-25: every input port is the end of exactly one seam; every output
+    port of at least one, and may feed several consumers because what flows
+    is information, whose use is nondestructive."""
     g = graph()
     ports = [p for p in g.subjects(RDF.type, SYS.PortUsage) if g.value(p, SYS.isEnd) is None]
     assert len(ports) == PORTS
     used = Counter(g.objects(None, OGM.resolvesTo))
+    shared = []
     for p in ports:
-        assert used[p] == 1, f"{name(g, g.value(p, SYS.owner))}.{name(g, p)} connected {used[p]} times"
+        label = f"{name(g, g.value(p, SYS.owner))}.{name(g, p)}"
+        if g.value(p, SYS.isConjugated):
+            assert used[p] == 1, f"input {label} wired {used[p]} times"
+        else:
+            assert used[p] >= 1, f"output {label} unwired"
+            if used[p] > 1:
+                shared.append((label, used[p]))
     assert sum(used.values()) == 2 * SEAMS
+    assert sorted(shared) == [("AccountExecutive.deliveryOut", 2), ("ProbeDeriver.probesOut", 2), ("Recorder.recordOut", 6)]
 
 
 def test_every_item_kind_reaches_the_recorder():
@@ -52,13 +63,15 @@ def test_every_item_kind_reaches_the_recorder():
 
 
 def test_actor_categories_share_no_supplier_port_definition():
-    """Two shares are by design: both experts may make determinations (R-21:
-    the domain expert may interpret evidence), and the recommendation the
-    operator writes is delivered to the sponsor by the account executive
-    (R-23). Everything else belongs to one slot."""
+    """Actors perform activities; activities have precise outputs (R-24).
+    The one activity two actor categories may both perform is determining
+    on evidence (R-21: the domain expert may interpret evidence), so
+    DeterminationWrite is the only supplier port definition two roles carry.
+    Delivery is its own activity with its own output, not a reuse of the
+    operator's recommendation port."""
     g = graph()
     roles = {"DomainExpert", "EvaluationOperator", "AccountExecutive"}
-    shared_by_design = {d for d in g.subjects(RDF.type, SYS.PortDefinition) if name(g, d) in ("DeterminationWrite", "RecommendationWrite")}
+    shared_by_design = {d for d in g.subjects(RDF.type, SYS.PortDefinition) if name(g, d) == "DeterminationWrite"}
     supplied = {}
     for d in g.subjects(RDF.type, SYS.PartDefinition):
         if name(g, d) in roles:
