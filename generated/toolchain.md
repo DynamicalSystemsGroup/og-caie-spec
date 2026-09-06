@@ -56,7 +56,7 @@ What the graphs are written in, counted over the committed Turtle files (`vocabu
 | `ogc` | `https://w3id.org/og-caie/` | this specification | the register: citation classes and properties, shapes' names, concerns, rulings, crosswalk rows, trace essentials | 5 | 44 | 44 | <https://w3id.org/og-caie/> |
 | `term` | `https://w3id.org/og-caie/terms#` | this specification | the glossary's terms | 0 | 0 | 62 | <https://w3id.org/og-caie/> |
 | `src` | `https://w3id.org/og-caie/sources#` | this specification | the source register | 0 | 0 | 23 | <https://w3id.org/og-caie/> |
-| `rul` | `https://w3id.org/og-caie/rulings#` | this specification | concerns and rulings | 0 | 0 | 101 | <https://w3id.org/og-caie/> |
+| `rul` | `https://w3id.org/og-caie/rulings#` | this specification | concerns and rulings | 0 | 0 | 103 | <https://w3id.org/og-caie/> |
 | `epo` | `https://w3id.org/og-caie/epo#` | this specification | the Evaluation Process Ontology's handles: item classes, steps, layers, roles and their properties | 38 | 42 | 112 | <https://w3id.org/og-caie/> |
 | `xw` | `https://w3id.org/og-caie/crosswalk#` | this specification | the crosswalk rows of the front page's bridge into the standards | 0 | 0 | 7 | <https://w3id.org/og-caie/> |
 | `tr` | `https://w3id.org/og-caie/trace#` | this specification | the essentials SCI-01 to SCI-13 | 0 | 0 | 13 | <https://w3id.org/og-caie/> |
@@ -84,7 +84,7 @@ Appendix A runs in the browser on two libraries committed under `explorer/vendor
 | 4 | ogc: doctor (labels unambiguous, quotes located, record consistent) | 0 | `uv run -q ogc doctor --no-cache` |
 | 5 | notebooks: executed by nbclient, outputs equal the committed ones, verdict NOTEBOOK: PASS | 0 | `uv run python scripts/execute_notebooks.py --check` |
 | 6 | tests: full suite | 0 | `uv run pytest -q` |
-| 7 | generated/ and explorer/: regenerate byte-identically | 0 | `uv run python scripts/render.py && uv run python scripts/render_diagrams.py && uv run python scripts/render_explorer.py && uv run python scripts/render_toolchain.py && git diff --quiet -- generated/ explorer/` |
+| 7 | generated/ and explorer/: regenerate byte-identically | 0 | `bash checks/regen.sh (uv run python scripts/render.py && uv run python scripts/render_diagrams.py && uv run python scripts/render_explorer.py && uv run python scripts/render_toolchain.py) && git diff --quiet -- generated/ explorer/` |
 | 8 | site: myst build --html | 0 | `uv run myst build --html` |
 | 9 | site: the explorer copied next to the built site | 0 | `bash scripts/copy_explorer.sh` |
 

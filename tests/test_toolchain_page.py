@@ -57,13 +57,13 @@ def test_the_pinned_converter_digests_appear():
 
 
 def test_every_gate_step_appears_in_order():
-    names = re.findall(r'^step "([^"]+)" \d+ ', (ROOT / "checks" / "run-checks.sh").read_text(), re.M)
+    names = re.findall(r'^step "([^"]+)" \d+ ', ((ROOT / "checks" / "run-checks.sh").read_text() + (ROOT / "checks" / "regen.sh").read_text()), re.M)
     assert len(names) >= 8
     text = fragment()
     positions = [text.find(f"| {i} | {n} |") for i, n in enumerate(names, 1)]
     assert all(p >= 0 for p in positions), dict(zip(names, positions))
     assert positions == sorted(positions)
-    assert "scripts/render_toolchain.py" in (ROOT / "checks" / "run-checks.sh").read_text()
+    assert "scripts/render_toolchain.py" in ((ROOT / "checks" / "run-checks.sh").read_text() + (ROOT / "checks" / "regen.sh").read_text())
 
 
 def test_ci_steps_and_enforcement_points_appear():

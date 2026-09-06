@@ -118,9 +118,14 @@ def gate_steps() -> list[tuple[str, str, str]]:
     text = GATE.read_text()
     helpers = {m.group(1): " ".join(l.strip() for l in m.group(2).strip().splitlines())
                for m in re.finditer(r"^(\w+)\(\) \{\n(.*?)\n\}", text, re.M | re.S)}
+    regen = ROOT / "checks" / "regen.sh"
+    inline = " && ".join(l.strip() for l in regen.read_text().splitlines() if l.strip().startswith("uv run")) if regen.exists() else ""
     steps = []
     for name, expect, cmd in re.findall(r'^step "([^"]+)" (\d+) (.+)$', text, re.M):
-        steps.append((name, expect, helpers.get(cmd, cmd)))
+        cmd = helpers.get(cmd, cmd)
+        if inline:
+            cmd = cmd.replace("bash checks/regen.sh", f"bash checks/regen.sh ({inline})")
+        steps.append((name, expect, cmd))
     return steps
 
 

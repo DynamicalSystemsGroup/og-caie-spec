@@ -36,7 +36,7 @@ step "notebooks: executed by nbclient, outputs equal the committed ones, verdict
 step "tests: full suite" 0 uv run pytest -q
 
 regen() {
-  uv run python scripts/render.py && uv run python scripts/render_diagrams.py && uv run python scripts/render_explorer.py && uv run python scripts/render_toolchain.py && git diff --quiet -- generated/ explorer/
+  bash checks/regen.sh && git diff --quiet -- generated/ explorer/
 }
 step "generated/ and explorer/: regenerate byte-identically" 0 regen
 step "site: myst build --html" 0 uv run myst build --html
