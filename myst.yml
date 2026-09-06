@@ -54,5 +54,8 @@ project:
     - title: "Appendix B: computational proofs"
       children:
         - file: notebooks/checked-contracting.ipynb
+        - file: notebooks/checked-evaluation.ipynb
+        - file: notebooks/checked-model.ipynb
+        - file: notebooks/checked-guarantees.ipynb
 site:
   template: book-theme

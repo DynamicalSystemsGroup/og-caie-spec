@@ -54,15 +54,23 @@ def model_graph() -> Graph:
     return load("model/og-caie.model.ttl")
 
 
+def toolchain() -> Path:
+    """The pinned OpenSysML binary (toolchain/bin/sysml), fetched and
+    digest-verified by toolchain/get-sysml.sh if absent."""
+    binary = ROOT / "toolchain" / "bin" / "sysml"
+    if not binary.exists():
+        r = subprocess.run(["bash", "toolchain/get-sysml.sh"], cwd=ROOT, capture_output=True, text=True)
+        if r.returncode != 0:
+            raise RuntimeError("the pinned sysml toolchain could not be fetched:\n" + r.stderr)
+    return binary
+
+
 def model_counterexample(name: str) -> Graph:
     """Build a model counterexample from its SysML source through the same
     pipeline that produces the canonical graph (scripts/prune_model.py's
     build: convert with the pinned OpenSysML, prune to the term map), as
     tests/test_model_graph.py does. The pinned toolchain is fetched if absent."""
-    if not (ROOT / "toolchain" / "bin" / "sysml").exists():
-        r = subprocess.run(["bash", "toolchain/get-sysml.sh"], cwd=ROOT, capture_output=True, text=True)
-        if r.returncode != 0:
-            raise RuntimeError("the pinned sysml toolchain could not be fetched:\n" + r.stderr)
+    toolchain()
     sys.path.insert(0, str(ROOT / "scripts"))
     from prune_model import build  # noqa: E402
 

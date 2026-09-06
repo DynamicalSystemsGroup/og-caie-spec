@@ -79,6 +79,7 @@ judge the items that exist and no shape yet requires those items to exist;
 both are caught by completeness against the model, and the missing access
 also empties the traceback. Whether the shapes should require them is
 concern C-43, open for a ruling.
+Computational proof: [run the checks](../notebooks/checked-guarantees.ipynb).
 :::
 
 :::{admonition} There is more in the model
