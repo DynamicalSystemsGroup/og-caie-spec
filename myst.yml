@@ -50,5 +50,8 @@ project:
     - file: docs/guarantees.md
     - file: docs/rulings.md
     - file: docs/conclusion.md
+    - title: Computational proofs
+      children:
+        - file: notebooks/checked-contracting.ipynb
 site:
   template: book-theme
