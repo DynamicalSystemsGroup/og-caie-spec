@@ -12044,6 +12044,59 @@
     ]
    ]
   },
+  "https://w3id.org/og-caie/rulings#C-51": {
+   "in": [],
+   "out": [
+    [
+     "ogc:problem",
+     {
+      "text": "Appendix D listed the Python environment, the pinned converter and the vendored libraries, but a reader could ask why OpenSysML is not a dependency of the environment, and nothing reviewed the vocabularies the graphs use: PROV-O, EARL, SKOS, SHACL, OWL, the OMG SysML vocabulary, and the specification's own namespaces."
+     }
+    ],
+    [
+     "ogc:severity",
+     {
+      "text": "L"
+     }
+    ],
+    [
+     "ogc:status",
+     {
+      "text": "ruled"
+     }
+    ],
+    [
+     "ogc:surfacedHow",
+     {
+      "text": "Z, reading Appendix D"
+     }
+    ],
+    [
+     "ogc:surfacedOn",
+     {
+      "text": "2026-09-06 (date)"
+     }
+    ],
+    [
+     "prov:wasGeneratedBy",
+     {
+      "text": "rul:model-revision-planning-2026-09-06"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "ogc:Concern"
+     }
+    ],
+    [
+     "rdfs:label",
+     {
+      "text": "the toolchain review did not say why OpenSysML is outside the runtime environment, nor which ontologies the graphs are written in"
+     }
+    ]
+   ]
+  },
   "https://w3id.org/og-caie/rulings#R-01": {
    "in": [],
    "out": [
@@ -14090,6 +14143,53 @@
      "ogc:rulingText",
      {
       "text": "\"the nested model\" should be \"A Nested Lifecycle\". \"model\" is a throwaway word for most people and we don't want to trip anyone up. we also need to make sure that the page on the nested lifecycle addresses the fact that the records and reporting rely on information produced during BOTH the contracting lifecycle and the evaluation lifecycle."
+     }
+    ],
+    [
+     "prov:generatedAtTime",
+     {
+      "text": "2026-09-06 (date)"
+     }
+    ],
+    [
+     "prov:wasAttributedTo",
+     {
+      "text": "rul:Z"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "ogc:Ruling"
+     }
+    ]
+   ]
+  },
+  "https://w3id.org/og-caie/rulings#R-45": {
+   "in": [],
+   "out": [
+    [
+     "ogc:changeNote",
+     {
+      "text": "Appendix D says OpenSysML is the modelling tool, used at authoring time to validate and to render the model to RDF, fetched by digest outside the lockfile, with everything downstream reading only the RDF; and gains an ontologies section, a register of every namespace the committed graphs use (W3C RDF, RDFS, OWL, XSD, SKOS, PROV-O, EARL, SHACL; OMG SysML v2 as OpenSysML renders it and its tool facts; the specification's own namespaces) with the classes, properties and subjects each contributes, counted from the files; a namespace in use but not registered fails the test."
+     }
+    ],
+    [
+     "ogc:order",
+     {
+      "text": "45"
+     }
+    ],
+    [
+     "ogc:resolves",
+     {
+      "ref": "https://w3id.org/og-caie/rulings#C-51"
+     }
+    ],
+    [
+     "ogc:rulingText",
+     {
+      "text": "why isn't opensysml in the runtime environement? i guess we only used it for modeling since we used the features that render the models to rdf. i think this means we need a section on ontologies in the toolchain to address provo-o, earl, sysml, and more"
      }
     ],
     [
@@ -37636,6 +37736,11 @@
    "target": "https://w3id.org/og-caie/rulings#C-50"
   },
   {
+   "rel": "resolves",
+   "source": "https://w3id.org/og-caie/rulings#R-45",
+   "target": "https://w3id.org/og-caie/rulings#C-51"
+  },
+  {
    "rel": "type",
    "source": "https://w3id.org/og-caie/run/measles#R1",
    "target": "https://w3id.org/og-caie/epo#Requirement"
@@ -44352,6 +44457,14 @@
    "page": "../rulings"
   },
   {
+   "cls": "concern",
+   "desc": "the toolchain review did not say why OpenSysML is outside the runtime environment, nor which ontologies the graphs are written in (L, ruled). Appendix D listed the Python environment, the pinned converter and the vendored libraries, but a reader could ask why OpenSysML is not a dependency of the environment, and nothing reviewed the vocabularies the graphs use: PROV-O, EARL, SKOS, SHACL, OWL, the OMG SysML vocabulary, and the specification's own namespaces.",
+   "id": "https://w3id.org/og-caie/rulings#C-51",
+   "label": "C-51",
+   "ogc": "ogc concern C-51",
+   "page": "../rulings"
+  },
+  {
    "cls": "ruling",
    "desc": "Adopt SEVOCAB test coverage; add the distinction as a note",
    "id": "https://w3id.org/og-caie/rulings#R-01",
@@ -44701,6 +44814,14 @@
    "id": "https://w3id.org/og-caie/rulings#R-44",
    "label": "R-44",
    "ogc": "ogc ruling R-44",
+   "page": "../rulings"
+  },
+  {
+   "cls": "ruling",
+   "desc": "why isn't opensysml in the runtime environement? i guess we only used it for modeling since we used the features that render the models to rdf. i think this means we need a section on ontologies in the toolchain to address provo-o, earl, sysml, and more",
+   "id": "https://w3id.org/og-caie/rulings#R-45",
+   "label": "R-45",
+   "ogc": "ogc ruling R-45",
    "page": "../rulings"
   },
   {
@@ -47674,6 +47795,7 @@
     "https://w3id.org/og-caie/rulings#C-48",
     "https://w3id.org/og-caie/rulings#C-49",
     "https://w3id.org/og-caie/rulings#C-50",
+    "https://w3id.org/og-caie/rulings#C-51",
     "https://w3id.org/og-caie/rulings#R-01",
     "https://w3id.org/og-caie/rulings#R-02",
     "https://w3id.org/og-caie/rulings#R-03",
@@ -47718,6 +47840,7 @@
     "https://w3id.org/og-caie/rulings#R-42",
     "https://w3id.org/og-caie/rulings#R-43",
     "https://w3id.org/og-caie/rulings#R-44",
+    "https://w3id.org/og-caie/rulings#R-45",
     "https://w3id.org/og-caie/terms#acceptance-criteria",
     "https://w3id.org/og-caie/terms#account-executive",
     "https://w3id.org/og-caie/terms#appropriateness",
@@ -48578,6 +48701,7 @@
     "https://w3id.org/og-caie/rulings#C-48",
     "https://w3id.org/og-caie/rulings#C-49",
     "https://w3id.org/og-caie/rulings#C-50",
+    "https://w3id.org/og-caie/rulings#C-51",
     "https://w3id.org/og-caie/rulings#R-01",
     "https://w3id.org/og-caie/rulings#R-02",
     "https://w3id.org/og-caie/rulings#R-03",
@@ -48622,6 +48746,7 @@
     "https://w3id.org/og-caie/rulings#R-42",
     "https://w3id.org/og-caie/rulings#R-43",
     "https://w3id.org/og-caie/rulings#R-44",
+    "https://w3id.org/og-caie/rulings#R-45",
     "https://w3id.org/og-caie/run/measles#R1",
     "https://w3id.org/og-caie/run/measles#a1",
     "https://w3id.org/og-caie/run/measles#a2",

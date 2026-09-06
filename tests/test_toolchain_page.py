@@ -90,7 +90,22 @@ def test_the_page_exists_closes_the_toc_and_keeps_the_house_rules():
             assert not re.search(rf"\b{w}\b", p.read_text(), re.I), (p.name, w)
     prose = re.sub(r"```.*?```", "", text, flags=re.S)  # the include and the recipe are not prose
     prose = re.sub(r"^#.*$", "", prose, flags=re.M)  # nor are the headings
-    assert 350 <= len(prose.split()) <= 500, len(prose.split())
+    assert 350 <= len(prose.split()) <= 800, len(prose.split())  # raised for the ontologies section (R-45)
     recipe = re.search(r"```bash\n(.*?)```", text, re.S)
     assert recipe and recipe.group(1).splitlines() == RECIPE, recipe and recipe.group(1)
     assert "CHECKS: PASS" in text and "VERDICT: PASS" in text
+
+
+def test_every_namespace_in_use_is_registered_and_listed():
+    """The ontologies table names every vocabulary the committed graphs use
+    (R-45); an unregistered namespace renders as such and fails here."""
+    import sys
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import render_toolchain as rt
+    text = fragment()
+    assert "## The ontologies and vocabularies" in text
+    assert "(unregistered)" not in text
+    for prefix in ("prov", "earl", "skos", "sh", "owl", "sysml", "sysx", "epo", "ogc", "run"):
+        assert f"| `{prefix}` |" in text, prefix
+    page = (ROOT / "docs" / "appendix-toolchain.md").read_text()
+    assert "PROV-O" in page and "EARL" in page and "not in that environment" in page

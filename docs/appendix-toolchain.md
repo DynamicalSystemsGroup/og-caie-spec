@@ -24,9 +24,12 @@ site only when it prints PASS.
 From the bottom up. The virtual environment is managed by uv:
 `pyproject.toml` declares the direct dependencies, `uv.lock` pins the whole
 resolution to versions and content hashes, and `uv sync` reproduces it on
-any machine. OpenSysML, the SysML converter, is not a Python package:
-`toolchain/get-sysml.sh` fetches the pinned release and checks the tarball
-and the installed binary against committed digests. rdflib and pySHACL
+any machine. OpenSysML is not in that environment, and on purpose: it is
+the modelling tool, not a runtime dependency. It is used at authoring time
+for two jobs, strict validation of the SysML source and its rendering to
+RDF, and everything downstream reads only the RDF. So `toolchain/get-sysml.sh`
+fetches the pinned release as a binary and checks the tarball and the
+installed binary against committed digests, outside the lockfile. rdflib and pySHACL
 parse the graphs and run the shapes; pypdf reads the PDF sources for the
 quote checks. MyST, the `mystmd` package over Node.js, builds the site from
 the pages and the included fragments. nbclient re-executes the proof
@@ -35,6 +38,20 @@ command line, provided by the project package, reads the graphs for people
 and AI assistants; its skill file, `.claude/skills/ogc-glossary/SKILL.md`,
 tells an assistant to ask the graph and never to answer from memory. The
 vendored d3 and oxigraph run Appendix A in the browser without the network.
+
+The graphs themselves are written in a small set of ontologies, none
+invented here beyond the specification's own handles. PROV-O says who did
+what and when: agents, activities, entities, attribution and derivation.
+EARL says what was asserted: an assertor, a mode, a subject, a test and an
+outcome of passed, failed or cannot tell, which is why a determination is
+never a Boolean. SKOS holds the glossary as concepts with labels,
+definitions and notes. OWL and RDF Schema declare the Evaluation Process
+Ontology's classes and properties. SHACL states every check, over the
+record, the model graph and the rulings. The OMG SysML v2 vocabulary is what
+the converter renders the model into, with a few tool facts of its own. The
+specification's namespaces under w3id.org name the terms, the sources, the
+rulings, the essentials, the crosswalk, the derived ends of the model graph
+and the measles record. The table below counts what each is used for.
 
 ```{include} ../generated/toolchain.md
 ```

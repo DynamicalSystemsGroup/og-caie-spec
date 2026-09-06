@@ -180,8 +180,74 @@ def render_enforcement() -> str:
     return "\n".join(lines) + "\n"
 
 
+# The vocabularies the graphs are written in. The register names each
+# namespace and its standard; every count below is computed from the
+# committed Turtle files, and a namespace in use but not registered here is
+# rendered as such so the test catches it.
+GRAPH_FILES = ["vocabulary/og-caie.ttl", "vocabulary/epo.ttl", "vocabulary/crosswalk.ttl", "sources/sources.ttl",
+               "rulings/adjudications.ttl", "model/trace.ttl", "model/og-caie.model.ttl", "track/measles-run.ttl",
+               "shapes/epo.shapes.ttl", "shapes/model.shapes.ttl", "shapes/rulings.shapes.ttl"]
+ONTOLOGIES = [
+    ("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#", "W3C", "RDF 1.1: typing (rdf:type) and lists", "https://www.w3.org/TR/rdf11-concepts/"),
+    ("rdfs", "http://www.w3.org/2000/01/rdf-schema#", "W3C", "RDF Schema: labels, comments, subclassing", "https://www.w3.org/TR/rdf-schema/"),
+    ("owl", "http://www.w3.org/2002/07/owl#", "W3C", "OWL 2: the EPO's classes and properties", "https://www.w3.org/TR/owl2-overview/"),
+    ("xsd", "http://www.w3.org/2001/XMLSchema#", "W3C", "XML Schema datatypes: dates, decimals, booleans", "https://www.w3.org/TR/xmlschema11-2/"),
+    ("skos", "http://www.w3.org/2004/02/skos/core#", "W3C", "SKOS: the glossary's concepts, labels, definitions and notes", "https://www.w3.org/TR/skos-reference/"),
+    ("prov", "http://www.w3.org/ns/prov#", "W3C", "PROV-O: who did what and when in the record (agents, activities, entities, derivation, attribution)", "https://www.w3.org/TR/prov-o/"),
+    ("earl", "http://www.w3.org/ns/earl#", "W3C", "EARL 1.0: assertions with an assertor, a mode, a subject, a test and an outcome (passed, failed, cantTell)", "https://www.w3.org/TR/EARL10-Schema/"),
+    ("sh", "http://www.w3.org/ns/shacl#", "W3C", "SHACL: the shapes that check the record, the model graph and the rulings, including SHACL-SPARQL constraints", "https://www.w3.org/TR/shacl/"),
+    ("sysml", "https://www.omg.org/spec/SysML#", "OMG", "SysML v2 vocabulary as the OpenSysML converter renders the model: definitions, usages, ports, interfaces, actions, successions, flows", "https://www.omg.org/spec/SysML/2.0/"),
+    ("sysx", "urn:opensysml:sysml:", "OpenSysML", "the converter's own facts: the ends of a connection, the source text of a statement, a prefix keyword", "https://github.com/OpenMBEE/opensysml"),
+    ("elmt", "urn:sysmlv2:element:", "OpenSysML", "the converter's element identifiers, one per model element", "https://github.com/OpenMBEE/opensysml"),
+    ("expr", "urn:opensysml:expr:", "OpenSysML", "the converter's expression identifiers (end paths, multiplicity bounds)", "https://github.com/OpenMBEE/opensysml"),
+    ("ogc", "https://w3id.org/og-caie/", "this specification", "the register: citation classes and properties, shapes' names, concerns, rulings, crosswalk rows, trace essentials", "https://w3id.org/og-caie/"),
+    ("term", "https://w3id.org/og-caie/terms#", "this specification", "the glossary's terms", "https://w3id.org/og-caie/"),
+    ("src", "https://w3id.org/og-caie/sources#", "this specification", "the source register", "https://w3id.org/og-caie/"),
+    ("rul", "https://w3id.org/og-caie/rulings#", "this specification", "concerns and rulings", "https://w3id.org/og-caie/"),
+    ("epo", "https://w3id.org/og-caie/epo#", "this specification", "the Evaluation Process Ontology's handles: item classes, steps, layers, roles and their properties", "https://w3id.org/og-caie/"),
+    ("xw", "https://w3id.org/og-caie/crosswalk#", "this specification", "the crosswalk rows of the front page's bridge into the standards", "https://w3id.org/og-caie/"),
+    ("tr", "https://w3id.org/og-caie/trace#", "this specification", "the essentials SCI-01 to SCI-13", "https://w3id.org/og-caie/"),
+    ("ogm", "https://w3id.org/og-caie/model#", "this specification", "the derived ends of the canonical model graph (resolved ports, flow ends, successions, relations)", "https://w3id.org/og-caie/"),
+    ("run", "https://w3id.org/og-caie/run/measles#", "this specification", "the measles record's items and agents", "https://w3id.org/og-caie/"),
+]
+
+
+def render_ontologies() -> str:
+    from rdflib import Graph, RDF, URIRef
+    g = Graph()
+    for f in GRAPH_FILES:
+        g.parse(ROOT / f)
+
+    def ns_of(iri: str) -> str:
+        hits = [ns for _, ns, *_ in ONTOLOGIES if iri.startswith(ns)]
+        if hits:
+            return max(hits, key=len)  # the longest prefix: epo# over og-caie/
+        return iri.rsplit("#", 1)[0] + "#" if "#" in iri else iri.rsplit("/", 1)[0] + "/"
+
+    classes, preds, subjects = {}, {}, {}
+    for s_, p_, o in g:
+        preds.setdefault(ns_of(str(p_)), set()).add(str(p_))
+        if p_ == RDF.type and isinstance(o, URIRef):
+            classes.setdefault(ns_of(str(o)), set()).add(str(o))
+        if isinstance(s_, URIRef):
+            subjects.setdefault(ns_of(str(s_)), set()).add(str(s_))
+    used = set(classes) | set(preds) | set(subjects)
+    lines = ["## The ontologies and vocabularies", "",
+             "What the graphs are written in, counted over the committed Turtle files (" + ", ".join(f"`{f}`" for f in GRAPH_FILES) + "): "
+             "the classes and properties of each vocabulary that the graphs actually use, and the subjects each names. "
+             "The W3C and OMG vocabularies are adopted as published; the specification's own namespaces resolve under w3id.org.\n",
+             "| Prefix | Namespace | Whose | What it does here | Classes used | Properties used | Subjects | Reference |", "|---|---|---|---|---|---|---|---|"]
+    for prefix, ns, whose, what, ref in ONTOLOGIES:
+        if ns not in used:
+            continue
+        lines.append(f"| `{prefix}` | `{ns}` | {whose} | {what} | {len(classes.get(ns, ()))} | {len(preds.get(ns, ()))} | {len(subjects.get(ns, ()))} | <{ref}> |")
+    for ns in sorted(used - {n for _, n, *_ in ONTOLOGIES}):
+        lines.append(f"| (unregistered) | `{ns}` | | **not in the register: add it** | {len(classes.get(ns, ()))} | {len(preds.get(ns, ()))} | {len(subjects.get(ns, ()))} | |")
+    return "\n".join(lines) + "\n"
+
+
 def render() -> str:
-    return "\n".join([render_environment(), render_converter(), render_vendored(), render_gate(), render_ci(), render_enforcement()])
+    return "\n".join([render_environment(), render_converter(), render_ontologies(), render_vendored(), render_gate(), render_ci(), render_enforcement()])
 
 
 def main() -> int:

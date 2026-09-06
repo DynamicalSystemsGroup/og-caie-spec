@@ -912,3 +912,20 @@ rul:R-44 a ogc:Ruling ;
     prov:wasAttributedTo rul:Z ;
     prov:generatedAtTime "2026-09-06"^^xsd:date .
 
+rul:C-51 a ogc:Concern ;
+    rdfs:label "the toolchain review did not say why OpenSysML is outside the runtime environment, nor which ontologies the graphs are written in" ;
+    ogc:problem """Appendix D listed the Python environment, the pinned converter and the vendored libraries, but a reader could ask why OpenSysML is not a dependency of the environment, and nothing reviewed the vocabularies the graphs use: PROV-O, EARL, SKOS, SHACL, OWL, the OMG SysML vocabulary, and the specification's own namespaces.""" ;
+    ogc:severity "L" ;
+    ogc:status "ruled" ;
+    ogc:surfacedOn "2026-09-06"^^xsd:date ;
+    ogc:surfacedHow "Z, reading Appendix D" ;
+    prov:wasGeneratedBy rul:model-revision-planning-2026-09-06 .
+
+rul:R-45 a ogc:Ruling ;
+    ogc:order 45 ;
+    ogc:resolves rul:C-51 ;
+    ogc:rulingText "why isn't opensysml in the runtime environement? i guess we only used it for modeling since we used the features that render the models to rdf. i think this means we need a section on ontologies in the toolchain to address provo-o, earl, sysml, and more" ;
+    ogc:changeNote "Appendix D says OpenSysML is the modelling tool, used at authoring time to validate and to render the model to RDF, fetched by digest outside the lockfile, with everything downstream reading only the RDF; and gains an ontologies section, a register of every namespace the committed graphs use (W3C RDF, RDFS, OWL, XSD, SKOS, PROV-O, EARL, SHACL; OMG SysML v2 as OpenSysML renders it and its tool facts; the specification's own namespaces) with the classes, properties and subjects each contributes, counted from the files; a namespace in use but not registered fails the test." ;
+    prov:wasAttributedTo rul:Z ;
+    prov:generatedAtTime "2026-09-06"^^xsd:date .
+
