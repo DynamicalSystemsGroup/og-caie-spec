@@ -1,4 +1,4 @@
-# Appendix: the knowledge graph explorer
+# Appendix A: the knowledge graph explorer
 
 This appendix is an alternative interface to the same model, not new
 content. Every chapter closes by saying there is more in the model; the

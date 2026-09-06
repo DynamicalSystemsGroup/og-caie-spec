@@ -110,7 +110,7 @@ def test_notebook_prose_follows_the_house_rules():
 def test_notebooks_are_the_last_toc_section_off_the_main_path():
     toc = yaml.safe_load((ROOT / "myst.yml").read_text())["project"]["toc"]
     last = toc[-1]
-    assert last.get("title") == "Computational proofs", last
+    assert last.get("title") == "Appendix B: computational proofs", last
     listed = {ROOT / e["file"] for e in last["children"]}
     assert listed == set(NOTEBOOKS)
     for entry in toc[:-1]:

@@ -105,7 +105,7 @@ def test_the_appendix_exists_is_in_the_toc_and_embeds_the_explorer():
     # the appendix follows the conclusion; the notebooks section (off the main path) closes the toc
     assert files[files.index("docs/conclusion.md") + 1] == "docs/appendix-explorer.md"
     text = page.read_text()
-    assert text.startswith("# Appendix: the knowledge graph explorer")
+    assert text.startswith("# Appendix A: the knowledge graph explorer")
     assert "```{iframe} explorer/index.html" in text and "(../explorer/index.html)" in text
     assert "—" not in text
     assert "appendix-explorer.md" in (ROOT / "generated" / "more-contracting.md").read_text()

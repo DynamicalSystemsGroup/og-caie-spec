@@ -51,7 +51,7 @@ project:
     - file: docs/rulings.md
     - file: docs/conclusion.md
     - file: docs/appendix-explorer.md
-    - title: Computational proofs
+    - title: "Appendix B: computational proofs"
       children:
         - file: notebooks/checked-contracting.ipynb
 site:
