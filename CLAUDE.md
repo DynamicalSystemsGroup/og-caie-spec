@@ -21,6 +21,17 @@ sources and rulings borrowed from `mission-twin-glossary`.
   word ISO deprecates, on purpose). Never call the SHACL check "validation".
 - Attestation = outcome + **appropriateness** (of the declared context) +
   **sufficiency** (of the evidence). Never "adequacy" (ruling R-08).
+- **Evidence is the domain, determination the codomain** (R-18, R-20):
+  evidence is collected material bearing on one criterion's expected result;
+  a determination rules on it with an EARL outcome (passed, failed, cantTell;
+  never a Boolean); an attestation aggregates determinations. Evidence exists
+  at probe, session or suite level.
+- A probe is applied at one **turn** of a **session**; a session's ordered
+  pairs are its **trajectory**; a test plan's means are probes or a **test
+  strategy** (state feedback policy) (R-13).
+- Headword **test item**; prose may say system under test (R-19).
+- Two kinds of **technical expert** on the evaluation team: domain expert and
+  AI evaluation expert (R-10).
 - Prose: no em-dashes; short sentences; every glossary term used in docs
   must be in the glossary.
 

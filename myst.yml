@@ -4,7 +4,7 @@ project:
   description: >
     Ontology-Grounded Contextual AI Evaluation: the process, its vocabulary
     grounded in ISO, IEEE and NIST canon, the human and machine assemblage
-    that runs it, and one evaluation record whose conformity is checked by
+    that runs it, and one evaluation record whose conformance is checked by
     machine and whose judgments are attested by named people.
   authors:
     - name: Michael Zargham

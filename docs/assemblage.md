@@ -6,6 +6,14 @@ layers, then the assemblage of people and software that runs an evaluation,
 then the nine requirements that make the result science, then the receipts
 that show the model executes.
 
+Status, stated plainly: this model was built before rulings R-12 to R-20
+settled the glossary, and it has been patched to keep pace rather than
+redesigned. Its part definitions and port definitions do not yet, taken
+together, give the Evaluation Process Ontology structure that guarantees
+traceability and coverage as the end state, given a Domain-Specific Ontology
+and a requirement set expressed in EPO and DSO concepts. That redesign is the
+next piece of work; the record and its shapes are ahead of the model.
+
 Scope is Concept Definition and System Requirements Definition, in the sense
 of ISO/IEC/IEEE 15288:2023 and SEBoK v2.14: the parts are named only so far as
 the requirements need interfaces to be stated against. No architecture is
@@ -22,9 +30,10 @@ assemblage performs it.
 ```
 
 Every fact passes through the recorder. Humans supply the DSO release, the
-requirement set, the attestations and the recommendation; machines derive
-probes, check conformity, record, and compute coverage. The system under test
-is a black box inside the record and outside the boundary of responsibility.
+requirement set, the attestations and the recommendation; determinations on
+evidence may be made by either; machines derive probes, check conformance,
+record, and compute coverage. The system under test is a black box inside the
+record and outside the boundary of responsibility.
 
 ```{include} ../generated/sci.md
 ```

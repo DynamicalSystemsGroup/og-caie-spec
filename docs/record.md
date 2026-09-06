@@ -9,8 +9,9 @@ performed, and the standard's own note on the term (3.8.12, Note 1) says what
 records are for: to formalize traceability and to provide evidence of
 verification. That is the whole job of this file. It is the paper's worked example: a public-health
 chatbot during a measles outbreak, one requirement, three acceptance criteria,
-one probe run by red teaming, one response, two attestations by two named
-domain experts, a report, and a recommendation. The traceback query below is
+one test plan, one session of one turn run by red teaming, one probe, one
+response, two evidence items bearing on two criteria, two determinations and
+two attestations by two named domain experts, a report, and a recommendation. The traceback query below is
 requirements traceability made executable.
 
 Two things are checked over it. **Conformance** to the EPO shapes
@@ -41,7 +42,8 @@ The chain the shapes close is the one that makes a requirement a useful
 concept: the requirement, as a hypothesis that may be falsified; its
 acceptance criteria, each stating the expected result a test could observe;
 the test plan, whose objectives are those criteria and whose means are the
-probes; the run of a probe against the system, producing the response; the evidence
+probes or a strategy that chooses them; the turn of a session at which a probe
+is applied to the system, producing the response; the evidence
 collected from it bearing on the expected result; the determination that rules
 on that evidence; and the attestation, a named person's judgment aggregating
 the determinations for the criterion, bound through them to the evidence and
@@ -79,7 +81,11 @@ corresponding term applicable to second-party attestation": an evaluation team
 attesting on a sponsor's behalf about a vendor's system is second-party, and
 the audit offered at the end of the front page is the third-party case.
 
-The counterexamples are small graphs, each built to violate one shape:
-a verdict with no evidence behind it (the closure rule, S6), a requirement set
-declared after testing started (S2), and a recommendation that rests on no
-attestation and names no DSO release (S8). Each fails on exactly that shape.
+The counterexamples are small graphs, each built to violate one shape: an
+attestation with no determination behind its verdict (the closure rule, S6),
+an attestation aggregating a determination made for a different criterion
+(the chain rule, S6), the same fault across two turns of a strategy-driven
+session (S6), a requirement set declared after testing started (S2), and a
+recommendation that rests on no attestation and names no DSO release (S8).
+Each fails on exactly that shape. A sixth, in SysML, pads coverage and fails
+SCI-07 on the assemblage page.

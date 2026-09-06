@@ -77,9 +77,10 @@ def render_layers() -> str:
   end
   subgraph INTERP["Interpretation: named humans judge; every judgment traces back"]
     direction LR
-    att[attestations: outcome, appropriateness, sufficiency] --> recmd[recommendation]
-    recmd -. evidence .-> rec
-    recmd -. experiments run .-> rec
+    det[determinations on evidence: met, not met, cannot tell] --> att[attestations: outcome, appropriateness, sufficiency]
+    att --> recmd[recommendation]
+    recmd -. evidence collected .-> rec
+    recmd -. experiments run: sessions, turns, probes under the test plan .-> rec
     recmd -. assessments and who made them .-> att
     recmd -. DSO release and who approved it .-> dso
     recmd -. EPO step .-> EPO
