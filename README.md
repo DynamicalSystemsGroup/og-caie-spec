@@ -19,7 +19,7 @@ deployed AI system against the needs of a specific domain, written down as:
 ## Status (2026-09-06)
 
 - **Glossary: ratified.** 59 terms, 4 coined (DSO, EPO, CAIE, OG-CAIE),
-  settled through 34 rulings (R-01 to R-34) recorded verbatim in
+  settled through 35 rulings (R-01 to R-35) recorded verbatim in
   `rulings/adjudications.ttl`. 59 quotes are machine-located in content-hashed
   snapshots, 31 verified by Z against the ISO screenshots or the browsing
   platforms. No quote is pending. Concerns C-25 and C-26 are open.
@@ -31,7 +31,7 @@ deployed AI system against the needs of a specific domain, written down as:
   The contracting lifecycle (need, propose, agree, access, deliver, accept)
   cites SEBoK's agreement processes, ISO/IEC 17000's access, scheme and
   acceptance, ISO 9000's contract and the 29119-2 test environment and
-  completion report; every item kind says which layer pins it. Nine ISO/IEC
+  completion report; every item kind says which layer pins it. Ten ISO/IEC
   17000 quotes await Z's tick on rulings sheet 04.
 - **Site: a presentation layer over the model (R-34), eight pages, built one
   chapter at a time.** Each chapter pairs the specification with the measles

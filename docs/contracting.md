@@ -61,6 +61,21 @@ attestation here was made by those people.
 
 ```{include} ../generated/record-contracting.md
 ```
+
+Two further steps are observed in practice and are deliberately not part of
+the contracting lifecycle. The county tells the chatbot's vendor that it
+must implement changes that produce a demonstrable change in behaviour,
+per Humane Intelligence's findings; the vendor implements them; and the
+county may then require new testing to certify that the flagged issues were
+addressed. For a safety-critical deployment one would expect the evaluation
+to be paired with a release in exactly this way. Both parties are already in
+the record, the sponsor and the accountable organization, so nothing new is
+needed to say it; the standards call the repeat a surveillance, "systematic
+iteration of conformity assessment activities as a basis for maintaining the
+validity of the statement of conformity". It is what makes this more than an
+academic exercise: an evaluation record that traces every finding to its
+evidence is what a sponsor hands a vendor, and what a second evaluation is
+measured against.
 :::
 
 :::{admonition} Checked

@@ -704,3 +704,25 @@ rul:R-34 a ogc:Ruling ;
     prov:wasAttributedTo rul:Z ;
     prov:generatedAtTime "2026-09-06"^^xsd:date .
 
+rul:C-38 a ogc:Concern ;
+    rdfs:label "what happens after acceptance: narration, not a step" ;
+    ogc:problem """The contracting walkthrough ended at acceptance. In practice the sponsor tells the accountable organization to change the system per the findings, the change is made, and the sponsor may require new testing to certify it. Whether to model that or narrate it was open.""" ;
+    ogc:severity "L" ;
+    ogc:status "ruled" ;
+    ogc:surfacedOn "2026-09-06"^^xsd:date ;
+    ogc:surfacedHow "Z, reading the Contracting chapter" ;
+    prov:wasGeneratedBy rul:model-revision-planning-2026-09-06 .
+
+rul:R-35 a ogc:Ruling ;
+    ogc:order 35 ;
+    ogc:resolves rul:C-38 ;
+    ogc:rulingText """our walk through can describe an extra step 2 steps which are explicitly not part of the contract lifecycle but should instead be identified as observed in practice:
+
+* the county health office tells the chatbot provider they need to implement changes that result in demonstrable behavior change per the findings of Humane Intelligence and the chatbot provider implements changes (at which point the county heath office may require new testing to certify the flagged issues were addressed).
+
+
+note that we are not trying to say this is in the contracting loop per the standard contracting process but it is an opportunity to identify how this results in demonstrable system behavior change. for safety critical deployments we'd expect these evaluations to be paired with an release. importantly we already have both the sponsor org and the chatbot provider in our example so this is primarily narration feedback to help the reader understand what this is like in real life and why its not just an academic exercise""" ;
+    ogc:changeNote "Narration only: a paragraph in the Contracting chapter's walkthrough block, after the record rows, marked as observed in practice and deliberately outside the lifecycle; no step, item or shape added. The standards' word for the repeat, surveillance (ISO/IEC 17000 8.1), is quoted and cited as a seeAlso on the contracting lifecycle class, pending Z's tick on sheet 04 row 12." ;
+    prov:wasAttributedTo rul:Z ;
+    prov:generatedAtTime "2026-09-06"^^xsd:date .
+
