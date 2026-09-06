@@ -25,7 +25,7 @@ tr:SCI-03 a ogc:Trace ; rdfs:label "SCI-03 CriteriaWellFormed" ;
 tr:SCI-04 a ogc:Trace ; rdfs:label "SCI-04 ProbesDerivedAndChecked" ;
     ogc:checkedBy ogc:S3-Probe ; ogc:tag "machine" ;
     ogc:checkedBy ogc:S3-TestPlan, ogc:S3-Strategy ;
-    ogc:usesTerm term:probe, term:scenario, term:conformity, term:domain-specific-ontology, term:test-plan, term:test-strategy ;
+    ogc:usesTerm term:probe, term:scenario, term:conformance, term:domain-specific-ontology, term:test-plan, term:test-strategy ;
     ogc:restsOn src:sevocab, src:w3c-shacl, src:iec-60050-351, rul:R-12, rul:R-13 .
 tr:SCI-05 a ogc:Trace ; rdfs:label "SCI-05 EvidenceFromNamedRuns" ;
     ogc:tag "machine" ;
@@ -38,7 +38,7 @@ tr:SCI-06 a ogc:Trace ; rdfs:label "SCI-06 AttestationsWellFormed" ;
     ogc:restsOn src:iso-iec-17000-2020, src:hawkins-2011, src:w3c-earl, rul:R-08, rul:R-12 .
 tr:SCI-07 a ogc:Trace ; rdfs:label "SCI-07 CoverageRecomputable" ;
     ogc:checkedBy ogc:S7-Report ; ogc:tag "machine" ;
-    ogc:usesTerm term:test-coverage, term:conformity, term:verification, term:evaluation-record ;
+    ogc:usesTerm term:test-coverage, term:conformance, term:conformity, term:verification, term:evaluation-record ;
     ogc:restsOn src:sevocab, rul:R-01, rul:R-04 .
 tr:SCI-08 a ogc:Trace ; rdfs:label "SCI-08 CoverageAndPerformanceKeptApart" ;
     ogc:checkedBy ogc:S7-Report ; ogc:tag "machine" ;

@@ -21,6 +21,10 @@ keep the source's word as an alternative label. **Coined** terms are the
 three this project owns: Domain-Specific Ontology, Evaluation Process
 Ontology, and OG-CAIE.
 
+One word is used against the grain of its source, and the glossary says so:
+*conformance*, deprecated by ISO 9000 as a synonym of *conformity*, is reclaimed
+for the machine-checked, correctly constructed record (ruling R-16).
+
 The narrative definition is plain language with no citations and may be
 lifted into the paper. The quote is verbatim from the source. Status says how
 the quote was checked: *machine* (located in the content-hashed snapshot by

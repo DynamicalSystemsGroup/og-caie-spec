@@ -331,10 +331,12 @@ package OGCAIE {
         port probesOut : ProbeWrite;
     }
 
-    part def ConformityChecker :> MachineAgent {
-        doc /* Machine verification: the knowledge graph conforms to the
-           DSO, every derived probe is consistent, and the evaluation
-           record conforms to the EPO shapes. */
+    part def ConformanceChecker :> MachineAgent {
+        doc /* Machine verification, called conformance (ruling R-16): the
+           knowledge graph is correctly constructed to the DSO, every
+           derived probe is consistent, and the evaluation record is
+           correctly constructed to the EPO shapes. Not SHACL's word
+           validation: by this specification's split it is verification. */
         attribute dsoConforms : ScalarValues::Boolean;
         attribute probesConsistent : ScalarValues::Boolean;
         attribute recordConforms : ScalarValues::Boolean;
@@ -409,7 +411,7 @@ package OGCAIE {
         interface evaluatorAttestationSeam : AttestationSeam connect evaluator.attestationOut to recorder.evaluatorAttestationIn;
         interface expertAttestationSeam : AttestationSeam connect domainExpert.attestationOut to recorder.expertAttestationIn;
         interface recordToDeriverSeam : RecordSeam connect recorder.recordToDeriver to probeDeriver.recordIn;
-        interface recordToCheckerSeam : RecordSeam connect recorder.recordToChecker to conformityChecker.recordIn;
+        interface recordToCheckerSeam : RecordSeam connect recorder.recordToChecker to conformanceChecker.recordIn;
         interface recordToCalculatorSeam : RecordSeam connect recorder.recordToCalculator to coverageCalculator.recordIn;
         interface reportSeam : ReportSeam connect coverageCalculator.reportOut to sponsor.reportIn;
         interface recommendationSeam : RecommendationSeam connect evaluator.recommendationOut to sponsor.recommendationIn;
@@ -419,7 +421,7 @@ package OGCAIE {
         part sponsor : Sponsor;
         part systemUnderTest : SystemUnderTest;
         part probeDeriver : ProbeDeriver;
-        part conformityChecker : ConformityChecker;
+        part conformanceChecker : ConformanceChecker;
         part recorder : Recorder;
         part coverageCalculator : CoverageCalculator;
 
@@ -476,7 +478,7 @@ package OGCAIE {
         require constraint { ev.recorder.probe.exercisedCriteria >= 1 }
         require constraint { ev.recorder.probe.derivedFromDso }
         require constraint { ev.recorder.probe.consistencyPassed }
-        require constraint { ev.conformityChecker.probesConsistent }
+        require constraint { ev.conformanceChecker.probesConsistent }
     }
 
     requirement def <'SCI-05'> EvidenceFromNamedRuns {
@@ -513,7 +515,7 @@ package OGCAIE {
            counts as covered only when it carries an attestation, and the
            number is the weighted share anyone can recompute. */
         subject ev : OgCaieEvaluation;
-        require constraint { ev.conformityChecker.recordConforms and ev.conformityChecker.dsoConforms }
+        require constraint { ev.conformanceChecker.recordConforms and ev.conformanceChecker.dsoConforms }
         require constraint { ev.coverageCalculator.report.computedBy == Mode::automatic }
         require constraint { ev.recorder.a1.covered implies ev.recorder.a1.attestationCount >= 1 }
         require constraint { ev.recorder.a2.covered implies ev.recorder.a2.attestationCount >= 1 }
@@ -583,7 +585,7 @@ package OGCAIE {
                 attribute :>> name = "probe-deriver"; attribute :>> version = "0.1";
                 item :>> probe { attribute :>> id = "probe-1"; attribute :>> planId = "plan-1"; attribute :>> exercisedCriteria = 2; attribute :>> derivedFromDso = true; attribute :>> consistencyPassed = true; attribute :>> derivedAt = 3.0; }
             }
-            part :>> conformityChecker {
+            part :>> conformanceChecker {
                 attribute :>> name = "pyshacl"; attribute :>> version = "0.27";
                 attribute :>> dsoConforms = true; attribute :>> probesConsistent = true; attribute :>> recordConforms = true;
             }

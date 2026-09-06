@@ -5,7 +5,7 @@
 @prefix earl: <http://www.w3.org/ns/earl#> .
 @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
 
-# The EPO shapes S1..S8: the machine-checkable conformity facts. Each shape
+# The EPO shapes S1..S8: the machine-checkable conformance facts (R-16). Each shape
 # is the RDF twin of one SCI requirement in model/og-caie.sysml. A record
 # that conforms was produced by following the process, with its data shaped
 # and its required fields filled; what it cannot say is whether the

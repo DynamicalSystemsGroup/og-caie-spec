@@ -32,14 +32,27 @@ term:requirement a skos:Concept ; skos:inScheme ogc:Glossary ;
 
 term:conformity a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "conformity"@en ;
-    skos:altLabel "conformance"@en ;
-    skos:definition "Fulfilment of a requirement. For a body of data, conformity to an ontology's rules is a mechanical yes or no: if the evaluation record conforms to the process ontology, the process was followed and coverage can be computed."@en ;
+    skos:definition "Fulfilment of a requirement, in the ISO sense: the system under test conforms to an acceptance criterion when its response fulfils it, as a named person attests. For the machine-checked shape of the record itself, see conformance."@en ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.5.9" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-13.png" ;
-                    ogc:quote "fulfilment of a requirement" ; ogc:quoteStatus "pending" ] ;
-    ogc:scopeNote "ISO 9000:2026 3.5.9 Note 1: the term conformance is synonymous but deprecated. Prose says conformity; sh:conforms names only the SHACL act." ;
-    ogc:seeAlso [ ogc:cites src:w3c-shacl ; ogc:locator "3.4.3 Validation Report, sh:conforms" ] ;
-    ogc:binding "sh:conforms on the validation report" .
+                    ogc:quote "fulfilment of a requirement" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
+    ogc:scopeNote "Ruling R-16: conformity is fulfilment of a requirement (ISO 9000:2026). Its deprecated synonym conformance is reclaimed, deliberately, for the special case of a record correctly constructed to the EPO's shapes." ;
+    prov:wasDerivedFrom rul:R-16 ;
+    ogc:binding "earl:outcome earl:passed on an attestation: the system fulfilled the criterion" .
+
+term:conformance a skos:Concept ; skos:inScheme ogc:Glossary ;
+    skos:prefLabel "conformance"@en ;
+    skos:altLabel "correct construction"@en ; skos:altLabel "correctness by construction"@en ;
+    skos:definition "The record is correctly constructed: it satisfies every rule the Evaluation Process Ontology's shapes state about how an evaluation must be recorded. A mechanical yes or no, produced by machine. If the record conforms, the process was followed, its data is shaped, its required fields are filled, and coverage can be computed. A special case of conformity: fulfilment of the record-keeping requirements."@en ;
+    ogc:class "refined" ;
+    ogc:anchorRelation "specializes" ;
+    ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.5.9 conformity, Note 1" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-13.png" ;
+                    ogc:quote "The term \"conformance\" is synonymous but deprecated." ; ogc:quoteStatus "pending" ] ;
+    ogc:seeAlso [ ogc:cites src:w3c-shacl ; ogc:locator "Section 3.5 Conformance Checking" ;
+                  ogc:quote "A focus node conforms to a shape if and only if the set of result of the validation of the focus node against the shape is empty and no failure has been reported by it." ; ogc:quoteStatus "machine" ] ;
+    ogc:scopeNote "Ruling R-16: ISO 9000:2026 deprecates this word as a synonym of conformity; this specification reclaims it on purpose, and says so, for the correctly constructed record. Two reasons. It separates fulfilling a requirement of the system (conformity, attested by a person) from satisfying the record-keeping requirements of the EPO (conformance, checked by machine). And it avoids SHACL's own word for the check, validation, which by this specification's split is verification." ;
+    prov:wasDerivedFrom rul:R-16 ;
+    ogc:binding "sh:conforms true on the validation report of the record against shapes/epo.shapes.ttl; sysml part def ConformanceChecker" .
 
 term:objective-evidence a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "objective evidence"@en ;
@@ -138,8 +151,12 @@ term:requirements-traceability a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "requirements traceability, p. 352" ; ogc:pdfPage 352 ;
                     ogc:quote "identification and documentation of the derivation path (upward) and allocation/ flow-down path (downward) of requirements in the requirements set" ; ogc:quoteStatus "machine" ] ;
     ogc:seeAlso [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.5.11 traceability" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-13.png" ;
-                  ogc:quote "ability to trace the history, application or location of an object" ; ogc:quoteStatus "pending" ] ;
-    ogc:binding "the chain requirement, acceptance criterion, probe, evidence, attestation in the record; queries/traceback.rq" .
+                  ogc:quote "ability to trace the history, application or location of an object" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
+    ogc:seeAlso [ ogc:cites src:jcgm-200-2012 ; ogc:locator "2.41 metrological traceability, p. 45" ; ogc:pdfPage 45 ;
+                  ogc:quote "property of a measurement result whereby the result can be related to a reference through a documented unbroken chain of calibrations, each contributing to the measurement uncertainty" ; ogc:quoteStatus "machine" ] ;
+    ogc:scopeNote "Ruling R-15: requirements traceability and metrological traceability are kept distinct, but they are in principle the same idea at different levels of abstraction once both are done computationally over knowledge graphs. Here computational instruments measure computational systems, so the metrological sense still applies: the chain from a reported number back to the record is an unbroken documented chain, and the pass rate it reaches carries a measurement uncertainty." ;
+    prov:wasDerivedFrom rul:R-15 ;
+    ogc:binding "the chain requirement, acceptance criterion, test plan, probe, turn, evidence, attestation in the record; queries/traceback.rq" .
 
 term:test-coverage a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "test coverage"@en ;

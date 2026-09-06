@@ -58,4 +58,4 @@ def test_interfaces_declared_before_parts():
 def test_humans_and_machines_split():
     assert set(re.findall(r"part def (\w+) :> HumanAgent", MODEL)) == {"DomainExpert", "Evaluator", "Sponsor"}
     assert set(re.findall(r"part def (\w+) :> MachineAgent", MODEL)) == {
-        "SystemUnderTest", "ProbeDeriver", "ConformityChecker", "Recorder", "CoverageCalculator"}
+        "SystemUnderTest", "ProbeDeriver", "ConformanceChecker", "Recorder", "CoverageCalculator"}

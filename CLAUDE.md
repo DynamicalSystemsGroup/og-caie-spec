@@ -15,8 +15,10 @@ sources and rulings borrowed from `mission-twin-glossary`.
   Ontology, OG-CAIE. A fourth needs a ruling first.
 - Refined terms carry a typed anchor (`specializes` / `corresponds` /
   `synonym`) and keep the source's word as `skos:altLabel`.
-- Say **conformity** (ISO 9000:2026 3.5.9 deprecates "conformance"); use
-  `sh:conforms` only for the SHACL act.
+- **conformity** = fulfilment of a requirement by the system (ISO 9000:2026
+  3.5.9, attested by a person). **conformance** = the record correctly
+  constructed to the EPO shapes (machine-checked; ruling R-16 reclaims the
+  word ISO deprecates, on purpose). Never call the SHACL check "validation".
 - Attestation = outcome + **appropriateness** (of the declared context) +
   **sufficiency** (of the evidence). Never "adequacy" (ruling R-08).
 - Prose: no em-dashes; short sentences; every glossary term used in docs

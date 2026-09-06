@@ -9,9 +9,13 @@ one probe run by red teaming, one response, two attestations by two named
 domain experts, a report, and a recommendation. The traceback query below is
 requirements traceability made executable.
 
-Two things are checked over it. **Conformity** to the EPO shapes
-(`shapes/epo.shapes.ttl`, S1 to S8) is machine verification: the process was
-followed, the data is shaped, the required fields are filled. **Recomputation**
+Two things are checked over it. **Conformance** to the EPO shapes
+(`shapes/epo.shapes.ttl`, S1 to S8) is machine verification: the record is
+correctly constructed, so the process was followed, the data is shaped, the
+required fields are filled. The word is reclaimed on purpose (ruling R-16):
+ISO 9000 deprecates it as a synonym of *conformity*, which this specification
+keeps for fulfilment of a requirement by the system; and SHACL's own word for
+the check, validation, is by this specification's split verification. **Recomputation**
 of coverage and performance by SPARQL (`queries/coverage.rq`) is what makes
 the reported numbers falsifiable: anyone holding the record gets the same
 numbers, and a padded number would not survive. What no shape checks is

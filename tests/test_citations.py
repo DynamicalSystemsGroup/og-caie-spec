@@ -17,12 +17,12 @@ from conftest import OGC, ROOT, load, normalized
 
 logging.getLogger("pypdf").setLevel(logging.ERROR)
 
-TERMS = 45
+TERMS = 46
 COINED = 3
-MACHINE_QUOTES = 50
+MACHINE_QUOTES = 52
 COMMITTED_MACHINE_QUOTES = 11  # NIST AI 700-2 (7), NIST AI 100-1 (1), NIST TN 1297 (2), W3C EARL (1): always locatable, in CI too
-PENDING_QUOTES = 11
-HUMAN_QUOTES = 8
+PENDING_QUOTES = 10
+HUMAN_QUOTES = 10
 PENDING_ALLOWED_SOURCES = {"iso-9000-2026", "iso-iec-17000-2020", "iec-60050-351"}
 
 

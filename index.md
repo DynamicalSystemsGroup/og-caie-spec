@@ -42,8 +42,8 @@ reported number was overstated by exactly that criterion's weight, and anyone
 holding the record can show it.
 
 So the evaluation is itself verified and validated before it says anything
-about the system. Verification of the evaluation is mechanical: conformity to
-the process shapes and coverage recomputed from the record. Validation of
+about the system. Verification of the evaluation is mechanical: conformance of
+the record to the process shapes and coverage recomputed from the record. Validation of
 the evaluation is human: named experts attest that the declared context was
 appropriate and the evidence sufficient. Requirements traceability, in the
 systems-engineering sense, is the thread that lets a reader walk from a

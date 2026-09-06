@@ -11,7 +11,7 @@ from rdflib import Namespace
 SKOS = Namespace("http://www.w3.org/2004/02/skos/core#")
 PROSE = [ROOT / "index.md", *sorted((ROOT / "docs").glob("*.md")), ROOT / "README.md"]
 WORD_BUDGET = 4000
-RETIRED = {"adequacy", "adequate", "inadequate", "conformance"}
+RETIRED = {"adequacy", "adequate", "inadequate"}
 
 
 def prose_text():
@@ -21,7 +21,7 @@ def prose_text():
 def test_no_retired_words_in_prose_or_model():
     text = prose_text() + (ROOT / "model" / "og-caie.sysml").read_text()
     # the model's doc comments explain the R-08 replacement; those two mentions are allowed
-    text = text.replace('replaces the earlier label "adequacy"', "").replace("conformance is synonymous but deprecated", "")
+    text = text.replace('replaces the earlier label "adequacy"', "")
     for w in RETIRED:
         hits = [m.start() for m in re.finditer(rf"\b{w}\b", text, re.I)]
         assert not hits, f"retired word {w!r} in prose/model at offsets {hits[:3]}"

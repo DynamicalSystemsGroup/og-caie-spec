@@ -13,7 +13,7 @@ flowchart TB
   subgraph EXEC["Execution: the human and machine assemblage performs EPO with DSO"]
     direction LR
     H["humans: DomainExpert, Evaluator, Sponsor"]
-    M["machines: SystemUnderTest, ProbeDeriver, ConformityChecker, Recorder, CoverageCalculator"]
+    M["machines: SystemUnderTest, ProbeDeriver, ConformanceChecker, Recorder, CoverageCalculator"]
     H --- rec[(evaluation record)]
     M --- rec
   end
