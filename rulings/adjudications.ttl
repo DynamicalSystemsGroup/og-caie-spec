@@ -376,3 +376,22 @@ rul:R-19 a ogc:Ruling ;
     ogc:changeNote "The recommendation accepted: headword test item (SEVOCAB, ISO/IEC/IEEE 29119-2:2021, work product to be tested) with system under test, SUT, test object, application and system of interest as alternative labels; seeAlso system-of-interest (15288), NIST AI 700-2 application, AI-based system (29119-11), object of conformity assessment (ISO/IEC 17000 4.2), and the 14756 system under test entry kept visible as the only standard definition of the phrase. Prose and the model keep saying system under test." ;
     prov:wasAttributedTo rul:Z ;
     prov:generatedAtTime "2026-09-06"^^xsd:date .
+
+rul:C-20 a ogc:Concern ;
+    rdfs:label "evidence and determination: domain and codomain" ;
+    ogc:problem """R-18 was implemented with the determination folded into the evidence item as a Boolean observed value. Z, rereading: that is wrong; evidence is the domain and the determination is the codomain, and the determination is not strictly Boolean because EARL admits cantTell.""" ;
+    ogc:severity "H" ;
+    ogc:status "ruled" ;
+    ogc:surfacedOn "2026-09-06"^^xsd:date ;
+    ogc:surfacedHow "Z rereading the R-18 summary" ;
+    ogc:concernsTerm term:objective-evidence ;
+    ogc:concernsTerm term:determination ;
+    prov:wasGeneratedBy rul:sheet-01-walkthrough-2026-09-06 .
+
+rul:R-20 a ogc:Ruling ;
+    ogc:order 20 ;
+    ogc:resolves rul:C-20 ;
+    ogc:rulingText "this is wrong evidence the domain and the boolean is the codomain. we collect evidence which serves as the basis for a boolean determination regarding whether the expected outcome has been met. furthermore that is not strictly boolean, per earl we admit canttell" ;
+    ogc:changeNote "Evidence keeps only what it is: collected material (a response, a trajectory, or several) bearing on one criterion's expected result, under the test plan, attributed to its collector. Determination is a separate node, an earl:Assertion and prov:Activity: it uses one or more evidence items, tests the criterion, and records the EARL outcome passed, failed or cantTell, its mode and its assertor; the paper's word for it is judgment. The attestation aggregates the determinations for a criterion. Glossary: determination becomes a term (ISO 9000:2026 3.11.1, altLabel judgment); objective evidence's narrative corrected. Shapes: S5-Evidence without observed; S6-Determination; the closure rule and chain rule run attestation to determination to evidence. Model: Determination item def replaces the observed attribute." ;
+    prov:wasAttributedTo rul:Z ;
+    prov:generatedAtTime "2026-09-06"^^xsd:date .

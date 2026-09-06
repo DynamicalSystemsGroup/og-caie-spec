@@ -33,8 +33,8 @@ tr:SCI-05 a ogc:Trace ; rdfs:label "SCI-05 EvidenceFromNamedRuns" ;
     ogc:usesTerm term:objective-evidence, term:test, term:test-item, term:red-teaming, term:session, term:dialogue, term:trajectory, term:non-deterministic-system, term:test-suite, term:expected-results ;
     ogc:restsOn src:iso-9000-2026, src:nist-ai-700-2, src:w3c-prov-o, src:iec-60050-351, rul:R-13 .
 tr:SCI-06 a ogc:Trace ; rdfs:label "SCI-06 AttestationsWellFormed" ;
-    ogc:checkedBy ogc:S6-Attestation ; ogc:tag "machine for form; human for the judgment" ;
-    ogc:usesTerm term:attestation, term:outcome, term:appropriateness, term:sufficiency, term:validation, term:test-plan, term:expected-results ;
+    ogc:checkedBy ogc:S6-Attestation, ogc:S6-Determination ; ogc:tag "machine for form; human for the judgment" ;
+    ogc:usesTerm term:attestation, term:determination, term:objective-evidence, term:outcome, term:appropriateness, term:sufficiency, term:validation, term:test-plan, term:expected-results ;
     ogc:restsOn src:iso-iec-17000-2020, src:hawkins-2011, src:w3c-earl, rul:R-08, rul:R-12 .
 tr:SCI-07 a ogc:Trace ; rdfs:label "SCI-07 CoverageRecomputable" ;
     ogc:checkedBy ogc:S7-Report ; ogc:tag "machine" ;

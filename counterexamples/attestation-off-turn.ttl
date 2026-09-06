@@ -7,8 +7,8 @@
 # Counterexample for the S6 chain rule in a two-turn session driven by a
 # strategy (R-13). Turn 1 runs probe-1 (exercises a); the strategy then
 # chooses probe-2 (exercises b) from the trajectory so far, and turn 2 runs
-# it. The attestation about b uses evidence-1, the determination made at
-# turn 1 against a's expected result, instead of evidence-2. Sessions are
+# it. The attestation about b aggregates determination-1, the ruling made at
+# turn 1 on evidence bearing on a, instead of a determination on evidence-2. Sessions are
 # stateful: the response at turn 1 cannot bear on what probe-2 asked, and the
 # evidence item says so by answering a, not b. Must fail on ogc:S6-Attestation
 # and nothing else.
@@ -39,12 +39,14 @@ cx:turn-1 a epo:Turn ; epo:inSession cx:session ; epo:turnIndex 1 ; prov:used cx
 cx:turn-2 a epo:Turn ; epo:inSession cx:session ; epo:turnIndex 2 ; prov:used cx:probe-2 .
 cx:response-1 a epo:Response ; epo:text "response at turn 1" ; prov:wasGeneratedBy cx:turn-1 ; prov:wasAttributedTo cx:sut .
 cx:response-2 a epo:Response ; epo:text "response at turn 2" ; prov:wasGeneratedBy cx:turn-2 ; prov:wasAttributedTo cx:sut .
-cx:evidence-1 a epo:Evidence ; epo:answers cx:a ; epo:observed false ; prov:wasDerivedFrom cx:response-1 ; epo:underPlan cx:plan ; prov:wasAttributedTo cx:expert .
-cx:evidence-2 a epo:Evidence ; epo:answers cx:b ; epo:observed false ; prov:wasDerivedFrom cx:response-2 ; epo:underPlan cx:plan ; prov:wasAttributedTo cx:expert .
+cx:evidence-1 a epo:Evidence ; epo:bearsOn cx:a ; prov:wasDerivedFrom cx:response-1 ; epo:underPlan cx:plan ; prov:wasAttributedTo cx:person .
+cx:evidence-2 a epo:Evidence ; epo:bearsOn cx:b ; prov:wasDerivedFrom cx:response-2 ; epo:underPlan cx:plan ; prov:wasAttributedTo cx:person .
+cx:determination-1 a epo:Determination ; earl:test cx:a ; earl:subject cx:sut ; earl:mode earl:manual ; earl:assertedBy cx:expert ; prov:used cx:evidence-1 ;
+    earl:result [ a earl:TestResult ; earl:outcome earl:failed ] .
 
 cx:attestation a epo:Attestation ;
     earl:test cx:b ; earl:subject cx:sut ; earl:mode earl:manual ; earl:assertedBy cx:expert ;
-    prov:used cx:evidence-1 ;
+    prov:used cx:determination-1 ;
     earl:result [ a earl:TestResult ; earl:outcome earl:failed ] ;
     epo:appropriateness epo:appropriate ; epo:sufficiency epo:sufficient ;
     epo:step epo:runAndAttest ;

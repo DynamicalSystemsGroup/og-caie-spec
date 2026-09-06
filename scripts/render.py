@@ -105,7 +105,7 @@ def render_record() -> str:
     PROV = Namespace("http://www.w3.org/ns/prov#")
     EARL = Namespace("http://www.w3.org/ns/earl#")
     order = [EPO.DsoRelease, EPO.RequirementSet, EPO.Requirement, EPO.AcceptanceCriterion, EPO.TestPlan, EPO.Strategy, EPO.Probe,
-             EPO.ConsistencyCheck, EPO.TestSuite, EPO.Session, EPO.Turn, EPO.Trajectory, EPO.Response, EPO.Evidence, EPO.Attestation, EPO.CoverageComputation, EPO.Report, EPO.Recommendation]
+             EPO.ConsistencyCheck, EPO.TestSuite, EPO.Session, EPO.Turn, EPO.Trajectory, EPO.Response, EPO.Evidence, EPO.Determination, EPO.Attestation, EPO.CoverageComputation, EPO.Report, EPO.Recommendation]
     for cls in order:
         for n in sorted(g.subjects(RDF.type, cls), key=str):
             who = [g.value(a, RDFS.label) or str(a).rsplit("#", 1)[-1] for p in (EARL.assertedBy, EPO.approvedBy, PROV.wasAttributedTo, PROV.wasAssociatedWith) for a in g.objects(n, p)]
@@ -124,9 +124,9 @@ def render_record() -> str:
     # traceback
     rows = list(g.query((ROOT / "queries" / "traceback.rq").read_text()))
     out.append("\n### The recommendation, traced back\n")
-    out.append("| Assessment (who) | Criterion | Expected result | Evidence (observed?) | Outcome | Experiment (turn, session, probe under plan; operator; system) | DSO release (approver) | EPO step |\n|---|---|---|---|---|---|---|---|")
+    out.append("| Attestation (who) | Criterion | Expected result | Evidence | Determination (who; outcome) | Attested outcome | Experiment (turn, session, probe under plan; operator; system) | DSO release (approver) | EPO step |\n|---|---|---|---|---|---|---|---|")
     for r in rows:
-        out.append(f"| `{str(r.attestation).rsplit('#', 1)[-1]}` ({cell(r.assertor)}) | {cell(r.criterion)} | {cell(r.expected)} | `{str(r.evidence).rsplit('#', 1)[-1]}` ({cell(r.observed)}) | {cell(r.outcome)} | turn {cell(r.turnIndex)} of `{str(r.run).rsplit('#', 1)[-1]}`, `{str(r.probe).rsplit('#', 1)[-1]}` under `{str(r.plan).rsplit('#', 1)[-1]}`; {cell(r.operator)}; {cell(r.sut)} | `{str(r.dso).rsplit('#', 1)[-1]}` ({cell(r.dsoApprover)}) | {cell(r.step)} |")
+        out.append(f"| `{str(r.attestation).rsplit('#', 1)[-1]}` ({cell(r.assertor)}) | {cell(r.criterion)} | {cell(r.expected)} | `{str(r.evidence).rsplit('#', 1)[-1]}` | `{str(r.determination).rsplit('#', 1)[-1]}` ({cell(r.determiner)}; {cell(r.determined)}) | {cell(r.outcome)} | turn {cell(r.turnIndex)} of `{str(r.run).rsplit('#', 1)[-1]}`, `{str(r.probe).rsplit('#', 1)[-1]}` under `{str(r.plan).rsplit('#', 1)[-1]}`; {cell(r.operator)}; {cell(r.sut)} | `{str(r.dso).rsplit('#', 1)[-1]}` ({cell(r.dsoApprover)}) | {cell(r.step)} |")
     # conformity and counterexamples
     shapes = Graph().parse(ROOT / "shapes" / "epo.shapes.ttl")
     SH = Namespace("http://www.w3.org/ns/shacl#")

@@ -34,7 +34,8 @@ epo:Strategy a owl:Class ; rdfs:subClassOf prov:Plan, prov:Entity ; rdfs:label "
 epo:Trajectory a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "trajectory: the ordered prompt-response pairs of a session, the observable realization (IEC 60050-351 351-41-10, refined; R-13)" .
 epo:Probe a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "probe" .
 epo:Response a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "response: what the system under test produced at one turn (the actual result)" .
-epo:Evidence a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "evidence: a Boolean determination against one criterion's expected result, from a response, a trajectory or a suite of them, under the test plan (R-18)" .
+epo:Evidence a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "evidence: collected material (a response, a trajectory, or several) bearing on one criterion's expected result, under the test plan (R-18, R-20); the domain of a determination" .
+epo:Determination a owl:Class ; rdfs:subClassOf earl:Assertion, prov:Activity ; rdfs:label "determination (ISO 9000:2026 3.11.1; the paper's judgment): the ruling on one or more evidence items that a criterion's expected result was met, not met, or cannot be told (R-20); the codomain of evidence" .
 epo:Report a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "report" .
 epo:Recommendation a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "recommendation" .
 
@@ -65,8 +66,7 @@ epo:policy a owl:DatatypeProperty ; rdfs:domain epo:Strategy ; rdfs:range xsd:st
 epo:groundedIn a owl:ObjectProperty ; rdfs:domain epo:Strategy ; rdfs:range epo:DsoRelease .
 epo:turns a owl:DatatypeProperty ; rdfs:domain epo:Trajectory ; rdfs:range xsd:integer .
 epo:underPlan a owl:ObjectProperty ; rdfs:subPropertyOf prov:wasDerivedFrom ; rdfs:domain epo:Evidence ; rdfs:range epo:TestPlan ; rdfs:comment "the test plan an evidence item was collected under (R-18)" .
-epo:answers a owl:ObjectProperty ; rdfs:domain epo:Evidence ; rdfs:range epo:AcceptanceCriterion ; rdfs:comment "the criterion whose expected result this evidence item rules on (R-18)" .
-epo:observed a owl:DatatypeProperty ; rdfs:domain epo:Evidence ; rdfs:range xsd:boolean ; rdfs:comment "did the expected result happen: a determination (ISO 9000:2026 3.11.1) recorded as a Boolean (R-18)" .
+epo:bearsOn a owl:ObjectProperty ; rdfs:domain epo:Evidence ; rdfs:range epo:AcceptanceCriterion ; rdfs:comment "the criterion whose expected result this evidence item bears on (R-18, R-20)" .
 epo:inSuite a owl:ObjectProperty ; rdfs:domain epo:Session ; rdfs:range epo:TestSuite .
 epo:exercises a owl:ObjectProperty ; rdfs:domain epo:Probe ; rdfs:range epo:AcceptanceCriterion .
 epo:derivedFromDso a owl:ObjectProperty ; rdfs:subPropertyOf prov:wasDerivedFrom ; rdfs:domain epo:Probe ; rdfs:range epo:DsoRelease .

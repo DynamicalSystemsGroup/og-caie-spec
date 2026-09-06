@@ -5,8 +5,8 @@
 @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
 
 # Counterexample for the S6 chain rule (R-12, R-18): an attestation about
-# criterion cx:b that uses an evidence item which answers cx:a's expected
-# result. The verdict may be sincere, but the evidence does not bear on b, and
+# criterion cx:b that aggregates a determination made on cx:a. The verdict
+# may be sincere, but the determination and its evidence bear on a, not b, and
 # the plan never had b as an objective. Must fail on ogc:S6-Attestation and
 # nothing else.
 
@@ -28,11 +28,13 @@ cx:session a epo:Session ; prov:wasAssociatedWith cx:sut ; prov:wasAssociatedWit
     prov:startedAtTime "2026-08-10T00:00:00Z"^^xsd:dateTime .
 cx:turn a epo:Turn ; epo:inSession cx:session ; epo:turnIndex 1 ; prov:used cx:probe .
 cx:response a epo:Response ; epo:text "a response" ; prov:wasGeneratedBy cx:turn ; prov:wasAttributedTo cx:sut .
-cx:evidence a epo:Evidence ; epo:answers cx:a ; epo:observed false ; prov:wasDerivedFrom cx:response ; epo:underPlan cx:plan ; prov:wasAttributedTo cx:expert .
+cx:evidence a epo:Evidence ; epo:bearsOn cx:a ; prov:wasDerivedFrom cx:response ; epo:underPlan cx:plan ; prov:wasAttributedTo cx:person .
+cx:determination a epo:Determination ; earl:test cx:a ; earl:subject cx:sut ; earl:mode earl:manual ; earl:assertedBy cx:expert ; prov:used cx:evidence ;
+    earl:result [ a earl:TestResult ; earl:outcome earl:failed ] .
 
 cx:attestation a epo:Attestation ;
     earl:test cx:b ; earl:subject cx:sut ; earl:mode earl:manual ; earl:assertedBy cx:expert ;
-    prov:used cx:evidence ;
+    prov:used cx:determination ;
     earl:result [ a earl:TestResult ; earl:outcome earl:failed ] ;
     epo:appropriateness epo:appropriate ; epo:sufficiency epo:sufficient ;
     epo:step epo:runAndAttest ;

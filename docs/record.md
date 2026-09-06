@@ -26,23 +26,27 @@ numbers, and a padded number would not survive. What no shape checks is
 whether the experts were right. That is theirs, and it is recorded with their
 names.
 
-Evidence has three levels (ruling R-18). An evidence item is not the raw
-response; it is a determination, recorded as a plain yes or no, that one
-acceptance criterion's expected result did or did not happen, attributed to
-whoever determined it and bound to the test plan. It can be made from one
-response at a turn, from a whole session's trajectory, or rolled up over a
-test suite of sessions such as a robustness battery. The response itself
+Evidence has three levels (rulings R-18 and R-20). An evidence item is what
+is collected as the basis for a ruling: one response at a turn, a whole
+session's trajectory, or several rolled up over a test suite of sessions such
+as a robustness battery. It bears on one acceptance criterion's expected result
+and is bound to the test plan it was collected under. Evidence is the domain.
+The determination made on it, the paper's judgment, is the codomain: the ruling
+that the expected result was met, was not met, or cannot be told, an EARL
+outcome rather than a Boolean, made by machine or by a named person. The
+attestation then aggregates a criterion's determinations. The response itself
 stays in the record as what the system said.
 
 The chain the shapes close is the one that makes a requirement a useful
 concept: the requirement, as a hypothesis that may be falsified; its
 acceptance criteria, each stating the expected result a test could observe;
 the test plan, whose objectives are those criteria and whose means are the
-probes; the run of a probe against the system, producing the response; the evidence,
-the determination against the expected result; and the attestation, a named
-person's judgment over that evidence, bound to it and through it to the plan.
-An attestation off the plan, one that uses evidence answering a different
-criterion, fails the chain rule.
+probes; the run of a probe against the system, producing the response; the evidence
+collected from it bearing on the expected result; the determination that rules
+on that evidence; and the attestation, a named person's judgment aggregating
+the determinations for the criterion, bound through them to the evidence and
+the plan. An attestation off the plan, one that aggregates a determination
+made for a different criterion, fails the chain rule.
 
 The system under test is a non-deterministic system, and a session with it
 is stateful: what it says at a later turn depends on the whole dialogue

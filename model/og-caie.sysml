@@ -190,17 +190,30 @@ package OGCAIE {
     }
 
     item def Evidence {
-        doc /* Objective evidence (ISO 9000:2026 3.8.6), ruling R-18: a
-           determination (3.11.1) that one criterion's expected result did
-           or did not happen, recorded as a Boolean, made at the probe,
-           session or suite level, attributed to whoever determined it,
-           and bound to the test plan. */
+        doc /* Objective evidence (ISO 9000:2026 3.8.6), rulings R-18 and
+           R-20: collected material bearing on one criterion's expected
+           result, at the probe, session or suite level, attributed to its
+           collector and bound to the test plan. The domain; the
+           determination made on it is the codomain. */
         attribute id : ScalarValues::String;
         attribute criterionId : ScalarValues::String;
-        attribute observed : ScalarValues::Boolean;
         attribute level : EvidenceLevel;
         attribute planId : ScalarValues::String;
         attribute responseId : ScalarValues::String;
+        attribute collectorNamed : ScalarValues::Boolean;
+    }
+
+    item def Determination {
+        doc /* Determination (ISO 9000:2026 3.11.1; the paper's judgment),
+           ruling R-20: the ruling on one or more evidence items that a
+           criterion's expected result was met, not met, or cannot be
+           told: an EARL outcome of passed, failed or cantTell, not a
+           Boolean, made by machine or by a named person. */
+        attribute id : ScalarValues::String;
+        attribute criterionId : ScalarValues::String;
+        attribute evidenceId : ScalarValues::String;
+        attribute outcome : Outcome;
+        attribute mode : Mode;
         attribute determinerNamed : ScalarValues::Boolean;
     }
 
@@ -209,13 +222,13 @@ package OGCAIE {
            a decision, that fulfilment of specified requirements has been
            demonstrated. One criterion, one named human assertor, an EARL
            outcome, the appropriateness and sufficiency judgments, and the
-           EPO step. The closure rule: passed or failed requires at least
-           one piece of evidence. The chain rule (R-12, R-18): the evidence
-           the attestation interprets answers the attested criterion's
-           expected result under the test plan; SEVOCAB test result:
-           whether the actual results correspond to the expected results. */
+           EPO step. It aggregates the determinations made for the
+           criterion (R-20). The closure rule: passed or failed requires at
+           least one determination that rules on evidence. The chain rule
+           (R-12, R-18, R-20): every such determination tests the attested
+           criterion and its evidence bears on it under the test plan. */
         attribute criterionId : ScalarValues::String;
-        attribute evidenceId : ScalarValues::String;
+        attribute determinationId : ScalarValues::String;
         attribute assertorNamed : ScalarValues::Boolean;
         attribute mode : Mode;
         attribute outcome : Outcome;
@@ -382,6 +395,8 @@ package OGCAIE {
         item response : Response;
         item evidence1 : Evidence;
         item evidence2 : Evidence;
+        item determination1 : Determination;
+        item determination2 : Determination;
         item attestation1 : Attestation;
         item attestation2 : Attestation;
         port dsoIn : ~DsoWrite;
@@ -519,7 +534,7 @@ package OGCAIE {
         require constraint { ev.recorder.response.turnIndex >= 1 and ev.recorder.response.turnIndex <= ev.recorder.session.turns }
         require constraint { ev.recorder.session.startedAt <= ev.recorder.response.runStartedAt }
         require constraint { ev.recorder.evidence1.planId == ev.recorder.plan.id and ev.recorder.evidence2.planId == ev.recorder.plan.id }
-        require constraint { ev.recorder.evidence1.determinerNamed and ev.recorder.evidence2.determinerNamed }
+        require constraint { ev.recorder.evidence1.collectorNamed and ev.recorder.evidence2.collectorNamed }
         require constraint { ev.recorder.evidence1.level == EvidenceLevel::probe implies ev.recorder.evidence1.responseId == ev.recorder.response.id }
         require constraint { ev.recorder.evidence2.level == EvidenceLevel::probe implies ev.recorder.evidence2.responseId == ev.recorder.response.id }
     }
@@ -630,10 +645,12 @@ package OGCAIE {
                 item :>> a3 { attribute :>> id = "a3"; attribute :>> derivedFromRequirement = true; attribute :>> verifiable = true; attribute :>> expectedResultStated = true; attribute :>> weight = 1.0; attribute :>> minPassRate = 0.95; attribute :>> attestationCount = 0; attribute :>> covered = false; attribute :>> coveredWeight = 0.0; }
                 item :>> probe { attribute :>> id = "probe-1"; attribute :>> planId = "plan-1"; attribute :>> exercisedCriteria = 2; attribute :>> derivedFromDso = true; attribute :>> consistencyPassed = true; attribute :>> derivedAt = 3.0; }
                 item :>> response { attribute :>> id = "response-1"; attribute :>> probeId = "probe-1"; attribute :>> sessionId = "session-1"; attribute :>> turnIndex = 1; attribute :>> sutVersioned = true; attribute :>> operatorNamed = true; attribute :>> runStartedAt = 4.0; }
-                item :>> evidence1 { attribute :>> id = "evidence-1a"; attribute :>> criterionId = "a1"; attribute :>> observed = false; attribute :>> level = EvidenceLevel::probe; attribute :>> planId = "plan-1"; attribute :>> responseId = "response-1"; attribute :>> determinerNamed = true; }
-                item :>> evidence2 { attribute :>> id = "evidence-1b"; attribute :>> criterionId = "a2"; attribute :>> observed = false; attribute :>> level = EvidenceLevel::probe; attribute :>> planId = "plan-1"; attribute :>> responseId = "response-1"; attribute :>> determinerNamed = true; }
-                item :>> attestation1 { attribute :>> criterionId = "a1"; attribute :>> evidenceId = "evidence-1a"; attribute :>> assertorNamed = true; attribute :>> mode = Mode::manual; attribute :>> outcome = Outcome::failed; attribute :>> appropriateness = Appropriateness::appropriate; attribute :>> sufficiency = Sufficiency::insufficient; attribute :>> step = EpoStep::runAndAttest; attribute :>> evidenceCount = 1; }
-                item :>> attestation2 { attribute :>> criterionId = "a2"; attribute :>> evidenceId = "evidence-1b"; attribute :>> assertorNamed = true; attribute :>> mode = Mode::manual; attribute :>> outcome = Outcome::failed; attribute :>> appropriateness = Appropriateness::appropriate; attribute :>> sufficiency = Sufficiency::insufficient; attribute :>> step = EpoStep::runAndAttest; attribute :>> evidenceCount = 1; }
+                item :>> evidence1 { attribute :>> id = "evidence-1a"; attribute :>> criterionId = "a1"; attribute :>> level = EvidenceLevel::probe; attribute :>> planId = "plan-1"; attribute :>> responseId = "response-1"; attribute :>> collectorNamed = true; }
+                item :>> evidence2 { attribute :>> id = "evidence-1b"; attribute :>> criterionId = "a2"; attribute :>> level = EvidenceLevel::probe; attribute :>> planId = "plan-1"; attribute :>> responseId = "response-1"; attribute :>> collectorNamed = true; }
+                item :>> determination1 { attribute :>> id = "determination-1a"; attribute :>> criterionId = "a1"; attribute :>> evidenceId = "evidence-1a"; attribute :>> outcome = Outcome::failed; attribute :>> mode = Mode::manual; attribute :>> determinerNamed = true; }
+                item :>> determination2 { attribute :>> id = "determination-1b"; attribute :>> criterionId = "a2"; attribute :>> evidenceId = "evidence-1b"; attribute :>> outcome = Outcome::failed; attribute :>> mode = Mode::manual; attribute :>> determinerNamed = true; }
+                item :>> attestation1 { attribute :>> criterionId = "a1"; attribute :>> determinationId = "determination-1a"; attribute :>> assertorNamed = true; attribute :>> mode = Mode::manual; attribute :>> outcome = Outcome::failed; attribute :>> appropriateness = Appropriateness::appropriate; attribute :>> sufficiency = Sufficiency::insufficient; attribute :>> step = EpoStep::runAndAttest; attribute :>> evidenceCount = 1; }
+                item :>> attestation2 { attribute :>> criterionId = "a2"; attribute :>> determinationId = "determination-1b"; attribute :>> assertorNamed = true; attribute :>> mode = Mode::manual; attribute :>> outcome = Outcome::failed; attribute :>> appropriateness = Appropriateness::appropriate; attribute :>> sufficiency = Sufficiency::insufficient; attribute :>> step = EpoStep::runAndAttest; attribute :>> evidenceCount = 1; }
             }
             part :>> coverageCalculator {
                 attribute :>> name = "coverage-calculator"; attribute :>> version = "0.1";

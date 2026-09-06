@@ -55,19 +55,30 @@ term:conformance a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:binding "sh:conforms true on the validation report of the record against shapes/epo.shapes.ttl; sysml part def ConformanceChecker" .
 
 term:objective-evidence a skos:Concept ; skos:inScheme ogc:Glossary ;
-    skos:prefLabel "objective evidence"@en ;
     skos:altLabel "evidence"@en ;
-    skos:definition "Data that supports the existence or truth of something. Here, an evidence item answers one acceptance criterion's expected result with a plain yes or no: did it happen or not. It can be determined at the probe level from one response, at the session level from a trajectory, or rolled up over a test suite of sessions, as in a robustness battery; whichever level, it is bound to the test plan and attributed to whoever made the determination. On its own it does not verify a requirement; an attestation does."@en ;
+    skos:prefLabel "objective evidence"@en ;
+    skos:definition "Data that supports the existence or truth of something. Here, what is collected as the basis for a determination: a response at one turn, a session's trajectory, or several of them rolled up over a test suite, as in a robustness battery. Each evidence item bears on one acceptance criterion's expected result and is bound to the test plan it was collected under. Evidence is the domain; the determination made on it, passed, failed or cannot tell, is the codomain. On its own evidence verifies nothing; a determination rules on it and an attestation judges it."@en ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.8.6" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-21.png" ;
                     ogc:quote "data supporting the existence or verity of something" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "objective evidence, p. 277" ; ogc:pdfPage 277 ;
                   ogc:quote "data supporting the existence or verity of something" ; ogc:quoteStatus "machine" ] ;
-    ogc:seeAlso [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.11.1 determination" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-29.png" ;
-                  ogc:quote "activity to find out one or more characteristics and their characteristic values" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
-    ogc:scopeNote "Ruling R-18: an evidence item is a determination (ISO 9000:2026 3.11.1) against an expected result, recorded as a Boolean; the response it was determined from is kept separately as the raw record of the turn." ;
+    ogc:scopeNote "Rulings R-18 and R-20: evidence exists at probe, session or suite level and maps to an expected result; it is the domain, and the determination on it is the codomain." ;
     prov:wasDerivedFrom rul:R-18 ;
-    ogc:binding "epo:Evidence (answers one criterion, observed true or false, under a test plan) derived from epo:Response or epo:Trajectory" .
+    prov:wasDerivedFrom rul:R-20 ;
+    ogc:binding "epo:Evidence (bears on one criterion, under a test plan) derived from epo:Response or epo:Trajectory" .
+
+term:determination a skos:Concept ; skos:inScheme ogc:Glossary ;
+    skos:prefLabel "determination"@en ;
+    skos:altLabel "judgment"@en ;
+    skos:definition "The ruling, made on one or more evidence items, that a criterion's expected result was met, was not met, or cannot be told. It is the codomain of evidence, recorded with an EARL outcome of passed, failed or cannot tell, made by machine or by a named person, and it is what an attestation aggregates for a criterion. The paper calls it a judgment."@en ;
+    ogc:class "adopted" ;
+    ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.11.1" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-29.png" ;
+                    ogc:quote "activity to find out one or more characteristics and their characteristic values" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
+    ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "test result, p. 438" ; ogc:pdfPage 438 ;
+                  ogc:quote "indication of whether a specific test case has passed or failed, i.e. if the actual results correspond to the expected results or if deviations were observed" ; ogc:quoteStatus "machine" ] ;
+    prov:wasDerivedFrom rul:R-20 ;
+    ogc:binding "epo:Determination, an earl:Assertion and prov:Activity; earl:outcome passed, failed or cantTell; sysml item def Determination" .
 
 term:test-suite a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "test suite"@en ;
@@ -209,7 +220,7 @@ term:test-item a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "artificial intelligence-based system, p. 28 (ISO/IEC TR 29119-11:2020)" ; ogc:pdfPage 28 ;
                   ogc:quote "system including one or more components implementing artificial intelligence" ; ogc:quoteStatus "machine" ] ;
     ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "4.2 object of conformity assessment" ;
-                  ogc:quote "entity to which specified requirements apply" ; ogc:quoteStatus "pending" ] ;
+                  ogc:quote "entity to which specified requirements apply" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:scopeNote "Ruling R-19: the only standard definition of the phrase system under test is a 1999 performance-measurement one (ISO/IEC 14756), so the headword is test item (29119-2), from the same family as test case, test plan and test strategy; the systems-engineering reading is system-of-interest (15288) and the AI-evaluation reading is NIST's application. The phrase system under test stays in prose and in the model as the alternative label." ;
     prov:wasDerivedFrom rul:R-19 ;
     ogc:binding "sysml part def SystemUnderTest; earl:TestSubject and prov:SoftwareAgent; epo:systemUnderTest on the requirement set" .
@@ -401,9 +412,7 @@ term:attestation a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "7.3" ;
                     ogc:quote "issue of a statement, based on a decision, that fulfilment of specified requirements has been demonstrated" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
-    ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "test result, p. 438" ; ogc:pdfPage 438 ;
-                  ogc:quote "indication of whether a specific test case has passed or failed, i.e. if the actual results correspond to the expected results or if deviations were observed" ; ogc:quoteStatus "machine" ] ;
-    ogc:binding "epo:Attestation, an earl:Assertion and a prov:Activity; bound to the evidence, which is bound to the test plan" .
+    ogc:binding "epo:Attestation, an earl:Assertion and a prov:Activity; aggregates the determinations for a criterion, each bound to its evidence and through it to the test plan" .
 
 term:appropriateness a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "appropriateness"@en ;

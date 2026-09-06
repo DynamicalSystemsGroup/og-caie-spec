@@ -196,14 +196,12 @@ ogc:S5-Response a sh:NodeShape ;
 
 ogc:S5-Evidence a sh:NodeShape ;
     sh:targetClass epo:Evidence ;
-    sh:property [ sh:path epo:answers ; sh:minCount 1 ; sh:maxCount 1 ; sh:class epo:AcceptanceCriterion ;
-                  sh:message "An evidence item rules on exactly one criterion's expected result (R-18)." ] ;
-    sh:property [ sh:path epo:observed ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:boolean ;
-                  sh:message "Did the expected result happen: yes or no." ] ;
+    sh:property [ sh:path epo:bearsOn ; sh:minCount 1 ; sh:maxCount 1 ; sh:class epo:AcceptanceCriterion ;
+                  sh:message "An evidence item bears on exactly one criterion's expected result (R-18, R-20)." ] ;
     sh:property [ sh:path epo:underPlan ; sh:minCount 1 ; sh:maxCount 1 ; sh:class epo:TestPlan ;
                   sh:message "Evidence is bound to the test plan it was collected under." ] ;
     sh:property [ sh:path prov:wasAttributedTo ; sh:minCount 1 ; sh:class prov:Agent ;
-                  sh:message "Evidence is attributed to whoever determined it, person or software." ] ;
+                  sh:message "Evidence is attributed to whoever collected it, person or software." ] ;
     sh:property [ sh:path prov:wasDerivedFrom ; sh:minCount 1 ;
                   sh:or ( [ sh:class epo:Response ] [ sh:class epo:Trajectory ] [ sh:class epo:TestPlan ] ) ;
                   sh:message "Evidence derives from a response (probe level), a trajectory (session level) or several of them (suite level)." ] ;
@@ -215,10 +213,33 @@ ogc:S5-Evidence a sh:NodeShape ;
             SELECT $this WHERE { FILTER NOT EXISTS { $this prov:wasDerivedFrom ?x . { ?x a epo:Response } UNION { ?x a epo:Trajectory } } }
         """ ] ;
     sh:sparql [
-        sh:message "S5: the plan an evidence item is bound to must have the criterion it answers as an objective." ;
+        sh:message "S5: the plan an evidence item is bound to must have the criterion it bears on as an objective." ;
         sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
-            SELECT $this WHERE { $this epo:answers ?a ; epo:underPlan ?plan . FILTER NOT EXISTS { ?plan epo:objective ?a } }
+            SELECT $this WHERE { $this epo:bearsOn ?a ; epo:underPlan ?plan . FILTER NOT EXISTS { ?plan epo:objective ?a } }
+        """ ] .
+
+# S6 <-> SCI-06: a determination rules on one or more evidence items that
+# bear on the criterion it tests, with an EARL outcome of passed, failed or
+# cantTell, a mode and a named assertor (R-20: evidence is the domain, the
+# determination the codomain).
+ogc:S6-Determination a sh:NodeShape ;
+    sh:targetClass epo:Determination ;
+    sh:property [ sh:path earl:test ; sh:minCount 1 ; sh:maxCount 1 ; sh:class epo:AcceptanceCriterion ] ;
+    sh:property [ sh:path prov:used ; sh:minCount 1 ; sh:class epo:Evidence ;
+                  sh:message "A determination rules on at least one evidence item." ] ;
+    sh:property [ sh:path earl:mode ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ( earl:manual earl:semiAuto earl:automatic ) ] ;
+    sh:property [ sh:path earl:assertedBy ; sh:minCount 1 ; sh:maxCount 1 ; sh:class prov:Agent ] ;
+    sh:property [ sh:path ( earl:result earl:outcome ) ; sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:in ( earl:passed earl:failed earl:cantTell ) ;
+                  sh:message "A determination's outcome is passed, failed or cantTell (EARL); not a Boolean." ] ;
+    sh:sparql [
+        sh:message "S6: every evidence item a determination uses must bear on the criterion the determination tests." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX earl: <http://www.w3.org/ns/earl#>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            SELECT $this WHERE { $this earl:test ?a ; prov:used ?e . ?e a epo:Evidence . FILTER NOT EXISTS { ?e epo:bearsOn ?a } }
         """ ] .
 
 ogc:S4-TestSuite a sh:NodeShape ;
@@ -248,25 +269,27 @@ ogc:S6-Attestation a sh:NodeShape ;
     sh:property [ sh:path epo:step ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue epo:runAndAttest ] ;
     sh:property [ sh:path prov:endedAtTime ; sh:minCount 1 ; sh:datatype xsd:dateTime ] ;
     sh:sparql [
-        sh:message "S6 chain rule (R-12, R-18): every evidence item an attestation uses answers the attested criterion's expected result, under a test plan that has that criterion as an objective." ;
+        sh:message "S6 chain rule (R-12, R-18, R-20): every determination an attestation aggregates tests the attested criterion, and every evidence item it rules on bears on that criterion under a plan that has it as an objective." ;
         sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX earl: <http://www.w3.org/ns/earl#>
             PREFIX prov: <http://www.w3.org/ns/prov#>
             SELECT $this WHERE {
-                $this earl:test ?a ; prov:used ?e . ?e a epo:Evidence .
-                FILTER NOT EXISTS { ?e epo:answers ?a ; epo:underPlan ?plan . ?plan epo:objective ?a }
+                $this earl:test ?a ; prov:used ?d . ?d a epo:Determination .
+                { FILTER NOT EXISTS { ?d earl:test ?a } }
+                UNION
+                { ?d prov:used ?e . ?e a epo:Evidence . FILTER NOT EXISTS { ?e epo:bearsOn ?a ; epo:underPlan ?plan . ?plan epo:objective ?a } }
             }
         """ ] ;
     sh:sparql [
-        sh:message "S6 closure rule: an attestation with outcome passed or failed must use at least one piece of evidence; with none it can only say cantTell." ;
+        sh:message "S6 closure rule: an attestation with outcome passed or failed must aggregate at least one determination that rules on evidence; with none it can only say cantTell." ;
         sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX earl: <http://www.w3.org/ns/earl#>
             PREFIX prov: <http://www.w3.org/ns/prov#>
             SELECT $this WHERE {
                 $this earl:result ?r . ?r earl:outcome ?o . FILTER(?o IN (earl:passed, earl:failed))
-                FILTER NOT EXISTS { $this prov:used ?e . ?e a epo:Evidence }
+                FILTER NOT EXISTS { $this prov:used ?d . ?d a epo:Determination ; prov:used ?e . ?e a epo:Evidence }
             }
         """ ] .
 
@@ -344,6 +367,6 @@ ogc:S8-Recommendation a sh:NodeShape ;
             PREFIX prov: <http://www.w3.org/ns/prov#>
             SELECT $this WHERE {
                 $this prov:wasDerivedFrom ?a . ?a a epo:Attestation .
-                FILTER NOT EXISTS { ?a prov:used ?e . ?e a epo:Evidence . $this prov:wasDerivedFrom ?e }
+                FILTER NOT EXISTS { ?a prov:used ?d . ?d a epo:Determination ; prov:used ?e . ?e a epo:Evidence . $this prov:wasDerivedFrom ?e }
             }
         """ ] .
