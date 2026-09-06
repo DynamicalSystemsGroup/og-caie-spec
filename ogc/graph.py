@@ -1,6 +1,6 @@
 """Load the OG-CAIE graphs into one rdflib Graph, with a cache keyed on the
-source files. Never re-serialized here. Ported from mission-twin-glossary's
-mtg (ruling R-29)."""
+source files. Never re-serialized here. Follows the authors' earlier
+glossary tooling (ruling R-29)."""
 from __future__ import annotations
 
 import hashlib

@@ -6,7 +6,7 @@ graph (model/og-caie.model.ttl) with its manifest (model/model_manifest.json).
 
 Ruling R-22: the SysML source is the authoring view; this graph is the
 canonical structure. The parsimony pattern (term map, manifest, triple
-budget with a rationale) follows ADCS-lifecycle-demo/scripts/build_ontology.py.
+budget with a rationale) follows the authors' earlier lifecycle model builds.
 
 Deterministic: same source, same converter, same term map, same bytes, on
 every platform: the manifest names the converter by its pinned release and

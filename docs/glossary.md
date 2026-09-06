@@ -70,8 +70,8 @@ headword, an alternative label or retired, and what to write; `ogc sci`,
 record, and `ogc crosswalk` prints the anchor table or, with a flag, the
 bridge rows of the front page; `ogc sparql` takes a read-only query. Every
 answer starts with the command and the commit it was read at, so it can be
-cited. The tool is a port of the Mission Twin glossary's `mtg` (ruling
-R-29).
+cited. The tool follows the one the authors built for their earlier
+glossaries (ruling R-29).
 
 ```{include} ../generated/key-terms.md
 ```

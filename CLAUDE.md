@@ -2,8 +2,8 @@
 
 Executable specification of Ontology-Grounded Contextual AI Evaluation
 (OG-CAIE). Plan of record: `~/.claude/plans/i-need-to-build-nifty-beaver.md`
-(Z approved 2026-09-05). Sibling of `vendor-fraud-review-formal`; method for
-sources and rulings borrowed from `mission-twin-glossary`.
+(Z approved 2026-09-05). The method for sources and rulings follows the
+authors' earlier glossary work.
 
 ## Vocabulary: use terms, don't own them
 
@@ -139,6 +139,9 @@ sources and rulings borrowed from `mission-twin-glossary`.
 - No Claude `Co-Authored-By` trailer unless Z explicitly delegates a
   substantive decision to Claude, and then only on that commit.
 - Commit on green; push redeploys GitHub Pages.
+- Take credit for the authors' own work: never name a private repository
+  in this public one; where a pattern comes from earlier work, say "the
+  authors' earlier work" (Z, 2026-09-06). Z's ruling texts stay verbatim.
 
 ## Model (R-22)
 
@@ -150,7 +153,7 @@ sources and rulings borrowed from `mission-twin-glossary`.
 - The canonical structure is the pruned RDF rendering
   `model/og-caie.model.ttl` (`scripts/prune_model.py`: term map
   `model/sysml_term_map.csv`, manifest, `TRIPLE_BUDGET` with a rationale,
-  pattern from ADCS-lifecycle-demo). Committed; the gate regenerates it
+  pattern from the authors' earlier lifecycle models). Committed; the gate regenerates it
   byte-identically. Wiring rules are SHACL M-shapes over that graph;
   value and provenance rules are S-shapes over the record. The essentials
   SCI-01..12 live in `model/trace.ttl`.

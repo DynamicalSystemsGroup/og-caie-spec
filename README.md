@@ -93,8 +93,9 @@ rulings`, `ogc concern`, `ogc concerns`, `ogc sci`, `ogc crosswalk`
 (read-only), `ogc doctor`. Every output starts with `# ogc <command> <args>
 @ <sha>`; `--json` returns the result unchanged; exit 0 found, 1 not found
 or ambiguous, 2 usage. The skill `.claude/skills/ogc-glossary/SKILL.md`
-teaches an LLM to use it instead of grepping the Turtle. A port of the
-Mission Twin glossary's `mtg` (ruling R-29).
+teaches an LLM to use it instead of grepping the Turtle. It follows the
+navigation tool the authors built for their earlier glossaries (ruling
+R-29).
 
 ## Authors and citation
 
