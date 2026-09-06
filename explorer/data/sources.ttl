@@ -121,7 +121,7 @@ src:iso-iec-17000-2020 a prov:Entity, ogc:Source ;
     ogc:rank "reserve" ; ogc:kind "web" ; ogc:posture "citeOnly" ;
     ogc:url <https://www.iso.org/obp/ui/en/#iso:std:73029:en> ;
     ogc:digest "sources/digests/iso-iec-17000-2020.md" ;
-    ogc:licenceNote "ISO copyright; the vocabulary is publicly browsable; short attributed quotations only (attestation, object, the three party terms)" .
+    ogc:licenceNote "ISO copyright; the vocabulary is publicly browsable; short attributed quotations only (the party terms, object, access, scheme, specified requirement, testing, review, decision, attestation and its note, surveillance, acceptance)" .
 
 src:incose-gtwr-v4 a prov:Entity, ogc:Source ;
     rdfs:label "INCOSE Guide to Writing Requirements v4, Summary Sheet (INCOSE-TP-2010-006-04, June 2023)" ;
@@ -205,7 +205,7 @@ src:iec-60050-351 a prov:Entity, ogc:Source ;
     ogc:rank "reserve" ; ogc:kind "web" ; ogc:posture "citeOnly" ;
     ogc:url <https://www.electropedia.org/iev/iev.nsf/index?openform=&part=351> ;
     ogc:digest "sources/digests/iec-60050-351.md" ;
-    ogc:licenceNote "IEC copyright; Electropedia is publicly browsable; short attributed quotations only; quotes transcribed from the browser and pending a named verification" .
+    ogc:licenceNote "IEC copyright; Electropedia is publicly browsable; short attributed quotations only; quotes transcribed from the browser and verified by Z on 2026-09-06 (rulings sheet 02)" .
 
 src:jcgm-200-2012 a prov:Entity, ogc:Source ;
     rdfs:label "JCGM 200:2012 International vocabulary of metrology, basic and general concepts and associated terms (VIM), 3rd edition (BIPM)" ;

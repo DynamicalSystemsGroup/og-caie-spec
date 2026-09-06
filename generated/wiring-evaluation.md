@@ -1,4 +1,4 @@
-**View `evaluation`: the evaluation slice.** In focus: the team, the machines, the test item and the recorder, with the evaluation items braided into one bundle per pair of parts. Left out: the sponsor, the account executive's contracting wires and the accountable organization's access grant; the seam names and the ports.
+**View `evaluation`: the evaluation slice.** In focus: the team, the machines, the test item and the recorder, with the evaluation items braided into one bundle per pair of parts. Left out: the sponsor, the account executive's contracting wires and the accountable organization's access grant; the seam names and the ports. Legend: rounded green, a person; double-boxed pink, a machine; dashed amber, an affected population; a plain box, an organization; a solid arrow bundles the items that flow from one part to another; a dotted arrow is a relation that carries no item.
 
 ```{mermaid}
 flowchart LR

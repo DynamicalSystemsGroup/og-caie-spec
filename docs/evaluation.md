@@ -116,6 +116,11 @@ roles the names recognise.
 
 ```{include} ../generated/record-evaluation.md
 ```
+
+The three criteria, what each expected, and what Annie attested:
+
+```{include} ../generated/criteria.md
+```
 :::
 
 :::{admonition} Checked

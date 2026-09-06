@@ -7,10 +7,10 @@ The process Humane Intelligence and Dynamical Systems Group use to evaluate a
 deployed AI system against the needs of a specific domain, written down as:
 
 - a **glossary** whose every term cites one canonical definition (ISO 9000:2026,
-  SEVOCAB, NIST AI 700-2, W3C), with exactly three coined terms;
+  SEVOCAB, NIST AI 700-2, W3C), with exactly four coined terms;
 - a **SysML v2 model** (OpenSysML v0.4.3) of the Evaluation Process Ontology
   as a standard operating procedure and of the human and machine assemblage
-  that runs it, with twelve requirements each tagged machine-verified or
+  that runs it, with thirteen requirements each tagged machine-verified or
   human-validated;
 - one **evaluation record** (PROV-O + EARL) of the measles chatbot example,
   checked by SHACL shapes, with counterexamples that must fail;
@@ -21,7 +21,8 @@ deployed AI system against the needs of a specific domain, written down as:
 - **Glossary: ratified.** 62 terms, 4 coined (DSO, EPO, CAIE, OG-CAIE),
   settled through 46 rulings (R-01 to R-46) recorded verbatim in
   `rulings/adjudications.ttl`. 76 quotes are machine-located in
-  content-hashed snapshots, 34 verified by Z against the ISO screenshots or
+  content-hashed snapshots or, where the source is held locally, in its
+  committed digest, 34 verified by Z against the ISO screenshots or
   the browsing platforms, 13 transcribed and awaiting Z's tick on rulings
   sheet 04. Concerns C-25, C-26, C-30, C-43, C-44 and C-45 are open.
 - **Both cycles are bound to the canon (R-31, R-32).** Each step cites the

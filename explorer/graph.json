@@ -2971,7 +2971,7 @@
     ]
    ]
   },
-  "cite:repeatability:seeAlso:nist-tn-1297:appendix-d-1-1-2-p-19": {
+  "cite:repeatability:seeAlso:nist-tn-1297:appendix-d-1-1-2-p-14": {
    "in": [],
    "out": [
     [
@@ -2983,7 +2983,7 @@
     [
      "ogc:locator",
      {
-      "text": "Appendix D.1.1.2, p. 19"
+      "text": "Appendix D.1.1.2, p. 14"
      }
     ],
     [
@@ -3111,7 +3111,7 @@
     ]
    ]
   },
-  "cite:reproducibility:seeAlso:nist-tn-1297:appendix-d-1-1-3-p-19": {
+  "cite:reproducibility:seeAlso:nist-tn-1297:appendix-d-1-1-3-p-14": {
    "in": [],
    "out": [
     [
@@ -3123,7 +3123,7 @@
     [
      "ogc:locator",
      {
-      "text": "Appendix D.1.1.3, p. 19"
+      "text": "Appendix D.1.1.3, p. 14"
      }
     ],
     [
@@ -13161,7 +13161,7 @@
     [
      "ogc:rulingText",
      {
-      "text": "we're using sysml primarily for part def and port def and wiring rules; we [Structure only: parts, ports, wiring rules; value checks live in SHACL] are use the rendered rdf version of those models for our canonical record and treating the sysml json as a view (even if its a view used for authoring) / opensysml allows us to render our sysml models as rdf triples because its designed to work with flexo mms / \"The conversion is deterministic and uses OMG SysML vocabulary with stable IRIs, currently ~1.1 MB\" we can use a parsimony heuristic where we prune tbox that is not required for our model. / i believe the parimony heuristic is applied and described in this repo /Users/z/Documents/GitHub/ADCS-lifecycle-demo"
+      "text": "we're using sysml primarily for part def and port def and wiring rules; we [Structure only: parts, ports, wiring rules; value checks live in SHACL] are use the rendered rdf version of those models for our canonical record and treating the sysml json as a view (even if its a view used for authoring) / opensysml allows us to render our sysml models as rdf triples because its designed to work with flexo mms / \"The conversion is deterministic and uses OMG SysML vocabulary with stable IRIs, currently ~1.1 MB\" we can use a parsimony heuristic where we prune tbox that is not required for our model. / i believe the parimony heuristic is applied and described in this repo [a local path]"
      }
     ],
     [
@@ -16808,7 +16808,7 @@
     [
      "ogc:licenceNote",
      {
-      "text": "IEC copyright; Electropedia is publicly browsable; short attributed quotations only; quotes transcribed from the browser and pending a named verification"
+      "text": "IEC copyright; Electropedia is publicly browsable; short attributed quotations only; quotes transcribed from the browser and verified by Z on 2026-09-06 (rulings sheet 02)"
      }
     ],
     [
@@ -17284,7 +17284,7 @@
     [
      "ogc:licenceNote",
      {
-      "text": "ISO copyright; the vocabulary is publicly browsable; short attributed quotations only (attestation, object, the three party terms)"
+      "text": "ISO copyright; the vocabulary is publicly browsable; short attributed quotations only (the party terms, object, access, scheme, specified requirement, testing, review, decision, attestation and its note, surveillance, acceptance)"
      }
     ],
     [
@@ -20723,7 +20723,7 @@
     [
      "ogc:seeAlso",
      {
-      "ref": "cite:repeatability:seeAlso:nist-tn-1297:appendix-d-1-1-2-p-19"
+      "ref": "cite:repeatability:seeAlso:nist-tn-1297:appendix-d-1-1-2-p-14"
      }
     ],
     [
@@ -20788,7 +20788,7 @@
     [
      "ogc:seeAlso",
      {
-      "ref": "cite:reproducibility:seeAlso:nist-tn-1297:appendix-d-1-1-3-p-19"
+      "ref": "cite:reproducibility:seeAlso:nist-tn-1297:appendix-d-1-1-3-p-14"
      }
     ],
     [
@@ -36452,7 +36452,7 @@
   },
   {
    "rel": "cites",
-   "source": "cite:repeatability:seeAlso:nist-tn-1297:appendix-d-1-1-2-p-19",
+   "source": "cite:repeatability:seeAlso:nist-tn-1297:appendix-d-1-1-2-p-14",
    "target": "https://w3id.org/og-caie/sources#nist-tn-1297"
   },
   {
@@ -36472,7 +36472,7 @@
   },
   {
    "rel": "cites",
-   "source": "cite:reproducibility:seeAlso:nist-tn-1297:appendix-d-1-1-3-p-19",
+   "source": "cite:reproducibility:seeAlso:nist-tn-1297:appendix-d-1-1-3-p-14",
    "target": "https://w3id.org/og-caie/sources#nist-tn-1297"
   },
   {
@@ -39203,7 +39203,7 @@
   {
    "rel": "seeAlso",
    "source": "https://w3id.org/og-caie/terms#repeatability",
-   "target": "cite:repeatability:seeAlso:nist-tn-1297:appendix-d-1-1-2-p-19"
+   "target": "cite:repeatability:seeAlso:nist-tn-1297:appendix-d-1-1-2-p-14"
   },
   {
    "rel": "wasDerivedFrom",
@@ -39223,7 +39223,7 @@
   {
    "rel": "seeAlso",
    "source": "https://w3id.org/og-caie/terms#reproducibility",
-   "target": "cite:reproducibility:seeAlso:nist-tn-1297:appendix-d-1-1-3-p-19"
+   "target": "cite:reproducibility:seeAlso:nist-tn-1297:appendix-d-1-1-3-p-14"
   },
   {
    "rel": "wasDerivedFrom",
@@ -42972,8 +42972,8 @@
   {
    "cls": "citation",
    "desc": "“closeness of the agreement between the results of successive measurements of the same measurand carried out under the same conditions of measurement” [machine]",
-   "id": "cite:repeatability:seeAlso:nist-tn-1297:appendix-d-1-1-2-p-19",
-   "label": "nist-tn-1297 Appendix D.1.1.2, p. 19",
+   "id": "cite:repeatability:seeAlso:nist-tn-1297:appendix-d-1-1-2-p-14",
+   "label": "nist-tn-1297 Appendix D.1.1.2, p. 14",
    "ogc": "ogc quote repeatability",
    "page": "../glossary#term-repeatability"
   },
@@ -43004,8 +43004,8 @@
   {
    "cls": "citation",
    "desc": "“closeness of the agreement between the results of measurements of the same measurand carried out under changed conditions of measurement” [machine]",
-   "id": "cite:reproducibility:seeAlso:nist-tn-1297:appendix-d-1-1-3-p-19",
-   "label": "nist-tn-1297 Appendix D.1.1.3, p. 19",
+   "id": "cite:reproducibility:seeAlso:nist-tn-1297:appendix-d-1-1-3-p-14",
+   "label": "nist-tn-1297 Appendix D.1.1.3, p. 14",
    "ogc": "ogc quote reproducibility",
    "page": "../glossary#term-reproducibility"
   },
@@ -44747,7 +44747,7 @@
   },
   {
    "cls": "ruling",
-   "desc": "we're using sysml primarily for part def and port def and wiring rules; we [Structure only: parts, ports, wiring rules; value checks live in SHACL] are use the rendered rdf version of those models for our canonical record and treating the sysml json as a view (even if its a view used for authoring) / opensysml allows us to render our sysml models as rdf triples because its designed to work with flexo mms / \"The conversion is deterministic and uses OMG SysML vocabulary with stable IRIs, currently ~1.1 MB\" we can use a parsimony heuristic where we prune tbox that is not required for our model. / i believe the parimony heuristic is applied and described in this repo /Users/z/Documents/GitHub/ADCS-lifecycle-demo",
+   "desc": "we're using sysml primarily for part def and port def and wiring rules; we [Structure only: parts, ports, wiring rules; value checks live in SHACL] are use the rendered rdf version of those models for our canonical record and treating the sysml json as a view (even if its a view used for authoring) / opensysml allows us to render our sysml models as rdf triples because its designed to work with flexo mms / \"The conversion is deterministic and uses OMG SysML vocabulary with stable IRIs, currently ~1.1 MB\" we can use a parsimony heuristic where we prune tbox that is not required for our model. / i believe the parimony heuristic is applied and described in this repo [a local path]",
    "id": "https://w3id.org/og-caie/rulings#R-22",
    "label": "R-22",
    "ogc": "ogc ruling R-22",
@@ -47726,11 +47726,11 @@
     "cite:red-teaming:canonical:nist-ai-700-2:appendix-a-red-teaming-p-17",
     "cite:repeatability:canonical:jcgm-200-2012:2-21-measurement-repeatability-p-40",
     "cite:repeatability:seeAlso:jcgm-200-2012:2-20-repeatability-condition-of-measurement-p-39",
-    "cite:repeatability:seeAlso:nist-tn-1297:appendix-d-1-1-2-p-19",
+    "cite:repeatability:seeAlso:nist-tn-1297:appendix-d-1-1-2-p-14",
     "cite:report:canonical:sevocab:test-completion-process-p-433-iso-iec-ieee-29119-2-2021-3-25",
     "cite:reproducibility:canonical:jcgm-200-2012:2-25-measurement-reproducibility-p-41",
     "cite:reproducibility:seeAlso:jcgm-200-2012:2-24-reproducibility-condition-of-measurement-p-40",
-    "cite:reproducibility:seeAlso:nist-tn-1297:appendix-d-1-1-3-p-19",
+    "cite:reproducibility:seeAlso:nist-tn-1297:appendix-d-1-1-3-p-14",
     "cite:requirement:canonical:iso-9000-2026:3-5-1",
     "cite:requirements-traceability:canonical:sevocab:requirements-traceability-p-352",
     "cite:requirements-traceability:seeAlso:iso-9000-2026:3-5-11-traceability",
@@ -48625,11 +48625,11 @@
     "cite:red-teaming:canonical:nist-ai-700-2:appendix-a-red-teaming-p-17",
     "cite:repeatability:canonical:jcgm-200-2012:2-21-measurement-repeatability-p-40",
     "cite:repeatability:seeAlso:jcgm-200-2012:2-20-repeatability-condition-of-measurement-p-39",
-    "cite:repeatability:seeAlso:nist-tn-1297:appendix-d-1-1-2-p-19",
+    "cite:repeatability:seeAlso:nist-tn-1297:appendix-d-1-1-2-p-14",
     "cite:report:canonical:sevocab:test-completion-process-p-433-iso-iec-ieee-29119-2-2021-3-25",
     "cite:reproducibility:canonical:jcgm-200-2012:2-25-measurement-reproducibility-p-41",
     "cite:reproducibility:seeAlso:jcgm-200-2012:2-24-reproducibility-condition-of-measurement-p-40",
-    "cite:reproducibility:seeAlso:nist-tn-1297:appendix-d-1-1-3-p-19",
+    "cite:reproducibility:seeAlso:nist-tn-1297:appendix-d-1-1-3-p-14",
     "cite:requirement:canonical:iso-9000-2026:3-5-1",
     "cite:requirements-traceability:canonical:sevocab:requirements-traceability-p-352",
     "cite:requirements-traceability:seeAlso:iso-9000-2026:3-5-11-traceability",

@@ -357,7 +357,7 @@ term:repeatability a skos:Concept ; skos:inScheme ogc:Glossary ;
                     ogc:quote "measurement precision under a set of repeatability conditions of measurement" ; ogc:quoteStatus "machine" ] ;
     ogc:seeAlso [ ogc:cites src:jcgm-200-2012 ; ogc:locator "2.20 repeatability condition of measurement, p. 39" ; ogc:pdfPage 39 ;
                   ogc:quote "condition of measurement, out of a set of conditions that includes the same measurement procedure, same operators, same measuring system, same operating conditions and same location, and replicate measurements on the same or similar objects over a short period of time" ; ogc:quoteStatus "machine" ] ;
-    ogc:seeAlso [ ogc:cites src:nist-tn-1297 ; ogc:locator "Appendix D.1.1.2, p. 19" ; ogc:pdfPage 19 ;
+    ogc:seeAlso [ ogc:cites src:nist-tn-1297 ; ogc:locator "Appendix D.1.1.2, p. 14" ; ogc:pdfPage 19 ;
                   ogc:quote "closeness of the agreement between the results of successive measurements of the same measurand carried out under the same conditions of measurement" ; ogc:quoteStatus "machine" ] ;
     prov:wasDerivedFrom rul:R-13 ;
     ogc:binding "replicate epo:Session activities under one Strategy against one SUT version; minPassRate on the criterion" .
@@ -370,7 +370,7 @@ term:reproducibility a skos:Concept ; skos:inScheme ogc:Glossary ;
                     ogc:quote "measurement precision under reproducibility conditions of measurement" ; ogc:quoteStatus "machine" ] ;
     ogc:seeAlso [ ogc:cites src:jcgm-200-2012 ; ogc:locator "2.24 reproducibility condition of measurement, p. 40" ; ogc:pdfPage 40 ;
                   ogc:quote "condition of measurement, out of a set of conditions that includes different locations, operators, measuring systems, and replicate measurements on the same or similar objects" ; ogc:quoteStatus "machine" ] ;
-    ogc:seeAlso [ ogc:cites src:nist-tn-1297 ; ogc:locator "Appendix D.1.1.3, p. 19" ; ogc:pdfPage 19 ;
+    ogc:seeAlso [ ogc:cites src:nist-tn-1297 ; ogc:locator "Appendix D.1.1.3, p. 14" ; ogc:pdfPage 19 ;
                   ogc:quote "closeness of the agreement between the results of measurements of the same measurand carried out under changed conditions of measurement" ; ogc:quoteStatus "machine" ] ;
     prov:wasDerivedFrom rul:R-13 ;
     ogc:binding "the record's fixed frame: requirement set, DSO release, test plan, session protocol" .

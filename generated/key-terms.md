@@ -153,3 +153,5 @@ verification
 : Confirming with objective evidence that specified requirements were fulfilled. Applied to the evaluation itself: did it exercise what it declared, and was its declared process followed. Both are mechanical checks over the record. Source: ISO 9000:2026(en) Quality management — Fundamentals and vocabulary, 3.11.12: "confirmation, through the provision of objective evidence, that specified requirements have been fulfilled" (human).
 
 ```
+
+SEVOCAB definitions: Copyright © 2021 IEEE. Used by permission.

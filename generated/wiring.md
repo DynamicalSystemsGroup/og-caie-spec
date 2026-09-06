@@ -2,7 +2,7 @@
 
 Organizations are boxes containing their parts; people are rounded (green), machines are double-boxed (red), affected populations are dashed (amber); each solid edge bundles the seams from one part to another, labelled by the item kinds that flow; the dotted edge is a relation that carries no item.
 
-**View `assemblage`: the assemblage.** In focus: every party and every part of the testing organization, nested in the organization that holds it, with one bundled edge per pair of parts labelled by the item kinds that flow between them, and the sponsor's obligation to the affected populations dotted. Left out: the seam names and the ports (the wiring table has them, one row per port), and the order in which the items flow.
+**View `assemblage`: the assemblage.** In focus: every party and every part of the testing organization, nested in the organization that holds it, with one bundled edge per pair of parts labelled by the item kinds that flow between them, and the sponsor's obligation to the affected populations dotted. Left out: the seam names and the ports (the wiring table has them, one row per port), and the order in which the items flow. Legend: rounded green, a person; double-boxed pink, a machine; dashed amber, an affected population; a plain box, an organization; a solid arrow bundles the items that flow from one part to another; a dotted arrow is a relation that carries no item.
 
 ```{mermaid}
 flowchart LR

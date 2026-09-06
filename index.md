@@ -43,8 +43,9 @@ settled name in the standards that govern testing, conformity assessment and
 quality: ISO 9000 for {term}`requirement`, {term}`objective evidence` and
 {term}`determination`; ISO/IEC 17000 for {term}`attestation`; the IEEE
 Software and Systems Engineering Vocabulary for {term}`acceptance criteria`,
-{term}`expected results`, {term}`test plan` and {term}`test coverage`; NIST's
-evaluation reports for {term}`session` and {term}`probe`. Using those names
+{term}`expected results`, {term}`test plan`, {term}`test coverage` and the
+test case a {term}`probe` refines; NIST's evaluation reports for
+{term}`session`. Using those names
 rather than coining our own is what lets someone else check the record
 against the same definitions we used. The table is the bridge: each row
 takes one Popperian element to the standard terms it lands on, to the place

@@ -159,4 +159,6 @@ def test_sevocab_permission_statement_present():
         if str(s).endswith("#sevocab"):
             stmt = g.value(s, OGC.permissionStatement)
     assert stmt is not None and "IEEE" in str(stmt)
+    for f in ("generated/key-terms.md", "generated/glossary.md"):  # the statement travels with every rendered SEVOCAB quote
+        assert str(stmt) in (ROOT / f).read_text(), f
     assert str(stmt) in (ROOT / "sources/digests/sevocab.md").read_text()

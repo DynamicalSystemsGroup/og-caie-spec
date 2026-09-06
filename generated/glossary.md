@@ -64,3 +64,5 @@
 | **OG-CAIE *(also: Ontology-Grounded Contextual AI Evaluation)*** | coined | Contextual AI Evaluation performed with the method this specification sets out: the Evaluation Process Ontology, the same six steps for every domain inside a contracting lifecycle, applied with a Domain-Specific Ontology supplied or approved by the domain's experts, leaving a record anyone can check for conformance, traceability and coverage. | Ontology-Grounded Contextual AI Evaluation, Introduction and Background | n/a | sysml package OGCAIE; part def OgCaieEvaluation |
 
 62 terms: 47 adopted, 11 refined, 4 coined.
+
+SEVOCAB definitions: Copyright © 2021 IEEE. Used by permission.

@@ -21,6 +21,11 @@ the standards' own, none coined here:
 
 ```{include} ../generated/steps-contracting.md
 ```
+
+The outer cycle has a seventh step between access and delivery, `fulfil`,
+which is the whole evaluation performed by the testing organization; the
+table lists the six the contract performs itself, and the chapter on the
+nested lifecycle draws the seventh.
 :::
 
 :::{admonition} The specification
@@ -64,10 +69,11 @@ and of the people passing through the county, and must inform the public
 accurately during an outbreak; that mission is the first item in the
 record. It needed to know whether its chatbot could give measles advice to
 the public. Humane Intelligence proposed an OG-CAIE
-evaluation; Mala signed for it on 31 July with the county; the chatbot's
+evaluation; Mala, its account executive, signed for it on 31 July with the
+county; the chatbot's
 vendor opened API access to version 1 the same day. Two populations were
-affected: commuters, who were interviewed, and county residents, whom Annie
-represents. That split was the county's decision in its statement of work,
+affected: commuters, who were interviewed, and county residents, whom
+Annie, the domain expert, represents. That split was the county's decision in its statement of work,
 made with the agreement: representation is the common case, and interviews
 are reserved for underrepresented stakeholders or underdocumented needs
 because of the effort they cost; the commuters' needs were underdocumented,
@@ -75,8 +81,8 @@ the residents' were not. The example splits the two on purpose, to show that
 both options are valid and traceable. After the evaluation, Mala delivered
 the report and the
 recommendation on 12 August and the county accepted on 14 August. The case
-is synthetic; the names recognise real roles, and no signature or
-attestation here was made by those people.
+is synthetic: the names are borrowed from real colleagues whose roles they
+recognise, and no signature or attestation here was made by them.
 
 ```{include} ../generated/record-contracting.md
 ```

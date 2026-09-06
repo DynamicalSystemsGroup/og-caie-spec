@@ -69,6 +69,11 @@ authors' earlier glossary work.
   specification; The walkthrough; Checked; There is more in the model.
   Specification and walkthrough always appear as a pair; the walkthrough is
   the measles record for exactly the rule the specification states.
+- Trim the text, never the graph (Z, 2026-09-06): when a page carries
+  too much for its reader, annotate the detail in the graph (presentation
+  attributes: page, block, audience, the command that prints it) and
+  render less; the data stays connected and the explorer and `ogc` still
+  read it.
 - Calibrated for a human reader: one rule, one table, one concrete row a
   reader can hold in mind; everything larger lives behind "there is more
   in the model" and is reached by `ogc` or the files. 400 to 1,400 words of

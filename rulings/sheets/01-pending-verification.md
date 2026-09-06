@@ -22,8 +22,6 @@ When ticked, the citation's `ogc:quoteStatus` becomes `human` with `ogc:verified
 | 15 | attestation | iso-iec-17000-2020 | 7.3 | OBP | issue of a statement, based on a decision, that fulfilment of specified requirements has been demonstrated | [x] 2026-09-06 |
 | 10b | conformance (reclaimed, R-16) | iso-9000-2026 | 3.5.9 Note 1 | iso-9000-2026-obp-13.png | The term "conformance" is synonymous but deprecated. | [x] 2026-09-06 (special case, not a synonym) |
 | 14b | objective evidence (seeAlso) | iso-9000-2026 | 3.11.1 determination | iso-9000-2026-obp-29.png | activity to find out one or more characteristics and their characteristic values | [x] 2026-09-06 |
-| 10b | conformance (reclaimed, R-16) | iso-9000-2026 | 3.5.9 conformity, Note 1 | iso-9000-2026-obp-13.png | The term "conformance" is synonymous but deprecated. | [x] 2026-09-06 (special case, not a synonym) |
-| 14b | objective evidence (seeAlso) | iso-9000-2026 | 3.11.1 determination | iso-9000-2026-obp-29.png | activity to find out one or more characteristics and their characteristic values | [x] 2026-09-06 |
 
 ## Open concern
 

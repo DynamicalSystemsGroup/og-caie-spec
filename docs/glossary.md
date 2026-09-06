@@ -3,8 +3,8 @@
 The front page ends at the bridge from a plain account of science to the
 engineering standards for evaluation. This chapter gives the terms on the
 far side of that bridge their definitions: rigorous, cited verbatim, and not
-exhaustive. It lists exactly the terms this site uses. The full register of
-59 terms is generated from the same graph for the paper.
+exhaustive. It lists exactly the terms this site uses. The full register is
+generated from the same graph for the paper.
 
 ## The map of the site
 
@@ -48,8 +48,8 @@ against the grain of its source, and says so: {term}`conformance`,
 deprecated by ISO 9000 as a synonym of {term}`conformity`, is reclaimed for
 the machine-checked, correctly constructed {term}`evaluation record`.
 
-Every quote is verified, by machine against a content-hashed snapshot or by
-a named person against the source on a date; no quote is pending.
+```{include} ../generated/quote-status.md
+```
 
 ## How to navigate
 

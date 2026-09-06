@@ -32,9 +32,11 @@ def render_rulings() -> str:
             cell(g.value(c, OGC.severity)), cell(g.value(c, OGC.status)),
             cell(g.value(r, OGC.rulingText)), cell(who),
             cell(g.value(r, PROV.generatedAtTime)), cell(g.value(r, OGC.changeNote))))
-    open_ = [c for c in g.subjects(RDF.type, OGC.Concern) if str(g.value(c, OGC.status)) == "open"]
-    lines.append("")
-    lines.append(f"Open concerns: {len(open_)}.")
+    open_ = sorted((c for c in g.subjects(RDF.type, OGC.Concern) if str(g.value(c, OGC.status)) == "open"), key=str)
+    lines += ["", f"Open concerns, awaiting a ruling: {len(open_)}.", "",
+              "| Concern | Severity | Surfaced | The question |", "|---|---|---|---|"]
+    for c in open_:
+        lines.append(f"| **{str(c).rsplit('#', 1)[-1]}**: {cell(g.value(c, RDFS.label))} | {cell(g.value(c, OGC.severity))} | {cell(g.value(c, OGC.surfacedOn))} | {cell(g.value(c, OGC.problem))} |")
     return "\n".join(lines) + "\n"
 
 
@@ -43,7 +45,7 @@ def render_rulings() -> str:
 SKOS = Namespace("http://www.w3.org/2004/02/skos/core#")
 
 
-def render_glossary() -> str:
+def _render_glossary_bare() -> str:
     g = Graph()
     for f in ("vocabulary/og-caie.ttl", "sources/sources.ttl"):
         g.parse(ROOT / f)
@@ -150,7 +152,7 @@ def referenced_terms(g):
     return found, unresolved
 
 
-def render_key_terms() -> str:
+def _render_key_terms_bare() -> str:
     g = Graph()
     for f in ("vocabulary/og-caie.ttl", "sources/sources.ttl"):
         g.parse(ROOT / f)
@@ -202,6 +204,10 @@ def render_record_chapter(chapter: str) -> str:
         who = [g.value(a, RDFS.label) or str(a).rsplit("#", 1)[-1] for pr in (EARL.assertedBy, EPO.approvedBy, EPO.signedBy, PROV.wasAttributedTo, PROV.wasAssociatedWith) for a in g.objects(n, pr)]
         when = g.value(n, PROV.generatedAtTime) or g.value(n, PROV.startedAtTime) or g.value(n, PROV.endedAtTime) or ""
         label = g.value(n, RDFS.label) or g.value(n, EPO.text) or ""
+        if not label:  # a judgment: what the assertor said in its result
+            info = next((g.value(res, EARL.info) for res in g.objects(n, EARL.result)), None)
+            outcome = next((str(g.value(res, EARL.outcome)).rsplit("#", 1)[-1] for res in g.objects(n, EARL.result)), None)
+            label = f"{outcome}: {info}" if info else (outcome or "")
         order = str(g.value(st, RDFS.label)).split(" ", 1)[0]
         rows.append((order, str(when), f"| {cell(str(g.value(st, RDFS.label)).split(':')[0])} | `{str(n).rsplit('#', 1)[-1]}` ({cell(str(cls).rsplit('#', 1)[-1])}) | {cell(label)} | {cell('; '.join(dict.fromkeys(str(w) for w in who)))} | {cell(str(when)[:10])} |"))
     lines = ["| Step | Item | What it says | Who | When |", "|---|---|---|---|---|"] + [r[2] for r in sorted(rows, key=lambda r: (r[1], r[0]))]
@@ -267,13 +273,66 @@ def render_executor() -> str:
     return "\n".join(lines) + "\n"
 
 
+def with_permission(text: str) -> str:
+    """SEVOCAB definitions may be copied provided the IEEE statement travels with them: append it, from the register, wherever SEVOCAB is quoted."""
+    if "sevocab" not in text.lower():
+        return text
+    g = Graph().parse(ROOT / "sources" / "sources.ttl")
+    stmt = next((str(g.value(src, OGC.permissionStatement)) for src in g.subjects(RDF.type, OGC.Source) if str(src).endswith("#sevocab")), None)
+    return text.rstrip("\n") + f"\n\nSEVOCAB definitions: {stmt}\n" if stmt else text
+
+
+def render_key_terms() -> str:
+    return with_permission(_render_key_terms_bare())
+
+
+def render_glossary() -> str:
+    return with_permission(_render_glossary_bare())
+
+
+def render_quote_status() -> str:
+    """The vocabulary page's honest count of quote statuses, from the graph, with the three tags defined once."""
+    g = Graph()
+    for f in ("vocabulary/og-caie.ttl", "vocabulary/epo.ttl", "sources/sources.ttl"):
+        g.parse(ROOT / f)
+    counts = {}
+    for st in g.objects(None, OGC.quoteStatus):
+        counts[str(st)] = counts.get(str(st), 0) + 1
+    return ("Every quote on this site carries one of three tags. *Machine*: the tests locate the quote in a content-hashed "
+            "snapshot of the source. *Human*: a named person verified it against the source on a date, usually an ISO "
+            "screenshot held locally. *Pending*: transcribed and awaiting that person's tick, listed on a rulings sheet; "
+            f"a pending quote is cited but not yet verified. At this commit: {counts.get('machine', 0)} machine, "
+            f"{counts.get('human', 0)} human, {counts.get('pending', 0)} pending.\n")
+
+
+def render_criteria() -> str:
+    """The measles criteria: what each expects, its weight, and the outcome attested, with the coverage recomputed by the coverage query."""
+    from rdflib import Namespace as NS
+    EPO = NS("https://w3id.org/og-caie/epo#")
+    EARL = NS("http://www.w3.org/ns/earl#")
+    g = Graph()
+    for f in ("vocabulary/epo.ttl", "track/measles-run.ttl"):
+        g.parse(ROOT / f)
+    lines = ["| Criterion | Expected result | Weight | Attested outcome |", "|---|---|---|---|"]
+    for a in sorted(g.subjects(RDF.type, EPO.AcceptanceCriterion), key=str):
+        outs = sorted({str(g.value(res, EARL.outcome)).rsplit("#", 1)[-1] for att in g.subjects(EARL.test, a) if (att, RDF.type, EPO.Attestation) in g for res in g.objects(att, EARL.result)})
+        lines.append(f"| `{str(a).rsplit('#', 1)[-1]}`: {cell(g.value(a, EPO.text))} | {cell(g.value(a, EPO.expectedResult))} | {g.value(a, EPO.weight)} | {', '.join(outs) or 'none: not planned, not covered'} |")
+    row = next(iter(g.query((ROOT / "queries" / "coverage.rq").read_text())))
+    lines += ["", f"Coverage recomputed from the record by `queries/coverage.rq`: {float(row.coverage):.4f} by weight "
+                  f"(pass {float(row.passRate):.2f}, fail {float(row.failRate):.2f}, cannot tell {float(row.cantTellRate):.2f}); the report stores the same numbers."]
+    return "\n".join(lines) + "\n"
+
+
 def render_more(page: str, fragments: list[str], commands: list[str], files: list[str]) -> str:
-    """Block 5 of the page pattern: this page is a view; the model is the repository."""
-    lines = ["This page is a view. The model is the repository, and it holds more than the page shows.", "",
+    """Block 5 of the page pattern: this page is a view; the model is the repository. The reader is pointed at the
+    appendices first; the commands and files, which the graph also carries, sit in a dropdown."""
+    lines = ["This page is a view. The model is the repository, and it holds more than the page shows: "
+             "[Appendix A](appendix-explorer.md) opens the same model as a graph, and [Appendix D](appendix-toolchain.md) says how to run every check yourself.", "",
+             ":::{dropdown} For the shell: ask the graph, read the sources",
              "- Rendered here: " + ", ".join(f"`generated/{f}`" for f in fragments) + ", regenerated by the gate from the graphs and diffed byte for byte.",
              "- Ask the graph: " + ", ".join(f"`{c}`" for c in commands) + ".",
-             "- Explore: [the knowledge graph explorer](appendix-explorer.md), the same model as a graph.",
-             "- Read the sources: " + ", ".join(f"`{f}`" for f in files) + "."]
+             "- Read the sources: " + ", ".join(f"`{f}`" for f in files) + ".",
+             ":::"]
     return "\n".join(lines) + "\n"
 
 
@@ -357,6 +416,8 @@ def main_all() -> int:
         ["ogc view contracting", "ogc views", "ogc steps", "ogc sci SCI-10", "ogc term mission", "ogc term customer", "ogc term provider", "ogc term contract", "ogc verify iso-iec-17000-2020", "ogc sparql"],
         ["model/og-caie.sysml", "model/og-caie.model.ttl", "vocabulary/epo.ttl", "shapes/epo.shapes.ttl (S0)", "shapes/model.shapes.ttl (M1, M5)", "ogc/views.py", "track/measles-run.ttl"]))
     (OUT / "layers-walkthrough.md").write_text(render_layers_walkthrough())
+    (OUT / "quote-status.md").write_text(render_quote_status())
+    (OUT / "criteria.md").write_text(render_criteria())
     (OUT / "more-evaluation.md").write_text(render_more("evaluation",
         ["steps-evaluation.md", "wiring-evaluation.md", "wiring-table-evaluation.md", "sci-evaluation.md", "record-evaluation.md"],
         ["ogc view evaluation", "ogc steps", "ogc sci SCI-06", "ogc term evidence", "ogc term determination", "ogc term attestation", "ogc term trajectory", "ogc rulings --term evidence", "ogc sparql"],

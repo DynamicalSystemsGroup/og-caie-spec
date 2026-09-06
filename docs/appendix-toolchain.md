@@ -66,6 +66,7 @@ bash toolchain/get-sysml.sh
 bash checks/run-checks.sh
 uv run -q ogc doctor
 uv run myst start
+bash scripts/copy_explorer.sh
 ```
 
 `uv sync` creates `.venv` from the lockfile and reports the packages it
@@ -75,7 +76,9 @@ mismatch exits 1. The gate prints one line per step, `pass` or `FAIL`, and
 ends with `CHECKS: PASS` or `CHECKS: FAIL` followed by the commit it
 judged; that line is what the pre-push hook and CI require. `ogc doctor`
 prints its checks and ends with `VERDICT: PASS`. `myst start` builds the
-site and prints the local address to open it at.
+site and prints the local address to open it at. The gate copies Appendix
+A's explorer next to the built site; after a build of your own, run
+`copy_explorer.sh` so the appendix's frame finds it.
 
 ## The first rung
 

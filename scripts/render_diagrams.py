@@ -38,7 +38,11 @@ def name(g, n) -> str:
 def figure(view_name: str, g: Graph) -> str:
     """One view from the registry, captioned with the perspective it encodes (R-38)."""
     v = views.VIEWS[view_name]
-    return f"**View `{v.name}`: {v.title.lower()}.** {v.perspective()}\n\n" + views.mermaid(v.render(g))
+    legend = ("" if view_name == "nesting" else
+              " Legend: rounded green, a person; double-boxed pink, a machine; dashed amber, an affected population; "
+              "a plain box, an organization; a solid arrow bundles the items that flow from one part to another; "
+              "a dotted arrow is a relation that carries no item.")
+    return f"**View `{v.name}`: {v.title.lower()}.** {v.perspective()}{legend}\n\n" + views.mermaid(v.render(g))
 
 
 def render_nesting() -> str:
