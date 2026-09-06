@@ -8,7 +8,8 @@ exhaustive. It lists exactly the terms this site uses. The full register of
 
 ## The map of the site
 
-Eight pages, each a view of the model in the repository. The
+Eight pages, each a view of the model in the repository, and an appendix
+that opens the same model as a knowledge graph. The
 [front page](../index.md) sets the bar for science in plain terms and
 crosses the bridge into the standards; this page gives the terms and the
 two cycles; [Contracting](contracting.md) is the outer cycle, from need to

@@ -50,6 +50,7 @@ project:
     - file: docs/guarantees.md
     - file: docs/rulings.md
     - file: docs/conclusion.md
+    - file: docs/appendix-explorer.md
     - title: Computational proofs
       children:
         - file: notebooks/checked-contracting.ipynb

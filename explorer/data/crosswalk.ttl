@@ -1,0 +1,86 @@
+@prefix ogc:  <https://w3id.org/og-caie/> .
+@prefix xw:   <https://w3id.org/og-caie/crosswalk#> .
+@prefix term: <https://w3id.org/og-caie/terms#> .
+@prefix src:  <https://w3id.org/og-caie/sources#> .
+@prefix epo:  <https://w3id.org/og-caie/epo#> .
+@prefix rul:  <https://w3id.org/og-caie/rulings#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+# The Popper crosswalk (ruling R-29): the coordinate transform from the
+# Popperian conception of science (the BoF deck's six definitions, after
+# Popper 1959) to the terms of the engineering standards for evaluation, and
+# back. Rendered forward on the front page (the bridge) and backward on the
+# conclusion page; the Popper words appear nowhere else. Each row names the
+# standard terms it lands on (glossary concepts), the EPO classes and shapes
+# that realize it in the record, and what makes it checkable.
+
+xw:hypothesis a ogc:Crosswalk ; ogc:order 1 ;
+    rdfs:label "hypothesis" ;
+    ogc:cites src:bof-deck-2026-07 ; ogc:locator "slide 5, Helpful Definitions" ;
+    ogc:quote "A hypothesis is a conjectural claim that can be subjected to empirical tests and potentially falsified. Its empirical content lies partly in what it rules out: the more possible outcomes it excludes, the greater the risk it takes." ;
+    ogc:quoteStatus "machine" ;
+    ogc:mapsTo term:acceptance-criteria, term:expected-results, term:requirement ;
+    ogc:realizedBy epo:AcceptanceCriterion, ogc:S2-AcceptanceCriterion, ogc:S2-Requirement ;
+    ogc:where "An acceptance criterion derived from a requirement, stating the expected result a test could observe." ;
+    ogc:checkable "The expected result is written down before testing, so a determination can rule it not met." .
+
+xw:auxiliary-assumption-contract a ogc:Crosswalk ; ogc:order 2 ;
+    rdfs:label "auxiliary assumption, first layer (pinned at the contract)" ;
+    ogc:cites src:bof-deck-2026-07 ; ogc:locator "slide 5, Helpful Definitions" ;
+    ogc:quote "An (auxiliary) assumption is a background claim held fixed in deriving and testing a prediction. Because predictions normally follow from a hypothesis together with auxiliary assumptions and initial conditions, a failed prediction does not by logic alone identify which component is false." ;
+    ogc:quoteStatus "machine" ;
+    ogc:mapsTo term:mission, term:contract, term:customer, term:provider, term:test-item, term:stakeholder ;
+    ogc:realizedBy epo:Mission, epo:ServiceAgreement, epo:TestItemAccess, epo:Population, ogc:S0-Parties, ogc:S0-Access, ogc:S0-Population, ogc:S0-Layers ;
+    ogc:where "The sponsor's mission towards the affected populations, the service agreement and the access to the test item: the counterparties, the object, the requirements' frame and the method, fixed before the evaluation begins." ;
+    ogc:checkable "Pinned at the contract and timestamped before the requirement set; the evaluation takes them as given, documents them, and cannot change them." .
+
+xw:auxiliary-assumption-evaluation a ogc:Crosswalk ; ogc:order 3 ;
+    rdfs:label "auxiliary assumption, second layer (pinned within the evaluation)" ;
+    ogc:cites src:bof-deck-2026-07 ; ogc:locator "slide 5, Helpful Definitions" ;
+    ogc:quote "Context Matters!" ;
+    ogc:quoteStatus "machine" ;
+    ogc:mapsTo term:operational-environment, term:operational-envelope, term:domain-specific-ontology ;
+    ogc:realizedBy epo:RequirementSet, epo:DsoRelease, ogc:S1-DsoRelease, ogc:S2-RequirementSet ;
+    ogc:where "The requirement set declaring this test item in this environment, and the DSO release, both declared and approved before any session." ;
+    ogc:checkable "Declared and timestamped before testing; every attestation says whether that declared context was appropriate." .
+
+xw:prediction a ogc:Crosswalk ; ogc:order 4 ;
+    rdfs:label "prediction" ;
+    ogc:cites src:bof-deck-2026-07 ; ogc:locator "slide 5, Helpful Definitions" ;
+    ogc:quote "A prediction is an observable consequence that should occur if the hypothesis and relevant auxiliary assumptions are true. An observation that should not occur under those conditions is a potential falsifier." ;
+    ogc:quoteStatus "machine" ;
+    ogc:mapsTo term:probe, term:test-plan, term:session, term:expected-results ;
+    ogc:realizedBy epo:Probe, epo:TestPlan, epo:Turn, ogc:S3-Probe, ogc:S3-TestPlan ;
+    ogc:where "A probe applied at a turn of a session under the test plan, against the criterion's expected result." ;
+    ogc:checkable "The plan names its objectives and means before any session; every probe names the criteria it exercises." .
+
+xw:evidence a ogc:Crosswalk ; ogc:order 5 ;
+    rdfs:label "evidence" ;
+    ogc:cites src:bof-deck-2026-07 ; ogc:locator "slide 5, Helpful Definitions" ;
+    ogc:quote "Evidence is an accepted result of observation or experiment." ;
+    ogc:quoteStatus "machine" ;
+    ogc:mapsTo term:objective-evidence, term:determination, term:trajectory ;
+    ogc:realizedBy epo:Evidence, epo:Determination, ogc:S5-Evidence, ogc:S6-Determination ;
+    ogc:where "The response or trajectory collected as evidence bearing on one criterion; the determination is the accepted result: passed, failed or cannot tell." ;
+    ogc:checkable "Evidence derives from a recorded response at a recorded turn; a determination rules only on evidence that bears on the criterion it tests." .
+
+xw:falsifiability a ogc:Crosswalk ; ogc:order 6 ;
+    rdfs:label "falsifiability" ;
+    ogc:cites src:bof-deck-2026-07 ; ogc:locator "slide 5, Helpful Definitions" ;
+    ogc:quote "Falsifiability is the property of excluding at least one possible empirical outcome." ;
+    ogc:quoteStatus "machine" ;
+    ogc:mapsTo term:attestation, term:outcome, term:test-coverage ;
+    ogc:realizedBy epo:Attestation, epo:Report, ogc:S6-Attestation, ogc:S7-Report ;
+    ogc:where "The attestation's outcome for each criterion, and the report's coverage over all of them." ;
+    ogc:checkable "A failed outcome is a recorded falsifier; coverage is recomputed from the record, and a criterion with no attestation counts zero." .
+
+xw:context a ogc:Crosswalk ; ogc:order 7 ;
+    rdfs:label "context" ;
+    ogc:cites src:bof-deck-2026-07 ; ogc:locator "slide 5, Helpful Definitions" ;
+    ogc:quote "In practice, however, falsification also depends on auxiliary assumptions and methodological judgments." ;
+    ogc:quoteStatus "machine" ;
+    ogc:mapsTo term:appropriateness, term:sufficiency, term:requirements-traceability ;
+    ogc:realizedBy ogc:S6-Attestation, ogc:S8-Recommendation ;
+    ogc:where "The appropriateness and sufficiency judgments on every attestation, and the trace from each recommendation back to the requirement it answers." ;
+    ogc:checkable "A failed prediction is attributed: the record says which named person judged the context inappropriate or the evidence insufficient, and why." .
