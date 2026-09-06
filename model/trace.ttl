@@ -1,0 +1,48 @@
+@prefix ogc:  <https://w3id.org/og-caie/> .
+@prefix tr:   <https://w3id.org/og-caie/trace#> .
+@prefix term: <https://w3id.org/og-caie/terms#> .
+@prefix src:  <https://w3id.org/og-caie/sources#> .
+@prefix rul:  <https://w3id.org/og-caie/rulings#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# The crosswalk: each SCI requirement in model/og-caie.sysml names the SHACL
+# shapes that check it over the record, the glossary terms it is stated in,
+# and the source or ruling it rests on. Tests assert every SCI, every shape
+# and every ruling referenced here exists, and that every shape is reached.
+
+tr:SCI-01 a ogc:Trace ; rdfs:label "SCI-01 DsoApprovedBeforeProbes" ;
+    ogc:checkedBy ogc:S1-DsoRelease ; ogc:tag "machine" ;
+    ogc:usesTerm term:domain-specific-ontology, term:technical-expert, term:probe ;
+    ogc:restsOn src:iso-9000-2026, rul:R-09 .
+tr:SCI-02 a ogc:Trace ; rdfs:label "SCI-02 RequirementsDeclaredBeforeRuns" ;
+    ogc:checkedBy ogc:S2-RequirementSet ; ogc:tag "machine" ;
+    ogc:usesTerm term:operational-envelope, term:operational-environment, term:requirement, term:test ;
+    ogc:restsOn src:sevocab, rul:R-02, rul:R-03 .
+tr:SCI-03 a ogc:Trace ; rdfs:label "SCI-03 CriteriaWellFormed" ;
+    ogc:checkedBy ogc:S2-AcceptanceCriterion ; ogc:tag "machine" ;
+    ogc:usesTerm term:acceptance-criteria, term:requirement, term:deployment-sensitivity ;
+    ogc:restsOn src:sevocab, src:incose-gtwr-v4, rul:R-05 .
+tr:SCI-04 a ogc:Trace ; rdfs:label "SCI-04 ProbesDerivedAndChecked" ;
+    ogc:checkedBy ogc:S3-Probe ; ogc:tag "machine" ;
+    ogc:usesTerm term:probe, term:scenario, term:conformity, term:domain-specific-ontology ;
+    ogc:restsOn src:sevocab, src:w3c-shacl .
+tr:SCI-05 a ogc:Trace ; rdfs:label "SCI-05 EvidenceFromNamedRuns" ;
+    ogc:checkedBy ogc:S4-ProbeRun, ogc:S5-Evidence ; ogc:tag "machine" ;
+    ogc:usesTerm term:objective-evidence, term:test, term:system-under-test, term:red-teaming ;
+    ogc:restsOn src:iso-9000-2026, src:nist-ai-700-2, src:w3c-prov-o .
+tr:SCI-06 a ogc:Trace ; rdfs:label "SCI-06 AttestationsWellFormed" ;
+    ogc:checkedBy ogc:S6-Attestation ; ogc:tag "machine for form; human for the judgment" ;
+    ogc:usesTerm term:attestation, term:outcome, term:appropriateness, term:sufficiency, term:validation ;
+    ogc:restsOn src:iso-iec-17000-2020, src:hawkins-2011, src:w3c-earl, rul:R-08 .
+tr:SCI-07 a ogc:Trace ; rdfs:label "SCI-07 CoverageRecomputable" ;
+    ogc:checkedBy ogc:S7-Report ; ogc:tag "machine" ;
+    ogc:usesTerm term:test-coverage, term:conformity, term:verification, term:evaluation-record ;
+    ogc:restsOn src:sevocab, rul:R-01, rul:R-04 .
+tr:SCI-08 a ogc:Trace ; rdfs:label "SCI-08 CoverageAndPerformanceKeptApart" ;
+    ogc:checkedBy ogc:S7-Report ; ogc:tag "machine" ;
+    ogc:usesTerm term:test-coverage, term:performance ;
+    ogc:restsOn src:iso-9000-2026, src:sevocab, rul:R-01 .
+tr:SCI-09 a ogc:Trace ; rdfs:label "SCI-09 RecommendationTraceable" ;
+    ogc:checkedBy ogc:S8-Recommendation ; ogc:tag "machine for the trace; human for the recommendation" ;
+    ogc:usesTerm term:requirements-traceability, term:guardrail, term:stakeholder, term:evaluation-process-ontology ;
+    ogc:restsOn src:sevocab, src:nist-ai-700-2, rul:R-07 .

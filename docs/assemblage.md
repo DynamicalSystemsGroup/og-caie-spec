@@ -36,6 +36,9 @@ and again in RDF over the evaluation record (SHACL shapes S1 to S8 on the
 record page). A requirement tagged *human* is still checked by machine for
 its form; only the value of the judgment is the person's.
 
+```{include} ../generated/trace.md
+```
+
 ```{include} ../generated/receipts.md
 ```
 

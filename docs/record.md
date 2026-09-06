@@ -5,8 +5,9 @@ who did what and when, EARL for assertions and their outcomes, and the
 Evaluation Process Ontology's handle classes (`vocabulary/epo.ttl`) for what
 the five steps produce. It is the paper's worked example: a public-health
 chatbot during a measles outbreak, one requirement, three acceptance criteria,
-one probe, one response, two attestations by two named domain experts, a
-report, and a recommendation.
+one probe run by red teaming, one response, two attestations by two named
+domain experts, a report, and a recommendation. The traceback query below is
+requirements traceability made executable.
 
 Two things are checked over it. **Conformity** to the EPO shapes
 (`shapes/epo.shapes.ttl`, S1 to S8) is machine verification: the process was

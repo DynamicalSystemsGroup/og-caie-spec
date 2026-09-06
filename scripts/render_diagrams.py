@@ -130,12 +130,32 @@ def render_receipts() -> str:
             + receipt([rel(MODEL), rel(COUNTER), "-satisfy=UntestedCountedCovered"], "The counterexample fails, as it must"))
 
 
+
+def render_trace() -> str:
+    from rdflib import Graph, Namespace, RDF, RDFS
+    OGC = Namespace("https://w3id.org/og-caie/")
+    SKOS = Namespace("http://www.w3.org/2004/02/skos/core#")
+    g = Graph()
+    for f in ("model/trace.ttl", "vocabulary/og-caie.ttl", "sources/sources.ttl", "rulings/adjudications.ttl"):
+        g.parse(ROOT / f)
+    lines = ["## The crosswalk\n", "Each requirement, the shapes that check it over the record, the glossary terms it is stated in, and what it rests on.\n",
+             "| SCI | Checked by | Terms | Rests on |", "|---|---|---|---|"]
+    for t in sorted(g.subjects(RDF.type, OGC.Trace), key=str):
+        sid = str(t).rsplit("#", 1)[-1]
+        shapes = ", ".join(sorted(str(s).rsplit("/", 1)[-1] for s in g.objects(t, OGC.checkedBy)))
+        terms = ", ".join(sorted(str(g.value(x, SKOS.prefLabel)) for x in g.objects(t, OGC.usesTerm)))
+        rests = ", ".join(sorted(str(x).rsplit("#", 1)[-1] for x in g.objects(t, OGC.restsOn)))
+        lines.append(f"| {sid} ({g.value(t, OGC.tag)}) | {shapes} | {terms} | {rests} |")
+    return "\n".join(lines) + "\n"
+
+
 def main() -> int:
     OUT.mkdir(exist_ok=True)
     (OUT / "layers.md").write_text(render_layers())
     (OUT / "wiring.md").write_text(render_wiring())
     (OUT / "sci.md").write_text(render_sci())
     (OUT / "receipts.md").write_text(render_receipts())
+    (OUT / "trace.md").write_text(render_trace())
     return 0
 
 
