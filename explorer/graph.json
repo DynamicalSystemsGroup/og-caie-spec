@@ -12097,6 +12097,59 @@
     ]
    ]
   },
+  "https://w3id.org/og-caie/rulings#C-52": {
+   "in": [],
+   "out": [
+    [
+     "ogc:problem",
+     {
+      "text": "The figure tried to show the two chains, the DSO, the execution assemblage and the interpretation in one drawing, and read as a wall of small boxes; it communicated nothing a reader could hold."
+     }
+    ],
+    [
+     "ogc:severity",
+     {
+      "text": "M"
+     }
+    ],
+    [
+     "ogc:status",
+     {
+      "text": "ruled"
+     }
+    ],
+    [
+     "ogc:surfacedHow",
+     {
+      "text": "Z, reading the nested lifecycle page"
+     }
+    ],
+    [
+     "ogc:surfacedOn",
+     {
+      "text": "2026-09-06 (date)"
+     }
+    ],
+    [
+     "prov:wasGeneratedBy",
+     {
+      "text": "rul:model-revision-planning-2026-09-06"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "ogc:Concern"
+     }
+    ],
+    [
+     "rdfs:label",
+     {
+      "text": "the layers figure on the nested lifecycle page was illegible"
+     }
+    ]
+   ]
+  },
   "https://w3id.org/og-caie/rulings#R-01": {
    "in": [],
    "out": [
@@ -14190,6 +14243,53 @@
      "ogc:rulingText",
      {
       "text": "why isn't opensysml in the runtime environement? i guess we only used it for modeling since we used the features that render the models to rdf. i think this means we need a section on ontologies in the toolchain to address provo-o, earl, sysml, and more"
+     }
+    ],
+    [
+     "prov:generatedAtTime",
+     {
+      "text": "2026-09-06 (date)"
+     }
+    ],
+    [
+     "prov:wasAttributedTo",
+     {
+      "text": "rul:Z"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "ogc:Ruling"
+     }
+    ]
+   ]
+  },
+  "https://w3id.org/og-caie/rulings#R-46": {
+   "in": [],
+   "out": [
+    [
+     "ogc:changeNote",
+     {
+      "text": "The layers poster is retired from the registry. The view nesting draws the outer chain with fulfil as a black box, the inner chain it opens into, and only the flows that cross the boundary, bundled by item kind and read from the model graph (the outer flows into the process's parameters and the binds that hand them to inner steps); the page says what it leaves out. The rule joins the views doctrine: a view communicates one thing; black-box the rest; when wiring two systems, draw the interface."
+     }
+    ],
+    [
+     "ogc:order",
+     {
+      "text": "46"
+     }
+    ],
+    [
+     "ogc:resolves",
+     {
+      "ref": "https://w3id.org/og-caie/rulings#C-52"
+     }
+    ],
+    [
+     "ogc:rulingText",
+     {
+      "text": "more feedback. this diagram is human illegible. needs similiar treatment to earlier diagrams. views need to be designed to communicate clearly as views not to be exhaustive. this means we may need multiple diagrams or it may be as simple as blackboxing subsystems more effectively. wiring two systems together often involves focusing on how they interface with each other, even when the interfaces span scales."
      }
     ],
     [
@@ -37741,6 +37841,11 @@
    "target": "https://w3id.org/og-caie/rulings#C-51"
   },
   {
+   "rel": "resolves",
+   "source": "https://w3id.org/og-caie/rulings#R-46",
+   "target": "https://w3id.org/og-caie/rulings#C-52"
+  },
+  {
    "rel": "type",
    "source": "https://w3id.org/og-caie/run/measles#R1",
    "target": "https://w3id.org/og-caie/epo#Requirement"
@@ -44465,6 +44570,14 @@
    "page": "../rulings"
   },
   {
+   "cls": "concern",
+   "desc": "the layers figure on the nested lifecycle page was illegible (M, ruled). The figure tried to show the two chains, the DSO, the execution assemblage and the interpretation in one drawing, and read as a wall of small boxes; it communicated nothing a reader could hold.",
+   "id": "https://w3id.org/og-caie/rulings#C-52",
+   "label": "C-52",
+   "ogc": "ogc concern C-52",
+   "page": "../rulings"
+  },
+  {
    "cls": "ruling",
    "desc": "Adopt SEVOCAB test coverage; add the distinction as a note",
    "id": "https://w3id.org/og-caie/rulings#R-01",
@@ -44822,6 +44935,14 @@
    "id": "https://w3id.org/og-caie/rulings#R-45",
    "label": "R-45",
    "ogc": "ogc ruling R-45",
+   "page": "../rulings"
+  },
+  {
+   "cls": "ruling",
+   "desc": "more feedback. this diagram is human illegible. needs similiar treatment to earlier diagrams. views need to be designed to communicate clearly as views not to be exhaustive. this means we may need multiple diagrams or it may be as simple as blackboxing subsystems more effectively. wiring two systems together often involves focusing on how they interface with each other, even when the interfaces span scales.",
+   "id": "https://w3id.org/og-caie/rulings#R-46",
+   "label": "R-46",
+   "ogc": "ogc ruling R-46",
    "page": "../rulings"
   },
   {
@@ -47796,6 +47917,7 @@
     "https://w3id.org/og-caie/rulings#C-49",
     "https://w3id.org/og-caie/rulings#C-50",
     "https://w3id.org/og-caie/rulings#C-51",
+    "https://w3id.org/og-caie/rulings#C-52",
     "https://w3id.org/og-caie/rulings#R-01",
     "https://w3id.org/og-caie/rulings#R-02",
     "https://w3id.org/og-caie/rulings#R-03",
@@ -47841,6 +47963,7 @@
     "https://w3id.org/og-caie/rulings#R-43",
     "https://w3id.org/og-caie/rulings#R-44",
     "https://w3id.org/og-caie/rulings#R-45",
+    "https://w3id.org/og-caie/rulings#R-46",
     "https://w3id.org/og-caie/terms#acceptance-criteria",
     "https://w3id.org/og-caie/terms#account-executive",
     "https://w3id.org/og-caie/terms#appropriateness",
@@ -48702,6 +48825,7 @@
     "https://w3id.org/og-caie/rulings#C-49",
     "https://w3id.org/og-caie/rulings#C-50",
     "https://w3id.org/og-caie/rulings#C-51",
+    "https://w3id.org/og-caie/rulings#C-52",
     "https://w3id.org/og-caie/rulings#R-01",
     "https://w3id.org/og-caie/rulings#R-02",
     "https://w3id.org/og-caie/rulings#R-03",
@@ -48747,6 +48871,7 @@
     "https://w3id.org/og-caie/rulings#R-43",
     "https://w3id.org/og-caie/rulings#R-44",
     "https://w3id.org/og-caie/rulings#R-45",
+    "https://w3id.org/og-caie/rulings#R-46",
     "https://w3id.org/og-caie/run/measles#R1",
     "https://w3id.org/og-caie/run/measles#a1",
     "https://w3id.org/og-caie/run/measles#a2",

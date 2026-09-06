@@ -929,3 +929,20 @@ rul:R-45 a ogc:Ruling ;
     prov:wasAttributedTo rul:Z ;
     prov:generatedAtTime "2026-09-06"^^xsd:date .
 
+rul:C-52 a ogc:Concern ;
+    rdfs:label "the layers figure on the nested lifecycle page was illegible" ;
+    ogc:problem """The figure tried to show the two chains, the DSO, the execution assemblage and the interpretation in one drawing, and read as a wall of small boxes; it communicated nothing a reader could hold.""" ;
+    ogc:severity "M" ;
+    ogc:status "ruled" ;
+    ogc:surfacedOn "2026-09-06"^^xsd:date ;
+    ogc:surfacedHow "Z, reading the nested lifecycle page" ;
+    prov:wasGeneratedBy rul:model-revision-planning-2026-09-06 .
+
+rul:R-46 a ogc:Ruling ;
+    ogc:order 46 ;
+    ogc:resolves rul:C-52 ;
+    ogc:rulingText "more feedback. this diagram is human illegible. needs similiar treatment to earlier diagrams. views need to be designed to communicate clearly as views not to be exhaustive. this means we may need multiple diagrams or it may be as simple as blackboxing subsystems more effectively. wiring two systems together often involves focusing on how they interface with each other, even when the interfaces span scales." ;
+    ogc:changeNote "The layers poster is retired from the registry. The view nesting draws the outer chain with fulfil as a black box, the inner chain it opens into, and only the flows that cross the boundary, bundled by item kind and read from the model graph (the outer flows into the process's parameters and the binds that hand them to inner steps); the page says what it leaves out. The rule joins the views doctrine: a view communicates one thing; black-box the rest; when wiring two systems, draw the interface." ;
+    prov:wasAttributedTo rul:Z ;
+    prov:generatedAtTime "2026-09-06"^^xsd:date .
+

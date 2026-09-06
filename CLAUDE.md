@@ -82,7 +82,10 @@ sources and rulings borrowed from `mission-twin-glossary`.
   labelled by what flows; relations that carry no item are dotted. Any
   view that reads from the model and states its perspective is allowed;
   `ogc view <name>` prints it, so other views stay possible while the
-  site curates.
+  site curates. A view communicates one thing and is never exhaustive
+  (R-46): black-box the subsystems that are not the point; when wiring two
+  systems, draw the interface between them, even across scales; split into
+  several views before crowding one.
 
 ## Ask the graph, never grep it
 

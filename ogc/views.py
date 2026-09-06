@@ -13,6 +13,7 @@ the same functions, so a figure cannot say what the model does not.
 """
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 from typing import Callable
 
@@ -20,6 +21,7 @@ from rdflib import RDF, Graph, Namespace
 
 SYS = Namespace("https://www.omg.org/spec/SysML#")
 OGM = Namespace("https://w3id.org/og-caie/model#")
+SYSX_SOURCE_TEXT = Namespace("urn:opensysml:sysml:")["sourceText"]
 ASSEMBLY = "OgCaieEvaluation"
 TOP_PACKAGE = "OGCAIE"
 OUTER_PROCESS = "ContractingProcess"
@@ -210,56 +212,62 @@ def wiring(g: Graph, slice_: str | None = None, nest: bool = False) -> str:
     return "\n".join(lines)
 
 
-def layers(g: Graph) -> str:
-    defs = definitions(g, SYS.PartDefinition)
-    people = sorted(n for n, d in defs.items() if kind_of(g, d) == "person")
-    machines = sorted(n for n, d in defs.items() if kind_of(g, d) == "machine")
-    orgs = sorted(n for n, d in defs.items() if kind_of(g, d) == "organization" and n != "Organization")
-    chain = " --> ".join(f"s{i}[{s}]" for i, s in enumerate(steps(g, INNER_PROCESS)))
-    cchain = " --> ".join(f"c{i}[{s}]" for i, s in enumerate(steps(g, OUTER_PROCESS)))
-    return f"""flowchart TB
-  subgraph PARTIES["Contracting lifecycle: the parties ({', '.join(orgs)}; affected populations) pin the first layer of assumptions"]
-    direction LR
-    {cchain}
-  end
-  subgraph EPO["Evaluation Process Ontology: the standard operating procedure, fixed across domains"]
-    direction LR
-    {chain}
-  end
-  subgraph DSO["Domain-Specific Ontology: the expert-supplied parameter, one per domain"]
-    direction LR
-    de[DomainExpert] -- supplies or approves --> dso[(DsoRelease)]
-  end
-  subgraph EXEC["Execution: the human and machine assemblage performs EPO with DSO"]
-    direction LR
-    H["people: {', '.join(people)}"]
-    M["machines: {', '.join(machines)}"]
-    H --- rec[(evaluation record)]
-    M --- rec
-  end
-  subgraph INTERP["Interpretation: named humans judge; every judgment traces back"]
-    direction LR
-    det[determinations on evidence: passed, failed, cantTell] --> att[attestations: outcome, appropriateness, sufficiency]
-    att --> recmd[recommendation]
-    recmd -. evidence collected .-> rec
-    recmd -. experiments run: sessions, turns, probes under the test plan .-> rec
-    recmd -. assessments and who made them .-> att
-    recmd -. DSO release and who approved it .-> dso
-    recmd -. EPO step .-> EPO
-  end
-  PARTIES ==> EPO
-  EPO ==> EXEC
-  DSO ==> EXEC
-  EXEC ==> INTERP"""
+def nesting(g: Graph) -> str:
+    """The two cycles as chains, the typed step as a black box in the outer
+    chain and opened as the inner chain below it; the only edges drawn are
+    the flows that cross the boundary, from the outer step that produces an
+    item to the inner step that consumes it (through the process's own
+    parameter and the bind that hands it on), and back out."""
+    outer = definitions(g, SYS.ActionDefinition)[OUTER_PROCESS]
+    inner = definitions(g, SYS.ActionDefinition)[INNER_PROCESS]
+    outer_steps, inner_steps = steps(g, OUTER_PROCESS), steps(g, INNER_PROCESS)
+    typed = {name(g, u) for u in g.subjects(SYS.owner, outer) if (u, RDF.type, SYS.ActionUsage) in g and g.value(u, SYS.type) == inner}
+    # the process's own parameters, and the inner step each is bound to
+    bound: dict[str, str] = {}
+    for b in g.subjects(RDF.type, SYS.BindingConnectorAsUsage):
+        if g.value(b, SYS.owner) != inner:
+            continue
+        m = re.match(r"bind\s+(\S+)\s*=\s*(\S+);", str(g.value(b, SYSX_SOURCE_TEXT) or ""))
+        if not m:
+            continue
+        a, c = m.group(1), m.group(2)
+        step_side, param_side = (a, c) if "." in a else (c, a)
+        bound[param_side] = step_side.split(".")[0]
+    lines = ["flowchart TB", f'  subgraph OUTER["{OUTER_PROCESS}: the contracting lifecycle"]', "    direction LR"]
+    lines.append("    " + " --> ".join(f'o_{st}[["{st} : {INNER_PROCESS}"]]' if st in typed else f"o_{st}[{st}]" for st in outer_steps))
+    lines += ["  end", f'  subgraph INNER["{INNER_PROCESS}: the {sorted(typed)[0]} step opened"]', "    direction LR"]
+    lines.append("    " + " --> ".join(f"i_{st}[{st}]" for st in inner_steps))
+    lines.append("  end")
+    crossing = []
+    for f in g.subjects(RDF.type, SYS.FlowUsage):
+        if g.value(f, SYS.owner) != outer:
+            continue
+        src, tgt = g.value(f, OGM.flowSource), g.value(f, OGM.flowTarget)
+        kind = name(g, g.value(src, SYS.type)) if g.value(src, SYS.type) is not None else name(g, g.value(tgt, SYS.type))
+        s_owner, t_owner = g.value(src, SYS.owner), g.value(tgt, SYS.owner)
+        if t_owner == inner:  # into the black box: outer step -> inner step bound to that parameter
+            crossing.append((f"o_{name(g, s_owner)}", f"i_{bound.get(name(g, tgt), '?')}", kind))
+        elif s_owner == inner:  # out of it
+            crossing.append((f"i_{bound.get(name(g, src), '?')}", f"o_{name(g, t_owner)}", kind))
+    bundles: dict[tuple[str, str], list[str]] = {}
+    for a, b, kind in crossing:
+        bundles.setdefault((a, b), []).append(kind)
+    order = item_order(g)
+    for (a, b), kinds in sorted(bundles.items()):
+        lines.append(f'  {a} -- "{", ".join(sorted(set(kinds), key=lambda n: (order.get(n, len(order)), n)))}" --> {b}')
+    lines.append("  classDef black fill:#eceff1,stroke:#263238,stroke-width:2px;")
+    for st in typed:
+        lines.append(f"  class o_{st} black;")
+    return "\n".join(lines)
 
 
 # --- the registry ---------------------------------------------------------
 
 VIEWS: dict[str, View] = {v.name: v for v in [
-    View("layers", "The layers",
-         "the two cycles as chains of steps, the DSO as the expert-supplied parameter, and how execution and interpretation rest on the record.",
-         "every part, port, seam and item kind; the steps' inputs and outputs; who performs which step.",
-         layers),
+    View("nesting", "The nested lifecycle",
+         "the two cycles as chains of steps, the fulfil step as a black box in the outer chain and opened as the inner chain, and the only wires that cross the boundary: what the contract hands in and what the evaluation hands back, bundled by item kind.",
+         "the flows inside each chain, the parties, the parts and ports, the DSO as a parameter, and who performs which step (the two chapters before this one have them).",
+         nesting),
     View("assemblage", "The assemblage",
          "every party and every part of the testing organization, nested in the organization that holds it, with one bundled edge per pair of parts labelled by the item kinds that flow between them, and the sponsor's obligation to the affected populations dotted.",
          "the seam names and the ports (the wiring table has them, one row per port), and the order in which the items flow.",

@@ -23,13 +23,14 @@ quote them.
 :::{admonition} The specification
 :class: specification
 
-The layers, read from the model graph: the parties pin the first layer of
-assumptions; the {term}`Evaluation Process Ontology` is fixed across
-domains; the {term}`Domain-Specific Ontology` is its expert-supplied
-parameter; the assemblage of people and machines performs the one with the
-other; named humans interpret, and every judgment traces back.
+One view, read from the model graph, shows the nesting and nothing else:
+the outer chain with `fulfil` as a black box, the inner chain it opens
+into, and the only wires that cross the boundary. The contract hands in the
+agreement, the statement of work and the access; the evaluation hands back
+the report and the recommendation. Everything inside each chain is left
+out on purpose; the two chapters before this one draw it.
 
-```{include} ../generated/layers.md
+```{include} ../generated/nesting.md
 ```
 
 In SysML the outer cycle is an `action def` of seven steps in fixed

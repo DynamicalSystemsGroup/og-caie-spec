@@ -362,8 +362,8 @@ def main_all() -> int:
         ["ogc view evaluation", "ogc steps", "ogc sci SCI-06", "ogc term evidence", "ogc term determination", "ogc term attestation", "ogc term trajectory", "ogc rulings --term evidence", "ogc sparql"],
         ["model/og-caie.sysml", "model/og-caie.model.ttl", "vocabulary/epo.ttl", "shapes/epo.shapes.ttl (S1 to S8)", "shapes/model.shapes.ttl (M2 to M5)", "track/measles-run.ttl", "counterexamples/", "queries/coverage.rq", "queries/traceback.rq"]))
     (OUT / "more-model.md").write_text(render_more("model",
-        ["layers.md", "layers-walkthrough.md", "receipts.md"],
-        ["ogc view layers", "ogc view assemblage", "ogc steps", "ogc sci SCI-11", "ogc sparql --model"],
+        ["nesting.md", "layers-walkthrough.md", "receipts.md"],
+        ["ogc view nesting", "ogc view assemblage", "ogc steps", "ogc sci SCI-11", "ogc sparql --model"],
         ["model/og-caie.sysml", "model/og-caie.model.ttl", "model/model_manifest.json", "model/sysml_term_map.csv", "scripts/prune_model.py", "shapes/model.shapes.ttl (M4)", "shapes/epo.shapes.ttl (S0-Layers)"]))
     (OUT / "executor.md").write_text(render_executor())
     (OUT / "more-guarantees.md").write_text(render_more("guarantees",

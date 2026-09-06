@@ -41,8 +41,8 @@ def figure(view_name: str, g: Graph) -> str:
     return f"**View `{v.name}`: {v.title.lower()}.** {v.perspective()}\n\n" + views.mermaid(v.render(g))
 
 
-def render_layers() -> str:
-    return "## The layers\n\n" + figure("layers", graph())
+def render_nesting() -> str:
+    return figure("nesting", graph())
 
 
 def render_wiring() -> str:
@@ -157,7 +157,7 @@ def render_receipts() -> str:
 
 def main() -> int:
     OUT.mkdir(exist_ok=True)
-    (OUT / "layers.md").write_text(render_layers())
+    (OUT / "nesting.md").write_text(render_nesting())
     (OUT / "wiring.md").write_text(render_wiring())
     (OUT / "wiring-table.md").write_text(render_wiring_table())
     for ch in ("contracting", "evaluation"):
