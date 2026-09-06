@@ -1,0 +1,84 @@
+{
+ "artifact": {
+  "derived_triples": 174,
+  "path": "model/og-caie.model.ttl",
+  "sha256": "914b552fff115d509ebf90f2dd45e67dd883990ea84d1d94e4b6434686056da1",
+  "terms_used": [
+   "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>",
+   "ogm:consumerPort",
+   "ogm:endPart",
+   "ogm:first",
+   "ogm:resolvesTo",
+   "ogm:supplierPort",
+   "ogm:then",
+   "sysml:ActionDefinition",
+   "sysml:ActionUsage",
+   "sysml:AttributeUsage",
+   "sysml:Documentation",
+   "sysml:EnumerationDefinition",
+   "sysml:EnumerationUsage",
+   "sysml:FeatureChainExpression",
+   "sysml:FeatureReferenceExpression",
+   "sysml:InterfaceDefinition",
+   "sysml:InterfaceUsage",
+   "sysml:ItemDefinition",
+   "sysml:ItemUsage",
+   "sysml:LiteralBoolean",
+   "sysml:LiteralInfinity",
+   "sysml:LiteralInteger",
+   "sysml:LiteralString",
+   "sysml:Package",
+   "sysml:PartDefinition",
+   "sysml:PartUsage",
+   "sysml:PortDefinition",
+   "sysml:PortUsage",
+   "sysml:ReferenceUsage",
+   "sysml:SuccessionAsUsage",
+   "sysml:argument",
+   "sysml:body",
+   "sysml:declaredName",
+   "sysml:direction",
+   "sysml:isAbstract",
+   "sysml:isConjugated",
+   "sysml:isEnd",
+   "sysml:lowerBound",
+   "sysml:owner",
+   "sysml:qualifiedName",
+   "sysml:redefines",
+   "sysml:referent",
+   "sysml:specializes",
+   "sysml:targetFeature",
+   "sysml:type",
+   "sysml:upperBound",
+   "sysml:value",
+   "sysx:declaredPrefix",
+   "sysx:endIndex",
+   "sysx:relatedFeature",
+   "sysx:sourceText"
+  ],
+  "triples": 3005
+ },
+ "converter": {
+  "binary": "toolchain/bin/sysml",
+  "invocation": "-convert ttl",
+  "sha256": "a3298d68a08b863fba276bd6d0d72aad9947cdeb4b28103ce9b526400f8f475b"
+ },
+ "raw": {
+  "sha256": "8343fb5595f7dc1b36764699bb784686761c77ec22d1c0eba2f89ae558485bc1",
+  "triples": 10703
+ },
+ "source": {
+  "path": "model/og-caie.sysml",
+  "sha256": "b92eab22d8bc13eed8e5315d0168bb624b181972d39103ef3d06db3720be4f3e"
+ },
+ "term_map": {
+  "path": "model/sysml_term_map.csv",
+  "sha256": "43b4c775ff3376879e62ad0b72b660047aad9e4746cabd1cc6a7123b1035f5a6",
+  "terms": 50
+ },
+ "triple_budget": {
+  "headroom": 595,
+  "rationale": "Parsimony gate on the canonical model graph: the structure-only model plus resolved ends; bump with a rationale when a seam or a party is added.",
+  "value": 3600
+ }
+}

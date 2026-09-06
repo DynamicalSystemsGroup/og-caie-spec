@@ -1,0 +1,241 @@
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix sysml: <https://www.omg.org/spec/SysML#> .
+@prefix ogm:   <https://w3id.org/og-caie/model#> .
+@prefix ogc:   <https://w3id.org/og-caie/> .
+
+# Wiring rules over the canonical model graph (model/og-caie.model.ttl,
+# ruling R-22). These are the structural half of the essentials: what the
+# part defs and port defs must collectively provide so that a conformant
+# record yields the end state (SCI-10 to SCI-12). Value and provenance
+# rules over the record are in shapes/epo.shapes.ttl. Shapes target by
+# declared name, so a counterexample package can reuse them.
+
+ogc:M1-Parties a sh:NodeShape ;
+    sh:targetClass sysml:PartDefinition ;
+    sh:sparql [
+        sh:message "The assembly owns exactly one part typed by each of SponsorOrganization, TestingOrganization and AccountableOrganization (R-21)." ;
+        sh:select """
+            PREFIX sysml: <https://www.omg.org/spec/SysML#>
+            SELECT $this ?value WHERE {
+                $this sysml:declaredName "OgCaieEvaluation" .
+                { BIND("SponsorOrganization" AS ?value) } UNION { BIND("TestingOrganization" AS ?value) } UNION { BIND("AccountableOrganization" AS ?value) }
+                FILTER NOT EXISTS {
+                    ?u a sysml:PartUsage ; sysml:owner $this ; sysml:type ?t . ?t sysml:declaredName ?value .
+                }
+            }
+        """ ] ;
+    sh:sparql [
+        sh:message "The assembly owns a part typed AffectedPopulation with lower bound zero: populations are many and may be absent (R-21)." ;
+        sh:select """
+            PREFIX sysml: <https://www.omg.org/spec/SysML#>
+            SELECT $this WHERE {
+                $this sysml:declaredName "OgCaieEvaluation" .
+                FILTER NOT EXISTS {
+                    ?u a sysml:PartUsage ; sysml:owner $this ; sysml:type ?t ; sysml:lowerBound ?lb .
+                    ?t sysml:declaredName "AffectedPopulation" . ?lb sysml:value 0 .
+                }
+            }
+        """ ] .
+
+ogc:M2-Wiring a sh:NodeShape ;
+    sh:targetClass sysml:InterfaceUsage ;
+    sh:property [ sh:path ogm:supplierPort ; sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:message "An interface usage resolves to exactly one supplier (plain) port." ] ;
+    sh:property [ sh:path ogm:consumerPort ; sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:message "An interface usage resolves to exactly one consumer (conjugated) port." ] ;
+    sh:sparql [
+        sh:message "The supplier port's type is the interface definition's supplier end type." ;
+        sh:select """
+            PREFIX sysml: <https://www.omg.org/spec/SysML#>
+            PREFIX ogm: <https://w3id.org/og-caie/model#>
+            SELECT $this ?value WHERE {
+                $this sysml:type ?idef ; ogm:supplierPort ?sp .
+                ?end a sysml:PortUsage ; sysml:owner ?idef ; sysml:isEnd true ; sysml:type ?t .
+                FILTER NOT EXISTS { ?end sysml:isConjugated true }
+                ?sp sysml:type ?value . FILTER(?value != ?t)
+            }
+        """ ] ;
+    sh:sparql [
+        sh:message "The consumer port's type is the interface definition's consumer end type, conjugated." ;
+        sh:select """
+            PREFIX sysml: <https://www.omg.org/spec/SysML#>
+            PREFIX ogm: <https://w3id.org/og-caie/model#>
+            SELECT $this ?value WHERE {
+                $this sysml:type ?idef ; ogm:consumerPort ?cp .
+                ?end a sysml:PortUsage ; sysml:owner ?idef ; sysml:isEnd true ; sysml:isConjugated true ; sysml:type ?t .
+                ?cp sysml:type ?value . FILTER(?value != ?t)
+            }
+        """ ] .
+
+ogc:M2-PortConnectedOnce a sh:NodeShape ;
+    sh:targetClass sysml:PortUsage ;
+    sh:sparql [
+        sh:message "Every port of every part is an end of some interface usage: an unwired port is a fact with nowhere to go." ;
+        sh:select """
+            PREFIX sysml: <https://www.omg.org/spec/SysML#>
+            PREFIX ogm: <https://w3id.org/og-caie/model#>
+            SELECT $this WHERE {
+                FILTER NOT EXISTS { $this sysml:isEnd true }
+                FILTER NOT EXISTS { ?e ogm:resolvesTo $this }
+            }
+        """ ] ;
+    sh:sparql [
+        sh:message "No port is an end of two interface usages." ;
+        sh:select """
+            PREFIX sysml: <https://www.omg.org/spec/SysML#>
+            PREFIX ogm: <https://w3id.org/og-caie/model#>
+            SELECT $this WHERE {
+                ?e1 ogm:resolvesTo $this . ?e2 ogm:resolvesTo $this . FILTER(?e1 != ?e2)
+            }
+        """ ] .
+
+ogc:M3-RecordHub a sh:NodeShape ;
+    sh:targetClass sysml:PortDefinition ;
+    sh:sparql [
+        sh:message "Every item kind that crosses a seam reaches the recorder: the recorder owns a conjugated port of this type (R-17)." ;
+        sh:select """
+            PREFIX sysml: <https://www.omg.org/spec/SysML#>
+            SELECT $this WHERE {
+                FILTER NOT EXISTS { $this sysml:declaredName "RecordWrite" }
+                FILTER NOT EXISTS {
+                    ?p a sysml:PortUsage ; sysml:type $this ; sysml:isConjugated true ; sysml:owner ?rec .
+                    ?rec sysml:declaredName "Recorder" .
+                }
+            }
+        """ ] .
+
+ogc:M4-Steps a sh:NodeShape ;
+    sh:targetClass sysml:ActionDefinition ;
+    sh:sparql [
+        sh:message "The process owns exactly seven steps (R-21)." ;
+        sh:select """
+            PREFIX sysml: <https://www.omg.org/spec/SysML#>
+            SELECT $this (COUNT(?a) AS ?value) WHERE {
+                $this sysml:declaredName "EvaluationProcess" .
+                ?a a sysml:ActionUsage ; sysml:owner $this .
+            } GROUP BY $this HAVING (COUNT(?a) != 7)
+        """ ] ;
+    sh:sparql [
+        sh:message "The steps succeed one another in the fixed order agree, scope, declareRequirements, plan, execute, determineAndAttest, report." ;
+        sh:select """
+            PREFIX sysml: <https://www.omg.org/spec/SysML#>
+            PREFIX ogm: <https://w3id.org/og-caie/model#>
+            SELECT $this ?value WHERE {
+                $this sysml:declaredName "EvaluationProcess" .
+                { BIND("agree" AS ?a) BIND("scope" AS ?b) } UNION { BIND("scope" AS ?a) BIND("declareRequirements" AS ?b) }
+                UNION { BIND("declareRequirements" AS ?a) BIND("plan" AS ?b) } UNION { BIND("plan" AS ?a) BIND("execute" AS ?b) }
+                UNION { BIND("execute" AS ?a) BIND("determineAndAttest" AS ?b) } UNION { BIND("determineAndAttest" AS ?a) BIND("report" AS ?b) }
+                BIND(CONCAT(?a, " then ", ?b) AS ?value)
+                FILTER NOT EXISTS {
+                    ?s a sysml:SuccessionAsUsage ; sysml:owner $this ; ogm:first ?fa ; ogm:then ?tb .
+                    ?fa sysml:declaredName ?a . ?tb sysml:declaredName ?b .
+                }
+            }
+        """ ] .
+
+ogc:M4-EveryItemProduced a sh:NodeShape ;
+    sh:targetClass sysml:ItemDefinition ;
+    sh:sparql [
+        sh:message "Every item kind is an out parameter of some step of the process, or the process's own result: nothing in the record appears from nowhere." ;
+        sh:select """
+            PREFIX sysml: <https://www.omg.org/spec/SysML#>
+            SELECT $this WHERE {
+                FILTER NOT EXISTS {
+                    ?r a sysml:ReferenceUsage ; sysml:direction "out" ; sysml:type $this ; sysml:owner ?o .
+                    ?o sysml:owner* ?proc . ?proc a sysml:ActionDefinition .
+                }
+            }
+        """ ] .
+
+ogc:M5-Roles a sh:NodeShape ;
+    sh:targetClass sysml:Package ;
+    sh:sparql [
+        sh:message "The three actor categories are distinct part definitions of Person: DomainExpert, EvaluationOperator, AccountExecutive (R-10, R-23)." ;
+        sh:select """
+            PREFIX sysml: <https://www.omg.org/spec/SysML#>
+            SELECT $this ?value WHERE {
+                FILTER NOT EXISTS { $this sysml:owner ?parent }
+                { BIND("DomainExpert" AS ?value) } UNION { BIND("EvaluationOperator" AS ?value) } UNION { BIND("AccountExecutive" AS ?value) }
+                FILTER NOT EXISTS {
+                    ?d a sysml:PartDefinition ; sysml:owner $this ; sysml:declaredName ?value ; sysml:specializes ?p .
+                    ?p sysml:declaredName "Person" .
+                }
+            }
+        """ ] ;
+    sh:sparql [
+        sh:message "The testing organization holds an account executive and a team of at least one domain expert and one evaluation operator." ;
+        sh:select """
+            PREFIX sysml: <https://www.omg.org/spec/SysML#>
+            SELECT $this ?value WHERE {
+                FILTER NOT EXISTS { $this sysml:owner ?parent }
+                ?org a sysml:PartDefinition ; sysml:owner $this ; sysml:declaredName "TestingOrganization" .
+                { BIND("AccountExecutive" AS ?value) } UNION { BIND("DomainExpert" AS ?value) } UNION { BIND("EvaluationOperator" AS ?value) }
+                FILTER NOT EXISTS {
+                    ?u a sysml:PartUsage ; sysml:type ?t ; sysml:owner ?holder . ?t sysml:declaredName ?value .
+                    FILTER(?holder = ?org || EXISTS { ?tu a sysml:PartUsage ; sysml:owner ?org ; sysml:type ?holder })
+                }
+            }
+        """ ] .
+
+ogc:M5-Cardinality a sh:NodeShape ;
+    sh:targetClass sysml:PartDefinition ;
+    sh:sparql [
+        sh:message "The testing organization holds exactly one account executive (R-23)." ;
+        sh:select """
+            PREFIX sysml: <https://www.omg.org/spec/SysML#>
+            SELECT $this (COUNT(?u) AS ?value) WHERE {
+                $this sysml:declaredName "TestingOrganization" .
+                OPTIONAL { ?u a sysml:PartUsage ; sysml:owner $this ; sysml:type ?t . ?t sysml:declaredName "AccountExecutive" . }
+            } GROUP BY $this HAVING (COUNT(?u) != 1)
+        """ ] ;
+    sh:sparql [
+        sh:message "The evaluation team allows one or more domain experts and one or more operators: lower bound one, upper bound unbounded (R-23)." ;
+        sh:select """
+            PREFIX sysml: <https://www.omg.org/spec/SysML#>
+            SELECT $this ?value WHERE {
+                $this sysml:declaredName "EvaluationTeam" .
+                { BIND("DomainExpert" AS ?value) } UNION { BIND("EvaluationOperator" AS ?value) }
+                FILTER NOT EXISTS {
+                    ?u a sysml:PartUsage ; sysml:owner $this ; sysml:type ?t ; sysml:lowerBound ?lb ; sysml:upperBound ?ub .
+                    ?t sysml:declaredName ?value . ?lb sysml:value 1 . ?ub a sysml:LiteralInfinity .
+                }
+            }
+        """ ] .
+
+ogc:M5-PortsBelongToRoles a sh:NodeShape ;
+    sh:targetClass sysml:PortUsage ;
+    sh:sparql [
+        sh:message "DSO, appropriateness assessment, plan approval and attestation are supplied only by the domain expert (R-10, R-21)." ;
+        sh:select """
+            PREFIX sysml: <https://www.omg.org/spec/SysML#>
+            SELECT $this ?value WHERE {
+                FILTER NOT EXISTS { $this sysml:isEnd true } FILTER NOT EXISTS { $this sysml:isConjugated true }
+                $this sysml:type ?t ; sysml:owner ?o . ?t sysml:declaredName ?tn . ?o sysml:declaredName ?value .
+                FILTER(?tn IN ("DsoWrite", "AssessmentWrite", "PlanApprovalWrite", "AttestationWrite") && ?value != "DomainExpert")
+            }
+        """ ] ;
+    sh:sparql [
+        sh:message "Evidence is supplied only by the evaluation operator, and a person applies probes to the test item only as the evaluation operator (R-12, R-23)." ;
+        sh:select """
+            PREFIX sysml: <https://www.omg.org/spec/SysML#>
+            SELECT $this ?value WHERE {
+                FILTER NOT EXISTS { $this sysml:isEnd true } FILTER NOT EXISTS { $this sysml:isConjugated true }
+                $this sysml:type ?t ; sysml:owner ?o . ?t sysml:declaredName ?tn . ?o sysml:declaredName ?value .
+                OPTIONAL { ?o sysml:specializes ?k . ?k sysml:declaredName ?kind }
+                FILTER( (?tn = "EvidenceWrite" && ?value != "EvaluationOperator")
+                     || (?tn = "ProbeWrite" && ?kind = "Person" && ?value != "EvaluationOperator") )
+            }
+        """ ] ;
+    sh:sparql [
+        sh:message "The service agreement is supplied only by the sponsor and the account executive; the account executive has no evidence, determination or attestation port (R-23)." ;
+        sh:select """
+            PREFIX sysml: <https://www.omg.org/spec/SysML#>
+            SELECT $this ?value WHERE {
+                FILTER NOT EXISTS { $this sysml:isEnd true }
+                $this sysml:type ?t ; sysml:owner ?o . ?t sysml:declaredName ?tn . ?o sysml:declaredName ?value .
+                OPTIONAL { $this sysml:isConjugated ?c }
+                FILTER( (?tn = "AgreementWrite" && !BOUND(?c) && ?value NOT IN ("SponsorOrganization", "AccountExecutive"))
+                     || (?value = "AccountExecutive" && ?tn IN ("EvidenceWrite", "DeterminationWrite", "AttestationWrite")) )
+            }
+        """ ] .

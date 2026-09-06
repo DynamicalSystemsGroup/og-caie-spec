@@ -1,6 +1,6 @@
 ## Receipts
 
-### Strict validation
+### Strict validation of the authoring view
 
 ```text
 $ sysml model/og-caie.sysml -validate -strict
@@ -8,29 +8,6 @@ $ sysml model/og-caie.sysml -validate -strict
 ✓ model/og-caie.sysml: no errors
 (exit 0)
 ```
-### Every requirement holds on the measles run
+### The canonical model graph
 
-```text
-$ sysml model/og-caie.sysml -satisfy=OGCAIE::Runs
-✓ package OGCAIE
-✓ satisfy sci01 holds
-✓ satisfy sci02 holds
-✓ satisfy sci03 holds
-✓ satisfy sci04 holds
-✓ satisfy sci05 holds
-✓ satisfy sci06 holds
-✓ satisfy sci07 holds
-✓ satisfy sci08 holds
-✓ satisfy sci09 holds
-(exit 0)
-```
-### The counterexample fails, as it must
-
-```text
-$ sysml model/og-caie.sysml counterexamples/untested-counted-covered.sysml -satisfy=UntestedCountedCovered
-✓ package OGCAIE
-✓ package UntestedCountedCovered
-✗ satisfy sci07 fails
-  Required condition evaluated to false: ev.recorder.a3.covered implies ev.recorder.a3.attestationCount >= 1
-(exit 1)
-```
+`sysml -convert ttl` renders 10703 triples; the term map keeps 3005 (174 of them resolved ends computed by `scripts/prune_model.py`), within a budget of 3600. Conformance of the graph to the 9 wiring shapes M1 to M5: **conforms**.

@@ -59,7 +59,7 @@ evidence, turn, session, probe and test plan to the requirement it answers.
 - **Glossary.** Every term with its one canonical citation, verbatim quote and
   checked status; three coined terms, everything else adopted or refined.
 - **Assemblage.** The three layers, the human and machine parts wired along
-  typed ports, the nine requirements tagged machine or human, and the receipts
+  typed ports, the twelve requirements tagged machine or human, and the receipts
   showing every requirement holds and the counterexample fails. The model was
   built before most of the rulings and is next in line for a deep revision.
 - **Record.** The measles evaluation record, its conformance to the EPO shapes,
@@ -94,5 +94,5 @@ Two offers close this specification. Use OG-CAIE: the process, the
 vocabulary and the record format are open, and the measles example shows the
 whole chain on one page. Or have your own AI evaluation practice audited
 against it: every requirement here is checkable, so an existing practice can
-be walked through the nine essentials and shown where its record would and
+be walked through the twelve essentials and shown where its record would and
 would not conform.

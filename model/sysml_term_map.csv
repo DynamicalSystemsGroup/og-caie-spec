@@ -1,0 +1,51 @@
+term,kind,source,rationale
+Package,class,omg,the model's namespaces
+PartDefinition,class,omg,parties and machines
+PartUsage,class,omg,parts of the assembly and of organizations
+PortDefinition,class,omg,one per item kind that crosses a seam
+PortUsage,class,omg,ports on parts and the ends of interface defs
+InterfaceDefinition,class,omg,the seams
+InterfaceUsage,class,omg,the wiring of the assembly
+ActionDefinition,class,omg,the EPO
+ActionUsage,class,omg,the seven steps and the perform usage
+SuccessionAsUsage,class,omg,the order of the steps
+ItemDefinition,class,omg,the item kinds
+ItemUsage,class,omg,the item each port carries
+AttributeUsage,class,omg,name and version on parties
+ReferenceUsage,class,omg,out parameters of the steps and redefinitions in a run
+EnumerationDefinition,class,omg,outcome and step vocabularies
+EnumerationUsage,class,omg,enumeration values
+Documentation,class,omg,the model's own prose
+FeatureChainExpression,class,omg,an interface end path such as testingOrg.recorder.dsoIn
+FeatureReferenceExpression,class,omg,the root of an end path or a succession end
+LiteralInteger,class,omg,multiplicity bounds
+LiteralInfinity,class,omg,the star in a multiplicity
+LiteralString,class,omg,names bound in a run
+LiteralBoolean,class,omg,the two party facts bound in a run
+qualifiedName,predicate,omg,human-readable identity of every element
+declaredName,predicate,omg,the name a chain step resolves against
+owner,predicate,omg,containment (memberships themselves are pruned)
+type,predicate,omg,typing of usages by definitions
+specializes,predicate,omg,definition hierarchy (Party and its kinds)
+redefines,predicate,omg,bindings in a run
+isConjugated,predicate,omg,consumer ports
+isAbstract,predicate,omg,Party is abstract
+isEnd,predicate,omg,the ends of an interface def
+direction,predicate,omg,out parameters of the steps
+lowerBound,predicate,omg,multiplicity
+upperBound,predicate,omg,multiplicity
+value,predicate,omg,literal values of bounds and bindings
+argument,predicate,omg,the tail of an end path
+targetFeature,predicate,omg,the last step of an end path
+referent,predicate,omg,the root usage of an end path
+body,predicate,omg,documentation text
+relatedFeature,predicate,opensysml,the two ends of an interface usage or a succession
+sourceText,predicate,opensysml,the connect statement as written
+endIndex,predicate,opensysml,which end is which
+declaredPrefix,predicate,opensysml,the perform keyword
+resolvesTo,predicate,derived,the port a chain end resolves to (computed by scripts/prune_model.py)
+endPart,predicate,derived,the part usage that port sits on (computed)
+supplierPort,predicate,derived,the resolved non-conjugated end of an interface usage (computed)
+consumerPort,predicate,derived,the resolved conjugated end of an interface usage (computed)
+first,predicate,derived,the action a succession starts from (computed)
+then,predicate,derived,the action a succession leads to (computed)

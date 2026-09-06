@@ -30,8 +30,15 @@ sources and rulings borrowed from `mission-twin-glossary`.
   pairs are its **trajectory**; a test plan's means are probes or a **test
   strategy** (state feedback policy) (R-13).
 - Headword **test item**; prose may say system under test (R-19).
-- Two kinds of **technical expert** on the evaluation team: domain expert and
-  AI evaluation expert (R-10).
+- Three actor categories, all roles within the testing organization (R-10,
+  R-23): **domain expert** (DSO, appropriateness, plan approval, attestation),
+  **evaluation operator** (requirements, plan, probes, evidence,
+  recommendation; never attests) and one **account executive** (signs the
+  contract, delivers the report; never judges). Parties (R-21): sponsor
+  organization (customer), testing organization (provider), accountable
+  organization (first party), affected populations [0..*].
+- The worked example names Mala, Annie and Theo: synthetic case, real
+  people's roles recognised, no attestation made by them (R-23).
 - Prose: no em-dashes; short sentences; every glossary term used in docs
   must be in the glossary.
 
@@ -73,13 +80,29 @@ sources and rulings borrowed from `mission-twin-glossary`.
   substantive decision to Claude, and then only on that commit.
 - Commit on green; push redeploys GitHub Pages.
 
+## Model (R-22)
+
+- SysML is structure only: part defs, port defs, interface defs, the
+  seven-step action def, the assembly, and a run that binds names. No
+  requirement defs, no `-satisfy`, no value constraints (v0.4.3 cannot
+  quantify over collections anyway).
+- The canonical structure is the pruned RDF rendering
+  `model/og-caie.model.ttl` (`scripts/prune_model.py`: term map
+  `model/sysml_term_map.csv`, manifest, `TRIPLE_BUDGET` with a rationale,
+  pattern from ADCS-lifecycle-demo). Committed; the gate regenerates it
+  byte-identically. Wiring rules are SHACL M-shapes over that graph;
+  value and provenance rules are S-shapes over the record. The essentials
+  SCI-01..12 live in `model/trace.ttl`.
+- Adding a `sysml:` term to the graph means adding a row to the term map
+  with a rationale; a bigger graph means bumping the budget with one.
+
 ## Toolchain
 
-- OpenSysML v0.4.3 pinned by digest (`toolchain/`). `-validate -strict`
-  accepts `action def` with bare `first A then B;` successions, but
-  `-satisfy` then fails on a `perform action` with "action has multiple
-  initial nodes"; write successions as `succession first A then B;` (or the
-  `then action` chaining form), which both validate and satisfy.
-  `interface` usages must be declared before `part` usages in an assembly;
-  `-satisfy` on a package with no verification def exits 2; check the exit
-  code of the sysml process itself, never of a pipeline after it.
+- OpenSysML v0.4.3 pinned by digest (`toolchain/`). `-validate -strict`;
+  `-convert ttl` writes Turtle to stdout, deterministically, using the OMG
+  `sysml:` vocabulary plus `sysx:` for tool-specific facts (interface ends
+  as `sysx:relatedFeature` feature-chain expressions). SHACL-SPARQL
+  constraints may not contain VALUES; use BIND unions. Write successions
+  as `succession first A then B;`; `interface` usages must be declared
+  before `part` usages in an assembly; check the exit code of the sysml
+  process itself, never of a pipeline after it.

@@ -2,9 +2,13 @@
 
 ```{mermaid}
 flowchart TB
+  subgraph PARTIES["Parties: AccountableOrganization, SponsorOrganization, TestingOrganization; affected populations"]
+    direction LR
+    agree[service agreement] --> reqs[requirement set]
+  end
   subgraph EPO["Evaluation Process Ontology: the standard operating procedure, fixed across domains"]
     direction LR
-    s0[scope] --> s1[declareRequirements] --> s2[deriveProbes] --> s3[runAndAttest] --> s4[report]
+    s0[agree] --> s1[scope] --> s2[declareRequirements] --> s3[plan] --> s4[execute] --> s5[determineAndAttest] --> s6[report]
   end
   subgraph DSO["Domain-Specific Ontology: the expert-supplied parameter, one per domain"]
     direction LR
@@ -12,14 +16,14 @@ flowchart TB
   end
   subgraph EXEC["Execution: the human and machine assemblage performs EPO with DSO"]
     direction LR
-    H["humans: DomainExpert, Evaluator, Sponsor"]
-    M["machines: SystemUnderTest, ProbeDeriver, ConformanceChecker, Recorder, CoverageCalculator"]
+    H["people: AccountExecutive, DomainExpert, EvaluationOperator, Person"]
+    M["machines: ConformanceChecker, CoverageCalculator, Machine, ProbeDeriver, Recorder, TestItem"]
     H --- rec[(evaluation record)]
     M --- rec
   end
   subgraph INTERP["Interpretation: named humans judge; every judgment traces back"]
     direction LR
-    det[determinations on evidence: met, not met, cannot tell] --> att[attestations: outcome, appropriateness, sufficiency]
+    det[determinations on evidence: passed, failed, cantTell] --> att[attestations: outcome, appropriateness, sufficiency]
     att --> recmd[recommendation]
     recmd -. evidence collected .-> rec
     recmd -. experiments run: sessions, turns, probes under the test plan .-> rec
@@ -27,6 +31,7 @@ flowchart TB
     recmd -. DSO release and who approved it .-> dso
     recmd -. EPO step .-> EPO
   end
+  PARTIES ==> EPO
   EPO ==> EXEC
   DSO ==> EXEC
   EXEC ==> INTERP

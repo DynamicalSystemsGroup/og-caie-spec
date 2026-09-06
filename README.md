@@ -10,7 +10,7 @@ deployed AI system against the needs of a specific domain, written down as:
   SEVOCAB, NIST AI 700-2, W3C), with exactly three coined terms;
 - a **SysML v2 model** (OpenSysML v0.4.3) of the Evaluation Process Ontology
   as a standard operating procedure and of the human and machine assemblage
-  that runs it, with nine requirements each tagged machine-verified or
+  that runs it, with twelve requirements each tagged machine-verified or
   human-validated;
 - one **evaluation record** (PROV-O + EARL) of the measles chatbot example,
   checked by SHACL shapes, with counterexamples that must fail;
