@@ -12,6 +12,7 @@ project:
       affiliations:
         - Dynamical Systems Group
     - name: Julie Hollek
+      orcid: 0000-0003-1455-8542
       affiliations:
         - Humane Intelligence
   license: CC-BY-SA-4.0
