@@ -1,0 +1,82 @@
+# Contracting
+
+An evaluation is work done under a contract. Before any test runs, a
+{term}`customer` has stated a need, a {term}`provider` has answered it, the
+two have signed, and the organization accountable for the {term}`test item`
+has opened it up. After the last attestation, the provider delivers and the
+customer accepts. This chapter is that outer cycle: who the parties are,
+what the standards call each step, what the contract pins, and how the
+measles case walked through it.
+
+:::{admonition} What the standards say
+:class: standards
+
+Three organizations are parties. The sponsor is ISO 9000's customer, the
+testing organization its provider, and the organization that provides the
+test item is ISO/IEC 17000's first party; a sponsor with a user interest is
+a second party, and a testing organization working on its behalf performs a
+second-party activity even when independent of the provider. Affected
+stakeholders are populations, interviewed or represented. The six steps are
+the standards' own, none coined here:
+
+```{include} ../generated/steps-contracting.md
+```
+:::
+
+:::{admonition} The specification
+:class: specification
+
+Four parties, three actor categories within the testing organization, and
+the wires between them. The sponsor states the need and receives the
+proposal; the account executive answers, countersigns and, at the end,
+delivers; the accountable organization grants access; every item reaches
+the recorder. Input wires are unique, output wires fan out, and each wire
+carries one item kind. In the model this cycle is the outer action def, and
+its `fulfil` step is the whole evaluation as a black box.
+
+```{include} ../generated/wiring-contracting.md
+```
+
+What the contract pins is the first layer of assumptions: the
+counterparties, the test item, the frame of the requirements and the
+method. The evaluation takes them as given and cannot change them. The
+essentials this chapter states:
+
+```{include} ../generated/sci-contracting.md
+```
+:::
+
+:::{admonition} The walkthrough
+:class: walkthrough
+
+The county public-health office needed to know whether its chatbot could
+give measles advice to the public. Humane Intelligence proposed an OG-CAIE
+evaluation; Mala signed for it on 31 July with the county; the chatbot's
+vendor opened API access to version 1 the same day. Two populations were
+affected: commuters, who were interviewed, and county residents, whom Annie
+represents. After the evaluation, Mala delivered the report and the
+recommendation on 12 August and the county accepted on 14 August. The case
+is synthetic; the names recognise real roles, and no signature or
+attestation here was made by those people.
+
+```{include} ../generated/record-contracting.md
+```
+:::
+
+:::{admonition} Checked
+:class: checked
+
+Shapes S0-Parties, S0-Access, S0-Population, S0-Need, S0-Proposal, S0-Layers
+and S9-Acceptance run over the record; M1-Parties and M5-Cardinality run
+over the model graph. The record conforms. Two counterexamples fail where
+they must: a requirement set declared before the agreement was signed fails
+the layer rule, and an affected population neither interviewed nor
+represented fails S0-Population.
+:::
+
+:::{admonition} There is more in the model
+:class: more
+
+```{include} ../generated/more-contracting.md
+```
+:::

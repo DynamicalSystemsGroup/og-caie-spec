@@ -186,6 +186,79 @@ def render_wiring_table() -> str:
     return "\n".join(lines) + "\n"
 
 
+CONTRACT_KINDS = {"Need", "Proposal", "ServiceAgreement", "TestItemAccess", "Delivery", "Acceptance", "StakeholderInput"}
+
+
+def seam_chapter(g, s) -> str:
+    """A seam belongs to the contracting chapter when the item it carries is pinned at the contract (or is a population's input)."""
+    sp = g.value(s, OGM.supplierPort)
+    ptype = g.value(sp, SYS.type)
+    item = next((name(g, g.value(u, SYS.type)) for u in g.subjects(SYS.owner, ptype) if (u, RDF.type, SYS.ItemUsage) in g), "")
+    return "contracting" if item in CONTRACT_KINDS else "evaluation"
+
+
+def render_wiring_chapter(chapter: str) -> str:
+    g = graph()
+    assembly = definitions(g, SYS.PartDefinition)["OgCaieEvaluation"]
+    tree = list(part_tree(g, assembly))
+    seams = [s for s in sorted(g.subjects(RDF.type, SYS.InterfaceUsage), key=lambda s: name(g, s)) if seam_chapter(g, s) == chapter]
+    used = set()
+    for s in seams:
+        for port in (g.value(s, OGM.supplierPort), g.value(s, OGM.consumerPort)):
+            used.add(next(p for p, u, d in tree if d == g.value(port, SYS.owner)))
+    ids = {}
+    classes = {"person": [], "machine": [], "party": []}
+    lines = ["flowchart LR"]
+    for path, u, d in tree:
+        if path not in used:
+            continue
+        nid = path.replace(".", "_")
+        ids[path] = nid
+        k = kind_of(g, d)
+        label = f"{name(g, u)} : {name(g, d)}"
+        shape = {"person": f'{nid}(["{label}"])', "machine": f'{nid}[["{label}"]]', "party": f'{nid}{{{{"{label}"}}}}'}.get(k, f'{nid}["{label}"]')
+        lines.append("  " + shape)
+        if k in classes:
+            classes[k].append(nid)
+    for s in seams:
+        sp, cp = g.value(s, OGM.supplierPort), g.value(s, OGM.consumerPort)
+        src = next(p for p, u, d in tree if d == g.value(sp, SYS.owner))
+        dst = next(p for p, u, d in tree if d == g.value(cp, SYS.owner))
+        lines.append(f'  {ids[src]} -- "{name(g, s)}" --> {ids[dst]}')
+    lines.append("  classDef person fill:#e8f5e9,stroke:#2e7d32;")
+    lines.append("  classDef machine fill:#fce4ec,stroke:#ad1457;")
+    lines.append("  classDef party fill:#fff8e1,stroke:#f9a825,stroke-dasharray: 4 4;")
+    for k in ("person", "machine", "party"):
+        if classes[k]:
+            lines.append(f"  class {','.join(classes[k])} {k};")
+    return mermaid("\n".join(lines))
+
+
+def render_wiring_table_chapter(chapter: str) -> str:
+    g = graph()
+    rows = list(g.query((ROOT / "queries" / "wiring.rq").read_text()))
+    seams = {name(g, s) for s in g.subjects(RDF.type, SYS.InterfaceUsage) if seam_chapter(g, s) == chapter}
+    lines = ["| Part | Port | Direction | Carries | Wire | Other end |", "|---|---|---|---|---|---|"]
+    for r in rows:
+        if str(r.wire) not in seams:
+            continue
+        arrow = "from" if str(r.direction) == "in" else "to"
+        lines.append(f"| {r.part} | {r.port} | {r.direction} | {r.carries} | {r.wire} | {arrow} {r.otherPart}.{r.otherPort} |")
+    return "\n".join(lines) + "\n"
+
+
+def render_sci_chapter(chapter: str) -> str:
+    g = trace_graph()
+    lines = ["| ID | Statement | Checked by |", "|---|---|---|"]
+    for t in sorted(g.subjects(RDF.type, OGC.Trace), key=str):
+        if str(g.value(t, OGC.page)) != chapter:
+            continue
+        sid = str(t).rsplit("#", 1)[-1]
+        shapes = ", ".join(sorted(str(s).rsplit("/", 1)[-1] for s in g.objects(t, OGC.checkedBy)))
+        lines.append(f"| {sid} | {g.value(t, RDFS.comment)} | {shapes} |")
+    return "\n".join(lines) + "\n"
+
+
 def trace_graph() -> Graph:
     g = Graph()
     for f in ("model/trace.ttl", "vocabulary/og-caie.ttl", "sources/sources.ttl", "rulings/adjudications.ttl"):
@@ -249,6 +322,11 @@ def main() -> int:
     (OUT / "layers.md").write_text(render_layers())
     (OUT / "wiring.md").write_text(render_wiring())
     (OUT / "wiring-table.md").write_text(render_wiring_table())
+    for ch in ("contracting", "evaluation"):
+        (OUT / f"wiring-{ch}.md").write_text(render_wiring_chapter(ch))
+        (OUT / f"wiring-table-{ch}.md").write_text(render_wiring_table_chapter(ch))
+    for ch in ("contracting", "evaluation", "guarantees"):
+        (OUT / f"sci-{ch}.md").write_text(render_sci_chapter(ch))
     (OUT / "sci.md").write_text(render_sci())
     (OUT / "receipts.md").write_text(render_receipts())
     (OUT / "trace.md").write_text(render_trace())

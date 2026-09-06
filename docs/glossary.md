@@ -8,16 +8,17 @@ exhaustive. It lists exactly the terms this site uses. The full register of
 
 ## The map of the site
 
-- **Glossary**, this chapter: the terms, their canonical definitions, and
-  the sources they rest on.
-- **Assemblage**: the human and machine parts of an evaluation wired along
-  typed ports, the two cycles, and the wiring rules. It is being
-  divided into two chapters, the contracting of an evaluation and the
-  evaluation itself.
-- **Record**: the measles evaluation record, its conformance to the process
-  shapes, coverage recomputed by query, and the recommendation traced back.
-- **Rulings**: every interpretive choice, in the adjudicator's words.
-- **Conclusion**: what the specification encodes, in the front page's terms.
+Eight pages, each a view of the model in the repository. The front page
+sets the bar for science in plain terms and crosses the bridge into the
+standards;
+this page gives the terms and the two cycles; **Contracting** is the outer
+cycle, from need to acceptance; **The evaluation** is the inner cycle,
+scope to report; **The nested model** shows why the two are one model; **What
+the record proves** runs the checks; **Rulings** is the judgment record;
+the **Conclusion** returns to the front page's terms. Each chapter from Contracting on keeps
+one rhythm: what the standards say, the specification, the walkthrough,
+what was checked, and there is more in the model. The assemblage and record
+pages remain until their chapters are written.
 
 ## Vocabulary discipline
 

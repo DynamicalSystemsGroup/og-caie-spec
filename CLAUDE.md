@@ -59,6 +59,23 @@ sources and rulings borrowed from `mission-twin-glossary`.
   ordinary words (a test bans only the name and falsifiability's forms; the
   sense rule is read). Chapters are scoped one at a time, working forward.
 
+## Presentation over representation (R-34)
+
+- The site is a view; the repository is the model. Nothing on a page may
+  say what the graphs cannot answer by query; numbers and tables come from
+  `generated/` fragments, never typed by hand.
+- Chapter pages (contracting, evaluation, model, guarantees) follow five
+  titled admonition blocks in order: What the standards say; The
+  specification; The walkthrough; Checked; There is more in the model.
+  Specification and walkthrough always appear as a pair; the walkthrough is
+  the measles record for exactly the rule the specification states.
+- Calibrated for a human reader: one rule, one table, one concrete row a
+  reader can hold in mind; everything larger lives behind "there is more
+  in the model" and is reached by `ogc` or the files. 400 to 1,400 words of
+  prose per chapter page, tested.
+- Every SCI carries `ogc:page` (contracting, evaluation, guarantees) and is
+  rendered on that page only.
+
 ## Ask the graph, never grep it
 
 - `uv run -q ogc <command>` (schema, find, term, define, quote, verify,

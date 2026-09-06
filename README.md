@@ -19,7 +19,7 @@ deployed AI system against the needs of a specific domain, written down as:
 ## Status (2026-09-06)
 
 - **Glossary: ratified.** 59 terms, 4 coined (DSO, EPO, CAIE, OG-CAIE),
-  settled through 33 rulings (R-01 to R-33) recorded verbatim in
+  settled through 34 rulings (R-01 to R-34) recorded verbatim in
   `rulings/adjudications.ttl`. 59 quotes are machine-located in content-hashed
   snapshots, 31 verified by Z against the ISO screenshots or the browsing
   platforms. No quote is pending. Concerns C-25 and C-26 are open.
@@ -33,6 +33,12 @@ deployed AI system against the needs of a specific domain, written down as:
   acceptance, ISO 9000's contract and the 29119-2 test environment and
   completion report; every item kind says which layer pins it. Nine ISO/IEC
   17000 quotes await Z's tick on rulings sheet 04.
+- **Site: a presentation layer over the model (R-34), eight pages, built one
+  chapter at a time.** Each chapter pairs the specification with the measles
+  walkthrough in five fixed blocks and closes with the separation principle.
+  Contracting is written; the evaluation, the nested model and the executed
+  guarantees page follow. Rulings sheet 05, generated from the model graph,
+  lists every block and wire for Z's validation (C-30).
 - **Site: being restructured one chapter at a time (R-29).** The front page
   runs from why this counts as science to the bridge into the engineering
   standards and ends at the Popper crosswalk; the glossary page shows exactly

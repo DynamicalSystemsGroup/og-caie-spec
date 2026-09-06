@@ -1,0 +1,26 @@
+| Part | Port | Direction | Carries | Wire | Other end |
+|---|---|---|---|---|---|
+| AccountExecutive | acceptanceIn | in | AcceptanceWrite | acceptanceToExecutiveSeam | from SponsorOrganization.acceptanceOut |
+| AccountExecutive | agreementIn | in | AgreementWrite | agreementSeam | from SponsorOrganization.agreementOut |
+| AccountExecutive | needIn | in | NeedWrite | needToExecutiveSeam | from SponsorOrganization.needOut |
+| AccountExecutive | agreementOut | out | AgreementWrite | countersignSeam | to Recorder.agreementIn |
+| AccountExecutive | deliveryOut | out | DeliveryWrite | deliveryRecordSeam | to Recorder.deliveryIn |
+| AccountExecutive | deliveryOut | out | DeliveryWrite | deliverySeam | to SponsorOrganization.deliveryIn |
+| AccountExecutive | proposalOut | out | ProposalWrite | proposalSeam | to Recorder.proposalIn |
+| AccountExecutive | proposalOut | out | ProposalWrite | proposalToSponsorSeam | to SponsorOrganization.proposalIn |
+| AccountableOrganization | accessOut | out | AccessWrite | accessSeam | to Recorder.accessIn |
+| AffectedPopulation | inputOut | out | StakeholderInputWrite | stakeholderInputSeam | to Recorder.inputIn |
+| Recorder | acceptanceIn | in | AcceptanceWrite | acceptanceSeam | from SponsorOrganization.acceptanceOut |
+| Recorder | accessIn | in | AccessWrite | accessSeam | from AccountableOrganization.accessOut |
+| Recorder | agreementIn | in | AgreementWrite | countersignSeam | from AccountExecutive.agreementOut |
+| Recorder | deliveryIn | in | DeliveryWrite | deliveryRecordSeam | from AccountExecutive.deliveryOut |
+| Recorder | inputIn | in | StakeholderInputWrite | stakeholderInputSeam | from AffectedPopulation.inputOut |
+| Recorder | needIn | in | NeedWrite | needSeam | from SponsorOrganization.needOut |
+| Recorder | proposalIn | in | ProposalWrite | proposalSeam | from AccountExecutive.proposalOut |
+| SponsorOrganization | deliveryIn | in | DeliveryWrite | deliverySeam | from AccountExecutive.deliveryOut |
+| SponsorOrganization | proposalIn | in | ProposalWrite | proposalToSponsorSeam | from AccountExecutive.proposalOut |
+| SponsorOrganization | acceptanceOut | out | AcceptanceWrite | acceptanceSeam | to Recorder.acceptanceIn |
+| SponsorOrganization | acceptanceOut | out | AcceptanceWrite | acceptanceToExecutiveSeam | to AccountExecutive.acceptanceIn |
+| SponsorOrganization | agreementOut | out | AgreementWrite | agreementSeam | to AccountExecutive.agreementIn |
+| SponsorOrganization | needOut | out | NeedWrite | needSeam | to Recorder.needIn |
+| SponsorOrganization | needOut | out | NeedWrite | needToExecutiveSeam | to AccountExecutive.needIn |

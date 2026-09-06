@@ -10,7 +10,7 @@ from rdflib import Namespace
 
 SKOS = Namespace("http://www.w3.org/2004/02/skos/core#")
 PROSE = [ROOT / "index.md", *sorted((ROOT / "docs").glob("*.md")), ROOT / "README.md"]
-WORD_BUDGET = 4000
+WORD_BUDGET = 5500  # raised 2026-09-06 while the assemblage and record pages coexist with the new chapters
 RETIRED = {"adequacy", "adequate", "inadequate"}
 
 
@@ -87,3 +87,31 @@ def test_term_roles_resolve_and_key_terms_match():
 def test_word_budget():
     words = sum(len(p.read_text().split()) for p in PROSE if p.name != "README.md")
     assert words < WORD_BUDGET, words
+
+
+PATTERN = ["What the standards say", "The specification", "The walkthrough", "Checked", "There is more in the model"]
+CHAPTERS = ["contracting.md"]  # evaluation, model and guarantees join as their slices land
+
+
+def test_chapter_pages_follow_the_pattern():
+    """R-34: every chapter pairs the formal specification with the concrete
+    walkthrough in five titled blocks, in order, and closes with the
+    separation principle."""
+    for name in CHAPTERS:
+        text = (ROOT / "docs" / name).read_text()
+        positions = [text.find(f":::{{admonition}} {title}") for title in PATTERN]
+        assert all(p >= 0 for p in positions), (name, dict(zip(PATTERN, positions)))
+        assert positions == sorted(positions), name
+        prose = re.sub(r"```\{include\}[^\n]*\n```", "", text)
+        words = len(prose.split())
+        assert 400 <= words <= 1400, (name, words)
+
+
+def test_every_essential_has_a_page_and_each_chapter_shows_its_own():
+    g = load("model/trace.ttl")
+    from conftest import OGC as O
+    pages = {str(t).rsplit("#", 1)[-1]: str(g.value(t, O.page)) for t in g.subjects(RDF.type, O.Trace)}
+    assert set(pages.values()) <= {"contracting", "evaluation", "guarantees"}, pages
+    frag = (ROOT / "generated" / "sci-contracting.md").read_text()
+    for sid, pg in pages.items():
+        assert (sid in frag) == (pg == "contracting"), sid

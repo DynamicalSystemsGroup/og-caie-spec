@@ -44,6 +44,7 @@ project:
   toc:
     - file: index.md
     - file: docs/glossary.md
+    - file: docs/contracting.md
     - file: docs/assemblage.md
     - file: docs/record.md
     - file: docs/rulings.md

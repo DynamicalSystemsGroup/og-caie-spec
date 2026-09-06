@@ -6,8 +6,8 @@ from rdflib import RDF
 
 from conftest import OGC, load
 
-CONCERNS = 36
-RULINGS = 33
+CONCERNS = 37
+RULINGS = 34
 
 
 def test_rulings_conform_to_shapes(rulings):
