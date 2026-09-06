@@ -12,7 +12,7 @@ Intelligence and Dynamical Systems Group use to evaluate a deployed AI system
 against the needs of a specific domain. This site is the specification of
 that process in a form a machine can check and a person can read. It is a
 collaboration between Dynamical Systems Group and Humane Intelligence,
-co-authored by Michael Zargham and Julie Hollek, and should be cited as such.
+co-authored by Michael Zargham and Julie Hollek.
 
 It is deliberately small. It asks one question: what is *essential* for an
 evaluation of this kind to count as science? The answer is a short list of
