@@ -8,9 +8,12 @@ chosen from the highest-ranked source that defines it:
 3. **NIST AI 700-2**, the ARIA pilot evaluation report, for the AI-evaluation terms;
 4. **W3C** specifications (PROV-O, EARL, SHACL, SKOS) for the technical binding only, never for a narrative definition.
 
-A few single-purpose sources sit in reserve (ISO/IEC 17000 for *attestation*,
-Hawkins, Kelly, Knight and Graydon 2011 for *appropriateness* and *sufficiency*,
-Gruber 1993 and Hogan et al. 2021 for *ontology* and *knowledge graph*).
+A few single-purpose sources sit in reserve: ISO/IEC 17000 for *attestation*;
+Hawkins, Kelly, Knight and Graydon 2011 for *appropriateness* and *sufficiency*;
+Gruber 1993 and Hogan et al. 2021 for *ontology* and *knowledge graph*; IEC
+60050-351, the control-technology vocabulary, for *trajectory* and the feedback
+reading of a *test strategy*; and the VIM (JCGM 200:2012), restated by NIST TN
+1297, for *repeatability*, *reproducibility* and *measurement uncertainty*.
 
 Three classes of term. **Adopted** terms are used exactly as the source
 defines them. **Refined** terms carry a typed anchor to a standard term and

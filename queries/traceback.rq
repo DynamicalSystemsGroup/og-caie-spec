@@ -1,5 +1,6 @@
 # The facets every recommendation must trace to: the evidence, the experiments
-# run (which probe under which test plan, against what, by whom), the
+# run (which probe at which turn of which session, under which test plan,
+# against what, by whom), the
 # assessments made (and who made them, against which expected result), the
 # DSO release selected (and who approved it), and the EPO step. Ruling R-12:
 # the chain requirement, criterion, plan, probe, run, evidence, attestation.
@@ -7,7 +8,7 @@ PREFIX epo:  <https://w3id.org/og-caie/epo#>
 PREFIX earl: <http://www.w3.org/ns/earl#>
 PREFIX prov: <http://www.w3.org/ns/prov#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-SELECT ?recommendation ?author ?step ?attestation ?assertor ?criterion ?expected ?outcome ?evidence ?run ?operator ?sut ?probe ?plan ?dso ?dsoApprover
+SELECT ?recommendation ?author ?step ?attestation ?assertor ?criterion ?expected ?outcome ?evidence ?run ?turnIndex ?operator ?sut ?probe ?plan ?dso ?dsoApprover
 WHERE {
   ?recommendation a epo:Recommendation ;
       prov:wasAttributedTo ?authorNode ; epo:step ?stepNode ;
@@ -24,8 +25,9 @@ WHERE {
   ?plan a epo:TestPlan ; epo:means ?probe .
   ?recommendation prov:wasDerivedFrom ?plan .
   BIND(STRAFTER(STR(?outcomeNode), "#") AS ?outcome)
-  ?evidence a epo:Evidence ; prov:wasGeneratedBy ?run .
-  ?run prov:used ?probe ; prov:wasAssociatedWith ?operatorNode ; prov:wasAssociatedWith ?sutNode .
+  ?evidence a epo:Evidence ; prov:wasGeneratedBy ?turn .
+  ?turn a epo:Turn ; prov:used ?probe ; epo:inSession ?run ; epo:turnIndex ?turnIndex .
+  ?run a epo:Session ; prov:wasAssociatedWith ?operatorNode ; prov:wasAssociatedWith ?sutNode .
   ?operatorNode a prov:Person ; rdfs:label ?operator .
   ?sutNode a prov:SoftwareAgent ; rdfs:label ?sut .
   ?dso a epo:DsoRelease ; epo:approvedBy ?approverNode .

@@ -29,7 +29,9 @@ epo:DsoRelease a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "DSO relea
 epo:RequirementSet a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "requirement set (operational envelope)" .
 epo:Requirement a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "requirement" .
 epo:AcceptanceCriterion a owl:Class ; rdfs:subClassOf prov:Entity, earl:TestCriterion ; rdfs:label "acceptance criterion" .
-epo:TestPlan a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "test plan (objectives: criteria; means: probes with expected results)" .
+epo:TestPlan a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "test plan (objectives: criteria; means: probes, or a strategy that chooses them)" .
+epo:Strategy a owl:Class ; rdfs:subClassOf prov:Plan, prov:Entity ; rdfs:label "test strategy (SEVOCAB 29119-2): a state feedback policy that chooses the next probe from the trajectory so far, grounded in the DSO (R-13)" .
+epo:Trajectory a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "trajectory: the ordered prompt-response pairs of a session, the observable realization (IEC 60050-351 351-41-10, refined; R-13)" .
 epo:Probe a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "probe" .
 epo:Evidence a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "evidence" .
 epo:Report a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "report" .
@@ -38,7 +40,8 @@ epo:Recommendation a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "recom
 # ---- doings (prov:Activity), two of them also EARL assertions
 epo:ProbeDerivation a owl:Class ; rdfs:subClassOf prov:Activity ; rdfs:label "probe derivation" .
 epo:ConsistencyCheck a owl:Class ; rdfs:subClassOf earl:Assertion, prov:Activity ; rdfs:label "automatic consistency check of a probe" .
-epo:ProbeRun a owl:Class ; rdfs:subClassOf prov:Activity ; rdfs:label "probe run (a test)" .
+epo:Session a owl:Class ; rdfs:subClassOf prov:Activity ; rdfs:label "session (NIST AI 700-2): one tester, one system under test, a sequence of turns; the test execution" .
+epo:Turn a owl:Class ; rdfs:subClassOf prov:Activity ; rdfs:label "turn: one probe applied within a session, producing one response" .
 epo:Attestation a owl:Class ; rdfs:subClassOf earl:Assertion, prov:Activity ; rdfs:label "attestation" .
 epo:CoverageComputation a owl:Class ; rdfs:subClassOf prov:Activity ; rdfs:label "coverage computation" .
 
@@ -52,7 +55,12 @@ epo:weight a owl:DatatypeProperty ; rdfs:domain epo:AcceptanceCriterion ; rdfs:r
 epo:minPassRate a owl:DatatypeProperty ; rdfs:domain epo:AcceptanceCriterion ; rdfs:range xsd:decimal .
 epo:expectedResult a owl:DatatypeProperty ; rdfs:domain epo:AcceptanceCriterion ; rdfs:range xsd:string ; rdfs:comment "SEVOCAB expected results: the observable predicted behavior that would show the criterion met (ruling R-12)" .
 epo:objective a owl:ObjectProperty ; rdfs:domain epo:TestPlan ; rdfs:range epo:AcceptanceCriterion ; rdfs:comment "SEVOCAB test plan: the test objectives to be achieved" .
-epo:means a owl:ObjectProperty ; rdfs:domain epo:TestPlan ; rdfs:range epo:Probe ; rdfs:comment "SEVOCAB test plan: the means for achieving them" .
+epo:means a owl:ObjectProperty ; rdfs:domain epo:TestPlan ; rdfs:comment "SEVOCAB test plan: the means for achieving them; a Probe or a Strategy (R-13)" .
+epo:inSession a owl:ObjectProperty ; rdfs:domain epo:Turn ; rdfs:range epo:Session .
+epo:turnIndex a owl:DatatypeProperty ; rdfs:domain epo:Turn ; rdfs:range xsd:integer ; rdfs:comment "1-based position in the session's trajectory" .
+epo:policy a owl:DatatypeProperty ; rdfs:domain epo:Strategy ; rdfs:range xsd:string ; rdfs:comment "the rule that maps the trajectory so far to the next probe; may name a person's exploratory testing" .
+epo:groundedIn a owl:ObjectProperty ; rdfs:domain epo:Strategy ; rdfs:range epo:DsoRelease .
+epo:turns a owl:DatatypeProperty ; rdfs:domain epo:Trajectory ; rdfs:range xsd:integer .
 epo:underPlan a owl:ObjectProperty ; rdfs:subPropertyOf prov:used ; rdfs:domain epo:Attestation ; rdfs:range epo:Probe ; rdfs:comment "the probe, under the test plan, whose run produced the evidence this attestation interprets" .
 epo:exercises a owl:ObjectProperty ; rdfs:domain epo:Probe ; rdfs:range epo:AcceptanceCriterion .
 epo:derivedFromDso a owl:ObjectProperty ; rdfs:subPropertyOf prov:wasDerivedFrom ; rdfs:domain epo:Probe ; rdfs:range epo:DsoRelease .

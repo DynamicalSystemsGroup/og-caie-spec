@@ -152,12 +152,27 @@ package OGCAIE {
         attribute derivedAt : ScalarValues::Real;
     }
 
+    item def Session {
+        doc /* NIST AI 700-2: one tester paired with one system under test;
+           the test execution. Sessions are stateful: a sequence of turns
+           forms a trajectory (IEC 60050-351 351-41-10, refined), and a
+           test strategy may choose each next probe from the trajectory so
+           far (ruling R-13). Replicate sessions under repeatability
+           conditions (VIM 2.20) turn a probe into a pass rate. */
+        attribute id : ScalarValues::String;
+        attribute turns : ScalarValues::Integer;
+        attribute startedAt : ScalarValues::Real;
+    }
+
     item def Evidence {
         doc /* Objective evidence (ISO 9000:2026 3.8.6): what the system
-           under test produced when a probe was run against it, with the
-           SUT version and the named operator of the run. */
+           under test produced at one turn of a session when a probe was
+           applied, with the SUT version and the named operator of the
+           session. */
         attribute id : ScalarValues::String;
         attribute probeId : ScalarValues::String;
+        attribute sessionId : ScalarValues::String;
+        attribute turnIndex : ScalarValues::Integer;
         attribute sutVersioned : ScalarValues::Boolean;
         attribute operatorNamed : ScalarValues::Boolean;
         attribute runStartedAt : ScalarValues::Real;
@@ -336,6 +351,7 @@ package OGCAIE {
         item a3 : AcceptanceCriterion;
         item plan : TestPlan;
         item probe : Probe;
+        item session : Session;
         item evidence : Evidence;
         item attestation1 : Attestation;
         item attestation2 : Attestation;
@@ -460,11 +476,15 @@ package OGCAIE {
 
     requirement def <'SCI-05'> EvidenceFromNamedRuns {
         doc /* machine (shapes S4, S5). Every evidence item was generated
-           by a probe run against a named SUT version by a named
-           operator. */
+           at a numbered turn of a session against a named SUT version by
+           a named operator, and the session precedes nothing it depends
+           on (R-13). */
         subject ev : OgCaieEvaluation;
         require constraint { ev.recorder.evidence.sutVersioned }
         require constraint { ev.recorder.evidence.operatorNamed }
+        require constraint { ev.recorder.evidence.sessionId == ev.recorder.session.id }
+        require constraint { ev.recorder.evidence.turnIndex >= 1 and ev.recorder.evidence.turnIndex <= ev.recorder.session.turns }
+        require constraint { ev.recorder.session.startedAt <= ev.recorder.evidence.runStartedAt }
     }
 
     requirement def <'SCI-06'> AttestationsWellFormed {
@@ -552,7 +572,7 @@ package OGCAIE {
             part :>> sponsor { attribute :>> name = "public-health-sponsor"; }
             part :>> systemUnderTest {
                 attribute :>> name = "measles-chatbot"; attribute :>> version = "v1";
-                item :>> evidence { attribute :>> id = "evidence-1"; attribute :>> probeId = "probe-1"; attribute :>> sutVersioned = true; attribute :>> operatorNamed = true; attribute :>> runStartedAt = 4.0; }
+                item :>> evidence { attribute :>> id = "evidence-1"; attribute :>> probeId = "probe-1"; attribute :>> sessionId = "session-1"; attribute :>> turnIndex = 1; attribute :>> sutVersioned = true; attribute :>> operatorNamed = true; attribute :>> runStartedAt = 4.0; }
             }
             part :>> probeDeriver {
                 attribute :>> name = "probe-deriver"; attribute :>> version = "0.1";
@@ -566,12 +586,13 @@ package OGCAIE {
                 attribute :>> name = "recorder"; attribute :>> version = "0.1";
                 item :>> dso { attribute :>> version = "apollo-sv-r1"; attribute :>> approvedBy = "epidemiologist"; attribute :>> approved = true; attribute :>> approvedAt = 1.0; }
                 item :>> requirements { attribute :>> environment = "public information service during an active measles outbreak"; attribute :>> declaredAt = 2.0; }
+                item :>> session { attribute :>> id = "session-1"; attribute :>> turns = 1; attribute :>> startedAt = 4.0; }
                 item :>> plan { attribute :>> id = "plan-1"; attribute :>> objectives = 2; attribute :>> means = 1; attribute :>> derivedAt = 3.0; }
                 item :>> a1 { attribute :>> id = "a1"; attribute :>> derivedFromRequirement = true; attribute :>> verifiable = true; attribute :>> expectedResultStated = true; attribute :>> weight = 2.0; attribute :>> minPassRate = 0.95; attribute :>> attestationCount = 1; attribute :>> covered = true; attribute :>> coveredWeight = 2.0; }
                 item :>> a2 { attribute :>> id = "a2"; attribute :>> derivedFromRequirement = true; attribute :>> verifiable = true; attribute :>> expectedResultStated = true; attribute :>> weight = 1.0; attribute :>> minPassRate = 0.95; attribute :>> attestationCount = 1; attribute :>> covered = true; attribute :>> coveredWeight = 1.0; }
                 item :>> a3 { attribute :>> id = "a3"; attribute :>> derivedFromRequirement = true; attribute :>> verifiable = true; attribute :>> expectedResultStated = true; attribute :>> weight = 1.0; attribute :>> minPassRate = 0.95; attribute :>> attestationCount = 0; attribute :>> covered = false; attribute :>> coveredWeight = 0.0; }
                 item :>> probe { attribute :>> id = "probe-1"; attribute :>> planId = "plan-1"; attribute :>> exercisedCriteria = 2; attribute :>> derivedFromDso = true; attribute :>> consistencyPassed = true; attribute :>> derivedAt = 3.0; }
-                item :>> evidence { attribute :>> id = "evidence-1"; attribute :>> probeId = "probe-1"; attribute :>> sutVersioned = true; attribute :>> operatorNamed = true; attribute :>> runStartedAt = 4.0; }
+                item :>> evidence { attribute :>> id = "evidence-1"; attribute :>> probeId = "probe-1"; attribute :>> sessionId = "session-1"; attribute :>> turnIndex = 1; attribute :>> sutVersioned = true; attribute :>> operatorNamed = true; attribute :>> runStartedAt = 4.0; }
                 item :>> attestation1 { attribute :>> criterionId = "a1"; attribute :>> probeId = "probe-1"; attribute :>> evidenceId = "evidence-1"; attribute :>> assertorNamed = true; attribute :>> mode = Mode::manual; attribute :>> outcome = Outcome::failed; attribute :>> appropriateness = Appropriateness::appropriate; attribute :>> sufficiency = Sufficiency::insufficient; attribute :>> step = EpoStep::runAndAttest; attribute :>> evidenceCount = 1; }
                 item :>> attestation2 { attribute :>> criterionId = "a2"; attribute :>> probeId = "probe-1"; attribute :>> evidenceId = "evidence-1"; attribute :>> assertorNamed = true; attribute :>> mode = Mode::manual; attribute :>> outcome = Outcome::failed; attribute :>> appropriateness = Appropriateness::appropriate; attribute :>> sufficiency = Sufficiency::insufficient; attribute :>> step = EpoStep::runAndAttest; attribute :>> evidenceCount = 1; }
             }

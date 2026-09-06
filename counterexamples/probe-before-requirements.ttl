@@ -23,5 +23,6 @@ cx:plan a epo:TestPlan ; epo:objective cx:a ; epo:means cx:probe ; prov:wasDeriv
 cx:probe a epo:Probe ; epo:exercises cx:a ; epo:derivedFromDso cx:dso ; prov:generatedAtTime "2026-08-03T00:00:00Z"^^xsd:dateTime .
 cx:check a epo:ConsistencyCheck ; earl:subject cx:probe ; earl:mode earl:automatic ; earl:assertedBy cx:checker ;
     earl:result [ a earl:TestResult ; earl:outcome earl:passed ] .
-cx:run a epo:ProbeRun ; prov:used cx:probe ; prov:wasAssociatedWith cx:sut ; prov:wasAssociatedWith cx:person ;
+cx:session a epo:Session ; prov:wasAssociatedWith cx:sut ; prov:wasAssociatedWith cx:person ;
     prov:startedAtTime "2026-08-10T00:00:00Z"^^xsd:dateTime .
+cx:turn a epo:Turn ; epo:inSession cx:session ; epo:turnIndex 1 ; prov:used cx:probe .

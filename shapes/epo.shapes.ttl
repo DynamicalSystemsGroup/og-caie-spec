@@ -47,7 +47,7 @@ ogc:S2-RequirementSet a sh:NodeShape ;
             PREFIX prov: <http://www.w3.org/ns/prov#>
             SELECT $this WHERE {
                 $this prov:generatedAtTime ?t0 .
-                { ?r a epo:ProbeRun ; prov:startedAtTime ?t1 } UNION { ?p a epo:Probe ; prov:generatedAtTime ?t1 }
+                { ?r a epo:Session ; prov:startedAtTime ?t1 } UNION { ?p a epo:Probe ; prov:generatedAtTime ?t1 }
                 FILTER(?t1 <= ?t0)
             }
         """ ] .
@@ -72,8 +72,9 @@ ogc:S3-TestPlan a sh:NodeShape ;
     sh:targetClass epo:TestPlan ;
     sh:property [ sh:path epo:objective ; sh:minCount 1 ; sh:class epo:AcceptanceCriterion ;
                   sh:message "A test plan states at least one objective, an acceptance criterion." ] ;
-    sh:property [ sh:path epo:means ; sh:minCount 1 ; sh:class epo:Probe ;
-                  sh:message "A test plan states its means: at least one probe." ] ;
+    sh:property [ sh:path epo:means ; sh:minCount 1 ;
+                  sh:or ( [ sh:class epo:Probe ] [ sh:class epo:Strategy ] ) ;
+                  sh:message "A test plan states its means: probes, or a strategy that chooses them (R-13)." ] ;
     sh:property [ sh:path prov:wasAttributedTo ; sh:minCount 1 ; sh:class prov:Person ] ;
     sh:property [ sh:path prov:generatedAtTime ; sh:minCount 1 ; sh:datatype xsd:dateTime ] ;
     sh:sparql [
@@ -90,10 +91,18 @@ ogc:S3-TestPlan a sh:NodeShape ;
         sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             SELECT $this WHERE {
-                $this epo:means ?p .
+                $this epo:means ?p . ?p a epo:Probe .
                 FILTER NOT EXISTS { $this epo:objective ?a . ?p epo:exercises ?a }
             }
         """ ] .
+
+ogc:S3-Strategy a sh:NodeShape ;
+    sh:targetClass epo:Strategy ;
+    sh:property [ sh:path epo:policy ; sh:minCount 1 ; sh:datatype xsd:string ;
+                  sh:message "A strategy states its policy: how the next probe is chosen from the trajectory so far (R-13)." ] ;
+    sh:property [ sh:path epo:groundedIn ; sh:minCount 1 ; sh:class epo:DsoRelease ;
+                  sh:message "A strategy is grounded in a DSO release." ] ;
+    sh:property [ sh:path prov:wasAttributedTo ; sh:minCount 1 ; sh:class prov:Person ] .
 
 ogc:S3-Probe a sh:NodeShape ;
     sh:targetClass epo:Probe ;
@@ -102,10 +111,14 @@ ogc:S3-Probe a sh:NodeShape ;
     sh:property [ sh:path epo:derivedFromDso ; sh:minCount 1 ; sh:class epo:DsoRelease ] ;
     sh:property [ sh:path prov:generatedAtTime ; sh:minCount 1 ; sh:datatype xsd:dateTime ] ;
     sh:sparql [
-        sh:message "S3: every probe is a means of some test plan." ;
+        sh:message "S3: every probe is a means of some test plan, directly or through a strategy that generated it." ;
         sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
-            SELECT $this WHERE { FILTER NOT EXISTS { ?plan a epo:TestPlan ; epo:means $this } }
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            SELECT $this WHERE {
+                FILTER NOT EXISTS { ?plan a epo:TestPlan ; epo:means $this }
+                FILTER NOT EXISTS { ?plan a epo:TestPlan ; epo:means ?s . ?s a epo:Strategy . $this prov:wasDerivedFrom ?s }
+            }
         """ ] ;
     sh:sparql [
         sh:message "S3: no passed automatic consistency check exists for this probe." ;
@@ -120,31 +133,45 @@ ogc:S3-Probe a sh:NodeShape ;
             }
         """ ] .
 
-# S4 <-> SCI-05: a probe run used a probe, involved a versioned software
-# agent (the system under test) and a named person (the operator).
-ogc:S4-ProbeRun a sh:NodeShape ;
-    sh:targetClass epo:ProbeRun ;
-    sh:property [ sh:path prov:used ; sh:minCount 1 ; sh:class epo:Probe ] ;
+# S4 <-> SCI-05: a session (test execution) involves a versioned software
+# agent (the system under test) and a named person (the operator), and is
+# timed; every turn belongs to one session, has a 1-based index, and used
+# exactly one probe. Sessions are stateful, so evidence belongs to its turn.
+ogc:S4-Session a sh:NodeShape ;
+    sh:targetClass epo:Session ;
     sh:property [ sh:path prov:startedAtTime ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
     sh:sparql [
-        sh:message "S4: a probe run must be associated with a versioned software agent (the system under test)." ;
+        sh:message "S4: a session must be associated with a versioned software agent (the system under test)." ;
         sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX prov: <http://www.w3.org/ns/prov#>
             SELECT $this WHERE { FILTER NOT EXISTS { $this prov:wasAssociatedWith ?s . ?s a prov:SoftwareAgent ; epo:version ?v } }
         """ ] ;
     sh:sparql [
-        sh:message "S4: a probe run must be associated with a named person (the operator)." ;
+        sh:message "S4: a session must be associated with a named person (the operator)." ;
         sh:select """
             PREFIX prov: <http://www.w3.org/ns/prov#>
             SELECT $this WHERE { FILTER NOT EXISTS { $this prov:wasAssociatedWith ?p . ?p a prov:Person } }
+        """ ] ;
+    sh:sparql [
+        sh:message "S4: a session has at least one turn." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            SELECT $this WHERE { FILTER NOT EXISTS { ?t a epo:Turn ; epo:inSession $this } }
         """ ] .
+
+ogc:S4-Turn a sh:NodeShape ;
+    sh:targetClass epo:Turn ;
+    sh:property [ sh:path epo:inSession ; sh:minCount 1 ; sh:maxCount 1 ; sh:class epo:Session ] ;
+    sh:property [ sh:path epo:turnIndex ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:integer ; sh:minInclusive 1 ] ;
+    sh:property [ sh:path prov:used ; sh:minCount 1 ; sh:maxCount 1 ; sh:class epo:Probe ;
+                  sh:message "A turn applies exactly one probe." ] .
 
 # S5 <-> SCI-05: every evidence item was generated by exactly one probe run.
 ogc:S5-Evidence a sh:NodeShape ;
     sh:targetClass epo:Evidence ;
-    sh:property [ sh:path prov:wasGeneratedBy ; sh:minCount 1 ; sh:maxCount 1 ; sh:class epo:ProbeRun ;
-                  sh:message "Evidence is generated by a probe run; evidence from nowhere is not evidence." ] ;
+    sh:property [ sh:path prov:wasGeneratedBy ; sh:minCount 1 ; sh:maxCount 1 ; sh:class epo:Turn ;
+                  sh:message "Evidence is generated by a turn of a session; evidence from nowhere is not evidence." ] ;
     sh:property [ sh:path epo:text ; sh:minCount 1 ] .
 
 # S6 <-> SCI-06: an attestation names one criterion, one human assertor, is
@@ -174,7 +201,7 @@ ogc:S6-Attestation a sh:NodeShape ;
                 FILTER NOT EXISTS {
                     $this epo:underPlan ?p .
                     ?p epo:exercises ?a .
-                    ?e prov:wasGeneratedBy ?run . ?run prov:used ?p .
+                    ?e prov:wasGeneratedBy ?turn . ?turn a epo:Turn ; prov:used ?p .
                 }
             }
         """ ] ;

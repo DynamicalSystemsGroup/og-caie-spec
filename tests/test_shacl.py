@@ -15,6 +15,7 @@ COUNTEREXAMPLES = {
     "counterexamples/probe-before-requirements.ttl": "S2-RequirementSet",
     "counterexamples/recommendation-untraced.ttl": "S8-Recommendation",
     "counterexamples/attestation-off-plan.ttl": "S6-Attestation",
+    "counterexamples/attestation-off-turn.ttl": "S6-Attestation",
 }
 
 
@@ -45,8 +46,8 @@ def test_each_counterexample_fails_on_its_shape_only():
 def test_eight_shapes_one_per_sci_group():
     g = shapes()
     names = sorted(str(s).rsplit("/", 1)[-1] for s in g.subjects(RDF.type, SH.NodeShape))
-    assert names == ["S1-DsoRelease", "S2-AcceptanceCriterion", "S2-RequirementSet", "S3-Probe", "S3-TestPlan",
-                     "S4-ProbeRun", "S5-Evidence", "S6-Attestation", "S7-Report", "S8-Recommendation"]
+    assert names == ["S1-DsoRelease", "S2-AcceptanceCriterion", "S2-RequirementSet", "S3-Probe", "S3-Strategy", "S3-TestPlan",
+                     "S4-Session", "S4-Turn", "S5-Evidence", "S6-Attestation", "S7-Report", "S8-Recommendation"]
 
 
 def test_epo_handles_subclass_prov_or_earl():
@@ -54,6 +55,8 @@ def test_epo_handles_subclass_prov_or_earl():
     OWL = Namespace("http://www.w3.org/2002/07/owl#")
     for c in g.subjects(RDF.type, OWL.Class):
         if c in (EPO.EpoStep, EPO.AppropriatenessValue, EPO.SufficiencyValue):
+            continue
+        if c == EPO.Strategy:  # a prov:Plan, itself a prov:Entity
             continue
         supers = set(g.objects(c, RDFS.subClassOf))
         assert supers & {PROV.Entity, PROV.Activity, EARL.Assertion}, c

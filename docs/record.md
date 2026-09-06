@@ -28,6 +28,21 @@ not correspond to the expected one, bound to that evidence and to the probe
 under the plan that produced it. An attestation off the plan, one that
 interprets evidence no probe for its criterion produced, fails the chain rule.
 
+The system under test is a non-deterministic system, and a session with it
+is stateful: what it says at a later turn depends on the whole dialogue
+before. So the record does not hold a bare run. It holds a session, pairing
+one tester with one system, whose turns each apply one probe and yield one
+response, and whose ordered pairs form the trajectory, the observable
+realization standing in for a state the record never sees. A test plan's
+means may be a list of probes or a test strategy, a state feedback policy
+that chooses the next probe from the trajectory so far. The measles example
+has one turn; the two-turn counterexample below, driven by a strategy, shows
+the chain rule refusing an attestation that reads turn two's criterion off
+turn one's response. Replicate sessions under repeatability conditions are
+what turn a criterion's probes into a pass rate with a measurement
+uncertainty; reproducibility across operators and teams is what makes two
+evaluations of the same requirement set comparable.
+
 ```{include} ../generated/record.md
 ```
 

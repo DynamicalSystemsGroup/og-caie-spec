@@ -256,3 +256,23 @@ rul:R-12 a ogc:Ruling ;
     ogc:changeNote "Added, never overwriting: glossary terms test plan and expected results (SEVOCAB, 29119); seeAlso test execution on test, test result on attestation, test scenario (29119-11) on scenario. EPO: TestPlan (objectives, means), expectedResult on the criterion, underPlan from attestation to probe. Record: the plan, expected results on a1-a3, both attestations bound to probe-1, recommendation derived from the plan. Shapes: S2 criterion requires an expected result; S3-TestPlan; S3 probe must be a plan's means; S6 chain rule (evidence used comes from a run of the bound probe which exercises the attested criterion); S8 recommendation names the plan. Counterexample attestation-off-plan. Model: TestPlan item, expectedResultStated, probeId on the attestation, SCI-04 and SCI-06 extended. Traceback query returns plan, probe and expected result." ;
     prov:wasAttributedTo rul:Z ;
     prov:generatedAtTime "2026-09-06"^^xsd:date .
+
+rul:C-14 a ogc:Concern ;
+    rdfs:label "probe versus run: trajectories, sessions and state feedback policies" ;
+    ogc:problem """The record has one probe, one run and one evidence, which hides a distinction Z draws: a probe is an individual prompt-response pair; a run is a sequence of prompt-response pairs forming a trajectory within a session; sessions are stateful and LLM-system behaviour is highly context sensitive, nonlinear in the sense that a small change in input can cause large changes in output, especially when trajectories are continued. Test plans are not limited to single probes: they support strategies that determine probes according to a state feedback policy (semantic state feedback). Z: this is the place where a small amount of extra definition drawn from control engineering, system identification and metrology as applied to dynamical systems has the most to gain; hunt for canonical sources, starting with NIST.""" ;
+    ogc:severity "H" ;
+    ogc:status "ruled" ;
+    ogc:surfacedOn "2026-09-06"^^xsd:date ;
+    ogc:surfacedHow "row 8 of rulings sheet 01, Z's comment" ;
+    ogc:concernsTerm term:probe ;
+    ogc:concernsTerm term:test-plan ;
+    ogc:concernsTerm term:test ;
+    prov:wasGeneratedBy rul:sheet-01-walkthrough-2026-09-06 .
+
+rul:R-13 a ogc:Ruling ;
+    ogc:order 13 ;
+    ogc:resolves rul:C-14 ;
+    ogc:rulingText "Adopt the eight-term package as proposed: session, dialogue (NIST); trajectory, output-feedback anchor for the policy (IEC 60050-351); test strategy (29119-2); non-deterministic system (29119-11); repeatability, reproducibility, measurement uncertainty (VIM, NIST TN 1297). Session and Turn in the record; Strategy as a plan's means; chain rule extended." ;
+    ogc:changeNote "Sources: IEC 60050-351 (Electropedia, cite-only, quotes pending), JCGM 200:2012 (held locally), NIST TN 1297 (committed). Glossary: eight terms; probe and test narratives tightened to one turn and to the session. EPO: Session, Turn, Trajectory, Strategy (a prov:Plan), inSession, turnIndex, policy, groundedIn; a TestPlan's means is a Probe or a Strategy. Record: session-1 with turn-1 and trajectory-1 replace run-1. Shapes: S4-Session, S4-Turn, S3-Strategy; S5 evidence from a turn; S6 chain rule through the turn; S3 probe belongs to a plan directly or through a strategy. Counterexample attestation-off-turn (two-turn session under a strategy). Model: Session item, sessionId and turnIndex on Evidence, SCI-05 extended. Traceback query returns session and turn." ;
+    prov:wasAttributedTo rul:Z ;
+    prov:generatedAtTime "2026-09-06"^^xsd:date .

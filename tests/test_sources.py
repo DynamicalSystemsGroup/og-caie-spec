@@ -8,8 +8,8 @@ from rdflib import RDF
 
 from conftest import OGC, ROOT, load
 
-COMMITTED = 6      # 2 NIST PDFs + 4 W3C HTML
-HELD_LOCALLY = 8   # ISO 9000 screenshots (one source), SEVOCAB, GtWR, Hawkins, ISA 500, Gruber, Hogan, SEBoK
+COMMITTED = 7      # 3 NIST PDFs + 4 W3C HTML
+HELD_LOCALLY = 9   # ISO 9000 screenshots (one source), SEVOCAB, GtWR, Hawkins, ISA 500, Gruber, Hogan, SEBoK, VIM
 
 
 def _graph():
@@ -53,7 +53,7 @@ def test_held_locally_snapshots_hash_when_present():
             if f.exists():
                 assert _sha(f) == str(g.value(snap, OGC.contentHash)), f
                 checked += 1
-    assert declared >= 37 + 7
+    assert declared >= 37 + 8
     if checked:
         assert checked == declared, "some held-locally snapshots present, others missing"
 

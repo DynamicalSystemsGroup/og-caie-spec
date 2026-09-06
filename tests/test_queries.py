@@ -32,6 +32,7 @@ def test_traceback_returns_the_five_facets():
         assert r.author and r.step and r.assertor and r.criterion and str(r.outcome) == "failed"
         assert r.evidence and r.run and r.operator and r.sut and r.dso and r.dsoApprover
         assert r.probe and r.plan and r.expected
+        assert int(r.turnIndex) == 1
     assert {str(r.assertor) for r in rows} == {
         "Dr. A, epidemiologist (domain expert)", "B, community public-health educator (domain expert)"}
     assert str(rows[0].step).startswith("5 report")

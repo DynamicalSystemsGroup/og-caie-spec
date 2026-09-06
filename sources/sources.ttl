@@ -198,3 +198,26 @@ src:popper-1959 a prov:Entity, ogc:Source ;
     ogc:rank "reserve" ; ogc:kind "web" ; ogc:posture "citeOnly" ;
     ogc:digest "sources/digests/popper-1959.md" ;
     ogc:licenceNote "cited as the canonical source named on the BoF deck's Helpful Definitions slide; not quoted directly" .
+
+src:iec-60050-351 a prov:Entity, ogc:Source ;
+    rdfs:label "IEC 60050-351:2013 International Electrotechnical Vocabulary, Part 351: Control technology (Electropedia)" ;
+    ogc:rank "reserve" ; ogc:kind "web" ; ogc:posture "citeOnly" ;
+    ogc:url <https://www.electropedia.org/iev/iev.nsf/index?openform=&part=351> ;
+    ogc:digest "sources/digests/iec-60050-351.md" ;
+    ogc:licenceNote "IEC copyright; Electropedia is publicly browsable; short attributed quotations only; quotes transcribed from the browser and pending a named verification" .
+
+src:jcgm-200-2012 a prov:Entity, ogc:Source ;
+    rdfs:label "JCGM 200:2012 International vocabulary of metrology, basic and general concepts and associated terms (VIM), 3rd edition (BIPM)" ;
+    ogc:rank "reserve" ; ogc:kind "pdf" ; ogc:posture "heldLocally" ;
+    ogc:url <https://www.bipm.org/en/doi/10.59161/jcgm200-2012> ;
+    ogc:digest "sources/digests/jcgm-200-2012.md" ;
+    ogc:snapshot [ ogc:file "sources/local/pdf/jcgm-200-2012.pdf" ; ogc:contentHash "8a603e99d236a65d771f38b6dcf627953146fe023a5266b3307681ada30f4fe7" ] ;
+    ogc:licenceNote "JCGM copyright; freely downloadable from BIPM; held locally" .
+
+src:nist-tn-1297 a prov:Entity, ogc:Source ;
+    rdfs:label "NIST Technical Note 1297, Guidelines for Evaluating and Expressing the Uncertainty of NIST Measurement Results, 1994 edition" ;
+    ogc:rank "3" ; ogc:kind "pdf" ; ogc:posture "committed" ;
+    ogc:url <https://nvlpubs.nist.gov/nistpubs/legacy/tn/nbstechnicalnote1297.pdf> ;
+    ogc:digest "sources/digests/nist-tn-1297.md" ;
+    ogc:snapshot [ ogc:file "sources/archive/NIST.TN.1297.pdf" ; ogc:contentHash "f2c8e6026d5589a63d492f192b72cd905f554b477a6049532256170aec477e92" ] ;
+    ogc:licenceNote "US Government work, public domain" .

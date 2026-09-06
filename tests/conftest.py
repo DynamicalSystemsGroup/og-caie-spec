@@ -30,6 +30,8 @@ def normalized(text: str) -> str:
     # Whitespace is removed entirely: PDF extractors split kerned words
     # ("structur ed") and join wrapped lines unpredictably, and the quotes
     # are long enough that a whitespace-free match is still a strong one.
+    # Hyphens go too: extractors leave line-end hyphenation ("repeat- ability").
+    t = t.replace("-", "")
     return re.sub(r"\s+", "", t).strip().lower()
 
 
