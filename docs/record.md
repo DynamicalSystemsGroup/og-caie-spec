@@ -3,19 +3,32 @@
 One evaluation record, `track/measles-run.ttl`, in plain Turtle: PROV-O for
 who did what and when, EARL for assertions and their outcomes, and the
 Evaluation Process Ontology's handle classes (`vocabulary/epo.ttl`) for what
-the five steps produce. It is a record in the ISO 9000:2026 sense, a
+the seven steps produce. It is a record in the ISO 9000:2026 sense, a
 document stating results achieved or providing evidence of activities
 performed, and the standard's own note on the term (3.8.12, Note 1) says what
 records are for: to formalize traceability and to provide evidence of
 verification. That is the whole job of this file. It is the paper's worked example: a public-health
-chatbot during a measles outbreak, one requirement, three acceptance criteria,
-one test plan, one session of one turn run by red teaming, one probe, one
-response, two evidence items bearing on two criteria, two determinations and
-two attestations by two named domain experts, a report, and a recommendation. The traceback query below is
+chatbot during a measles outbreak. Four parties: a county public-health
+office as sponsor, the chatbot's vendor as the accountable organization,
+Humane Intelligence as the testing organization, and two affected
+populations, one interviewed and one represented. One service agreement,
+one requirement, three acceptance criteria, one test plan, one session of one
+turn run by red teaming, one probe, one response, two evidence items bearing
+on two criteria, two determinations, two attestations, a report, a
+recommendation and a delivery. The traceback query below is
 requirements traceability made executable.
 
+The case is synthetic (ruling R-23). Mala, the account executive who signs
+the agreement and delivers the report; Annie, the domain expert who approves
+the DSO release, assesses the requirement set, approves the plan and attests;
+and Theo, the evaluation operator who declares the requirements, writes the
+plan, runs the session, collects the evidence and writes the recommendation,
+are named after real people at Humane Intelligence so that their roles are
+recognised. No attestation, determination or signature in this record was
+made by them; the record says so in its own header.
+
 Two things are checked over it. **Conformance** to the EPO shapes
-(`shapes/epo.shapes.ttl`, S1 to S8) is machine verification: the record is
+(`shapes/epo.shapes.ttl`, S0 to S8) is machine verification: the record is
 correctly constructed, so the process was followed, the data is shaped, the
 required fields are filled. The word is reclaimed on purpose (ruling R-16):
 ISO 9000 deprecates it as a synonym of *conformity*, which this specification
@@ -77,15 +90,20 @@ outcome inside an attestation. Its *review* (7.1) is a consideration of
 not use the word adequacy for the context judgment and says appropriateness
 instead. And its note on 7.3 observes that first-party attestation is a
 declaration and third-party attestation a certification, "but there is no
-corresponding term applicable to second-party attestation": an evaluation team
-attesting on a sponsor's behalf about a vendor's system is second-party, and
-the audit offered at the end of the front page is the third-party case.
+corresponding term applicable to second-party attestation": a testing
+organization attesting on a sponsor's behalf about a vendor's system performs
+a second-party activity even when it is independent of the vendor (4.4, Note
+2), which is the measles case, and the audit offered at the end of the front
+page is the third-party case.
 
 The counterexamples are small graphs, each built to violate one shape: an
 attestation with no determination behind its verdict (the closure rule, S6),
 an attestation aggregating a determination made for a different criterion
 (the chain rule, S6), the same fault across two turns of a strategy-driven
 session (S6), a requirement set declared after testing started (S2), and a
-recommendation that rests on no attestation and names no DSO release (S8).
-Each fails on exactly that shape. A sixth, in SysML, pads coverage and fails
-SCI-07 on the assemblage page.
+recommendation that rests on no attestation and names no DSO release (S8), a
+requirement set declared before the agreement was signed (S0), an affected
+population neither interviewed nor represented (S0), a session run by the
+domain expert instead of the operator (S4), and an attestation by the account
+executive (S6). Each fails on exactly that shape. Three more, in SysML,
+break the wiring and fail their M-shape on the assemblage page.

@@ -49,7 +49,8 @@ record. The accountable organization provides the test item and grants access
 to it. Any two may coincide, and the record says whether they do. In the
 vocabulary of ISO/IEC 17000 the accountable organization is the first party, a
 sponsor with a user interest is a second party, and a testing organization
-independent of the provider with no user interest is a third party; the
+working on its behalf performs a second-party activity even when independent
+of the provider; a third party acts for no one with a user interest. The
 record states independence as a fact rather than assuming it.
 
 Affected stakeholders are populations, not single entities. A population may

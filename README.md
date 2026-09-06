@@ -18,22 +18,24 @@ deployed AI system against the needs of a specific domain, written down as:
 
 ## Status (2026-09-06)
 
-- **Glossary: ratified.** 48 terms, 3 coined, settled through twenty rulings
-  (R-01 to R-20) recorded verbatim in `rulings/adjudications.ttl`. Every quote
-  is verified: 56 machine-located in content-hashed snapshots, 22 verified by
-  Z against the ISO Online Browsing Platform screenshots or the browsing
-  platforms themselves. No quote is pending.
-- **Record and shapes: current.** The measles record, the EPO handle classes,
-  shapes S1 to S8, the counterexamples and the two queries follow the rulings,
-  including sessions and turns (R-13), the test plan and expected results
-  (R-12), evidence as domain and determination as codomain (R-18, R-20), and
-  conformance as the reclaimed word for the correctly constructed record
-  (R-16).
-- **Model: behind.** The SysML model was built before rulings R-12 to R-20 and
-  has been patched to keep the gate green, not redesigned. Its part and port
-  definitions do not yet, together, give the EPO structure that guarantees
-  traceability and coverage as the end state given a DSO and a requirement
-  set expressed in EPO and DSO concepts. That deep revision is the next task.
+- **Glossary: ratified, with nine party quotes pending.** 58 terms, 3 coined,
+  settled through 26 rulings (R-01 to R-26) recorded verbatim in
+  `rulings/adjudications.ttl`. 57 quotes are machine-located in content-hashed
+  snapshots, 22 verified by Z; the nine quotes for the party terms added on
+  2026-09-06 are on rulings sheet 03 awaiting Z's tick, one of them (contract)
+  awaiting a screenshot (concern C-24). Concerns C-25 and C-26 are open.
+- **Model: revised (R-21 to R-26).** SysML holds structure only; the pruned
+  RDF rendering `model/og-caie.model.ttl` is the canonical structure (R-22),
+  checked by wiring shapes M1 to M5 over kinds of parts and ports: four
+  parties, three actor categories within the testing organization, the
+  seven-step EPO as a process DAG, 47 ports and 27 seams, every input wired
+  once and every output somewhere. Three model counterexamples fail their
+  shape. The essentials SCI-01 to SCI-12 live in `model/trace.ttl`.
+- **Record and shapes: current.** The measles record names the parties, the
+  agreement, the access, the stakeholder input, the appropriateness
+  assessment, the plan approval and the delivery; shapes S0 to S8 and nine
+  RDF counterexamples follow the rulings; the traceback query reaches the
+  parties.
 - **Pending outside the repo.** The w3id redirect
   (perma-id/w3id.org#6652) is open; IRIs resolve nowhere until it merges. The
   paper draft and the term contract will be aligned to this glossary once the
