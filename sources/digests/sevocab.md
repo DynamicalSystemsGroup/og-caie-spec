@@ -30,6 +30,7 @@ definition is reproduced under the vocabulary's own terms:
 | test coverage | 433 | degree, expressed as a percentage, to which specified test coverage items have been exercised by a test case or test cases | ISO/IEC/IEEE 29119-2:2021, 3.28 |
 | test item | 435 | work product to be tested | ISO/IEC/IEEE 29119-2:2021 |
 | test log | 436 | chronological record of relevant details about the execution of tests | ISO/IEC/IEEE 24765:2017 |
+| statement of work | 406 | statement of the expected outcomes and outline of the work required to achieve the outcomes (sense 2) | ISO/IEC 33202:2024, 3.25 |
 | test plan | 437 | detailed description of test objectives to be achieved and the means and schedule for achieving them, organized to coordinate testing activities for some test item or set of test items | ISO/IEC/IEEE 29119-2:2021, 3.50 |
 | test result | 438 | indication of whether a specific test case has passed or failed, i.e. if the actual results correspond to the expected results or if deviations were observed | ISO/IEC/IEEE 29119-2:2021, 3.56 |
 | test suite | 439 | set of test cases or test procedures | ISO/IEC/IEEE 29119-1:2022, 3.129 |
