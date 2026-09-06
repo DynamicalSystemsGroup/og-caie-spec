@@ -58,6 +58,14 @@
   #sparql table{border-collapse:collapse;font-size:10.5px;white-space:nowrap}
   #sparql td,#sparql th{border:1px solid #2a2f3a;padding:2px 5px;text-align:left}
   #sparql th{color:#9aa4b2;font-weight:600}
+  #full{font-size:11px;color:#7ab3ef;white-space:nowrap;display:none}
+  #close{float:right;background:none;border:none;color:#9aa4b2;font-size:16px;cursor:pointer;padding:0 2px;display:none}
+  body.embed #viewdesc{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  body.embed #detail{width:min(300px,70vw)}
+  body.embed #detail.idle{display:none}
+  body.embed #close,body.embed #full{display:inline}
+  body.embed #sparql{display:none}
+  body.embed #legend{max-width:170px;max-height:35vh}
 </style></head>
 <body>
 <svg id="graph"></svg>
@@ -65,9 +73,10 @@
   <h1>OG-CAIE: the knowledge graph explorer</h1>
   <nav id="views"></nav>
   <div id="search"><input id="q" type="search" placeholder="find a node" autocomplete="off"><div id="hits"></div></div>
+  <a id="full" href="../explorer/index.html" target="_top" title="open the explorer in the whole window">full screen ↗</a>
   <span id="viewdesc"></span>
 </header>
-<aside id="detail"><div class="empty">click a node to read it; drag to pin, double-click to release</div></aside>
+<aside id="detail" class="idle"><div class="empty">click a node to read it; drag to pin, double-click to release</div></aside>
 <details id="legend" open><summary>legend</summary><div id="legendrows"></div></details>
 <details id="sparql"><summary>SPARQL over the same graphs</summary><div class="body">
   <textarea id="qtext" spellcheck="false"></textarea>
@@ -88,6 +97,9 @@ const byId = new Map(NODES.map(n=>[n.id,n]));
 const GLYPH = {circle:d3.symbolCircle, diamond:d3.symbolDiamond, square:d3.symbolSquare, triangle:d3.symbolTriangle};
 let cur = 0, selectedId = null;
 const view = ()=>VIEWS[cur];
+// embedded in the appendix (an iframe, or a small window): panels give way to the canvas until a node is clicked
+const EMBED = (window.self !== window.top) || window.innerHeight < 560;
+if(EMBED){ document.body.classList.add("embed"); document.getElementById("legend").open = false; }
 const radius = d=>(FAM[d.cls]||{r:6}).r;
 const color = d=>(FAM[d.cls]||{color:"#78909c"}).color;
 const symPath = d=>d3.symbol().type(GLYPH[(FAM[d.cls]||{}).glyph]||d3.symbolCircle).size(Math.PI*radius(d)*radius(d)*1.4)();
@@ -97,7 +109,20 @@ const W = window.innerWidth, H = window.innerHeight;
 svg.attr("viewBox",[0,0,W,H]);
 const g = svg.append("g");
 const linkLayer = g.append("g"), nodeLayer = g.append("g");
-svg.call(d3.zoom().scaleExtent([.15,5]).on("zoom",ev=>g.attr("transform",ev.transform)));
+const zoom = d3.zoom().scaleExtent([.15,5]).on("zoom",ev=>g.attr("transform",ev.transform));
+svg.call(zoom);
+let fitTimer = null;
+function fit(){  // zoom so the current view's nodes fill the canvas beside the panels, once the layout has settled
+  const nodes = sim.nodes(); if(!nodes.length) return;
+  const xs = nodes.map(d=>d.x), ys = nodes.map(d=>d.y);
+  const x0 = Math.min(...xs)-30, x1 = Math.max(...xs)+120, y0 = Math.min(...ys)-30, y1 = Math.max(...ys)+30;
+  const hh = document.querySelector("header").offsetHeight;
+  const left = (EMBED || detailEl.classList.contains("idle")) ? 0 : 390;
+  const k = Math.max(.15, Math.min(2.5, .95*Math.min((W-left)/(x1-x0), (H-hh)/(y1-y0))));
+  const t = d3.zoomIdentity.translate(left+(W-left)/2-k*(x0+x1)/2, hh+(H-hh)/2-k*(y0+y1)/2).scale(k);
+  svg.transition().duration(500).call(zoom.transform, t);
+}
+function scheduleFit(){ clearTimeout(fitTimer); fitTimer = setTimeout(fit, 1400); }
 let linkSel = linkLayer.selectAll("line"), nodeSel = nodeLayer.selectAll("g");
 const sim = d3.forceSimulation()
   .force("link",d3.forceLink().id(d=>d.id).distance(l=>40+radius(l.source)+radius(l.target)).strength(.4))
@@ -138,12 +163,13 @@ function paint(){
   nodeSel.select("text").attr("x",d=>radius(d)+3).text(d=>showLabels||d.id===selectedId?d.label:"");
   nodeSel.style("opacity",1);
   sim.nodes(nodes); sim.force("link").links(links);
-  sim.alpha(.6).restart();
+  sim.alpha(.6).restart(); scheduleFit();
   const v = view();
   const desc = d3.select("#viewdesc").text("");
   desc.append("b").text("In focus: "); desc.append("span").text(v.focus+" ");
   desc.append("b").text("Left out: "); desc.append("span").text(v.leaves_out+` (${nodes.length} nodes, ${links.length} links)`);
   d3.select("#views").selectAll("button").attr("aria-pressed",(x,i)=>String(i===cur));
+  writeHash();
 }
 function repaintSelection(){
   nodeSel.select("path").attr("stroke",nodeStroke).attr("stroke-width",d=>d.id===selectedId?2.4:1.2);
@@ -162,8 +188,9 @@ function section(title){detailEl.appendChild(el("h3",null,title));const ul=el("u
 function showDetail(id){
   const n = byId.get(id), d = DETAIL[id]; if(!n||!d) return;
   selectedId = id;
-  if(!view().present.includes(id)){ cur = VIEWS.findIndex(v=>v.present.includes(id)); if(cur<0) cur = VIEWS.length-1; paint(); } else repaintSelection();
-  detailEl.textContent = "";
+  if(!view().present.includes(id)){ cur = VIEWS.findIndex(v=>v.present.includes(id)); if(cur<0) cur = VIEWS.length-1; paint(); } else { repaintSelection(); writeHash(); }
+  detailEl.textContent = ""; detailEl.classList.remove("idle");
+  const close = el("button",null,"×"); close.id = "close"; close.title = "close"; close.addEventListener("click",clearDetail); detailEl.appendChild(close);
   detailEl.appendChild(el("h2",null,n.label));
   detailEl.appendChild(el("span","chip",(FAM[n.cls]||{text:n.cls}).text));
   detailEl.appendChild(el("div","desc",n.desc));
@@ -180,8 +207,9 @@ function showDetail(id){
   detailEl.scrollTop = 0;
 }
 detailEl.addEventListener("click",ev=>{const r=ev.target&&ev.target.dataset&&ev.target.dataset.ref; if(r) showDetail(r);});
-svg.on("click",()=>{ if(selectedId){selectedId=null;repaintSelection();detailEl.textContent="";
-  detailEl.appendChild(el("div","empty","click a node to read it; drag to pin, double-click to release"));}});
+function clearDetail(){ selectedId=null; repaintSelection(); detailEl.textContent=""; detailEl.classList.add("idle");
+  detailEl.appendChild(el("div","empty","click a node to read it; drag to pin, double-click to release")); writeHash(); }
+svg.on("click",()=>{ if(selectedId) clearDetail(); });
 
 // --- search: label substring, jump to the node ---
 const q = document.getElementById("q"), hits = document.getElementById("hits");
@@ -231,17 +259,24 @@ document.getElementById("run").addEventListener("click", async ()=>{
   }catch(e){ st.textContent = "SPARQL needs the site served over http (the WebAssembly store cannot load from a file: URL); use `uv run -q ogc sparql` instead. " + (e && e.message ? e.message : e); }
 });
 document.getElementById("qout").addEventListener("click",ev=>{const r=ev.target&&ev.target.dataset&&ev.target.dataset.ref; if(r) showDetail(r);});
-function shortIri(v){ for(const [k,ns] of Object.entries(PREFIX_MAP)) if(v.startsWith(ns)) return k+":"+v.slice(ns.length); return v; }
-const PREFIX_MAP = Object.fromEntries(PREFIXES.trim().split("\n").map(l=>{const m=l.match(/^PREFIX (\w*): <([^>]*)>/);return m?[m[1],m[2]]:null;}).filter(Boolean));
+function shortIri(v){ for(const [k,ns] of PREFIX_LIST) if(v.startsWith(ns)) return k+":"+v.slice(ns.length); return v; }
+const PREFIX_LIST = PREFIXES.trim().split("\n").map(l=>{const m=l.match(/^PREFIX (\w*): <([^>]*)>/);return m?[m[1],m[2]]:null;}).filter(Boolean).sort((a,b)=>b[1].length-a[1].length);
 
 function layout(){
   const hh = document.querySelector("header").offsetHeight;
   detailEl.style.top = (hh+12)+"px";
   detailEl.style.bottom = (document.getElementById("sparql").offsetHeight+24)+"px";
-  const cy = hh + (H-hh)*.5; sim.force("center").y(cy); sim.force("y").y(cy);
+  const cy = hh + (H-hh)*.5, cx = EMBED ? W*.5 : W*.58;
+  sim.force("center").x(cx).y(cy); sim.force("x").x(cx); sim.force("y").y(cy);
 }
+// deep links: #view=<view id>&node=<node id>, read on load and kept current, so a view or a node can be linked to
+function readHash(){ const p = new URLSearchParams(location.hash.slice(1)); const v = VIEWS.findIndex(x=>x.id===p.get("view")); if(v>=0) cur=v; return p.get("node"); }
+function writeHash(){ const p = new URLSearchParams(); p.set("view", view().id); if(selectedId) p.set("node", selectedId); try{ history.replaceState(null,"","#"+p.toString()); }catch(e){} }
+const startNode = readHash();
 paint(); layout();
+if(startNode && byId.has(startNode)) showDetail(startNode);
 window.addEventListener("resize",layout);
+window.addEventListener("hashchange",()=>{ const n = readHash(); paint(); if(n && byId.has(n)) showDetail(n); });
 document.getElementById("sparql").addEventListener("toggle",layout);
 </script>
 </body></html>
