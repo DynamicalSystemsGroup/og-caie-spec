@@ -7,10 +7,11 @@
 # Counterexample for the S6 chain rule in a two-turn session driven by a
 # strategy (R-13). Turn 1 runs probe-1 (exercises a); the strategy then
 # chooses probe-2 (exercises b) from the trajectory so far, and turn 2 runs
-# it. The attestation about b is bound to probe-2 but interprets the
-# evidence from turn 1, which probe-1 produced. Sessions are stateful: the
-# response at turn 1 cannot bear on what probe-2 asked. Must fail on
-# ogc:S6-Attestation and nothing else.
+# it. The attestation about b uses evidence-1, the determination made at
+# turn 1 against a's expected result, instead of evidence-2. Sessions are
+# stateful: the response at turn 1 cannot bear on what probe-2 asked, and the
+# evidence item says so by answering a, not b. Must fail on ogc:S6-Attestation
+# and nothing else.
 
 cx:person a prov:Agent, prov:Person .
 cx:expert a prov:Agent, prov:Person .
@@ -36,12 +37,14 @@ cx:check-2 a epo:ConsistencyCheck ; earl:subject cx:probe-2 ; earl:mode earl:aut
 cx:session a epo:Session ; prov:wasAssociatedWith cx:sut ; prov:wasAssociatedWith cx:person ; prov:startedAtTime "2026-08-10T00:00:00Z"^^xsd:dateTime .
 cx:turn-1 a epo:Turn ; epo:inSession cx:session ; epo:turnIndex 1 ; prov:used cx:probe-1 .
 cx:turn-2 a epo:Turn ; epo:inSession cx:session ; epo:turnIndex 2 ; prov:used cx:probe-2 .
-cx:evidence-1 a epo:Evidence ; epo:text "response at turn 1" ; prov:wasGeneratedBy cx:turn-1 .
-cx:evidence-2 a epo:Evidence ; epo:text "response at turn 2" ; prov:wasGeneratedBy cx:turn-2 .
+cx:response-1 a epo:Response ; epo:text "response at turn 1" ; prov:wasGeneratedBy cx:turn-1 ; prov:wasAttributedTo cx:sut .
+cx:response-2 a epo:Response ; epo:text "response at turn 2" ; prov:wasGeneratedBy cx:turn-2 ; prov:wasAttributedTo cx:sut .
+cx:evidence-1 a epo:Evidence ; epo:answers cx:a ; epo:observed false ; prov:wasDerivedFrom cx:response-1 ; epo:underPlan cx:plan ; prov:wasAttributedTo cx:expert .
+cx:evidence-2 a epo:Evidence ; epo:answers cx:b ; epo:observed false ; prov:wasDerivedFrom cx:response-2 ; epo:underPlan cx:plan ; prov:wasAttributedTo cx:expert .
 
 cx:attestation a epo:Attestation ;
     earl:test cx:b ; earl:subject cx:sut ; earl:mode earl:manual ; earl:assertedBy cx:expert ;
-    prov:used cx:evidence-1 ; epo:underPlan cx:probe-2 ;
+    prov:used cx:evidence-1 ;
     earl:result [ a earl:TestResult ; earl:outcome earl:failed ] ;
     epo:appropriateness epo:appropriate ; epo:sufficiency epo:sufficient ;
     epo:step epo:runAndAttest ;

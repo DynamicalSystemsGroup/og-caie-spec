@@ -33,7 +33,8 @@ epo:TestPlan a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "test plan (
 epo:Strategy a owl:Class ; rdfs:subClassOf prov:Plan, prov:Entity ; rdfs:label "test strategy (SEVOCAB 29119-2): a state feedback policy that chooses the next probe from the trajectory so far, grounded in the DSO (R-13)" .
 epo:Trajectory a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "trajectory: the ordered prompt-response pairs of a session, the observable realization (IEC 60050-351 351-41-10, refined; R-13)" .
 epo:Probe a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "probe" .
-epo:Evidence a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "evidence" .
+epo:Response a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "response: what the system under test produced at one turn (the actual result)" .
+epo:Evidence a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "evidence: a Boolean determination against one criterion's expected result, from a response, a trajectory or a suite of them, under the test plan (R-18)" .
 epo:Report a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "report" .
 epo:Recommendation a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "recommendation" .
 
@@ -42,6 +43,7 @@ epo:ProbeDerivation a owl:Class ; rdfs:subClassOf prov:Activity ; rdfs:label "pr
 epo:ConsistencyCheck a owl:Class ; rdfs:subClassOf earl:Assertion, prov:Activity ; rdfs:label "automatic consistency check of a probe" .
 epo:Session a owl:Class ; rdfs:subClassOf prov:Activity ; rdfs:label "session (NIST AI 700-2): one tester, one system under test, a sequence of turns; the test execution" .
 epo:Turn a owl:Class ; rdfs:subClassOf prov:Activity ; rdfs:label "turn: one probe applied within a session, producing one response" .
+epo:TestSuite a owl:Class ; rdfs:subClassOf prov:Activity ; rdfs:label "test suite (SEVOCAB 29119-1): a set of sessions run together, e.g. a robustness battery (R-18)" .
 epo:Attestation a owl:Class ; rdfs:subClassOf earl:Assertion, prov:Activity ; rdfs:label "attestation" .
 epo:CoverageComputation a owl:Class ; rdfs:subClassOf prov:Activity ; rdfs:label "coverage computation" .
 
@@ -62,7 +64,10 @@ epo:turnIndex a owl:DatatypeProperty ; rdfs:domain epo:Turn ; rdfs:range xsd:int
 epo:policy a owl:DatatypeProperty ; rdfs:domain epo:Strategy ; rdfs:range xsd:string ; rdfs:comment "the rule that maps the trajectory so far to the next probe; may name a person's exploratory testing" .
 epo:groundedIn a owl:ObjectProperty ; rdfs:domain epo:Strategy ; rdfs:range epo:DsoRelease .
 epo:turns a owl:DatatypeProperty ; rdfs:domain epo:Trajectory ; rdfs:range xsd:integer .
-epo:underPlan a owl:ObjectProperty ; rdfs:subPropertyOf prov:used ; rdfs:domain epo:Attestation ; rdfs:range epo:Probe ; rdfs:comment "the probe, under the test plan, whose run produced the evidence this attestation interprets" .
+epo:underPlan a owl:ObjectProperty ; rdfs:subPropertyOf prov:wasDerivedFrom ; rdfs:domain epo:Evidence ; rdfs:range epo:TestPlan ; rdfs:comment "the test plan an evidence item was collected under (R-18)" .
+epo:answers a owl:ObjectProperty ; rdfs:domain epo:Evidence ; rdfs:range epo:AcceptanceCriterion ; rdfs:comment "the criterion whose expected result this evidence item rules on (R-18)" .
+epo:observed a owl:DatatypeProperty ; rdfs:domain epo:Evidence ; rdfs:range xsd:boolean ; rdfs:comment "did the expected result happen: a determination (ISO 9000:2026 3.11.1) recorded as a Boolean (R-18)" .
+epo:inSuite a owl:ObjectProperty ; rdfs:domain epo:Session ; rdfs:range epo:TestSuite .
 epo:exercises a owl:ObjectProperty ; rdfs:domain epo:Probe ; rdfs:range epo:AcceptanceCriterion .
 epo:derivedFromDso a owl:ObjectProperty ; rdfs:subPropertyOf prov:wasDerivedFrom ; rdfs:domain epo:Probe ; rdfs:range epo:DsoRelease .
 epo:appropriateness a owl:ObjectProperty ; rdfs:domain epo:Attestation ; rdfs:range epo:AppropriatenessValue .

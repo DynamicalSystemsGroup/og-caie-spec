@@ -349,3 +349,22 @@ rul:R-17 a ogc:Ruling ;
     ogc:changeNote "Narrative of evaluation record rewritten to say so; scope note names the two directions (downward flow-down from requirement to criteria to plan to probes, upward derivation from attestation to evidence to probe to criterion to requirement). New shape S2-Requirement: every requirement belongs to the requirement set and has at least one acceptance criterion derived from it, so the downward direction is checked; the upward direction was already checked by S6 and S8." ;
     prov:wasAttributedTo rul:Z ;
     prov:generatedAtTime "2026-09-06"^^xsd:date .
+
+rul:C-19 a ogc:Concern ;
+    rdfs:label "evidence: at what level, and what it maps to" ;
+    ogc:problem """The record bound each evidence item to one turn's response and the attestation to the probe. Evidence can also exist at the session level (a trajectory) and rolled up over many sessions (a sensitivity test or robustness battery), so binding to a probe is too narrow; and nothing said what an evidence item is evidence of.""" ;
+    ogc:severity "H" ;
+    ogc:status "ruled" ;
+    ogc:surfacedOn "2026-09-06"^^xsd:date ;
+    ogc:surfacedHow "row 14 of rulings sheet 01" ;
+    ogc:concernsTerm term:objective-evidence ;
+    ogc:concernsTerm term:expected-results ;
+    prov:wasGeneratedBy rul:sheet-01-walkthrough-2026-09-06 .
+
+rul:R-18 a ogc:Ruling ;
+    ogc:order 18 ;
+    ogc:resolves rul:C-19 ;
+    ogc:rulingText "evidence can exist at the probe level but it can also exist at a session level, and it can also be rolled up to a multi-session scenario which might be from a sensitivity test or robustness battery. so its not necessarily bound to a probe (though it could be) rather evidence needs to be related to the test plan and in particular it maps to an expected result. the expected result being something that can be ruled on directly as a bool. did it or did it not happen." ;
+    ogc:changeNote "EPO: Response (what the system produced at a turn) separated from Evidence; Evidence answers exactly one acceptance criterion's expected result with a Boolean observed value (a determination, ISO 9000:2026 3.11.1), derives from one or more responses or trajectories, is attributed to whoever determined it, and is bound to the test plan; TestSuite (SEVOCAB, altLabel battery) groups sessions for the multi-session level. Attestation binds to evidence; the chain rule now requires every evidence an attestation uses to answer the attested criterion under a plan that has it as an objective. Record: response-1, evidence-1a (a1, observed false), evidence-1b (a2, observed false). Shapes S5-Response, S5-Evidence, S4-TestSuite; S6 chain rule rewritten. Glossary: test suite added; objective evidence narrative rewritten. Model: Response and two Evidence items, level enum, SCI-05 and SCI-06 rewritten." ;
+    prov:wasAttributedTo rul:Z ;
+    prov:generatedAtTime "2026-09-06"^^xsd:date .

@@ -16,7 +16,7 @@ flowchart LR
   evaluator -- "requirementSeam" --> recorder
   probeDeriver -- "derivedProbeSeam" --> evaluator
   evaluator -- "probeRunSeam" --> systemUnderTest
-  systemUnderTest -- "evidenceSeam" --> recorder
+  systemUnderTest -- "responseSeam" --> recorder
   evaluator -- "evaluatorAttestationSeam" --> recorder
   domainExpert -- "expertAttestationSeam" --> recorder
   recorder -- "recordToDeriverSeam" --> probeDeriver

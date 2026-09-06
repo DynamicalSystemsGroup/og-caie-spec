@@ -167,11 +167,19 @@ package OGCAIE {
         attribute startedAt : ScalarValues::Real;
     }
 
-    item def Evidence {
-        doc /* Objective evidence (ISO 9000:2026 3.8.6): what the system
-           under test produced at one turn of a session when a probe was
-           applied, with the SUT version and the named operator of the
-           session. */
+    enum def EvidenceLevel {
+        doc /* Ruling R-18: evidence can be determined from one response
+           (probe level), from a session's trajectory (session level), or
+           rolled up over a test suite of sessions (suite level). */
+        probe;
+        session;
+        suite;
+    }
+
+    item def Response {
+        doc /* What the system under test produced at one turn of a
+           session when a probe was applied (the actual result), with the
+           SUT version and the named operator of the session. */
         attribute id : ScalarValues::String;
         attribute probeId : ScalarValues::String;
         attribute sessionId : ScalarValues::String;
@@ -181,18 +189,32 @@ package OGCAIE {
         attribute runStartedAt : ScalarValues::Real;
     }
 
+    item def Evidence {
+        doc /* Objective evidence (ISO 9000:2026 3.8.6), ruling R-18: a
+           determination (3.11.1) that one criterion's expected result did
+           or did not happen, recorded as a Boolean, made at the probe,
+           session or suite level, attributed to whoever determined it,
+           and bound to the test plan. */
+        attribute id : ScalarValues::String;
+        attribute criterionId : ScalarValues::String;
+        attribute observed : ScalarValues::Boolean;
+        attribute level : EvidenceLevel;
+        attribute planId : ScalarValues::String;
+        attribute responseId : ScalarValues::String;
+        attribute determinerNamed : ScalarValues::Boolean;
+    }
+
     item def Attestation {
         doc /* ISO/IEC 17000:2020 7.3: the issue of a statement, based on
            a decision, that fulfilment of specified requirements has been
            demonstrated. One criterion, one named human assertor, an EARL
            outcome, the appropriateness and sufficiency judgments, and the
            EPO step. The closure rule: passed or failed requires at least
-           one piece of evidence. The chain rule (R-12): the attestation is
-           bound to the evidence it interprets and to the probe, under the
-           test plan, whose run produced it; SEVOCAB test result: whether
-           the actual results correspond to the expected results. */
+           one piece of evidence. The chain rule (R-12, R-18): the evidence
+           the attestation interprets answers the attested criterion's
+           expected result under the test plan; SEVOCAB test result:
+           whether the actual results correspond to the expected results. */
         attribute criterionId : ScalarValues::String;
-        attribute probeId : ScalarValues::String;
         attribute evidenceId : ScalarValues::String;
         attribute assertorNamed : ScalarValues::Boolean;
         attribute mode : Mode;
@@ -232,7 +254,7 @@ package OGCAIE {
     port def DsoWrite { out item d : DsoRelease; }
     port def RequirementSetWrite { out item r : RequirementSet; }
     port def ProbeWrite { out item p : Probe; }
-    port def EvidenceWrite { out item e : Evidence; }
+    port def ResponseWrite { out item r : Response; }
     port def AttestationWrite { out item a : Attestation; }
     port def RecordWrite { out item r : RequirementSet; }
     port def ReportWrite { out item r : Report; }
@@ -318,9 +340,9 @@ package OGCAIE {
         doc /* The deployed AI system, a black box: it is given probes and
            produces responses, which are recorded as evidence. Outside the
            evaluation's boundary of responsibility, inside its record. */
-        item evidence : Evidence;
+        item response : Response;
         port probesIn : ~ProbeWrite;
-        port evidenceOut : EvidenceWrite;
+        port responseOut : ResponseWrite;
     }
 
     part def ProbeDeriver :> MachineAgent {
@@ -357,12 +379,14 @@ package OGCAIE {
         item plan : TestPlan;
         item probe : Probe;
         item session : Session;
-        item evidence : Evidence;
+        item response : Response;
+        item evidence1 : Evidence;
+        item evidence2 : Evidence;
         item attestation1 : Attestation;
         item attestation2 : Attestation;
         port dsoIn : ~DsoWrite;
         port requirementsIn : ~RequirementSetWrite;
-        port evidenceIn : ~EvidenceWrite;
+        port responseIn : ~ResponseWrite;
         port evaluatorAttestationIn : ~AttestationWrite;
         port expertAttestationIn : ~AttestationWrite;
         port recordToDeriver : RecordWrite;
@@ -386,7 +410,7 @@ package OGCAIE {
     interface def DsoSeam { end supplier : DsoWrite; end consumer : ~DsoWrite; }
     interface def RequirementSeam { end supplier : RequirementSetWrite; end consumer : ~RequirementSetWrite; }
     interface def ProbeSeam { end supplier : ProbeWrite; end consumer : ~ProbeWrite; }
-    interface def EvidenceSeam { end supplier : EvidenceWrite; end consumer : ~EvidenceWrite; }
+    interface def ResponseSeam { end supplier : ResponseWrite; end consumer : ~ResponseWrite; }
     interface def AttestationSeam { end supplier : AttestationWrite; end consumer : ~AttestationWrite; }
     interface def RecordSeam { end supplier : RecordWrite; end consumer : ~RecordWrite; }
     interface def ReportSeam { end supplier : ReportWrite; end consumer : ~ReportWrite; }
@@ -407,7 +431,7 @@ package OGCAIE {
         interface requirementSeam : RequirementSeam connect evaluator.requirementsOut to recorder.requirementsIn;
         interface derivedProbeSeam : ProbeSeam connect probeDeriver.probesOut to evaluator.probesIn;
         interface probeRunSeam : ProbeSeam connect evaluator.probesToSut to systemUnderTest.probesIn;
-        interface evidenceSeam : EvidenceSeam connect systemUnderTest.evidenceOut to recorder.evidenceIn;
+        interface responseSeam : ResponseSeam connect systemUnderTest.responseOut to recorder.responseIn;
         interface evaluatorAttestationSeam : AttestationSeam connect evaluator.attestationOut to recorder.evaluatorAttestationIn;
         interface expertAttestationSeam : AttestationSeam connect domainExpert.attestationOut to recorder.expertAttestationIn;
         interface recordToDeriverSeam : RecordSeam connect recorder.recordToDeriver to probeDeriver.recordIn;
@@ -448,7 +472,7 @@ package OGCAIE {
            under test, requirement set, criteria and weights are declared
            before any probe run (R-14). */
         subject ev : OgCaieEvaluation;
-        require constraint { ev.recorder.requirements.declaredAt < ev.recorder.evidence.runStartedAt }
+        require constraint { ev.recorder.requirements.declaredAt < ev.recorder.response.runStartedAt }
         require constraint { ev.recorder.requirements.declaredAt < ev.recorder.probe.derivedAt }
         require constraint { ev.recorder.requirements.sutNamed }
     }
@@ -474,7 +498,7 @@ package OGCAIE {
         subject ev : OgCaieEvaluation;
         require constraint { ev.recorder.plan.objectives >= 1 and ev.recorder.plan.means >= 1 }
         require constraint { ev.recorder.probe.planId == ev.recorder.plan.id }
-        require constraint { ev.recorder.plan.derivedAt < ev.recorder.evidence.runStartedAt }
+        require constraint { ev.recorder.plan.derivedAt < ev.recorder.response.runStartedAt }
         require constraint { ev.recorder.probe.exercisedCriteria >= 1 }
         require constraint { ev.recorder.probe.derivedFromDso }
         require constraint { ev.recorder.probe.consistencyPassed }
@@ -482,16 +506,22 @@ package OGCAIE {
     }
 
     requirement def <'SCI-05'> EvidenceFromNamedRuns {
-        doc /* machine (shapes S4, S5). Every evidence item was generated
-           at a numbered turn of a session against a named SUT version by
-           a named operator, and the session precedes nothing it depends
-           on (R-13). */
+        doc /* machine (shapes S4, S5). Every response was produced at a
+           numbered turn of a session against a named SUT version by a
+           named operator; every evidence item rules on one criterion's
+           expected result as a Boolean, at the probe, session or suite
+           level, is attributed to whoever determined it, and is bound to
+           the test plan (R-13, R-18). */
         subject ev : OgCaieEvaluation;
-        require constraint { ev.recorder.evidence.sutVersioned }
-        require constraint { ev.recorder.evidence.operatorNamed }
-        require constraint { ev.recorder.evidence.sessionId == ev.recorder.session.id }
-        require constraint { ev.recorder.evidence.turnIndex >= 1 and ev.recorder.evidence.turnIndex <= ev.recorder.session.turns }
-        require constraint { ev.recorder.session.startedAt <= ev.recorder.evidence.runStartedAt }
+        require constraint { ev.recorder.response.sutVersioned }
+        require constraint { ev.recorder.response.operatorNamed }
+        require constraint { ev.recorder.response.sessionId == ev.recorder.session.id }
+        require constraint { ev.recorder.response.turnIndex >= 1 and ev.recorder.response.turnIndex <= ev.recorder.session.turns }
+        require constraint { ev.recorder.session.startedAt <= ev.recorder.response.runStartedAt }
+        require constraint { ev.recorder.evidence1.planId == ev.recorder.plan.id and ev.recorder.evidence2.planId == ev.recorder.plan.id }
+        require constraint { ev.recorder.evidence1.determinerNamed and ev.recorder.evidence2.determinerNamed }
+        require constraint { ev.recorder.evidence1.level == EvidenceLevel::probe implies ev.recorder.evidence1.responseId == ev.recorder.response.id }
+        require constraint { ev.recorder.evidence2.level == EvidenceLevel::probe implies ev.recorder.evidence2.responseId == ev.recorder.response.id }
     }
 
     requirement def <'SCI-06'> AttestationsWellFormed {
@@ -579,7 +609,7 @@ package OGCAIE {
             part :>> sponsor { attribute :>> name = "public-health-sponsor"; }
             part :>> systemUnderTest {
                 attribute :>> name = "measles-chatbot"; attribute :>> version = "v1";
-                item :>> evidence { attribute :>> id = "evidence-1"; attribute :>> probeId = "probe-1"; attribute :>> sessionId = "session-1"; attribute :>> turnIndex = 1; attribute :>> sutVersioned = true; attribute :>> operatorNamed = true; attribute :>> runStartedAt = 4.0; }
+                item :>> response { attribute :>> id = "response-1"; attribute :>> probeId = "probe-1"; attribute :>> sessionId = "session-1"; attribute :>> turnIndex = 1; attribute :>> sutVersioned = true; attribute :>> operatorNamed = true; attribute :>> runStartedAt = 4.0; }
             }
             part :>> probeDeriver {
                 attribute :>> name = "probe-deriver"; attribute :>> version = "0.1";
@@ -599,9 +629,11 @@ package OGCAIE {
                 item :>> a2 { attribute :>> id = "a2"; attribute :>> derivedFromRequirement = true; attribute :>> verifiable = true; attribute :>> expectedResultStated = true; attribute :>> weight = 1.0; attribute :>> minPassRate = 0.95; attribute :>> attestationCount = 1; attribute :>> covered = true; attribute :>> coveredWeight = 1.0; }
                 item :>> a3 { attribute :>> id = "a3"; attribute :>> derivedFromRequirement = true; attribute :>> verifiable = true; attribute :>> expectedResultStated = true; attribute :>> weight = 1.0; attribute :>> minPassRate = 0.95; attribute :>> attestationCount = 0; attribute :>> covered = false; attribute :>> coveredWeight = 0.0; }
                 item :>> probe { attribute :>> id = "probe-1"; attribute :>> planId = "plan-1"; attribute :>> exercisedCriteria = 2; attribute :>> derivedFromDso = true; attribute :>> consistencyPassed = true; attribute :>> derivedAt = 3.0; }
-                item :>> evidence { attribute :>> id = "evidence-1"; attribute :>> probeId = "probe-1"; attribute :>> sessionId = "session-1"; attribute :>> turnIndex = 1; attribute :>> sutVersioned = true; attribute :>> operatorNamed = true; attribute :>> runStartedAt = 4.0; }
-                item :>> attestation1 { attribute :>> criterionId = "a1"; attribute :>> probeId = "probe-1"; attribute :>> evidenceId = "evidence-1"; attribute :>> assertorNamed = true; attribute :>> mode = Mode::manual; attribute :>> outcome = Outcome::failed; attribute :>> appropriateness = Appropriateness::appropriate; attribute :>> sufficiency = Sufficiency::insufficient; attribute :>> step = EpoStep::runAndAttest; attribute :>> evidenceCount = 1; }
-                item :>> attestation2 { attribute :>> criterionId = "a2"; attribute :>> probeId = "probe-1"; attribute :>> evidenceId = "evidence-1"; attribute :>> assertorNamed = true; attribute :>> mode = Mode::manual; attribute :>> outcome = Outcome::failed; attribute :>> appropriateness = Appropriateness::appropriate; attribute :>> sufficiency = Sufficiency::insufficient; attribute :>> step = EpoStep::runAndAttest; attribute :>> evidenceCount = 1; }
+                item :>> response { attribute :>> id = "response-1"; attribute :>> probeId = "probe-1"; attribute :>> sessionId = "session-1"; attribute :>> turnIndex = 1; attribute :>> sutVersioned = true; attribute :>> operatorNamed = true; attribute :>> runStartedAt = 4.0; }
+                item :>> evidence1 { attribute :>> id = "evidence-1a"; attribute :>> criterionId = "a1"; attribute :>> observed = false; attribute :>> level = EvidenceLevel::probe; attribute :>> planId = "plan-1"; attribute :>> responseId = "response-1"; attribute :>> determinerNamed = true; }
+                item :>> evidence2 { attribute :>> id = "evidence-1b"; attribute :>> criterionId = "a2"; attribute :>> observed = false; attribute :>> level = EvidenceLevel::probe; attribute :>> planId = "plan-1"; attribute :>> responseId = "response-1"; attribute :>> determinerNamed = true; }
+                item :>> attestation1 { attribute :>> criterionId = "a1"; attribute :>> evidenceId = "evidence-1a"; attribute :>> assertorNamed = true; attribute :>> mode = Mode::manual; attribute :>> outcome = Outcome::failed; attribute :>> appropriateness = Appropriateness::appropriate; attribute :>> sufficiency = Sufficiency::insufficient; attribute :>> step = EpoStep::runAndAttest; attribute :>> evidenceCount = 1; }
+                item :>> attestation2 { attribute :>> criterionId = "a2"; attribute :>> evidenceId = "evidence-1b"; attribute :>> assertorNamed = true; attribute :>> mode = Mode::manual; attribute :>> outcome = Outcome::failed; attribute :>> appropriateness = Appropriateness::appropriate; attribute :>> sufficiency = Sufficiency::insufficient; attribute :>> step = EpoStep::runAndAttest; attribute :>> evidenceCount = 1; }
             }
             part :>> coverageCalculator {
                 attribute :>> name = "coverage-calculator"; attribute :>> version = "0.1";

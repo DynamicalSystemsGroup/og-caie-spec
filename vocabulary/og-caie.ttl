@@ -57,13 +57,29 @@ term:conformance a skos:Concept ; skos:inScheme ogc:Glossary ;
 term:objective-evidence a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "objective evidence"@en ;
     skos:altLabel "evidence"@en ;
-    skos:definition "Data that supports the existence or truth of something. Here: what the system under test produced when probed, recorded so that a judgment can point to it. On its own it does not verify a requirement; an attestation does."@en ;
+    skos:definition "Data that supports the existence or truth of something. Here, an evidence item answers one acceptance criterion's expected result with a plain yes or no: did it happen or not. It can be determined at the probe level from one response, at the session level from a trajectory, or rolled up over a test suite of sessions, as in a robustness battery; whichever level, it is bound to the test plan and attributed to whoever made the determination. On its own it does not verify a requirement; an attestation does."@en ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.8.6" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-21.png" ;
-                    ogc:quote "data supporting the existence or verity of something" ; ogc:quoteStatus "pending" ] ;
+                    ogc:quote "data supporting the existence or verity of something" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "objective evidence, p. 277" ; ogc:pdfPage 277 ;
                   ogc:quote "data supporting the existence or verity of something" ; ogc:quoteStatus "machine" ] ;
-    ogc:binding "epo:Evidence, a prov:Entity" .
+    ogc:seeAlso [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.11.1 determination" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-29.png" ;
+                  ogc:quote "activity to find out one or more characteristics and their characteristic values" ; ogc:quoteStatus "pending" ] ;
+    ogc:scopeNote "Ruling R-18: an evidence item is a determination (ISO 9000:2026 3.11.1) against an expected result, recorded as a Boolean; the response it was determined from is kept separately as the raw record of the turn." ;
+    prov:wasDerivedFrom rul:R-18 ;
+    ogc:binding "epo:Evidence (answers one criterion, observed true or false, under a test plan) derived from epo:Response or epo:Trajectory" .
+
+term:test-suite a skos:Concept ; skos:inScheme ogc:Glossary ;
+    skos:prefLabel "test suite"@en ;
+    skos:altLabel "battery"@en ; skos:altLabel "robustness battery"@en ;
+    skos:definition "A set of sessions run together, for example replicate sessions of one strategy, or the varied sessions of a sensitivity test or robustness battery. Evidence rolled up over a suite is evidence at the third level, above probe and session."@en ;
+    ogc:class "adopted" ;
+    ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "test suite, p. 439" ; ogc:pdfPage 439 ;
+                    ogc:quote "set of test cases or test procedures" ; ogc:quoteStatus "machine" ] ;
+    ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "robustness, p. 363 (ISO/IEC 25059:2023)" ; ogc:pdfPage 363 ;
+                  ogc:quote "degree to which an AI system can maintain its level of functional correctness under any circumstances" ; ogc:quoteStatus "machine" ] ;
+    prov:wasDerivedFrom rul:R-18 ;
+    ogc:binding "epo:TestSuite, a prov:Activity grouping epo:Session activities" .
 
 term:verification a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "verification"@en ;
@@ -93,7 +109,7 @@ term:test a skos:Concept ; skos:inScheme ogc:Glossary ;
                     ogc:quote "determination according to requirements for a specific intended use or application" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "test execution, p. 434" ; ogc:pdfPage 434 ;
                   ogc:quote "process of running a test on the test item, producing actual results" ; ogc:quoteStatus "machine" ] ;
-    ogc:binding "epo:Session with its epo:Turn activities (test execution; the evidence is the actual result)" .
+    ogc:binding "epo:Session with its epo:Turn activities (test execution; each turn's epo:Response is the actual result)" .
 
 term:record a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "record"@en ;
@@ -379,7 +395,7 @@ term:attestation a skos:Concept ; skos:inScheme ogc:Glossary ;
                     ogc:quote "issue of a statement, based on a decision, that fulfilment of specified requirements has been demonstrated" ; ogc:quoteStatus "pending" ] ;
     ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "test result, p. 438" ; ogc:pdfPage 438 ;
                   ogc:quote "indication of whether a specific test case has passed or failed, i.e. if the actual results correspond to the expected results or if deviations were observed" ; ogc:quoteStatus "machine" ] ;
-    ogc:binding "epo:Attestation, an earl:Assertion and a prov:Activity; bound to the evidence and to the probe under the test plan that produced it" .
+    ogc:binding "epo:Attestation, an earl:Assertion and a prov:Activity; bound to the evidence, which is bound to the test plan" .
 
 term:appropriateness a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "appropriateness"@en ;

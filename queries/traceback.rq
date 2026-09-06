@@ -8,7 +8,7 @@ PREFIX epo:  <https://w3id.org/og-caie/epo#>
 PREFIX earl: <http://www.w3.org/ns/earl#>
 PREFIX prov: <http://www.w3.org/ns/prov#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-SELECT ?recommendation ?author ?step ?attestation ?assertor ?criterion ?expected ?outcome ?evidence ?run ?turnIndex ?operator ?sut ?probe ?plan ?dso ?dsoApprover
+SELECT ?recommendation ?author ?step ?attestation ?assertor ?criterion ?expected ?observed ?outcome ?evidence ?run ?turnIndex ?operator ?sut ?probe ?plan ?dso ?dsoApprover
 WHERE {
   ?recommendation a epo:Recommendation ;
       prov:wasAttributedTo ?authorNode ; epo:step ?stepNode ;
@@ -17,16 +17,15 @@ WHERE {
   ?stepNode rdfs:label ?step .
   ?attestation a epo:Attestation ; earl:test ?criterionNode ; earl:assertedBy ?assertorNode ;
       earl:result ?res ; prov:used ?evidence .
+  ?evidence a epo:Evidence ; epo:answers ?criterionNode ; epo:observed ?observed ; epo:underPlan ?plan .
   ?res earl:outcome ?outcomeNode .
   ?assertorNode rdfs:label ?assertor .
   ?criterionNode epo:text ?criterion ; epo:expectedResult ?expected .
-  ?attestation epo:underPlan ?probe .
-  ?probe epo:exercises ?criterionNode .
-  ?plan a epo:TestPlan ; epo:means ?probe .
   ?recommendation prov:wasDerivedFrom ?plan .
   BIND(STRAFTER(STR(?outcomeNode), "#") AS ?outcome)
-  ?evidence a epo:Evidence ; prov:wasGeneratedBy ?turn .
+  ?evidence prov:wasDerivedFrom ?response . ?response a epo:Response ; prov:wasGeneratedBy ?turn .
   ?turn a epo:Turn ; prov:used ?probe ; epo:inSession ?run ; epo:turnIndex ?turnIndex .
+  ?probe epo:exercises ?criterionNode .
   ?run a epo:Session ; prov:wasAssociatedWith ?operatorNode ; prov:wasAssociatedWith ?sutNode .
   ?operatorNode a prov:Person ; rdfs:label ?operator .
   ?sutNode a prov:SoftwareAgent ; rdfs:label ?sut .
