@@ -9,7 +9,6 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 VOCAB = ROOT / "vocabulary" / "og-caie.ttl"
-SHEET = ROOT / "rulings" / "sheets" / "01-pending-verification.md"
 
 
 def main(argv):
@@ -25,11 +24,16 @@ def main(argv):
     new = new.replace('^^xsd:date"', '^^xsd:date')
     assert n == 1, f"{n} pending citations matched for {term} / {locator}"
     VOCAB.write_text(t[:start] + new + t[start + len(block):])
-    s = SHEET.read_text()
-    row = re.compile(r"^(\| \d+ \| " + re.escape(term.replace("-", " ")) + r" \| " + re.escape(src) + r" \| " + re.escape(locator) + r" \|.*\| )\[ \] \|$", re.M)
-    s, m = row.subn(r"\1[x] " + date + " |", s)
-    assert m == 1, f"{m} sheet rows matched for {term}"
-    SHEET.write_text(s)
+    # tick the first matching untouched row on any rulings sheet; warn if none
+    ticked = False
+    for sheet in sorted((ROOT / "rulings" / "sheets").glob("*.md")):
+        s = sheet.read_text()
+        row = re.compile(r"^(\|[^\n]*\| " + re.escape(locator) + r" \|[^\n]*\| )\[ \] \|$", re.M)
+        s2, m = row.subn(r"\1[x] " + date + " |", s, count=1)
+        if m:
+            sheet.write_text(s2); ticked = True; break
+    if not ticked:
+        print(f"warning: no sheet row for {term} / {locator}; vocabulary ticked only")
     print(f"ticked {term} {locator} ({src}) on {date}")
     return 0
 

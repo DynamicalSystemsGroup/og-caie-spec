@@ -20,6 +20,10 @@ When ticked, the citation's `ogc:quoteStatus` becomes `human` with `ogc:verified
 | 13 | evaluation record | iso-9000-2026 | 3.8.12 record | iso-9000-2026-obp-23.png | document stating results achieved or providing evidence of activities performed | [x] 2026-09-06 |
 | 14 | objective evidence | iso-9000-2026 | 3.8.6 | iso-9000-2026-obp-21.png | data supporting the existence or verity of something | [x] 2026-09-06 |
 | 15 | attestation | iso-iec-17000-2020 | 7.3 | OBP | issue of a statement, based on a decision, that fulfilment of specified requirements has been demonstrated | [x] 2026-09-06 |
+| 10b | conformance (reclaimed, R-16) | iso-9000-2026 | 3.5.9 Note 1 | iso-9000-2026-obp-13.png | The term "conformance" is synonymous but deprecated. | [x] 2026-09-06 (special case, not a synonym) |
+| 14b | objective evidence (seeAlso) | iso-9000-2026 | 3.11.1 determination | iso-9000-2026-obp-29.png | activity to find out one or more characteristics and their characteristic values | [x] 2026-09-06 |
+| 10b | conformance (reclaimed, R-16) | iso-9000-2026 | 3.5.9 conformity, Note 1 | iso-9000-2026-obp-13.png | The term "conformance" is synonymous but deprecated. | [x] 2026-09-06 (special case, not a synonym) |
+| 14b | objective evidence (seeAlso) | iso-9000-2026 | 3.11.1 determination | iso-9000-2026-obp-29.png | activity to find out one or more characteristics and their characteristic values | [x] 2026-09-06 |
 
 ## Open concern
 

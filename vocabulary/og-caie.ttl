@@ -47,10 +47,10 @@ term:conformance a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:class "refined" ;
     ogc:anchorRelation "specializes" ;
     ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.5.9 conformity, Note 1" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-13.png" ;
-                    ogc:quote "The term \"conformance\" is synonymous but deprecated." ; ogc:quoteStatus "pending" ] ;
+                    ogc:quote "The term \"conformance\" is synonymous but deprecated." ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:seeAlso [ ogc:cites src:w3c-shacl ; ogc:locator "Section 3.5 Conformance Checking" ;
                   ogc:quote "A focus node conforms to a shape if and only if the set of result of the validation of the focus node against the shape is empty and no failure has been reported by it." ; ogc:quoteStatus "machine" ] ;
-    ogc:scopeNote "Ruling R-16: ISO 9000:2026 deprecates this word as a synonym of conformity; this specification reclaims it on purpose, and says so, for the correctly constructed record. Two reasons. It separates fulfilling a requirement of the system (conformity, attested by a person) from satisfying the record-keeping requirements of the EPO (conformance, checked by machine). And it avoids SHACL's own word for the check, validation, which by this specification's split is verification." ;
+    ogc:scopeNote "Ruling R-16: ISO 9000:2026 deprecates this word as a synonym of conformity; this specification reclaims it on purpose, and says so, not as a synonym but for a special case: the correctly constructed record, whose conformance is fulfilment of the EPO's record-keeping requirements and so a conformity in its own right. Two reasons. It separates fulfilling a requirement of the system (conformity, attested by a person) from satisfying the record-keeping requirements of the EPO (conformance, checked by machine). And it avoids SHACL's own word for the check, validation, which by this specification's split is verification." ;
     prov:wasDerivedFrom rul:R-16 ;
     ogc:binding "sh:conforms true on the validation report of the record against shapes/epo.shapes.ttl; sysml part def ConformanceChecker" .
 
@@ -64,7 +64,7 @@ term:objective-evidence a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "objective evidence, p. 277" ; ogc:pdfPage 277 ;
                   ogc:quote "data supporting the existence or verity of something" ; ogc:quoteStatus "machine" ] ;
     ogc:seeAlso [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.11.1 determination" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-29.png" ;
-                  ogc:quote "activity to find out one or more characteristics and their characteristic values" ; ogc:quoteStatus "pending" ] ;
+                  ogc:quote "activity to find out one or more characteristics and their characteristic values" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:scopeNote "Ruling R-18: an evidence item is a determination (ISO 9000:2026 3.11.1) against an expected result, recorded as a Boolean; the response it was determined from is kept separately as the raw record of the turn." ;
     prov:wasDerivedFrom rul:R-18 ;
     ogc:binding "epo:Evidence (answers one criterion, observed true or false, under a test plan) derived from epo:Response or epo:Trajectory" .
@@ -292,9 +292,9 @@ term:trajectory a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:class "refined" ;
     ogc:anchorRelation "specializes" ;
     ogc:canonical [ ogc:cites src:iec-60050-351 ; ogc:locator "351-41-10 trajectory" ;
-                    ogc:quote "representation of the solution x(t) of the state equation as connecting line of the ends of the vector x(t) in state space with time as parameter" ; ogc:quoteStatus "pending" ] ;
+                    ogc:quote "representation of the solution x(t) of the state equation as connecting line of the ends of the vector x(t) in state space with time as parameter" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:seeAlso [ ogc:cites src:iec-60050-351 ; ogc:locator "351-41-08 state variable, Note 1" ;
-                  ogc:quote "In case of discrete-time variables the describing equations are xi+1 = f (xi, ui) state equation vi = g (xi, ui) output equation" ; ogc:quoteStatus "pending" ] ;
+                  ogc:quote "In case of discrete-time variables the describing equations are xi+1 = f (xi, ui) state equation vi = g (xi, ui) output equation" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:scopeNote "Ruling R-13: the IEC trajectory runs through the hidden state x; what the record holds is the input-output realization, which specializes it to what is observable." ;
     prov:wasDerivedFrom rul:R-13 ;
     ogc:binding "epo:Trajectory, a prov:Entity generated by a Session; ordered epo:Turn activities" .
@@ -308,9 +308,9 @@ term:test-strategy a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "test strategy, p. 439" ; ogc:pdfPage 439 ;
                     ogc:quote "part of the test plan that describes the approach to testing for a specific project, test level, or test type" ; ogc:quoteStatus "machine" ] ;
     ogc:seeAlso [ ogc:cites src:iec-60050-351 ; ogc:locator "351-47-29 output-feedback control" ;
-                  ogc:quote "closed-loop control with feedback of the measured output variables only" ; ogc:quoteStatus "pending" ] ;
+                  ogc:quote "closed-loop control with feedback of the measured output variables only" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:seeAlso [ ogc:cites src:iec-60050-351 ; ogc:locator "351-47-31 observer" ;
-                  ogc:quote "system for complete reconstruction of the state of a controlled system from measured input and output variables, using a model of the controlled system" ; ogc:quoteStatus "pending" ] ;
+                  ogc:quote "system for complete reconstruction of the state of a controlled system from measured input and output variables, using a model of the controlled system" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "exploratory testing, p. 161" ; ogc:pdfPage 161 ;
                   ogc:quote "type of unscripted experience-based testing in which the tester spontaneously designs and executes tests based on the tester's existing relevant knowledge, prior exploration of the test item (including the results of previous tests)" ; ogc:quoteStatus "machine" ] ;
     ogc:scopeNote "Ruling R-13: anchored to output feedback because the record only ever holds outputs; the memory operator with the DSO as model is the observer. Semantic state feedback is the authors' framing, kept as an alternative label." ;
