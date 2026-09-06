@@ -1,4 +1,4 @@
-### The executed runs
+**The executed runs.**
 
 | Run | Shapes S0 to S9 | Item kinds missing | Coverage (pass / fail / cannot tell) | Traceback rows |
 |---|---|---|---|---|
@@ -6,7 +6,7 @@
 | planned 3 of 3 | conforms | none | 1.0000 (0.33 / 0.67 / 0.00) | 3 |
 | two sessions, two requirements | conforms | none | 1.0000 (0.50 / 0.50 / 0.00) | 8 |
 
-### The mutations of the first run
+**The mutations of the first run.**
 
 | Mutation | Shapes S0 to S9 | Item kinds missing | Coverage (pass / fail / cannot tell) | Traceback rows | Caught by |
 |---|---|---|---|---|---|

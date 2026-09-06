@@ -256,11 +256,11 @@ def render_executor() -> str:
             by.append("traceback (no row)")
         return "; ".join(by) or "**not caught**"
 
-    lines = ["### The executed runs", "",
+    lines = ["**The executed runs.**", "",
              "| Run | Shapes S0 to S9 | Item kinds missing | Coverage (pass / fail / cannot tell) | Traceback rows |", "|---|---|---|---|---|"]
     for name, c in d["variants"].items():
         lines.append(row(name, c))
-    lines += ["", "### The mutations of the first run", "",
+    lines += ["", "**The mutations of the first run.**", "",
               "| Mutation | Shapes S0 to S9 | Item kinds missing | Coverage (pass / fail / cannot tell) | Traceback rows | Caught by |", "|---|---|---|---|---|---|"]
     for name, c in d["mutations"].items():
         lines.append(row(f"{name}: {c['description']}", c) + f" {caught(c)} |")
