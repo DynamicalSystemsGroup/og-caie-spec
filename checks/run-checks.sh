@@ -32,6 +32,7 @@ regen_model() {
 }
 step "model graph: convert, prune, byte-identical to the committed canonical graph" 0 regen_model
 step "ogc: doctor (labels unambiguous, quotes located, record consistent)" 0 uv run -q ogc doctor --no-cache
+step "notebooks: executed by nbclient, outputs equal the committed ones, verdict NOTEBOOK: PASS" 0 uv run python scripts/execute_notebooks.py --check
 step "tests: full suite" 0 uv run pytest -q
 
 regen() {
