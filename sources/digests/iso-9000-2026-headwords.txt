@@ -1,0 +1,40 @@
+# Headwords of ISO 9000:2026 clause 3 (OBP preview, captured 2026-09-05) that
+# this glossary could cite. A term whose prefLabel or altLabel is on this list
+# must cite ISO 9000:2026 as canonical (precedence rule). One per line.
+organization
+interested party
+stakeholder
+process
+procedure
+requirement
+quality
+conformity
+nonconformity
+traceability
+result
+performance
+output
+objective
+data
+information
+objective evidence
+document
+specification
+record
+characteristic
+knowledge
+competence
+determination
+review
+monitoring
+measurement
+inspection
+verification
+test
+validation
+audit
+audit criteria
+audit evidence
+audit finding
+audit conclusion
+technical expert

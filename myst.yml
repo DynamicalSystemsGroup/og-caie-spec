@@ -40,6 +40,7 @@ project:
       severity: ignore
   toc:
     - file: index.md
+    - file: docs/glossary.md
     - file: docs/rulings.md
 site:
   template: book-theme

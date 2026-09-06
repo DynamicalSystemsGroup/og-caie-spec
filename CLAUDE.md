@@ -32,6 +32,9 @@ sources and rulings borrowed from `mission-twin-glossary`.
   SEVOCAB PDF, INCOSE GtWR sheet), `citeOnly` (quote verified by a named
   person on a date). Ruling R-04.
 - SEVOCAB quotes carry the IEEE permission statement the PDF requires.
+- Licence: CC BY-SA 4.0 for the whole work, no Apache split; the licence does
+  not extend to source materials (Z, 2026-09-05). Framing: an open standards
+  activity under development with a computational implementation pathway.
 
 ## Rulings
 

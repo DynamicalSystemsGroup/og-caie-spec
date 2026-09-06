@@ -1,0 +1,104 @@
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix ogc:  <https://w3id.org/og-caie/> .
+
+# Citation discipline. A definition with no traceable source is an invention.
+# Validate over vocabulary/og-caie.ttl + sources/sources.ttl +
+# rulings/adjudications.ttl together so ogc:cites resolves to a real source.
+
+ogc:TermShape a sh:NodeShape ;
+    sh:targetClass skos:Concept ;
+    sh:property [ sh:path skos:prefLabel ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path skos:definition ; sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:message "Every term carries one narrative definition." ] ;
+    sh:property [ sh:path ogc:class ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ( "adopted" "refined" "coined" ) ] ;
+    sh:property [ sh:path ogc:canonical ; sh:minCount 1 ; sh:maxCount 1 ;
+                  sh:message "Every term cites exactly one canonical source." ] ;
+    sh:property [ sh:path ogc:binding ; sh:minCount 1 ;
+                  sh:message "Every term says what it binds to in the model or the record." ] .
+
+ogc:CitationShape a sh:NodeShape ;
+    sh:targetObjectsOf ogc:canonical, ogc:seeAlso ;
+    sh:property [ sh:path ogc:cites ; sh:minCount 1 ; sh:maxCount 1 ; sh:class ogc:Source ;
+                  sh:message "A citation names exactly one registered source (sources/sources.ttl)." ] ;
+    sh:property [ sh:path ogc:locator ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ;
+                  sh:message "A citation carries a locator into its source (clause, page, entry or section)." ] ;
+    sh:property [ sh:path ogc:quote ; sh:maxCount 1 ; sh:datatype xsd:string ] ;
+    sh:property [ sh:path ogc:quoteStatus ; sh:maxCount 1 ; sh:in ( "machine" "human" "pending" ) ] .
+
+ogc:QuoteRequiredShape a sh:NodeShape ;
+    sh:targetClass skos:Concept ;
+    sh:sparql [
+        sh:message "An adopted or refined term's canonical citation carries a verbatim quote with a status." ;
+        sh:select """
+            PREFIX ogc: <https://w3id.org/og-caie/>
+            SELECT $this WHERE {
+                $this ogc:class ?c . FILTER(?c IN ("adopted", "refined"))
+                $this ogc:canonical ?cit .
+                FILTER NOT EXISTS { ?cit ogc:quote ?q ; ogc:quoteStatus ?s }
+            }
+        """ ] .
+
+ogc:RefinedAnchorShape a sh:NodeShape ;
+    sh:targetClass skos:Concept ;
+    sh:sparql [
+        sh:message "A refined term carries a typed anchor relation and keeps the source's word as an altLabel." ;
+        sh:select """
+            PREFIX ogc: <https://w3id.org/og-caie/>
+            PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+            SELECT $this WHERE {
+                $this ogc:class "refined" .
+                FILTER NOT EXISTS { $this ogc:anchorRelation ?r . FILTER(?r IN ("specializes", "corresponds", "synonym")) }
+            }
+        """ ] ;
+    sh:sparql [
+        sh:message "A refined term keeps an altLabel." ;
+        sh:select """
+            PREFIX ogc: <https://w3id.org/og-caie/>
+            PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+            SELECT $this WHERE { $this ogc:class "refined" . FILTER NOT EXISTS { $this skos:altLabel ?a } }
+        """ ] .
+
+ogc:CoinedShape a sh:NodeShape ;
+    sh:targetClass skos:Concept ;
+    sh:sparql [
+        sh:message "A coined term derives from a recorded ruling and cites an internal source." ;
+        sh:select """
+            PREFIX ogc: <https://w3id.org/og-caie/>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            SELECT $this WHERE {
+                $this ogc:class "coined" .
+                FILTER NOT EXISTS { $this prov:wasDerivedFrom ?r . ?r a ogc:Ruling }
+            }
+        """ ] .
+
+ogc:BindingOnlyShape a sh:NodeShape ;
+    sh:targetClass skos:Concept ;
+    sh:sparql [
+        sh:message "A rank-4 (W3C/OMG) source may be canonical only for a term whose binding is the definition, i.e. never for a term also defined by ISO 9000, SEVOCAB or NIST (checked by tests against the headword lists); here: a rank-4 canonical citation must carry a quote." ;
+        sh:select """
+            PREFIX ogc: <https://w3id.org/og-caie/>
+            SELECT $this WHERE {
+                $this ogc:canonical ?c . ?c ogc:cites ?s . ?s ogc:rank "4" .
+                FILTER NOT EXISTS { ?c ogc:quote ?q }
+            }
+        """ ] .
+
+ogc:SourceShape a sh:NodeShape ;
+    sh:targetClass ogc:Source ;
+    sh:property [ sh:path ogc:rank ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ( "1" "2" "3" "4" "reserve" "internal" ) ] ;
+    sh:property [ sh:path ogc:kind ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ( "pdf" "html" "web" "git" ) ] ;
+    sh:property [ sh:path ogc:posture ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ( "committed" "heldLocally" "citeOnly" ) ] ;
+    sh:property [ sh:path ogc:licenceNote ; sh:minCount 1 ;
+                  sh:message "Every source states its licence posture; the work's CC BY-SA does not extend to sources." ] ;
+    sh:sparql [
+        sh:message "A committed or heldLocally source declares at least one content-hashed snapshot." ;
+        sh:select """
+            PREFIX ogc: <https://w3id.org/og-caie/>
+            SELECT $this WHERE {
+                $this ogc:posture ?p . FILTER(?p IN ("committed", "heldLocally"))
+                FILTER NOT EXISTS { $this ogc:snapshot ?s . ?s ogc:file ?f ; ogc:contentHash ?h }
+            }
+        """ ] .

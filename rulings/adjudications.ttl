@@ -163,3 +163,34 @@ rul:R-08 a ogc:Ruling ;
     ogc:changeNote "Every artifact uses appropriateness (of the declared context) and sufficiency (of the evidence); citations to Hawkins et al. 2011 3.2/3.3 with ISA 500 5(b)/5(f)/A8 as seeAlso; paper and term contract v5 asked to align." ;
     prov:wasAttributedTo rul:Z ;
     prov:generatedAtTime "2026-09-05"^^xsd:date .
+
+# ------------------------------------------------ concerns added during S1
+
+rul:C-09 a ogc:Concern ;
+    rdfs:label "the coinage set: which terms do we own" ;
+    ogc:problem """Term contract v5 tags probe/scenario, deployment sensitivity, DSO, EPO and CAIE as [CAIE] assemblies. Under the rule that terms are used, not owned, which of these are coinages the project must own, and which are refinements of standard terms.""" ;
+    ogc:severity "H" ;
+    ogc:status "ruled" ;
+    ogc:surfacedOn "2026-09-05"^^xsd:date ;
+    ogc:surfacedHow "coinage audit of term contract v5 during planning" ;
+    ogc:concernsTerm term:domain-specific-ontology ;
+    ogc:concernsTerm term:evaluation-process-ontology ;
+    ogc:concernsTerm term:og-caie ;
+    prov:wasGeneratedBy rul:plan-walkthrough-2026-09-05 .
+
+rul:R-09 a ogc:Ruling ;
+    ogc:order 9 ;
+    ogc:resolves rul:C-09 ;
+    ogc:rulingText "we have two primary coinages \"Domain-Specific Ontology\" and \"Evaluation Process Ontology\" ... focusing coinage only where it directly relates to our novel contributions ... feels like we would either stick with \"CAIE\" or Ontology-Grounded CAIE, which would OG-CAIE" ;
+    ogc:changeNote "Coinage is exactly three: Domain-Specific Ontology, Evaluation Process Ontology, OG-CAIE (the method name). Probe and deployment sensitivity are refined terms (R-05); operational envelope is a house label (R-03). Julie Hollek and Z agreed the DSO and EPO expansions in the paper comments (Mala Kumar's note, 2026-09-05)." ;
+    prov:wasAttributedTo rul:Z ;
+    prov:generatedAtTime "2026-09-05"^^xsd:date .
+
+rul:C-10 a ogc:Concern ;
+    rdfs:label "system under test: weak canonical entry" ;
+    ogc:problem """SEVOCAB's only entry for "system under test (SUT)" reads "parts of the CBSS to be tested" (ISO/IEC 14756:1999, a performance-measurement standard). The cleaner entries are "test item: work product to be tested" (ISO/IEC/IEEE 29119-2:2021) and "system-of-interest: system whose life cycle is under consideration" (ISO/IEC/IEEE 12207:2026). The paper says "system under test" throughout. Options: keep SUT as prefLabel with the weak quote (current), or make "test item" canonical with SUT as altLabel.""" ;
+    ogc:severity "L" ;
+    ogc:status "open" ;
+    ogc:surfacedOn "2026-09-06"^^xsd:date ;
+    ogc:surfacedHow "SEVOCAB entry check while building the glossary" ;
+    ogc:concernsTerm term:system-under-test .

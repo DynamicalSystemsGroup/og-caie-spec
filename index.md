@@ -13,10 +13,10 @@ evidence it rests on.
 
 ## What is here
 
+- **Glossary.** Every term with its one canonical citation, verbatim quote and
+  checked status; three coined terms, everything else adopted or refined.
 - **Rulings.** Every interpretive choice, with the adjudicator's words verbatim.
-- Glossary, assemblage, and record pages land over the coming days; the
-  rulings page is the first to publish so the vocabulary decisions are public
-  before the vocabulary itself.
+- Assemblage and record pages land over the coming days.
 
 ## Scope
 

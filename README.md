@@ -32,5 +32,7 @@ as identifiers; the site above is the fallback.
 
 ## Licence
 
-Documentation, model, vocabulary and records: CC BY-SA 4.0. Scripts and
-tests: Apache-2.0. See `LICENSE.md`.
+CC BY-SA 4.0 for the whole work. The licence does not extend to the quoted
+source materials, which remain their publishers' property. This is an open
+standards activity under development with a computational implementation
+pathway. See `LICENSE.md`.

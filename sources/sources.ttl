@@ -1,0 +1,187 @@
+@prefix ogc:  <https://w3id.org/og-caie/> .
+@prefix src:  <https://w3id.org/og-caie/sources#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+# The source register as a graph: one node per source the glossary, model or
+# docs cite. Rank is the citation precedence (Z, 2026-09-05): "1" ISO 9000:2026;
+# "2" SEVOCAB; "3" NIST; "4" W3C/OMG, technical binding only; "reserve"
+# single-purpose sources; "internal" our own working documents.
+# Posture (ruling R-04): committed (file under sources/archive/), heldLocally
+# (file under sources/local/, gitignored, hash committed), citeOnly.
+# Digests under sources/digests/ carry the verbatim excerpts relied on.
+
+src:iso-9000-2026 a prov:Entity, ogc:Source ;
+    rdfs:label "ISO 9000:2026(en) Quality management — Fundamentals and vocabulary (Online Browsing Platform preview)" ;
+    ogc:rank "1" ; ogc:kind "web" ; ogc:posture "heldLocally" ;
+    ogc:status "preview; publication pending; 2015 clause numbers recorded as fallback where known" ;
+    ogc:url <https://www.iso.org/obp/ui/#iso:std:iso:9000:ed-5:v1:en> ;
+    ogc:digest "sources/digests/iso-9000-2026.md" ;
+    ogc:retrievalNote "Clause 3 captured as 37 screenshots by Z on 2026-09-05 18:00-18:04, renamed iso-9000-2026-obp-01..37 in capture order, held under sources/local/iso-9000-2026/" ;
+    ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-01.png" ; ogc:contentHash "4b5e4d2558a013cd9acde3d1e68dbcf3934038992729b8213e90cbfadb616743" ] ;
+    ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-02.png" ; ogc:contentHash "688f4f3b8de7612789fe3ba93ea9c49b5972b571639b8e3d7daa8ac8d62268d0" ] ;
+    ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-03.png" ; ogc:contentHash "68db453f7236aa4997ff1f2be0c44347a114d881a285bb7e78988c98ed3d6cc8" ] ;
+    ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-04.png" ; ogc:contentHash "961b52e6f5b96145158f812b912f010f07e85b57dd4af70a8686995a1dfca690" ] ;
+    ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-05.png" ; ogc:contentHash "90621166dbb9eb7ac12f4dcedd2f02ad80b74619a237c31f1f11b1de2f489709" ] ;
+    ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-06.png" ; ogc:contentHash "9bb44ff90258cf88f3a9dd90e7f931930cada4aecba25de71dc19db76a1eedb0" ] ;
+    ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-07.png" ; ogc:contentHash "7a5b1f1ed8edf31ae41388b7f64e35ca6525751c92ba4df428f15ddf7275d420" ] ;
+    ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-08.png" ; ogc:contentHash "4bb49fb7d23257f2b1da67eb7b8254fb9453c6b1e3d578c6ce08035d7cfcca9f" ] ;
+    ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-09.png" ; ogc:contentHash "7eb7cc8d1e03c5c66e8663709946e225cb02b5e3aadd6ea94d32d6390dcd66f2" ] ;
+    ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-10.png" ; ogc:contentHash "85768f69135054e3abfd83362a35f1755c02aae783dcad138dcdefb68a2e0dd0" ] ;
+    ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-11.png" ; ogc:contentHash "fc4f36d039c43c9108ce6b0625c45b0830ea80e2b636ad3ed3204ed4d2dd1136" ] ;
+    ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-12.png" ; ogc:contentHash "c8266359598f68a469c4db0b164eb833027537f112eb59e4a0db452ecc81e66f" ] ;
+    ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-13.png" ; ogc:contentHash "a30977fa8b6ab2aad76e2c60f2487121ede1d5fd1dd4f71afc6233af412189bd" ] ;
+    ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-14.png" ; ogc:contentHash "30233e4bf67f0c4b37c5083869d84e688fb4b96eede0ebf9419bce8dd78a550d" ] ;
+    ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-15.png" ; ogc:contentHash "bd9ec9cd8156453565a3c1e832319b8a1da47bc30d14fda776e18493901de28a" ] ;
+    ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-16.png" ; ogc:contentHash "858057ad129f8091707436ba6ff50f3a2376318f804216bab4b9180fafa32641" ] ;
+    ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-17.png" ; ogc:contentHash "150086e6c88fd7b29b3fd6a443f7a1d1b8c05c5fd123446238320622df41a3e4" ] ;
+    ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-18.png" ; ogc:contentHash "aae807cf3f72753e47767608eb2ddbc8743bdf22c81d0689259baa79be0958b4" ] ;
+    ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-19.png" ; ogc:contentHash "965dd3ff6e928adcbb163154659f288d9338e4d3328c890a46d38f49771ce2a5" ] ;
+    ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-20.png" ; ogc:contentHash "2b4ef27ab43c721f4611e9bc07fbbc814db853e1097d5f24f3b512f6ddb3945c" ] ;
+    ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-21.png" ; ogc:contentHash "9b91ea2deccb8d75a182dc229e6defbfb7dac5e336dfaf9c196f204c92b81853" ] ;
+    ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-22.png" ; ogc:contentHash "3c718ba515545b42ebf228e030750b1caaa77342eb0571c3afd6ed58e90821dd" ] ;
+    ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-23.png" ; ogc:contentHash "92b53c1e1d1363e07e124595bbfe0716be73b3c47ce785767b5f9997dc2cecdc" ] ;
+    ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-24.png" ; ogc:contentHash "fea5d42008f607d2e4522b843906e14ed08e369a04ef628dbea350401da7bc88" ] ;
+    ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-25.png" ; ogc:contentHash "250b3c03e5b22fdb86915cfb0e1ecec804c3c11d2c27cc5b71c420a228577aeb" ] ;
+    ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-26.png" ; ogc:contentHash "330131d6fe81cdbc3a87ea4bf08d72d70ce76702458a299fe91d10d421b8a643" ] ;
+    ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-27.png" ; ogc:contentHash "7c72b17e9e6de3b259d1ff950ec91f20e2ab3cda71cc55f268d850d7500f213d" ] ;
+    ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-28.png" ; ogc:contentHash "6b3f6dfcc226544283a58e32e788307185eaaea02eb9a738fb174b5e83ea34d7" ] ;
+    ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-29.png" ; ogc:contentHash "a1d160403c3ea12ba4496f2734a7488e90508461ae4cf3bc87d0675279d59f4d" ] ;
+    ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-30.png" ; ogc:contentHash "ec80455ed478b07b5db0f2419a08a75daaf406bf6b160de8af85734bad63a69e" ] ;
+    ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-31.png" ; ogc:contentHash "2c2cf7984ef698cf02abde83c491bb34b36b43b4e58812a9f774e531f33484c8" ] ;
+    ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-32.png" ; ogc:contentHash "d2ddb2adb79e0306b9a8c256f4cfc119172f590e151a49b0a73f8c13f9ff1027" ] ;
+    ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-33.png" ; ogc:contentHash "8eea688b617d1a6cb21ebd92ce0489217102e2f59227cbc06b566a4e02ecf4a9" ] ;
+    ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-34.png" ; ogc:contentHash "96c06c5ae2ae658f5c903f00437dd8306c171d548f9061721c53cddcab3185be" ] ;
+    ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-35.png" ; ogc:contentHash "52a0523ceb07456086ca1b08be2b5c0e21e98db447d1c08b1eddeea241062dae" ] ;
+    ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-36.png" ; ogc:contentHash "cbb7643f470eee6dddde88a001b126e0d3b8f3ec40d131dd3c92f8b48eebc373" ] ;
+    ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-37.png" ; ogc:contentHash "e58353b525c0bd2bd696c45f6aa7bc2688678e0afb8586e492e58f554e7a529a" ] ;
+    ogc:licenceNote "ISO copyright; the preview is publicly browsable; short attributed quotations only" .
+
+src:sevocab a prov:Entity, ogc:Source ;
+    rdfs:label "IEEE Computer Society, Software and Systems Engineering Vocabulary (SEVOCAB), PDF export (481 pp.)" ;
+    ogc:rank "2" ; ogc:kind "pdf" ; ogc:posture "heldLocally" ;
+    ogc:url <https://www.computer.org/sevocab> ;
+    ogc:digest "sources/digests/sevocab.md" ;
+    ogc:snapshot [ ogc:file "sources/local/pdf/sevocab.pdf" ; ogc:contentHash "f6351ba98335af2e9c5c7e70ee09140721dd19da9693bbfef8bd4803cf71f0ee" ] ;
+    ogc:permissionStatement "Copyright © 2021 IEEE. Used by permission." ;
+    ogc:licenceNote "Each definition may be copied provided the IEEE statement remains with it; the PDF itself is not redistributed" .
+
+src:nist-ai-700-2 a prov:Entity, ogc:Source ;
+    rdfs:label "NIST AI 700-2, Assessing Risks and Impacts of AI (ARIA): ARIA 0.1 Pilot Evaluation Report (November 2025)" ;
+    ogc:rank "3" ; ogc:kind "pdf" ; ogc:posture "committed" ;
+    ogc:url <https://doi.org/10.6028/NIST.AI.700-2> ;
+    ogc:digest "sources/digests/nist-ai-700-2.md" ;
+    ogc:snapshot [ ogc:file "sources/archive/NIST.AI.700-2.pdf" ; ogc:contentHash "5478e8c37a182adaf9449d1d315689beba3db2808db430c54fe3fc8da04ea3b9" ] ;
+    ogc:licenceNote "US Government work, public domain" .
+
+src:nist-ai-100-1 a prov:Entity, ogc:Source ;
+    rdfs:label "NIST AI 100-1, Artificial Intelligence Risk Management Framework (AI RMF 1.0), January 2023" ;
+    ogc:rank "3" ; ogc:kind "pdf" ; ogc:posture "committed" ;
+    ogc:url <https://doi.org/10.6028/NIST.AI.100-1> ;
+    ogc:digest "sources/digests/nist-ai-100-1.md" ;
+    ogc:snapshot [ ogc:file "sources/archive/NIST.AI.100-1.pdf" ; ogc:contentHash "7576edb531d9848825814ee88e28b1795d3a84b435b4b797d3670eafdc4a89f1" ] ;
+    ogc:licenceNote "US Government work, public domain" .
+
+src:w3c-prov-o a prov:Entity, ogc:Source ;
+    rdfs:label "W3C, PROV-O: The PROV Ontology, Recommendation 30 April 2013" ;
+    ogc:rank "4" ; ogc:kind "html" ; ogc:posture "committed" ;
+    ogc:url <https://www.w3.org/TR/2013/REC-prov-o-20130430/> ;
+    ogc:digest "sources/digests/w3c.md" ;
+    ogc:snapshot [ ogc:file "sources/archive/prov-o-20130430.html" ; ogc:contentHash "6b96671ab84faf12ce3f041aca12c3f93a6df2ed242348810743179a68e69555" ] ;
+    ogc:licenceNote "W3C Document Licence" .
+
+src:w3c-earl a prov:Entity, ogc:Source ;
+    rdfs:label "W3C, Evaluation and Report Language (EARL) 1.0 Schema, Working Group Note 2 February 2017" ;
+    ogc:rank "4" ; ogc:kind "html" ; ogc:posture "committed" ;
+    ogc:url <https://www.w3.org/TR/2017/NOTE-EARL10-Schema-20170202/> ;
+    ogc:digest "sources/digests/w3c.md" ;
+    ogc:snapshot [ ogc:file "sources/archive/earl10-schema-20170202.html" ; ogc:contentHash "bd256af93da1fe22459a97a5ab18c1bc492932695e2e428ddd88a774c5338213" ] ;
+    ogc:licenceNote "W3C Document Licence" .
+
+src:w3c-shacl a prov:Entity, ogc:Source ;
+    rdfs:label "W3C, Shapes Constraint Language (SHACL), Recommendation 20 July 2017" ;
+    ogc:rank "4" ; ogc:kind "html" ; ogc:posture "committed" ;
+    ogc:url <https://www.w3.org/TR/2017/REC-shacl-20170720/> ;
+    ogc:digest "sources/digests/w3c.md" ;
+    ogc:snapshot [ ogc:file "sources/archive/shacl-20170720.html" ; ogc:contentHash "ccca77caed771f42ea649c03d190b9c7ea0b82286c22c457b9edc8087c9ad0f8" ] ;
+    ogc:licenceNote "W3C Document Licence" .
+
+src:w3c-skos a prov:Entity, ogc:Source ;
+    rdfs:label "W3C, SKOS Simple Knowledge Organization System Reference, Recommendation 18 August 2009" ;
+    ogc:rank "4" ; ogc:kind "html" ; ogc:posture "committed" ;
+    ogc:url <https://www.w3.org/TR/2009/REC-skos-reference-20090818/> ;
+    ogc:digest "sources/digests/w3c.md" ;
+    ogc:snapshot [ ogc:file "sources/archive/skos-reference-20090818.html" ; ogc:contentHash "3aa00cd16ee4d86d3a19b75501bb317d0b0c134e1f4029e9f3098c4dd3669e4c" ] ;
+    ogc:licenceNote "W3C Document Licence" .
+
+src:iso-iec-17000-2020 a prov:Entity, ogc:Source ;
+    rdfs:label "ISO/IEC 17000:2020(en) Conformity assessment — Vocabulary and general principles (Online Browsing Platform)" ;
+    ogc:rank "reserve" ; ogc:kind "web" ; ogc:posture "citeOnly" ;
+    ogc:url <https://www.iso.org/obp/ui/en/#iso:std:73029:en> ;
+    ogc:digest "sources/digests/iso-iec-17000-2020.md" ;
+    ogc:licenceNote "ISO copyright; clause 3 publicly browsable; one term (attestation) quoted" .
+
+src:incose-gtwr-v4 a prov:Entity, ogc:Source ;
+    rdfs:label "INCOSE Guide to Writing Requirements v4, Summary Sheet (INCOSE-TP-2010-006-04, June 2023)" ;
+    ogc:rank "reserve" ; ogc:kind "pdf" ; ogc:posture "heldLocally" ;
+    ogc:digest "sources/digests/incose-gtwr-v4.md" ;
+    ogc:snapshot [ ogc:file "sources/local/pdf/incose-gtwr-v4-summary.pdf" ; ogc:contentHash "0bf5918db034757fb63fb81a677263ebe36323eee95e51fbd0197aecdd574176" ] ;
+    ogc:licenceNote "INCOSE copyright restrictions; held locally" .
+
+src:hawkins-2011 a prov:Entity, ogc:Source ;
+    rdfs:label "Hawkins, Kelly, Knight and Graydon, A New Approach to Creating Clear Safety Arguments, Safety-Critical Systems Symposium 2011 (author copy, University of York)" ;
+    ogc:rank "reserve" ; ogc:kind "pdf" ; ogc:posture "heldLocally" ;
+    ogc:url <https://www-users.york.ac.uk/~rdh2/papers/HawkinsSSS11.pdf> ;
+    ogc:digest "sources/digests/hawkins-2011.md" ;
+    ogc:snapshot [ ogc:file "sources/local/pdf/hawkins-sss-2011.pdf" ; ogc:contentHash "1043bce7b664fa09c2c1f3a3e63a3ba6ba9b4f9ba42d02d2036d258afaf6c77c" ] ;
+    ogc:licenceNote "Springer proceedings; author-hosted copy; held locally" .
+
+src:isa-500 a prov:Entity, ogc:Source ;
+    rdfs:label "IAASB, International Standard on Auditing 500: Audit Evidence (effective 15 December 2009)" ;
+    ogc:rank "reserve" ; ogc:kind "pdf" ; ogc:posture "heldLocally" ;
+    ogc:digest "sources/digests/isa-500.md" ;
+    ogc:snapshot [ ogc:file "sources/local/pdf/isa-500.pdf" ; ogc:contentHash "2ecc459ba84ce43199a5badf2807be9102d96aa717301a1d379a676549c231f4" ] ;
+    ogc:licenceNote "IFAC copyright; freely downloadable; held locally" .
+
+src:gruber-1993 a prov:Entity, ogc:Source ;
+    rdfs:label "Gruber, A Translation Approach to Portable Ontology Specifications, Knowledge Acquisition 5(2), 1993 (author copy)" ;
+    ogc:rank "reserve" ; ogc:kind "pdf" ; ogc:posture "heldLocally" ;
+    ogc:url <https://tomgruber.org/writing/ontolingua-kaj-1993.pdf> ;
+    ogc:digest "sources/digests/gruber-1993.md" ;
+    ogc:snapshot [ ogc:file "sources/local/pdf/gruber-1993.pdf" ; ogc:contentHash "ffa4b4476a1f95a5572e741c7a7cafb0d7793d2139c5268c8b4071c45906459e" ] ;
+    ogc:licenceNote "Academic Press copyright; author-hosted copy; held locally" .
+
+src:hogan-2021 a prov:Entity, ogc:Source ;
+    rdfs:label "Hogan et al., Knowledge Graphs, ACM Computing Surveys 54(4), 2021 (arXiv:2003.02320v3)" ;
+    ogc:rank "reserve" ; ogc:kind "pdf" ; ogc:posture "heldLocally" ;
+    ogc:url <https://arxiv.org/abs/2003.02320> ;
+    ogc:digest "sources/digests/hogan-2021.md" ;
+    ogc:snapshot [ ogc:file "sources/local/pdf/hogan-2021.pdf" ; ogc:contentHash "3ff78a3ca650982c76c3d137675f1c6c406863d2f724cffcc10c17102739d6ea" ] ;
+    ogc:licenceNote "arXiv non-exclusive licence; held locally" .
+
+src:sebok-2-14 a prov:Entity, ogc:Source ;
+    rdfs:label "Guide to the Systems Engineering Body of Knowledge (SEBoK) v2.14" ;
+    ogc:rank "reserve" ; ogc:kind "pdf" ; ogc:posture "heldLocally" ;
+    ogc:url <https://sebokwiki.org/> ;
+    ogc:digest "sources/digests/sebok-2-14.md" ;
+    ogc:snapshot [ ogc:file "sources/local/pdf/sebok-v2.14.pdf" ; ogc:contentHash "251668f0ed4eca5a7c36755c6c56a07d663ef8a2bd66addd41e595eabcf0dce2" ] ;
+    ogc:licenceNote "CC BY-NC-SA; held locally per ruling R-04" .
+
+src:term-contract-v5 a prov:Entity, ogc:Source ;
+    rdfs:label "Humane Intelligence, CAIE Term Contract (Controlled Vocabulary) v5, 2026-07-15 (Google Doc)" ;
+    ogc:rank "internal" ; ogc:kind "web" ; ogc:posture "citeOnly" ;
+    ogc:url <https://docs.google.com/document/d/1KeevG-xi9-Iw2kbf2R0WFv3T0Uf1M5jAdnHCthDvkLo/edit> ;
+    ogc:licenceNote "internal working document; narrative definitions lifted with the authors' agreement" .
+
+src:paper-draft-2026-09 a prov:Entity, ogc:Source ;
+    rdfs:label "Ontology-Grounded Contextual AI Evaluation, paper draft 1/2 (Google Doc, September 2026)" ;
+    ogc:rank "internal" ; ogc:kind "web" ; ogc:posture "citeOnly" ;
+    ogc:url <https://docs.google.com/document/d/1ErAaz4buh-Zny7yljaBsHfFnA_tbgJY9tVZ0sjQbHbE/edit> ;
+    ogc:licenceNote "internal working document" .
+
+src:caie-epo-prototype a prov:Entity, ogc:Source ;
+    rdfs:label "DynamicalSystemsGroup/caie-epo-prototype (June 2026): prior art for the EPO" ;
+    ogc:rank "internal" ; ogc:kind "git" ; ogc:posture "citeOnly" ;
+    ogc:url <https://github.com/DynamicalSystemsGroup/caie-epo-prototype> ;
+    ogc:licenceNote "Apache-2.0" .

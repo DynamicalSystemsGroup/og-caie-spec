@@ -21,13 +21,16 @@ def load(*paths: str) -> Graph:
 
 
 def normalized(text: str) -> str:
-    """Whitespace-collapsed, quote-and-dash-folded, lowercase; the one
+    """Quote-and-dash-folded, lowercase, whitespace-free; the one
     normalisation shared by locate.py and the citation tests."""
     t = text.replace("’", "'").replace("‘", "'")
     t = t.replace("“", '"').replace("”", '"')
     t = t.replace("–", "-").replace("—", "-").replace("­", "")
     t = t.replace("ﬁ", "fi").replace("ﬂ", "fl")
-    return re.sub(r"\s+", " ", t).strip().lower()
+    # Whitespace is removed entirely: PDF extractors split kerned words
+    # ("structur ed") and join wrapped lines unpredictably, and the quotes
+    # are long enough that a whitespace-free match is still a strong one.
+    return re.sub(r"\s+", "", t).strip().lower()
 
 
 @pytest.fixture(scope="session")
