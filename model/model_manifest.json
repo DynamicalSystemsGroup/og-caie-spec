@@ -59,12 +59,12 @@
   "triples": 3166
  },
  "converter": {
-  "binary": "toolchain/bin/sysml",
   "invocation": "-convert ttl",
-  "sha256": "a3298d68a08b863fba276bd6d0d72aad9947cdeb4b28103ce9b526400f8f475b"
+  "pinned_digests": "toolchain/sysml-binaries.sha256",
+  "pinned_digests_sha256": "8efae36144923a29a21aa57d59286442db5ffaaa9a3773fafcc57616ade6f961",
+  "release": "OpenSysML v0.4.3"
  },
  "raw": {
-  "sha256": "0174e3acf76f080b0abb5cdd19edfb87bccf06614361a98653d0c97c2a4952ae",
   "triples": 11240
  },
  "source": {

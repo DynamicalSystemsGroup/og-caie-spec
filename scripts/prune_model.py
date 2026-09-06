@@ -8,7 +8,11 @@ Ruling R-22: the SysML source is the authoring view; this graph is the
 canonical structure. The parsimony pattern (term map, manifest, triple
 budget with a rationale) follows ADCS-lifecycle-demo/scripts/build_ontology.py.
 
-Deterministic: same source, same converter, same term map, same bytes.
+Deterministic: same source, same converter, same term map, same bytes, on
+every platform: the manifest names the converter by its pinned release and
+digest file, not by the local binary, and records the raw conversion's size
+but not its hash (the raw text is the converter's business; the pruned,
+sorted graph is the artifact that must not drift).
 Usage: uv run python scripts/prune_model.py [SOURCE.sysml OUT.ttl MANIFEST.json]
 """
 from __future__ import annotations
@@ -24,6 +28,8 @@ from rdflib import Graph, Literal, Namespace, RDF, URIRef
 
 ROOT = Path(__file__).resolve().parents[1]
 SYSML = ROOT / "toolchain" / "bin" / "sysml"
+PINNED = ROOT / "toolchain" / "sysml-binaries.sha256"
+TOOL_VERSION = "v0.4.3"
 TERM_MAP = ROOT / "model" / "sysml_term_map.csv"
 SOURCE = ROOT / "model" / "og-caie.sysml"
 OUT = ROOT / "model" / "og-caie.model.ttl"
@@ -172,9 +178,10 @@ def build(source: Path, out: Path, manifest: Path | None) -> Graph:
         used_terms = {qname(pruned, t) for _, t in pruned.subject_objects(RDF.type)} | {qname(pruned, p) for p in set(pruned.predicates())}
         manifest.write_text(json.dumps({
             "source": {"path": str(source.relative_to(ROOT)), "sha256": sha(source.read_bytes())},
-            "converter": {"binary": "toolchain/bin/sysml", "sha256": sha(SYSML.read_bytes()), "invocation": "-convert ttl"},
+            "converter": {"release": f"OpenSysML {TOOL_VERSION}", "pinned_digests": str(PINNED.relative_to(ROOT)),
+                          "pinned_digests_sha256": sha(PINNED.read_bytes()), "invocation": "-convert ttl"},
             "term_map": {"path": str(TERM_MAP.relative_to(ROOT)), "sha256": sha(TERM_MAP.read_bytes()), "terms": len(rows)},
-            "raw": {"sha256": sha(raw_bytes), "triples": len(raw)},
+            "raw": {"triples": len(raw)},
             "artifact": {"path": str(out.relative_to(ROOT)) if out.is_relative_to(ROOT) else out.name, "sha256": sha(text.encode()), "triples": len(pruned),
                          "derived_triples": derived, "terms_used": sorted(used_terms)},
             "triple_budget": {"value": TRIPLE_BUDGET, "headroom": TRIPLE_BUDGET - len(pruned), "rationale": TRIPLE_BUDGET_RATIONALE},
