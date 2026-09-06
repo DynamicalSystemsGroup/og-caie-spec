@@ -1,6 +1,8 @@
 ## The assemblage
 
-Organizations are boxes containing their parts; people are rounded (green), machines are double-boxed (red), affected populations are dashed (amber); every edge is one seam, named as in the model, from supplier port to conjugate consumer port.
+Organizations are boxes containing their parts; people are rounded (green), machines are double-boxed (red), affected populations are dashed (amber); each solid edge bundles the seams from one part to another, labelled by the item kinds that flow; the dotted edge is a relation that carries no item.
+
+**View `assemblage`: the assemblage.** In focus: every party and every part of the testing organization, nested in the organization that holds it, with one bundled edge per pair of parts labelled by the item kinds that flow between them, and the sponsor's obligation to the affected populations dotted. Left out: the seam names and the ports (the wiring table has them, one row per port), and the order in which the items flow.
 
 ```{mermaid}
 flowchart LR
@@ -20,41 +22,26 @@ flowchart LR
       testingOrg_team_operator(["operator : EvaluationOperator"])
     end
   end
-  sponsor -- "acceptanceSeam" --> testingOrg_recorder
-  sponsor -- "acceptanceToExecutiveSeam" --> testingOrg_accountExecutive
-  accountable -- "accessSeam" --> testingOrg_recorder
-  sponsor -- "agreementSeam" --> testingOrg_accountExecutive
-  testingOrg_team_domainExpert -- "assessmentSeam" --> testingOrg_recorder
-  testingOrg_team_domainExpert -- "attestationSeam" --> testingOrg_recorder
-  testingOrg_accountExecutive -- "countersignSeam" --> testingOrg_recorder
-  testingOrg_accountExecutive -- "deliveryRecordSeam" --> testingOrg_recorder
-  testingOrg_accountExecutive -- "deliverySeam" --> sponsor
-  testingOrg_probeDeriver -- "derivedProbeSeam" --> testingOrg_team_operator
-  testingOrg_team_domainExpert -- "dsoSeam" --> testingOrg_recorder
-  testingOrg_team_operator -- "evidenceSeam" --> testingOrg_recorder
-  testingOrg_team_domainExpert -- "expertDeterminationSeam" --> testingOrg_recorder
-  sponsor -- "missionSeam" --> testingOrg_recorder
-  sponsor -- "missionToExecutiveSeam" --> testingOrg_accountExecutive
-  sponsor -- "needSeam" --> testingOrg_recorder
-  sponsor -- "needToExecutiveSeam" --> testingOrg_accountExecutive
-  testingOrg_team_operator -- "operatorDeterminationSeam" --> testingOrg_recorder
-  testingOrg_team_domainExpert -- "planApprovalSeam" --> testingOrg_recorder
-  testingOrg_team_operator -- "planSeam" --> testingOrg_recorder
-  testingOrg_probeDeriver -- "probeRecordSeam" --> testingOrg_recorder
-  testingOrg_team_operator -- "probeRunSeam" --> accountable_testItem
-  testingOrg_accountExecutive -- "proposalSeam" --> testingOrg_recorder
-  testingOrg_accountExecutive -- "proposalToSponsorSeam" --> sponsor
-  testingOrg_team_operator -- "recommendationSeam" --> testingOrg_recorder
-  testingOrg_recorder -- "recordToCalculatorSeam" --> testingOrg_coverageCalculator
-  testingOrg_recorder -- "recordToCheckerSeam" --> testingOrg_conformanceChecker
-  testingOrg_recorder -- "recordToDeriverSeam" --> testingOrg_probeDeriver
-  testingOrg_recorder -- "recordToExecutiveSeam" --> testingOrg_accountExecutive
-  testingOrg_recorder -- "recordToExpertSeam" --> testingOrg_team_domainExpert
-  testingOrg_recorder -- "recordToOperatorSeam" --> testingOrg_team_operator
-  testingOrg_coverageCalculator -- "reportSeam" --> testingOrg_recorder
-  testingOrg_team_operator -- "requirementSeam" --> testingOrg_recorder
-  accountable_testItem -- "responseSeam" --> testingOrg_recorder
-  affected -- "stakeholderInputSeam" --> testingOrg_recorder
+  accountable -- "TestItemAccess" --> testingOrg_recorder
+  accountable_testItem -- "Response" --> testingOrg_recorder
+  affected -- "StakeholderInput" --> testingOrg_recorder
+  sponsor -- "Mission, Need, ServiceAgreement, Acceptance" --> testingOrg_accountExecutive
+  sponsor -- "Mission, Need, Acceptance" --> testingOrg_recorder
+  testingOrg_accountExecutive -- "Proposal, Delivery" --> sponsor
+  testingOrg_accountExecutive -- "Proposal, ServiceAgreement, Delivery" --> testingOrg_recorder
+  testingOrg_coverageCalculator -- "Report" --> testingOrg_recorder
+  testingOrg_probeDeriver -- "Probe" --> testingOrg_recorder
+  testingOrg_probeDeriver -- "Probe" --> testingOrg_team_operator
+  testingOrg_recorder -- "EvaluationRecord" --> testingOrg_accountExecutive
+  testingOrg_recorder -- "EvaluationRecord" --> testingOrg_conformanceChecker
+  testingOrg_recorder -- "EvaluationRecord" --> testingOrg_coverageCalculator
+  testingOrg_recorder -- "EvaluationRecord" --> testingOrg_probeDeriver
+  testingOrg_recorder -- "EvaluationRecord" --> testingOrg_team_domainExpert
+  testingOrg_recorder -- "EvaluationRecord" --> testingOrg_team_operator
+  testingOrg_team_domainExpert -- "DsoRelease, AppropriatenessAssessment, PlanApproval, Attestation, Determination" --> testingOrg_recorder
+  testingOrg_team_operator -- "Probe" --> accountable_testItem
+  testingOrg_team_operator -- "RequirementSet, TestPlan, Evidence, Determination, Recommendation" --> testingOrg_recorder
+  sponsor -. "obligation" .-> affected
   classDef person fill:#e8f5e9,stroke:#2e7d32;
   classDef machine fill:#fce4ec,stroke:#ad1457;
   classDef party fill:#fff8e1,stroke:#f9a825,stroke-dasharray: 4 4;

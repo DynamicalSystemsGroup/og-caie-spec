@@ -27,11 +27,16 @@ the standards' own, none coined here:
 :class: specification
 
 Four parties, three actor categories within the testing organization, and
-the wires between them. The sponsor states its mission towards the affected populations, then the
-need, and receives the proposal; the account executive answers, countersigns and, at the end,
+the wires between them. The sponsor holds an obligation towards the
+affected populations, states its mission and then its need, and receives
+the proposal; the account executive answers, countersigns and, at the end,
 delivers; the accountable organization grants access; every item reaches
 the recorder. Input wires are unique, output wires fan out, and each wire
-carries one item kind. In the model this cycle is the outer action def, and
+carries one item kind. The figure is one view of the model: wires between
+the same two parts are braided into one bundle labelled by what flows, in
+the order it is produced, and the obligation is dotted because it is a
+relation, not a flow. The caption says what the view brings into focus and
+what it leaves out. In the model this cycle is the outer action def, and
 its `fulfil` step is the whole evaluation as a black box.
 
 ```{include} ../generated/wiring-contracting.md
@@ -84,11 +89,12 @@ measured against.
 :class: checked
 
 Shapes S0-Parties, S0-Access, S0-Population, S0-Need, S0-Proposal, S0-Layers
-and S9-Acceptance run over the record; M1-Parties and M5-Cardinality run
-over the model graph. The record conforms. Two counterexamples fail where
+and S9-Acceptance run over the record; M1-Parties, M1-Obligation and
+M5-Cardinality run over the model graph. The record conforms. Two counterexamples fail where
 they must: a requirement set declared before the agreement was signed fails
 the layer rule, and an affected population neither interviewed nor
-represented fails S0-Population.
+represented fails S0-Population. A model with a sponsor and populations but
+no obligation between them fails M1-Obligation.
 :::
 
 :::{admonition} There is more in the model

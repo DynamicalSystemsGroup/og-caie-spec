@@ -2005,7 +2005,8 @@ elmt:OGCAIE__Mission___400
     sysml:body """ The sponsor's purpose for existing as its top management
            expresses it (ISO 9000:2026 3.4.11), and with it its obligations
            towards the affected populations: the context the contract
-           answers to (ruling R-37). Pinned at the contract. """ ;
+           answers to (ruling R-37). Pinned at the contract. It regards one or
+           more of the affected populations (ruling R-38). """ ;
     sysml:owner elmt:OGCAIE__Mission ;
     sysml:qualifiedName "OGCAIE::Mission::@0" .
 
@@ -2015,6 +2016,15 @@ elmt:OGCAIE__Mission__id
     sysml:owner elmt:OGCAIE__Mission ;
     sysml:qualifiedName "OGCAIE::Mission::id" ;
     sysml:type "ScalarValues::String" .
+
+elmt:OGCAIE__Mission__regards
+    a sysml:PartUsage ;
+    sysml:declaredName "regards" ;
+    sysml:lowerBound expr:OGCAIE__Mission__regards_plowerBound ;
+    sysml:owner elmt:OGCAIE__Mission ;
+    sysml:qualifiedName "OGCAIE::Mission::regards" ;
+    sysml:type elmt:OGCAIE__AffectedPopulation ;
+    sysml:upperBound expr:OGCAIE__Mission__regards_pupperBound .
 
 elmt:OGCAIE__Mode
     a sysml:EnumerationDefinition ;
@@ -2104,6 +2114,37 @@ elmt:OGCAIE__Need__id
     sysml:owner elmt:OGCAIE__Need ;
     sysml:qualifiedName "OGCAIE::Need::id" ;
     sysml:type "ScalarValues::String" .
+
+elmt:OGCAIE__Obligation
+    a sysml:ConnectionDefinition ;
+    sysml:declaredName "Obligation" ;
+    sysml:owner elmt:OGCAIE ;
+    sysml:qualifiedName "OGCAIE::Obligation" .
+
+elmt:OGCAIE__Obligation___400
+    a sysml:Documentation ;
+    sysml:body """ The sponsor organization's obligation towards an affected
+           population: a relation between two parties, not a flow of any
+           item. It is what the mission expresses, and the context the
+           contract answers to (ruling R-38). """ ;
+    sysml:owner elmt:OGCAIE__Obligation ;
+    sysml:qualifiedName "OGCAIE::Obligation::@0" .
+
+elmt:OGCAIE__Obligation__population
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "population" ;
+    sysml:isEnd "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__Obligation ;
+    sysml:qualifiedName "OGCAIE::Obligation::population" ;
+    sysml:type elmt:OGCAIE__AffectedPopulation .
+
+elmt:OGCAIE__Obligation__sponsor
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "sponsor" ;
+    sysml:isEnd "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__Obligation ;
+    sysml:qualifiedName "OGCAIE::Obligation::sponsor" ;
+    sysml:type elmt:OGCAIE__SponsorOrganization .
 
 elmt:OGCAIE__OgCaieEvaluation
     a sysml:PartDefinition ;
@@ -2328,6 +2369,17 @@ elmt:OGCAIE__OgCaieEvaluation__needToExecutiveSeam
     sysml:type elmt:OGCAIE__NeedSeam ;
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__needToExecutiveSeam_pend0, expr:OGCAIE__OgCaieEvaluation__needToExecutiveSeam_pend1 ;
     sysx:sourceText "interface needToExecutiveSeam : NeedSeam connect sponsor.needOut to testingOrg.accountExecutive.needIn;" .
+
+elmt:OGCAIE__OgCaieEvaluation__obligation
+    a sysml:ConnectionUsage ;
+    ogm:relatesFrom elmt:OGCAIE__OgCaieEvaluation__sponsor ;
+    ogm:relatesTo elmt:OGCAIE__OgCaieEvaluation__affected ;
+    sysml:declaredName "obligation" ;
+    sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
+    sysml:qualifiedName "OGCAIE::OgCaieEvaluation::obligation" ;
+    sysml:type elmt:OGCAIE__Obligation ;
+    sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__obligation_pend0, expr:OGCAIE__OgCaieEvaluation__obligation_pend1 ;
+    sysx:sourceText "connection obligation : Obligation connect sponsor to affected;" .
 
 elmt:OGCAIE__OgCaieEvaluation__operatorDeterminationSeam
     a sysml:InterfaceUsage ;
@@ -4832,6 +4884,15 @@ expr:OGCAIE__EvaluationTeam__operator_pupperBound
     a sysml:LiteralInfinity ;
     sysx:sourceText "*" .
 
+expr:OGCAIE__Mission__regards_plowerBound
+    a sysml:LiteralInteger ;
+    sysml:value "1"^^xsd:integer ;
+    sysx:sourceText "1" .
+
+expr:OGCAIE__Mission__regards_pupperBound
+    a sysml:LiteralInfinity ;
+    sysx:sourceText "*" .
+
 expr:OGCAIE__OgCaieEvaluation__acceptanceSeam_pend0
     a sysml:FeatureChainExpression ;
     ogm:endPart elmt:OGCAIE__OgCaieEvaluation__sponsor ;
@@ -5502,6 +5563,18 @@ expr:OGCAIE__OgCaieEvaluation__needToExecutiveSeam_pend1_pa0_pa0
     a sysml:FeatureReferenceExpression ;
     sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
     sysx:sourceText "testingOrg" .
+
+expr:OGCAIE__OgCaieEvaluation__obligation_pend0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__OgCaieEvaluation__sponsor ;
+    sysx:endIndex "0"^^xsd:integer ;
+    sysx:sourceText "sponsor" .
+
+expr:OGCAIE__OgCaieEvaluation__obligation_pend1
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__OgCaieEvaluation__affected ;
+    sysx:endIndex "1"^^xsd:integer ;
+    sysx:sourceText "affected" .
 
 expr:OGCAIE__OgCaieEvaluation__operatorDeterminationSeam_pend0
     a sysml:FeatureChainExpression ;

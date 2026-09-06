@@ -8,17 +8,19 @@ exhaustive. It lists exactly the terms this site uses. The full register of
 
 ## The map of the site
 
-Eight pages, each a view of the model in the repository. The front page
-sets the bar for science in plain terms and crosses the bridge into the
-standards;
-this page gives the terms and the two cycles; **Contracting** is the outer
-cycle, from need to acceptance; **The evaluation** is the inner cycle,
-scope to report; **The nested model** shows why the two are one model; **What
-the record proves** runs the checks; **Rulings** is the judgment record;
-the **Conclusion** returns to the front page's terms. Each chapter from Contracting on keeps
-one rhythm: what the standards say, the specification, the walkthrough,
-what was checked, and there is more in the model. The assemblage and record
-pages remain until their chapters are written.
+Eight pages, each a view of the model in the repository. The
+[front page](../index.md) sets the bar for science in plain terms and
+crosses the bridge into the standards; this page gives the terms and the
+two cycles; [Contracting](contracting.md) is the outer cycle, from need to
+acceptance; **The evaluation** is the inner cycle, scope to report; **The
+nested model** shows why the two are one model; **What the record proves**
+runs the checks; [Rulings](rulings.md) is the judgment record; the
+[Conclusion](conclusion.md) returns to the front page's terms. Each chapter
+from Contracting on keeps one rhythm: what the standards say, the
+specification, the walkthrough, what was checked, and there is more in the
+model. The [assemblage](assemblage.md) and [record](record.md) pages remain
+until their chapters are written, and the three chapters still in bold are
+not yet linked because they are not yet written.
 
 ## Vocabulary discipline
 

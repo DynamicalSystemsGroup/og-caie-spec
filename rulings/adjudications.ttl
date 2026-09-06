@@ -762,3 +762,21 @@ rul:R-37 a ogc:Ruling ;
     prov:wasAttributedTo rul:Z ;
     prov:generatedAtTime "2026-09-06"^^xsd:date .
 
+rul:C-41 a ogc:Concern ;
+    rdfs:label "the mission's relation to the affected populations was in the record but not in the model or the view" ;
+    ogc:problem """The record said which populations the sponsor's mission regards, but the SysML model held no relation between the sponsor and the affected populations, and the contracting wiring diagram drew none. Diagrams were also growing dense: one edge per seam, named by the seam, with no statement of what the view brings into focus or leaves out.""" ;
+    ogc:severity "M" ;
+    ogc:status "ruled" ;
+    ogc:surfacedOn "2026-09-06"^^xsd:date ;
+    ogc:surfacedHow "Z, reading the contracting wiring diagram after the mission seam landed" ;
+    ogc:concernsTerm term:mission ;
+    prov:wasGeneratedBy rul:model-revision-planning-2026-09-06 .
+
+rul:R-38 a ogc:Ruling ;
+    ogc:order 38 ;
+    ogc:resolves rul:C-41 ;
+    ogc:rulingText "i still think there should be some kind of connectivity showing how the mission of the sponsor org relates to the affected population, maybe that's covered in the data just not in the view. i know the diagramming is tricky because we tend to overload our diagrams. in practice we need to keep them simple even if it means some wires a braided up into bundles since the information flows together in practice. the diagrams a pretty important views for humans so we need to balance their density with the point they are making. as long as the code that produces the diagram reads from the the model itself and we document the perspective the view encodes (what it brings into focus and what it leaves out) then i think we can do whatever views are compeling narrative wise. plus we can always harden the view code by building resuable views and committing the methods with cli and skills for their use. this makes other views possible even though our presentation layer curates" ;
+    ogc:changeNote "Model: connection def Obligation (sponsor end, population end) and the assembly's connection obligation from sponsor to affected; the Mission item owns ref part regards : AffectedPopulation[1..*], which the record's epo:regards binds to; derived ogm:relatesFrom and ogm:relatesTo; shape M1-Obligation with the counterexample no-obligation; budget 5500. Views: registry ogc/views.py (layers, assemblage, contracting, evaluation), each with a title, what it brings into focus and what it leaves out; wires between the same two parts braid into one bundle labelled by the item kinds in the order the process produces them; relations dotted; the site's figures render from the registry with the perspective as caption; ogc views and ogc view <name>; skill updated; sheet 05 gains a Relations table." ;
+    prov:wasAttributedTo rul:Z ;
+    prov:generatedAtTime "2026-09-06"^^xsd:date .
+

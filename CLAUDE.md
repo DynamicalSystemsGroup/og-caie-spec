@@ -75,6 +75,14 @@ sources and rulings borrowed from `mission-twin-glossary`.
   prose per chapter page, tested.
 - Every SCI carries `ogc:page` (contracting, evaluation, guarantees) and is
   rendered on that page only.
+- Diagrams are views (R-38): reusable, in the registry `ogc/views.py`,
+  read only from the model graph, each documenting the perspective it
+  encodes (what it brings into focus, what it leaves out) as its caption.
+  Keep them simple: wires between the same two parts braid into one bundle
+  labelled by what flows; relations that carry no item are dotted. Any
+  view that reads from the model and states its perspective is allowed;
+  `ogc view <name>` prints it, so other views stay possible while the
+  site curates.
 
 ## Ask the graph, never grep it
 
@@ -149,6 +157,9 @@ sources and rulings borrowed from `mission-twin-glossary`.
 - Input wires are unique, output wires may be shared because what flows
   is information whose use is nondestructive (R-25): one output port per
   item kind per actor, fanned out to its readers.
+- A relation between parties that carries no item (the sponsor's
+  obligation towards an affected population) is a `connection def`, never
+  a seam; the assembly connects the parts; M1-Obligation checks it (R-38).
 - One nested model (R-33): the contracting lifecycle is the outer action
   def; its `fulfil` step is `action fulfil : EvaluationProcess`, a black
   box whose inputs (agreement, access) and outputs (report, recommendation)

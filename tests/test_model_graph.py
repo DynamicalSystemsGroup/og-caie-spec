@@ -28,6 +28,7 @@ COUNTEREXAMPLES = {
     "unwired-port": "M2-Part",
     "expert-administers-tests": "M5-PortsBelongToRoles",
     "missing-accountable": "M1-Parties",
+    "no-obligation": "M1-Obligation",
 }
 
 

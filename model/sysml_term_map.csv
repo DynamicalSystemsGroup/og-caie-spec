@@ -1,11 +1,13 @@
 term,kind,source,rationale
 Package,class,omg,the model's namespaces
 PartDefinition,class,omg,parties and machines
-PartUsage,class,omg,parts of the assembly and of organizations
+PartUsage,class,omg,parts of the assembly and of organizations; the populations a mission regards (R-38)
 PortDefinition,class,omg,one per item kind that crosses a seam
 PortUsage,class,omg,ports on parts and the ends of interface defs
 InterfaceDefinition,class,omg,the seams
 InterfaceUsage,class,omg,the wiring of the assembly
+ConnectionDefinition,class,omg,a relation between parties that carries no item: the sponsor's obligation to an affected population (R-38)
+ConnectionUsage,class,omg,the obligation in the assembly (R-38)
 ActionDefinition,class,omg,the EPO
 ActionUsage,class,omg,the seven steps and the perform usage
 SuccessionAsUsage,class,omg,the order of the steps
@@ -14,7 +16,7 @@ BindingConnectorAsUsage,class,omg,an action def's own parameter bound to a step'
 ItemDefinition,class,omg,the item kinds
 ItemUsage,class,omg,the item each port carries
 AttributeUsage,class,omg,name and version on parties
-ReferenceUsage,class,omg,out parameters of the steps and redefinitions in a run
+ReferenceUsage,class,omg,out parameters of the steps; redefinitions in a run; the ends of a connection def
 EnumerationDefinition,class,omg,outcome and step vocabularies
 EnumerationUsage,class,omg,enumeration values
 Documentation,class,omg,the model's own prose
@@ -42,7 +44,7 @@ targetFeature,predicate,omg,the last step of an end path
 referent,predicate,omg,the root usage of an end path
 body,predicate,omg,documentation text
 references,predicate,omg,the bound feature of a binding connector
-relatedFeature,predicate,opensysml,the two ends of an interface usage or a succession
+relatedFeature,predicate,opensysml,the two ends of an interface usage; a connection usage; a succession
 sourceText,predicate,opensysml,the connect statement as written
 endIndex,predicate,opensysml,which end is which
 declaredPrefix,predicate,opensysml,the perform keyword
@@ -54,3 +56,5 @@ first,predicate,derived,the action a succession starts from (computed)
 then,predicate,derived,the action a succession leads to (computed)
 flowSource,predicate,derived,the parameter a flow starts from (computed)
 flowTarget,predicate,derived,the parameter a flow ends at (computed)
+relatesFrom,predicate,derived,the part usage at the first end of a connection usage: the party that holds the obligation (computed)
+relatesTo,predicate,derived,the part usage at the second end of a connection usage: the party it is held towards (computed)

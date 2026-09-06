@@ -57,3 +57,11 @@ Generated from `model/og-caie.model.ttl` by `scripts/render.py`; do not edit the
 | W33 | requirementSeam | EvaluationOperator.requirementsOut | Recorder.requirementsIn | RequirementSetWrite | [ ] |
 | W34 | responseSeam | TestItem.responseOut | Recorder.responseIn | ResponseWrite | [ ] |
 | W35 | stakeholderInputSeam | AffectedPopulation.inputOut | Recorder.inputIn | StakeholderInputWrite | [ ] |
+
+## Relations
+
+Connections that carry no item: a relation between two parties, drawn dotted in the views (R-38).
+
+| # | Relation | Kind | Between | Validated |
+|---|---|---|---|---|
+| X1 | obligation | Obligation | sponsor : SponsorOrganization towards affected : AffectedPopulation | [ ] |

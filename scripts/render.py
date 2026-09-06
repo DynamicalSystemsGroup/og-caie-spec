@@ -243,6 +243,13 @@ def render_signoff_sheet() -> str:
         j += 1
         sp, cp = g.value(s, OGM.supplierPort), g.value(s, OGM.consumerPort)
         lines.append(f"| W{j} | {nm(s)} | {nm(g.value(sp, SYS.owner))}.{nm(sp)} | {nm(g.value(cp, SYS.owner))}.{nm(cp)} | {nm(g.value(sp, SYS.type))} | [ ] |")
+    lines += ["", "## Relations", "", "Connections that carry no item: a relation between two parties, drawn dotted in the views (R-38).", "",
+              "| # | Relation | Kind | Between | Validated |", "|---|---|---|---|---|"]
+    k = 0
+    for c in sorted(g.subjects(RDF.type, SYS.ConnectionUsage), key=nm):
+        k += 1
+        parts = " towards ".join(f"{nm(p)} : {nm(g.value(p, SYS.type))}" for p in (g.value(c, OGM.relatesFrom), g.value(c, OGM.relatesTo)))
+        lines.append(f"| X{k} | {nm(c)} | {nm(g.value(c, SYS.type))} | {parts} | [ ] |")
     return "\n".join(lines) + "\n"
 
 
@@ -287,8 +294,8 @@ def main_all() -> int:
     (OUT / "record-evaluation.md").write_text(render_record_chapter("evaluation"))
     (OUT / "more-contracting.md").write_text(render_more("contracting",
         ["steps-contracting.md", "wiring-contracting.md", "wiring-table-contracting.md", "sci-contracting.md", "record-contracting.md"],
-        ["ogc steps", "ogc sci SCI-10", "ogc term customer", "ogc term provider", "ogc term contract", "ogc verify iso-iec-17000-2020", "ogc sparql"],
-        ["model/og-caie.sysml", "model/og-caie.model.ttl", "vocabulary/epo.ttl", "shapes/epo.shapes.ttl (S0)", "shapes/model.shapes.ttl (M1, M5)", "track/measles-run.ttl"]))
+        ["ogc view contracting", "ogc views", "ogc steps", "ogc sci SCI-10", "ogc term mission", "ogc term customer", "ogc term provider", "ogc term contract", "ogc verify iso-iec-17000-2020", "ogc sparql"],
+        ["model/og-caie.sysml", "model/og-caie.model.ttl", "vocabulary/epo.ttl", "shapes/epo.shapes.ttl (S0)", "shapes/model.shapes.ttl (M1, M5)", "ogc/views.py", "track/measles-run.ttl"]))
     (ROOT / "rulings" / "sheets" / "05-blocks-and-wires.md").write_text(render_signoff_sheet())
     return 0
 

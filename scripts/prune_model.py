@@ -52,7 +52,9 @@ PREFIXES = {"sysml": SYS, "sysx": SYSX, "ogm": OGM, "elmt": Namespace("urn:sysml
 #     after the build, with headroom for the chapters' additions.
 #   2026-09-06 bumped to 5200 (R-33): the nested fulfil step, flows and
 #     binds in both action defs, measured after the build.
-TRIPLE_BUDGET = 5200
+#   2026-09-06 bumped to 5500 (R-37, R-38): the mission seam and the
+#     obligation relation, measured after the build.
+TRIPLE_BUDGET = 5500
 TRIPLE_BUDGET_RATIONALE = ("Parsimony gate on the canonical model graph: the structure-only model "
                            "plus resolved ends; bump with a rationale when a seam or a party is added.")
 
@@ -119,6 +121,13 @@ def derive(raw: Graph, pruned: Graph) -> int:
             conj = raw.value(port, SYS.isConjugated)
             role = OGM.consumerPort if conj is not None and bool(conj.toPython()) else OGM.supplierPort
             pruned.add((iface, role, port)); n += 1
+    for conn in raw.subjects(RDF.type, SYS.ConnectionUsage):
+        ends = list(raw.objects(conn, SYSX.relatedFeature))
+        if len(ends) != 2:
+            raise SystemExit(f"{conn}: {len(ends)} ends")
+        ends.sort(key=lambda e: int(raw.value(e, SYSX.endIndex)))
+        pruned.add((conn, OGM.relatesFrom, resolve(raw, ends[0])[0])); n += 1
+        pruned.add((conn, OGM.relatesTo, resolve(raw, ends[1])[0])); n += 1
     for flow in raw.subjects(RDF.type, SYS.FlowUsage):
         ends = list(raw.objects(flow, SYSX.relatedFeature))
         if len(ends) != 2:

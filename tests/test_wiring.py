@@ -8,6 +8,7 @@ from collections import Counter
 from rdflib import RDF
 
 from conftest import load
+from ogc import views
 from test_model_graph import OGM, SYS
 
 SEAMS = 35
@@ -94,3 +95,30 @@ def test_parties_and_roles_present():
     org = defs["TestingOrganization"]
     held = {name(g, g.value(u, SYS.type)) for u in g.subjects(SYS.owner, org) if (u, RDF.type, SYS.PartUsage) in g}
     assert {"AccountExecutive", "EvaluationTeam", "Recorder", "ProbeDeriver", "ConformanceChecker", "CoverageCalculator"} <= held
+
+
+def test_obligation_relates_sponsor_to_populations():
+    """R-38: the sponsor's obligation towards the affected populations is a
+    relation in the assembly, from the sponsor part to the affected part,
+    carrying no item; the mission regards one or more populations."""
+    g = graph()
+    rels = views.relations(g)
+    assert [(dname, name(g, a), name(g, b)) for _, dname, (a, b) in rels] == [("Obligation", "sponsor", "affected")]
+    mission = next(d for d in g.subjects(RDF.type, SYS.ItemDefinition) if name(g, d) == "Mission")
+    regards = next(u for u in g.subjects(SYS.owner, mission) if (u, RDF.type, SYS.PartUsage) in g)
+    assert name(g, g.value(regards, SYS.type)) == "AffectedPopulation"
+
+
+def test_views_have_perspectives_and_cover_every_seam():
+    """R-38: every view documents what it brings into focus and what it
+    leaves out; the two slice views together draw every seam, and a bundle
+    between two parts names every item kind that flows between them."""
+    g = graph()
+    for v in views.VIEWS.values():
+        assert v.focus.endswith(".") and v.leaves_out.endswith("."), v.name
+        assert v.render(g).startswith("flowchart")
+    drawn = {name(g, s) for sl in ("contracting", "evaluation") for s in views.seams(g, sl)}
+    assert drawn == {name(g, s) for s in views.seams(g)}
+    contracting = views.wiring(g, "contracting")
+    assert 'sponsor -- "Mission, Need, ServiceAgreement, Acceptance" --> testingOrg_accountExecutive' in contracting
+    assert 'sponsor -. "obligation" .-> affected' in contracting

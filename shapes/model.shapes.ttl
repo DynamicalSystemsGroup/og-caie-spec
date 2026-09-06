@@ -42,6 +42,36 @@ ogc:M1-Parties a sh:NodeShape ;
             }
         """ ] .
 
+ogc:M1-Obligation a sh:NodeShape ;
+    sh:targetClass sysml:PartDefinition, sysml:ItemDefinition ;
+    sh:sparql [
+        sh:message "The assembly relates the sponsor to the affected populations by an obligation: a connection usage typed Obligation whose ends are the sponsor part and the affected part, a relation that carries no item (R-38)." ;
+        sh:select """
+            PREFIX sysml: <https://www.omg.org/spec/SysML#>
+            PREFIX ogm: <https://w3id.org/og-caie/model#>
+            SELECT $this WHERE {
+                $this sysml:declaredName "OgCaieEvaluation" .
+                FILTER NOT EXISTS {
+                    ?c a sysml:ConnectionUsage ; sysml:owner $this ; sysml:type ?t ; ogm:relatesFrom ?s ; ogm:relatesTo ?p .
+                    ?t sysml:declaredName "Obligation" .
+                    ?s sysml:type ?sd . ?sd sysml:declaredName "SponsorOrganization" .
+                    ?p sysml:type ?pd . ?pd sysml:declaredName "AffectedPopulation" .
+                }
+            }
+        """ ] ;
+    sh:sparql [
+        sh:message "The mission regards one or more affected populations: the Mission item owns a reference part typed AffectedPopulation with lower bound one (R-37, R-38)." ;
+        sh:select """
+            PREFIX sysml: <https://www.omg.org/spec/SysML#>
+            SELECT $this WHERE {
+                $this sysml:declaredName "Mission" .
+                FILTER NOT EXISTS {
+                    ?r a sysml:PartUsage ; sysml:owner $this ; sysml:type ?t ; sysml:lowerBound ?lb .
+                    ?t sysml:declaredName "AffectedPopulation" . ?lb sysml:value 1 .
+                }
+            }
+        """ ] .
+
 ogc:M2-Wire a sh:NodeShape ;
     sh:targetClass sysml:InterfaceUsage ;
     sh:property [ sh:path ogm:supplierPort ; sh:minCount 1 ; sh:maxCount 1 ;

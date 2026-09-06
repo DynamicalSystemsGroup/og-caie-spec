@@ -80,8 +80,10 @@ package OGCAIE {
         doc /* The sponsor's purpose for existing as its top management
            expresses it (ISO 9000:2026 3.4.11), and with it its obligations
            towards the affected populations: the context the contract
-           answers to (ruling R-37). Pinned at the contract. */
+           answers to (ruling R-37). Pinned at the contract. It regards one or
+           more of the affected populations (ruling R-38). */
         attribute id : ScalarValues::String;
+        ref part regards : AffectedPopulation[1..*];
     }
     item def Need {
         doc /* The sponsor's stated mission problem and measures of success
@@ -555,10 +557,19 @@ package OGCAIE {
     // recorder (M3).
     // ------------------------------------------------------------
 
+    connection def Obligation {
+        doc /* The sponsor organization's obligation towards an affected
+           population: a relation between two parties, not a flow of any
+           item. It is what the mission expresses, and the context the
+           contract answers to (ruling R-38). */
+        end sponsor : SponsorOrganization;
+        end population : AffectedPopulation;
+    }
     part def OgCaieEvaluation {
         doc /* Four parties wired along typed seams, performing the
            contracting lifecycle, whose fulfil step is the EPO (R-33). */
 
+        connection obligation : Obligation connect sponsor to affected;
         interface missionSeam : MissionSeam connect sponsor.missionOut to testingOrg.recorder.missionIn;
         interface missionToExecutiveSeam : MissionSeam connect sponsor.missionOut to testingOrg.accountExecutive.missionIn;
         interface needSeam : NeedSeam connect sponsor.needOut to testingOrg.recorder.needIn;

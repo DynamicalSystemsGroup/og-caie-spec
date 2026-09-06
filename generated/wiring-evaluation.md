@@ -1,3 +1,5 @@
+**View `evaluation`: the evaluation slice.** In focus: the team, the machines, the test item and the recorder, with the evaluation items braided into one bundle per pair of parts. Left out: the sponsor, the account executive's contracting wires and the accountable organization's access grant; the seam names and the ports.
+
 ```{mermaid}
 flowchart LR
   accountable_testItem[["testItem : TestItem"]]
@@ -8,27 +10,19 @@ flowchart LR
   testingOrg_recorder[["recorder : Recorder"]]
   testingOrg_team_domainExpert(["domainExpert : DomainExpert"])
   testingOrg_team_operator(["operator : EvaluationOperator"])
-  testingOrg_team_domainExpert -- "assessmentSeam" --> testingOrg_recorder
-  testingOrg_team_domainExpert -- "attestationSeam" --> testingOrg_recorder
-  testingOrg_probeDeriver -- "derivedProbeSeam" --> testingOrg_team_operator
-  testingOrg_team_domainExpert -- "dsoSeam" --> testingOrg_recorder
-  testingOrg_team_operator -- "evidenceSeam" --> testingOrg_recorder
-  testingOrg_team_domainExpert -- "expertDeterminationSeam" --> testingOrg_recorder
-  testingOrg_team_operator -- "operatorDeterminationSeam" --> testingOrg_recorder
-  testingOrg_team_domainExpert -- "planApprovalSeam" --> testingOrg_recorder
-  testingOrg_team_operator -- "planSeam" --> testingOrg_recorder
-  testingOrg_probeDeriver -- "probeRecordSeam" --> testingOrg_recorder
-  testingOrg_team_operator -- "probeRunSeam" --> accountable_testItem
-  testingOrg_team_operator -- "recommendationSeam" --> testingOrg_recorder
-  testingOrg_recorder -- "recordToCalculatorSeam" --> testingOrg_coverageCalculator
-  testingOrg_recorder -- "recordToCheckerSeam" --> testingOrg_conformanceChecker
-  testingOrg_recorder -- "recordToDeriverSeam" --> testingOrg_probeDeriver
-  testingOrg_recorder -- "recordToExecutiveSeam" --> testingOrg_accountExecutive
-  testingOrg_recorder -- "recordToExpertSeam" --> testingOrg_team_domainExpert
-  testingOrg_recorder -- "recordToOperatorSeam" --> testingOrg_team_operator
-  testingOrg_coverageCalculator -- "reportSeam" --> testingOrg_recorder
-  testingOrg_team_operator -- "requirementSeam" --> testingOrg_recorder
-  accountable_testItem -- "responseSeam" --> testingOrg_recorder
+  accountable_testItem -- "Response" --> testingOrg_recorder
+  testingOrg_coverageCalculator -- "Report" --> testingOrg_recorder
+  testingOrg_probeDeriver -- "Probe" --> testingOrg_recorder
+  testingOrg_probeDeriver -- "Probe" --> testingOrg_team_operator
+  testingOrg_recorder -- "EvaluationRecord" --> testingOrg_accountExecutive
+  testingOrg_recorder -- "EvaluationRecord" --> testingOrg_conformanceChecker
+  testingOrg_recorder -- "EvaluationRecord" --> testingOrg_coverageCalculator
+  testingOrg_recorder -- "EvaluationRecord" --> testingOrg_probeDeriver
+  testingOrg_recorder -- "EvaluationRecord" --> testingOrg_team_domainExpert
+  testingOrg_recorder -- "EvaluationRecord" --> testingOrg_team_operator
+  testingOrg_team_domainExpert -- "DsoRelease, AppropriatenessAssessment, PlanApproval, Attestation, Determination" --> testingOrg_recorder
+  testingOrg_team_operator -- "Probe" --> accountable_testItem
+  testingOrg_team_operator -- "RequirementSet, TestPlan, Evidence, Determination, Recommendation" --> testingOrg_recorder
   classDef person fill:#e8f5e9,stroke:#2e7d32;
   classDef machine fill:#fce4ec,stroke:#ad1457;
   classDef party fill:#fff8e1,stroke:#f9a825,stroke-dasharray: 4 4;

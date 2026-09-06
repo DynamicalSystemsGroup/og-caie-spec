@@ -1,5 +1,7 @@
 ## The layers
 
+**View `layers`: the layers.** In focus: the two cycles as chains of steps, the DSO as the expert-supplied parameter, and how execution and interpretation rest on the record. Left out: every part, port, seam and item kind; the steps' inputs and outputs; who performs which step.
+
 ```{mermaid}
 flowchart TB
   subgraph PARTIES["Contracting lifecycle: the parties (AccountableOrganization, SponsorOrganization, TestingOrganization; affected populations) pin the first layer of assumptions"]
