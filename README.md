@@ -20,9 +20,10 @@ deployed AI system against the needs of a specific domain, written down as:
 
 - **Glossary: ratified.** 61 terms, 4 coined (DSO, EPO, CAIE, OG-CAIE),
   settled through 39 rulings (R-01 to R-39) recorded verbatim in
-  `rulings/adjudications.ttl`. 59 quotes are machine-located in content-hashed
-  snapshots, 31 verified by Z against the ISO screenshots or the browsing
-  platforms. No quote is pending. Concerns C-25 and C-26 are open.
+  `rulings/adjudications.ttl`. 75 quotes are machine-located in
+  content-hashed snapshots, 34 verified by Z against the ISO screenshots or
+  the browsing platforms, 13 transcribed and awaiting Z's tick on rulings
+  sheet 04. Concerns C-25, C-26, C-30 and C-43 are open.
 - **Both cycles are bound to the canon (R-31, R-32).** Each step cites the
   process step it matches: SEBoK's account of the ISO/IEC/IEEE 15288
   acquisition, stakeholder needs and system requirements processes; the
@@ -31,43 +32,46 @@ deployed AI system against the needs of a specific domain, written down as:
   The contracting lifecycle (need, propose, agree, access, deliver, accept)
   cites SEBoK's agreement processes, ISO/IEC 17000's access, scheme and
   acceptance, ISO 9000's contract and the 29119-2 test environment and
-  completion report; every item kind says which layer pins it. Ten ISO/IEC
-  17000 quotes await Z's tick on rulings sheet 04.
-- **Site: a presentation layer over the model (R-34), eight pages, built one
-  chapter at a time.** Each chapter pairs the specification with the measles
-  walkthrough in five fixed blocks and closes with the separation principle.
-  Contracting is written; the evaluation, the nested model and the executed
-  guarantees page follow. Rulings sheet 05, generated from the model graph,
-  lists every block and wire for Z's validation (C-30).
-- **Site: being restructured one chapter at a time (R-29).** The front page
-  runs from why this counts as science to the bridge into the engineering
-  standards and ends at the Popper crosswalk; the glossary page shows exactly
-  the terms the site uses, with hover definitions; the conclusion reads the
-  crosswalk backwards. Next, each scoped when reached: the contracting
-  chapter and the evaluation chapter. The `ogc` navigation tool is in.
-- **Model: revised (R-21 to R-27), draft.** SysML holds structure only; the
+  completion report; every item kind says which layer pins it. The
+  sponsor's mission and obligations towards the affected populations open
+  the record (R-37, R-38).
+- **Site: a presentation layer over the model (R-34), eight pages.** The
+  front page runs from why this counts as science to the bridge into the
+  engineering standards; the vocabulary page shows exactly the terms the
+  site uses, with hover definitions; four chapters (Contracting, The
+  evaluation, The nested model, What the record proves) each pair the
+  specification with the measles walkthrough in five fixed blocks and close
+  with the separation principle; the conclusion reads the crosswalk
+  backwards. Figures are views from a registry (`ogc/views.py`), each
+  captioned with what it brings into focus and leaves out (R-38).
+  Supporting notebooks off the main path run the checks each chapter
+  claims (`notebooks/`); a knowledge graph explorer appendix (R-39) is
+  under construction.
+- **Model: revised (R-21 to R-38), draft.** SysML holds structure only; the
   pruned RDF rendering `model/og-caie.model.ttl` is the canonical structure
   (R-22), checked by wiring shapes M1 to M5 over kinds of parts and ports:
   four parties, three actor categories within the testing organization, the
   six-step EPO nested as the fulfil step of the contracting lifecycle (one
-  model, R-33), both process DAGs,
-  59 ports and 35 seams, every input wired
-  once and every output somewhere. Three model counterexamples fail their
-  shape. The essentials SCI-01 to SCI-12 live in `model/trace.ttl`.
-- **Not yet done, in Z's words (2026-09-06):** "i still need to work through
-  the model step by step and validate all the individual blocks and wires.
-  and need to make sure we get a computational demonstration of our epo
-  guaranteeing a complete record with full traceability and coverage. that
-  is still work to come." The wiring shapes check that the structure is well
-  formed; they do not yet demonstrate that any run of the process must yield
-  a record that conforms to S0 to S8. That demonstration, and Z's
-  block-by-block and wire-by-wire validation, are the next tasks (concern
-  C-30).
+  model, R-33), both process DAGs, 59 ports and 35 seams, every input wired
+  once and every output somewhere, and the sponsor's obligation to the
+  affected populations as a relation. Four model counterexamples fail their
+  shape. The essentials SCI-01 to SCI-13 live in `model/trace.ttl`.
+- **The end-state demonstration (C-30) is built; Z's validation is not.**
+  `ogc/executor.py` walks the process as the model states it and emits a
+  record; the run conforms to S0 to S9, is complete against the model, has
+  a recomputable coverage and traces fully, and seven mutations are each
+  caught by a named check (`ogc execute`, chapter What the record proves).
+  Two findings are open as concern C-43: a record without a plan approval
+  or an access grant conforms to the shapes and is caught only by
+  completeness or the traceback. Z's block-by-block and wire-by-wire
+  validation on rulings sheet 05 remains, in Z's words (2026-09-06): "i
+  still need to work through the model step by step and validate all the
+  individual blocks and wires."
 - **Record and shapes: current.** The measles record names the parties, the
-  agreement, the access, the stakeholder input, the appropriateness
-  assessment, the plan approval and the delivery; shapes S0 to S8 and nine
-  RDF counterexamples follow the rulings; the traceback query reaches the
-  parties.
+  mission, the agreement, the access, the stakeholder input, the
+  appropriateness assessment, the plan approval and the delivery; shapes S0
+  to S9 and nine RDF counterexamples follow the rulings; the traceback query
+  reaches the parties.
 - **Pending outside the repo.** The w3id redirect
   (perma-id/w3id.org#6652) is open; IRIs resolve nowhere until it merges. The
   paper draft and the term contract will be aligned to this glossary once the

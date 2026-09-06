@@ -79,9 +79,8 @@ acceptance of the delivery: its actors are the parties named above, and its
 six steps are the ISO/IEC/IEEE 15288 agreement processes as the SEBoK
 describes them, ISO/IEC 17000's access, scheme and acceptance, ISO 9000's
 {term}`contract`, and the ISO/IEC/IEEE 29119-2 test environment and
-completion report. The inner cycle is the {term}`Evaluation Process
-Ontology <Evaluation Process Ontology>`, performed between access and
-delivery: its six steps are the 15288 stakeholder-needs and
+completion report. The inner cycle is the
+{term}`Evaluation Process Ontology`, performed between access and delivery: its six steps are the 15288 stakeholder-needs and
 system-requirements processes, the 29119-2 test strategy and planning, test
 execution and test completion processes, and ISO/IEC 17000's own function,
 review, decision and attestation (ruling R-31).
