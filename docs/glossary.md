@@ -1,39 +1,61 @@
 # Glossary
 
+The front page ends at the bridge from a plain account of science to the
+engineering standards for evaluation. This chapter gives the terms on the
+far side of that bridge their definitions: rigorous, cited verbatim, and not
+exhaustive. It lists exactly the terms this site uses. The full register of
+59 terms is generated from the same graph for the paper.
+
+## The map of the site
+
+- **Glossary**, this chapter: the terms, their canonical definitions, and
+  the sources they rest on.
+- **Assemblage**: the human and machine parts of an evaluation wired along
+  typed ports, the seven-step process, and the wiring rules. It is being
+  divided into two chapters, the contracting of an evaluation and the
+  evaluation itself.
+- **Record**: the measles evaluation record, its conformance to the process
+  shapes, coverage recomputed by query, and the recommendation traced back.
+- **Rulings**: every interpretive choice, in the adjudicator's words.
+- **Conclusion**: what the specification encodes, in the front page's terms.
+
+## Vocabulary discipline
+
 Terms are used, not owned. Each term cites exactly one canonical definition,
-chosen from the highest-ranked source that defines it:
+chosen from the highest-ranked source that defines it: ISO 9000:2026,
+*Quality management: fundamentals and vocabulary*, for every quality and
+process term; SEVOCAB, the IEEE Computer Society's Software and Systems
+Engineering Vocabulary, for the systems-engineering and testing terms ISO
+9000 lacks; NIST AI 700-2, the ARIA pilot evaluation report, for the
+AI-evaluation terms; and W3C specifications (PROV-O, EARL, SHACL, SKOS) for
+the technical binding only, never for a narrative definition. A few
+single-purpose sources sit in reserve, named in the sources table below.
 
-1. **ISO 9000:2026**, *Quality management: fundamentals and vocabulary*, the default for every quality and process term;
-2. **SEVOCAB**, the IEEE Computer Society's Software and Systems Engineering Vocabulary, for the systems-engineering and testing terms ISO 9000 lacks;
-3. **NIST AI 700-2**, the ARIA pilot evaluation report, for the AI-evaluation terms;
-4. **W3C** specifications (PROV-O, EARL, SHACL, SKOS) for the technical binding only, never for a narrative definition.
+Exactly four terms are coined, with their shorthands:
+{term}`Contextual AI Evaluation` (CAIE), {term}`OG-CAIE`,
+{term}`Evaluation Process Ontology` (EPO) and
+{term}`Domain-Specific Ontology` (DSO). Everything else is grounded in
+cited standards and literature. *Adopted* terms are used exactly as the
+source defines them; *refined* terms carry a typed anchor to a standard
+term and keep the source's word as an alternative label. One word is used
+against the grain of its source, and says so: {term}`conformance`,
+deprecated by ISO 9000 as a synonym of {term}`conformity`, is reclaimed for
+the machine-checked, correctly constructed {term}`evaluation record`.
 
-A few single-purpose sources sit in reserve: ISO/IEC 17000 for *attestation*
-and *object of conformity assessment*;
-Hawkins, Kelly, Knight and Graydon 2011 for *appropriateness* and *sufficiency*;
-Gruber 1993 and Hogan et al. 2021 for *ontology* and *knowledge graph*; IEC
-60050-351, the control-technology vocabulary, for *trajectory* and the feedback
-reading of a *test strategy*; and the VIM (JCGM 200:2012), restated by NIST TN
-1297, for *repeatability*, *reproducibility* and *measurement uncertainty*.
+Every quote is verified, by machine against a content-hashed snapshot or by
+a named person against the source on a date; no quote is pending.
 
-Three classes of term. **Adopted** terms are used exactly as the source
-defines them. **Refined** terms carry a typed anchor to a standard term and
-keep the source's word as an alternative label. **Coined** terms are the
-three this project owns: Domain-Specific Ontology, Evaluation Process
-Ontology, and OG-CAIE.
+## How to navigate
 
-One word is used against the grain of its source, and the glossary says so:
-*conformance*, deprecated by ISO 9000 as a synonym of *conformity*, is reclaimed
-for the machine-checked, correctly constructed record (ruling R-16).
+Hover any highlighted term on any page to see its definition. The entries
+below are exactly those terms: the narrative definition, then the canonical
+source with its locator and verbatim quote, then the alternative labels and
+the ruling the term rests on. Terms the site's prose does not yet reach,
+such as test case, knowledge graph and authoritative reference, stay in the
+full register until a chapter needs them. A command-line tool for asking
+the vocabulary graph directly follows in a later slice.
 
-The narrative definition is plain language with no citations and may be
-lifted into the paper. The quote is verbatim from the source. Status says how
-the quote was checked: *machine* (located in the content-hashed snapshot by
-the test suite) or *human* (verified by a named person on a date). A third
-status, *pending*, marks a quote transcribed from a browsing platform and
-awaiting verification; at this writing no quote is pending.
-
-```{include} ../generated/glossary.md
+```{include} ../generated/key-terms.md
 ```
 
 ## Sources

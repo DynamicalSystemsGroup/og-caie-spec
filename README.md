@@ -18,11 +18,17 @@ deployed AI system against the needs of a specific domain, written down as:
 
 ## Status (2026-09-06)
 
-- **Glossary: ratified.** 58 terms, 3 coined,
-  settled through 28 rulings (R-01 to R-28) recorded verbatim in
+- **Glossary: ratified.** 59 terms, 4 coined (DSO, EPO, CAIE, OG-CAIE),
+  settled through 29 rulings (R-01 to R-29) recorded verbatim in
   `rulings/adjudications.ttl`. 59 quotes are machine-located in content-hashed
   snapshots, 31 verified by Z against the ISO screenshots or the browsing
   platforms. No quote is pending. Concerns C-25 and C-26 are open.
+- **Site: being restructured one chapter at a time (R-29).** The front page
+  runs from why this counts as science to the bridge into the engineering
+  standards and ends at the Popper crosswalk; the glossary page shows exactly
+  the terms the site uses, with hover definitions; the conclusion reads the
+  crosswalk backwards. Next, each scoped when reached: the contracting
+  chapter, the evaluation chapter, the `ogc` navigation tool.
 - **Model: revised (R-21 to R-27), draft.** SysML holds structure only; the
   pruned RDF rendering `model/og-caie.model.ttl` is the canonical structure
   (R-22), checked by wiring shapes M1 to M5 over kinds of parts and ports:

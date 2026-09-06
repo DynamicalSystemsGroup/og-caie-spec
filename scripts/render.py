@@ -2,6 +2,7 @@
 """Render committed Markdown fragments under generated/ from the RDF graphs.
 Deterministic: same graphs, same bytes. The gate diffs generated/ after
 running this; the site includes the fragments."""
+import re
 from pathlib import Path
 
 from rdflib import RDF, Graph, Namespace
@@ -82,12 +83,110 @@ def render_sources() -> str:
     return "\n".join(lines) + "\n"
 
 
+SKOS = Namespace("http://www.w3.org/2004/02/skos/core#")
+XW_FILES = ("vocabulary/crosswalk.ttl", "vocabulary/og-caie.ttl", "vocabulary/epo.ttl", "shapes/epo.shapes.ttl", "shapes/model.shapes.ttl", "sources/sources.ttl")
+PROSE_FOR_TERMS = ["index.md", "docs/*.md", "generated/popper.md", "generated/popper-back.md"]
+TERM_ROLE = re.compile(r"\{term\}`([^`]+)`")
+
+
+def term_role(g, t) -> str:
+    return "{term}`" + str(g.value(t, SKOS.prefLabel)) + "`"
+
+
+def crosswalk_rows(g):
+    return sorted(g.subjects(RDF.type, OGC.Crosswalk), key=lambda r: int(g.value(r, OGC.order)))
+
+
+def realizer_name(x) -> str:
+    return str(x).rsplit("#", 1)[-1] if "#" in str(x) else str(x).rsplit("/", 1)[-1]
+
+
+def render_popper() -> str:
+    g = Graph()
+    for f in XW_FILES:
+        g.parse(ROOT / f)
+    lines = ["| Popper's element, in the deck's words | The standard terms it lands on | Where it lives in the record | What makes it checkable |",
+             "|---|---|---|---|"]
+    for r in crosswalk_rows(g):
+        terms = ", ".join(term_role(g, t) for t in sorted(g.objects(r, OGC.mapsTo), key=lambda t: str(g.value(t, SKOS.prefLabel)).lower()))
+        lines.append(f"| **{cell(g.value(r, RDFS.label))}**: \"{cell(g.value(r, OGC.quote))}\" | {terms} | {cell(g.value(r, OGC.where))} | {cell(g.value(r, OGC.checkable))} |")
+    src = g.value(crosswalk_rows(g)[0], OGC.cites)
+    lines.append("")
+    lines.append(f"The definitions in the first column are the authors' own, from slide 5 of the SciPy 2026 birds-of-a-feather deck, after Popper (1959).")
+    return "\n".join(lines) + "\n"
+
+
+def render_popper_back() -> str:
+    g = Graph()
+    for f in XW_FILES:
+        g.parse(ROOT / f)
+    lines = ["| What the record holds and the shapes check | In the standard terms | Popper's element |", "|---|---|---|"]
+    for r in crosswalk_rows(g):
+        realizers = ", ".join(f"`{realizer_name(x)}`" for x in sorted(g.objects(r, OGC.realizedBy), key=realizer_name))
+        terms = ", ".join(term_role(g, t) for t in sorted(g.objects(r, OGC.mapsTo), key=lambda t: str(g.value(t, SKOS.prefLabel)).lower()))
+        lines.append(f"| {realizers}: {cell(g.value(r, OGC.checkable))} | {terms} | **{cell(g.value(r, RDFS.label))}** |")
+    return "\n".join(lines) + "\n"
+
+
+def referenced_terms(g):
+    """The concepts the prose references with {term} roles, resolved by prefLabel or altLabel (case-insensitive)."""
+    labels = {}
+    for t in g.subjects(RDF.type, SKOS.Concept):
+        for pred in (SKOS.prefLabel, SKOS.altLabel):
+            for l in g.objects(t, pred):
+                labels.setdefault(str(l).lower(), set()).add(t)
+    found, unresolved = {}, []
+    for pattern in PROSE_FOR_TERMS:
+        for f in sorted(ROOT.glob(pattern)):
+            for m in TERM_ROLE.finditer(f.read_text()):
+                key = m.group(1)
+                if "<" in key:
+                    key = key[key.rindex("<") + 1:].rstrip(">").strip()
+                hits = labels.get(key.lower(), set())
+                if len(hits) != 1:
+                    unresolved.append((f.name, key, len(hits)))
+                else:
+                    found[next(iter(hits))] = key
+    return found, unresolved
+
+
+def render_key_terms() -> str:
+    g = Graph()
+    for f in ("vocabulary/og-caie.ttl", "sources/sources.ttl"):
+        g.parse(ROOT / f)
+    found, unresolved = referenced_terms(g)
+    if unresolved:
+        raise SystemExit(f"unresolved {{term}} roles: {unresolved}")
+    lines = ["```{glossary}"]
+    for t in sorted(found, key=lambda t: str(g.value(t, SKOS.prefLabel)).lower()):
+        c = g.value(t, OGC.canonical)
+        src = g.value(c, OGC.cites)
+        label = str(g.value(src, RDFS.label)).split(" (")[0].split(", ")[0]
+        quote = g.value(c, OGC.quote)
+        cite = f"{label}, {cell(g.value(c, OGC.locator))}" + (f': "{cell(quote)}" ({cell(g.value(c, OGC.quoteStatus))})' if quote else "")
+        alts = sorted(str(a) for a in g.objects(t, SKOS.altLabel))
+        rul = sorted(str(r).rsplit("#", 1)[-1] for r in g.objects(t, PROV.wasDerivedFrom))
+        body = cell(g.value(t, SKOS.definition)) + f" Source: {cite}."
+        if alts:
+            body += f" Also: {', '.join(alts)}."
+        if rul:
+            body += f" Ruling {', '.join(rul)}."
+        lines.append(str(g.value(t, SKOS.prefLabel)))
+        lines.append(f": {body}")
+        lines.append("")
+    lines.append("```")
+    return "\n".join(lines) + "\n"
+
+
 def main_all() -> int:
     OUT.mkdir(exist_ok=True)
     (OUT / "rulings.md").write_text(render_rulings())
     (OUT / "glossary.md").write_text(render_glossary())
     (OUT / "sources.md").write_text(render_sources())
     (OUT / "record.md").write_text(render_record())
+    (OUT / "popper.md").write_text(render_popper())
+    (OUT / "popper-back.md").write_text(render_popper_back())
+    (OUT / "key-terms.md").write_text(render_key_terms())
     return 0
 
 

@@ -13,7 +13,7 @@
 # narrative reading: plain language, no citations, liftable into the paper.
 # ogc:class is adopted (used as the source defines it), refined (a typed
 # anchor plus an altLabel keeping the source's word) or coined (exactly
-# three). ogc:quoteStatus: machine (located in the snapshot by the tests),
+# four). ogc:quoteStatus: machine (located in the snapshot by the tests),
 # human (verified by a named person on a date), pending (transcribed from a
 # screenshot or a browsing platform; awaiting a named verification).
 
@@ -545,13 +545,22 @@ term:evaluation-process-ontology a skos:Concept ; skos:inScheme ogc:Glossary ;
     prov:wasDerivedFrom rul:R-09 ;
     ogc:binding "vocabulary/epo.ttl; sysml action def EvaluationProcess" .
 
-term:og-caie a skos:Concept ; skos:inScheme ogc:Glossary ;
-    skos:prefLabel "OG-CAIE"@en ;
-    skos:altLabel "Ontology-Grounded Contextual AI Evaluation"@en ; skos:altLabel "CAIE"@en ;
-    skos:definition "The method: declare the operational environment and the requirement set in the domain's language, derive probes from the Domain-Specific Ontology under the Evaluation Process Ontology, have experts attest the system's responses against the authoritative reference, and report coverage and performance separately, with a record anyone can check."@en ;
+term:contextual-ai-evaluation a skos:Concept ; skos:inScheme ogc:Glossary ;
+    skos:prefLabel "Contextual AI Evaluation"@en ;
+    skos:altLabel "CAIE"@en ;
+    skos:definition "The evaluation of a deployed AI system against the needs of a specific domain and deployment context, judged by people who know that domain. The class of evaluation this specification is for; OG-CAIE is the way it is performed here."@en ;
     ogc:class "coined" ;
     ogc:canonical [ ogc:cites src:paper-draft-2026-09 ; ogc:locator "Introduction and Background" ] ;
-    prov:wasDerivedFrom rul:R-09 ;
+    prov:wasDerivedFrom rul:R-29 ;
+    ogc:binding "the scope of the specification; no node of its own" .
+
+term:og-caie a skos:Concept ; skos:inScheme ogc:Glossary ;
+    skos:prefLabel "OG-CAIE"@en ;
+    skos:altLabel "Ontology-Grounded Contextual AI Evaluation"@en ;
+    skos:definition "Contextual AI Evaluation performed with the method this specification sets out: the Evaluation Process Ontology, the same seven steps for every domain, applied with a Domain-Specific Ontology supplied or approved by the domain's experts, leaving a record anyone can check for conformance, traceability and coverage."@en ;
+    ogc:class "coined" ;
+    ogc:canonical [ ogc:cites src:paper-draft-2026-09 ; ogc:locator "Introduction and Background" ] ;
+    prov:wasDerivedFrom rul:R-09 ; prov:wasDerivedFrom rul:R-29 ;
     ogc:binding "sysml package OGCAIE; part def OgCaieEvaluation" .
 
 # ---------------------------------------------------------------------------

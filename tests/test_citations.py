@@ -17,8 +17,8 @@ from conftest import OGC, ROOT, load, normalized
 
 logging.getLogger("pypdf").setLevel(logging.ERROR)
 
-TERMS = 58
-COINED = 3
+TERMS = 59
+COINED = 4
 MACHINE_QUOTES = 59
 COMMITTED_MACHINE_QUOTES = 11  # NIST AI 700-2 (7), NIST AI 100-1 (1), NIST TN 1297 (2), W3C EARL (1): always locatable, in CI too
 PENDING_QUOTES = 0

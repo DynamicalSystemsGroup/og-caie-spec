@@ -35,7 +35,7 @@ ISO 9000 deprecates it as a synonym of *conformity*, which this specification
 keeps for fulfilment of a requirement by the system; and SHACL's own word for
 the check, validation, is by this specification's split verification. **Recomputation**
 of coverage and performance by SPARQL (`queries/coverage.rq`) is what makes
-the reported numbers falsifiable: anyone holding the record gets the same
+the reported numbers checkable by anyone: whoever holds the record gets the same
 numbers, and a padded number would not survive. What no shape checks is
 whether the experts were right. That is theirs, and it is recorded with their
 names.
@@ -52,7 +52,7 @@ attestation then aggregates a criterion's determinations. The response itself
 stays in the record as what the system said.
 
 The chain the shapes close is the one that makes a requirement a useful
-concept: the requirement, as a hypothesis that may be falsified; its
+concept: the requirement, as a claim a test can show unmet; its
 acceptance criteria, each stating the expected result a test could observe;
 the test plan, whose objectives are those criteria and whose means are the
 probes or a strategy that chooses them; the turn of a session at which a probe

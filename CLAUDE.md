@@ -11,8 +11,10 @@ sources and rulings borrowed from `mission-twin-glossary`.
   (2) SEVOCAB, (3) NIST AI 700-2 (NIST AI RMF for TEVV only), (4) W3C / OMG
   for technical binding only, never for a narrative definition. Lower-ranked
   sources may appear only as `ogc:seeAlso`.
-- Coinage is exactly three: Domain-Specific Ontology, Evaluation Process
-  Ontology, OG-CAIE. A fourth needs a ruling first.
+- Coinage is exactly four, with shorthands (R-29): Domain-Specific Ontology
+  (DSO), Evaluation Process Ontology (EPO), Contextual AI Evaluation (CAIE),
+  OG-CAIE (CAIE performed with the EPO and DSO method). A fifth needs a
+  ruling first.
 - Refined terms carry a typed anchor (`specializes` / `corresponds` /
   `synonym`) and keep the source's word as `skos:altLabel`.
 - **conformity** = fulfilment of a requirement by the system (ISO 9000:2026
@@ -40,7 +42,13 @@ sources and rulings borrowed from `mission-twin-glossary`.
 - The worked example names Mala, Annie and Theo: synthetic case, real
   people's roles recognised, no attestation made by them (R-23).
 - Prose: no em-dashes; short sentences; every glossary term used in docs
-  must be in the glossary.
+  must be in the glossary. Reference key terms with `{term}` roles; the
+  glossary page renders exactly the referenced terms (hover definitions);
+  the full table is generated for the paper only (R-29).
+- The arc (R-29): Popper's words only on the front page (setup, ending at
+  the bridge and the forward crosswalk) and the conclusion (the crosswalk
+  backwards); every other page speaks the standards' terms. Site chapters
+  are scoped one at a time, working forward.
 
 ## Sources
 
