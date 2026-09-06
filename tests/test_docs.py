@@ -47,20 +47,24 @@ def test_every_glossary_term_is_used():
     assert not unused, unused
 
 
-POPPER_WORDS = ("popper", "hypothesis", "hypotheses", "auxiliary", "prediction", "falsifiable", "falsifiability", "falsified", "falsifier")
+POPPER_MARKERS = ("popper", "popperian", "falsifiable", "falsifiability", "falsified", "falsifier", "falsifiers")
 POPPER_PAGES = {"index.md", "conclusion.md", "popper.md", "popper-back.md", "rulings.md", "sources.md"}  # rulings quote Z verbatim; the register names Popper 1959
 
 
-def test_popper_words_only_in_setup_and_conclusion():
-    """Ruling R-29: the Popperian vocabulary appears in the front page (the
-    setup), the conclusion, and the two crosswalk fragments; every other page
-    speaks the standards' terms."""
+def test_popper_argument_only_in_the_bookends():
+    """Rulings R-29 and R-30: the argument grounded in Popper (why and what)
+    lives on the front page and the conclusion; the inner chapters achieve it
+    through the engineering standards (what and how). The restriction is on
+    using the words in Popper's sense, not on ordinary English, so the test
+    checks only the name and the terms of art that have no everyday use;
+    hypothesis, prediction, evidence and assumption stay free words, and the
+    sense rule is read, not grepped."""
     pages = [ROOT / "index.md", *sorted((ROOT / "docs").glob("*.md")), *sorted((ROOT / "generated").glob("*.md"))]
     for p in pages:
         if p.name in POPPER_PAGES:
             continue
         text = re.sub(r'"[^"\n]*"', "", p.read_text()).lower()
-        hits = [w for w in POPPER_WORDS if re.search(rf"\b{w}\b", text)]
+        hits = [w for w in POPPER_MARKERS if re.search(rf"\b{w}\b", text)]
         assert not hits, f"{p.name}: {hits}"
 
 

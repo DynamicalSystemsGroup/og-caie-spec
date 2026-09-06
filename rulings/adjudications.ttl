@@ -616,3 +616,20 @@ this plan pushes back the work to go through the whole executable EPO spec with 
     prov:wasAttributedTo rul:Z ;
     prov:generatedAtTime "2026-09-06"^^xsd:date .
 
+rul:C-33 a ogc:Concern ;
+    rdfs:label "the bookends test banned ordinary words" ;
+    ogc:problem """The slice-A test confined hypothesis, prediction, auxiliary, evidence and the like to the front page and the conclusion by word, although they are common English; the restriction Z intended is on using them in Popper's sense with Popper's definitions.""" ;
+    ogc:severity "L" ;
+    ogc:status "ruled" ;
+    ogc:surfacedOn "2026-09-06"^^xsd:date ;
+    ogc:surfacedHow "Z, reading the slice-A commit" ;
+    prov:wasGeneratedBy rul:model-revision-planning-2026-09-06 .
+
+rul:R-30 a ogc:Ruling ;
+    ogc:order 30 ;
+    ogc:resolves rul:C-33 ;
+    ogc:rulingText """need to be careful with the popper terms because they are pretty common english words. the restriction isn't on using the word its on using them in Popper sense with the popper definitions. that discussion of what is science, grounded in popper stays in the bookends since its essentially the papers core argument: "CAIE would be science if it covers these things" and ends with demonstrably "OG-CAIE" covers these things. but the inner sections are achieving this via engineering standards. think of the intro and conclusion as covering "why/what" and the inner chapters covering "what/how" in enough detail (and executable) so we can show both in theory using our executable spec and in practice through the worked example that we meet the bar for science.""" ;
+    ogc:changeNote "The test now bans only the name (Popper, Popperian) and falsifiability's forms from the inner pages; hypothesis, prediction, auxiliary and evidence are free words there, and the rule about their sense is stated in CLAUDE.md and read, not grepped. The two scrubbed sentences on the record page stay scrubbed: they used the words in Popper's sense." ;
+    prov:wasAttributedTo rul:Z ;
+    prov:generatedAtTime "2026-09-06"^^xsd:date .
+

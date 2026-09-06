@@ -45,10 +45,14 @@ sources and rulings borrowed from `mission-twin-glossary`.
   must be in the glossary. Reference key terms with `{term}` roles; the
   glossary page renders exactly the referenced terms (hover definitions);
   the full table is generated for the paper only (R-29).
-- The arc (R-29): Popper's words only on the front page (setup, ending at
-  the bridge and the forward crosswalk) and the conclusion (the crosswalk
-  backwards); every other page speaks the standards' terms. Site chapters
-  are scoped one at a time, working forward.
+- The arc (R-29, R-30): the front page and the conclusion are the
+  bookends, why and what, grounded in Popper ("CAIE would be science if it
+  covers these things"; "OG-CAIE demonstrably covers these things"). The
+  inner chapters are what and how, achieved through the engineering
+  standards, in theory by the executable spec and in practice by the worked
+  example. The restriction is on using Popper's senses inside, not on the
+  ordinary words (a test bans only the name and falsifiability's forms; the
+  sense rule is read). Chapters are scoped one at a time, working forward.
 
 ## Ask the graph, never grep it
 
