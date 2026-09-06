@@ -19,12 +19,12 @@ deployed AI system against the needs of a specific domain, written down as:
 ## Status (2026-09-06)
 
 - **Glossary: ratified, with nine party quotes pending.** 58 terms, 3 coined,
-  settled through 26 rulings (R-01 to R-26) recorded verbatim in
+  settled through 27 rulings (R-01 to R-27) recorded verbatim in
   `rulings/adjudications.ttl`. 57 quotes are machine-located in content-hashed
-  snapshots, 22 verified by Z; the nine quotes for the party terms added on
-  2026-09-06 are on rulings sheet 03 awaiting Z's tick, one of them (contract)
-  awaiting a screenshot (concern C-24). Concerns C-25 and C-26 are open.
-- **Model: revised (R-21 to R-26).** SysML holds structure only; the pruned
+  snapshots, 23 verified by Z; eight quotes for the party terms added on
+  2026-09-06 are on rulings sheet 03 awaiting Z's tick. Concerns C-25 and
+  C-26 are open.
+- **Model: revised (R-21 to R-27).** SysML holds structure only; the pruned
   RDF rendering `model/og-caie.model.ttl` is the canonical structure (R-22),
   checked by wiring shapes M1 to M5 over kinds of parts and ports: four
   parties, three actor categories within the testing organization, the

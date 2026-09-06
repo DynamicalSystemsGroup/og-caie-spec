@@ -1,6 +1,6 @@
 | Rank | Source | Posture | Snapshots | Licence note |
 |---|---|---|---|---|
-| 1 | ISO 9000:2026(en) Quality management — Fundamentals and vocabulary (Online Browsing Platform preview) | heldLocally | 37 | ISO copyright; the preview is publicly browsable; short attributed quotations only |
+| 1 | ISO 9000:2026(en) Quality management — Fundamentals and vocabulary (Online Browsing Platform preview) | heldLocally | 38 | ISO copyright; the preview is publicly browsable; short attributed quotations only |
 | 2 | IEEE Computer Society, Software and Systems Engineering Vocabulary (SEVOCAB), PDF export (481 pp.) | heldLocally | 1 | Each definition may be copied provided the IEEE statement remains with it; the PDF itself is not redistributed |
 | 3 | NIST AI 100-1, Artificial Intelligence Risk Management Framework (AI RMF 1.0), January 2023 | committed | 1 | US Government work, public domain |
 | 3 | NIST AI 700-2, Assessing Risks and Impacts of AI (ARIA): ARIA 0.1 Pilot Evaluation Report (November 2025) | committed | 1 | US Government work, public domain |

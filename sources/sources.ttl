@@ -18,7 +18,7 @@ src:iso-9000-2026 a prov:Entity, ogc:Source ;
     ogc:status "preview; publication pending; 2015 clause numbers recorded as fallback where known" ;
     ogc:url <https://www.iso.org/obp/ui/#iso:std:iso:9000:ed-5:v1:en> ;
     ogc:digest "sources/digests/iso-9000-2026.md" ;
-    ogc:retrievalNote "Clause 3 captured as 37 screenshots by Z on 2026-09-05 18:00-18:04, renamed iso-9000-2026-obp-01..37 in capture order, held under sources/local/iso-9000-2026/" ;
+    ogc:retrievalNote "Clause 3 captured as 37 screenshots by Z on 2026-09-05 18:00-18:04, renamed iso-9000-2026-obp-01..37 in capture order, held under sources/local/iso-9000-2026/; a 38th (clauses 3.3.9 to 3.3.13, contract) captured by Z on 2026-09-05 23:02 to close concern C-24" ;
     ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-01.png" ; ogc:contentHash "4b5e4d2558a013cd9acde3d1e68dbcf3934038992729b8213e90cbfadb616743" ] ;
     ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-02.png" ; ogc:contentHash "688f4f3b8de7612789fe3ba93ea9c49b5972b571639b8e3d7daa8ac8d62268d0" ] ;
     ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-03.png" ; ogc:contentHash "68db453f7236aa4997ff1f2be0c44347a114d881a285bb7e78988c98ed3d6cc8" ] ;
@@ -56,6 +56,7 @@ src:iso-9000-2026 a prov:Entity, ogc:Source ;
     ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-35.png" ; ogc:contentHash "52a0523ceb07456086ca1b08be2b5c0e21e98db447d1c08b1eddeea241062dae" ] ;
     ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-36.png" ; ogc:contentHash "cbb7643f470eee6dddde88a001b126e0d3b8f3ec40d131dd3c92f8b48eebc373" ] ;
     ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-37.png" ; ogc:contentHash "e58353b525c0bd2bd696c45f6aa7bc2688678e0afb8586e492e58f554e7a529a" ] ;
+    ogc:snapshot [ ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-38.png" ; ogc:contentHash "03730898c589144108339c844f7a09a827c67cb53afd662910e146069c3d44eb" ] ;
     ogc:licenceNote "ISO copyright; the preview is publicly browsable; short attributed quotations only" .
 
 src:sevocab a prov:Entity, ogc:Source ;

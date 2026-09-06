@@ -626,8 +626,8 @@ term:contract a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:definition "The binding agreement between the sponsor organization and the testing organization to perform OG-CAIE as a service. It is signed by the sponsor and by the testing organization's account executive, precedes the requirement set, and is the first item the record holds."@en ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.3.13" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-38.png" ;
-                    ogc:quote "binding agreement" ; ogc:quoteStatus "pending" ] ;
-    ogc:scopeNote "Concern C-24: the screenshots skip 3.3.9 to 3.3.15; the quote is the ISO 9000:2015 wording (3.4.7) and the screenshot named is still to be captured. Ruling R-21 calls the agreement a contract to perform the OG-CAIE as a service." ;
+                    ogc:quote "binding agreement" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
+    ogc:scopeNote "Ruling R-27 closed concern C-24: the 2026 wording (3.3.13) is the 2015 wording (3.4.7), captured as screenshot 38. Ruling R-21 calls the agreement a contract to perform the OG-CAIE as a service." ;
     prov:wasDerivedFrom rul:R-21 ;
     ogc:binding "sysml item def ServiceAgreement; epo:ServiceAgreement, attributed to the sponsor and the account executive" .
 
