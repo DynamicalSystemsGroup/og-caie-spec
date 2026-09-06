@@ -8,15 +8,16 @@ exhaustive. It lists exactly the terms this site uses. The full register of
 
 ## The map of the site
 
-Eight pages, each a view of the model in the repository, and two
+Seven pages, each a view of the model in the repository, and three
 appendices: A opens the same model as a knowledge graph, B runs the checks
-each chapter claims. The
+each chapter claims, and C records the judgments the model is grounded in,
+as [Rulings](rulings.md). The
 [front page](../index.md) sets the bar for science in plain terms and
 crosses the bridge into the standards; this page gives the terms and the
 two cycles; [Contracting](contracting.md) is the outer cycle, from need to
 acceptance; [The evaluation](evaluation.md) is the inner cycle, scope to
 report; [The nested model](model.md) shows why the two are one model;
-[What the record proves](guarantees.md) runs the checks; [Rulings](rulings.md) is the judgment record; the
+[What the record proves](guarantees.md) runs the checks; the
 [Conclusion](conclusion.md) returns to the front page's terms. Each chapter
 from Contracting on keeps one rhythm: what the standards say, the
 specification, the walkthrough, what was checked, and there is more in the

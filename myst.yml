@@ -48,7 +48,6 @@ project:
     - file: docs/evaluation.md
     - file: docs/model.md
     - file: docs/guarantees.md
-    - file: docs/rulings.md
     - file: docs/conclusion.md
     - file: docs/appendix-explorer.md
     - title: "Appendix B: computational proofs"
@@ -57,5 +56,6 @@ project:
         - file: notebooks/checked-evaluation.ipynb
         - file: notebooks/checked-model.ipynb
         - file: notebooks/checked-guarantees.ipynb
+    - file: docs/rulings.md
 site:
   template: book-theme

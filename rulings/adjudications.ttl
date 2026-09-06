@@ -844,3 +844,20 @@ rul:R-40 a ogc:Ruling ;
     prov:wasAttributedTo rul:Z ;
     prov:generatedAtTime "2026-09-06"^^xsd:date .
 
+rul:C-47 a ogc:Concern ;
+    rdfs:label "the rulings sat among the chapters as a page most readers will not want" ;
+    ogc:problem """The rulings page was the seventh page of the main path. It is an important record, but it interrupts the arc for a reader who does not need it, and its place in the account of the method (the subjective choices behind the objective results) was not stated.""" ;
+    ogc:severity "L" ;
+    ogc:status "ruled" ;
+    ogc:surfacedOn "2026-09-06"^^xsd:date ;
+    ogc:surfacedHow "Z, reading the site after the two appendices landed" ;
+    prov:wasGeneratedBy rul:model-revision-planning-2026-09-06 .
+
+rul:R-41 a ogc:Ruling ;
+    ogc:order 41 ;
+    ogc:resolves rul:C-47 ;
+    ogc:rulingText "i think i want ruling moved to an appendix. it is an important concept but the truth is most readers won't care. the rulings are already part of the knowledge graph explorer but i think they fit better as appendix C. since the knowledge graph explorer is allowing navigation of the whole model. the computational proofs demonstrate the guarantees or model can actually prove computationally, this would make appendix C the acknowledgement of the subjective choices, judgements and interpretations that model is grounded in. these subjectivities are implicit in the objective results produced by the computational proofs, and the claim that this is scientific holds with these judgements as auxilliary assumptions. we can frame appendix C as holding ourselves to our own definition of science." ;
+    ogc:changeNote "docs/rulings.md becomes Appendix C, last in the toc after Appendix B, framed as Z says: the subjective choices the model is grounded in, implicit in the computational proofs, held as the auxiliary assumptions of the claim to science. The main path is seven pages; the vocabulary page's map and the README say so." ;
+    prov:wasAttributedTo rul:Z ;
+    prov:generatedAtTime "2026-09-06"^^xsd:date .
+

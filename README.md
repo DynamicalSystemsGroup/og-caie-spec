@@ -19,7 +19,7 @@ deployed AI system against the needs of a specific domain, written down as:
 ## Status (2026-09-06)
 
 - **Glossary: ratified.** 62 terms, 4 coined (DSO, EPO, CAIE, OG-CAIE),
-  settled through 40 rulings (R-01 to R-40) recorded verbatim in
+  settled through 41 rulings (R-01 to R-41) recorded verbatim in
   `rulings/adjudications.ttl`. 76 quotes are machine-located in
   content-hashed snapshots, 34 verified by Z against the ISO screenshots or
   the browsing platforms, 13 transcribed and awaiting Z's tick on rulings
@@ -35,7 +35,8 @@ deployed AI system against the needs of a specific domain, written down as:
   completion report; every item kind says which layer pins it. The
   sponsor's mission and obligations towards the affected populations open
   the record (R-37, R-38).
-- **Site: a presentation layer over the model (R-34), eight pages.** The
+- **Site: a presentation layer over the model (R-34), seven pages and
+  three appendices.** The
   front page runs from why this counts as science to the bridge into the
   engineering standards; the vocabulary page shows exactly the terms the
   site uses, with hover definitions; four chapters (Contracting, The
@@ -44,10 +45,11 @@ deployed AI system against the needs of a specific domain, written down as:
   with the separation principle; the conclusion reads the crosswalk
   backwards. Figures are views from a registry (`ogc/views.py`), each
   captioned with what it brings into focus and leaves out (R-38).
-  Supporting notebooks off the main path run the checks each chapter
-  claims (`notebooks/`); the appendix opens the same model as a knowledge
-  graph explorer (`explorer/`, R-39), rendered from the RDF with the
-  `ogc` command on every node and an in-browser SPARQL box.
+  Appendix A opens the same model as a knowledge graph explorer
+  (`explorer/`, R-39), rendered from the RDF with the `ogc` command on
+  every node and an in-browser SPARQL box; Appendix B's notebooks run the
+  checks each chapter claims (`notebooks/`); Appendix C is the rulings, the
+  judgments the model is grounded in (R-41).
 - **Model: revised (R-21 to R-38), draft.** SysML holds structure only; the
   pruned RDF rendering `model/og-caie.model.ttl` is the canonical structure
   (R-22), checked by wiring shapes M1 to M5 over kinds of parts and ports:
