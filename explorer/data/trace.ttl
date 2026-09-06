@@ -1,0 +1,93 @@
+@prefix ogc:  <https://w3id.org/og-caie/> .
+@prefix tr:   <https://w3id.org/og-caie/trace#> .
+@prefix term: <https://w3id.org/og-caie/terms#> .
+@prefix src:  <https://w3id.org/og-caie/sources#> .
+@prefix rul:  <https://w3id.org/og-caie/rulings#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# The crosswalk and the home of the essentials (ruling R-22: no requirement
+# defs in SysML). Each SCI states what is essential for the result to count
+# as science, names the SHACL shapes that check it (M-shapes over the model
+# graph, S-shapes over the record), the glossary terms it is stated in, and
+# the sources or rulings it rests on. Tags: machine = verified by shape
+# alone; human = checked by machine for form, the judgment a named person's.
+
+tr:SCI-01 a ogc:Trace ; rdfs:label "SCI-01 DsoApprovedBeforeProbes" ;
+    ogc:page "evaluation" ;
+    rdfs:comment "The Domain-Specific Ontology release is versioned and approved by a named domain expert before any probe is derived from it." ;
+    ogc:checkedBy ogc:S1-DsoRelease ; ogc:tag "machine" ;
+    ogc:usesTerm term:domain-specific-ontology, term:technical-expert, term:probe ;
+    ogc:restsOn src:iso-9000-2026, rul:R-09 .
+tr:SCI-02 a ogc:Trace ; rdfs:label "SCI-02 EnvelopeDeclaredBeforeSessions" ;
+    ogc:page "evaluation" ;
+    rdfs:comment "The service agreement, the operational environment, the test item and the requirement set are declared, in that order, before any session runs: this system in this environment under this contract." ;
+    ogc:checkedBy ogc:S0-Parties, ogc:S0-Access, ogc:S2-RequirementSet ; ogc:tag "machine" ;
+    ogc:usesTerm term:operational-envelope, term:operational-environment, term:requirement, term:test, term:contract ;
+    ogc:restsOn src:sevocab, rul:R-02, rul:R-03, rul:R-21 .
+tr:SCI-03 a ogc:Trace ; rdfs:label "SCI-03 CriteriaWellFormed" ;
+    ogc:page "evaluation" ;
+    rdfs:comment "Every requirement has at least one acceptance criterion derived from it; every criterion states its expected result and carries a positive weight." ;
+    ogc:checkedBy ogc:S2-AcceptanceCriterion, ogc:S2-Requirement ; ogc:tag "machine" ;
+    ogc:usesTerm term:acceptance-criteria, term:requirement, term:deployment-sensitivity, term:expected-results ;
+    ogc:restsOn src:sevocab, src:incose-gtwr-v4, rul:R-05 .
+tr:SCI-04 a ogc:Trace ; rdfs:label "SCI-04 PlanBeforeRuns" ;
+    ogc:page "evaluation" ;
+    rdfs:comment "A test plan states its objectives and its means; every probe belongs to a plan, derives from the DSO release and passes a consistency check before any session." ;
+    ogc:checkedBy ogc:S3-Probe, ogc:S3-TestPlan, ogc:S3-Strategy, ogc:S3-PlanApproval ; ogc:tag "machine" ;
+    ogc:usesTerm term:probe, term:scenario, term:conformance, term:domain-specific-ontology, term:test-plan, term:test-strategy ;
+    ogc:restsOn src:sevocab, src:w3c-shacl, src:iec-60050-351, rul:R-12, rul:R-13 .
+tr:SCI-05 a ogc:Trace ; rdfs:label "SCI-05 EvidenceFromNamedRuns" ;
+    ogc:page "evaluation" ;
+    rdfs:comment "Every response comes from a numbered turn of a session against a versioned test item; every evidence item bears on one criterion's expected result under the plan." ;
+    ogc:tag "machine" ;
+    ogc:checkedBy ogc:S4-Session, ogc:S4-Turn, ogc:S4-TestSuite, ogc:S5-Evidence, ogc:S5-Response ;
+    ogc:usesTerm term:objective-evidence, term:test, term:test-item, term:red-teaming, term:session, term:dialogue, term:trajectory, term:non-deterministic-system, term:test-suite, term:expected-results ;
+    ogc:restsOn src:iso-9000-2026, src:nist-ai-700-2, src:w3c-prov-o, src:iec-60050-351, rul:R-13 .
+tr:SCI-06 a ogc:Trace ; rdfs:label "SCI-06 AttestationsWellFormed" ;
+    ogc:page "evaluation" ;
+    rdfs:comment "Determinations rule on evidence with an EARL outcome; attestations aggregate a criterion's determinations, name their assertor, and judge appropriateness and sufficiency; the closure and chain rules hold." ;
+    ogc:checkedBy ogc:S6-Attestation, ogc:S6-Determination ; ogc:tag "machine for form; human for the judgment" ;
+    ogc:usesTerm term:attestation, term:determination, term:objective-evidence, term:outcome, term:appropriateness, term:sufficiency, term:validation, term:test-plan, term:expected-results ;
+    ogc:restsOn src:iso-iec-17000-2020, src:hawkins-2011, src:w3c-earl, rul:R-08, rul:R-12 .
+tr:SCI-07 a ogc:Trace ; rdfs:label "SCI-07 CoverageRecomputable" ;
+    ogc:page "guarantees" ;
+    rdfs:comment "Coverage is recomputable from a conformant record: a criterion counts as covered only with an attestation behind it." ;
+    ogc:checkedBy ogc:S7-Report ; ogc:tag "machine" ;
+    ogc:usesTerm term:test-coverage, term:conformance, term:conformity, term:verification, term:evaluation-record ;
+    ogc:restsOn src:sevocab, rul:R-01, rul:R-04 .
+tr:SCI-08 a ogc:Trace ; rdfs:label "SCI-08 CoverageAndPerformanceKeptApart" ;
+    ogc:page "guarantees" ;
+    rdfs:comment "Coverage and performance are reported together and never merged." ;
+    ogc:checkedBy ogc:S7-Report ; ogc:tag "machine" ;
+    ogc:usesTerm term:test-coverage, term:performance, term:repeatability, term:reproducibility, term:measurement-uncertainty ;
+    ogc:restsOn src:iso-9000-2026, src:sevocab, src:jcgm-200-2012, src:nist-tn-1297, rul:R-01, rul:R-13 .
+tr:SCI-09 a ogc:Trace ; rdfs:label "SCI-09 RecommendationTraceable" ;
+    ogc:page "guarantees" ;
+    rdfs:comment "Every recommendation traces to the attestations it rests on, their evidence, the DSO release and the EPO step." ;
+    ogc:checkedBy ogc:S8-Recommendation ; ogc:tag "machine for the trace; human for the recommendation" ;
+    ogc:usesTerm term:requirements-traceability, term:guardrail, term:stakeholder, term:evaluation-process-ontology ;
+    ogc:restsOn src:sevocab, src:nist-ai-700-2, rul:R-07 .
+tr:SCI-10 a ogc:Trace ; rdfs:label "SCI-10 PartiesNamedAndAgreed" ;
+    ogc:page "contracting" ;
+    rdfs:comment "The sponsor, the testing organization and the accountable organization are named; the sponsor's mission and obligations towards the affected populations are recorded before the need; the agreement is signed by the sponsor and the account executive; every affected population is interviewed or represented by a named domain expert." ;
+    ogc:checkedBy ogc:M1-Parties, ogc:M1-Obligation, ogc:S0-Parties, ogc:S0-Population, ogc:S0-Mission, ogc:S0-Need, ogc:S0-Proposal, ogc:S8-Delivery, ogc:S9-Acceptance ; ogc:tag "machine" ;
+    ogc:usesTerm term:organization, term:customer, term:provider, term:mission, term:first-party-conformity-assessment-activity, term:second-party-conformity-assessment-activity, term:third-party-conformity-assessment-activity, term:contract, term:stakeholder, term:account-executive ;
+    ogc:restsOn src:iso-9000-2026, src:iso-iec-17000-2020, rul:R-21, rul:R-23 .
+tr:SCI-11 a ogc:Trace ; rdfs:label "SCI-11 EndStateGuaranteed" ;
+    ogc:page "guarantees" ;
+    rdfs:comment "The wiring guarantees the end state, checked locally over kinds of parts and ports: every wire runs from an output port on a part to an input port on a part carrying one item kind; at every part every input is present once and every output goes somewhere; every item kind reaches the recorder; the seven steps form a process DAG that produces every item kind; a conformant record then yields traceability in both directions and coverage, and answers why." ;
+    ogc:checkedBy ogc:M2-Wire, ogc:M2-Part, ogc:M3-RecordHub, ogc:M4-Steps, ogc:M4-ProcessDag, ogc:M4-EveryItemProduced, ogc:M4-Nesting ; ogc:tag "machine" ;
+    ogc:usesTerm term:evaluation-process-ontology, term:evaluation-record, term:requirements-traceability, term:test-coverage, term:evaluation-team ;
+    ogc:restsOn src:w3c-shacl, rul:R-17, rul:R-21, rul:R-22, rul:R-25, rul:R-26 .
+tr:SCI-12 a ogc:Trace ; rdfs:label "SCI-12 RolesDistinct" ;
+    ogc:page "contracting" ;
+    rdfs:comment "The domain expert who approves the DSO, assesses appropriateness and attests is not the evaluation operator who administers tests and collects evidence, and neither is the account executive who signs the agreement; one account executive, one or more of each expert." ;
+    ogc:checkedBy ogc:M5-Roles, ogc:M5-Cardinality, ogc:M5-PortsBelongToRoles, ogc:S1-DsoRelease, ogc:S4-Session, ogc:S6-Attestation, ogc:S6-Determination ; ogc:tag "machine" ;
+    ogc:usesTerm term:technical-expert, term:evaluation-operator, term:account-executive, term:evaluation-team ;
+    ogc:restsOn src:iso-9000-2026, src:sevocab, rul:R-10, rul:R-23 .
+tr:SCI-13 a ogc:Trace ; rdfs:label "SCI-13 TwoLayersOfAssumptions" ;
+    ogc:page "contracting" ;
+    rdfs:comment "What the contract pins (the counterparties, the test item, the requirements' frame, the method) is recorded and closed before what the evaluation pins (the environment, the requirement set, the DSO release, the plan) is declared; the evaluation documents the first layer and cannot change it." ;
+    ogc:checkedBy ogc:S0-Layers, ogc:M4-Nesting ; ogc:tag "machine" ;
+    ogc:usesTerm term:contract, term:operational-environment, term:operational-envelope, term:domain-specific-ontology, term:evaluation-process-ontology ;
+    ogc:restsOn src:sebok-2-14, src:iso-iec-17000-2020, src:bof-deck-2026-07, rul:R-32, rul:R-33 .
