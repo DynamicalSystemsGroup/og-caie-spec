@@ -392,7 +392,7 @@ term:attestation a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:definition "The recorded judgment of a named person that links one acceptance criterion to the evidence reviewed and records an outcome, together with the judgments of appropriateness of the declared context and sufficiency of the evidence."@en ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "7.3" ;
-                    ogc:quote "issue of a statement, based on a decision, that fulfilment of specified requirements has been demonstrated" ; ogc:quoteStatus "pending" ] ;
+                    ogc:quote "issue of a statement, based on a decision, that fulfilment of specified requirements has been demonstrated" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "test result, p. 438" ; ogc:pdfPage 438 ;
                   ogc:quote "indication of whether a specific test case has passed or failed, i.e. if the actual results correspond to the expected results or if deviations were observed" ; ogc:quoteStatus "machine" ] ;
     ogc:binding "epo:Attestation, an earl:Assertion and a prov:Activity; bound to the evidence, which is bound to the test plan" .

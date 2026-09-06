@@ -19,7 +19,7 @@ When ticked, the citation's `ogc:quoteStatus` becomes `human` with `ogc:verified
 | 12 | record | iso-9000-2026 | 3.8.12 | iso-9000-2026-obp-23.png | document stating results achieved or providing evidence of activities performed | [x] 2026-09-06 |
 | 13 | evaluation record | iso-9000-2026 | 3.8.12 record | iso-9000-2026-obp-23.png | document stating results achieved or providing evidence of activities performed | [x] 2026-09-06 |
 | 14 | objective evidence | iso-9000-2026 | 3.8.6 | iso-9000-2026-obp-21.png | data supporting the existence or verity of something | [x] 2026-09-06 |
-| 15 | attestation | iso-iec-17000-2020 | 7.3 | OBP | issue of a statement, based on a decision, that fulfilment of specified requirements has been demonstrated | [ ] |
+| 15 | attestation | iso-iec-17000-2020 | 7.3 | OBP | issue of a statement, based on a decision, that fulfilment of specified requirements has been demonstrated | [x] 2026-09-06 |
 
 ## Open concern
 

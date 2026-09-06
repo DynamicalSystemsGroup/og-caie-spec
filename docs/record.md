@@ -62,7 +62,20 @@ evaluations of the same requirement set comparable.
 ```{include} ../generated/record.md
 ```
 
-The three counterexamples are small graphs, each built to violate one shape:
+Three observations from ISO/IEC 17000:2020, the conformity-assessment
+vocabulary that gives us *attestation*, are worth keeping in view. Its
+*decision* (7.2), "conclusion, based on the results of review, that fulfilment
+of specified requirements has or has not been demonstrated", is exactly the
+outcome inside an attestation. Its *review* (7.1) is a consideration of
+"suitability, adequacy and effectiveness", which is why this specification does
+not use the word adequacy for the context judgment and says appropriateness
+instead. And its note on 7.3 observes that first-party attestation is a
+declaration and third-party attestation a certification, "but there is no
+corresponding term applicable to second-party attestation": an evaluation team
+attesting on a sponsor's behalf about a vendor's system is second-party, and
+the audit offered at the end of the front page is the third-party case.
+
+The counterexamples are small graphs, each built to violate one shape:
 a verdict with no evidence behind it (the closure rule, S6), a requirement set
 declared after testing started (S2), and a recommendation that rests on no
 attestation and names no DSO release (S8). Each fails on exactly that shape.

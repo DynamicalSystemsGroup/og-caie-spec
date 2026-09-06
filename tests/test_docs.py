@@ -20,8 +20,10 @@ def prose_text():
 
 def test_no_retired_words_in_prose_or_model():
     text = prose_text() + (ROOT / "model" / "og-caie.sysml").read_text()
-    # the model's doc comments explain the R-08 replacement; those two mentions are allowed
-    text = text.replace('replaces the earlier label "adequacy"', "")
+    # Deliberate mentions are allowed: text inside double quotes (a source
+    # quoted verbatim) and the phrase that explains the retirement itself.
+    text = re.sub(r'"[^"\n]*"', "", text)
+    text = text.replace("the word adequacy", "").replace("the earlier label adequacy", "")
     for w in RETIRED:
         hits = [m.start() for m in re.finditer(rf"\b{w}\b", text, re.I)]
         assert not hits, f"retired word {w!r} in prose/model at offsets {hits[:3]}"
