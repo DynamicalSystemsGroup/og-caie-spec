@@ -20,6 +20,7 @@ logging.getLogger("pypdf").setLevel(logging.ERROR)
 TERMS = 35
 COINED = 3
 MACHINE_QUOTES = 32
+COMMITTED_MACHINE_QUOTES = 7   # NIST AI 700-2 (5), NIST AI 100-1 (1), W3C EARL (1): always locatable, in CI too
 PENDING_QUOTES = 15
 HUMAN_QUOTES = 0
 PENDING_ALLOWED_SOURCES = {"iso-9000-2026", "iso-iec-17000-2020"}
@@ -75,9 +76,19 @@ def test_counts_pinned():
     assert statuses.count("human") == HUMAN_QUOTES
 
 
+@lru_cache(maxsize=None)
+def digest_text(path: str):
+    return normalized(open(path, encoding="utf-8").read())
+
+
 def test_machine_quotes_are_located():
+    """A machine quote is located in the snapshot when the file is present
+    (always, for committed sources; locally, for held-locally sources). When a
+    held-locally file is absent (CI), the quote must at least be present in
+    the committed digest, and the committed count is pinned so CI can never
+    pass on digests alone."""
     g = union()
-    located = 0
+    located_in_file = located_in_digest = 0
     for term, c in citations(g):
         if str(g.value(c, OGC.quoteStatus)) != "machine":
             continue
@@ -85,17 +96,23 @@ def test_machine_quotes_are_located():
         f = snapshot_file(g, src)
         assert f is not None, f"{term}: machine quote cites {src} with no pdf/html snapshot"
         q = normalized(str(g.value(c, OGC.quote)))
-        if f.suffix == ".pdf":
-            if not f.exists():
-                pytest.skip(f"held-locally snapshot absent: {f.name}")
-            page = g.value(c, OGC.pdfPage)
-            assert page is not None, f"{term}: pdf citation needs ogc:pdfPage"
-            text = pdf_pages(str(f))[int(page) - 1]
-            assert q in text, f"{term}: quote not found on {f.name} p.{page}: {q[:80]}"
+        posture = str(g.value(src, OGC.posture))
+        if f.exists():
+            if f.suffix == ".pdf":
+                page = g.value(c, OGC.pdfPage)
+                assert page is not None, f"{term}: pdf citation needs ogc:pdfPage"
+                text = pdf_pages(str(f))[int(page) - 1]
+                assert q in text, f"{term}: quote not found on {f.name} p.{page}: {q[:80]}"
+            else:
+                assert q in html_text(str(f)), f"{term}: quote not found in {f.name}: {q[:80]}"
+            located_in_file += 1
         else:
-            assert q in html_text(str(f)), f"{term}: quote not found in {f.name}: {q[:80]}"
-        located += 1
-    assert located >= 5, "vacuity guard"
+            assert posture == "heldLocally", f"{term}: committed snapshot missing: {f}"
+            d = ROOT / str(g.value(src, OGC.digest))
+            assert q in digest_text(str(d)), f"{term}: held-locally file absent and quote not in digest {d.name}: {q[:80]}"
+            located_in_digest += 1
+    assert located_in_file >= COMMITTED_MACHINE_QUOTES, located_in_file
+    assert located_in_file + located_in_digest == MACHINE_QUOTES
 
 
 def test_pending_quotes_only_from_browsing_platform_sources():

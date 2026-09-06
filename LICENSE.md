@@ -20,4 +20,4 @@ NIST publications, the W3C Document Licence for W3C specifications). Sources
 that cannot be redistributed are held locally and referenced by content hash
 only (ruling R-04).
 
-Copyright 2026 Dynamical Systems Group and Humane Intelligence.
+Copyright 2026 Michael Zargham (Dynamical Systems Group) and Julie Hollek (Humane Intelligence), co-authors.

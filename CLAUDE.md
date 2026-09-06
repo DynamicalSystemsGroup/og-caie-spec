@@ -53,13 +53,20 @@ sources and rulings borrowed from `mission-twin-glossary`.
 
 ## Git
 
-- No `Co-Authored-By` trailer unless Z explicitly delegates a substantive
-  decision to Claude, and then only on that commit.
+- The work is co-authored by Michael Zargham and Julie Hollek (GitHub jkru).
+  Every commit carries the trailer
+  `Co-authored-by: Julie Hollek <8205326+jkru@users.noreply.github.com>`.
+- No Claude `Co-Authored-By` trailer unless Z explicitly delegates a
+  substantive decision to Claude, and then only on that commit.
 - Commit on green; push redeploys GitHub Pages.
 
 ## Toolchain
 
-- OpenSysML v0.4.3 pinned by digest (`toolchain/`). v0.4.3 accepts
-  `action def` with `first ... then ...` successions and `perform action`;
+- OpenSysML v0.4.3 pinned by digest (`toolchain/`). `-validate -strict`
+  accepts `action def` with bare `first A then B;` successions, but
+  `-satisfy` then fails on a `perform action` with "action has multiple
+  initial nodes"; write successions as `succession first A then B;` (or the
+  `then action` chaining form), which both validate and satisfy.
   `interface` usages must be declared before `part` usages in an assembly;
-  `-satisfy` on a package with no verification def exits 2.
+  `-satisfy` on a package with no verification def exits 2; check the exit
+  code of the sysml process itself, never of a pipeline after it.

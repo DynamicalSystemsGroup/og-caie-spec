@@ -16,6 +16,13 @@ deployed AI system against the needs of a specific domain, written down as:
   checked by SHACL shapes, with counterexamples that must fail;
 - a **rulings register** holding every interpretive choice verbatim.
 
+## Authors and citation
+
+A collaboration between **Dynamical Systems Group** and **Humane Intelligence**,
+co-authored by Michael Zargham (DSG) and Julie Hollek (HI). Cite it as such;
+`CITATION.cff` carries the machine-readable form (GitHub shows it under
+"Cite this repository").
+
 ## Run the gate
 
 ```bash

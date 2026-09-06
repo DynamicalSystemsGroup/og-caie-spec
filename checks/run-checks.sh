@@ -25,7 +25,9 @@ step() { # step <name> <expected-exit> <cmd...>
 }
 
 step "toolchain: pinned sysml v0.4.3, digest-verified" 0 bash toolchain/get-sysml.sh
-step "model: validate -strict" 0 toolchain/bin/sysml model/og-caie.sysml -validate -strict
+step "model: validate -strict" 0 toolchain/bin/sysml model/og-caie.sysml counterexamples/untested-counted-covered.sysml -validate -strict
+step "model: satisfy, every SCI holds on the measles run" 0 toolchain/bin/sysml model/og-caie.sysml -satisfy=OGCAIE::Runs
+step "counterexample: padded coverage must fail satisfy" 1 toolchain/bin/sysml model/og-caie.sysml counterexamples/untested-counted-covered.sysml -satisfy=UntestedCountedCovered
 step "tests: full suite" 0 uv run pytest -q
 
 regen() {

@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+message: >-
+  If you use this specification, cite it as a collaboration between
+  Dynamical Systems Group and Humane Intelligence.
+title: "OG-CAIE: Ontology-Grounded Contextual AI Evaluation as an executable specification"
+type: software
+version: 0.1.0
+date-released: 2026-09-11
+license: CC-BY-SA-4.0
+repository-code: https://github.com/DynamicalSystemsGroup/og-caie-spec
+url: https://dynamicalsystemsgroup.github.io/og-caie-spec/
+authors:
+  - family-names: Zargham
+    given-names: Michael
+    orcid: https://orcid.org/0000-0001-5279-690X
+    affiliation: Dynamical Systems Group
+  - family-names: Hollek
+    given-names: Julie
+    affiliation: Humane Intelligence
+keywords:
+  - AI evaluation
+  - red teaming
+  - ontology
+  - SysML v2
+  - PROV-O
+  - EARL
+  - SHACL
+abstract: >-
+  An open standards activity under development, with a computational
+  implementation pathway: the OG-CAIE process, its vocabulary grounded in
+  ISO 9000:2026, SEVOCAB, NIST AI 700-2 and W3C canon, the human and machine
+  assemblage that runs it modeled in SysML v2, and one evaluation record
+  whose conformity is checked by machine and whose judgments are attested by
+  named people. A collaboration between Dynamical Systems Group and Humane
+  Intelligence.
