@@ -16,7 +16,7 @@ as [Rulings](rulings.md). The
 crosses the bridge into the standards; this page gives the terms and the
 two cycles; [Stakeholders and contracting](contracting.md) is the outer cycle, from
 need to acceptance; [Context and evaluation](evaluation.md) is the inner
-cycle, scope to report; [The nested model](model.md) shows why the two are
+cycle, scope to report; [A nested lifecycle](model.md) shows why the two are
 one model; [Records and reporting](guarantees.md) runs the checks and
 shows what the record proves; the [Conclusion](conclusion.md) returns to
 the front page's terms. Each chapter from the contracting on keeps one

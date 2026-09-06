@@ -895,3 +895,20 @@ rul:R-43 a ogc:Ruling ;
     prov:wasAttributedTo rul:Z ;
     prov:generatedAtTime "2026-09-06"^^xsd:date .
 
+rul:C-50 a ogc:Concern ;
+    rdfs:label "the nested lifecycle page was named for the model and did not say that the record rests on both cycles" ;
+    ogc:problem """The page was titled The nested model; and though the record hub receives items from the contracting lifecycle and from the evaluation, the page did not state that the records and the reporting rely on information produced during both.""" ;
+    ogc:severity "L" ;
+    ogc:status "ruled" ;
+    ogc:surfacedOn "2026-09-06"^^xsd:date ;
+    ogc:surfacedHow "Z, reading the renamed outline" ;
+    prov:wasGeneratedBy rul:model-revision-planning-2026-09-06 .
+
+rul:R-44 a ogc:Ruling ;
+    ogc:order 44 ;
+    ogc:resolves rul:C-50 ;
+    ogc:rulingText "\"the nested model\" should be \"A Nested Lifecycle\". \"model\" is a throwaway word for most people and we don't want to trip anyone up. we also need to make sure that the page on the nested lifecycle addresses the fact that the records and reporting rely on information produced during BOTH the contracting lifecycle and the evaluation lifecycle." ;
+    ogc:changeNote "Page title A nested lifecycle (sentence case as the site's titles are); its specification block now says which items each cycle contributes to the one record, that coverage and the traceback read both sides in one query, and that S0-Layers and M4-Nesting guarantee it; the walkthrough's layer table is introduced as that count." ;
+    prov:wasAttributedTo rul:Z ;
+    prov:generatedAtTime "2026-09-06"^^xsd:date .
+

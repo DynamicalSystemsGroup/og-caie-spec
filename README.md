@@ -19,7 +19,7 @@ deployed AI system against the needs of a specific domain, written down as:
 ## Status (2026-09-06)
 
 - **Glossary: ratified.** 62 terms, 4 coined (DSO, EPO, CAIE, OG-CAIE),
-  settled through 43 rulings (R-01 to R-43) recorded verbatim in
+  settled through 44 rulings (R-01 to R-44) recorded verbatim in
   `rulings/adjudications.ttl`. 76 quotes are machine-located in
   content-hashed snapshots, 34 verified by Z against the ISO screenshots or
   the browsing platforms, 13 transcribed and awaiting Z's tick on rulings
@@ -40,7 +40,7 @@ deployed AI system against the needs of a specific domain, written down as:
   front page runs from why this counts as science to the bridge into the
   engineering standards; the vocabulary page shows exactly the terms the
   site uses, with hover definitions; four chapters (Stakeholders and
-  contracting, Context and evaluation, The nested model, Records and
+  contracting, Context and evaluation, A nested lifecycle, Records and
   reporting) each pair the
   specification with the measles walkthrough in five fixed blocks and close
   with the separation principle; the conclusion reads the crosswalk

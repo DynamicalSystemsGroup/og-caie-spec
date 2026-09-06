@@ -1,4 +1,4 @@
-# The nested model
+# A nested lifecycle
 
 The two cycles are one model. The contracting lifecycle is the outer
 process; its `fulfil` step is typed by the evaluation process, a black box
@@ -40,7 +40,26 @@ outputs, the report and the recommendation, flow to the deliver step. The
 inner process is the drill-down and conforms to the layer above by typing:
 shape M4-Nesting checks that every input of the evaluation process is fed by
 a contracting step and every output feeds one. The assembly performs one
-action, the contracting lifecycle. SysML holds structure only: the source
+action, the contracting lifecycle.
+
+The record and the report rest on both lifecycles at once, and the nesting
+is what lets them. Every item that reaches the recorder comes from one of
+the two cycles: the mission, the statement of work, the agreement and the
+access from the contracting lifecycle; the DSO release, the requirement set,
+the plan, the sessions, the evidence, the determinations and the
+attestations from the evaluation. Coverage needs the criteria, an
+evaluation item, weighted as the contract's frame allows; the traceback from
+a recommendation reaches the evidence and the attestations on the inner
+side and the agreement, the access, the three organizations and the
+delivery on the outer side, in one query; and the report itself leaves the
+inner cycle to become the delivery's content in the outer. A record that
+held only the evaluation could say what was found, not under what contract
+or for whom; one that held only the contract could say what was agreed,
+not what was shown. The chapter on records and reporting counts on both
+being present, and shape S0-Layers on the record and shape M4-Nesting on
+the model are what guarantee it.
+
+SysML holds structure only: the source
 file is the authoring view, and its rendering as RDF by the pinned
 OpenSysML converter, pruned to a term map and committed with a manifest and
 a triple budget, is the canonical structure that every shape and every
@@ -56,7 +75,8 @@ the mission, the need, the proposal, the agreement, the access, the
 delivery and the acceptance. What the evaluation pinned was recorded
 between 1 and 12 August, inside that window, by Annie, Theo and the
 machines. Shape S0-Layers holds the two apart: no item of the second layer
-may be dated before the agreement was signed.
+may be dated before the agreement was signed. The table counts what each
+layer contributed to the one record the report and the traceback read.
 
 ```{include} ../generated/layers-walkthrough.md
 ```
