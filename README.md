@@ -23,7 +23,7 @@ deployed AI system against the needs of a specific domain, written down as:
   `rulings/adjudications.ttl`. 75 quotes are machine-located in
   content-hashed snapshots, 34 verified by Z against the ISO screenshots or
   the browsing platforms, 13 transcribed and awaiting Z's tick on rulings
-  sheet 04. Concerns C-25, C-26, C-30 and C-43 are open.
+  sheet 04. Concerns C-25, C-26, C-30, C-43, C-44 and C-45 are open.
 - **Both cycles are bound to the canon (R-31, R-32).** Each step cites the
   process step it matches: SEBoK's account of the ISO/IEC/IEEE 15288
   acquisition, stakeholder needs and system requirements processes; the
@@ -45,8 +45,9 @@ deployed AI system against the needs of a specific domain, written down as:
   backwards. Figures are views from a registry (`ogc/views.py`), each
   captioned with what it brings into focus and leaves out (R-38).
   Supporting notebooks off the main path run the checks each chapter
-  claims (`notebooks/`); a knowledge graph explorer appendix (R-39) is
-  under construction.
+  claims (`notebooks/`); the appendix opens the same model as a knowledge
+  graph explorer (`explorer/`, R-39), rendered from the RDF with the
+  `ogc` command on every node and an in-browser SPARQL box.
 - **Model: revised (R-21 to R-38), draft.** SysML holds structure only; the
   pruned RDF rendering `model/og-caie.model.ttl` is the canonical structure
   (R-22), checked by wiring shapes M1 to M5 over kinds of parts and ports:

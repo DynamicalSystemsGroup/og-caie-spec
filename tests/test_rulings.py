@@ -6,7 +6,7 @@ from rdflib import RDF
 
 from conftest import OGC, load
 
-CONCERNS = 43
+CONCERNS = 45
 RULINGS = 39
 
 

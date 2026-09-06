@@ -807,3 +807,22 @@ rul:C-43 a ogc:Concern ;
     ogc:surfacedOn "2026-09-06"^^xsd:date ;
     ogc:surfacedHow "the executor's mutation table (ogc/executor.py), while building the guarantees chapter" ;
     prov:wasGeneratedBy rul:model-revision-planning-2026-09-06 .
+
+rul:C-44 a ogc:Concern ;
+    rdfs:label "ogc has no reader for the record: explorer nodes for record items point at their class, not the item" ;
+    ogc:problem """The knowledge graph explorer names, on every node, the ogc command that prints it. For record items (track/measles-run.ttl) there is none: the record is not among the files ogc loads, so the node points at a DESCRIBE of the item's class. A --record flag on ogc sparql, or a reader of the record, would close this.""" ;
+    ogc:severity "L" ;
+    ogc:status "open" ;
+    ogc:surfacedOn "2026-09-06"^^xsd:date ;
+    ogc:surfacedHow "building the explorer appendix (R-39)" ;
+    prov:wasGeneratedBy rul:model-revision-planning-2026-09-06 .
+
+rul:C-45 a ogc:Concern ;
+    rdfs:label "the model counterexample no-obligation also fires M5-Cardinality" ;
+    ogc:problem """counterexamples/model/no-obligation.sysml is built to fail M1-Obligation and does, but its bare testing organization declares no account executive, so M5-Cardinality fires too; the test only asks that the named shape is among those fired. Either the counterexample gains an account executive so that it fails M1-Obligation alone, or the claim is read as sufficiency.""" ;
+    ogc:severity "L" ;
+    ogc:status "open" ;
+    ogc:surfacedOn "2026-09-06"^^xsd:date ;
+    ogc:surfacedHow "the contracting proof notebook, which prints every shape a counterexample fires" ;
+    prov:wasGeneratedBy rul:model-revision-planning-2026-09-06 .
+
