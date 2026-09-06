@@ -183,19 +183,24 @@ def render_steps() -> str:
     g = Graph()
     for f in ("vocabulary/epo.ttl", "sources/sources.ttl"):
         g.parse(ROOT / f)
-    steps = sorted(g.subjects(RDF.type, EPO.EpoStep), key=lambda x: str(g.value(x, RDFS.label)))
 
     def citation(c):
         src = g.value(c, OGC.cites)
         label = str(g.value(src, RDFS.label)).split(" (")[0].split(", ")[0]
         q = g.value(c, OGC.quote)
         return f"{label}, {cell(g.value(c, OGC.locator))}" + (f': "{cell(q)}" ({cell(g.value(c, OGC.quoteStatus))})' if q else "")
-    lines = ["| Step | Matches | Also |", "|---|---|---|"]
-    for st in steps:
-        canon = citation(g.value(st, OGC.canonical))
-        also = "; ".join(citation(c) for c in sorted(g.objects(st, OGC.seeAlso), key=lambda c: (str(g.value(c, OGC.cites)), str(g.value(c, OGC.locator)))))
-        lines.append(f"| **{cell(g.value(st, RDFS.label))}** | {canon} | {also} |")
-    return "\n".join(lines) + "\n"
+
+    def table(cls, title):
+        steps = sorted(g.subjects(RDF.type, cls), key=lambda x: str(g.value(x, RDFS.label)))
+        lines = [title, "", "| Step | Matches | Also |", "|---|---|---|"]
+        for st in steps:
+            canon = citation(g.value(st, OGC.canonical))
+            also = "; ".join(citation(c) for c in sorted(g.objects(st, OGC.seeAlso), key=lambda c: (str(g.value(c, OGC.cites)), str(g.value(c, OGC.locator)))))
+            lines.append(f"| **{cell(g.value(st, RDFS.label))}** | {canon} | {also} |")
+        return "\n".join(lines) + "\n"
+    frame = citation(g.value(EPO.ContractingStep, OGC.canonical))
+    return (table(EPO.ContractingStep, f"### The contracting lifecycle, C1 to C6\n\nThe outer cycle, contracting through delivery, whose actors are the parties and whose steps are the agreement processes of the standards ({frame}).")
+            + "\n" + table(EPO.EpoStep, "### The evaluation, steps 1 to 6\n\nThe inner cycle, performed between access and delivery."))
 
 
 def main_all() -> int:

@@ -19,16 +19,20 @@ deployed AI system against the needs of a specific domain, written down as:
 ## Status (2026-09-06)
 
 - **Glossary: ratified.** 59 terms, 4 coined (DSO, EPO, CAIE, OG-CAIE),
-  settled through 31 rulings (R-01 to R-31) recorded verbatim in
+  settled through 32 rulings (R-01 to R-32) recorded verbatim in
   `rulings/adjudications.ttl`. 59 quotes are machine-located in content-hashed
   snapshots, 31 verified by Z against the ISO screenshots or the browsing
   platforms. No quote is pending. Concerns C-25 and C-26 are open.
-- **The seven steps are bound to the canon (R-31).** Each EPO step cites the
+- **Both cycles are bound to the canon (R-31, R-32).** Each step cites the
   process step it matches: SEBoK's account of the ISO/IEC/IEEE 15288
   acquisition, stakeholder needs and system requirements processes; the
   ISO/IEC/IEEE 29119-2 test strategy and planning, execution and completion
   processes via SEVOCAB; ISO/IEC 17000's review, decision and attestation.
-  Seven ISO/IEC 17000 quotes await Z's tick on rulings sheet 04.
+  The contracting lifecycle (need, propose, agree, access, deliver, accept)
+  cites SEBoK's agreement processes, ISO/IEC 17000's access, scheme and
+  acceptance, ISO 9000's contract and the 29119-2 test environment and
+  completion report; every item kind says which layer pins it. Nine ISO/IEC
+  17000 quotes await Z's tick on rulings sheet 04.
 - **Site: being restructured one chapter at a time (R-29).** The front page
   runs from why this counts as science to the bridge into the engineering
   standards and ends at the Popper crosswalk; the glossary page shows exactly
@@ -39,7 +43,8 @@ deployed AI system against the needs of a specific domain, written down as:
   pruned RDF rendering `model/og-caie.model.ttl` is the canonical structure
   (R-22), checked by wiring shapes M1 to M5 over kinds of parts and ports:
   four parties, three actor categories within the testing organization, the
-  seven-step EPO as a process DAG, 47 ports and 27 seams, every input wired
+  six-step EPO inside a six-step contracting lifecycle, both process DAGs,
+  56 ports and 33 seams, every input wired
   once and every output somewhere. Three model counterexamples fail their
   shape. The essentials SCI-01 to SCI-12 live in `model/trace.ttl`.
 - **Not yet done, in Z's words (2026-09-06):** "i still need to work through

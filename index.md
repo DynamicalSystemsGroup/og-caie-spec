@@ -10,8 +10,8 @@ A collaboration between Humane Intelligence and Dynamical Systems Group.
 Contextual AI Evaluation (CAIE) is the {term}`evaluation` of a deployed AI
 system against the needs of a specific domain, judged by people who know
 that domain. OG-CAIE is CAIE performed with the method this site sets out:
-an {term}`Evaluation Process Ontology` (EPO), the same seven steps for every
-domain, and a {term}`Domain-Specific Ontology` (DSO), the vocabulary of one
+an {term}`Evaluation Process Ontology` (EPO), the same six steps for every
+domain, performed inside a contracting lifecycle drawn from the same standards, and a {term}`Domain-Specific Ontology` (DSO), the vocabulary of one
 domain supplied or approved by its experts. This site is the specification
 of that method in a form a machine can check and a person can read. It is a
 collaboration between Dynamical Systems Group and Humane Intelligence,

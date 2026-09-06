@@ -20,6 +20,8 @@ flowchart LR
       testingOrg_team_operator(["operator : EvaluationOperator"])
     end
   end
+  sponsor -- "acceptanceSeam" --> testingOrg_recorder
+  sponsor -- "acceptanceToExecutiveSeam" --> testingOrg_accountExecutive
   accountable -- "accessSeam" --> testingOrg_recorder
   sponsor -- "agreementSeam" --> testingOrg_accountExecutive
   testingOrg_team_domainExpert -- "assessmentSeam" --> testingOrg_recorder
@@ -31,11 +33,15 @@ flowchart LR
   testingOrg_team_domainExpert -- "dsoSeam" --> testingOrg_recorder
   testingOrg_team_operator -- "evidenceSeam" --> testingOrg_recorder
   testingOrg_team_domainExpert -- "expertDeterminationSeam" --> testingOrg_recorder
+  sponsor -- "needSeam" --> testingOrg_recorder
+  sponsor -- "needToExecutiveSeam" --> testingOrg_accountExecutive
   testingOrg_team_operator -- "operatorDeterminationSeam" --> testingOrg_recorder
   testingOrg_team_domainExpert -- "planApprovalSeam" --> testingOrg_recorder
   testingOrg_team_operator -- "planSeam" --> testingOrg_recorder
   testingOrg_probeDeriver -- "probeRecordSeam" --> testingOrg_recorder
   testingOrg_team_operator -- "probeRunSeam" --> accountable_testItem
+  testingOrg_accountExecutive -- "proposalSeam" --> testingOrg_recorder
+  testingOrg_accountExecutive -- "proposalToSponsorSeam" --> sponsor
   testingOrg_team_operator -- "recommendationSeam" --> testingOrg_recorder
   testingOrg_recorder -- "recordToCalculatorSeam" --> testingOrg_coverageCalculator
   testingOrg_recorder -- "recordToCheckerSeam" --> testingOrg_conformanceChecker

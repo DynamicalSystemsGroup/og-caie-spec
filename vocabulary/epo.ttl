@@ -1,5 +1,6 @@
 @prefix epo:  <https://w3id.org/og-caie/epo#> .
 @prefix src:  <https://w3id.org/og-caie/sources#> .
+@prefix rul:  <https://w3id.org/og-caie/rulings#> .
 @prefix ogc:  <https://w3id.org/og-caie/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl:  <http://www.w3.org/2002/07/owl#> .
@@ -17,39 +18,71 @@ epo: a owl:Ontology ;
     rdfs:label "OG-CAIE Evaluation Process Ontology (EPO), minimal handles" ;
     rdfs:comment "Assembles PROV-O and EARL. A coined term (ruling R-09): the domain-independent standard operating procedure whose record, when it conforms to shapes/epo.shapes.ttl, shows the process was followed and lets coverage be computed." .
 
-# ---- the seven steps (ruling R-21). Each step cites the process step it
+# ---- the six steps of the evaluation (rulings R-21, R-32: agree moved to the
+# contracting lifecycle). Each step cites the process step it
 # matches in the canon (ruling R-31): the INCOSE/ISO 15288 processes as SEBoK
 # describes them, the ISO/IEC/IEEE 29119-2 test processes as SEVOCAB defines
 # them, and ISO/IEC 17000's functions (selection, determination, review,
 # decision and attestation). The steps are operationalized, not invented.
 epo:EpoStep a owl:Class ; rdfs:label "EPO step" .
-epo:agree a epo:EpoStep ; rdfs:label "1 agree: the sponsor and the testing organization sign the service agreement; the accountable organization grants access to the test item" ;
-    ogc:canonical [ ogc:cites src:sebok-2-14 ; ogc:locator "Acquisition and Supply, p. 353 (INCOSE 2012, the acquisition process)" ; ogc:pdfPage 353 ; ogc:quote "The acquisition process includes activities to identify, select, and reach commercial agreements with a product or service supplier." ; ogc:quoteStatus "machine" ] ;
-    ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "4.10 access" ; ogc:quote "opportunity for an applicant to obtain a conformity assessment service from a body under a conformity assessment scheme" ; ogc:quoteStatus "pending" ] .
-epo:scope a epo:EpoStep ; rdfs:label "2 scope: interview or represent the affected populations; build or select the DSO release; declare the operational environment" ;
+epo:scope a epo:EpoStep ; rdfs:label "1 scope: interview or represent the affected populations; build or select the DSO release; declare the operational environment" ;
     ogc:canonical [ ogc:cites src:sebok-2-14 ; ogc:locator "Stakeholder Needs and Requirements, p. 549 (Stakeholder Needs Definition, Concept Definition)" ; ogc:pdfPage 549 ; ogc:quote "Stakeholder Needs Definition, the second process in Concept Definition, explores what capabilities are needed by various stakeholders for the system-of-interest (SoI) to accomplish the mission." ; ogc:quoteStatus "machine" ] ;
     ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "Annex A, A.2 Selection (the functional approach)" ] .
-epo:declareRequirements a epo:EpoStep ; rdfs:label "3 declare the requirement set (operational envelope): requirements, acceptance criteria, weights; the domain expert assesses its appropriateness" ;
+epo:declareRequirements a epo:EpoStep ; rdfs:label "2 declare the requirement set (operational envelope): requirements, acceptance criteria, weights; the domain expert assesses its appropriateness" ;
     ogc:canonical [ ogc:cites src:sebok-2-14 ; ogc:locator "System Requirements Definition, p. 557" ; ogc:pdfPage 557 ; ogc:quote "The System Requirements Definition process transforms the stakeholder view of desired capabilities into a technical, developer view of how the system can achieve those capabilities." ; ogc:quoteStatus "machine" ] ;
     ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "5.1 specified requirement" ; ogc:quote "need or expectation that is stated" ; ogc:quoteStatus "pending" ] .
-epo:plan a epo:EpoStep ; rdfs:label "4 plan: the test plan, its probes or strategy, consistency-checked and approved" ;
+epo:plan a epo:EpoStep ; rdfs:label "3 plan: the test plan, its probes or strategy, consistency-checked and approved" ;
     ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "test strategy and planning process, p. 439 (ISO/IEC/IEEE 29119-2:2021, 3.51)" ; ogc:pdfPage 439 ; ogc:quote "test management process used to design the test strategy, complete test planning, and create and maintain test plans" ; ogc:quoteStatus "machine" ] ;
     ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "test design and implementation process, p. 433 (ISO/IEC/IEEE 29119-2:2021, 3.32)" ; ogc:pdfPage 433 ; ogc:quote "test process for deriving and specifying test cases and test procedures" ; ogc:quoteStatus "machine" ] .
-epo:execute a epo:EpoStep ; rdfs:label "5 execute: sessions of turns against the test item; responses; evidence collected under the plan" ;
+epo:execute a epo:EpoStep ; rdfs:label "4 execute: sessions of turns against the test item; responses; evidence collected under the plan" ;
     ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "test execution process, p. 435 (ISO/IEC/IEEE 29119-2:2021, 3.40)" ; ogc:pdfPage 435 ; ogc:quote "dynamic test process for executing test procedures created in the test design and implementation process in the prepared test environment and recording the results" ; ogc:quoteStatus "machine" ] ;
     ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "6.2 testing" ; ogc:quote "determination of one or more characteristics of an object of conformity assessment, according to a procedure" ; ogc:quoteStatus "pending" ] ;
     ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "Annex A, A.3 Determination (the functional approach)" ] .
-epo:determineAndAttest a epo:EpoStep ; rdfs:label "6 determine and attest: determinations on evidence; attestations by the domain expert" ;
+epo:determineAndAttest a epo:EpoStep ; rdfs:label "5 determine and attest: determinations on evidence; attestations by the domain expert" ;
     ogc:canonical [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "7.2 decision" ; ogc:quote "conclusion, based on the results of review, that fulfilment of specified requirements has or has not been demonstrated" ; ogc:quoteStatus "pending" ] ;
     ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "7.1 review" ; ogc:quote "consideration of the suitability, adequacy and effectiveness of selection and determination activities, and the results of these activities, with regard to fulfilment of specified requirements by an object of conformity assessment" ; ogc:quoteStatus "pending" ] ;
     ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "evaluation, p. 155 (ISO/IEC 25001:2014, 4.1)" ; ogc:pdfPage 155 ; ogc:quote "systematic determination of the extent to which an entity meets its specified criteria" ; ogc:quoteStatus "machine" ] ;
     ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "Annex A, A.4 Review, decision and attestation (the functional approach)" ] .
-epo:report a epo:EpoStep ; rdfs:label "7 report: coverage and performance computed; recommendation written; delivered to the sponsor" ;
-    ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "test completion process, p. 433 (ISO/IEC/IEEE 29119-2:2021, 3.25)" ; ogc:pdfPage 433 ; ogc:quote "test management process that aims to ensure that useful test assets are made available for later use, test environments are left in a satisfactory condition, and the results of testing are recorded and communicated to relevant stakeholders" ; ogc:quoteStatus "machine" ] ;
+epo:report a epo:EpoStep ; rdfs:label "6 report: coverage and performance computed; recommendation written; handed to the account executive for delivery" ;
+    ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "test completion process, p. 433 (ISO/IEC/IEEE 29119-2:2021, 3.25)" ; ogc:pdfPage 433 ; ogc:quote "test management process that aims to ensure that useful test assets are made available for later use, test environments are left in a satisfactory condition, and the results of testing are recorded and communicated to relevant stakeholders" ; ogc:quoteStatus "machine" ] ; .
+
+# ---- the contracting lifecycle (ruling R-32): contracting through delivery,
+# the outer cycle the evaluation sits inside. Its actors are the parties; its
+# steps are the ISO/IEC/IEEE 15288 agreement processes as SEBoK describes
+# them, ISO/IEC 17000's access, scheme and acceptance, ISO 9000's contract,
+# and the ISO/IEC/IEEE 29119-2 test environment and completion report. What
+# it pins is the first layer of assumptions: the parties, the object, the
+# specified requirements' frame and the methodology (ogc:pinnedAt epo:contract).
+epo:ContractingStep a owl:Class ; rdfs:label "contracting lifecycle step" ;
+    ogc:canonical [ ogc:cites src:sebok-2-14 ; ogc:locator "Stakeholder Needs (Acquisition and Supply), p. 353" ; ogc:pdfPage 353 ; ogc:quote "These needs and requirements are expressed in agreements between acquirers and suppliers." ; ogc:quoteStatus "machine" ] .
+epo:need a epo:ContractingStep ; rdfs:label "C1 need: the sponsor states the mission problem and what success would look like" ;
+    ogc:canonical [ ogc:cites src:sebok-2-14 ; ogc:locator "Business or Mission Analysis, p. 543" ; ogc:pdfPage 543 ; ogc:quote "The purpose of Business or Mission Analysis is to understand a mission or market problem, threat, or opportunity, and to establish the goals, objectives and measures of success of a potential solution class." ; ogc:quoteStatus "machine" ] ;
+    ogc:seeAlso [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.5.1 requirement" ; ogc:quote "need or expectation that is stated, generally implied or obligatory" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-11.png" ] .
+epo:propose a epo:ContractingStep ; rdfs:label "C2 propose: the sponsor seeks the service and the testing organization responds" ;
+    ogc:canonical [ ogc:cites src:sebok-2-14 ; ogc:locator "Acquisition and Supply, p. 352 (the supplier)" ; ogc:pdfPage 352 ; ogc:quote "The supplier is an organization or individual that enters into an agreement with the acquirer to supply a product or service." ; ogc:quoteStatus "machine" ] ;
+    ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "4.10 access" ; ogc:quote "opportunity for an applicant to obtain a conformity assessment service from a body under a conformity assessment scheme" ; ogc:quoteStatus "pending" ] .
+epo:agree a epo:ContractingStep ; rdfs:label "C3 agree: the service agreement fixes the counterparties, the test item, the requirements' frame and the method" ;
+    ogc:canonical [ ogc:cites src:sebok-2-14 ; ogc:locator "Acquisition and Supply, p. 353 (INCOSE 2012, the acquisition process)" ; ogc:pdfPage 353 ; ogc:quote "The acquisition process includes activities to identify, select, and reach commercial agreements with a product or service supplier." ; ogc:quoteStatus "machine" ] ;
+    ogc:seeAlso [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.3.13" ; ogc:quote "binding agreement" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-38.png" ] ;
+    ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "4.9 conformity assessment scheme" ; ogc:quote "set of rules and procedures that describes the objects of conformity assessment, identifies the specified requirements and provides the methodology for performing conformity assessment" ; ogc:quoteStatus "pending" ] .
+epo:access a epo:ContractingStep ; rdfs:label "C4 access: the accountable organization provides the test item and the test environment" ;
+    ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "test environment, p. 434 (ISO/IEC/IEEE 29119-2:2021, 3.34)" ; ogc:pdfPage 434 ; ogc:quote "environment containing facilities, hardware, software, firmware, and procedures needed to conduct a test" ; ogc:quoteStatus "machine" ] ;
+    ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "4.2 object of conformity assessment" ; ogc:quote "entity to which specified requirements apply" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] .
+epo:deliver a epo:ContractingStep ; rdfs:label "C5 deliver: the account executive delivers the report and the recommendation to the sponsor" ;
+    ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "test completion report, p. 433 (ISO/IEC/IEEE 29119-2:2021, 3.26)" ; ogc:pdfPage 433 ; ogc:quote "report that provides a summary of the testing that was performed" ; ogc:quoteStatus "machine" ] ;
     ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "7.3 attestation, Note 1" ; ogc:quote "is intended to convey the assurance that the specified requirements have been fulfilled" ; ogc:quoteStatus "pending" ] .
+epo:acceptDelivery a epo:ContractingStep ; rdfs:label "C6 accept: the sponsor accepts the delivery as performance of the agreement" ;
+    ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "acceptance, p. 4 (ISO/IEC/IEEE 24748-5:2017, 3.1)" ; ogc:pdfPage 4 ; ogc:quote "action by an authorized representative of the acquirer by which the acquirer assumes ownership of products as partial or complete performance of an agreement" ; ogc:quoteStatus "machine" ] ;
+    ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "9.6 acceptance" ; ogc:quote "use of a conformity assessment result provided by another person or organization" ; ogc:quoteStatus "pending" ] .
+
+# ---- the two layers (ruling R-32): what the contract pins and what the evaluation pins
+epo:Layer a owl:Class ; rdfs:label "the layer at which an item is pinned" .
+epo:contract a epo:Layer ; rdfs:label "pinned at the contract: axiomatic boundary conditions the evaluation takes as given and must document" .
+epo:evaluation a epo:Layer ; rdfs:label "pinned within the evaluation: declared and recorded by the evaluation team under the process" .
+ogc:pinnedAt a owl:ObjectProperty ; rdfs:range epo:Layer ; rdfs:comment "on an item class: which layer fixes it (R-32)" .
 
 # ---- parties and roles (rulings R-21, R-23)
-epo:Population a owl:Class ; rdfs:subClassOf prov:Agent ; rdfs:label "affected population: a population of actors affected by the test item (ISO 9000:2026 3.1.4 interested party), interviewed or represented" .
+epo:Population a owl:Class ; ogc:pinnedAt epo:contract ; rdfs:subClassOf prov:Agent ; rdfs:label "affected population: a population of actors affected by the test item (ISO 9000:2026 3.1.4 interested party), interviewed or represented" .
 epo:Role a owl:Class ; rdfs:subClassOf prov:Role ; rdfs:label "a party's role in one evaluation" .
 epo:sponsorRole a epo:Role ; rdfs:label "sponsor organization (ISO 9000:2026 customer): commissions the evaluation and receives the delivery" .
 epo:testingOrganizationRole a epo:Role ; rdfs:label "testing organization (ISO 9000:2026 provider): performs the evaluation as a service" .
@@ -63,23 +96,26 @@ epo:independentOfAccountable a owl:DatatypeProperty ; rdfs:range xsd:boolean ; r
 epo:representedBy a owl:ObjectProperty ; rdfs:domain epo:Population ; rdfs:range prov:Person ; rdfs:comment "the domain expert who represents a population that was not interviewed (R-21)" .
 
 # ---- things (prov:Entity)
-epo:ServiceAgreement a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "service agreement: the contract (ISO 9000:2026 3.3.13) to perform OG-CAIE as a service, signed by the sponsor and the account executive (R-21, R-23)" .
-epo:TestItemAccess a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "test-item access: the accountable organization's grant of access to the versioned test item" .
-epo:StakeholderInput a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "stakeholder input: what an interviewed population said" .
-epo:Delivery a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "delivery: the report and the recommendation handed to the sponsor by the account executive (R-24)" .
-epo:DsoRelease a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "DSO release" .
-epo:RequirementSet a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "requirement set (operational envelope): the requirements one system under test must meet in one operational environment (R-14)" .
-epo:Requirement a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "requirement" .
-epo:AcceptanceCriterion a owl:Class ; rdfs:subClassOf prov:Entity, earl:TestCriterion ; rdfs:label "acceptance criterion" .
-epo:TestPlan a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "test plan (objectives: criteria; means: probes, or a strategy that chooses them)" .
-epo:Strategy a owl:Class ; rdfs:subClassOf prov:Plan, prov:Entity ; rdfs:label "test strategy (SEVOCAB 29119-2): a state feedback policy that chooses the next probe from the trajectory so far, grounded in the DSO (R-13)" .
-epo:Trajectory a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "trajectory: the ordered prompt-response pairs of a session, the observable realization (IEC 60050-351 351-41-10, refined; R-13)" .
-epo:Probe a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "probe" .
-epo:Response a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "response: what the system under test produced at one turn (the actual result)" .
-epo:Evidence a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "evidence: collected material (a response, a trajectory, or several) bearing on one criterion's expected result, under the test plan (R-18, R-20); the domain of a determination" .
+epo:Need a owl:Class ; rdfs:subClassOf prov:Entity ; ogc:pinnedAt epo:contract ; rdfs:label "need: the sponsor's stated mission problem and measures of success (ISO 9000:2026 requirement: need or expectation that is stated)" .
+epo:Proposal a owl:Class ; rdfs:subClassOf prov:Entity ; ogc:pinnedAt epo:contract ; rdfs:label "proposal: the testing organization's response to the sponsor's need, offering the service" .
+epo:Acceptance a owl:Class ; rdfs:subClassOf prov:Entity ; ogc:pinnedAt epo:contract ; rdfs:label "acceptance: the sponsor's acceptance of the delivery as performance of the agreement" .
+epo:ServiceAgreement a owl:Class ; rdfs:subClassOf prov:Entity ; ogc:pinnedAt epo:contract ; rdfs:label "service agreement: the contract (ISO 9000:2026 3.3.13) to perform OG-CAIE as a service, signed by the sponsor and the account executive (R-21, R-23)" .
+epo:TestItemAccess a owl:Class ; rdfs:subClassOf prov:Entity ; ogc:pinnedAt epo:contract ; rdfs:label "test-item access: the accountable organization's grant of access to the versioned test item" .
+epo:StakeholderInput a owl:Class ; rdfs:subClassOf prov:Entity ; ogc:pinnedAt epo:evaluation ; rdfs:label "stakeholder input: what an interviewed population said" .
+epo:Delivery a owl:Class ; rdfs:subClassOf prov:Entity ; ogc:pinnedAt epo:contract ; rdfs:label "delivery: the report and the recommendation handed to the sponsor by the account executive (R-24)" .
+epo:DsoRelease a owl:Class ; ogc:pinnedAt epo:evaluation ; rdfs:subClassOf prov:Entity ; rdfs:label "DSO release" .
+epo:RequirementSet a owl:Class ; ogc:pinnedAt epo:evaluation ; rdfs:subClassOf prov:Entity ; rdfs:label "requirement set (operational envelope): the requirements one system under test must meet in one operational environment (R-14)" .
+epo:Requirement a owl:Class ; ogc:pinnedAt epo:evaluation ; rdfs:subClassOf prov:Entity ; rdfs:label "requirement" .
+epo:AcceptanceCriterion a owl:Class ; ogc:pinnedAt epo:evaluation ; rdfs:subClassOf prov:Entity, earl:TestCriterion ; rdfs:label "acceptance criterion" .
+epo:TestPlan a owl:Class ; ogc:pinnedAt epo:evaluation ; rdfs:subClassOf prov:Entity ; rdfs:label "test plan (objectives: criteria; means: probes, or a strategy that chooses them)" .
+epo:Strategy a owl:Class ; ogc:pinnedAt epo:evaluation ; rdfs:subClassOf prov:Plan, prov:Entity ; rdfs:label "test strategy (SEVOCAB 29119-2): a state feedback policy that chooses the next probe from the trajectory so far, grounded in the DSO (R-13)" .
+epo:Trajectory a owl:Class ; ogc:pinnedAt epo:evaluation ; rdfs:subClassOf prov:Entity ; rdfs:label "trajectory: the ordered prompt-response pairs of a session, the observable realization (IEC 60050-351 351-41-10, refined; R-13)" .
+epo:Probe a owl:Class ; ogc:pinnedAt epo:evaluation ; rdfs:subClassOf prov:Entity ; rdfs:label "probe" .
+epo:Response a owl:Class ; ogc:pinnedAt epo:evaluation ; rdfs:subClassOf prov:Entity ; rdfs:label "response: what the system under test produced at one turn (the actual result)" .
+epo:Evidence a owl:Class ; ogc:pinnedAt epo:evaluation ; rdfs:subClassOf prov:Entity ; rdfs:label "evidence: collected material (a response, a trajectory, or several) bearing on one criterion's expected result, under the test plan (R-18, R-20); the domain of a determination" .
 epo:Determination a owl:Class ; rdfs:subClassOf earl:Assertion, prov:Activity ; rdfs:label "determination (ISO 9000:2026 3.11.1; the paper's judgment): the ruling on one or more evidence items that a criterion's expected result was met, not met, or cannot be told (R-20); the codomain of evidence" .
-epo:Report a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "report" .
-epo:Recommendation a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "recommendation" .
+epo:Report a owl:Class ; ogc:pinnedAt epo:evaluation ; rdfs:subClassOf prov:Entity ; rdfs:label "report" .
+epo:Recommendation a owl:Class ; ogc:pinnedAt epo:evaluation ; rdfs:subClassOf prov:Entity ; rdfs:label "recommendation" .
 
 # ---- doings (prov:Activity), two of them also EARL assertions
 epo:ProbeDerivation a owl:Class ; rdfs:subClassOf prov:Activity ; rdfs:label "probe derivation" .
@@ -127,6 +163,8 @@ epo:underAgreement a owl:ObjectProperty ; rdfs:domain epo:RequirementSet ; rdfs:
 epo:grantsAccessTo a owl:ObjectProperty ; rdfs:domain epo:TestItemAccess ; rdfs:range earl:TestSubject .
 epo:approves a owl:ObjectProperty ; rdfs:domain epo:PlanApproval ; rdfs:range epo:TestPlan .
 epo:deliveredTo a owl:ObjectProperty ; rdfs:domain epo:Delivery ; rdfs:range prov:Organization .
+epo:accepts a owl:ObjectProperty ; rdfs:domain epo:Acceptance ; rdfs:range epo:Delivery .
+epo:respondsTo a owl:ObjectProperty ; rdfs:domain epo:Proposal ; rdfs:range epo:Need .
 
 # ---- the two judgment values (Hawkins et al. 2011; ruling R-08)
 epo:AppropriatenessValue a owl:Class .

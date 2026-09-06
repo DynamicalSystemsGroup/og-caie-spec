@@ -8,7 +8,7 @@ from conftest import OGC, ROOT, load, normalized
 SH = Namespace("http://www.w3.org/ns/shacl#")
 OWL = Namespace("http://www.w3.org/2002/07/owl#")
 SKOS = Namespace("http://www.w3.org/2004/02/skos/core#")
-ROWS = 6
+ROWS = 7
 
 
 def union():

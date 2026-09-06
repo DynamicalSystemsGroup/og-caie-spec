@@ -13,3 +13,6 @@ Process steps the EPO matches (ruling R-31), PDF pages:
 - p. 444, Applying Life Cycle Processes: "Each of the four process groups (Agreement Processes, Organizational Project-Enabling Processes, Technical Management Processes, and Technical Processes) can be used to establish a common understanding in a project."
 - p. 549, Stakeholder Needs and Requirements: "Stakeholder Needs Definition, the second process in Concept Definition, explores what capabilities are needed by various stakeholders for the system-of-interest (SoI) to accomplish the mission."
 - p. 557, System Requirements Definition: "The System Requirements Definition process transforms the stakeholder view of desired capabilities into a technical, developer view of how the system can achieve those capabilities."
+- p. 352, Acquisition and Supply: "The supplier is an organization or individual that enters into an agreement with the acquirer to supply a product or service."
+- p. 353, Stakeholder Needs: "These needs and requirements are expressed in agreements between acquirers and suppliers."
+- p. 543, Business or Mission Analysis: "The purpose of Business or Mission Analysis is to understand a mission or market problem, threat, or opportunity, and to establish the goals, objectives and measures of success of a potential solution class."

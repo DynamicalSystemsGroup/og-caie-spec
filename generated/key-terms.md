@@ -17,6 +17,12 @@ conformity
 Contextual AI Evaluation
 : The evaluation of a deployed AI system against the needs of a specific domain and deployment context, judged by people who know that domain. The class of evaluation this specification is for; OG-CAIE is the way it is performed here. Source: Ontology-Grounded Contextual AI Evaluation, Introduction and Background. Also: CAIE. Ruling R-29.
 
+contract
+: The binding agreement between the sponsor organization and the testing organization to perform OG-CAIE as a service. It is signed by the sponsor and by the testing organization's account executive, precedes the requirement set, and is the first item the record holds. Source: ISO 9000:2026(en) Quality management — Fundamentals and vocabulary, 3.3.13: "binding agreement" (human). Also: agreement, service agreement. Ruling R-21.
+
+customer
+: The organization that receives the evaluation as a service: the sponsor. It agrees the requirement set with the testing organization under a contract, and receives the report and the recommendation. It may or may not be the organization accountable for the test item. Source: ISO 9000:2026(en) Quality management — Fundamentals and vocabulary, 3.9.1: "person or organization that can or does receive a product or a service that is intended for or required by this person or organization" (human). Also: sponsor, sponsor organization. Ruling R-21.
+
 determination
 : The ruling, made on one or more evidence items, that a criterion's expected result was met, was not met, or cannot be told. It is the codomain of evidence, recorded with an EARL outcome of passed, failed or cannot tell, made by machine or by a named person, and it is what an attestation aggregates for a criterion. The paper calls it a judgment. Source: ISO 9000:2026(en) Quality management — Fundamentals and vocabulary, 3.11.1: "activity to find out one or more characteristics and their characteristic values" (human). Also: judgment. Ruling R-20.
 
@@ -27,7 +33,7 @@ evaluation
 : Systematically determining how far something meets its specified criteria. An OG-CAIE evaluation determines, for a declared requirement set, which criteria the system under test met, and reports coverage and performance separately. Source: IEEE Computer Society, evaluation, p. 155: "systematic determination of the extent to which an entity meets its specified criteria" (machine). Also: AI evaluation.
 
 Evaluation Process Ontology
-: The reusable, domain-independent description of how a rigorous evaluation is run: the standard operating procedure whose seven steps, when followed, make a coverage claim checkable. It assumes a Domain-Specific Ontology is in place and does not change across domains. Source: Humane Intelligence, Section 1C, EPO (Evaluation Process Ontology). Also: EPO. Ruling R-09, R-31.
+: The reusable, domain-independent description of how a rigorous evaluation is run: the standard operating procedure whose six steps, performed inside the contracting lifecycle, make a coverage claim checkable when followed. It assumes a Domain-Specific Ontology is in place and does not change across domains. Source: Humane Intelligence, Section 1C, EPO (Evaluation Process Ontology). Also: EPO. Ruling R-09, R-31.
 
 evaluation record
 : The record of one evaluation, bound by the Evaluation Process Ontology: the DSO release, the requirement set, the test plan, the probes, the sessions and their trajectories, the evidence, the attestations, the report and the recommendations, with who did what and when. The EPO determines what must be present for requirements traceability in both directions and for coverage, and makes all three checkable by machine; a conformant record therefore provides both traceability directions and coverage. Source: ISO 9000:2026(en) Quality management — Fundamentals and vocabulary, 3.8.12 record: "document stating results achieved or providing evidence of activities performed" (human). Also: record (ISO 9000:2026 3.8.12, of one evaluation), test log. Ruling R-17.
@@ -39,7 +45,7 @@ objective evidence
 : Data that supports the existence or truth of something. Here, what is collected as the basis for a determination: a response at one turn, a session's trajectory, or several of them rolled up over a test suite, as in a robustness battery. Each evidence item bears on one acceptance criterion's expected result and is bound to the test plan it was collected under. Evidence is the domain; the determination made on it, passed, failed or cannot tell, is the codomain. On its own evidence verifies nothing; a determination rules on it and an attestation judges it. Source: ISO 9000:2026(en) Quality management — Fundamentals and vocabulary, 3.8.6: "data supporting the existence or verity of something" (human). Also: evidence. Ruling R-18, R-20.
 
 OG-CAIE
-: Contextual AI Evaluation performed with the method this specification sets out: the Evaluation Process Ontology, the same seven steps for every domain, applied with a Domain-Specific Ontology supplied or approved by the domain's experts, leaving a record anyone can check for conformance, traceability and coverage. Source: Ontology-Grounded Contextual AI Evaluation, Introduction and Background. Also: Ontology-Grounded Contextual AI Evaluation. Ruling R-09, R-29.
+: Contextual AI Evaluation performed with the method this specification sets out: the Evaluation Process Ontology, the same six steps for every domain inside a contracting lifecycle, applied with a Domain-Specific Ontology supplied or approved by the domain's experts, leaving a record anyone can check for conformance, traceability and coverage. Source: Ontology-Grounded Contextual AI Evaluation, Introduction and Background. Also: Ontology-Grounded Contextual AI Evaluation. Ruling R-09, R-29.
 
 operational envelope
 : The requirements this system under test must meet in this operational environment, with their acceptance criteria and weights, declared before any probe is run. It refines the idea of a requirement by adding specificity: the same system in a different environment, or a different system in the same environment, gets a different envelope. That is what makes the evaluation contextual, and what separates it from a benchmark; the nearest practice is that of safety-critical systems. Coverage is measured over the envelope and only over it. Source: ISO 9000:2026(en) Quality management — Fundamentals and vocabulary, 3.5.1 requirement: "need or expectation that is stated, generally implied or obligatory" (human). Also: requirement set. Ruling R-03, R-14.
@@ -53,6 +59,9 @@ outcome
 probe
 : A scenario tied to the acceptance criteria it exercises, derived from the Domain-Specific Ontology and checked for consistency before use, applied at one turn of a session. Its run yields one prompt and response pair; the response is the evidence. A test plan may list its probes or choose them by a test strategy as the trajectory unfolds. Source: IEEE Computer Society, test case, p. 432: "set of test inputs, execution conditions, and expected results developed for a particular objective" (machine). Also: prompt, task, test case (SEVOCAB, tied to criteria).
 
+provider
+: The organization that provides the evaluation as a service: the testing organization. Its account executive signs the contract, its evaluation team does the work, and its machines keep the record. Independent of the accountable organization, its activity is second-party when a sponsor with a user interest commissions it (ISO/IEC 17000 4.4, Note 2) and third-party when no interested party does. Source: ISO 9000:2026(en) Quality management — Fundamentals and vocabulary, 3.1.9: "organization that provides a product or a service" (human). Also: contractor, supplier, testing organization. Ruling R-21.
+
 requirement
 : Something the system must do, or a condition it must meet, to be fit for its purpose. Broad requirements are decomposed into acceptance criteria that can be checked one at a time. Source: ISO 9000:2026(en) Quality management — Fundamentals and vocabulary, 3.5.1: "need or expectation that is stated, generally implied or obligatory" (human).
 
@@ -62,11 +71,17 @@ requirements traceability
 session
 : One pairing of one tester with one system under test, in which a sequence of turns is run. Sessions are stateful: what the system says at a later turn depends on everything said before, so evidence belongs to its session, not only to its probe. Source: NIST AI 700-2, Appendix A, Session, p. 17: "A single unit of ARIA testing, consisting of a pairing of one tester and one application." (machine). Ruling R-13.
 
+stakeholder
+: A person or organization that can affect, be affected by, or believe itself affected by a decision or activity. The sponsor, the evaluators and the domain experts are the stakeholders named in this specification. Source: ISO 9000:2026(en) Quality management — Fundamentals and vocabulary, 3.1.4: "person or organization that can affect, be affected by, or perceive itself to be affected by a decision or activity" (human). Also: interested party.
+
 sufficiency
 : The expert judgment that the evidence gathered is enough to support the claim being made. A quantity judgment, distinct from appropriateness. A judgment with no evidence cannot record a pass or a fail. Source: Hawkins, Section 3.3 Asserted solution, p. 10: "it is being asserted that the evidence put forward is sufficient to support the claim" (machine). Ruling R-08.
 
 test coverage
 : How much of the declared acceptance criteria the evaluation actually reached, as a share weighted by deployment sensitivity. It says how much was evaluated, not how well the system did. Source: IEEE Computer Society, test coverage, p. 433: "degree, expressed as a percentage, to which specified test coverage items have been exercised by a test case or test cases" (machine). Also: coverage. Ruling R-01.
+
+test item
+: The deployed AI system being evaluated, taken as a black box: only what it is given and what it produces are recorded. The prose calls it the system under test; the standard headword is test item. Source: IEEE Computer Society, test item, p. 435 (ISO/IEC/IEEE 29119-2:2021): "work product to be tested" (machine). Also: SUT, application, system of interest, system under test, test object. Ruling R-19.
 
 test plan
 : The statement, made before any test runs, of what the evaluation will test and how: which acceptance criteria are its objectives, which probes are its means, and what each probe is expected to show. Derived from the requirement set and the Domain-Specific Ontology in step three; every attestation is bound to the plan that produced its evidence. Source: IEEE Computer Society, test plan, p. 437: "detailed description of test objectives to be achieved and the means and schedule for achieving them, organized to coordinate testing activities for some test item or set of test items" (machine). Ruling R-12.

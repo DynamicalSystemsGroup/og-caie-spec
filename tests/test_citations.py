@@ -19,10 +19,10 @@ logging.getLogger("pypdf").setLevel(logging.ERROR)
 
 TERMS = 59
 COINED = 4
-MACHINE_QUOTES = 69
+MACHINE_QUOTES = 75
 COMMITTED_MACHINE_QUOTES = 11  # NIST AI 700-2 (7), NIST AI 100-1 (1), NIST TN 1297 (2), W3C EARL (1): always locatable, in CI too
-PENDING_QUOTES = 7
-HUMAN_QUOTES = 31
+PENDING_QUOTES = 9
+HUMAN_QUOTES = 34
 PENDING_ALLOWED_SOURCES = {"iso-9000-2026", "iso-iec-17000-2020", "iec-60050-351"}
 
 
@@ -33,7 +33,7 @@ def union():
 def holders(g):
     """Glossary terms and the seven EPO steps (ruling R-31): both carry citations."""
     EPO = Namespace("https://w3id.org/og-caie/epo#")
-    return sorted(set(g.subjects(RDF.type, SKOS.Concept)) | set(g.subjects(RDF.type, EPO.EpoStep)), key=str)
+    return sorted(set(g.subjects(RDF.type, SKOS.Concept)) | set(g.subjects(RDF.type, EPO.EpoStep)) | set(g.subjects(RDF.type, EPO.ContractingStep)) | {EPO.ContractingStep}, key=str)
 
 
 def citations(g):

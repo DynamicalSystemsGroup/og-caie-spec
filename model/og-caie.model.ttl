@@ -13,6 +13,12 @@ elmt:OGCAIE
     sysml:declaredName "OGCAIE" ;
     sysml:qualifiedName "OGCAIE" .
 
+elmt:OGCAIE__Acceptance
+    a sysml:ItemDefinition ;
+    sysml:declaredName "Acceptance" ;
+    sysml:owner elmt:OGCAIE ;
+    sysml:qualifiedName "OGCAIE::Acceptance" .
+
 elmt:OGCAIE__AcceptanceCriterion
     a sysml:ItemDefinition ;
     sysml:declaredName "AcceptanceCriterion" ;
@@ -32,6 +38,58 @@ elmt:OGCAIE__AcceptanceCriterion__id
     sysml:declaredName "id" ;
     sysml:owner elmt:OGCAIE__AcceptanceCriterion ;
     sysml:qualifiedName "OGCAIE::AcceptanceCriterion::id" ;
+    sysml:type "ScalarValues::String" .
+
+elmt:OGCAIE__AcceptanceSeam
+    a sysml:InterfaceDefinition ;
+    sysml:declaredName "AcceptanceSeam" ;
+    sysml:owner elmt:OGCAIE ;
+    sysml:qualifiedName "OGCAIE::AcceptanceSeam" .
+
+elmt:OGCAIE__AcceptanceSeam__consumer
+    a sysml:PortUsage ;
+    sysml:declaredName "consumer" ;
+    sysml:isConjugated "true"^^xsd:boolean ;
+    sysml:isEnd "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__AcceptanceSeam ;
+    sysml:qualifiedName "OGCAIE::AcceptanceSeam::consumer" ;
+    sysml:type elmt:OGCAIE__AcceptanceWrite .
+
+elmt:OGCAIE__AcceptanceSeam__supplier
+    a sysml:PortUsage ;
+    sysml:declaredName "supplier" ;
+    sysml:isEnd "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__AcceptanceSeam ;
+    sysml:qualifiedName "OGCAIE::AcceptanceSeam::supplier" ;
+    sysml:type elmt:OGCAIE__AcceptanceWrite .
+
+elmt:OGCAIE__AcceptanceWrite
+    a sysml:PortDefinition ;
+    sysml:declaredName "AcceptanceWrite" ;
+    sysml:owner elmt:OGCAIE ;
+    sysml:qualifiedName "OGCAIE::AcceptanceWrite" .
+
+elmt:OGCAIE__AcceptanceWrite__i
+    a sysml:ItemUsage ;
+    sysml:declaredName "i" ;
+    sysml:direction "out" ;
+    sysml:owner elmt:OGCAIE__AcceptanceWrite ;
+    sysml:qualifiedName "OGCAIE::AcceptanceWrite::i" ;
+    sysml:type elmt:OGCAIE__Acceptance .
+
+elmt:OGCAIE__Acceptance___400
+    a sysml:Documentation ;
+    sysml:body """ The sponsor's acceptance of the delivery as performance of the
+           agreement (ISO/IEC/IEEE 24748-5 acceptance; ISO/IEC 17000 9.6).
+           Pinned at the contract. """ ;
+    sysml:owner elmt:OGCAIE__Acceptance ;
+    sysml:qualifiedName "OGCAIE::Acceptance::@0" .
+
+elmt:OGCAIE__Acceptance__id
+    a sysml:AttributeUsage ;
+    sysml:declaredName "id" ;
+    sysml:owner elmt:OGCAIE__Acceptance ;
+    sysml:qualifiedName "OGCAIE::Acceptance::id" ;
     sysml:type "ScalarValues::String" .
 
 elmt:OGCAIE__AccessSeam
@@ -84,11 +142,20 @@ elmt:OGCAIE__AccountExecutive___400
            of the testing organization (ruling R-23). Countersigns the
            agreement into the record, reads the record, and delivers the
            report and the recommendation to the sponsor as one delivery
-           (an activity of its own, R-24). No evidence, determination or
+           (an activity of its own, R-24); answers the sponsor's need with
+           the proposal and receives the acceptance (R-32). No evidence, determination or
            attestation port: the account executive never judges the test
            item. The worked example's Mala. """ ;
     sysml:owner elmt:OGCAIE__AccountExecutive ;
     sysml:qualifiedName "OGCAIE::AccountExecutive::@0" .
+
+elmt:OGCAIE__AccountExecutive__acceptanceIn
+    a sysml:PortUsage ;
+    sysml:declaredName "acceptanceIn" ;
+    sysml:isConjugated "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__AccountExecutive ;
+    sysml:qualifiedName "OGCAIE::AccountExecutive::acceptanceIn" ;
+    sysml:type elmt:OGCAIE__AcceptanceWrite .
 
 elmt:OGCAIE__AccountExecutive__agreementIn
     a sysml:PortUsage ;
@@ -111,6 +178,21 @@ elmt:OGCAIE__AccountExecutive__deliveryOut
     sysml:owner elmt:OGCAIE__AccountExecutive ;
     sysml:qualifiedName "OGCAIE::AccountExecutive::deliveryOut" ;
     sysml:type elmt:OGCAIE__DeliveryWrite .
+
+elmt:OGCAIE__AccountExecutive__needIn
+    a sysml:PortUsage ;
+    sysml:declaredName "needIn" ;
+    sysml:isConjugated "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__AccountExecutive ;
+    sysml:qualifiedName "OGCAIE::AccountExecutive::needIn" ;
+    sysml:type elmt:OGCAIE__NeedWrite .
+
+elmt:OGCAIE__AccountExecutive__proposalOut
+    a sysml:PortUsage ;
+    sysml:declaredName "proposalOut" ;
+    sysml:owner elmt:OGCAIE__AccountExecutive ;
+    sysml:qualifiedName "OGCAIE::AccountExecutive::proposalOut" ;
+    sysml:type elmt:OGCAIE__ProposalWrite .
 
 elmt:OGCAIE__AccountExecutive__recordIn
     a sysml:PortUsage ;
@@ -372,6 +454,246 @@ elmt:OGCAIE__ConformanceChecker__recordIn
     sysml:owner elmt:OGCAIE__ConformanceChecker ;
     sysml:qualifiedName "OGCAIE::ConformanceChecker::recordIn" ;
     sysml:type elmt:OGCAIE__RecordWrite .
+
+elmt:OGCAIE__ContractingProcess
+    a sysml:ActionDefinition ;
+    sysml:declaredName "ContractingProcess" ;
+    sysml:owner elmt:OGCAIE ;
+    sysml:qualifiedName "OGCAIE::ContractingProcess" .
+
+elmt:OGCAIE__ContractingProcess___400
+    a sysml:Documentation ;
+    sysml:body """ The contracting lifecycle: the ISO/IEC/IEEE 15288 agreement
+           processes as SEBoK describes them, ISO/IEC 17000's access,
+           scheme and acceptance, ISO 9000's contract (ruling R-32). """ ;
+    sysml:owner elmt:OGCAIE__ContractingProcess ;
+    sysml:qualifiedName "OGCAIE::ContractingProcess::@0" .
+
+elmt:OGCAIE__ContractingProcess___4010
+    a sysml:SuccessionAsUsage ;
+    ogm:first elmt:OGCAIE__ContractingProcess__access ;
+    ogm:then elmt:OGCAIE__ContractingProcess__deliver ;
+    sysml:owner elmt:OGCAIE__ContractingProcess ;
+    sysml:qualifiedName "OGCAIE::ContractingProcess::@10" ;
+    sysx:relatedFeature expr:OGCAIE__ContractingProcess___4010_pend0, expr:OGCAIE__ContractingProcess___4010_pend1 ;
+    sysx:sourceText "succession first access then deliver;" .
+
+elmt:OGCAIE__ContractingProcess___4011
+    a sysml:SuccessionAsUsage ;
+    ogm:first elmt:OGCAIE__ContractingProcess__deliver ;
+    ogm:then elmt:OGCAIE__ContractingProcess__acceptDelivery ;
+    sysml:owner elmt:OGCAIE__ContractingProcess ;
+    sysml:qualifiedName "OGCAIE::ContractingProcess::@11" ;
+    sysx:relatedFeature expr:OGCAIE__ContractingProcess___4011_pend0, expr:OGCAIE__ContractingProcess___4011_pend1 ;
+    sysx:sourceText "succession first deliver then acceptDelivery;" .
+
+elmt:OGCAIE__ContractingProcess___407
+    a sysml:SuccessionAsUsage ;
+    ogm:first elmt:OGCAIE__ContractingProcess__need ;
+    ogm:then elmt:OGCAIE__ContractingProcess__propose ;
+    sysml:owner elmt:OGCAIE__ContractingProcess ;
+    sysml:qualifiedName "OGCAIE::ContractingProcess::@7" ;
+    sysx:relatedFeature expr:OGCAIE__ContractingProcess___407_pend0, expr:OGCAIE__ContractingProcess___407_pend1 ;
+    sysx:sourceText "succession first need then propose;" .
+
+elmt:OGCAIE__ContractingProcess___408
+    a sysml:SuccessionAsUsage ;
+    ogm:first elmt:OGCAIE__ContractingProcess__propose ;
+    ogm:then elmt:OGCAIE__ContractingProcess__agree ;
+    sysml:owner elmt:OGCAIE__ContractingProcess ;
+    sysml:qualifiedName "OGCAIE::ContractingProcess::@8" ;
+    sysx:relatedFeature expr:OGCAIE__ContractingProcess___408_pend0, expr:OGCAIE__ContractingProcess___408_pend1 ;
+    sysx:sourceText "succession first propose then agree;" .
+
+elmt:OGCAIE__ContractingProcess___409
+    a sysml:SuccessionAsUsage ;
+    ogm:first elmt:OGCAIE__ContractingProcess__agree ;
+    ogm:then elmt:OGCAIE__ContractingProcess__access ;
+    sysml:owner elmt:OGCAIE__ContractingProcess ;
+    sysml:qualifiedName "OGCAIE::ContractingProcess::@9" ;
+    sysx:relatedFeature expr:OGCAIE__ContractingProcess___409_pend0, expr:OGCAIE__ContractingProcess___409_pend1 ;
+    sysx:sourceText "succession first agree then access;" .
+
+elmt:OGCAIE__ContractingProcess__acceptDelivery
+    a sysml:ActionUsage ;
+    sysml:declaredName "acceptDelivery" ;
+    sysml:owner elmt:OGCAIE__ContractingProcess ;
+    sysml:qualifiedName "OGCAIE::ContractingProcess::acceptDelivery" .
+
+elmt:OGCAIE__ContractingProcess__acceptDelivery__acceptance
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "acceptance" ;
+    sysml:direction "out" ;
+    sysml:owner elmt:OGCAIE__ContractingProcess__acceptDelivery ;
+    sysml:qualifiedName "OGCAIE::ContractingProcess::acceptDelivery::acceptance" ;
+    sysml:type elmt:OGCAIE__Acceptance .
+
+elmt:OGCAIE__ContractingProcess__acceptDelivery__delivery
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "delivery" ;
+    sysml:direction "in" ;
+    sysml:owner elmt:OGCAIE__ContractingProcess__acceptDelivery ;
+    sysml:qualifiedName "OGCAIE::ContractingProcess::acceptDelivery::delivery" ;
+    sysml:type elmt:OGCAIE__Delivery .
+
+elmt:OGCAIE__ContractingProcess__access
+    a sysml:ActionUsage ;
+    sysml:declaredName "access" ;
+    sysml:owner elmt:OGCAIE__ContractingProcess ;
+    sysml:qualifiedName "OGCAIE::ContractingProcess::access" .
+
+elmt:OGCAIE__ContractingProcess__access__access
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "access" ;
+    sysml:direction "out" ;
+    sysml:owner elmt:OGCAIE__ContractingProcess__access ;
+    sysml:qualifiedName "OGCAIE::ContractingProcess::access::access" ;
+    sysml:type elmt:OGCAIE__TestItemAccess .
+
+elmt:OGCAIE__ContractingProcess__access__agreement
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "agreement" ;
+    sysml:direction "in" ;
+    sysml:owner elmt:OGCAIE__ContractingProcess__access ;
+    sysml:qualifiedName "OGCAIE::ContractingProcess::access::agreement" ;
+    sysml:type elmt:OGCAIE__ServiceAgreement .
+
+elmt:OGCAIE__ContractingProcess__agree
+    a sysml:ActionUsage ;
+    sysml:declaredName "agree" ;
+    sysml:owner elmt:OGCAIE__ContractingProcess ;
+    sysml:qualifiedName "OGCAIE::ContractingProcess::agree" .
+
+elmt:OGCAIE__ContractingProcess__agree__agreement
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "agreement" ;
+    sysml:direction "out" ;
+    sysml:owner elmt:OGCAIE__ContractingProcess__agree ;
+    sysml:qualifiedName "OGCAIE::ContractingProcess::agree::agreement" ;
+    sysml:type elmt:OGCAIE__ServiceAgreement .
+
+elmt:OGCAIE__ContractingProcess__agree__proposal
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "proposal" ;
+    sysml:direction "in" ;
+    sysml:owner elmt:OGCAIE__ContractingProcess__agree ;
+    sysml:qualifiedName "OGCAIE::ContractingProcess::agree::proposal" ;
+    sysml:type elmt:OGCAIE__Proposal .
+
+elmt:OGCAIE__ContractingProcess__deliver
+    a sysml:ActionUsage ;
+    sysml:declaredName "deliver" ;
+    sysml:owner elmt:OGCAIE__ContractingProcess ;
+    sysml:qualifiedName "OGCAIE::ContractingProcess::deliver" .
+
+elmt:OGCAIE__ContractingProcess__deliver__delivery
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "delivery" ;
+    sysml:direction "out" ;
+    sysml:owner elmt:OGCAIE__ContractingProcess__deliver ;
+    sysml:qualifiedName "OGCAIE::ContractingProcess::deliver::delivery" ;
+    sysml:type elmt:OGCAIE__Delivery .
+
+elmt:OGCAIE__ContractingProcess__deliver__recommendation
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "recommendation" ;
+    sysml:direction "in" ;
+    sysml:owner elmt:OGCAIE__ContractingProcess__deliver ;
+    sysml:qualifiedName "OGCAIE::ContractingProcess::deliver::recommendation" ;
+    sysml:type elmt:OGCAIE__Recommendation .
+
+elmt:OGCAIE__ContractingProcess__deliver__reportIn
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "reportIn" ;
+    sysml:direction "in" ;
+    sysml:owner elmt:OGCAIE__ContractingProcess__deliver ;
+    sysml:qualifiedName "OGCAIE::ContractingProcess::deliver::reportIn" ;
+    sysml:type elmt:OGCAIE__Report .
+
+elmt:OGCAIE__ContractingProcess__need
+    a sysml:ActionUsage ;
+    sysml:declaredName "need" ;
+    sysml:owner elmt:OGCAIE__ContractingProcess ;
+    sysml:qualifiedName "OGCAIE::ContractingProcess::need" .
+
+elmt:OGCAIE__ContractingProcess__need__need
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "need" ;
+    sysml:direction "out" ;
+    sysml:owner elmt:OGCAIE__ContractingProcess__need ;
+    sysml:qualifiedName "OGCAIE::ContractingProcess::need::need" ;
+    sysml:type elmt:OGCAIE__Need .
+
+elmt:OGCAIE__ContractingProcess__propose
+    a sysml:ActionUsage ;
+    sysml:declaredName "propose" ;
+    sysml:owner elmt:OGCAIE__ContractingProcess ;
+    sysml:qualifiedName "OGCAIE::ContractingProcess::propose" .
+
+elmt:OGCAIE__ContractingProcess__propose__need
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "need" ;
+    sysml:direction "in" ;
+    sysml:owner elmt:OGCAIE__ContractingProcess__propose ;
+    sysml:qualifiedName "OGCAIE::ContractingProcess::propose::need" ;
+    sysml:type elmt:OGCAIE__Need .
+
+elmt:OGCAIE__ContractingProcess__propose__proposal
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "proposal" ;
+    sysml:direction "out" ;
+    sysml:owner elmt:OGCAIE__ContractingProcess__propose ;
+    sysml:qualifiedName "OGCAIE::ContractingProcess::propose::proposal" ;
+    sysml:type elmt:OGCAIE__Proposal .
+
+elmt:OGCAIE__ContractingStep
+    a sysml:EnumerationDefinition ;
+    sysml:declaredName "ContractingStep" ;
+    sysml:owner elmt:OGCAIE ;
+    sysml:qualifiedName "OGCAIE::ContractingStep" .
+
+elmt:OGCAIE__ContractingStep___400
+    a sysml:Documentation ;
+    sysml:body """ The six steps of the contracting lifecycle (ruling R-32):
+           contracting through delivery and acceptance. """ ;
+    sysml:owner elmt:OGCAIE__ContractingStep ;
+    sysml:qualifiedName "OGCAIE::ContractingStep::@0" .
+
+elmt:OGCAIE__ContractingStep__acceptDelivery
+    a sysml:EnumerationUsage ;
+    sysml:declaredName "acceptDelivery" ;
+    sysml:owner elmt:OGCAIE__ContractingStep ;
+    sysml:qualifiedName "OGCAIE::ContractingStep::acceptDelivery" .
+
+elmt:OGCAIE__ContractingStep__access
+    a sysml:EnumerationUsage ;
+    sysml:declaredName "access" ;
+    sysml:owner elmt:OGCAIE__ContractingStep ;
+    sysml:qualifiedName "OGCAIE::ContractingStep::access" .
+
+elmt:OGCAIE__ContractingStep__agree
+    a sysml:EnumerationUsage ;
+    sysml:declaredName "agree" ;
+    sysml:owner elmt:OGCAIE__ContractingStep ;
+    sysml:qualifiedName "OGCAIE::ContractingStep::agree" .
+
+elmt:OGCAIE__ContractingStep__deliver
+    a sysml:EnumerationUsage ;
+    sysml:declaredName "deliver" ;
+    sysml:owner elmt:OGCAIE__ContractingStep ;
+    sysml:qualifiedName "OGCAIE::ContractingStep::deliver" .
+
+elmt:OGCAIE__ContractingStep__need
+    a sysml:EnumerationUsage ;
+    sysml:declaredName "need" ;
+    sysml:owner elmt:OGCAIE__ContractingStep ;
+    sysml:qualifiedName "OGCAIE::ContractingStep::need" .
+
+elmt:OGCAIE__ContractingStep__propose
+    a sysml:EnumerationUsage ;
+    sysml:declaredName "propose" ;
+    sysml:owner elmt:OGCAIE__ContractingStep ;
+    sysml:qualifiedName "OGCAIE::ContractingStep::propose" .
 
 elmt:OGCAIE__CoverageCalculator
     a sysml:PartDefinition ;
@@ -646,18 +968,12 @@ elmt:OGCAIE__EpoStep
 
 elmt:OGCAIE__EpoStep___400
     a sysml:Documentation ;
-    sysml:body """ The seven steps of the Evaluation Process Ontology (ruling
-           R-21 splits the paper's five: scope into agree and scope, run
-           and attest into execute and determine-and-attest). Every
-           attestation and every recommendation names its step. """ ;
+    sysml:body """ The six steps of the Evaluation Process Ontology (ruling
+           R-21 split the paper's five; R-32 moved agree out to the
+           contracting lifecycle, ContractingStep). Every attestation and
+           every recommendation names its step. """ ;
     sysml:owner elmt:OGCAIE__EpoStep ;
     sysml:qualifiedName "OGCAIE::EpoStep::@0" .
-
-elmt:OGCAIE__EpoStep__agree
-    a sysml:EnumerationUsage ;
-    sysml:declaredName "agree" ;
-    sysml:owner elmt:OGCAIE__EpoStep ;
-    sysml:qualifiedName "OGCAIE::EpoStep::agree" .
 
 elmt:OGCAIE__EpoStep__declareRequirements
     a sysml:EnumerationUsage ;
@@ -779,9 +1095,10 @@ elmt:OGCAIE__EvaluationProcess
 
 elmt:OGCAIE__EvaluationProcess___400
     a sysml:Documentation ;
-    sysml:body """ The Evaluation Process Ontology. Domain-independent; the DSO
-           enters as a parameter at the scope step; the record leaves as
-           the result. """ ;
+    sysml:body """ The Evaluation Process Ontology. Domain-independent; the
+           agreement and the access enter from the contracting lifecycle;
+           the DSO enters as a parameter at the scope step; the record
+           leaves as the result. """ ;
     sysml:owner elmt:OGCAIE__EvaluationProcess ;
     sysml:qualifiedName "OGCAIE::EvaluationProcess::@0" .
 
@@ -830,35 +1147,20 @@ elmt:OGCAIE__EvaluationProcess___4014
     sysx:relatedFeature expr:OGCAIE__EvaluationProcess___4014_pend0, expr:OGCAIE__EvaluationProcess___4014_pend1 ;
     sysx:sourceText "succession first determineAndAttest then report;" .
 
-elmt:OGCAIE__EvaluationProcess___409
-    a sysml:SuccessionAsUsage ;
-    ogm:first elmt:OGCAIE__EvaluationProcess__agree ;
-    ogm:then elmt:OGCAIE__EvaluationProcess__scope ;
-    sysml:owner elmt:OGCAIE__EvaluationProcess ;
-    sysml:qualifiedName "OGCAIE::EvaluationProcess::@9" ;
-    sysx:relatedFeature expr:OGCAIE__EvaluationProcess___409_pend0, expr:OGCAIE__EvaluationProcess___409_pend1 ;
-    sysx:sourceText "succession first agree then scope;" .
-
-elmt:OGCAIE__EvaluationProcess__agree
-    a sysml:ActionUsage ;
-    sysml:declaredName "agree" ;
-    sysml:owner elmt:OGCAIE__EvaluationProcess ;
-    sysml:qualifiedName "OGCAIE::EvaluationProcess::agree" .
-
-elmt:OGCAIE__EvaluationProcess__agree__access
+elmt:OGCAIE__EvaluationProcess__access
     a sysml:ReferenceUsage ;
     sysml:declaredName "access" ;
-    sysml:direction "out" ;
-    sysml:owner elmt:OGCAIE__EvaluationProcess__agree ;
-    sysml:qualifiedName "OGCAIE::EvaluationProcess::agree::access" ;
+    sysml:direction "in" ;
+    sysml:owner elmt:OGCAIE__EvaluationProcess ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::access" ;
     sysml:type elmt:OGCAIE__TestItemAccess .
 
-elmt:OGCAIE__EvaluationProcess__agree__agreement
+elmt:OGCAIE__EvaluationProcess__agreement
     a sysml:ReferenceUsage ;
     sysml:declaredName "agreement" ;
-    sysml:direction "out" ;
-    sysml:owner elmt:OGCAIE__EvaluationProcess__agree ;
-    sysml:qualifiedName "OGCAIE::EvaluationProcess::agree::agreement" ;
+    sysml:direction "in" ;
+    sysml:owner elmt:OGCAIE__EvaluationProcess ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::agreement" ;
     sysml:type elmt:OGCAIE__ServiceAgreement .
 
 elmt:OGCAIE__EvaluationProcess__declareRequirements
@@ -1129,14 +1431,6 @@ elmt:OGCAIE__EvaluationProcess__report__criteria
     sysml:type elmt:OGCAIE__AcceptanceCriterion ;
     sysml:upperBound expr:OGCAIE__EvaluationProcess__report__criteria_pupperBound .
 
-elmt:OGCAIE__EvaluationProcess__report__delivery
-    a sysml:ReferenceUsage ;
-    sysml:declaredName "delivery" ;
-    sysml:direction "out" ;
-    sysml:owner elmt:OGCAIE__EvaluationProcess__report ;
-    sysml:qualifiedName "OGCAIE::EvaluationProcess::report::delivery" ;
-    sysml:type elmt:OGCAIE__Delivery .
-
 elmt:OGCAIE__EvaluationProcess__report__determinations
     a sysml:ReferenceUsage ;
     sysml:declaredName "determinations" ;
@@ -1386,6 +1680,65 @@ elmt:OGCAIE__Mode__semiAuto
     sysml:owner elmt:OGCAIE__Mode ;
     sysml:qualifiedName "OGCAIE::Mode::semiAuto" .
 
+elmt:OGCAIE__Need
+    a sysml:ItemDefinition ;
+    sysml:declaredName "Need" ;
+    sysml:owner elmt:OGCAIE ;
+    sysml:qualifiedName "OGCAIE::Need" .
+
+elmt:OGCAIE__NeedSeam
+    a sysml:InterfaceDefinition ;
+    sysml:declaredName "NeedSeam" ;
+    sysml:owner elmt:OGCAIE ;
+    sysml:qualifiedName "OGCAIE::NeedSeam" .
+
+elmt:OGCAIE__NeedSeam__consumer
+    a sysml:PortUsage ;
+    sysml:declaredName "consumer" ;
+    sysml:isConjugated "true"^^xsd:boolean ;
+    sysml:isEnd "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__NeedSeam ;
+    sysml:qualifiedName "OGCAIE::NeedSeam::consumer" ;
+    sysml:type elmt:OGCAIE__NeedWrite .
+
+elmt:OGCAIE__NeedSeam__supplier
+    a sysml:PortUsage ;
+    sysml:declaredName "supplier" ;
+    sysml:isEnd "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__NeedSeam ;
+    sysml:qualifiedName "OGCAIE::NeedSeam::supplier" ;
+    sysml:type elmt:OGCAIE__NeedWrite .
+
+elmt:OGCAIE__NeedWrite
+    a sysml:PortDefinition ;
+    sysml:declaredName "NeedWrite" ;
+    sysml:owner elmt:OGCAIE ;
+    sysml:qualifiedName "OGCAIE::NeedWrite" .
+
+elmt:OGCAIE__NeedWrite__i
+    a sysml:ItemUsage ;
+    sysml:declaredName "i" ;
+    sysml:direction "out" ;
+    sysml:owner elmt:OGCAIE__NeedWrite ;
+    sysml:qualifiedName "OGCAIE::NeedWrite::i" ;
+    sysml:type elmt:OGCAIE__Need .
+
+elmt:OGCAIE__Need___400
+    a sysml:Documentation ;
+    sysml:body """ The sponsor's stated mission problem and measures of success
+           (ISO 9000:2026 requirement: need or expectation that is stated;
+           SEBoK business or mission analysis). Pinned at the contract
+           (ruling R-32). """ ;
+    sysml:owner elmt:OGCAIE__Need ;
+    sysml:qualifiedName "OGCAIE::Need::@0" .
+
+elmt:OGCAIE__Need__id
+    a sysml:AttributeUsage ;
+    sysml:declaredName "id" ;
+    sysml:owner elmt:OGCAIE__Need ;
+    sysml:qualifiedName "OGCAIE::Need::id" ;
+    sysml:type "ScalarValues::String" .
+
 elmt:OGCAIE__OgCaieEvaluation
     a sysml:PartDefinition ;
     sysml:declaredName "OgCaieEvaluation" ;
@@ -1397,6 +1750,28 @@ elmt:OGCAIE__OgCaieEvaluation___400
     sysml:body " Four parties wired along typed seams, performing the EPO. " ;
     sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
     sysml:qualifiedName "OGCAIE::OgCaieEvaluation::@0" .
+
+elmt:OGCAIE__OgCaieEvaluation__acceptanceSeam
+    a sysml:InterfaceUsage ;
+    ogm:consumerPort elmt:OGCAIE__Recorder__acceptanceIn ;
+    ogm:supplierPort elmt:OGCAIE__SponsorOrganization__acceptanceOut ;
+    sysml:declaredName "acceptanceSeam" ;
+    sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
+    sysml:qualifiedName "OGCAIE::OgCaieEvaluation::acceptanceSeam" ;
+    sysml:type elmt:OGCAIE__AcceptanceSeam ;
+    sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__acceptanceSeam_pend0, expr:OGCAIE__OgCaieEvaluation__acceptanceSeam_pend1 ;
+    sysx:sourceText "interface acceptanceSeam : AcceptanceSeam connect sponsor.acceptanceOut to testingOrg.recorder.acceptanceIn;" .
+
+elmt:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam
+    a sysml:InterfaceUsage ;
+    ogm:consumerPort elmt:OGCAIE__AccountExecutive__acceptanceIn ;
+    ogm:supplierPort elmt:OGCAIE__SponsorOrganization__acceptanceOut ;
+    sysml:declaredName "acceptanceToExecutiveSeam" ;
+    sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
+    sysml:qualifiedName "OGCAIE::OgCaieEvaluation::acceptanceToExecutiveSeam" ;
+    sysml:type elmt:OGCAIE__AcceptanceSeam ;
+    sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam_pend0, expr:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam_pend1 ;
+    sysx:sourceText "interface acceptanceToExecutiveSeam : AcceptanceSeam connect sponsor.acceptanceOut to testingOrg.accountExecutive.acceptanceIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__accessSeam
     a sysml:InterfaceUsage ;
@@ -1457,6 +1832,14 @@ elmt:OGCAIE__OgCaieEvaluation__attestationSeam
     sysml:type elmt:OGCAIE__AttestationSeam ;
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__attestationSeam_pend0, expr:OGCAIE__OgCaieEvaluation__attestationSeam_pend1 ;
     sysx:sourceText "interface attestationSeam : AttestationSeam connect testingOrg.team.domainExpert.attestationOut to testingOrg.recorder.attestationIn;" .
+
+elmt:OGCAIE__OgCaieEvaluation__contracting
+    a sysml:ActionUsage ;
+    sysml:declaredName "contracting" ;
+    sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
+    sysml:qualifiedName "OGCAIE::OgCaieEvaluation::contracting" ;
+    sysml:type elmt:OGCAIE__ContractingProcess ;
+    sysx:declaredPrefix "perform" .
 
 elmt:OGCAIE__OgCaieEvaluation__countersignSeam
     a sysml:InterfaceUsage ;
@@ -1535,6 +1918,28 @@ elmt:OGCAIE__OgCaieEvaluation__expertDeterminationSeam
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__expertDeterminationSeam_pend0, expr:OGCAIE__OgCaieEvaluation__expertDeterminationSeam_pend1 ;
     sysx:sourceText "interface expertDeterminationSeam : DeterminationSeam connect testingOrg.team.domainExpert.determinationOut to testingOrg.recorder.expertDeterminationIn;" .
 
+elmt:OGCAIE__OgCaieEvaluation__needSeam
+    a sysml:InterfaceUsage ;
+    ogm:consumerPort elmt:OGCAIE__Recorder__needIn ;
+    ogm:supplierPort elmt:OGCAIE__SponsorOrganization__needOut ;
+    sysml:declaredName "needSeam" ;
+    sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
+    sysml:qualifiedName "OGCAIE::OgCaieEvaluation::needSeam" ;
+    sysml:type elmt:OGCAIE__NeedSeam ;
+    sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__needSeam_pend0, expr:OGCAIE__OgCaieEvaluation__needSeam_pend1 ;
+    sysx:sourceText "interface needSeam : NeedSeam connect sponsor.needOut to testingOrg.recorder.needIn;" .
+
+elmt:OGCAIE__OgCaieEvaluation__needToExecutiveSeam
+    a sysml:InterfaceUsage ;
+    ogm:consumerPort elmt:OGCAIE__AccountExecutive__needIn ;
+    ogm:supplierPort elmt:OGCAIE__SponsorOrganization__needOut ;
+    sysml:declaredName "needToExecutiveSeam" ;
+    sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
+    sysml:qualifiedName "OGCAIE::OgCaieEvaluation::needToExecutiveSeam" ;
+    sysml:type elmt:OGCAIE__NeedSeam ;
+    sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__needToExecutiveSeam_pend0, expr:OGCAIE__OgCaieEvaluation__needToExecutiveSeam_pend1 ;
+    sysx:sourceText "interface needToExecutiveSeam : NeedSeam connect sponsor.needOut to testingOrg.accountExecutive.needIn;" .
+
 elmt:OGCAIE__OgCaieEvaluation__operatorDeterminationSeam
     a sysml:InterfaceUsage ;
     ogm:consumerPort elmt:OGCAIE__Recorder__operatorDeterminationIn ;
@@ -1597,6 +2002,28 @@ elmt:OGCAIE__OgCaieEvaluation__process
     sysml:qualifiedName "OGCAIE::OgCaieEvaluation::process" ;
     sysml:type elmt:OGCAIE__EvaluationProcess ;
     sysx:declaredPrefix "perform" .
+
+elmt:OGCAIE__OgCaieEvaluation__proposalSeam
+    a sysml:InterfaceUsage ;
+    ogm:consumerPort elmt:OGCAIE__Recorder__proposalIn ;
+    ogm:supplierPort elmt:OGCAIE__AccountExecutive__proposalOut ;
+    sysml:declaredName "proposalSeam" ;
+    sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
+    sysml:qualifiedName "OGCAIE::OgCaieEvaluation::proposalSeam" ;
+    sysml:type elmt:OGCAIE__ProposalSeam ;
+    sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__proposalSeam_pend0, expr:OGCAIE__OgCaieEvaluation__proposalSeam_pend1 ;
+    sysx:sourceText "interface proposalSeam : ProposalSeam connect testingOrg.accountExecutive.proposalOut to testingOrg.recorder.proposalIn;" .
+
+elmt:OGCAIE__OgCaieEvaluation__proposalToSponsorSeam
+    a sysml:InterfaceUsage ;
+    ogm:consumerPort elmt:OGCAIE__SponsorOrganization__proposalIn ;
+    ogm:supplierPort elmt:OGCAIE__AccountExecutive__proposalOut ;
+    sysml:declaredName "proposalToSponsorSeam" ;
+    sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
+    sysml:qualifiedName "OGCAIE::OgCaieEvaluation::proposalToSponsorSeam" ;
+    sysml:type elmt:OGCAIE__ProposalSeam ;
+    sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__proposalToSponsorSeam_pend0, expr:OGCAIE__OgCaieEvaluation__proposalToSponsorSeam_pend1 ;
+    sysx:sourceText "interface proposalToSponsorSeam : ProposalSeam connect testingOrg.accountExecutive.proposalOut to sponsor.proposalIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__recommendationSeam
     a sysml:InterfaceUsage ;
@@ -2005,6 +2432,64 @@ elmt:OGCAIE__Probe__id
     sysml:qualifiedName "OGCAIE::Probe::id" ;
     sysml:type "ScalarValues::String" .
 
+elmt:OGCAIE__Proposal
+    a sysml:ItemDefinition ;
+    sysml:declaredName "Proposal" ;
+    sysml:owner elmt:OGCAIE ;
+    sysml:qualifiedName "OGCAIE::Proposal" .
+
+elmt:OGCAIE__ProposalSeam
+    a sysml:InterfaceDefinition ;
+    sysml:declaredName "ProposalSeam" ;
+    sysml:owner elmt:OGCAIE ;
+    sysml:qualifiedName "OGCAIE::ProposalSeam" .
+
+elmt:OGCAIE__ProposalSeam__consumer
+    a sysml:PortUsage ;
+    sysml:declaredName "consumer" ;
+    sysml:isConjugated "true"^^xsd:boolean ;
+    sysml:isEnd "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__ProposalSeam ;
+    sysml:qualifiedName "OGCAIE::ProposalSeam::consumer" ;
+    sysml:type elmt:OGCAIE__ProposalWrite .
+
+elmt:OGCAIE__ProposalSeam__supplier
+    a sysml:PortUsage ;
+    sysml:declaredName "supplier" ;
+    sysml:isEnd "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__ProposalSeam ;
+    sysml:qualifiedName "OGCAIE::ProposalSeam::supplier" ;
+    sysml:type elmt:OGCAIE__ProposalWrite .
+
+elmt:OGCAIE__ProposalWrite
+    a sysml:PortDefinition ;
+    sysml:declaredName "ProposalWrite" ;
+    sysml:owner elmt:OGCAIE ;
+    sysml:qualifiedName "OGCAIE::ProposalWrite" .
+
+elmt:OGCAIE__ProposalWrite__i
+    a sysml:ItemUsage ;
+    sysml:declaredName "i" ;
+    sysml:direction "out" ;
+    sysml:owner elmt:OGCAIE__ProposalWrite ;
+    sysml:qualifiedName "OGCAIE::ProposalWrite::i" ;
+    sysml:type elmt:OGCAIE__Proposal .
+
+elmt:OGCAIE__Proposal___400
+    a sysml:Documentation ;
+    sysml:body """ The testing organization's response to the need, offering the
+           service (SEBoK: the supplier enters into an agreement with the
+           acquirer). Pinned at the contract. """ ;
+    sysml:owner elmt:OGCAIE__Proposal ;
+    sysml:qualifiedName "OGCAIE::Proposal::@0" .
+
+elmt:OGCAIE__Proposal__id
+    a sysml:AttributeUsage ;
+    sysml:declaredName "id" ;
+    sysml:owner elmt:OGCAIE__Proposal ;
+    sysml:qualifiedName "OGCAIE::Proposal::id" ;
+    sysml:type "ScalarValues::String" .
+
 elmt:OGCAIE__Recommendation
     a sysml:ItemDefinition ;
     sysml:declaredName "Recommendation" ;
@@ -2116,6 +2601,14 @@ elmt:OGCAIE__Recorder___400
     sysml:owner elmt:OGCAIE__Recorder ;
     sysml:qualifiedName "OGCAIE::Recorder::@0" .
 
+elmt:OGCAIE__Recorder__acceptanceIn
+    a sysml:PortUsage ;
+    sysml:declaredName "acceptanceIn" ;
+    sysml:isConjugated "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__Recorder ;
+    sysml:qualifiedName "OGCAIE::Recorder::acceptanceIn" ;
+    sysml:type elmt:OGCAIE__AcceptanceWrite .
+
 elmt:OGCAIE__Recorder__accessIn
     a sysml:PortUsage ;
     sysml:declaredName "accessIn" ;
@@ -2188,6 +2681,14 @@ elmt:OGCAIE__Recorder__inputIn
     sysml:qualifiedName "OGCAIE::Recorder::inputIn" ;
     sysml:type elmt:OGCAIE__StakeholderInputWrite .
 
+elmt:OGCAIE__Recorder__needIn
+    a sysml:PortUsage ;
+    sysml:declaredName "needIn" ;
+    sysml:isConjugated "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__Recorder ;
+    sysml:qualifiedName "OGCAIE::Recorder::needIn" ;
+    sysml:type elmt:OGCAIE__NeedWrite .
+
 elmt:OGCAIE__Recorder__operatorDeterminationIn
     a sysml:PortUsage ;
     sysml:declaredName "operatorDeterminationIn" ;
@@ -2219,6 +2720,14 @@ elmt:OGCAIE__Recorder__probeIn
     sysml:owner elmt:OGCAIE__Recorder ;
     sysml:qualifiedName "OGCAIE::Recorder::probeIn" ;
     sysml:type elmt:OGCAIE__ProbeWrite .
+
+elmt:OGCAIE__Recorder__proposalIn
+    a sysml:PortUsage ;
+    sysml:declaredName "proposalIn" ;
+    sysml:isConjugated "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__Recorder ;
+    sysml:qualifiedName "OGCAIE::Recorder::proposalIn" ;
+    sysml:type elmt:OGCAIE__ProposalWrite .
 
 elmt:OGCAIE__Recorder__recommendationIn
     a sysml:PortUsage ;
@@ -2735,12 +3244,20 @@ elmt:OGCAIE__SponsorOrganization
 
 elmt:OGCAIE__SponsorOrganization___400
     a sysml:Documentation ;
-    sysml:body """ The customer (ISO 9000:2026 3.9.1): commissions the
-           evaluation under the service agreement and receives the report
-           and the recommendation through the account executive. May or
-           may not be the accountable organization; the record says. """ ;
+    sysml:body """ The customer (ISO 9000:2026 3.9.1): states the need,
+           receives the proposal, commissions the evaluation under the
+           service agreement, receives the delivery through the account
+           executive and accepts it (R-32). May or may not be the
+           accountable organization; the record says. """ ;
     sysml:owner elmt:OGCAIE__SponsorOrganization ;
     sysml:qualifiedName "OGCAIE::SponsorOrganization::@0" .
+
+elmt:OGCAIE__SponsorOrganization__acceptanceOut
+    a sysml:PortUsage ;
+    sysml:declaredName "acceptanceOut" ;
+    sysml:owner elmt:OGCAIE__SponsorOrganization ;
+    sysml:qualifiedName "OGCAIE::SponsorOrganization::acceptanceOut" ;
+    sysml:type elmt:OGCAIE__AcceptanceWrite .
 
 elmt:OGCAIE__SponsorOrganization__agreementOut
     a sysml:PortUsage ;
@@ -2763,6 +3280,21 @@ elmt:OGCAIE__SponsorOrganization__isAccountable
     sysml:owner elmt:OGCAIE__SponsorOrganization ;
     sysml:qualifiedName "OGCAIE::SponsorOrganization::isAccountable" ;
     sysml:type "ScalarValues::Boolean" .
+
+elmt:OGCAIE__SponsorOrganization__needOut
+    a sysml:PortUsage ;
+    sysml:declaredName "needOut" ;
+    sysml:owner elmt:OGCAIE__SponsorOrganization ;
+    sysml:qualifiedName "OGCAIE::SponsorOrganization::needOut" ;
+    sysml:type elmt:OGCAIE__NeedWrite .
+
+elmt:OGCAIE__SponsorOrganization__proposalIn
+    a sysml:PortUsage ;
+    sysml:declaredName "proposalIn" ;
+    sysml:isConjugated "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__SponsorOrganization ;
+    sysml:qualifiedName "OGCAIE::SponsorOrganization::proposalIn" ;
+    sysml:type elmt:OGCAIE__ProposalWrite .
 
 elmt:OGCAIE__StakeholderInput
     a sysml:ItemDefinition ;
@@ -3016,7 +3548,7 @@ elmt:OGCAIE___400
        logical or physical architecture is modeled (ruling R-07).
 
        This file holds structure only (ruling R-22): the parties, the
-       items that cross seams, the ports and interfaces, the seven-step
+       items that cross seams, the ports and interfaces, the six-step contracting lifecycle and the six-step
        Evaluation Process Ontology as an action def, and one assemblage
        that wires them. It is the authoring view. The canonical structure
        is its pruned RDF rendering, model/og-caie.model.ttl, produced by
@@ -3033,6 +3565,66 @@ elmt:OGCAIE___400
        verbatim in rulings/adjudications.ttl. """ ;
     sysml:owner elmt:OGCAIE ;
     sysml:qualifiedName "OGCAIE::@0" .
+
+expr:OGCAIE__ContractingProcess___4010_pend0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__ContractingProcess__access ;
+    sysx:endIndex "0"^^xsd:integer ;
+    sysx:sourceText "access" .
+
+expr:OGCAIE__ContractingProcess___4010_pend1
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__ContractingProcess__deliver ;
+    sysx:endIndex "1"^^xsd:integer ;
+    sysx:sourceText "deliver" .
+
+expr:OGCAIE__ContractingProcess___4011_pend0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__ContractingProcess__deliver ;
+    sysx:endIndex "0"^^xsd:integer ;
+    sysx:sourceText "deliver" .
+
+expr:OGCAIE__ContractingProcess___4011_pend1
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__ContractingProcess__acceptDelivery ;
+    sysx:endIndex "1"^^xsd:integer ;
+    sysx:sourceText "acceptDelivery" .
+
+expr:OGCAIE__ContractingProcess___407_pend0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__ContractingProcess__need ;
+    sysx:endIndex "0"^^xsd:integer ;
+    sysx:sourceText "need" .
+
+expr:OGCAIE__ContractingProcess___407_pend1
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__ContractingProcess__propose ;
+    sysx:endIndex "1"^^xsd:integer ;
+    sysx:sourceText "propose" .
+
+expr:OGCAIE__ContractingProcess___408_pend0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__ContractingProcess__propose ;
+    sysx:endIndex "0"^^xsd:integer ;
+    sysx:sourceText "propose" .
+
+expr:OGCAIE__ContractingProcess___408_pend1
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__ContractingProcess__agree ;
+    sysx:endIndex "1"^^xsd:integer ;
+    sysx:sourceText "agree" .
+
+expr:OGCAIE__ContractingProcess___409_pend0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__ContractingProcess__agree ;
+    sysx:endIndex "0"^^xsd:integer ;
+    sysx:sourceText "agree" .
+
+expr:OGCAIE__ContractingProcess___409_pend1
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__ContractingProcess__access ;
+    sysx:endIndex "1"^^xsd:integer ;
+    sysx:sourceText "access" .
 
 expr:OGCAIE__EvaluationProcess___4010_pend0
     a sysml:FeatureReferenceExpression ;
@@ -3093,18 +3685,6 @@ expr:OGCAIE__EvaluationProcess___4014_pend1
     sysml:referent elmt:OGCAIE__EvaluationProcess__report ;
     sysx:endIndex "1"^^xsd:integer ;
     sysx:sourceText "report" .
-
-expr:OGCAIE__EvaluationProcess___409_pend0
-    a sysml:FeatureReferenceExpression ;
-    sysml:referent elmt:OGCAIE__EvaluationProcess__agree ;
-    sysx:endIndex "0"^^xsd:integer ;
-    sysx:sourceText "agree" .
-
-expr:OGCAIE__EvaluationProcess___409_pend1
-    a sysml:FeatureReferenceExpression ;
-    sysml:referent elmt:OGCAIE__EvaluationProcess__scope ;
-    sysx:endIndex "1"^^xsd:integer ;
-    sysx:sourceText "scope" .
 
 expr:OGCAIE__EvaluationProcess__declareRequirements__criteria_plowerBound
     a sysml:LiteralInteger ;
@@ -3277,6 +3857,74 @@ expr:OGCAIE__EvaluationTeam__operator_plowerBound
 expr:OGCAIE__EvaluationTeam__operator_pupperBound
     a sysml:LiteralInfinity ;
     sysx:sourceText "*" .
+
+expr:OGCAIE__OgCaieEvaluation__acceptanceSeam_pend0
+    a sysml:FeatureChainExpression ;
+    ogm:endPart elmt:OGCAIE__OgCaieEvaluation__sponsor ;
+    ogm:resolvesTo elmt:OGCAIE__SponsorOrganization__acceptanceOut ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__acceptanceSeam_pend0_pa0 ;
+    sysml:targetFeature "acceptanceOut" ;
+    sysx:endIndex "0"^^xsd:integer ;
+    sysx:sourceText "sponsor.acceptanceOut" .
+
+expr:OGCAIE__OgCaieEvaluation__acceptanceSeam_pend0_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__OgCaieEvaluation__sponsor ;
+    sysx:sourceText "sponsor" .
+
+expr:OGCAIE__OgCaieEvaluation__acceptanceSeam_pend1
+    a sysml:FeatureChainExpression ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__recorder ;
+    ogm:resolvesTo elmt:OGCAIE__Recorder__acceptanceIn ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__acceptanceSeam_pend1_pa0 ;
+    sysml:targetFeature "acceptanceIn" ;
+    sysx:endIndex "1"^^xsd:integer ;
+    sysx:sourceText "testingOrg.recorder.acceptanceIn" .
+
+expr:OGCAIE__OgCaieEvaluation__acceptanceSeam_pend1_pa0
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__acceptanceSeam_pend1_pa0_pa0 ;
+    sysml:targetFeature "recorder" ;
+    sysx:sourceText "testingOrg.recorder" .
+
+expr:OGCAIE__OgCaieEvaluation__acceptanceSeam_pend1_pa0_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
+    sysx:sourceText "testingOrg" .
+
+expr:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam_pend0
+    a sysml:FeatureChainExpression ;
+    ogm:endPart elmt:OGCAIE__OgCaieEvaluation__sponsor ;
+    ogm:resolvesTo elmt:OGCAIE__SponsorOrganization__acceptanceOut ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam_pend0_pa0 ;
+    sysml:targetFeature "acceptanceOut" ;
+    sysx:endIndex "0"^^xsd:integer ;
+    sysx:sourceText "sponsor.acceptanceOut" .
+
+expr:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam_pend0_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__OgCaieEvaluation__sponsor ;
+    sysx:sourceText "sponsor" .
+
+expr:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam_pend1
+    a sysml:FeatureChainExpression ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__accountExecutive ;
+    ogm:resolvesTo elmt:OGCAIE__AccountExecutive__acceptanceIn ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam_pend1_pa0 ;
+    sysml:targetFeature "acceptanceIn" ;
+    sysx:endIndex "1"^^xsd:integer ;
+    sysx:sourceText "testingOrg.accountExecutive.acceptanceIn" .
+
+expr:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam_pend1_pa0
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam_pend1_pa0_pa0 ;
+    sysml:targetFeature "accountExecutive" ;
+    sysx:sourceText "testingOrg.accountExecutive" .
+
+expr:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam_pend1_pa0_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
+    sysx:sourceText "testingOrg" .
 
 expr:OGCAIE__OgCaieEvaluation__accessSeam_pend0
     a sysml:FeatureChainExpression ;
@@ -3745,6 +4393,74 @@ expr:OGCAIE__OgCaieEvaluation__expertDeterminationSeam_pend1_pa0_pa0
     sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
     sysx:sourceText "testingOrg" .
 
+expr:OGCAIE__OgCaieEvaluation__needSeam_pend0
+    a sysml:FeatureChainExpression ;
+    ogm:endPart elmt:OGCAIE__OgCaieEvaluation__sponsor ;
+    ogm:resolvesTo elmt:OGCAIE__SponsorOrganization__needOut ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__needSeam_pend0_pa0 ;
+    sysml:targetFeature "needOut" ;
+    sysx:endIndex "0"^^xsd:integer ;
+    sysx:sourceText "sponsor.needOut" .
+
+expr:OGCAIE__OgCaieEvaluation__needSeam_pend0_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__OgCaieEvaluation__sponsor ;
+    sysx:sourceText "sponsor" .
+
+expr:OGCAIE__OgCaieEvaluation__needSeam_pend1
+    a sysml:FeatureChainExpression ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__recorder ;
+    ogm:resolvesTo elmt:OGCAIE__Recorder__needIn ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__needSeam_pend1_pa0 ;
+    sysml:targetFeature "needIn" ;
+    sysx:endIndex "1"^^xsd:integer ;
+    sysx:sourceText "testingOrg.recorder.needIn" .
+
+expr:OGCAIE__OgCaieEvaluation__needSeam_pend1_pa0
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__needSeam_pend1_pa0_pa0 ;
+    sysml:targetFeature "recorder" ;
+    sysx:sourceText "testingOrg.recorder" .
+
+expr:OGCAIE__OgCaieEvaluation__needSeam_pend1_pa0_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
+    sysx:sourceText "testingOrg" .
+
+expr:OGCAIE__OgCaieEvaluation__needToExecutiveSeam_pend0
+    a sysml:FeatureChainExpression ;
+    ogm:endPart elmt:OGCAIE__OgCaieEvaluation__sponsor ;
+    ogm:resolvesTo elmt:OGCAIE__SponsorOrganization__needOut ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__needToExecutiveSeam_pend0_pa0 ;
+    sysml:targetFeature "needOut" ;
+    sysx:endIndex "0"^^xsd:integer ;
+    sysx:sourceText "sponsor.needOut" .
+
+expr:OGCAIE__OgCaieEvaluation__needToExecutiveSeam_pend0_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__OgCaieEvaluation__sponsor ;
+    sysx:sourceText "sponsor" .
+
+expr:OGCAIE__OgCaieEvaluation__needToExecutiveSeam_pend1
+    a sysml:FeatureChainExpression ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__accountExecutive ;
+    ogm:resolvesTo elmt:OGCAIE__AccountExecutive__needIn ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__needToExecutiveSeam_pend1_pa0 ;
+    sysml:targetFeature "needIn" ;
+    sysx:endIndex "1"^^xsd:integer ;
+    sysx:sourceText "testingOrg.accountExecutive.needIn" .
+
+expr:OGCAIE__OgCaieEvaluation__needToExecutiveSeam_pend1_pa0
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__needToExecutiveSeam_pend1_pa0_pa0 ;
+    sysml:targetFeature "accountExecutive" ;
+    sysx:sourceText "testingOrg.accountExecutive" .
+
+expr:OGCAIE__OgCaieEvaluation__needToExecutiveSeam_pend1_pa0_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
+    sysx:sourceText "testingOrg" .
+
 expr:OGCAIE__OgCaieEvaluation__operatorDeterminationSeam_pend0
     a sysml:FeatureChainExpression ;
     ogm:endPart elmt:OGCAIE__EvaluationTeam__operator ;
@@ -3968,6 +4684,80 @@ expr:OGCAIE__OgCaieEvaluation__probeRunSeam_pend1_pa0_pa0
     a sysml:FeatureReferenceExpression ;
     sysml:referent elmt:OGCAIE__OgCaieEvaluation__accountable ;
     sysx:sourceText "accountable" .
+
+expr:OGCAIE__OgCaieEvaluation__proposalSeam_pend0
+    a sysml:FeatureChainExpression ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__accountExecutive ;
+    ogm:resolvesTo elmt:OGCAIE__AccountExecutive__proposalOut ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__proposalSeam_pend0_pa0 ;
+    sysml:targetFeature "proposalOut" ;
+    sysx:endIndex "0"^^xsd:integer ;
+    sysx:sourceText "testingOrg.accountExecutive.proposalOut" .
+
+expr:OGCAIE__OgCaieEvaluation__proposalSeam_pend0_pa0
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__proposalSeam_pend0_pa0_pa0 ;
+    sysml:targetFeature "accountExecutive" ;
+    sysx:sourceText "testingOrg.accountExecutive" .
+
+expr:OGCAIE__OgCaieEvaluation__proposalSeam_pend0_pa0_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
+    sysx:sourceText "testingOrg" .
+
+expr:OGCAIE__OgCaieEvaluation__proposalSeam_pend1
+    a sysml:FeatureChainExpression ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__recorder ;
+    ogm:resolvesTo elmt:OGCAIE__Recorder__proposalIn ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__proposalSeam_pend1_pa0 ;
+    sysml:targetFeature "proposalIn" ;
+    sysx:endIndex "1"^^xsd:integer ;
+    sysx:sourceText "testingOrg.recorder.proposalIn" .
+
+expr:OGCAIE__OgCaieEvaluation__proposalSeam_pend1_pa0
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__proposalSeam_pend1_pa0_pa0 ;
+    sysml:targetFeature "recorder" ;
+    sysx:sourceText "testingOrg.recorder" .
+
+expr:OGCAIE__OgCaieEvaluation__proposalSeam_pend1_pa0_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
+    sysx:sourceText "testingOrg" .
+
+expr:OGCAIE__OgCaieEvaluation__proposalToSponsorSeam_pend0
+    a sysml:FeatureChainExpression ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__accountExecutive ;
+    ogm:resolvesTo elmt:OGCAIE__AccountExecutive__proposalOut ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__proposalToSponsorSeam_pend0_pa0 ;
+    sysml:targetFeature "proposalOut" ;
+    sysx:endIndex "0"^^xsd:integer ;
+    sysx:sourceText "testingOrg.accountExecutive.proposalOut" .
+
+expr:OGCAIE__OgCaieEvaluation__proposalToSponsorSeam_pend0_pa0
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__proposalToSponsorSeam_pend0_pa0_pa0 ;
+    sysml:targetFeature "accountExecutive" ;
+    sysx:sourceText "testingOrg.accountExecutive" .
+
+expr:OGCAIE__OgCaieEvaluation__proposalToSponsorSeam_pend0_pa0_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
+    sysx:sourceText "testingOrg" .
+
+expr:OGCAIE__OgCaieEvaluation__proposalToSponsorSeam_pend1
+    a sysml:FeatureChainExpression ;
+    ogm:endPart elmt:OGCAIE__OgCaieEvaluation__sponsor ;
+    ogm:resolvesTo elmt:OGCAIE__SponsorOrganization__proposalIn ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__proposalToSponsorSeam_pend1_pa0 ;
+    sysml:targetFeature "proposalIn" ;
+    sysx:endIndex "1"^^xsd:integer ;
+    sysx:sourceText "sponsor.proposalIn" .
+
+expr:OGCAIE__OgCaieEvaluation__proposalToSponsorSeam_pend1_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__OgCaieEvaluation__sponsor ;
+    sysx:sourceText "sponsor" .
 
 expr:OGCAIE__OgCaieEvaluation__recommendationSeam_pend0
     a sysml:FeatureChainExpression ;

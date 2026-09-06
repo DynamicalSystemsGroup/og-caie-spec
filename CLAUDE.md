@@ -15,7 +15,9 @@ sources and rulings borrowed from `mission-twin-glossary`.
   (DSO), Evaluation Process Ontology (EPO), Contextual AI Evaluation (CAIE),
   OG-CAIE (CAIE performed with the EPO and DSO method). A fifth needs a
   ruling first.
-- The seven EPO steps each cite the canon step they match (R-31:
+- Two cycles, twelve steps, each citing the canon step it matches (R-31,
+  R-32; the contracting lifecycle pins the first layer of assumptions, the
+  evaluation the second; ogc:pinnedAt on every item class):
   SEBoK/15288 processes, 29119-2 test processes via SEVOCAB, ISO/IEC
   17000 functions); a new step needs a matching citation, never a coinage.
 - Refined terms carry a typed anchor (`specializes` / `corresponds` /
@@ -109,7 +111,8 @@ sources and rulings borrowed from `mission-twin-glossary`.
 ## Model (R-22)
 
 - SysML is structure only: part defs, port defs, interface defs, the
-  seven-step action def, the assembly, and a run that binds names. No
+  two action defs (contracting lifecycle, evaluation), the assembly, and a
+  run that binds names. No
   requirement defs, no `-satisfy`, no value constraints (v0.4.3 cannot
   quantify over collections anyway).
 - The canonical structure is the pruned RDF rendering

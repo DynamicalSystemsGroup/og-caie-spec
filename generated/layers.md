@@ -2,13 +2,13 @@
 
 ```{mermaid}
 flowchart TB
-  subgraph PARTIES["Parties: AccountableOrganization, SponsorOrganization, TestingOrganization; affected populations"]
+  subgraph PARTIES["Contracting lifecycle: the parties (AccountableOrganization, SponsorOrganization, TestingOrganization; affected populations) pin the first layer of assumptions"]
     direction LR
-    agree[service agreement] --> reqs[requirement set]
+    c0[need] --> c1[propose] --> c2[agree] --> c3[access] --> c4[deliver] --> c5[acceptDelivery]
   end
   subgraph EPO["Evaluation Process Ontology: the standard operating procedure, fixed across domains"]
     direction LR
-    s0[agree] --> s1[scope] --> s2[declareRequirements] --> s3[plan] --> s4[execute] --> s5[determineAndAttest] --> s6[report]
+    s0[scope] --> s1[declareRequirements] --> s2[plan] --> s3[execute] --> s4[determineAndAttest] --> s5[report]
   end
   subgraph DSO["Domain-Specific Ontology: the expert-supplied parameter, one per domain"]
     direction LR

@@ -538,7 +538,7 @@ term:domain-specific-ontology a skos:Concept ; skos:inScheme ogc:Glossary ;
 term:evaluation-process-ontology a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "Evaluation Process Ontology"@en ;
     skos:altLabel "EPO"@en ;
-    skos:definition "The reusable, domain-independent description of how a rigorous evaluation is run: the standard operating procedure whose seven steps, when followed, make a coverage claim checkable. It assumes a Domain-Specific Ontology is in place and does not change across domains."@en ;
+    skos:definition "The reusable, domain-independent description of how a rigorous evaluation is run: the standard operating procedure whose six steps, performed inside the contracting lifecycle, make a coverage claim checkable when followed. It assumes a Domain-Specific Ontology is in place and does not change across domains."@en ;
     ogc:class "coined" ;
     ogc:canonical [ ogc:cites src:term-contract-v5 ; ogc:locator "Section 1C, EPO (Evaluation Process Ontology)" ] ;
     ogc:seeAlso [ ogc:cites src:caie-epo-prototype ; ogc:locator "ontology/epo-core.ttl" ] ;
@@ -548,7 +548,7 @@ term:evaluation-process-ontology a skos:Concept ; skos:inScheme ogc:Glossary ;
                   ogc:quote "Each of the four process groups (Agreement Processes, Organizational Project-Enabling Processes, Technical Management Processes, and Technical Processes) can be used to establish a common understanding in a project." ; ogc:quoteStatus "machine" ] ;
     ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "4.1 conformity assessment, Note 3" ;
                   ogc:quote "Conformity assessment is explained in Annex A as a series of functions. Activities contributing to any of these functions can be described as conformity assessment activities." ; ogc:quoteStatus "pending" ] ;
-    ogc:scopeNote "Ruling R-31: the seven steps are not invented. Each step in vocabulary/epo.ttl cites the process step it matches: agree, scope and declare requirements match the ISO/IEC/IEEE 15288 acquisition, stakeholder needs definition and system requirements definition processes as SEBoK describes them; plan, execute and report match the ISO/IEC/IEEE 29119-2 test strategy and planning, test execution and test completion processes as SEVOCAB defines them; determine and attest matches ISO/IEC 17000's review, decision and attestation. The EPO operationalizes those steps as executable checks." ;
+    ogc:scopeNote "Rulings R-31 and R-32: the steps are not invented. Each step in vocabulary/epo.ttl cites the process step it matches: the contracting lifecycle (need, propose, agree, access, deliver, accept) matches the ISO/IEC/IEEE 15288 agreement processes, ISO/IEC 17000 access, scheme and acceptance, ISO 9000 contract and the 29119-2 test environment and completion report; scope and declare requirements match the ISO/IEC/IEEE 15288 acquisition, stakeholder needs definition and system requirements definition processes as SEBoK describes them; plan, execute and report match the ISO/IEC/IEEE 29119-2 test strategy and planning, test execution and test completion processes as SEVOCAB defines them; determine and attest matches ISO/IEC 17000's review, decision and attestation. The EPO operationalizes those steps as executable checks." ;
     prov:wasDerivedFrom rul:R-09 ; prov:wasDerivedFrom rul:R-31 ;
     ogc:binding "vocabulary/epo.ttl; sysml action def EvaluationProcess" .
 
@@ -564,7 +564,7 @@ term:contextual-ai-evaluation a skos:Concept ; skos:inScheme ogc:Glossary ;
 term:og-caie a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "OG-CAIE"@en ;
     skos:altLabel "Ontology-Grounded Contextual AI Evaluation"@en ;
-    skos:definition "Contextual AI Evaluation performed with the method this specification sets out: the Evaluation Process Ontology, the same seven steps for every domain, applied with a Domain-Specific Ontology supplied or approved by the domain's experts, leaving a record anyone can check for conformance, traceability and coverage."@en ;
+    skos:definition "Contextual AI Evaluation performed with the method this specification sets out: the Evaluation Process Ontology, the same six steps for every domain inside a contracting lifecycle, applied with a Domain-Specific Ontology supplied or approved by the domain's experts, leaving a record anyone can check for conformance, traceability and coverage."@en ;
     ogc:class "coined" ;
     ogc:canonical [ ogc:cites src:paper-draft-2026-09 ; ogc:locator "Introduction and Background" ] ;
     prov:wasDerivedFrom rul:R-09 ; prov:wasDerivedFrom rul:R-29 ;

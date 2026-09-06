@@ -1,6 +1,6 @@
 ## The essentials
 
-12 requirements: 10 verified by machine alone; 2 checked by machine for form, with the judgment itself made by a named person. They live in `model/trace.ttl`; SysML holds structure only (ruling R-22).
+13 requirements: 11 verified by machine alone; 2 checked by machine for form, with the judgment itself made by a named person. They live in `model/trace.ttl`; SysML holds structure only (ruling R-22).
 
 | ID | Name | Checked by | Statement |
 |---|---|---|---|
@@ -16,3 +16,4 @@
 | SCI-10 | PartiesNamedAndAgreed | machine | The sponsor, the testing organization and the accountable organization are named; the agreement is signed by the sponsor and the account executive; every affected population is interviewed or represented by a named domain expert. |
 | SCI-11 | EndStateGuaranteed | machine | The wiring guarantees the end state, checked locally over kinds of parts and ports: every wire runs from an output port on a part to an input port on a part carrying one item kind; at every part every input is present once and every output goes somewhere; every item kind reaches the recorder; the seven steps form a process DAG that produces every item kind; a conformant record then yields traceability in both directions and coverage, and answers why. |
 | SCI-12 | RolesDistinct | machine | The domain expert who approves the DSO, assesses appropriateness and attests is not the evaluation operator who administers tests and collects evidence, and neither is the account executive who signs the agreement; one account executive, one or more of each expert. |
+| SCI-13 | TwoLayersOfAssumptions | machine | What the contract pins (the counterparties, the test item, the requirements' frame, the method) is recorded and closed before what the evaluation pins (the environment, the requirement set, the DSO release, the plan) is declared; the evaluation documents the first layer and cannot change it. |

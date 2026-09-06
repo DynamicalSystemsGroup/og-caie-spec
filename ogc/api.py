@@ -281,11 +281,12 @@ def sci_table(g: Graph, sid=None) -> list[dict]:
 def steps_table(g: Graph) -> list[dict]:
     """The seven EPO steps with the canon step each matches (R-31)."""
     rows = []
-    for st in g.subjects(RDF.type, EPO.EpoStep):
+    for st in list(g.subjects(RDF.type, EPO.ContractingStep)) + list(g.subjects(RDF.type, EPO.EpoStep)):
         label = one(g, st, RDFS.label)
         c = g.value(st, OGC.canonical)
         canon = citation_record(g, c) if c is not None else {}
-        rows.append(dict(order=int(label.split(" ", 1)[0]), step=local(st), label=label, source=canon.get("source", ""), locator=canon.get("locator", ""),
+        head = label.split(" ", 1)[0]
+        rows.append(dict(cycle="contracting" if head.startswith("C") else "evaluation", order=(0 if head.startswith("C") else 10) + int(head.lstrip("C")), step=local(st), label=label, source=canon.get("source", ""), locator=canon.get("locator", ""),
                          quote=canon.get("quote", ""), status=canon.get("status", ""),
                          also=[{k: v for k, v in citation_record(g, x).items() if k != "node"} for x in sorted(g.objects(st, OGC.seeAlso), key=lambda x: (str(g.value(x, OGC.cites)), str(g.value(x, OGC.locator))))]))
     return sorted(rows, key=lambda d: d["order"])
@@ -381,7 +382,7 @@ def verify_source(g: Graph, root: Path, slug: str) -> list[dict] | None:
 
 
 def verify_all(g: Graph, root: Path) -> list[dict]:
-    return verify_citations(g, root, concepts(g) + sorted(g.subjects(RDF.type, EPO.EpoStep), key=str))
+    return verify_citations(g, root, concepts(g) + sorted(set(g.subjects(RDF.type, EPO.EpoStep)) | set(g.subjects(RDF.type, EPO.ContractingStep)) | {EPO.ContractingStep}, key=str))
 
 
 def schema(g: Graph) -> dict:

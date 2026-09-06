@@ -49,8 +49,8 @@ def kind_of(g, d) -> str:
     return "party"
 
 
-def steps(g):
-    proc = definitions(g, SYS.ActionDefinition)["EvaluationProcess"]
+def steps(g, proc_name="EvaluationProcess"):
+    proc = definitions(g, SYS.ActionDefinition)[proc_name]
     succ = {name(g, g.value(s, OGM["first"])): name(g, g.value(s, OGM["then"]))
             for s in g.subjects(RDF.type, SYS.SuccessionAsUsage) if g.value(s, SYS.owner) == proc}
     first = (set(succ) - set(succ.values())).pop()
@@ -82,10 +82,11 @@ def render_layers() -> str:
     machines = sorted(n for n, d in defs.items() if kind_of(g, d) == "machine")
     orgs = sorted(n for n, d in defs.items() if kind_of(g, d) == "organization" and n != "Organization")
     chain = " --> ".join(f"s{i}[{s}]" for i, s in enumerate(steps(g)))
+    cchain = " --> ".join(f"c{i}[{s}]" for i, s in enumerate(steps(g, "ContractingProcess")))
     m = f"""flowchart TB
-  subgraph PARTIES["Parties: {', '.join(orgs)}; affected populations"]
+  subgraph PARTIES["Contracting lifecycle: the parties ({', '.join(orgs)}; affected populations) pin the first layer of assumptions"]
     direction LR
-    agree[service agreement] --> reqs[requirement set]
+    {cchain}
   end
   subgraph EPO["Evaluation Process Ontology: the standard operating procedure, fixed across domains"]
     direction LR

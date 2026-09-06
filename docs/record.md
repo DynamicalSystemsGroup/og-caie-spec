@@ -3,7 +3,7 @@
 One evaluation record, `track/measles-run.ttl`, in plain Turtle: PROV-O for
 who did what and when, EARL for assertions and their outcomes, and the
 Evaluation Process Ontology's handle classes (`vocabulary/epo.ttl`) for what
-the seven steps produce. It is a record in the ISO 9000:2026 sense, a
+the two cycles produce. It is a record in the ISO 9000:2026 sense, a
 document stating results achieved or providing evidence of activities
 performed, and the standard's own note on the term (3.8.12, Note 1) says what
 records are for: to formalize traceability and to provide evidence of

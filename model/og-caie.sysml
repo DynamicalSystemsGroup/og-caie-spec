@@ -6,7 +6,7 @@ package OGCAIE {
        logical or physical architecture is modeled (ruling R-07).
 
        This file holds structure only (ruling R-22): the parties, the
-       items that cross seams, the ports and interfaces, the seven-step
+       items that cross seams, the ports and interfaces, the six-step contracting lifecycle and the six-step
        Evaluation Process Ontology as an action def, and one assemblage
        that wires them. It is the authoring view. The canonical structure
        is its pruned RDF rendering, model/og-caie.model.ttl, produced by
@@ -58,11 +58,17 @@ package OGCAIE {
     }
 
     enum def EpoStep {
-        doc /* The seven steps of the Evaluation Process Ontology (ruling
-           R-21 splits the paper's five: scope into agree and scope, run
-           and attest into execute and determine-and-attest). Every
-           attestation and every recommendation names its step. */
-        agree; scope; declareRequirements; plan; execute; determineAndAttest; report;
+        doc /* The six steps of the Evaluation Process Ontology (ruling
+           R-21 split the paper's five; R-32 moved agree out to the
+           contracting lifecycle, ContractingStep). Every attestation and
+           every recommendation names its step. */
+        scope; declareRequirements; plan; execute; determineAndAttest; report;
+    }
+
+    enum def ContractingStep {
+        doc /* The six steps of the contracting lifecycle (ruling R-32):
+           contracting through delivery and acceptance. */
+        need; propose; agree; access; deliver; acceptDelivery;
     }
 
     // ------------------------------------------------------------
@@ -70,6 +76,25 @@ package OGCAIE {
     // values of a run live in the evaluation record (ruling R-22).
     // ------------------------------------------------------------
 
+    item def Need {
+        doc /* The sponsor's stated mission problem and measures of success
+           (ISO 9000:2026 requirement: need or expectation that is stated;
+           SEBoK business or mission analysis). Pinned at the contract
+           (ruling R-32). */
+        attribute id : ScalarValues::String;
+    }
+    item def Proposal {
+        doc /* The testing organization's response to the need, offering the
+           service (SEBoK: the supplier enters into an agreement with the
+           acquirer). Pinned at the contract. */
+        attribute id : ScalarValues::String;
+    }
+    item def Acceptance {
+        doc /* The sponsor's acceptance of the delivery as performance of the
+           agreement (ISO/IEC/IEEE 24748-5 acceptance; ISO/IEC 17000 9.6).
+           Pinned at the contract. */
+        attribute id : ScalarValues::String;
+    }
     item def ServiceAgreement {
         doc /* The contract (ISO 9000:2026 3.3.13) between the sponsor
            organization and the testing organization to perform OG-CAIE
@@ -183,6 +208,9 @@ package OGCAIE {
     // consumes what the plain port supplies.
     // ------------------------------------------------------------
 
+    port def NeedWrite { out item i : Need; }
+    port def ProposalWrite { out item i : Proposal; }
+    port def AcceptanceWrite { out item i : Acceptance; }
     port def AgreementWrite { out item i : ServiceAgreement; }
     port def AccessWrite { out item i : TestItemAccess; }
     port def StakeholderInputWrite { out item i : StakeholderInput; }
@@ -206,6 +234,9 @@ package OGCAIE {
     // Definition). Supplier end plain, consumer end conjugated.
     // ------------------------------------------------------------
 
+    interface def NeedSeam { end supplier : NeedWrite; end consumer : ~NeedWrite; }
+    interface def ProposalSeam { end supplier : ProposalWrite; end consumer : ~ProposalWrite; }
+    interface def AcceptanceSeam { end supplier : AcceptanceWrite; end consumer : ~AcceptanceWrite; }
     interface def AgreementSeam { end supplier : AgreementWrite; end consumer : ~AgreementWrite; }
     interface def AccessSeam { end supplier : AccessWrite; end consumer : ~AccessWrite; }
     interface def StakeholderInputSeam { end supplier : StakeholderInputWrite; end consumer : ~StakeholderInputWrite; }
@@ -225,19 +256,41 @@ package OGCAIE {
     interface def RecordSeam { end supplier : RecordWrite; end consumer : ~RecordWrite; }
 
     // ------------------------------------------------------------
-    // The EPO as a standard operating procedure: seven steps in fixed
-    // order, each an activity with precise typed inputs and outputs
-    // (rulings R-21, R-24). Actors perform activities; an activity's
-    // outputs are what its performer's ports carry. Every item kind is
-    // produced by some step or is the record itself (M4).
+    // Two cycles (rulings R-21, R-24, R-32). The contracting lifecycle
+    // is the outer cycle, contracting through delivery, whose actors are
+    // the parties; it pins the first layer of assumptions. The EPO is the
+    // inner cycle, performed between access and delivery; it pins the
+    // second. Each step is an activity with precise typed inputs and
+    // outputs; actors perform activities; an activity's outputs are what
+    // its performer's ports carry. Every item kind is produced by some
+    // step or is the record itself (M4).
     // ------------------------------------------------------------
 
+    action def ContractingProcess {
+        doc /* The contracting lifecycle: the ISO/IEC/IEEE 15288 agreement
+           processes as SEBoK describes them, ISO/IEC 17000's access,
+           scheme and acceptance, ISO 9000's contract (ruling R-32). */
+        action need { out need : Need; }
+        action propose { in need : Need; out proposal : Proposal; }
+        action agree { in proposal : Proposal; out agreement : ServiceAgreement; }
+        action access { in agreement : ServiceAgreement; out access : TestItemAccess; }
+        action deliver { in reportIn : Report; in recommendation : Recommendation; out delivery : Delivery; }
+        action acceptDelivery { in delivery : Delivery; out acceptance : Acceptance; }
+        succession first need then propose;
+        succession first propose then agree;
+        succession first agree then access;
+        succession first access then deliver;
+        succession first deliver then acceptDelivery;
+    }
+
     action def EvaluationProcess {
-        doc /* The Evaluation Process Ontology. Domain-independent; the DSO
-           enters as a parameter at the scope step; the record leaves as
-           the result. */
+        doc /* The Evaluation Process Ontology. Domain-independent; the
+           agreement and the access enter from the contracting lifecycle;
+           the DSO enters as a parameter at the scope step; the record
+           leaves as the result. */
+        in agreement : ServiceAgreement;
+        in access : TestItemAccess;
         out record : EvaluationRecord;
-        action agree { out agreement : ServiceAgreement; out access : TestItemAccess; }
         action scope { in agreement : ServiceAgreement; out input : StakeholderInput[0..*]; out dso : DsoRelease; }
         action declareRequirements { in agreement : ServiceAgreement; in dso : DsoRelease; in input : StakeholderInput[0..*];
             out requirements : RequirementSet; out criteria : AcceptanceCriterion[1..*]; out assessment : AppropriatenessAssessment; }
@@ -248,8 +301,7 @@ package OGCAIE {
         action determineAndAttest { in evidence : Evidence[1..*]; in criteria : AcceptanceCriterion[1..*];
             out determinations : Determination[1..*]; out attestations : Attestation[1..*]; }
         action report { in attestations : Attestation[1..*]; in determinations : Determination[1..*]; in criteria : AcceptanceCriterion[1..*];
-            out reportOut : Report; out recommendation : Recommendation; out delivery : Delivery; }
-        succession first agree then scope;
+            out reportOut : Report; out recommendation : Recommendation; }
         succession first scope then declareRequirements;
         succession first declareRequirements then plan;
         succession first plan then execute;
@@ -281,13 +333,17 @@ package OGCAIE {
     }
 
     part def SponsorOrganization :> Organization {
-        doc /* The customer (ISO 9000:2026 3.9.1): commissions the
-           evaluation under the service agreement and receives the report
-           and the recommendation through the account executive. May or
-           may not be the accountable organization; the record says. */
+        doc /* The customer (ISO 9000:2026 3.9.1): states the need,
+           receives the proposal, commissions the evaluation under the
+           service agreement, receives the delivery through the account
+           executive and accepts it (R-32). May or may not be the
+           accountable organization; the record says. */
         attribute isAccountable : ScalarValues::Boolean;
+        port needOut : NeedWrite;
+        port proposalIn : ~ProposalWrite;
         port agreementOut : AgreementWrite;
         port deliveryIn : ~DeliveryWrite;
+        port acceptanceOut : AcceptanceWrite;
     }
 
     part def AccountExecutive :> Person {
@@ -295,13 +351,17 @@ package OGCAIE {
            of the testing organization (ruling R-23). Countersigns the
            agreement into the record, reads the record, and delivers the
            report and the recommendation to the sponsor as one delivery
-           (an activity of its own, R-24). No evidence, determination or
+           (an activity of its own, R-24); answers the sponsor's need with
+           the proposal and receives the acceptance (R-32). No evidence, determination or
            attestation port: the account executive never judges the test
            item. The worked example's Mala. */
+        port needIn : ~NeedWrite;
+        port proposalOut : ProposalWrite;
         port agreementIn : ~AgreementWrite;
         port agreementOut : AgreementWrite;
         port recordIn : ~RecordWrite;
         port deliveryOut : DeliveryWrite;
+        port acceptanceIn : ~AcceptanceWrite;
     }
 
     part def DomainExpert :> Person {
@@ -399,8 +459,11 @@ package OGCAIE {
            per item kind in, each wired once (input wires are unique);
            one record port out, read by six (output wires are shared when
            what flows is information, R-25). */
+        port needIn : ~NeedWrite;
+        port proposalIn : ~ProposalWrite;
         port agreementIn : ~AgreementWrite;
         port accessIn : ~AccessWrite;
+        port acceptanceIn : ~AcceptanceWrite;
         port inputIn : ~StakeholderInputWrite;
         port dsoIn : ~DsoWrite;
         port requirementsIn : ~RequirementSetWrite;
@@ -446,6 +509,10 @@ package OGCAIE {
     part def OgCaieEvaluation {
         doc /* Four parties wired along typed seams, performing the EPO. */
 
+        interface needSeam : NeedSeam connect sponsor.needOut to testingOrg.recorder.needIn;
+        interface needToExecutiveSeam : NeedSeam connect sponsor.needOut to testingOrg.accountExecutive.needIn;
+        interface proposalSeam : ProposalSeam connect testingOrg.accountExecutive.proposalOut to testingOrg.recorder.proposalIn;
+        interface proposalToSponsorSeam : ProposalSeam connect testingOrg.accountExecutive.proposalOut to sponsor.proposalIn;
         interface agreementSeam : AgreementSeam connect sponsor.agreementOut to testingOrg.accountExecutive.agreementIn;
         interface countersignSeam : AgreementSeam connect testingOrg.accountExecutive.agreementOut to testingOrg.recorder.agreementIn;
         interface accessSeam : AccessSeam connect accountable.accessOut to testingOrg.recorder.accessIn;
@@ -473,12 +540,15 @@ package OGCAIE {
         interface recordToExecutiveSeam : RecordSeam connect testingOrg.recorder.recordOut to testingOrg.accountExecutive.recordIn;
         interface deliverySeam : DeliverySeam connect testingOrg.accountExecutive.deliveryOut to sponsor.deliveryIn;
         interface deliveryRecordSeam : DeliverySeam connect testingOrg.accountExecutive.deliveryOut to testingOrg.recorder.deliveryIn;
+        interface acceptanceSeam : AcceptanceSeam connect sponsor.acceptanceOut to testingOrg.recorder.acceptanceIn;
+        interface acceptanceToExecutiveSeam : AcceptanceSeam connect sponsor.acceptanceOut to testingOrg.accountExecutive.acceptanceIn;
 
         part sponsor : SponsorOrganization;
         part testingOrg : TestingOrganization;
         part accountable : AccountableOrganization;
         part affected : AffectedPopulation[0..*];
 
+        perform action contracting : ContractingProcess;
         perform action process : EvaluationProcess;
     }
 

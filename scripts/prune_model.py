@@ -47,7 +47,10 @@ PREFIXES = {"sysml": SYS, "sysx": SYSX, "ogm": OGM, "elmt": Namespace("urn:sysml
 #     (27 seams, 54 ports, 20 item kinds, 7 steps, one run binding names and
 #     two party facts) is 2,997 triples of the converter's 10,693; about
 #     500 headroom for further seams. Set from measurement, not a guess.
-TRIPLE_BUDGET = 3600
+#   2026-09-06 bumped to 4400 (R-32): the contracting lifecycle as a second
+#     action def, three item kinds, six seams and nine ports; measured
+#     after the build, with headroom for the chapters' additions.
+TRIPLE_BUDGET = 4400
 TRIPLE_BUDGET_RATIONALE = ("Parsimony gate on the canonical model graph: the structure-only model "
                            "plus resolved ends; bump with a rationale when a seam or a party is added.")
 

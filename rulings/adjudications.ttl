@@ -651,3 +651,22 @@ rul:R-31 a ogc:Ruling ;
     prov:wasAttributedTo rul:Z ;
     prov:generatedAtTime "2026-09-06"^^xsd:date .
 
+rul:C-35 a ogc:Concern ;
+    rdfs:label "the contracting lifecycle was absent from the model; the two layers of assumptions were not distinguished" ;
+    ogc:problem """Work on an evaluation is contracted before it is performed, and delivered and accepted after, but the model held only the evaluation, with the agreement as its first step. The contract pins the first layer of auxiliary assumptions (the counterparties, the object, the requirements' frame, the method); the evaluation pins the second. The record did not say which was which.""" ;
+    ogc:severity "H" ;
+    ogc:status "ruled" ;
+    ogc:surfacedOn "2026-09-06"^^xsd:date ;
+    ogc:surfacedHow "Z, after R-31" ;
+    ogc:concernsTerm term:contract ;
+    ogc:concernsTerm term:evaluation-process-ontology ;
+    prov:wasGeneratedBy rul:model-revision-planning-2026-09-06 .
+
+rul:R-32 a ogc:Ruling ;
+    ogc:order 32 ;
+    ogc:resolves rul:C-35 ;
+    ogc:rulingText """i am going to need you to do something similar for the contracting lifecycle model. these two cycle are both in our paper. the contracting one connects to the stakeholders, counterparties and in our work pins the first layer of auxilliary assumptions. there needs to be an explicit seperation from the layer of work pinned at the point of the contract from what is pinned and recorded within the scope of an evaluation being performed. although our evaluation is itself the main focus, we need to acknowledge that the contract provides us axiomatic boundary conditions which served to bound scope but also provide assumptions we must document in order for the evaluation to be scientific. / it has not been written we introduced stakeholder terms that are the actors within that life cycle which covers contracting through delivery on that contract but we do not want to invent this we want to use the relevant engineering standards / the contracting lifecycle exists because work has been performed but it was absent from our model. we're making it explicit because it has bearing on the auxillary assumptions, we need to distinguish in our record what was pinned by the contract from what was decided in the course of the contracts fulfillment""" ;
+    ogc:changeNote "Three messages joined with slashes. The contracting lifecycle is now explicit: six steps C1 need, C2 propose, C3 agree, C4 access, C5 deliver, C6 acceptDelivery (epo:ContractingStep; accept is a SysML keyword), each citing the canon step it matches: SEBoK's business or mission analysis (p. 543), supplier and acquisition process (pp. 352, 353); ISO/IEC 17000 access (4.10), scheme (4.9) and acceptance (9.6); ISO 9000:2026 contract (3.3.13) and requirement (3.5.1); SEVOCAB test environment (29119-2 3.34), test completion report (3.26) and acceptance (24748-5). The evaluation keeps six steps, scope to report; agree left it. New item kinds Need, Proposal, Acceptance. Every item class declares ogc:pinnedAt epo:contract or epo:evaluation; shape S0-Layers checks that the first layer is closed before the second opens; S0-Need, S0-Proposal and S9-Acceptance check the new items; the record's measles run carries a need, a proposal and an acceptance. The Popper crosswalk's auxiliary-assumption row splits into the two layers; SCI-13 states the separation. The model follows in the same slice: a ContractingProcess action def wrapping the EvaluationProcess." ;
+    prov:wasAttributedTo rul:Z ;
+    prov:generatedAtTime "2026-09-06"^^xsd:date .
+

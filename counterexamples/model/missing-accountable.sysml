@@ -13,9 +13,9 @@ package MissingAccountable {
     interface def RecordSeam { end supplier : RecordWrite; end consumer : ~RecordWrite; }
     action def EvaluationProcess {
         out record : Rec;
-        action agree; action scope { out dso : Dso; } action declareRequirements; action plan { out probes : Probe[1..*]; }
+        action scope { out dso : Dso; } action declareRequirements; action plan { out probes : Probe[1..*]; }
         action execute; action determineAndAttest; action report;
-        succession first agree then scope; succession first scope then declareRequirements;
+        succession first scope then declareRequirements;
         succession first declareRequirements then plan; succession first plan then execute;
         succession first execute then determineAndAttest; succession first determineAndAttest then report;
     }

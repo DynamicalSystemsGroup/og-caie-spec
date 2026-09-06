@@ -11,7 +11,7 @@ exhaustive. It lists exactly the terms this site uses. The full register of
 - **Glossary**, this chapter: the terms, their canonical definitions, and
   the sources they rest on.
 - **Assemblage**: the human and machine parts of an evaluation wired along
-  typed ports, the seven-step process, and the wiring rules. It is being
+  typed ports, the two cycles, and the wiring rules. It is being
   divided into two chapters, the contracting of an evaluation and the
   evaluation itself.
 - **Record**: the measles evaluation record, its conformance to the process
@@ -70,18 +70,31 @@ R-29).
 ```{include} ../generated/key-terms.md
 ```
 
-## The seven steps and the canon they match
+## Two cycles, and the canon they match
 
-The {term}`Evaluation Process Ontology` has seven steps. None is invented:
-each cites the process step it operationalizes (ruling R-31). The first
-three are the ISO/IEC/IEEE 15288 processes as the SEBoK describes them:
-agreeing the service, defining stakeholder needs, defining system
-requirements. The next three are the ISO/IEC/IEEE 29119-2 test processes as
-SEVOCAB defines them: test strategy and planning, test execution, test
-completion. Between execution and completion sits ISO/IEC 17000's own
-function, review, decision and attestation. What this specification adds is
-only the executable form: each step's inputs and outputs typed, each seam
-wired, each record checked.
+Work on an evaluation happens in two cycles, and neither is invented. The
+outer cycle is the contracting lifecycle, from the sponsor's need to its
+acceptance of the delivery: its actors are the parties named above, and its
+six steps are the ISO/IEC/IEEE 15288 agreement processes as the SEBoK
+describes them, ISO/IEC 17000's access, scheme and acceptance, ISO 9000's
+{term}`contract`, and the ISO/IEC/IEEE 29119-2 test environment and
+completion report. The inner cycle is the {term}`Evaluation Process
+Ontology <Evaluation Process Ontology>`, performed between access and
+delivery: its six steps are the 15288 stakeholder-needs and
+system-requirements processes, the 29119-2 test strategy and planning, test
+execution and test completion processes, and ISO/IEC 17000's own function,
+review, decision and attestation (ruling R-31).
+
+The distinction matters for what the record must say. What the contract pins
+is the first layer of assumptions: the counterparties, the test item, the
+frame of the requirements and the method. The evaluation takes those as
+given, documents them, and cannot change them. What the evaluation pins is
+the second layer: the operational environment, the requirement set, the DSO
+release, the plan. Every item kind in the record declares which layer fixes
+it, and a shape checks that the first layer is closed before the second
+opens (ruling R-32). What this specification adds to the standards is only
+the executable form: each step's inputs and outputs typed, each seam wired,
+each record checked.
 
 ```{include} ../generated/steps.md
 ```

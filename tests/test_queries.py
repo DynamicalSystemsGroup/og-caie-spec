@@ -38,4 +38,4 @@ def test_traceback_returns_the_five_facets():
     assert {str(r.assertor) for r in rows} == {"Annie (domain expert)"}
     assert {str(r.determiner) for r in rows} == {"Annie (domain expert)", "Theo (evaluation operator)"}
     assert {str(r.deliverer) for r in rows} == {"Mala (account executive)"}
-    assert str(rows[0].step).startswith("7 report")
+    assert str(rows[0].step).startswith("6 report")

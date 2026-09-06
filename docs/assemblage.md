@@ -63,7 +63,7 @@ the evaluation operator declares the requirements with the sponsor, writes the
 plan, administers the probes, collects the evidence, and drafts the report.
 The account executive does neither.
 
-The model wires the parties, the seven-step process and the three actor
+The model wires the parties, the two cycles and the three actor
 categories, and the record exercises it (rulings R-21 to R-27). It is a
 draft: the blocks and wires have not yet been validated one by one by the
 authors, and the computational demonstration that the process guarantees a
@@ -79,7 +79,7 @@ model graph and check structure, locally and over kinds (ruling R-26): at
 every part, every input port is present on exactly one wire and every output
 port goes somewhere; at every wire, it runs from an output port on a part to
 an input port on a part and carries one item kind; the parties are present;
-every item kind reaches the recorder; the seven steps form a process DAG that
+every item kind reaches the recorder; the two cycles form process DAGs that
 produces every item kind; and the three actor categories keep to their slots.
 Ports are how wires are addressed, so the diagram above is a typed block
 diagram with directionality and the cardinality rule: one wire per input,

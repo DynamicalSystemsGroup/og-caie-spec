@@ -128,24 +128,30 @@ ogc:M3-RecordHub a sh:NodeShape ;
 ogc:M4-Steps a sh:NodeShape ;
     sh:targetClass sysml:ActionDefinition ;
     sh:sparql [
-        sh:message "The process owns exactly seven steps (R-21)." ;
+        sh:message "The evaluation owns exactly six steps and the contracting lifecycle six (R-21, R-32)." ;
         sh:select """
             PREFIX sysml: <https://www.omg.org/spec/SysML#>
             SELECT $this (COUNT(?a) AS ?value) WHERE {
-                $this sysml:declaredName "EvaluationProcess" .
+                $this sysml:declaredName ?n . FILTER(?n IN ("EvaluationProcess", "ContractingProcess"))
                 ?a a sysml:ActionUsage ; sysml:owner $this .
-            } GROUP BY $this HAVING (COUNT(?a) != 7)
+            } GROUP BY $this HAVING (COUNT(?a) != 6)
         """ ] ;
     sh:sparql [
-        sh:message "The steps succeed one another in the fixed order agree, scope, declareRequirements, plan, execute, determineAndAttest, report." ;
+        sh:message "The steps succeed one another in the fixed order: scope, declareRequirements, plan, execute, determineAndAttest, report for the evaluation; need, propose, agree, access, deliver, acceptDelivery for the contracting lifecycle." ;
         sh:select """
             PREFIX sysml: <https://www.omg.org/spec/SysML#>
             PREFIX ogm: <https://w3id.org/og-caie/model#>
             SELECT $this ?value WHERE {
-                $this sysml:declaredName "EvaluationProcess" .
-                { BIND("agree" AS ?a) BIND("scope" AS ?b) } UNION { BIND("scope" AS ?a) BIND("declareRequirements" AS ?b) }
-                UNION { BIND("declareRequirements" AS ?a) BIND("plan" AS ?b) } UNION { BIND("plan" AS ?a) BIND("execute" AS ?b) }
-                UNION { BIND("execute" AS ?a) BIND("determineAndAttest" AS ?b) } UNION { BIND("determineAndAttest" AS ?a) BIND("report" AS ?b) }
+                $this sysml:declaredName ?n .
+                { FILTER(?n = "EvaluationProcess")
+                  { { BIND("scope" AS ?a) BIND("declareRequirements" AS ?b) } UNION { BIND("declareRequirements" AS ?a) BIND("plan" AS ?b) }
+                    UNION { BIND("plan" AS ?a) BIND("execute" AS ?b) } UNION { BIND("execute" AS ?a) BIND("determineAndAttest" AS ?b) }
+                    UNION { BIND("determineAndAttest" AS ?a) BIND("report" AS ?b) } } }
+                UNION
+                { FILTER(?n = "ContractingProcess")
+                  { { BIND("need" AS ?a) BIND("propose" AS ?b) } UNION { BIND("propose" AS ?a) BIND("agree" AS ?b) }
+                    UNION { BIND("agree" AS ?a) BIND("access" AS ?b) } UNION { BIND("access" AS ?a) BIND("deliver" AS ?b) }
+                    UNION { BIND("deliver" AS ?a) BIND("acceptDelivery" AS ?b) } } }
                 BIND(CONCAT(?a, " then ", ?b) AS ?value)
                 FILTER NOT EXISTS {
                     ?s a sysml:SuccessionAsUsage ; sysml:owner $this ; ogm:first ?fa ; ogm:then ?tb .
@@ -261,7 +267,7 @@ ogc:M5-PortsBelongToRoles a sh:NodeShape ;
             }
         """ ] ;
     sh:sparql [
-        sh:message "The service agreement is supplied only by the sponsor and the account executive; the account executive supplies nothing but the countersigned agreement and the delivery, and never judges (R-23, R-24)." ;
+        sh:message "The service agreement is supplied only by the sponsor and the account executive; the account executive supplies nothing but the proposal, the countersigned agreement and the delivery, and never judges (R-23, R-24, R-32)." ;
         sh:select """
             PREFIX sysml: <https://www.omg.org/spec/SysML#>
             SELECT $this ?value WHERE {
@@ -269,7 +275,7 @@ ogc:M5-PortsBelongToRoles a sh:NodeShape ;
                 $this sysml:type ?t ; sysml:owner ?o . ?t sysml:declaredName ?tn . ?o sysml:declaredName ?value .
                 OPTIONAL { $this sysml:isConjugated ?c }
                 FILTER( (?tn = "AgreementWrite" && !BOUND(?c) && ?value NOT IN ("SponsorOrganization", "AccountExecutive"))
-                     || (?value = "AccountExecutive" && !BOUND(?c) && ?tn NOT IN ("AgreementWrite", "DeliveryWrite"))
+                     || (?value = "AccountExecutive" && !BOUND(?c) && ?tn NOT IN ("AgreementWrite", "DeliveryWrite", "ProposalWrite"))
                      || (?value = "AccountExecutive" && ?tn IN ("EvidenceWrite", "DeterminationWrite", "AttestationWrite")) )
             }
         """ ] .

@@ -7,9 +7,9 @@
 @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
 
 # The evaluation record of the paper's measles chatbot example (hypothetical,
-# after the 2019 Clark County outbreak). Four parties, one service agreement,
+# after the 2019 Clark County outbreak). Four parties, a need, a proposal, one service agreement,
 # one requirement, three acceptance criteria, one probe, one response, two
-# attestations, one report, one recommendation, one delivery. a3 is untested:
+# attestations, one report, one recommendation, one delivery and its acceptance. a3 is untested:
 # coverage is 3/4 by weight, not 1. Timestamps are illustrative; only their
 # order is asserted by the shapes.
 
@@ -42,7 +42,20 @@ run:probe-deriver a prov:Agent, prov:SoftwareAgent ; rdfs:label "probe deriver" 
 run:pyshacl a prov:Agent, prov:SoftwareAgent ; rdfs:label "pySHACL (conformance checker)" ; epo:version "0.27" ; prov:actedOnBehalfOf run:humane-intelligence .
 run:coverage-calculator a prov:Agent, prov:SoftwareAgent ; rdfs:label "coverage calculator (queries/coverage.rq)" ; epo:version "0.1" ; prov:actedOnBehalfOf run:humane-intelligence .
 
-# ---- step 1: agree
+# ---- the contracting lifecycle (R-32): C1 need, C2 propose, C3 agree, C4 access; C5 deliver and C6 accept after the evaluation
+run:need-1 a epo:Need ;
+    rdfs:label "the county public-health office needs to know whether its chatbot may give measles advice to the public during the outbreak" ;
+    prov:wasAttributedTo run:county-public-health-office ;
+    prov:generatedAtTime "2026-07-28T10:00:00Z"^^xsd:dateTime ;
+    epo:step epo:need .
+
+run:proposal-1 a epo:Proposal ;
+    rdfs:label "Humane Intelligence proposes an OG-CAIE evaluation of the chatbot under the Apollo-SV DSO" ;
+    epo:respondsTo run:need-1 ;
+    prov:wasAttributedTo run:mala ;
+    prov:generatedAtTime "2026-07-30T10:00:00Z"^^xsd:dateTime ;
+    epo:step epo:propose .
+
 run:service-agreement a epo:ServiceAgreement ;
     rdfs:label "agreement to evaluate the public-health chatbot during the measles outbreak, as a service" ;
     epo:signedBy run:county-public-health-office ; epo:signedBy run:mala ;
@@ -54,9 +67,9 @@ run:test-item-access a epo:TestItemAccess ;
     epo:grantsAccessTo run:chatbot-v1 ;
     prov:wasAttributedTo run:chatbot-vendor ;
     prov:generatedAtTime "2026-07-31T15:00:00Z"^^xsd:dateTime ;
-    epo:step epo:agree .
+    epo:step epo:access .
 
-# ---- step 2: scope
+# ---- evaluation step 1: scope
 run:stakeholder-input-1 a epo:StakeholderInput ;
     rdfs:label "interview notes: commuters who cannot work from home ask whether transit is safe and what to do" ;
     prov:wasAttributedTo run:commuters ;
@@ -71,7 +84,7 @@ run:dso-apollo-sv-r1 a epo:DsoRelease ;
     prov:generatedAtTime "2026-08-01T09:00:00Z"^^xsd:dateTime ;
     epo:step epo:scope .
 
-# ---- step 3: declare the requirement set (operational envelope)
+# ---- evaluation step 2: declare the requirement set (operational envelope)
 run:requirement-set a epo:RequirementSet ;
     rdfs:label "requirement set for a public information chatbot during an active measles outbreak" ;
     epo:environment "A public information service during an active measles outbreak. Users are the general public, not clinicians. It is not known whether users follow the advice. Out of scope: clinical diagnosis, advice to clinicians, diseases other than measles." ;
@@ -112,7 +125,7 @@ run:appropriateness-assessment-1 a epo:AppropriatenessAssessment ;
     prov:endedAtTime "2026-08-02T10:00:00Z"^^xsd:dateTime ;
     epo:step epo:declareRequirements .
 
-# ---- step 4: plan (probe derivation, the automatic consistency check, approval)
+# ---- evaluation step 3: plan (probe derivation, the automatic consistency check, approval)
 run:derivation-1 a epo:ProbeDerivation ;
     prov:used run:dso-apollo-sv-r1 ; prov:used run:requirement-set ;
     prov:wasAssociatedWith run:probe-deriver ;
@@ -153,7 +166,7 @@ run:plan-approval-1 a epo:PlanApproval ;
     prov:endedAtTime "2026-08-03T11:00:00Z"^^xsd:dateTime ;
     epo:step epo:plan .
 
-# ---- step 5: execute (the session, its turn, the response, the evidence)
+# ---- evaluation step 4: execute (the session, its turn, the response, the evidence)
 run:session-1 a epo:Session ;
     rdfs:label "session 1: Theo with chatbot v1, one turn" ;
     prov:wasAssociatedWith run:chatbot-v1 ;
@@ -195,7 +208,7 @@ run:evidence-1b a epo:Evidence ;
     prov:wasAttributedTo run:theo ;
     prov:generatedAtTime "2026-08-10T14:05:00Z"^^xsd:dateTime .
 
-# ---- step 6: determine and attest (R-20: evidence the domain, determination the codomain)
+# ---- evaluation step 5: determine and attest (R-20: evidence the domain, determination the codomain)
 run:determination-1a a epo:Determination ;
     earl:test run:a1 ; earl:subject run:chatbot-v1 ;
     earl:mode earl:manual ; earl:assertedBy run:annie ;
@@ -242,7 +255,7 @@ run:attestation-2 a epo:Attestation ;
     epo:step epo:determineAndAttest ;
     prov:endedAtTime "2026-08-11T09:30:00Z"^^xsd:dateTime .
 
-# ---- step 7: report, recommend, deliver
+# ---- evaluation step 6: report and recommend; then the contracting lifecycle resumes: C5 deliver, C6 accept
 run:coverage-computation a epo:CoverageComputation ;
     prov:used run:requirement-set ; prov:used run:attestation-1 ; prov:used run:attestation-2 ;
     prov:wasAssociatedWith run:coverage-calculator ;
@@ -273,4 +286,11 @@ run:delivery-1 a epo:Delivery ;
     prov:wasAttributedTo run:mala ;
     epo:deliveredTo run:county-public-health-office ;
     prov:generatedAtTime "2026-08-12T11:00:00Z"^^xsd:dateTime ;
-    epo:step epo:report .
+    epo:step epo:deliver .
+
+run:acceptance-1 a epo:Acceptance ;
+    rdfs:label "the county public-health office accepts the delivery" ;
+    epo:accepts run:delivery-1 ;
+    prov:wasAttributedTo run:county-public-health-office ;
+    prov:generatedAtTime "2026-08-14T09:00:00Z"^^xsd:dateTime ;
+    epo:step epo:acceptDelivery .

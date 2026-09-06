@@ -8,7 +8,7 @@ from conftest import OGC, load
 
 SH = Namespace("http://www.w3.org/ns/shacl#")
 SKOS = Namespace("http://www.w3.org/2004/02/skos/core#")
-N = 12
+N = 13
 
 
 def union():

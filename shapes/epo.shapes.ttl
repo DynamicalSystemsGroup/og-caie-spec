@@ -501,7 +501,7 @@ ogc:S8-Recommendation a sh:NodeShape ;
 ogc:S8-Delivery a sh:NodeShape ;
     sh:targetClass epo:Delivery ;
     sh:property [ sh:path epo:deliveredTo ; sh:minCount 1 ; sh:maxCount 1 ; sh:class prov:Organization ] ;
-    sh:property [ sh:path epo:step ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue epo:report ] ;
+    sh:property [ sh:path epo:step ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue epo:deliver ] ;
     sh:property [ sh:path prov:generatedAtTime ; sh:minCount 1 ; sh:datatype xsd:dateTime ] ;
     sh:sparql [
         sh:message "S8: a delivery is made by the account executive to the sponsor and carries the report and the recommendation." ;
@@ -513,5 +513,66 @@ ogc:S8-Delivery a sh:NodeShape ;
                 UNION { FILTER NOT EXISTS { $this epo:deliveredTo ?o . ?o epo:role epo:sponsorRole } }
                 UNION { FILTER NOT EXISTS { $this prov:wasDerivedFrom ?r . ?r a epo:Report } }
                 UNION { FILTER NOT EXISTS { $this prov:wasDerivedFrom ?c . ?c a epo:Recommendation } }
+            }
+        """ ] .
+
+# S0 <-> SCI-13: the contracting lifecycle's other items (rulings R-32). The
+# need is the sponsor's, the proposal answers it and is the account
+# executive's, and the acceptance is the sponsor's, after the delivery.
+ogc:S0-Need a sh:NodeShape ;
+    sh:targetClass epo:Need ;
+    sh:property [ sh:path prov:generatedAtTime ; sh:minCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path epo:step ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue epo:need ] ;
+    sh:sparql [
+        sh:message "S0: the need is stated by the sponsor organization." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            SELECT $this WHERE { FILTER NOT EXISTS { $this prov:wasAttributedTo ?o . ?o epo:role epo:sponsorRole } }
+        """ ] .
+
+ogc:S0-Proposal a sh:NodeShape ;
+    sh:targetClass epo:Proposal ;
+    sh:property [ sh:path epo:respondsTo ; sh:minCount 1 ; sh:maxCount 1 ; sh:class epo:Need ] ;
+    sh:property [ sh:path epo:step ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue epo:propose ] ;
+    sh:sparql [
+        sh:message "S0: the proposal is the account executive's answer to the need, and follows it." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            SELECT $this WHERE {
+                { FILTER NOT EXISTS { $this prov:wasAttributedTo ?p . ?p epo:role epo:accountExecutiveRole } }
+                UNION { $this epo:respondsTo ?n ; prov:generatedAtTime ?t1 . ?n prov:generatedAtTime ?t0 . FILTER(?t1 <= ?t0) }
+            }
+        """ ] .
+
+ogc:S9-Acceptance a sh:NodeShape ;
+    sh:targetClass epo:Acceptance ;
+    sh:property [ sh:path epo:accepts ; sh:minCount 1 ; sh:maxCount 1 ; sh:class epo:Delivery ] ;
+    sh:property [ sh:path epo:step ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue epo:acceptDelivery ] ;
+    sh:sparql [
+        sh:message "S9: the acceptance is the sponsor's and follows the delivery it accepts." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            SELECT $this WHERE {
+                { FILTER NOT EXISTS { $this prov:wasAttributedTo ?o . ?o epo:role epo:sponsorRole } }
+                UNION { $this epo:accepts ?d ; prov:generatedAtTime ?t1 . ?d prov:generatedAtTime ?t0 . FILTER(?t1 <= ?t0) }
+            }
+        """ ] .
+
+ogc:S0-Layers a sh:NodeShape ;
+    sh:targetClass epo:ServiceAgreement ;
+    sh:sparql [
+        sh:message "S0 two layers (R-32): every item pinned at the contract is generated no later than the requirement set, and every item pinned within the evaluation no earlier than the agreement." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX ogc: <https://w3id.org/og-caie/>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            SELECT $this ?value WHERE {
+                $this prov:generatedAtTime ?ta . ?rs a epo:RequirementSet ; prov:generatedAtTime ?tr .
+                ?value a ?cls ; prov:generatedAtTime ?t . ?cls ogc:pinnedAt ?layer .
+                FILTER( (?layer = epo:contract && ?t > ?tr && NOT EXISTS { ?value a epo:Delivery } && NOT EXISTS { ?value a epo:Acceptance })
+                     || (?layer = epo:evaluation && ?t < ?ta) )
             }
         """ ] .
