@@ -84,5 +84,5 @@ The same script gives the verdict at three points; none can be skipped by editin
 | Where | What runs | Read from |
 |---|---|---|
 | Before every push, in the author's checkout | `bash checks/gate-head.sh` (installed with `git config core.hooksPath checks/hooks`) | `checks/hooks/pre-push` |
-| On the committed HEAD, in a detached worktree at `.cache/gate-head`, never on the working tree | `bash checks/run-checks.sh` | `checks/gate-head.sh` |
+| On the committed HEAD, in a detached worktree at `.cache/gate-head.XXXXXX`, never on the working tree | `bash checks/run-checks.sh` | `checks/gate-head.sh` |
 | In CI, on a fresh runner, before any deploy | `bash checks/run-checks.sh`; `deploy` needs `checks` | `.github/workflows/deploy.yml` |

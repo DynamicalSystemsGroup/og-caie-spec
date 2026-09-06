@@ -166,7 +166,8 @@ def render_enforcement() -> str:
     hook_cmd = re.search(r"^bash \S+$", hook, re.M).group(0)
     install = re.search(r"#\s+(git config core\.hooksPath \S+)", hook).group(1)
     gh = GATE_HEAD.read_text()
-    wt = re.search(r"^WT=(\S+)", gh, re.M).group(1)
+    m = re.search(r"^WT=\$\(mktemp -d (\S+)\)", gh, re.M) or re.search(r"^WT=(\S+)", gh, re.M)
+    wt = m.group(1)  # one worktree per run: the mktemp template names the place
     gh_cmd = re.search(r"cd \"\$WT\" && (bash \S+)", gh).group(1)
     wf = yaml.safe_load(WORKFLOW.read_text())
     ci_cmd = next(s["run"] for s in wf["jobs"]["checks"]["steps"] if s.get("run", "").startswith("bash checks/"))

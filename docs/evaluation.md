@@ -39,7 +39,7 @@ audit of the evaluation by a body with no user interest would be the
 :class: specification
 
 The evaluation slice of the wiring. Two actor categories do the work: the
-{term}`domain expert` engages the affected populations as the statement of
+{term}`domain expert <technical expert>` engages the affected populations as the statement of
 work decided, interviewing or representing each, supplies or approves the DSO release, assesses the
 appropriateness of the requirement set, approves the plan, and attests; the
 {term}`evaluation operator` declares the requirements, writes the plan,
@@ -63,7 +63,7 @@ unmet; its acceptance criteria, each stating the expected result a test
 could observe; the test plan, whose objectives are those criteria and whose
 means are probes or a {term}`test strategy`; the turn of a session
 at which a probe is applied to the test item, producing the response; the
-{term}`evidence` collected from it, bearing on that expected result under
+{term}`evidence <objective evidence>` collected from it, bearing on that expected result under
 that plan; the determination that rules on the evidence with an EARL
 outcome, never a Boolean; and the attestation, a named person's judgment
 aggregating the determinations for the criterion. Evidence is the domain and

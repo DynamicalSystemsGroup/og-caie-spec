@@ -10,7 +10,7 @@ from rdflib import Namespace
 
 SKOS = Namespace("http://www.w3.org/2004/02/skos/core#")
 PROSE = [ROOT / "index.md", *sorted((ROOT / "docs").glob("*.md")), ROOT / "README.md"]
-WORD_BUDGET = 6100  # 2026-09-06 raised from 5500 for Appendix D (toolchain and reproducibility), measured after the page was written
+WORD_BUDGET = 5500  # the main path only; the appendices are backup and are not counted
 RETIRED = {"adequacy", "adequate", "inadequate"}
 
 

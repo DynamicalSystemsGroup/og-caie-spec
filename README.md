@@ -36,7 +36,7 @@ deployed AI system against the needs of a specific domain, written down as:
   sponsor's mission and obligations towards the affected populations open
   the record (R-37, R-38).
 - **Site: a presentation layer over the model (R-34), seven pages and
-  three appendices.** The
+  four appendices.** The
   front page runs from why this counts as science to the bridge into the
   engineering standards; the vocabulary page shows exactly the terms the
   site uses, with hover definitions; four chapters (Stakeholders and
@@ -50,7 +50,9 @@ deployed AI system against the needs of a specific domain, written down as:
   (`explorer/`, R-39), rendered from the RDF with the `ogc` command on
   every node and an in-browser SPARQL box; Appendix B's notebooks run the
   checks each chapter claims (`notebooks/`); Appendix C is the rulings, the
-  judgments the model is grounded in (R-41).
+  judgments the model is grounded in (R-41); Appendix D reviews the
+  toolchain, rendered from the lock file, the pinned digests, the gate and
+  the workflow, with the reviewer recipe (R-43).
 - **Model: revised (R-21 to R-38), draft.** SysML holds structure only; the
   pruned RDF rendering `model/og-caie.model.ttl` is the canonical structure
   (R-22), checked by wiring shapes M1 to M5 over kinds of parts and ports:
