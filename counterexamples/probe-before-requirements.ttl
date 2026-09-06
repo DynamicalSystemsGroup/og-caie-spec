@@ -15,7 +15,7 @@ cx:dso a epo:DsoRelease ; epo:version "r1" ; epo:approvedBy cx:person ; prov:gen
 cx:R a epo:Requirement ; epo:partOf cx:reqs ; epo:text "r" .
 cx:a a epo:AcceptanceCriterion ; prov:wasDerivedFrom cx:R ; epo:text "criterion" ; epo:expectedResult "shown" ; epo:weight 1 ; epo:minPassRate 0.9 .
 
-cx:reqs a epo:RequirementSet ; epo:environment "stated" ; prov:wasAttributedTo cx:person ;
+cx:reqs a epo:RequirementSet ; epo:environment "stated" ; epo:systemUnderTest cx:sut ; prov:wasAttributedTo cx:person ;
     prov:generatedAtTime "2026-08-20T00:00:00Z"^^xsd:dateTime .
 
 cx:plan a epo:TestPlan ; epo:objective cx:a ; epo:means cx:probe ; prov:wasDerivedFrom cx:reqs ; prov:wasDerivedFrom cx:dso ;

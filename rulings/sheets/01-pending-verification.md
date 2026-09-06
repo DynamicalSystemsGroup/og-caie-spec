@@ -12,7 +12,7 @@ When ticked, the citation's `ogc:quoteStatus` becomes `human` with `ogc:verified
 | 5 | appropriateness | iso-9000-2026 | 3.11.2 review | iso-9000-2026-obp-30.png | determination of the suitability, adequacy or effectiveness of an object to achieve established objectives | [x] 2026-09-06 |
 | 6 | technical expert | iso-9000-2026 | 3.12.9 | iso-9000-2026-obp-34.png | person who provides specific knowledge or expertise to the audit team | [x] 2026-09-06 |
 | 7 | requirement | iso-9000-2026 | 3.5.1 | iso-9000-2026-obp-11.png | need or expectation that is stated, generally implied or obligatory | [x] 2026-09-06 |
-| 8 | operational envelope | iso-9000-2026 | 3.5.1 requirement | iso-9000-2026-obp-11.png | need or expectation that is stated, generally implied or obligatory | [ ] |
+| 8 | operational envelope | iso-9000-2026 | 3.5.1 requirement | iso-9000-2026-obp-11.png | need or expectation that is stated, generally implied or obligatory | [x] 2026-09-06 |
 | 9 | requirements traceability | iso-9000-2026 | 3.5.11 traceability | iso-9000-2026-obp-13.png | ability to trace the history, application or location of an object | [ ] |
 | 10 | conformity | iso-9000-2026 | 3.5.9 | iso-9000-2026-obp-13.png | fulfilment of a requirement | [ ] |
 | 11 | performance | iso-9000-2026 | 3.7.3 | iso-9000-2026-obp-17.png | measurable result | [ ] |

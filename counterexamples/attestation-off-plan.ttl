@@ -15,7 +15,7 @@ cx:expert a prov:Agent, prov:Person .
 cx:sut a prov:Agent, prov:SoftwareAgent, earl:TestSubject ; epo:version "v1" .
 cx:checker a prov:Agent, prov:SoftwareAgent ; epo:version "0.27" .
 cx:dso a epo:DsoRelease ; epo:version "r1" ; epo:approvedBy cx:expert ; prov:generatedAtTime "2026-08-01T00:00:00Z"^^xsd:dateTime .
-cx:reqs a epo:RequirementSet ; epo:environment "stated" ; prov:wasAttributedTo cx:person ; prov:generatedAtTime "2026-08-02T00:00:00Z"^^xsd:dateTime .
+cx:reqs a epo:RequirementSet ; epo:environment "stated" ; epo:systemUnderTest cx:sut ; prov:wasAttributedTo cx:person ; prov:generatedAtTime "2026-08-02T00:00:00Z"^^xsd:dateTime .
 cx:R a epo:Requirement ; epo:partOf cx:reqs ; epo:text "r" .
 cx:a a epo:AcceptanceCriterion ; prov:wasDerivedFrom cx:R ; epo:text "criterion a" ; epo:expectedResult "a shown" ; epo:weight 1 ; epo:minPassRate 0.9 .
 cx:b a epo:AcceptanceCriterion ; prov:wasDerivedFrom cx:R ; epo:text "criterion b" ; epo:expectedResult "b shown" ; epo:weight 1 ; epo:minPassRate 0.9 .

@@ -38,6 +38,8 @@ ogc:S2-RequirementSet a sh:NodeShape ;
     sh:targetClass epo:RequirementSet ;
     sh:property [ sh:path epo:environment ; sh:minCount 1 ; sh:datatype xsd:string ;
                   sh:message "The operational environment is stated." ] ;
+    sh:property [ sh:path epo:systemUnderTest ; sh:minCount 1 ; sh:maxCount 1 ; sh:class earl:TestSubject ;
+                  sh:message "The envelope names the one system under test it binds (R-14): this system, in this environment, must meet these requirements." ] ;
     sh:property [ sh:path prov:wasAttributedTo ; sh:minCount 1 ; sh:class prov:Person ] ;
     sh:property [ sh:path prov:generatedAtTime ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
     sh:sparql [

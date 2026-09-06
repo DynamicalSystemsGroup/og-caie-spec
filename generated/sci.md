@@ -5,7 +5,7 @@
 | ID | Name | Checked by | Statement |
 |---|---|---|---|
 | SCI-01 | DsoApprovedBeforeProbes | machine (shape S1) | The DSO release is versioned and approved by a named domain expert before any probe is derived. |
-| SCI-02 | RequirementsDeclaredBeforeRuns | machine (shape S2) | Operational environment, requirement set, criteria and weights are declared before any probe run. |
+| SCI-02 | RequirementsDeclaredBeforeRuns | machine (shape S2) | Operational environment, the system under test, requirement set, criteria and weights are declared before any probe run (R-14). |
 | SCI-03 | CriteriaWellFormed | machine (shape S2) | Every acceptance criterion derives from a requirement, is verifiable (INCOSE GtWR v4 C7), states its expected result (R-12), and carries a weight greater than zero. |
 | SCI-04 | ProbesDerivedAndChecked | machine (shape S3) | A test plan states its objectives and means and precedes every run (R-12); every probe belongs to it, names the criteria it exercises, derives from the DSO release, and passed an automatic consistency check before any expert saw it. |
 | SCI-05 | EvidenceFromNamedRuns | machine (shapes S4, S5) | Every evidence item was generated at a numbered turn of a session against a named SUT version by a named operator, and the session precedes nothing it depends on (R-13). |

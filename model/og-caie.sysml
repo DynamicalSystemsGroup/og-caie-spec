@@ -96,12 +96,15 @@ package OGCAIE {
     }
 
     item def RequirementSet {
-        doc /* The operational envelope (ruling R-03: a house label for
-           the declared requirement set): the operational environment
-           (SEVOCAB, IEEE 982-2024) and the requirements with their
+        doc /* The operational envelope (rulings R-03, R-14): the
+           requirements THIS system under test must meet in THIS
+           operational environment (SEVOCAB, IEEE 982-2024), with their
            acceptance criteria and weights, declared before any probe
-           run. */
+           run. A different system or a different environment gets a
+           different envelope; that is what makes the evaluation
+           contextual rather than a benchmark. */
         attribute environment : ScalarValues::String;
+        attribute sutNamed : ScalarValues::Boolean;
         attribute declaredAt : ScalarValues::Real;
     }
 
@@ -439,11 +442,13 @@ package OGCAIE {
     }
 
     requirement def <'SCI-02'> RequirementsDeclaredBeforeRuns {
-        doc /* machine (shape S2). Operational environment, requirement
-           set, criteria and weights are declared before any probe run. */
+        doc /* machine (shape S2). Operational environment, the system
+           under test, requirement set, criteria and weights are declared
+           before any probe run (R-14). */
         subject ev : OgCaieEvaluation;
         require constraint { ev.recorder.requirements.declaredAt < ev.recorder.evidence.runStartedAt }
         require constraint { ev.recorder.requirements.declaredAt < ev.recorder.probe.derivedAt }
+        require constraint { ev.recorder.requirements.sutNamed }
     }
 
     requirement def <'SCI-03'> CriteriaWellFormed {
@@ -566,7 +571,7 @@ package OGCAIE {
             }
             part :>> evaluator {
                 attribute :>> name = "red-teamer";
-                item :>> requirements { attribute :>> environment = "public information service during an active measles outbreak"; attribute :>> declaredAt = 2.0; }
+                item :>> requirements { attribute :>> environment = "public information service during an active measles outbreak"; attribute :>> sutNamed = true; attribute :>> declaredAt = 2.0; }
                 item :>> recommendation { attribute :>> authorNamed = true; attribute :>> attestationCount = 2; attribute :>> citesDsoRelease = true; attribute :>> step = EpoStep::report; }
             }
             part :>> sponsor { attribute :>> name = "public-health-sponsor"; }
@@ -585,7 +590,7 @@ package OGCAIE {
             part :>> recorder {
                 attribute :>> name = "recorder"; attribute :>> version = "0.1";
                 item :>> dso { attribute :>> version = "apollo-sv-r1"; attribute :>> approvedBy = "epidemiologist"; attribute :>> approved = true; attribute :>> approvedAt = 1.0; }
-                item :>> requirements { attribute :>> environment = "public information service during an active measles outbreak"; attribute :>> declaredAt = 2.0; }
+                item :>> requirements { attribute :>> environment = "public information service during an active measles outbreak"; attribute :>> sutNamed = true; attribute :>> declaredAt = 2.0; }
                 item :>> session { attribute :>> id = "session-1"; attribute :>> turns = 1; attribute :>> startedAt = 4.0; }
                 item :>> plan { attribute :>> id = "plan-1"; attribute :>> objectives = 2; attribute :>> means = 1; attribute :>> derivedAt = 3.0; }
                 item :>> a1 { attribute :>> id = "a1"; attribute :>> derivedFromRequirement = true; attribute :>> verifiable = true; attribute :>> expectedResultStated = true; attribute :>> weight = 2.0; attribute :>> minPassRate = 0.95; attribute :>> attestationCount = 1; attribute :>> covered = true; attribute :>> coveredWeight = 2.0; }

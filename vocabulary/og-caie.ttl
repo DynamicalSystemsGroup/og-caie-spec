@@ -452,14 +452,15 @@ term:evaluation-record a skos:Concept ; skos:inScheme ogc:Glossary ;
 term:operational-envelope a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "operational envelope"@en ;
     skos:altLabel "requirement set"@en ;
-    skos:definition "The declared acceptable range of the system's behavior for its operational environment: the requirements, their acceptance criteria and their weights, written down before any probe is run. Coverage is measured over it and only over it."@en ;
+    skos:definition "The requirements this system under test must meet in this operational environment, with their acceptance criteria and weights, declared before any probe is run. It refines the idea of a requirement by adding specificity: the same system in a different environment, or a different system in the same environment, gets a different envelope. That is what makes the evaluation contextual, and what separates it from a benchmark; the nearest practice is that of safety-critical systems. Coverage is measured over the envelope and only over it."@en ;
     ogc:class "refined" ;
     ogc:anchorRelation "specializes" ;
     ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.5.1 requirement" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-11.png" ;
-                    ogc:quote "need or expectation that is stated, generally implied or obligatory" ; ogc:quoteStatus "pending" ] ;
-    ogc:scopeNote "Ruling R-03: a house label for the declared requirement set, defined by composition of adopted terms; not a coinage." ;
+                    ogc:quote "need or expectation that is stated, generally implied or obligatory" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
+    ogc:scopeNote "Rulings R-03 and R-14: a house label for the requirement set bound to one system under test in one operational environment; not a coinage. Two evaluations are comparable only when they share an envelope." ;
     prov:wasDerivedFrom rul:R-03 ;
-    ogc:binding "epo:RequirementSet; sysml item def RequirementSet" .
+    prov:wasDerivedFrom rul:R-14 ;
+    ogc:binding "epo:RequirementSet with epo:environment and epo:systemUnderTest; sysml item def RequirementSet" .
 
 term:authoritative-reference a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "authoritative reference"@en ;

@@ -276,3 +276,21 @@ rul:R-13 a ogc:Ruling ;
     ogc:changeNote "Sources: IEC 60050-351 (Electropedia, cite-only, quotes pending), JCGM 200:2012 (held locally), NIST TN 1297 (committed). Glossary: eight terms; probe and test narratives tightened to one turn and to the session. EPO: Session, Turn, Trajectory, Strategy (a prov:Plan), inSession, turnIndex, policy, groundedIn; a TestPlan's means is a Probe or a Strategy. Record: session-1 with turn-1 and trajectory-1 replace run-1. Shapes: S4-Session, S4-Turn, S3-Strategy; S5 evidence from a turn; S6 chain rule through the turn; S3 probe belongs to a plan directly or through a strategy. Counterexample attestation-off-turn (two-turn session under a strategy). Model: Session item, sessionId and turnIndex on Evidence, SCI-05 extended. Traceback query returns session and turn." ;
     prov:wasAttributedTo rul:Z ;
     prov:generatedAtTime "2026-09-06"^^xsd:date .
+
+rul:C-15 a ogc:Concern ;
+    rdfs:label "operational envelope: what it adds to a set of requirements" ;
+    ogc:problem """R-03 kept operational envelope as a house label anchored to ISO 9000:2026 requirement. Is it merely the set of requirements, or does it carry more: the binding of those requirements to one system under test in one operational environment.""" ;
+    ogc:severity "M" ;
+    ogc:status "ruled" ;
+    ogc:surfacedOn "2026-09-06"^^xsd:date ;
+    ogc:surfacedHow "row 8 of rulings sheet 01" ;
+    ogc:concernsTerm term:operational-envelope ;
+    prov:wasGeneratedBy rul:sheet-01-walkthrough-2026-09-06 .
+
+rul:R-14 a ogc:Ruling ;
+    ogc:order 14 ;
+    ogc:resolves rul:C-15 ;
+    ogc:rulingText "operational envelope refines the the concept of requirements in its specificity. an operational envelope explicit conditions on an operating environment and the system under test. we are saying THIS system in the THIS environment must meet THESE requirements. its closely related to set of requirements but we're really leaning into the Contextual AI Evaluation so we expect different requirements for different systems under test in different operating environments. this is explicitly to make this distinct from benchmarks are more like safety critical systems" ;
+    ogc:changeNote "Anchor unchanged (ISO 9000:2026 3.5.1 requirement, specializes). Narrative and scope note rewritten. EPO: RequirementSet names its system under test (epo:systemUnderTest, an earl:TestSubject) as well as its environment; shape S2 requires both; SysML RequirementSet gains sutNamed and SCI-02 checks it; the measles record names chatbot v1." ;
+    prov:wasAttributedTo rul:Z ;
+    prov:generatedAtTime "2026-09-06"^^xsd:date .

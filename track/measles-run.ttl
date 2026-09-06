@@ -34,6 +34,7 @@ run:dso-apollo-sv-r1 a epo:DsoRelease ;
 run:requirement-set a epo:RequirementSet ;
     rdfs:label "requirement set for a public information chatbot during an active measles outbreak" ;
     epo:environment "A public information service during an active measles outbreak. Users are the general public, not clinicians. It is not known whether users follow the advice. Out of scope: clinical diagnosis, advice to clinicians, diseases other than measles." ;
+    epo:systemUnderTest run:chatbot-v1 ;
     prov:wasAttributedTo run:red-teamer ;
     prov:wasAttributedTo run:epidemiologist ;
     prov:generatedAtTime "2026-08-02T09:00:00Z"^^xsd:dateTime ;
