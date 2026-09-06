@@ -28,7 +28,7 @@ deployed AI system against the needs of a specific domain, written down as:
   standards and ends at the Popper crosswalk; the glossary page shows exactly
   the terms the site uses, with hover definitions; the conclusion reads the
   crosswalk backwards. Next, each scoped when reached: the contracting
-  chapter, the evaluation chapter, the `ogc` navigation tool.
+  chapter and the evaluation chapter. The `ogc` navigation tool is in.
 - **Model: revised (R-21 to R-27), draft.** SysML holds structure only; the
   pruned RDF rendering `model/og-caie.model.ttl` is the canonical structure
   (R-22), checked by wiring shapes M1 to M5 over kinds of parts and ports:
@@ -54,6 +54,19 @@ deployed AI system against the needs of a specific domain, written down as:
   (perma-id/w3id.org#6652) is open; IRIs resolve nowhere until it merges. The
   paper draft and the term contract will be aligned to this glossary once the
   glossary is closed.
+
+## Ask the graph
+
+`uv run -q ogc <command>` navigates the vocabulary graph deterministically:
+`ogc schema`, `ogc find`, `ogc term`, `ogc define`, `ogc quote`, `ogc
+verify`, `ogc list`, `ogc source`, `ogc sources`, `ogc ruling`, `ogc
+rulings`, `ogc concern`, `ogc concerns`, `ogc sci`, `ogc crosswalk`
+(`--popper` for the Popper rows), `ogc check-word`, `ogc sparql`
+(read-only), `ogc doctor`. Every output starts with `# ogc <command> <args>
+@ <sha>`; `--json` returns the result unchanged; exit 0 found, 1 not found
+or ambiguous, 2 usage. The skill `.claude/skills/ogc-glossary/SKILL.md`
+teaches an LLM to use it instead of grepping the Turtle. A port of the
+Mission Twin glossary's `mtg` (ruling R-29).
 
 ## Authors and citation
 

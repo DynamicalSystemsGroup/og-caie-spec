@@ -468,7 +468,7 @@ term:outcome a skos:Concept ; skos:inScheme ogc:Glossary ;
 
 term:probe a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "probe"@en ;
-    skos:altLabel "test case"@en ; skos:altLabel "prompt"@en ; skos:altLabel "task"@en ;
+    skos:altLabel "test case (SEVOCAB, tied to criteria)"@en ; skos:altLabel "prompt"@en ; skos:altLabel "task"@en ;
     skos:definition "A scenario tied to the acceptance criteria it exercises, derived from the Domain-Specific Ontology and checked for consistency before use, applied at one turn of a session. Its run yields one prompt and response pair; the response is the evidence. A test plan may list its probes or choose them by a test strategy as the trajectory unfolds."@en ;
     ogc:class "refined" ;
     ogc:anchorRelation "specializes" ;
@@ -489,7 +489,7 @@ term:deployment-sensitivity a skos:Concept ; skos:inScheme ogc:Glossary ;
 
 term:evaluation-record a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "evaluation record"@en ;
-    skos:altLabel "record"@en ; skos:altLabel "test log"@en ;
+    skos:altLabel "record (ISO 9000:2026 3.8.12, of one evaluation)"@en ; skos:altLabel "test log"@en ;
     skos:definition "The record of one evaluation, bound by the Evaluation Process Ontology: the DSO release, the requirement set, the test plan, the probes, the sessions and their trajectories, the evidence, the attestations, the report and the recommendations, with who did what and when. The EPO determines what must be present for requirements traceability in both directions and for coverage, and makes all three checkable by machine; a conformant record therefore provides both traceability directions and coverage."@en ;
     ogc:class "refined" ;
     ogc:anchorRelation "specializes" ;
@@ -516,7 +516,7 @@ term:operational-envelope a skos:Concept ; skos:inScheme ogc:Glossary ;
 
 term:authoritative-reference a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "authoritative reference"@en ;
-    skos:altLabel "source of truth"@en ; skos:altLabel "knowledge graph"@en ;
+    skos:altLabel "source of truth"@en ; skos:altLabel "knowledge graph (as the reference for one evaluation)"@en ;
     skos:definition "The knowledge graph, populated with the facts of the situation and conforming to the Domain-Specific Ontology, against which responses are judged."@en ;
     ogc:class "refined" ;
     ogc:anchorRelation "corresponds" ;

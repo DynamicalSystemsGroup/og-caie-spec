@@ -54,7 +54,7 @@ wheels = [
 [[package]]
 name = "og-caie-spec"
 version = "0.1.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "pypdf" },
     { name = "pyshacl" },

@@ -50,6 +50,17 @@ sources and rulings borrowed from `mission-twin-glossary`.
   backwards); every other page speaks the standards' terms. Site chapters
   are scoped one at a time, working forward.
 
+## Ask the graph, never grep it
+
+- `uv run -q ogc <command>` (schema, find, term, define, quote, verify,
+  list, source, sources, ruling, rulings, concern, concerns, sci, crosswalk,
+  check-word, sparql, doctor) is the reader of the vocabulary, sources,
+  rulings and essentials; the skill `.claude/skills/ogc-glossary/SKILL.md`
+  says how. Never answer a vocabulary question from memory or by grepping
+  the Turtle. `ogc doctor` runs in the gate; a label that resolves to two
+  terms fails it (alternative labels that repeat a headword carry the sense
+  in parentheses).
+
 ## Sources
 
 - `sources/sources.ttl` is the register; every citation names a registered

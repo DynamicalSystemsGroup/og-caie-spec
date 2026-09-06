@@ -19,8 +19,18 @@ dev = [
     "mystmd>=1.3",
 ]
 
+[project.scripts]
+ogc = "ogc.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["ogc"]
+
 [tool.uv]
-package = false
+package = true
 
 [tool.pytest.ini_options]
 filterwarnings = ["ignore::DeprecationWarning:rdflib"]

@@ -52,8 +52,20 @@ below are exactly those terms: the narrative definition, then the canonical
 source with its locator and verbatim quote, then the alternative labels and
 the ruling the term rests on. Terms the site's prose does not yet reach,
 such as test case, knowledge graph and authoritative reference, stay in the
-full register until a chapter needs them. A command-line tool for asking
-the vocabulary graph directly follows in a later slice.
+full register until a chapter needs them.
+
+The vocabulary graph answers directly from the command line: `uv run -q ogc
+term probe` gives one entry with its citations, rulings and the essentials
+it is stated in; `ogc define`, `ogc quote` and `ogc verify` give the
+definition, the verbatim quotes and where each quote was found; `ogc find`
+searches labels and quotes; `ogc check-word` says whether a word is a
+headword, an alternative label or retired, and what to write; `ogc sci`,
+`ogc rulings`, `ogc concerns` and `ogc sources` read the rest of the
+record, and `ogc crosswalk` prints the anchor table or, with a flag, the
+bridge rows of the front page; `ogc sparql` takes a read-only query. Every
+answer starts with the command and the commit it was read at, so it can be
+cited. The tool is a port of the Mission Twin glossary's `mtg` (ruling
+R-29).
 
 ```{include} ../generated/key-terms.md
 ```

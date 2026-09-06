@@ -31,6 +31,7 @@ regen_model() {
   uv run python scripts/prune_model.py && git diff --quiet -- model/og-caie.model.ttl model/model_manifest.json
 }
 step "model graph: convert, prune, byte-identical to the committed canonical graph" 0 regen_model
+step "ogc: doctor (labels unambiguous, quotes located, record consistent)" 0 uv run -q ogc doctor --no-cache
 step "tests: full suite" 0 uv run pytest -q
 
 regen() {
