@@ -79,7 +79,7 @@ deployed AI system against the needs of a specific domain, written down as:
 `ogc schema`, `ogc find`, `ogc term`, `ogc define`, `ogc quote`, `ogc
 verify`, `ogc list`, `ogc source`, `ogc sources`, `ogc ruling`, `ogc
 rulings`, `ogc concern`, `ogc concerns`, `ogc sci`, `ogc crosswalk`
-(`--popper` for the Popper rows), `ogc views`, `ogc view` (a model view as mermaid with its perspective), `ogc check-word`, `ogc sparql`
+(`--popper` for the Popper rows), `ogc views`, `ogc view` (a model view as mermaid with its perspective), `ogc execute` (the process executed from the model, with its checks), `ogc check-word`, `ogc sparql`
 (read-only), `ogc doctor`. Every output starts with `# ogc <command> <args>
 @ <sha>`; `--json` returns the result unchanged; exit 0 found, 1 not found
 or ambiguous, 2 usage. The skill `.claude/skills/ogc-glossary/SKILL.md`

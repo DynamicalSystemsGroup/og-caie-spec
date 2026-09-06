@@ -89,6 +89,9 @@ probe
 provider
 : The organization that provides the evaluation as a service: the testing organization. Its account executive signs the contract, its evaluation team does the work, and its machines keep the record. Independent of the accountable organization, its activity is second-party when a sponsor with a user interest commissions it (ISO/IEC 17000 4.4, Note 2) and third-party when no interested party does. Source: ISO 9000:2026(en) Quality management — Fundamentals and vocabulary, 3.1.9: "organization that provides a product or a service" (human). Also: contractor, supplier, testing organization. Ruling R-21.
 
+record
+: A document stating results achieved or giving evidence of activities performed. The evaluation record is the record of one evaluation. Source: ISO 9000:2026(en) Quality management — Fundamentals and vocabulary, 3.8.12: "document stating results achieved or providing evidence of activities performed" (human).
+
 red teaming
 : A testing level in which human testers probe the system adversarially to see whether it stays within its guardrails. One way to run the probes in step four. Source: NIST AI 700-2, Appendix A, Red teaming, p. 17: "Testing level which evaluates whether applications adhere to guardrails in response to adversarial prompting or stress testing by human testers." (machine).
 

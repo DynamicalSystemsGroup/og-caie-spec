@@ -47,6 +47,7 @@ project:
     - file: docs/contracting.md
     - file: docs/evaluation.md
     - file: docs/model.md
+    - file: docs/guarantees.md
     - file: docs/rulings.md
     - file: docs/conclusion.md
 site:

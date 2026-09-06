@@ -14,12 +14,11 @@ crosses the bridge into the standards; this page gives the terms and the
 two cycles; [Contracting](contracting.md) is the outer cycle, from need to
 acceptance; [The evaluation](evaluation.md) is the inner cycle, scope to
 report; [The nested model](model.md) shows why the two are one model;
-**What the record proves** runs the checks; [Rulings](rulings.md) is the judgment record; the
+[What the record proves](guarantees.md) runs the checks; [Rulings](rulings.md) is the judgment record; the
 [Conclusion](conclusion.md) returns to the front page's terms. Each chapter
 from Contracting on keeps one rhythm: what the standards say, the
 specification, the walkthrough, what was checked, and there is more in the
-model. The chapter still in bold is not yet linked because it is not yet
-written.
+model.
 
 ## Vocabulary discipline
 

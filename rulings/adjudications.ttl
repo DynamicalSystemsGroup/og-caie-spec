@@ -797,3 +797,13 @@ rul:R-39 a ogc:Ruling ;
     prov:wasAttributedTo rul:Z ;
     prov:generatedAtTime "2026-09-06"^^xsd:date .
 
+
+
+rul:C-43 a ogc:Concern ;
+    rdfs:label "the S-shapes judge the items that exist; no shape requires a step's output to exist" ;
+    ogc:problem """The executor's mutations show that a record without a plan approval, or without an access grant, conforms to S0 to S9: the shapes constrain a plan approval or an access grant once present but do not require one. Completeness against the model catches both, and the missing access also empties the traceback. Question for Z: should the S-shapes require the existence of each step's outputs (a test plan approved by a domain expert before any session; an access grant behind every session), or is completeness against the model the right place for existence, keeping the shapes local to the items?""" ;
+    ogc:severity "M" ;
+    ogc:status "open" ;
+    ogc:surfacedOn "2026-09-06"^^xsd:date ;
+    ogc:surfacedHow "the executor's mutation table (ogc/executor.py), while building the guarantees chapter" ;
+    prov:wasGeneratedBy rul:model-revision-planning-2026-09-06 .

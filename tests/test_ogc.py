@@ -15,7 +15,7 @@ SKOS = "http://www.w3.org/2004/02/skos/core#"
 COMMANDS = [
     ["schema"], ["find", "probe"], ["term", "probe"], ["define", "conformance"], ["quote", "attestation"],
     ["list", "--class", "coined"], ["source", "sevocab"], ["sources"], ["ruling", "r-16"], ["rulings", "--grep", "conformance"],
-    ["concern", "c-24"], ["concerns", "--open"], ["sci"], ["sci", "SCI-11"], ["steps"], ["views"], ["view", "contracting"], ["crosswalk", "--class", "refined"], ["crosswalk", "--popper"],
+    ["concern", "c-24"], ["concerns", "--open"], ["sci"], ["sci", "SCI-11"], ["steps"], ["views"], ["view", "contracting"], ["execute"], ["execute", "--mutate", "skip-access"], ["crosswalk", "--class", "refined"], ["crosswalk", "--popper"],
     ["check-word", "adequacy", "evidence", "probe"], ["verify", "conformance"], ["verify", "sevocab"],
     ["sparql", 'SELECT ?l WHERE { ?t a skos:Concept ; ogc:class "coined" ; skos:prefLabel ?l }'],
 ]

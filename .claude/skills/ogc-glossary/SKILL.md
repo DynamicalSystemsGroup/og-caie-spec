@@ -84,6 +84,7 @@ unpadded forms work (`r-5`, `c-7`).
 | Which canon step does each EPO step match? | `ogc steps` |
 | The views of the model: what each brings into focus and leaves out | `ogc views` |
 | One view as mermaid, with its perspective (layers, assemblage, contracting, evaluation) | `ogc view contracting` |
+| Execute the process from the model and run the checks over the emitted record; break one thing | `ogc execute`, `ogc execute --mutate skip-access`, `ogc execute --turtle` |
 | The anchor table, one row per term | `ogc crosswalk`, `ogc crosswalk --class refined`, `ogc crosswalk --source iso-9000-2026` |
 | Popper to the standards and back | `ogc crosswalk --popper` |
 | Anything else | `ogc sparql '<SELECT ...>'` or `ogc sparql @query.rq` (prefixes injected; read-only; `--model` adds the canonical model graph) |

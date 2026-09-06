@@ -118,6 +118,7 @@ def build_parser() -> argparse.ArgumentParser:
     add("concerns", "the concern register", (["--open"], dict(action="store_true")), (["--status"], {}), (["--severity"], {}))
     add("sci", "the essentials (SCI-01..12): statement, tag, shapes, terms, sources", (["id"], dict(nargs="?")))
     add("steps", "the seven EPO steps and the canon step each matches (R-31)")
+    add("execute", "execute the process from the model graph and run the checks over the emitted record (C-30); --mutate NAME breaks one thing", (["--mutate"], {}), (["--turtle"], dict(action="store_true", help="print the emitted record instead of the checks")))
     add("views", "the reusable views of the model graph: what each brings into focus and leaves out (R-38)")
     add("view", "one view of the model graph as mermaid, with the perspective it encodes (R-38)", (["name"], {}))
     add("crosswalk", "one row per term: class, anchor relation, canonical source and locator, binding; --popper for the Popper rows", (["--class"], dict(dest="klass")), (["--source"], {}), (["--popper"], dict(action="store_true")))
@@ -155,7 +156,7 @@ def main(argv=None) -> int:
     argstr = argstr_of(argv, c)
     if c == "doctor":
         return doctor(args)
-    if c in ("view", "views"):
+    if c in ("view", "views", "execute"):
         args.model = True
     g = load(args.root, model=args.model, cache=not args.no_cache)
 
@@ -290,6 +291,26 @@ def main(argv=None) -> int:
             d = rows[0]
             return emit(args, c, argstr, d, lambda: [f"## {d['id']} {d['name']}  ({d['tag']})", ""] + text.wrap(d["statement"]) + ["", f"checked by: {', '.join(d['shapes'])}", f"terms: {', '.join(d['terms'])}", f"rests on: {', '.join(d['rests_on'])}"])
         return emit(args, c, argstr, rows, lambda: text.table(rows, ["id", "name", "tag", "shapes", "terms"]))
+
+    if c == "execute":
+        from . import executor
+        from rdflib import Graph
+        model = Graph()
+        for t in g.triples((None, None, None)):
+            model.add(t)
+        shapes = Graph(); shapes.parse(args.root / "shapes" / "epo.shapes.ttl")
+        epo = Graph(); epo.parse(args.root / "vocabulary" / "epo.ttl")
+        rec = executor.execute(model)
+        if args.mutate:
+            if args.mutate not in executor.MUTATIONS:
+                return not_found(args, f"mutation '{args.mutate}'", "one of the names below", sorted(executor.MUTATIONS))
+            executor.MUTATIONS[args.mutate][1](rec)
+        if args.turtle:
+            return emit(args, c, argstr, {"turtle": rec.serialize(format="turtle")}, lambda: rec.serialize(format="turtle").splitlines())
+        d = executor.check(rec, model, shapes, epo)
+        d["mutation"] = args.mutate or None
+        return emit(args, c, argstr, d, lambda: [f"mutation: {d['mutation'] or 'none'}", f"conforms: {d['conforms']}" + (f"  (fired: {', '.join(d['fired'])})" if d["fired"] else ""),
+                                                 f"missing item kinds: {', '.join(d['missing']) or 'none'}", f"coverage: {d['coverage']}", f"traceback rows: {d['traceback']}"])
 
     if c == "views":
         rows = views.views_table()

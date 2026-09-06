@@ -90,7 +90,7 @@ def test_word_budget():
 
 
 PATTERN = ["What the standards say", "The specification", "The walkthrough", "Checked", "There is more in the model"]
-CHAPTERS = ["contracting.md", "evaluation.md", "model.md"]  # guarantees joins as its slice lands
+CHAPTERS = ["contracting.md", "evaluation.md", "model.md", "guarantees.md"]
 
 
 def test_chapter_pages_follow_the_pattern():
@@ -112,7 +112,7 @@ def test_every_essential_has_a_page_and_each_chapter_shows_its_own():
     from conftest import OGC as O
     pages = {str(t).rsplit("#", 1)[-1]: str(g.value(t, O.page)) for t in g.subjects(RDF.type, O.Trace)}
     assert set(pages.values()) <= {"contracting", "evaluation", "guarantees"}, pages
-    for chapter in ("contracting", "evaluation"):
+    for chapter in ("contracting", "evaluation", "guarantees"):
         frag = (ROOT / "generated" / f"sci-{chapter}.md").read_text()
         for sid, pg in pages.items():
             assert (sid in frag) == (pg == chapter), (chapter, sid)

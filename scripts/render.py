@@ -231,6 +231,42 @@ def render_layers_walkthrough() -> str:
     return "\n".join(lines) + "\n"
 
 
+def render_executor() -> str:
+    """The executed demonstration (C-30): the run, the variants and the mutations, each with its checks, from ogc.executor."""
+    import sys
+    sys.path.insert(0, str(ROOT))
+    from ogc import executor
+    model = Graph(); model.parse(ROOT / "model" / "og-caie.model.ttl")
+    shapes = Graph(); shapes.parse(ROOT / "shapes" / "epo.shapes.ttl")
+    epo = Graph(); epo.parse(ROOT / "vocabulary" / "epo.ttl")
+    d = executor.demonstrate(model, shapes, epo)
+
+    def row(name, c):
+        cov = c["coverage"]
+        return (f"| {name} | {'conforms' if c['conforms'] else 'fails ' + ', '.join(c['fired'])} | "
+                f"{', '.join(c['missing']) or 'none'} | {cov['coverage']:.4f} ({cov['passRate']:.2f} / {cov['failRate']:.2f} / {cov['cantTellRate']:.2f}) | {c['traceback']} |")
+
+    def caught(c):
+        by = []
+        if not c["conforms"]:
+            by.append("shapes " + ", ".join(c["fired"]))
+        if c["missing"]:
+            by.append("completeness (" + ", ".join(c["missing"]) + " missing)")
+        if c["traceback"] == 0:
+            by.append("traceback (no row)")
+        return "; ".join(by) or "**not caught**"
+
+    lines = ["### The executed runs", "",
+             "| Run | Shapes S0 to S9 | Item kinds missing | Coverage (pass / fail / cannot tell) | Traceback rows |", "|---|---|---|---|---|"]
+    for name, c in d["variants"].items():
+        lines.append(row(name, c))
+    lines += ["", "### The mutations of the first run", "",
+              "| Mutation | Shapes S0 to S9 | Item kinds missing | Coverage (pass / fail / cannot tell) | Traceback rows | Caught by |", "|---|---|---|---|---|---|"]
+    for name, c in d["mutations"].items():
+        lines.append(row(f"{name}: {c['description']}", c) + f" {caught(c)} |")
+    return "\n".join(lines) + "\n"
+
+
 def render_more(page: str, fragments: list[str], commands: list[str], files: list[str]) -> str:
     """Block 5 of the page pattern: this page is a view; the model is the repository."""
     lines = ["This page is a view. The model is the repository, and it holds more than the page shows.", "",
@@ -328,6 +364,11 @@ def main_all() -> int:
         ["layers.md", "layers-walkthrough.md", "receipts.md"],
         ["ogc view layers", "ogc view assemblage", "ogc steps", "ogc sci SCI-11", "ogc sparql --model"],
         ["model/og-caie.sysml", "model/og-caie.model.ttl", "model/model_manifest.json", "model/sysml_term_map.csv", "scripts/prune_model.py", "shapes/model.shapes.ttl (M4)", "shapes/epo.shapes.ttl (S0-Layers)"]))
+    (OUT / "executor.md").write_text(render_executor())
+    (OUT / "more-guarantees.md").write_text(render_more("guarantees",
+        ["sci-guarantees.md", "executor.md"],
+        ["ogc execute", "ogc execute --mutate skip-access", "ogc sci SCI-11", "ogc term \"test coverage\"", "ogc term \"requirements traceability\"", "ogc sparql"],
+        ["ogc/executor.py", "queries/coverage.rq", "queries/traceback.rq", "shapes/epo.shapes.ttl", "model/og-caie.model.ttl", "tests/test_executor.py"]))
     (ROOT / "rulings" / "sheets" / "05-blocks-and-wires.md").write_text(render_signoff_sheet())
     return 0
 
