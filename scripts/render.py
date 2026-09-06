@@ -87,7 +87,60 @@ def main_all() -> int:
     (OUT / "rulings.md").write_text(render_rulings())
     (OUT / "glossary.md").write_text(render_glossary())
     (OUT / "sources.md").write_text(render_sources())
+    (OUT / "record.md").write_text(render_record())
     return 0
+
+
+
+def render_record() -> str:
+    from pyshacl import validate
+    EPO = Namespace("https://w3id.org/og-caie/epo#")
+    g = Graph()
+    for f in ("vocabulary/epo.ttl", "track/measles-run.ttl"):
+        g.parse(ROOT / f)
+    out = []
+    # the chain
+    out.append("### The chain\n")
+    out.append("| Step | Node | Who | When |\n|---|---|---|---|")
+    PROV = Namespace("http://www.w3.org/ns/prov#")
+    EARL = Namespace("http://www.w3.org/ns/earl#")
+    order = [EPO.DsoRelease, EPO.RequirementSet, EPO.Requirement, EPO.AcceptanceCriterion, EPO.Probe,
+             EPO.ConsistencyCheck, EPO.ProbeRun, EPO.Evidence, EPO.Attestation, EPO.CoverageComputation, EPO.Report, EPO.Recommendation]
+    for cls in order:
+        for n in sorted(g.subjects(RDF.type, cls), key=str):
+            who = [g.value(a, RDFS.label) or str(a).rsplit("#", 1)[-1] for p in (EARL.assertedBy, EPO.approvedBy, PROV.wasAttributedTo, PROV.wasAssociatedWith) for a in g.objects(n, p)]
+            when = g.value(n, PROV.generatedAtTime) or g.value(n, PROV.startedAtTime) or g.value(n, PROV.endedAtTime) or ""
+            step = g.value(n, EPO.step)
+            step = cell(g.value(step, RDFS.label)).split(":")[0] if step else ""
+            out.append(f"| {step} | `{str(n).rsplit('#', 1)[-1]}` ({cell(str(cls).rsplit('#', 1)[-1])}) | {cell('; '.join(dict.fromkeys(str(w) for w in who)))} | {cell(when)} |")
+    # coverage
+    (row,) = list(g.query((ROOT / "queries" / "coverage.rq").read_text()))
+    report = next(g.subjects(RDF.type, EPO.Report))
+    out.append("\n### Coverage and performance, recomputed\n")
+    out.append("| Quantity | Stored in the report | Recomputed by queries/coverage.rq |\n|---|---|---|")
+    for k, v in (("coverage", row.coverage), ("passRate", row.passRate), ("failRate", row.failRate), ("cantTellRate", row.cantTellRate)):
+        out.append(f"| {k} | {cell(g.value(report, EPO[k]))} | {cell(v)} |")
+    out.append(f"\nCovered criteria: {row.coveredCount} of 3; the third criterion is untested and counts for nothing.")
+    # traceback
+    rows = list(g.query((ROOT / "queries" / "traceback.rq").read_text()))
+    out.append("\n### The recommendation, traced back\n")
+    out.append("| Assessment (who) | Criterion | Outcome | Evidence | Experiment (operator, system) | DSO release (approver) | EPO step |\n|---|---|---|---|---|---|---|")
+    for r in rows:
+        out.append(f"| `{str(r.attestation).rsplit('#', 1)[-1]}` ({cell(r.assertor)}) | {cell(r.criterion)} | {cell(r.outcome)} | `{str(r.evidence).rsplit('#', 1)[-1]}` | `{str(r.run).rsplit('#', 1)[-1]}` ({cell(r.operator)}; {cell(r.sut)}) | `{str(r.dso).rsplit('#', 1)[-1]}` ({cell(r.dsoApprover)}) | {cell(r.step)} |")
+    # conformity and counterexamples
+    shapes = Graph().parse(ROOT / "shapes" / "epo.shapes.ttl")
+    SH = Namespace("http://www.w3.org/ns/shacl#")
+    out.append("\n### Conformity\n")
+    out.append("| Graph | Conforms | Shapes violated | Message |\n|---|---|---|---|")
+    ok, results, _ = validate(g, shacl_graph=shapes, advanced=True)
+    out.append(f"| `track/measles-run.ttl` | {ok} | | |")
+    for cx in sorted((ROOT / "counterexamples").glob("*.ttl")):
+        d = Graph().parse(ROOT / "vocabulary" / "epo.ttl"); d.parse(cx)
+        ok, results, _ = validate(d, shacl_graph=shapes, advanced=True)
+        shapes_hit = sorted({str(s).rsplit("/", 1)[-1] for s in results.objects(None, SH.sourceShape)})
+        msgs = sorted({str(m) for m in results.objects(None, SH.resultMessage)})
+        out.append(f"| `counterexamples/{cx.name}` | {ok} | {cell(', '.join(shapes_hit))} | {cell(' / '.join(msgs))} |")
+    return "\n".join(out) + "\n"
 
 
 if __name__ == "__main__":

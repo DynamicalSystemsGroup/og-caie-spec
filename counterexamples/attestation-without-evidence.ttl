@@ -1,0 +1,20 @@
+@prefix cx:   <https://w3id.org/og-caie/run/counterexample#> .
+@prefix epo:  <https://w3id.org/og-caie/epo#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix earl: <http://www.w3.org/ns/earl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+# Counterexample for S6 (closure rule): a verdict of failed with nothing
+# behind it. Must fail on ogc:S6-Attestation and nothing else.
+
+cx:R a epo:Requirement ; epo:text "r" .
+cx:a a epo:AcceptanceCriterion ; prov:wasDerivedFrom cx:R ; epo:text "criterion" ; epo:weight 1 ; epo:minPassRate 0.9 .
+cx:person a prov:Agent, prov:Person .
+cx:sut a prov:Agent, prov:SoftwareAgent, earl:TestSubject ; epo:version "v1" .
+
+cx:attestation a epo:Attestation ;
+    earl:test cx:a ; earl:subject cx:sut ; earl:mode earl:manual ; earl:assertedBy cx:person ;
+    earl:result [ a earl:TestResult ; earl:outcome earl:failed ] ;
+    epo:appropriateness epo:appropriate ; epo:sufficiency epo:sufficient ;
+    epo:step epo:runAndAttest ;
+    prov:endedAtTime "2026-08-11T09:00:00Z"^^xsd:dateTime .

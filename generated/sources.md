@@ -14,7 +14,9 @@
 | reserve | INCOSE Guide to Writing Requirements v4, Summary Sheet (INCOSE-TP-2010-006-04, June 2023) | heldLocally | 1 | INCOSE copyright restrictions; held locally |
 | reserve | IAASB, International Standard on Auditing 500: Audit Evidence (effective 15 December 2009) | heldLocally | 1 | IFAC copyright; freely downloadable; held locally |
 | reserve | ISO/IEC 17000:2020(en) Conformity assessment — Vocabulary and general principles (Online Browsing Platform) | citeOnly | 0 | ISO copyright; clause 3 publicly browsable; one term (attestation) quoted |
+| reserve | Popper, The Logic of Scientific Discovery, London: Hutchinson, 1959 | citeOnly | 0 | cited as the canonical source named on the BoF deck's Helpful Definitions slide; not quoted directly |
 | reserve | Guide to the Systems Engineering Body of Knowledge (SEBoK) v2.14 | heldLocally | 1 | CC BY-NC-SA; held locally per ruling R-04 |
+| internal | Zargham and Hollek, Building Scientific Approaches to Generative AI, Birds-of-a-Feather deck, SciPy 2026 (Google Slides) | citeOnly | 0 | authors' own deck; slide 2 (organization logos) reproduced at assets/hi-dsg-collaboration.png with the authors' agreement; slide 5 (Helpful Definitions) quoted |
 | internal | DynamicalSystemsGroup/caie-epo-prototype (June 2026): prior art for the EPO | citeOnly | 0 | Apache-2.0 |
 | internal | Ontology-Grounded Contextual AI Evaluation, paper draft 1/2 (Google Doc, September 2026) | citeOnly | 0 | internal working document |
 | internal | Humane Intelligence, CAIE Term Contract (Controlled Vocabulary) v5, 2026-07-15 (Google Doc) | citeOnly | 0 | internal working document; narrative definitions lifted with the authors' agreement |

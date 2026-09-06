@@ -1,0 +1,25 @@
+@prefix cx:   <https://w3id.org/og-caie/run/counterexample#> .
+@prefix epo:  <https://w3id.org/og-caie/epo#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix earl: <http://www.w3.org/ns/earl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+# Counterexample for S2 (declare before testing): the requirement set was
+# written down after the probe was generated and after the run started.
+# Must fail on ogc:S2-RequirementSet and nothing else.
+
+cx:person a prov:Agent, prov:Person .
+cx:sut a prov:Agent, prov:SoftwareAgent, earl:TestSubject ; epo:version "v1" .
+cx:checker a prov:Agent, prov:SoftwareAgent ; epo:version "0.27" .
+cx:dso a epo:DsoRelease ; epo:version "r1" ; epo:approvedBy cx:person ; prov:generatedAtTime "2026-08-01T00:00:00Z"^^xsd:dateTime .
+cx:R a epo:Requirement ; epo:partOf cx:reqs ; epo:text "r" .
+cx:a a epo:AcceptanceCriterion ; prov:wasDerivedFrom cx:R ; epo:text "criterion" ; epo:weight 1 ; epo:minPassRate 0.9 .
+
+cx:reqs a epo:RequirementSet ; epo:environment "stated" ; prov:wasAttributedTo cx:person ;
+    prov:generatedAtTime "2026-08-20T00:00:00Z"^^xsd:dateTime .
+
+cx:probe a epo:Probe ; epo:exercises cx:a ; epo:derivedFromDso cx:dso ; prov:generatedAtTime "2026-08-03T00:00:00Z"^^xsd:dateTime .
+cx:check a epo:ConsistencyCheck ; earl:subject cx:probe ; earl:mode earl:automatic ; earl:assertedBy cx:checker ;
+    earl:result [ a earl:TestResult ; earl:outcome earl:passed ] .
+cx:run a epo:ProbeRun ; prov:used cx:probe ; prov:wasAssociatedWith cx:sut ; prov:wasAssociatedWith cx:person ;
+    prov:startedAtTime "2026-08-10T00:00:00Z"^^xsd:dateTime .

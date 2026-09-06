@@ -1,0 +1,28 @@
+# The five facets every recommendation must trace to: the evidence, the
+# experiments run (and against what, by whom), the assessments made (and who
+# made them), the DSO release selected (and who approved it), and the EPO step.
+PREFIX epo:  <https://w3id.org/og-caie/epo#>
+PREFIX earl: <http://www.w3.org/ns/earl#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?recommendation ?author ?step ?attestation ?assertor ?criterion ?outcome ?evidence ?run ?operator ?sut ?dso ?dsoApprover
+WHERE {
+  ?recommendation a epo:Recommendation ;
+      prov:wasAttributedTo ?authorNode ; epo:step ?stepNode ;
+      prov:wasDerivedFrom ?attestation ; prov:wasDerivedFrom ?dso .
+  ?authorNode a prov:Person ; rdfs:label ?author .
+  ?stepNode rdfs:label ?step .
+  ?attestation a epo:Attestation ; earl:test ?criterionNode ; earl:assertedBy ?assertorNode ;
+      earl:result ?res ; prov:used ?evidence .
+  ?res earl:outcome ?outcomeNode .
+  ?assertorNode rdfs:label ?assertor .
+  ?criterionNode epo:text ?criterion .
+  BIND(STRAFTER(STR(?outcomeNode), "#") AS ?outcome)
+  ?evidence a epo:Evidence ; prov:wasGeneratedBy ?run .
+  ?run prov:wasAssociatedWith ?operatorNode ; prov:wasAssociatedWith ?sutNode .
+  ?operatorNode a prov:Person ; rdfs:label ?operator .
+  ?sutNode a prov:SoftwareAgent ; rdfs:label ?sut .
+  ?dso a epo:DsoRelease ; epo:approvedBy ?approverNode .
+  ?approverNode rdfs:label ?dsoApprover .
+}
+ORDER BY ?attestation

@@ -1,0 +1,16 @@
+@prefix cx:   <https://w3id.org/og-caie/run/counterexample#> .
+@prefix epo:  <https://w3id.org/og-caie/epo#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix earl: <http://www.w3.org/ns/earl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+# Counterexample for S8 (traceability): a recommendation from a named person
+# that rests on no attestation and names no DSO release. Must fail on
+# ogc:S8-Recommendation and nothing else.
+
+cx:person a prov:Agent, prov:Person .
+
+cx:recommendation a epo:Recommendation ;
+    epo:text "Ship it." ;
+    prov:wasAttributedTo cx:person ;
+    epo:step epo:report .

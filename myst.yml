@@ -20,6 +20,7 @@ project:
     - CLAUDE.md
     - LICENSE.md
     - sources/digests/*.md
+    - rulings/sheets/*.md
   numbering:
     headings: true
   abbreviations:
@@ -42,6 +43,7 @@ project:
     - file: index.md
     - file: docs/glossary.md
     - file: docs/assemblage.md
+    - file: docs/record.md
     - file: docs/rulings.md
 site:
   template: book-theme

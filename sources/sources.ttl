@@ -185,3 +185,16 @@ src:caie-epo-prototype a prov:Entity, ogc:Source ;
     ogc:rank "internal" ; ogc:kind "git" ; ogc:posture "citeOnly" ;
     ogc:url <https://github.com/DynamicalSystemsGroup/caie-epo-prototype> ;
     ogc:licenceNote "Apache-2.0" .
+
+src:bof-deck-2026-07 a prov:Entity, ogc:Source ;
+    rdfs:label "Zargham and Hollek, Building Scientific Approaches to Generative AI, Birds-of-a-Feather deck, SciPy 2026 (Google Slides)" ;
+    ogc:rank "internal" ; ogc:kind "web" ; ogc:posture "citeOnly" ;
+    ogc:url <https://docs.google.com/presentation/d/1LMPYu-DjGZ5uopZQYvmU96p7vDwcdBiLFEgrIsAdeoc/edit> ;
+    ogc:digest "sources/digests/bof-deck-2026-07.md" ;
+    ogc:licenceNote "authors' own deck; slide 2 (organization logos) reproduced at assets/hi-dsg-collaboration.png with the authors' agreement; slide 5 (Helpful Definitions) quoted" .
+
+src:popper-1959 a prov:Entity, ogc:Source ;
+    rdfs:label "Popper, The Logic of Scientific Discovery, London: Hutchinson, 1959" ;
+    ogc:rank "reserve" ; ogc:kind "web" ; ogc:posture "citeOnly" ;
+    ogc:digest "sources/digests/popper-1959.md" ;
+    ogc:licenceNote "cited as the canonical source named on the BoF deck's Helpful Definitions slide; not quoted directly" .

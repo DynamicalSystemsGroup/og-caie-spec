@@ -1,0 +1,69 @@
+@prefix epo:  <https://w3id.org/og-caie/epo#> .
+@prefix ogc:  <https://w3id.org/og-caie/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix earl: <http://www.w3.org/ns/earl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+# The Evaluation Process Ontology, minimal form: handle classes for the
+# things the five steps produce, each a subclass of a PROV-O or EARL class,
+# with no new semantics. Import, don't mint. The DSO is referenced, never
+# imported. Prior art: DynamicalSystemsGroup/caie-epo-prototype (June 2026).
+
+epo: a owl:Ontology ;
+    rdfs:label "OG-CAIE Evaluation Process Ontology (EPO), minimal handles" ;
+    rdfs:comment "Assembles PROV-O and EARL. A coined term (ruling R-09): the domain-independent standard operating procedure whose record, when it conforms to shapes/epo.shapes.ttl, shows the process was followed and lets coverage be computed." .
+
+# ---- the five steps
+epo:EpoStep a owl:Class ; rdfs:label "EPO step" .
+epo:scope a epo:EpoStep ; rdfs:label "1 scope: build or select the DSO and declare the operational environment" .
+epo:declareRequirements a epo:EpoStep ; rdfs:label "2 declare the requirement set (operational envelope): requirements, acceptance criteria, weights" .
+epo:deriveProbes a epo:EpoStep ; rdfs:label "3 derive probes from the DSO and the requirement set" .
+epo:runAndAttest a epo:EpoStep ; rdfs:label "4 run probes against the system under test and attest" .
+epo:report a epo:EpoStep ; rdfs:label "5 report coverage and performance; recommend" .
+
+# ---- things (prov:Entity)
+epo:DsoRelease a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "DSO release" .
+epo:RequirementSet a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "requirement set (operational envelope)" .
+epo:Requirement a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "requirement" .
+epo:AcceptanceCriterion a owl:Class ; rdfs:subClassOf prov:Entity, earl:TestCriterion ; rdfs:label "acceptance criterion" .
+epo:Probe a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "probe" .
+epo:Evidence a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "evidence" .
+epo:Report a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "report" .
+epo:Recommendation a owl:Class ; rdfs:subClassOf prov:Entity ; rdfs:label "recommendation" .
+
+# ---- doings (prov:Activity), two of them also EARL assertions
+epo:ProbeDerivation a owl:Class ; rdfs:subClassOf prov:Activity ; rdfs:label "probe derivation" .
+epo:ConsistencyCheck a owl:Class ; rdfs:subClassOf earl:Assertion, prov:Activity ; rdfs:label "automatic consistency check of a probe" .
+epo:ProbeRun a owl:Class ; rdfs:subClassOf prov:Activity ; rdfs:label "probe run (a test)" .
+epo:Attestation a owl:Class ; rdfs:subClassOf earl:Assertion, prov:Activity ; rdfs:label "attestation" .
+epo:CoverageComputation a owl:Class ; rdfs:subClassOf prov:Activity ; rdfs:label "coverage computation" .
+
+# ---- properties
+epo:version a owl:DatatypeProperty ; rdfs:domain epo:DsoRelease ; rdfs:range xsd:string .
+epo:approvedBy a owl:ObjectProperty ; rdfs:subPropertyOf prov:wasAttributedTo ; rdfs:domain epo:DsoRelease ; rdfs:range prov:Person .
+epo:environment a owl:DatatypeProperty ; rdfs:domain epo:RequirementSet ; rdfs:range xsd:string ; rdfs:comment "the operational environment (SEVOCAB), stated" .
+epo:partOf a owl:ObjectProperty ; rdfs:domain epo:Requirement ; rdfs:range epo:RequirementSet .
+epo:text a owl:DatatypeProperty ; rdfs:range xsd:string .
+epo:weight a owl:DatatypeProperty ; rdfs:domain epo:AcceptanceCriterion ; rdfs:range xsd:decimal ; rdfs:comment "deployment sensitivity (ruling R-05)" .
+epo:minPassRate a owl:DatatypeProperty ; rdfs:domain epo:AcceptanceCriterion ; rdfs:range xsd:decimal .
+epo:exercises a owl:ObjectProperty ; rdfs:domain epo:Probe ; rdfs:range epo:AcceptanceCriterion .
+epo:derivedFromDso a owl:ObjectProperty ; rdfs:subPropertyOf prov:wasDerivedFrom ; rdfs:domain epo:Probe ; rdfs:range epo:DsoRelease .
+epo:appropriateness a owl:ObjectProperty ; rdfs:domain epo:Attestation ; rdfs:range epo:AppropriatenessValue .
+epo:sufficiency a owl:ObjectProperty ; rdfs:domain epo:Attestation ; rdfs:range epo:SufficiencyValue .
+epo:step a owl:ObjectProperty ; rdfs:range epo:EpoStep .
+epo:coverage a owl:DatatypeProperty ; rdfs:domain epo:Report ; rdfs:range xsd:decimal .
+epo:passRate a owl:DatatypeProperty ; rdfs:domain epo:Report ; rdfs:range xsd:decimal .
+epo:failRate a owl:DatatypeProperty ; rdfs:domain epo:Report ; rdfs:range xsd:decimal .
+epo:cantTellRate a owl:DatatypeProperty ; rdfs:domain epo:Report ; rdfs:range xsd:decimal .
+epo:targetsGuardrail a owl:DatatypeProperty ; rdfs:domain epo:Recommendation ; rdfs:range xsd:string .
+
+# ---- the two judgment values (Hawkins et al. 2011; ruling R-08)
+epo:AppropriatenessValue a owl:Class .
+epo:appropriate a epo:AppropriatenessValue ; rdfs:label "the declared context was appropriate for this judgment" .
+epo:inappropriate a epo:AppropriatenessValue .
+epo:SufficiencyValue a owl:Class .
+epo:sufficient a epo:SufficiencyValue ; rdfs:label "the evidence is enough to support the claim" .
+epo:insufficient a epo:SufficiencyValue .

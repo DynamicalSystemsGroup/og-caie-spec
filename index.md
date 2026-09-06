@@ -1,5 +1,12 @@
 # OG-CAIE as an executable specification
 
+```{figure} assets/hi-dsg-collaboration.png
+:width: 420px
+:alt: Humane Intelligence and Dynamical Systems Group
+
+A collaboration between Humane Intelligence and Dynamical Systems Group.
+```
+
 Ontology-Grounded Contextual AI Evaluation (OG-CAIE) is the process Humane
 Intelligence and Dynamical Systems Group use to evaluate a deployed AI system
 against the needs of a specific domain. This site is the specification of
@@ -13,6 +20,27 @@ requirements, each of which is either verified by machine over the evaluation
 record or validated by a named human whose judgment is recorded with the
 evidence it rests on.
 
+## Why this counts as science
+
+At the SciPy 2026 birds-of-a-feather session the authors set out, after
+Popper, what an empirical claim needs: a hypothesis that could be falsified,
+the auxiliary assumptions held fixed while testing it, a prediction that
+says what should be observed, and evidence, an accepted result of
+observation. Context matters, because a failed prediction does not by itself
+say which assumption failed.
+
+OG-CAIE puts each of these where a machine can find it. The acceptance
+criteria are the hypotheses, each specific enough to be wrong. The
+operational environment, the requirement set and the Domain-Specific
+Ontology release are the auxiliary assumptions, declared before any probe
+runs and recorded with who approved them. A probe is the prediction's test
+case. The system's response is the evidence. An attestation is the judgment
+that the evidence bears on the hypothesis, made by a named person who also
+says whether the context was appropriate and the evidence sufficient. Coverage
+is falsifiable: if a criterion has no attested outcome behind it, the
+reported number was overstated by exactly that criterion's weight, and anyone
+holding the record can show it.
+
 ## What is here
 
 - **Glossary.** Every term with its one canonical citation, verbatim quote and
@@ -20,8 +48,11 @@ evidence it rests on.
 - **Assemblage.** The three layers, the human and machine parts wired along
   typed ports, the nine requirements tagged machine or human, and the receipts
   showing every requirement holds and the counterexample fails.
+- **Record.** The measles evaluation record, its conformity to the EPO shapes,
+  coverage and performance recomputed by query, the recommendation traced back
+  to evidence, experiments, assessments, DSO release and EPO step, and three
+  counterexamples that fail where they must.
 - **Rulings.** Every interpretive choice, with the adjudicator's words verbatim.
-- The record page lands next.
 
 ## Scope
 
