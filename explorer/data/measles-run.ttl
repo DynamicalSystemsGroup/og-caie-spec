@@ -70,6 +70,19 @@ run:service-agreement a epo:ServiceAgreement ;
     prov:generatedAtTime "2026-07-31T10:00:00Z"^^xsd:dateTime ;
     epo:step epo:agree .
 
+run:statement-of-work a epo:StatementOfWork ;
+    rdfs:label "scope of work under the agreement: the commuters are interviewed, the county residents are represented by the domain expert" ;
+    epo:decides run:engagement-commuters ; epo:decides run:engagement-residents ;
+    prov:wasAttributedTo run:county-public-health-office ;
+    prov:generatedAtTime "2026-07-31T11:00:00Z"^^xsd:dateTime ;
+    epo:step epo:agree .
+run:engagement-commuters a epo:EngagementDecision ;
+    rdfs:label "commuters: interviewed, their needs being underdocumented" ;
+    epo:population run:commuters ; epo:engagement epo:interview .
+run:engagement-residents a epo:EngagementDecision ;
+    rdfs:label "county residents: represented by the domain expert" ;
+    epo:population run:county-residents ; epo:engagement epo:representation .
+
 run:test-item-access a epo:TestItemAccess ;
     rdfs:label "API access to chatbot v1 for the evaluation" ;
     epo:grantsAccessTo run:chatbot-v1 ;

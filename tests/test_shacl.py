@@ -18,6 +18,7 @@ COUNTEREXAMPLES = {
     "counterexamples/attestation-off-turn.ttl": "S6-Attestation",
     "counterexamples/requirements-before-agreement.ttl": {"S0-Parties", "S0-Layers"},
     "counterexamples/population-unrepresented.ttl": "S0-Population",
+    "counterexamples/engagement-mismatch.ttl": "S0-Population",
     "counterexamples/expert-administers-tests.ttl": "S4-Session",
     "counterexamples/executive-attests.ttl": "S6-Attestation",
 }
@@ -51,7 +52,7 @@ def test_each_counterexample_fails_on_its_shape_only():
 def test_shapes_s0_to_s8():
     g = shapes()
     names = sorted(str(s).rsplit("/", 1)[-1] for s in g.subjects(RDF.type, SH.NodeShape))
-    assert names == ["S0-Access", "S0-Layers", "S0-Mission", "S0-Need", "S0-Parties", "S0-Population", "S0-Proposal",
+    assert names == ["S0-Access", "S0-Layers", "S0-Mission", "S0-Need", "S0-Parties", "S0-Population", "S0-Proposal", "S0-StatementOfWork",
                      "S1-DsoRelease", "S2-AcceptanceCriterion", "S2-Requirement", "S2-RequirementSet",
                      "S3-PlanApproval", "S3-Probe", "S3-Strategy", "S3-TestPlan",
                      "S4-Session", "S4-TestSuite", "S4-Turn", "S5-Evidence", "S5-Response", "S6-Attestation", "S6-Determination",
@@ -62,7 +63,7 @@ def test_epo_handles_subclass_prov_or_earl():
     g = load("vocabulary/epo.ttl")
     OWL = Namespace("http://www.w3.org/2002/07/owl#")
     for c in g.subjects(RDF.type, OWL.Class):
-        if c in (EPO.EpoStep, EPO.ContractingStep, EPO.Layer, EPO.AppropriatenessValue, EPO.SufficiencyValue, EPO.Role):
+        if c in (EPO.EpoStep, EPO.ContractingStep, EPO.Layer, EPO.AppropriatenessValue, EPO.SufficiencyValue, EPO.Engagement, EPO.Role):
             continue
         if c == EPO.Strategy:  # a prov:Plan, itself a prov:Entity
             continue

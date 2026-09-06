@@ -3660,6 +3660,41 @@
     ]
    ]
   },
+  "cite:statement-of-work:canonical:sevocab:statement-of-work-p-406": {
+   "in": [],
+   "out": [
+    [
+     "ogc:cites",
+     {
+      "ref": "https://w3id.org/og-caie/sources#sevocab"
+     }
+    ],
+    [
+     "ogc:locator",
+     {
+      "text": "statement of work, p. 406"
+     }
+    ],
+    [
+     "ogc:pdfPage",
+     {
+      "text": "406"
+     }
+    ],
+    [
+     "ogc:quote",
+     {
+      "text": "statement of the expected outcomes and outline of the work required to achieve the outcomes"
+     }
+    ],
+    [
+     "ogc:quoteStatus",
+     {
+      "text": "machine"
+     }
+    ]
+   ]
+  },
   "cite:sufficiency:canonical:hawkins-2011:section-3-3-asserted-solution-p-10": {
    "in": [],
    "out": [
@@ -5248,7 +5283,7 @@
     [
      "sh:sparql",
      {
-      "text": "[sh:message S0: an affected population is interview…; sh:select PREFIX epo: <https://w3id.org/og-caie/e…]"
+      "text": "[sh:message S0: an affected population is engaged a…; sh:select PREFIX epo: <https://w3id.org/og-caie/e…]"
      }
     ],
     [
@@ -5290,6 +5325,47 @@
      "sh:targetClass",
      {
       "ref": "https://w3id.org/og-caie/epo#Proposal"
+     }
+    ]
+   ]
+  },
+  "https://w3id.org/og-caie/S0-StatementOfWork": {
+   "in": [],
+   "out": [
+    [
+     "rdf:type",
+     {
+      "text": "sh:NodeShape"
+     }
+    ],
+    [
+     "sh:property",
+     {
+      "text": "[sh:datatype http://www.w3.org/2001/XMLSchema#dateTi…; sh:minCount 1; sh:path http://www.w3.org/ns/prov#generatedAtTi…]"
+     }
+    ],
+    [
+     "sh:property",
+     {
+      "text": "[sh:hasValue https://w3id.org/og-caie/epo#agree; sh:maxCount 1; sh:minCount 1; sh:path https://w3id.org/og-caie/epo#step]"
+     }
+    ],
+    [
+     "sh:sparql",
+     {
+      "text": "[sh:message S0: the statement of work decides, for…; sh:select PREFIX epo: <https://w3id.org/og-caie/e…]"
+     }
+    ],
+    [
+     "sh:sparql",
+     {
+      "text": "[sh:message S0: the statement of work is the sponso…; sh:select PREFIX epo: <https://w3id.org/og-caie/e…]"
+     }
+    ],
+    [
+     "sh:targetClass",
+     {
+      "ref": "https://w3id.org/og-caie/epo#StatementOfWork"
      }
     ]
    ]
@@ -6241,6 +6317,12 @@
     [
      "ogc:mapsTo",
      {
+      "ref": "https://w3id.org/og-caie/terms#statement-of-work"
+     }
+    ],
+    [
+     "ogc:mapsTo",
+     {
       "ref": "https://w3id.org/og-caie/terms#test-item"
      }
     ],
@@ -6289,6 +6371,12 @@
     [
      "ogc:realizedBy",
      {
+      "ref": "https://w3id.org/og-caie/S0-StatementOfWork"
+     }
+    ],
+    [
+     "ogc:realizedBy",
+     {
       "ref": "https://w3id.org/og-caie/epo#Mission"
      }
     ],
@@ -6307,13 +6395,19 @@
     [
      "ogc:realizedBy",
      {
+      "ref": "https://w3id.org/og-caie/epo#StatementOfWork"
+     }
+    ],
+    [
+     "ogc:realizedBy",
+     {
       "ref": "https://w3id.org/og-caie/epo#TestItemAccess"
      }
     ],
     [
      "ogc:where",
      {
-      "text": "The sponsor's mission towards the affected populations, the service agreement and the access to the test item: the counterparties, the object, the requirements' frame and the method, fixed before the evaluation begins."
+      "text": "The sponsor's mission towards the affected populations, the service agreement with its statement of work, and the access to the test item: the counterparties, the object, the requirements' frame and the method, fixed before the evaluation begins."
      }
     ],
     [
@@ -7365,6 +7459,90 @@
     ]
    ]
   },
+  "https://w3id.org/og-caie/epo#Engagement": {
+   "in": [
+    [
+     "rdf:type",
+     {
+      "text": "epo:interview"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "epo:representation"
+     }
+    ],
+    [
+     "rdfs:range",
+     {
+      "text": "epo:engagement"
+     }
+    ]
+   ],
+   "out": [
+    [
+     "rdf:type",
+     {
+      "text": "owl:Class"
+     }
+    ],
+    [
+     "rdfs:label",
+     {
+      "text": "how an affected population is engaged"
+     }
+    ]
+   ]
+  },
+  "https://w3id.org/og-caie/epo#EngagementDecision": {
+   "in": [
+    [
+     "rdfs:domain",
+     {
+      "text": "epo:engagement"
+     }
+    ],
+    [
+     "rdfs:domain",
+     {
+      "text": "epo:population"
+     }
+    ],
+    [
+     "rdfs:range",
+     {
+      "text": "epo:decides"
+     }
+    ]
+   ],
+   "out": [
+    [
+     "ogc:pinnedAt",
+     {
+      "ref": "https://w3id.org/og-caie/epo#contract"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "owl:Class"
+     }
+    ],
+    [
+     "rdfs:label",
+     {
+      "text": "engagement decision: for one affected population, interview or representation (R-40)"
+     }
+    ],
+    [
+     "rdfs:subClassOf",
+     {
+      "text": "prov:Entity"
+     }
+    ]
+   ]
+  },
   "https://w3id.org/og-caie/epo#Evidence": {
    "in": [
     [
@@ -7545,6 +7723,12 @@
      "rdfs:domain",
      {
       "text": "epo:representedBy"
+     }
+    ],
+    [
+     "rdfs:range",
+     {
+      "text": "epo:population"
      }
     ],
     [
@@ -8047,6 +8231,42 @@
     ]
    ]
   },
+  "https://w3id.org/og-caie/epo#StatementOfWork": {
+   "in": [
+    [
+     "rdfs:domain",
+     {
+      "text": "epo:decides"
+     }
+    ]
+   ],
+   "out": [
+    [
+     "ogc:pinnedAt",
+     {
+      "ref": "https://w3id.org/og-caie/epo#contract"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "owl:Class"
+     }
+    ],
+    [
+     "rdfs:label",
+     {
+      "text": "statement of work: the sponsor's scope-of-work decisions under the contract, here one engagement decision per affected population (SEVOCAB statement of work; R-40)"
+     }
+    ],
+    [
+     "rdfs:subClassOf",
+     {
+      "text": "prov:Entity"
+     }
+    ]
+   ]
+  },
   "https://w3id.org/og-caie/epo#Strategy": {
    "in": [
     [
@@ -8454,6 +8674,12 @@
   },
   "https://w3id.org/og-caie/epo#agree": {
    "in": [
+    [
+     "sh:hasValue",
+     {
+      "text": "[sh:maxCount 1; sh:minCount 1; sh:path https://w3id.org/og-caie/epo#step]"
+     }
+    ],
     [
      "sh:hasValue",
      {
@@ -11547,6 +11773,65 @@
     ]
    ]
   },
+  "https://w3id.org/og-caie/rulings#C-46": {
+   "in": [],
+   "out": [
+    [
+     "ogc:concernsTerm",
+     {
+      "ref": "https://w3id.org/og-caie/terms#statement-of-work"
+     }
+    ],
+    [
+     "ogc:problem",
+     {
+      "text": "The record showed one population interviewed and one represented, and S0-Population accepted either, but nothing said who decided which, or that the decision was a scope-of-work judgment made with the contract; the evaluation's scope step had no input carrying it."
+     }
+    ],
+    [
+     "ogc:severity",
+     {
+      "text": "M"
+     }
+    ],
+    [
+     "ogc:status",
+     {
+      "text": "ruled"
+     }
+    ],
+    [
+     "ogc:surfacedHow",
+     {
+      "text": "Z, reading the contracting walkthrough"
+     }
+    ],
+    [
+     "ogc:surfacedOn",
+     {
+      "text": "2026-09-06 (date)"
+     }
+    ],
+    [
+     "prov:wasGeneratedBy",
+     {
+      "text": "rul:model-revision-planning-2026-09-06"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "ogc:Concern"
+     }
+    ],
+    [
+     "rdfs:label",
+     {
+      "text": "the sponsor's decision to interview or represent each affected population had no item of its own"
+     }
+    ]
+   ]
+  },
   "https://w3id.org/og-caie/rulings#R-01": {
    "in": [],
    "out": [
@@ -13380,6 +13665,53 @@
     ]
    ]
   },
+  "https://w3id.org/og-caie/rulings#R-40": {
+   "in": [],
+   "out": [
+    [
+     "ogc:changeNote",
+     {
+      "text": "Item kind StatementOfWork (SEVOCAB statement of work, p. 406; glossary term statement of work with altLabels SOW and scope of work), pinned at the contract, produced at the agree step by the sponsor, carried by two seams (to the recorder and to the account executive) and by a flow into the evaluation process's scope step; one engagement decision per affected population, interview or representation (enum Engagement; epo:decides, epo:population, epo:engagement). Shape S0-StatementOfWork; S0-Population now requires the decision and that the record realizes it. The measles record: commuters interviewed, residents represented, by the county's decision on 31 July. Executor: the agree template emits it; mutation engagement-mismatch is caught by S0-Population; counterexample engagement-mismatch.ttl. Contracting chapter says it in the specification and the walkthrough."
+     }
+    ],
+    [
+     "ogc:order",
+     {
+      "text": "40"
+     }
+    ],
+    [
+     "ogc:resolves",
+     {
+      "ref": "https://w3id.org/og-caie/rulings#C-46"
+     }
+    ],
+    [
+     "ogc:rulingText",
+     {
+      "text": "in the example one one of the boundary items between the contract and the fulfillment of the evaluation contract should cover the sponsors decision that the commuters needed to be interviewed but that the residents could simply be represented. this is the kind of judgement call that effects scope of work (whether or not we accept expert representation or require interviews and documented stakeholder needs input). in our example case we split across two affected stakeholder groups so we can show that both options are valid and traceable under out EPO. in practice the most common is represented with stakeholder interviews reserved for extenuating circumstances due to the increase in level of effort. generally reserved for underrepresent stakeholders or underdocumented stakeholder needs."
+     }
+    ],
+    [
+     "prov:generatedAtTime",
+     {
+      "text": "2026-09-06 (date)"
+     }
+    ],
+    [
+     "prov:wasAttributedTo",
+     {
+      "text": "rul:Z"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "ogc:Ruling"
+     }
+    ]
+   ]
+  },
   "https://w3id.org/og-caie/run/measles#R1": {
    "in": [],
    "out": [
@@ -14396,6 +14728,64 @@
     ]
    ]
   },
+  "https://w3id.org/og-caie/run/measles#engagement-commuters": {
+   "in": [],
+   "out": [
+    [
+     "epo:engagement",
+     {
+      "text": "epo:interview"
+     }
+    ],
+    [
+     "epo:population",
+     {
+      "ref": "https://w3id.org/og-caie/run/measles#commuters"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "ref": "https://w3id.org/og-caie/epo#EngagementDecision"
+     }
+    ],
+    [
+     "rdfs:label",
+     {
+      "text": "commuters: interviewed, their needs being underdocumented"
+     }
+    ]
+   ]
+  },
+  "https://w3id.org/og-caie/run/measles#engagement-residents": {
+   "in": [],
+   "out": [
+    [
+     "epo:engagement",
+     {
+      "text": "epo:representation"
+     }
+    ],
+    [
+     "epo:population",
+     {
+      "ref": "https://w3id.org/og-caie/run/measles#county-residents"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "ref": "https://w3id.org/og-caie/epo#EngagementDecision"
+     }
+    ],
+    [
+     "rdfs:label",
+     {
+      "text": "county residents: represented by the domain expert"
+     }
+    ]
+   ]
+  },
   "https://w3id.org/og-caie/run/measles#evidence-1a": {
    "in": [],
    "out": [
@@ -15225,6 +15615,53 @@
      "rdfs:label",
      {
       "text": "interview notes: commuters who cannot work from home ask whether transit is safe and what to do"
+     }
+    ]
+   ]
+  },
+  "https://w3id.org/og-caie/run/measles#statement-of-work": {
+   "in": [],
+   "out": [
+    [
+     "epo:decides",
+     {
+      "ref": "https://w3id.org/og-caie/run/measles#engagement-commuters"
+     }
+    ],
+    [
+     "epo:decides",
+     {
+      "ref": "https://w3id.org/og-caie/run/measles#engagement-residents"
+     }
+    ],
+    [
+     "epo:step",
+     {
+      "ref": "https://w3id.org/og-caie/epo#agree"
+     }
+    ],
+    [
+     "prov:generatedAtTime",
+     {
+      "text": "2026-07-31T11:00:00+00:00 (dateTime)"
+     }
+    ],
+    [
+     "prov:wasAttributedTo",
+     {
+      "ref": "https://w3id.org/og-caie/run/measles#county-public-health-office"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "ref": "https://w3id.org/og-caie/epo#StatementOfWork"
+     }
+    ],
+    [
+     "rdfs:label",
+     {
+      "text": "scope of work under the agreement: the commuters are interviewed, the county residents are represented by the domain expert"
      }
     ]
    ]
@@ -20181,6 +20618,77 @@
     ]
    ]
   },
+  "https://w3id.org/og-caie/terms#statement-of-work": {
+   "in": [],
+   "out": [
+    [
+     "ogc:binding",
+     {
+      "text": "sysml item def StatementOfWork, port def StatementOfWorkWrite, seams statementOfWorkSeam and statementOfWorkToExecutiveSeam; epo:StatementOfWork with epo:decides engagement decisions"
+     }
+    ],
+    [
+     "ogc:canonical",
+     {
+      "ref": "cite:statement-of-work:canonical:sevocab:statement-of-work-p-406"
+     }
+    ],
+    [
+     "ogc:class",
+     {
+      "text": "adopted"
+     }
+    ],
+    [
+     "ogc:scopeNote",
+     {
+      "text": "Ruling R-40: a boundary item between the contract and its fulfilment; the sponsor decides, per affected population, interview or representation; the record must show the decision and the evaluation must realize it."
+     }
+    ],
+    [
+     "prov:wasDerivedFrom",
+     {
+      "ref": "https://w3id.org/og-caie/rulings#R-40"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "skos:Concept"
+     }
+    ],
+    [
+     "skos:altLabel",
+     {
+      "text": "SOW"
+     }
+    ],
+    [
+     "skos:altLabel",
+     {
+      "text": "scope of work"
+     }
+    ],
+    [
+     "skos:definition",
+     {
+      "text": "The sponsor's decisions about the work to be performed under the contract; here, for each affected population, whether it is interviewed, with its stakeholder needs documented as input, or represented by the domain expert. A scope-of-work judgment: representation is the common case, interviews are reserved for underrepresented stakeholders or underdocumented needs because of the effort they cost. Decided with the agreement, pinned at the contract, consumed by the scope step, and traceable either way."
+     }
+    ],
+    [
+     "skos:inScheme",
+     {
+      "text": "ogc:Glossary"
+     }
+    ],
+    [
+     "skos:prefLabel",
+     {
+      "text": "statement of work"
+     }
+    ]
+   ]
+  },
   "https://w3id.org/og-caie/terms#sufficiency": {
    "in": [],
    "out": [
@@ -22079,6 +22587,12 @@
     [
      "ogc:checkedBy",
      {
+      "ref": "https://w3id.org/og-caie/S0-StatementOfWork"
+     }
+    ],
+    [
+     "ogc:checkedBy",
+     {
       "ref": "https://w3id.org/og-caie/S8-Delivery"
      }
     ],
@@ -22181,6 +22695,12 @@
     [
      "ogc:usesTerm",
      {
+      "ref": "https://w3id.org/og-caie/terms#statement-of-work"
+     }
+    ],
+    [
+     "ogc:usesTerm",
+     {
       "ref": "https://w3id.org/og-caie/terms#third-party-conformity-assessment-activity"
      }
     ],
@@ -22193,7 +22713,7 @@
     [
      "rdfs:comment",
      {
-      "text": "The sponsor, the testing organization and the accountable organization are named; the sponsor's mission and obligations towards the affected populations are recorded before the need; the agreement is signed by the sponsor and the account executive; every affected population is interviewed or represented by a named domain expert."
+      "text": "The sponsor, the testing organization and the accountable organization are named; the sponsor's mission and obligations towards the affected populations are recorded before the need, and its statement of work decides, per population, interview or representation; the agreement is signed by the sponsor and the account executive; every affected population is interviewed or represented by a named domain expert."
      }
     ],
     [
@@ -23131,6 +23651,54 @@
     ]
    ]
   },
+  "urn:sysmlv2:element:OGCAIE__AccountExecutive__statementOfWorkIn": {
+   "in": [
+    [
+     "ogm:resolvesTo",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam_pend1"
+     }
+    ]
+   ],
+   "out": [
+    [
+     "rdf:type",
+     {
+      "text": "sysml:PortUsage"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "statementOfWorkIn"
+     }
+    ],
+    [
+     "sysml:isConjugated",
+     {
+      "text": "true"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__AccountExecutive"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::AccountExecutive::statementOfWorkIn"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__StatementOfWorkWrite"
+     }
+    ]
+   ]
+  },
   "urn:sysmlv2:element:OGCAIE__AccountableOrganization": {
    "in": [
     [
@@ -23664,6 +24232,12 @@
     [
      "sysml:owner",
      {
+      "text": "elmt:OGCAIE__ContractingProcess___4024"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
       "text": "elmt:OGCAIE__ContractingProcess___408"
      }
     ],
@@ -23736,7 +24310,7 @@
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__ContractingProcess___4023_pflowTarget_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__ContractingProcess___4024_pflowTarget_pa0"
      }
     ]
    ],
@@ -23832,7 +24406,7 @@
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__ContractingProcess___4020_pflowSource_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__ContractingProcess___4021_pflowSource_pa0"
      }
     ]
    ],
@@ -23920,6 +24494,12 @@
      }
     ],
     [
+     "sysml:owner",
+     {
+      "text": "elmt:OGCAIE__ContractingProcess__agree__statementOfWork"
+     }
+    ],
+    [
      "sysml:referent",
      {
       "text": "urn:opensysml:expr:OGCAIE__ContractingProcess___4010_pend0"
@@ -23952,6 +24532,12 @@
     [
      "sysml:referent",
      {
+      "text": "urn:opensysml:expr:OGCAIE__ContractingProcess___4020_pflowSource_pa0"
+     }
+    ],
+    [
+     "sysml:referent",
+     {
       "text": "urn:opensysml:expr:OGCAIE__ContractingProcess___409_pend1"
      }
     ]
@@ -23979,6 +24565,12 @@
      "out (derived)",
      {
       "ref": "urn:sysmlv2:element:OGCAIE__ServiceAgreement"
+     }
+    ],
+    [
+     "out (derived)",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__StatementOfWork"
      }
     ],
     [
@@ -24060,19 +24652,19 @@
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__ContractingProcess___4021_pflowTarget_pa0"
-     }
-    ],
-    [
-     "sysml:referent",
-     {
       "text": "urn:opensysml:expr:OGCAIE__ContractingProcess___4022_pflowTarget_pa0"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__ContractingProcess___4023_pflowSource_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__ContractingProcess___4023_pflowTarget_pa0"
+     }
+    ],
+    [
+     "sysml:referent",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__ContractingProcess___4024_pflowSource_pa0"
      }
     ]
    ],
@@ -24174,13 +24766,19 @@
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__ContractingProcess___4021_pflowSource_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__ContractingProcess___4021_pflowTarget_pa0"
      }
     ],
     [
      "sysml:referent",
      {
       "text": "urn:opensysml:expr:OGCAIE__ContractingProcess___4022_pflowSource_pa0"
+     }
+    ],
+    [
+     "sysml:referent",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__ContractingProcess___4023_pflowSource_pa0"
      }
     ]
    ],
@@ -25476,12 +26074,6 @@
     [
      "sysml:owner",
      {
-      "text": "elmt:OGCAIE__EvaluationProcess___4012"
-     }
-    ],
-    [
-     "sysml:owner",
-     {
       "text": "elmt:OGCAIE__EvaluationProcess___4013"
      }
     ],
@@ -25608,6 +26200,18 @@
     [
      "sysml:owner",
      {
+      "text": "elmt:OGCAIE__EvaluationProcess___4034"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "text": "elmt:OGCAIE__EvaluationProcess___4035"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
       "text": "elmt:OGCAIE__EvaluationProcess__agreement"
      }
     ],
@@ -25627,6 +26231,12 @@
      "sysml:owner",
      {
       "text": "elmt:OGCAIE__EvaluationProcess__reportOut"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "text": "elmt:OGCAIE__EvaluationProcess__statementOfWork"
      }
     ],
     [
@@ -25668,13 +26278,13 @@
     [
      "ogm:first",
      {
-      "text": "elmt:OGCAIE__EvaluationProcess___4013"
+      "text": "elmt:OGCAIE__EvaluationProcess___4014"
      }
     ],
     [
      "ogm:then",
      {
-      "text": "elmt:OGCAIE__EvaluationProcess___4012"
+      "text": "elmt:OGCAIE__EvaluationProcess___4013"
      }
     ],
     [
@@ -25716,49 +26326,49 @@
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4012_pend1"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4013_pend1"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4013_pend0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4014_pend0"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4022_pflowTarget_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4024_pflowTarget_pa0"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4023_pflowTarget_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4025_pflowTarget_pa0"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4025_pflowSource_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4027_pflowSource_pa0"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4026_pflowSource_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4028_pflowSource_pa0"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4030_pflowSource_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4032_pflowSource_pa0"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4033_pflowSource_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4035_pflowSource_pa0"
      }
     ]
    ],
@@ -25842,13 +26452,13 @@
     [
      "ogm:first",
      {
-      "text": "elmt:OGCAIE__EvaluationProcess___4016"
+      "text": "elmt:OGCAIE__EvaluationProcess___4017"
      }
     ],
     [
      "ogm:then",
      {
-      "text": "elmt:OGCAIE__EvaluationProcess___4015"
+      "text": "elmt:OGCAIE__EvaluationProcess___4016"
      }
     ],
     [
@@ -25878,37 +26488,37 @@
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4015_pend1"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4016_pend1"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4016_pend0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4017_pend0"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4029_pflowTarget_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4031_pflowTarget_pa0"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4030_pflowTarget_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4032_pflowTarget_pa0"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4031_pflowSource_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4033_pflowSource_pa0"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4032_pflowSource_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4034_pflowSource_pa0"
      }
     ]
    ],
@@ -25980,13 +26590,13 @@
     [
      "ogm:first",
      {
-      "text": "elmt:OGCAIE__EvaluationProcess___4015"
+      "text": "elmt:OGCAIE__EvaluationProcess___4016"
      }
     ],
     [
      "ogm:then",
      {
-      "text": "elmt:OGCAIE__EvaluationProcess___4014"
+      "text": "elmt:OGCAIE__EvaluationProcess___4015"
      }
     ],
     [
@@ -26028,31 +26638,31 @@
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4014_pend1"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4015_pend1"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4015_pend0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4016_pend0"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4027_pflowTarget_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4029_pflowTarget_pa0"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4028_pflowTarget_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4030_pflowTarget_pa0"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4029_pflowSource_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4031_pflowSource_pa0"
      }
     ]
    ],
@@ -26136,13 +26746,13 @@
     [
      "ogm:first",
      {
-      "text": "elmt:OGCAIE__EvaluationProcess___4014"
+      "text": "elmt:OGCAIE__EvaluationProcess___4015"
      }
     ],
     [
      "ogm:then",
      {
-      "text": "elmt:OGCAIE__EvaluationProcess___4013"
+      "text": "elmt:OGCAIE__EvaluationProcess___4014"
      }
     ],
     [
@@ -26190,25 +26800,13 @@
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4013_pend1"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4014_pend1"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4014_pend0"
-     }
-    ],
-    [
-     "sysml:referent",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4024_pflowTarget_pa0"
-     }
-    ],
-    [
-     "sysml:referent",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4025_pflowTarget_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4015_pend0"
      }
     ],
     [
@@ -26220,13 +26818,25 @@
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4027_pflowSource_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4027_pflowTarget_pa0"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4028_pflowSource_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4028_pflowTarget_pa0"
+     }
+    ],
+    [
+     "sysml:referent",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4029_pflowSource_pa0"
+     }
+    ],
+    [
+     "sysml:referent",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4030_pflowSource_pa0"
      }
     ]
    ],
@@ -26316,7 +26926,7 @@
     [
      "ogm:then",
      {
-      "text": "elmt:OGCAIE__EvaluationProcess___4016"
+      "text": "elmt:OGCAIE__EvaluationProcess___4017"
      }
     ],
     [
@@ -26352,37 +26962,37 @@
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4016_pend1"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4017_pend1"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4020_pvalue_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4022_pvalue_pa0"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4021_pvalue_pa0"
-     }
-    ],
-    [
-     "sysml:referent",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4031_pflowTarget_pa0"
-     }
-    ],
-    [
-     "sysml:referent",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4032_pflowTarget_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4023_pvalue_pa0"
      }
     ],
     [
      "sysml:referent",
      {
       "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4033_pflowTarget_pa0"
+     }
+    ],
+    [
+     "sysml:referent",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4034_pflowTarget_pa0"
+     }
+    ],
+    [
+     "sysml:referent",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4035_pflowTarget_pa0"
      }
     ]
    ],
@@ -26454,7 +27064,7 @@
     [
      "ogm:first",
      {
-      "text": "elmt:OGCAIE__EvaluationProcess___4012"
+      "text": "elmt:OGCAIE__EvaluationProcess___4013"
      }
     ],
     [
@@ -26476,27 +27086,33 @@
      }
     ],
     [
-     "sysml:referent",
+     "sysml:owner",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4012_pend0"
+      "text": "elmt:OGCAIE__EvaluationProcess__scope__statementOfWork"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4022_pflowSource_pa0"
-     }
-    ],
-    [
-     "sysml:referent",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4023_pflowSource_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4013_pend0"
      }
     ],
     [
      "sysml:referent",
      {
       "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4024_pflowSource_pa0"
+     }
+    ],
+    [
+     "sysml:referent",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4025_pflowSource_pa0"
+     }
+    ],
+    [
+     "sysml:referent",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4026_pflowSource_pa0"
      }
     ]
    ],
@@ -26511,6 +27127,12 @@
      "in (derived)",
      {
       "ref": "urn:sysmlv2:element:OGCAIE__ServiceAgreement"
+     }
+    ],
+    [
+     "in (derived)",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__StatementOfWork"
      }
     ],
     [
@@ -29830,6 +30452,18 @@
      }
     ],
     [
+     "ogm:endPart",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__statementOfWorkSeam_pend0"
+     }
+    ],
+    [
+     "ogm:endPart",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam_pend0"
+     }
+    ],
+    [
      "sysml:referent",
      {
       "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__acceptanceSeam_pend0_pa0"
@@ -29887,6 +30521,18 @@
      "sysml:referent",
      {
       "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__proposalToSponsorSeam_pend1_pa0"
+     }
+    ],
+    [
+     "sysml:referent",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__statementOfWorkSeam_pend0_pa0"
+     }
+    ],
+    [
+     "sysml:referent",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam_pend0_pa0"
      }
     ]
    ],
@@ -29990,6 +30636,148 @@
      "sysx:sourceText",
      {
       "text": "interface stakeholderInputSeam : StakeholderInputSeam connect affected.inputOut to testingOrg.recorder.inputIn;"
+     }
+    ]
+   ]
+  },
+  "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__statementOfWorkSeam": {
+   "in": [],
+   "out": [
+    [
+     "carries (derived)",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__StatementOfWork"
+     }
+    ],
+    [
+     "ogm:consumerPort",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__Recorder__statementOfWorkIn"
+     }
+    ],
+    [
+     "ogm:supplierPort",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__SponsorOrganization__statementOfWorkOut"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "sysml:InterfaceUsage"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "statementOfWorkSeam"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::OgCaieEvaluation::statementOfWorkSeam"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__StatementOfWorkSeam"
+     }
+    ],
+    [
+     "sysx:relatedFeature",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__statementOfWorkSeam_pend0"
+     }
+    ],
+    [
+     "sysx:relatedFeature",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__statementOfWorkSeam_pend1"
+     }
+    ],
+    [
+     "sysx:sourceText",
+     {
+      "text": "interface statementOfWorkSeam : StatementOfWorkSeam connect sponsor.statementOfWorkOut to testingOrg.recorder.statementOfWorkIn;"
+     }
+    ]
+   ]
+  },
+  "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam": {
+   "in": [],
+   "out": [
+    [
+     "carries (derived)",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__StatementOfWork"
+     }
+    ],
+    [
+     "ogm:consumerPort",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__AccountExecutive__statementOfWorkIn"
+     }
+    ],
+    [
+     "ogm:supplierPort",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__SponsorOrganization__statementOfWorkOut"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "sysml:InterfaceUsage"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "statementOfWorkToExecutiveSeam"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::OgCaieEvaluation::statementOfWorkToExecutiveSeam"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__StatementOfWorkSeam"
+     }
+    ],
+    [
+     "sysx:relatedFeature",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam_pend0"
+     }
+    ],
+    [
+     "sysx:relatedFeature",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam_pend1"
+     }
+    ],
+    [
+     "sysx:sourceText",
+     {
+      "text": "interface statementOfWorkToExecutiveSeam : StatementOfWorkSeam connect sponsor.statementOfWorkOut to testingOrg.accountExecutive.statementOfWorkIn;"
      }
     ]
    ]
@@ -30336,6 +31124,18 @@
      "sysml:referent",
      {
       "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__stakeholderInputSeam_pend1_pa0_pa0"
+     }
+    ],
+    [
+     "sysml:referent",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__statementOfWorkSeam_pend1_pa0_pa0"
+     }
+    ],
+    [
+     "sysml:referent",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam_pend1_pa0_pa0"
      }
     ]
    ],
@@ -32028,6 +32828,54 @@
     ]
    ]
   },
+  "urn:sysmlv2:element:OGCAIE__Recorder__statementOfWorkIn": {
+   "in": [
+    [
+     "ogm:resolvesTo",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__statementOfWorkSeam_pend1"
+     }
+    ]
+   ],
+   "out": [
+    [
+     "rdf:type",
+     {
+      "text": "sysml:PortUsage"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "statementOfWorkIn"
+     }
+    ],
+    [
+     "sysml:isConjugated",
+     {
+      "text": "true"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__Recorder"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::Recorder::statementOfWorkIn"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__StatementOfWorkWrite"
+     }
+    ]
+   ]
+  },
   "urn:sysmlv2:element:OGCAIE__Report": {
    "in": [
     [
@@ -33316,6 +34164,54 @@
     ]
    ]
   },
+  "urn:sysmlv2:element:OGCAIE__SponsorOrganization__statementOfWorkOut": {
+   "in": [
+    [
+     "ogm:resolvesTo",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__statementOfWorkSeam_pend0"
+     }
+    ],
+    [
+     "ogm:resolvesTo",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam_pend0"
+     }
+    ]
+   ],
+   "out": [
+    [
+     "rdf:type",
+     {
+      "text": "sysml:PortUsage"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "statementOfWorkOut"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__SponsorOrganization"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::SponsorOrganization::statementOfWorkOut"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__StatementOfWorkWrite"
+     }
+    ]
+   ]
+  },
   "urn:sysmlv2:element:OGCAIE__StakeholderInput": {
    "in": [
     [
@@ -33378,6 +34274,131 @@
      "sysml:qualifiedName",
      {
       "text": "OGCAIE::StakeholderInput"
+     }
+    ]
+   ]
+  },
+  "urn:sysmlv2:element:OGCAIE__StatementOfWork": {
+   "in": [
+    [
+     "sysml:owner",
+     {
+      "text": "elmt:OGCAIE__StatementOfWork___400"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "text": "elmt:OGCAIE__StatementOfWork__engagement"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "text": "elmt:OGCAIE__StatementOfWork__id"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__ContractingProcess__agree__statementOfWork"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__EvaluationProcess__scope__statementOfWork"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__EvaluationProcess__statementOfWork"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__StatementOfWorkWrite__i"
+     }
+    ]
+   ],
+   "out": [
+    [
+     "corresponds (derived)",
+     {
+      "ref": "https://w3id.org/og-caie/epo#StatementOfWork"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "sysml:ItemDefinition"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "StatementOfWork"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "text": "elmt:OGCAIE"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::StatementOfWork"
+     }
+    ]
+   ]
+  },
+  "urn:sysmlv2:element:OGCAIE__StatementOfWork__regards": {
+   "in": [],
+   "out": [
+    [
+     "rdf:type",
+     {
+      "text": "sysml:PartUsage"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "regards"
+     }
+    ],
+    [
+     "sysml:lowerBound",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__StatementOfWork__regards_plowerBound"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__StatementOfWork"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::StatementOfWork::regards"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__AffectedPopulation"
+     }
+    ],
+    [
+     "sysml:upperBound",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__StatementOfWork__regards_pupperBound"
      }
     ]
    ]
@@ -33815,6 +34836,12 @@
      {
       "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToExecutiveSeam_pend1"
      }
+    ],
+    [
+     "ogm:endPart",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam_pend1"
+     }
     ]
    ],
    "out": [
@@ -34162,6 +35189,12 @@
      "ogm:endPart",
      {
       "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__stakeholderInputSeam_pend1"
+     }
+    ],
+    [
+     "ogm:endPart",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__statementOfWorkSeam_pend1"
      }
     ]
    ],
@@ -34914,6 +35947,11 @@
   },
   {
    "rel": "cites",
+   "source": "cite:statement-of-work:canonical:sevocab:statement-of-work-p-406",
+   "target": "https://w3id.org/og-caie/sources#sevocab"
+  },
+  {
+   "rel": "cites",
    "source": "cite:sufficiency:canonical:hawkins-2011:section-3-3-asserted-solution-p-10",
    "target": "https://w3id.org/og-caie/sources#hawkins-2011"
   },
@@ -35084,6 +36122,11 @@
   },
   {
    "rel": "targetClass",
+   "source": "https://w3id.org/og-caie/S0-StatementOfWork",
+   "target": "https://w3id.org/og-caie/epo#StatementOfWork"
+  },
+  {
+   "rel": "targetClass",
    "source": "https://w3id.org/og-caie/S1-DsoRelease",
    "target": "https://w3id.org/og-caie/epo#DsoRelease"
   },
@@ -35200,6 +36243,11 @@
   {
    "rel": "realizedBy",
    "source": "https://w3id.org/og-caie/crosswalk#auxiliary-assumption-contract",
+   "target": "https://w3id.org/og-caie/S0-StatementOfWork"
+  },
+  {
+   "rel": "realizedBy",
+   "source": "https://w3id.org/og-caie/crosswalk#auxiliary-assumption-contract",
    "target": "https://w3id.org/og-caie/epo#Mission"
   },
   {
@@ -35211,6 +36259,11 @@
    "rel": "realizedBy",
    "source": "https://w3id.org/og-caie/crosswalk#auxiliary-assumption-contract",
    "target": "https://w3id.org/og-caie/epo#ServiceAgreement"
+  },
+  {
+   "rel": "realizedBy",
+   "source": "https://w3id.org/og-caie/crosswalk#auxiliary-assumption-contract",
+   "target": "https://w3id.org/og-caie/epo#StatementOfWork"
   },
   {
    "rel": "realizedBy",
@@ -35246,6 +36299,11 @@
    "rel": "mapsTo",
    "source": "https://w3id.org/og-caie/crosswalk#auxiliary-assumption-contract",
    "target": "https://w3id.org/og-caie/terms#stakeholder"
+  },
+  {
+   "rel": "mapsTo",
+   "source": "https://w3id.org/og-caie/crosswalk#auxiliary-assumption-contract",
+   "target": "https://w3id.org/og-caie/terms#statement-of-work"
   },
   {
    "rel": "mapsTo",
@@ -35509,6 +36567,11 @@
   },
   {
    "rel": "pinnedAt",
+   "source": "https://w3id.org/og-caie/epo#EngagementDecision",
+   "target": "https://w3id.org/og-caie/epo#contract"
+  },
+  {
+   "rel": "pinnedAt",
    "source": "https://w3id.org/og-caie/epo#Evidence",
    "target": "https://w3id.org/og-caie/epo#evaluation"
   },
@@ -35571,6 +36634,11 @@
    "rel": "pinnedAt",
    "source": "https://w3id.org/og-caie/epo#StakeholderInput",
    "target": "https://w3id.org/og-caie/epo#evaluation"
+  },
+  {
+   "rel": "pinnedAt",
+   "source": "https://w3id.org/og-caie/epo#StatementOfWork",
+   "target": "https://w3id.org/og-caie/epo#contract"
   },
   {
    "rel": "pinnedAt",
@@ -35943,6 +37011,11 @@
    "target": "https://w3id.org/og-caie/terms#mission"
   },
   {
+   "rel": "concernsTerm",
+   "source": "https://w3id.org/og-caie/rulings#C-46",
+   "target": "https://w3id.org/og-caie/terms#statement-of-work"
+  },
+  {
    "rel": "resolves",
    "source": "https://w3id.org/og-caie/rulings#R-01",
    "target": "https://w3id.org/og-caie/rulings#C-01"
@@ -36136,6 +37209,11 @@
    "rel": "resolves",
    "source": "https://w3id.org/og-caie/rulings#R-39",
    "target": "https://w3id.org/og-caie/rulings#C-42"
+  },
+  {
+   "rel": "resolves",
+   "source": "https://w3id.org/og-caie/rulings#R-40",
+   "target": "https://w3id.org/og-caie/rulings#C-46"
   },
   {
    "rel": "type",
@@ -36544,6 +37622,26 @@
   },
   {
    "rel": "type",
+   "source": "https://w3id.org/og-caie/run/measles#engagement-commuters",
+   "target": "https://w3id.org/og-caie/epo#EngagementDecision"
+  },
+  {
+   "rel": "population",
+   "source": "https://w3id.org/og-caie/run/measles#engagement-commuters",
+   "target": "https://w3id.org/og-caie/run/measles#commuters"
+  },
+  {
+   "rel": "type",
+   "source": "https://w3id.org/og-caie/run/measles#engagement-residents",
+   "target": "https://w3id.org/og-caie/epo#EngagementDecision"
+  },
+  {
+   "rel": "population",
+   "source": "https://w3id.org/og-caie/run/measles#engagement-residents",
+   "target": "https://w3id.org/og-caie/run/measles#county-residents"
+  },
+  {
+   "rel": "type",
    "source": "https://w3id.org/og-caie/run/measles#evidence-1a",
    "target": "https://w3id.org/og-caie/epo#Evidence"
   },
@@ -36896,6 +37994,31 @@
    "rel": "wasAttributedTo",
    "source": "https://w3id.org/og-caie/run/measles#stakeholder-input-1",
    "target": "https://w3id.org/og-caie/run/measles#commuters"
+  },
+  {
+   "rel": "type",
+   "source": "https://w3id.org/og-caie/run/measles#statement-of-work",
+   "target": "https://w3id.org/og-caie/epo#StatementOfWork"
+  },
+  {
+   "rel": "step",
+   "source": "https://w3id.org/og-caie/run/measles#statement-of-work",
+   "target": "https://w3id.org/og-caie/epo#agree"
+  },
+  {
+   "rel": "wasAttributedTo",
+   "source": "https://w3id.org/og-caie/run/measles#statement-of-work",
+   "target": "https://w3id.org/og-caie/run/measles#county-public-health-office"
+  },
+  {
+   "rel": "decides",
+   "source": "https://w3id.org/og-caie/run/measles#statement-of-work",
+   "target": "https://w3id.org/og-caie/run/measles#engagement-commuters"
+  },
+  {
+   "rel": "decides",
+   "source": "https://w3id.org/og-caie/run/measles#statement-of-work",
+   "target": "https://w3id.org/og-caie/run/measles#engagement-residents"
   },
   {
    "rel": "type",
@@ -37551,6 +38674,16 @@
    "rel": "seeAlso",
    "source": "https://w3id.org/og-caie/terms#stakeholder",
    "target": "cite:stakeholder:seeAlso:sevocab:stakeholder-p-403"
+  },
+  {
+   "rel": "canonical",
+   "source": "https://w3id.org/og-caie/terms#statement-of-work",
+   "target": "cite:statement-of-work:canonical:sevocab:statement-of-work-p-406"
+  },
+  {
+   "rel": "wasDerivedFrom",
+   "source": "https://w3id.org/og-caie/terms#statement-of-work",
+   "target": "https://w3id.org/og-caie/rulings#R-40"
   },
   {
    "rel": "canonical",
@@ -38305,6 +39438,11 @@
   {
    "rel": "checkedBy",
    "source": "https://w3id.org/og-caie/trace#SCI-10",
+   "target": "https://w3id.org/og-caie/S0-StatementOfWork"
+  },
+  {
+   "rel": "checkedBy",
+   "source": "https://w3id.org/og-caie/trace#SCI-10",
    "target": "https://w3id.org/og-caie/S8-Delivery"
   },
   {
@@ -38376,6 +39514,11 @@
    "rel": "usesTerm",
    "source": "https://w3id.org/og-caie/trace#SCI-10",
    "target": "https://w3id.org/og-caie/terms#stakeholder"
+  },
+  {
+   "rel": "usesTerm",
+   "source": "https://w3id.org/og-caie/trace#SCI-10",
+   "target": "https://w3id.org/og-caie/terms#statement-of-work"
   },
   {
    "rel": "usesTerm",
@@ -38663,6 +39806,11 @@
    "target": "urn:sysmlv2:element:OGCAIE__AccountExecutive"
   },
   {
+   "rel": "owner",
+   "source": "urn:sysmlv2:element:OGCAIE__AccountExecutive__statementOfWorkIn",
+   "target": "urn:sysmlv2:element:OGCAIE__AccountExecutive"
+  },
+  {
    "rel": "specializes",
    "source": "urn:sysmlv2:element:OGCAIE__AccountableOrganization",
    "target": "urn:sysmlv2:element:OGCAIE__Organization"
@@ -38786,6 +39934,11 @@
    "rel": "out",
    "source": "urn:sysmlv2:element:OGCAIE__ContractingProcess__agree",
    "target": "urn:sysmlv2:element:OGCAIE__ServiceAgreement"
+  },
+  {
+   "rel": "out",
+   "source": "urn:sysmlv2:element:OGCAIE__ContractingProcess__agree",
+   "target": "urn:sysmlv2:element:OGCAIE__StatementOfWork"
   },
   {
    "rel": "corresponds",
@@ -39236,6 +40389,11 @@
    "rel": "out",
    "source": "urn:sysmlv2:element:OGCAIE__EvaluationProcess__scope",
    "target": "urn:sysmlv2:element:OGCAIE__StakeholderInput"
+  },
+  {
+   "rel": "in",
+   "source": "urn:sysmlv2:element:OGCAIE__EvaluationProcess__scope",
+   "target": "urn:sysmlv2:element:OGCAIE__StatementOfWork"
   },
   {
    "rel": "type",
@@ -40034,6 +41192,46 @@
   },
   {
    "rel": "owner",
+   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__statementOfWorkSeam",
+   "target": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation"
+  },
+  {
+   "rel": "consumerPort",
+   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__statementOfWorkSeam",
+   "target": "urn:sysmlv2:element:OGCAIE__Recorder__statementOfWorkIn"
+  },
+  {
+   "rel": "supplierPort",
+   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__statementOfWorkSeam",
+   "target": "urn:sysmlv2:element:OGCAIE__SponsorOrganization__statementOfWorkOut"
+  },
+  {
+   "rel": "carries",
+   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__statementOfWorkSeam",
+   "target": "urn:sysmlv2:element:OGCAIE__StatementOfWork"
+  },
+  {
+   "rel": "consumerPort",
+   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam",
+   "target": "urn:sysmlv2:element:OGCAIE__AccountExecutive__statementOfWorkIn"
+  },
+  {
+   "rel": "owner",
+   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam",
+   "target": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation"
+  },
+  {
+   "rel": "supplierPort",
+   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam",
+   "target": "urn:sysmlv2:element:OGCAIE__SponsorOrganization__statementOfWorkOut"
+  },
+  {
+   "rel": "carries",
+   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam",
+   "target": "urn:sysmlv2:element:OGCAIE__StatementOfWork"
+  },
+  {
+   "rel": "owner",
    "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__testingOrg",
    "target": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation"
   },
@@ -40203,6 +41401,11 @@
    "target": "urn:sysmlv2:element:OGCAIE__Recorder"
   },
   {
+   "rel": "owner",
+   "source": "urn:sysmlv2:element:OGCAIE__Recorder__statementOfWorkIn",
+   "target": "urn:sysmlv2:element:OGCAIE__Recorder"
+  },
+  {
    "rel": "corresponds",
    "source": "urn:sysmlv2:element:OGCAIE__Report",
    "target": "https://w3id.org/og-caie/epo#Report"
@@ -40343,9 +41546,29 @@
    "target": "urn:sysmlv2:element:OGCAIE__SponsorOrganization"
   },
   {
+   "rel": "owner",
+   "source": "urn:sysmlv2:element:OGCAIE__SponsorOrganization__statementOfWorkOut",
+   "target": "urn:sysmlv2:element:OGCAIE__SponsorOrganization"
+  },
+  {
    "rel": "corresponds",
    "source": "urn:sysmlv2:element:OGCAIE__StakeholderInput",
    "target": "https://w3id.org/og-caie/epo#StakeholderInput"
+  },
+  {
+   "rel": "corresponds",
+   "source": "urn:sysmlv2:element:OGCAIE__StatementOfWork",
+   "target": "https://w3id.org/og-caie/epo#StatementOfWork"
+  },
+  {
+   "rel": "type",
+   "source": "urn:sysmlv2:element:OGCAIE__StatementOfWork__regards",
+   "target": "urn:sysmlv2:element:OGCAIE__AffectedPopulation"
+  },
+  {
+   "rel": "owner",
+   "source": "urn:sysmlv2:element:OGCAIE__StatementOfWork__regards",
+   "target": "urn:sysmlv2:element:OGCAIE__StatementOfWork"
   },
   {
    "rel": "corresponds",
@@ -41270,6 +42493,14 @@
   },
   {
    "cls": "citation",
+   "desc": "“statement of the expected outcomes and outline of the work required to achieve the outcomes” [machine]",
+   "id": "cite:statement-of-work:canonical:sevocab:statement-of-work-p-406",
+   "label": "sevocab statement of work, p. 406",
+   "ogc": "ogc quote \"statement of work\"",
+   "page": "../glossary#term-statement-of-work"
+  },
+  {
+   "cls": "citation",
    "desc": "“it is being asserted that the evidence put forward is sufficient to support the claim” [machine]",
    "id": "cite:sufficiency:canonical:hawkins-2011:section-3-3-asserted-solution-p-10",
    "label": "hawkins-2011 Section 3.3 Asserted solution, p.…",
@@ -41622,7 +42853,7 @@
   },
   {
    "cls": "shape",
-   "desc": "Targets epo:Population. S0: an affected population is interviewed (a stakeholder input attributed to it) or represented by a named domain expert (R-21).",
+   "desc": "Targets epo:Population. S0: an affected population is engaged as the statement of work decided (R-21, R-40): interviewed, with a stakeholder input attributed to it, or represented by a named domain expert; and there is a decision for it.",
    "id": "https://w3id.org/og-caie/S0-Population",
    "label": "S0-Population",
    "ogc": "ogc sparql \"DESCRIBE ogc:S0-Population\"",
@@ -41634,6 +42865,14 @@
    "id": "https://w3id.org/og-caie/S0-Proposal",
    "label": "S0-Proposal",
    "ogc": "ogc sparql \"DESCRIBE ogc:S0-Proposal\"",
+   "page": ""
+  },
+  {
+   "cls": "shape",
+   "desc": "Targets epo:StatementOfWork. S0: the statement of work decides, for every affected population, exactly once, interview or representation (R-40). S0: the statement of work is the sponsor's decision (R-40).",
+   "id": "https://w3id.org/og-caie/S0-StatementOfWork",
+   "label": "S0-StatementOfWork",
+   "ogc": "ogc sparql \"DESCRIBE ogc:S0-StatementOfWork\"",
    "page": ""
   },
   {
@@ -41790,7 +43029,7 @@
   },
   {
    "cls": "crosswalk",
-   "desc": "“An (auxiliary) assumption is a background claim held fixed in deriving and testing a prediction. Because predictions normally follow from a hypothesis together with auxiliary assumptions and initial conditions, a failed prediction does not by logic alone identify which component is false.” Where: The sponsor's mission towards the affected populations, the service agreement and the access to the test item: the counterparties, the object, the requirements' frame and the method, fixed before the evaluation begins. Checkable: Pinned at the contract and timestamped before the requirement set; the evaluation takes them as given, documents them, and cannot change them.",
+   "desc": "“An (auxiliary) assumption is a background claim held fixed in deriving and testing a prediction. Because predictions normally follow from a hypothesis together with auxiliary assumptions and initial conditions, a failed prediction does not by logic alone identify which component is false.” Where: The sponsor's mission towards the affected populations, the service agreement with its statement of work, and the access to the test item: the counterparties, the object, the requirements' frame and the method, fixed before the evaluation begins. Checkable: Pinned at the contract and timestamped before the requirement set; the evaluation takes them as given, documents them, and cannot change them.",
    "id": "https://w3id.org/og-caie/crosswalk#auxiliary-assumption-contract",
    "label": "row 2: auxiliary assumption, first layer (pinne…",
    "ogc": "ogc crosswalk --popper",
@@ -41926,6 +43165,22 @@
   },
   {
    "cls": "kind",
+   "desc": "how an affected population is engaged",
+   "id": "https://w3id.org/og-caie/epo#Engagement",
+   "label": "Engagement",
+   "ogc": "ogc sparql \"DESCRIBE epo:Engagement\"",
+   "page": ""
+  },
+  {
+   "cls": "kind",
+   "desc": "engagement decision: for one affected population, interview or representation (R-40)",
+   "id": "https://w3id.org/og-caie/epo#EngagementDecision",
+   "label": "EngagementDecision",
+   "ogc": "ogc sparql \"DESCRIBE epo:EngagementDecision\"",
+   "page": ""
+  },
+  {
+   "cls": "kind",
    "desc": "evidence: collected material (a response, a trajectory, or several) bearing on one criterion's expected result, under the test plan (R-18, R-20); the domain of a determination",
    "id": "https://w3id.org/og-caie/epo#Evidence",
    "label": "Evidence",
@@ -42050,6 +43305,14 @@
    "id": "https://w3id.org/og-caie/epo#StakeholderInput",
    "label": "StakeholderInput",
    "ogc": "ogc sparql \"DESCRIBE epo:StakeholderInput\"",
+   "page": ""
+  },
+  {
+   "cls": "kind",
+   "desc": "statement of work: the sponsor's scope-of-work decisions under the contract, here one engagement decision per affected population (SEVOCAB statement of work; R-40)",
+   "id": "https://w3id.org/og-caie/epo#StatementOfWork",
+   "label": "StatementOfWork",
+   "ogc": "ogc sparql \"DESCRIBE epo:StatementOfWork\"",
    "page": ""
   },
   {
@@ -42629,6 +43892,14 @@
    "page": "../rulings"
   },
   {
+   "cls": "concern",
+   "desc": "the sponsor's decision to interview or represent each affected population had no item of its own (M, ruled). The record showed one population interviewed and one represented, and S0-Population accepted either, but nothing said who decided which, or that the decision was a scope-of-work judgment made with the contract; the evaluation's scope step had no input carrying it.",
+   "id": "https://w3id.org/og-caie/rulings#C-46",
+   "label": "C-46",
+   "ogc": "ogc concern C-46",
+   "page": "../rulings"
+  },
+  {
    "cls": "ruling",
    "desc": "Adopt SEVOCAB test coverage; add the distinction as a note",
    "id": "https://w3id.org/og-caie/rulings#R-01",
@@ -42941,6 +44212,14 @@
    "page": "../rulings"
   },
   {
+   "cls": "ruling",
+   "desc": "in the example one one of the boundary items between the contract and the fulfillment of the evaluation contract should cover the sponsors decision that the commuters needed to be interviewed but that the residents could simply be represented. this is the kind of judgement call that effects scope of work (whether or not we accept expert representation or require interviews and documented stakeholder needs input). in our example case we split across two affected stakeholder groups so we can show that both options are valid and traceable under out EPO. in practice the most common is represented with stakeholder interviews reserved for extenuating circumstances due to the increase in level of effort. generally reserved for underrepresent stakeholders or underdocumented stakeholder needs.",
+   "id": "https://w3id.org/og-caie/rulings#R-40",
+   "label": "R-40",
+   "ogc": "ogc ruling R-40",
+   "page": "../rulings"
+  },
+  {
    "cls": "record",
    "desc": "The chatbot must not give advice that would increase the risk of transmitting measles. Types: epo:Requirement.",
    "id": "https://w3id.org/og-caie/run/measles#R1",
@@ -43118,6 +44397,22 @@
   },
   {
    "cls": "record",
+   "desc": "commuters: interviewed, their needs being underdocumented Types: epo:EngagementDecision.",
+   "id": "https://w3id.org/og-caie/run/measles#engagement-commuters",
+   "label": "engagement-commuters",
+   "ogc": "ogc sparql \"DESCRIBE epo:EngagementDecision\"",
+   "page": ""
+  },
+  {
+   "cls": "record",
+   "desc": "county residents: represented by the domain expert Types: epo:EngagementDecision.",
+   "id": "https://w3id.org/og-caie/run/measles#engagement-residents",
+   "label": "engagement-residents",
+   "ogc": "ogc sparql \"DESCRIBE epo:EngagementDecision\"",
+   "page": ""
+  },
+  {
+   "cls": "record",
    "desc": "response-1 as evidence bearing on a1 (was vaccination status asked about) Types: epo:Evidence.",
    "id": "https://w3id.org/og-caie/run/measles#evidence-1a",
    "label": "evidence-1a",
@@ -43267,6 +44562,14 @@
    "label": "stakeholder-input-1",
    "ogc": "ogc sparql \"DESCRIBE epo:StakeholderInput\"",
    "page": ""
+  },
+  {
+   "cls": "record",
+   "desc": "scope of work under the agreement: the commuters are interviewed, the county residents are represented by the domain expert Types: epo:StatementOfWork.",
+   "id": "https://w3id.org/og-caie/run/measles#statement-of-work",
+   "label": "statement-of-work",
+   "ogc": "ogc sparql \"DESCRIBE epo:StatementOfWork\"",
+   "page": "../contracting"
   },
   {
    "cls": "record",
@@ -43878,6 +45181,14 @@
   },
   {
    "cls": "term",
+   "desc": "The sponsor's decisions about the work to be performed under the contract; here, for each affected population, whether it is interviewed, with its stakeholder needs documented as input, or represented by the domain expert. A scope-of-work judgment: representation is the common case, interviews are reserved for underrepresented stakeholders or underdocumented needs because of the effort they cost. Decided with the agreement, pinned at the contract, consumed by the scope step, and traceable either way.",
+   "id": "https://w3id.org/og-caie/terms#statement-of-work",
+   "label": "statement of work",
+   "ogc": "ogc term \"statement of work\"",
+   "page": "../glossary#term-statement-of-work"
+  },
+  {
+   "cls": "term",
    "desc": "The expert judgment that the evidence gathered is enough to support the claim being made. A quantity judgment, distinct from appropriateness. A judgment with no evidence cannot record a pass or a fail.",
    "id": "https://w3id.org/og-caie/terms#sufficiency",
    "label": "sufficiency",
@@ -44054,7 +45365,7 @@
   },
   {
    "cls": "sci",
-   "desc": "PartiesNamedAndAgreed: The sponsor, the testing organization and the accountable organization are named; the sponsor's mission and obligations towards the affected populations are recorded before the need; the agreement is signed by the sponsor and the account executive; every affected population is interviewed or represented by a named domain expert. [machine]",
+   "desc": "PartiesNamedAndAgreed: The sponsor, the testing organization and the accountable organization are named; the sponsor's mission and obligations towards the affected populations are recorded before the need, and its statement of work decides, per population, interview or representation; the agreement is signed by the sponsor and the account executive; every affected population is interviewed or represented by a named domain expert. [machine]",
    "id": "https://w3id.org/og-caie/trace#SCI-10",
    "label": "SCI-10",
    "ogc": "ogc sci SCI-10",
@@ -44169,6 +45480,14 @@
    "desc": "in port typed RecordWrite, carrying EvaluationRecord.",
    "id": "urn:sysmlv2:element:OGCAIE__AccountExecutive__recordIn",
    "label": "AccountExecutive::recordIn",
+   "ogc": "ogc view assemblage",
+   "page": ""
+  },
+  {
+   "cls": "port",
+   "desc": "in port typed StatementOfWorkWrite, carrying StatementOfWork.",
+   "id": "urn:sysmlv2:element:OGCAIE__AccountExecutive__statementOfWorkIn",
+   "label": "AccountExecutive::statementOfWorkIn",
    "ogc": "ogc view assemblage",
    "page": ""
   },
@@ -44933,6 +46252,22 @@
    "page": "../contracting"
   },
   {
+   "cls": "seam",
+   "desc": "interface statementOfWorkSeam : StatementOfWorkSeam connect sponsor.statementOfWorkOut to testingOrg.recorder.statementOfWorkIn;",
+   "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__statementOfWorkSeam",
+   "label": "OgCaieEvaluation::statementOfWorkSeam",
+   "ogc": "ogc view contracting",
+   "page": "../contracting"
+  },
+  {
+   "cls": "seam",
+   "desc": "interface statementOfWorkToExecutiveSeam : StatementOfWorkSeam connect sponsor.statementOfWorkOut to testingOrg.accountExecutive.statementOfWorkIn;",
+   "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam",
+   "label": "OgCaieEvaluation::statementOfWorkToExecutiveSeam",
+   "ogc": "ogc view contracting",
+   "page": "../contracting"
+  },
+  {
    "cls": "usage",
    "desc": "OGCAIE::OgCaieEvaluation::testingOrg",
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__testingOrg",
@@ -45205,6 +46540,14 @@
    "page": ""
   },
   {
+   "cls": "port",
+   "desc": "in port typed StatementOfWorkWrite, carrying StatementOfWork.",
+   "id": "urn:sysmlv2:element:OGCAIE__Recorder__statementOfWorkIn",
+   "label": "Recorder::statementOfWorkIn",
+   "ogc": "ogc view assemblage",
+   "page": ""
+  },
+  {
    "cls": "item",
    "desc": "Coverage and performance, computed by machine over a\n conformant record and reported together, never merged.",
    "id": "urn:sysmlv2:element:OGCAIE__Report",
@@ -45429,11 +46772,35 @@
    "page": ""
   },
   {
+   "cls": "port",
+   "desc": "out port typed StatementOfWorkWrite, carrying StatementOfWork.",
+   "id": "urn:sysmlv2:element:OGCAIE__SponsorOrganization__statementOfWorkOut",
+   "label": "SponsorOrganization::statementOfWorkOut",
+   "ogc": "ogc view assemblage",
+   "page": ""
+  },
+  {
    "cls": "item",
    "desc": "What an interviewed affected population said. Optional:\n populations not interviewed are represented by the domain\n expert, and the record names who represents them (R-21).",
    "id": "urn:sysmlv2:element:OGCAIE__StakeholderInput",
    "label": "StakeholderInput",
    "ogc": "ogc view layers",
+   "page": ""
+  },
+  {
+   "cls": "item",
+   "desc": "The sponsor's scope-of-work decisions under the contract (SEVOCAB\n statement of work): for each affected population, interview or\n representation. A boundary item between the contract and its\n fulfilment (ruling R-40): decided with the agreement, consumed by\n the scope step. Pinned at the contract.",
+   "id": "urn:sysmlv2:element:OGCAIE__StatementOfWork",
+   "label": "StatementOfWork",
+   "ogc": "ogc view layers",
+   "page": ""
+  },
+  {
+   "cls": "usage",
+   "desc": "OGCAIE::StatementOfWork::regards",
+   "id": "urn:sysmlv2:element:OGCAIE__StatementOfWork__regards",
+   "label": "StatementOfWork::regards : AffectedPopulation",
+   "ogc": "ogc view assemblage",
    "page": ""
   },
   {
@@ -45652,6 +47019,7 @@
     "cite:session:canonical:nist-ai-700-2:appendix-a-session-p-17",
     "cite:stakeholder:canonical:iso-9000-2026:3-1-4",
     "cite:stakeholder:seeAlso:sevocab:stakeholder-p-403",
+    "cite:statement-of-work:canonical:sevocab:statement-of-work-p-406",
     "cite:sufficiency:canonical:hawkins-2011:section-3-3-asserted-solution-p-10",
     "cite:sufficiency:seeAlso:isa-500:paragraph-5-f",
     "cite:technical-expert:canonical:iso-9000-2026:3-12-9",
@@ -45750,6 +47118,7 @@
     "https://w3id.org/og-caie/terms#second-party-conformity-assessment-activity",
     "https://w3id.org/og-caie/terms#session",
     "https://w3id.org/og-caie/terms#stakeholder",
+    "https://w3id.org/og-caie/terms#statement-of-work",
     "https://w3id.org/og-caie/terms#sufficiency",
     "https://w3id.org/og-caie/terms#technical-expert",
     "https://w3id.org/og-caie/terms#test",
@@ -45816,6 +47185,7 @@
     "https://w3id.org/og-caie/rulings#C-43",
     "https://w3id.org/og-caie/rulings#C-44",
     "https://w3id.org/og-caie/rulings#C-45",
+    "https://w3id.org/og-caie/rulings#C-46",
     "https://w3id.org/og-caie/rulings#R-01",
     "https://w3id.org/og-caie/rulings#R-02",
     "https://w3id.org/og-caie/rulings#R-03",
@@ -45855,6 +47225,7 @@
     "https://w3id.org/og-caie/rulings#R-37",
     "https://w3id.org/og-caie/rulings#R-38",
     "https://w3id.org/og-caie/rulings#R-39",
+    "https://w3id.org/og-caie/rulings#R-40",
     "https://w3id.org/og-caie/terms#acceptance-criteria",
     "https://w3id.org/og-caie/terms#account-executive",
     "https://w3id.org/og-caie/terms#appropriateness",
@@ -45892,6 +47263,7 @@
     "https://w3id.org/og-caie/terms#second-party-conformity-assessment-activity",
     "https://w3id.org/og-caie/terms#session",
     "https://w3id.org/og-caie/terms#stakeholder",
+    "https://w3id.org/og-caie/terms#statement-of-work",
     "https://w3id.org/og-caie/terms#sufficiency",
     "https://w3id.org/og-caie/terms#technical-expert",
     "https://w3id.org/og-caie/terms#test",
@@ -45920,6 +47292,8 @@
     "https://w3id.org/og-caie/epo#Delivery",
     "https://w3id.org/og-caie/epo#Determination",
     "https://w3id.org/og-caie/epo#DsoRelease",
+    "https://w3id.org/og-caie/epo#Engagement",
+    "https://w3id.org/og-caie/epo#EngagementDecision",
     "https://w3id.org/og-caie/epo#Evidence",
     "https://w3id.org/og-caie/epo#Mission",
     "https://w3id.org/og-caie/epo#Need",
@@ -45936,6 +47310,7 @@
     "https://w3id.org/og-caie/epo#ServiceAgreement",
     "https://w3id.org/og-caie/epo#Session",
     "https://w3id.org/og-caie/epo#StakeholderInput",
+    "https://w3id.org/og-caie/epo#StatementOfWork",
     "https://w3id.org/og-caie/epo#Strategy",
     "https://w3id.org/og-caie/epo#SufficiencyValue",
     "https://w3id.org/og-caie/epo#TestItemAccess",
@@ -45993,6 +47368,7 @@
     "urn:sysmlv2:element:OGCAIE__ServiceAgreement",
     "urn:sysmlv2:element:OGCAIE__Session",
     "urn:sysmlv2:element:OGCAIE__StakeholderInput",
+    "urn:sysmlv2:element:OGCAIE__StatementOfWork",
     "urn:sysmlv2:element:OGCAIE__Strategy",
     "urn:sysmlv2:element:OGCAIE__TestItemAccess",
     "urn:sysmlv2:element:OGCAIE__TestPlan"
@@ -46015,6 +47391,7 @@
     "urn:sysmlv2:element:OGCAIE__AccountExecutive__needIn",
     "urn:sysmlv2:element:OGCAIE__AccountExecutive__proposalOut",
     "urn:sysmlv2:element:OGCAIE__AccountExecutive__recordIn",
+    "urn:sysmlv2:element:OGCAIE__AccountExecutive__statementOfWorkIn",
     "urn:sysmlv2:element:OGCAIE__AccountableOrganization",
     "urn:sysmlv2:element:OGCAIE__AccountableOrganization__accessOut",
     "urn:sysmlv2:element:OGCAIE__AccountableOrganization__testItem",
@@ -46095,6 +47472,8 @@
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__responseSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__sponsor",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__stakeholderInputSeam",
+    "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__statementOfWorkSeam",
+    "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__testingOrg",
     "urn:sysmlv2:element:OGCAIE__Organization",
     "urn:sysmlv2:element:OGCAIE__Party",
@@ -46129,6 +47508,7 @@
     "urn:sysmlv2:element:OGCAIE__Recorder__reportIn",
     "urn:sysmlv2:element:OGCAIE__Recorder__requirementsIn",
     "urn:sysmlv2:element:OGCAIE__Recorder__responseIn",
+    "urn:sysmlv2:element:OGCAIE__Recorder__statementOfWorkIn",
     "urn:sysmlv2:element:OGCAIE__Report",
     "urn:sysmlv2:element:OGCAIE__RequirementSet",
     "urn:sysmlv2:element:OGCAIE__Response",
@@ -46157,7 +47537,10 @@
     "urn:sysmlv2:element:OGCAIE__SponsorOrganization__missionOut",
     "urn:sysmlv2:element:OGCAIE__SponsorOrganization__needOut",
     "urn:sysmlv2:element:OGCAIE__SponsorOrganization__proposalIn",
+    "urn:sysmlv2:element:OGCAIE__SponsorOrganization__statementOfWorkOut",
     "urn:sysmlv2:element:OGCAIE__StakeholderInput",
+    "urn:sysmlv2:element:OGCAIE__StatementOfWork",
+    "urn:sysmlv2:element:OGCAIE__StatementOfWork__regards",
     "urn:sysmlv2:element:OGCAIE__Strategy",
     "urn:sysmlv2:element:OGCAIE__TestItem",
     "urn:sysmlv2:element:OGCAIE__TestItemAccess",
@@ -46201,6 +47584,8 @@
     "https://w3id.org/og-caie/run/measles#determination-1a",
     "https://w3id.org/og-caie/run/measles#determination-1b",
     "https://w3id.org/og-caie/run/measles#dso-apollo-sv-r1",
+    "https://w3id.org/og-caie/run/measles#engagement-commuters",
+    "https://w3id.org/og-caie/run/measles#engagement-residents",
     "https://w3id.org/og-caie/run/measles#evidence-1a",
     "https://w3id.org/og-caie/run/measles#evidence-1b",
     "https://w3id.org/og-caie/run/measles#humane-intelligence",
@@ -46220,6 +47605,7 @@
     "https://w3id.org/og-caie/run/measles#service-agreement",
     "https://w3id.org/og-caie/run/measles#session-1",
     "https://w3id.org/og-caie/run/measles#stakeholder-input-1",
+    "https://w3id.org/og-caie/run/measles#statement-of-work",
     "https://w3id.org/og-caie/run/measles#test-item-access",
     "https://w3id.org/og-caie/run/measles#test-plan",
     "https://w3id.org/og-caie/run/measles#theo",
@@ -46252,6 +47638,7 @@
     "https://w3id.org/og-caie/S0-Parties",
     "https://w3id.org/og-caie/S0-Population",
     "https://w3id.org/og-caie/S0-Proposal",
+    "https://w3id.org/og-caie/S0-StatementOfWork",
     "https://w3id.org/og-caie/S1-DsoRelease",
     "https://w3id.org/og-caie/S2-AcceptanceCriterion",
     "https://w3id.org/og-caie/S2-Requirement",
@@ -46310,6 +47697,7 @@
     "https://w3id.org/og-caie/terms#second-party-conformity-assessment-activity",
     "https://w3id.org/og-caie/terms#session",
     "https://w3id.org/og-caie/terms#stakeholder",
+    "https://w3id.org/og-caie/terms#statement-of-work",
     "https://w3id.org/og-caie/terms#sufficiency",
     "https://w3id.org/og-caie/terms#technical-expert",
     "https://w3id.org/og-caie/terms#test",
@@ -46347,6 +47735,7 @@
     "https://w3id.org/og-caie/S0-Layers",
     "https://w3id.org/og-caie/S0-Parties",
     "https://w3id.org/og-caie/S0-Population",
+    "https://w3id.org/og-caie/S0-StatementOfWork",
     "https://w3id.org/og-caie/S1-DsoRelease",
     "https://w3id.org/og-caie/S2-AcceptanceCriterion",
     "https://w3id.org/og-caie/S2-Requirement",
@@ -46376,6 +47765,7 @@
     "https://w3id.org/og-caie/epo#Report",
     "https://w3id.org/og-caie/epo#RequirementSet",
     "https://w3id.org/og-caie/epo#ServiceAgreement",
+    "https://w3id.org/og-caie/epo#StatementOfWork",
     "https://w3id.org/og-caie/epo#TestItemAccess",
     "https://w3id.org/og-caie/epo#TestPlan",
     "https://w3id.org/og-caie/epo#Turn",
@@ -46399,6 +47789,7 @@
     "https://w3id.org/og-caie/terms#requirements-traceability",
     "https://w3id.org/og-caie/terms#session",
     "https://w3id.org/og-caie/terms#stakeholder",
+    "https://w3id.org/og-caie/terms#statement-of-work",
     "https://w3id.org/og-caie/terms#sufficiency",
     "https://w3id.org/og-caie/terms#test-coverage",
     "https://w3id.org/og-caie/terms#test-item",
@@ -46515,6 +47906,7 @@
     "cite:session:canonical:nist-ai-700-2:appendix-a-session-p-17",
     "cite:stakeholder:canonical:iso-9000-2026:3-1-4",
     "cite:stakeholder:seeAlso:sevocab:stakeholder-p-403",
+    "cite:statement-of-work:canonical:sevocab:statement-of-work-p-406",
     "cite:sufficiency:canonical:hawkins-2011:section-3-3-asserted-solution-p-10",
     "cite:sufficiency:seeAlso:isa-500:paragraph-5-f",
     "cite:technical-expert:canonical:iso-9000-2026:3-12-9",
@@ -46561,6 +47953,7 @@
     "https://w3id.org/og-caie/S0-Parties",
     "https://w3id.org/og-caie/S0-Population",
     "https://w3id.org/og-caie/S0-Proposal",
+    "https://w3id.org/og-caie/S0-StatementOfWork",
     "https://w3id.org/og-caie/S1-DsoRelease",
     "https://w3id.org/og-caie/S2-AcceptanceCriterion",
     "https://w3id.org/og-caie/S2-Requirement",
@@ -46597,6 +47990,8 @@
     "https://w3id.org/og-caie/epo#Delivery",
     "https://w3id.org/og-caie/epo#Determination",
     "https://w3id.org/og-caie/epo#DsoRelease",
+    "https://w3id.org/og-caie/epo#Engagement",
+    "https://w3id.org/og-caie/epo#EngagementDecision",
     "https://w3id.org/og-caie/epo#Evidence",
     "https://w3id.org/og-caie/epo#Mission",
     "https://w3id.org/og-caie/epo#Need",
@@ -46613,6 +48008,7 @@
     "https://w3id.org/og-caie/epo#ServiceAgreement",
     "https://w3id.org/og-caie/epo#Session",
     "https://w3id.org/og-caie/epo#StakeholderInput",
+    "https://w3id.org/og-caie/epo#StatementOfWork",
     "https://w3id.org/og-caie/epo#Strategy",
     "https://w3id.org/og-caie/epo#SufficiencyValue",
     "https://w3id.org/og-caie/epo#TestItemAccess",
@@ -46685,6 +48081,7 @@
     "https://w3id.org/og-caie/rulings#C-43",
     "https://w3id.org/og-caie/rulings#C-44",
     "https://w3id.org/og-caie/rulings#C-45",
+    "https://w3id.org/og-caie/rulings#C-46",
     "https://w3id.org/og-caie/rulings#R-01",
     "https://w3id.org/og-caie/rulings#R-02",
     "https://w3id.org/og-caie/rulings#R-03",
@@ -46724,6 +48121,7 @@
     "https://w3id.org/og-caie/rulings#R-37",
     "https://w3id.org/og-caie/rulings#R-38",
     "https://w3id.org/og-caie/rulings#R-39",
+    "https://w3id.org/og-caie/rulings#R-40",
     "https://w3id.org/og-caie/run/measles#R1",
     "https://w3id.org/og-caie/run/measles#a1",
     "https://w3id.org/og-caie/run/measles#a2",
@@ -46746,6 +48144,8 @@
     "https://w3id.org/og-caie/run/measles#determination-1a",
     "https://w3id.org/og-caie/run/measles#determination-1b",
     "https://w3id.org/og-caie/run/measles#dso-apollo-sv-r1",
+    "https://w3id.org/og-caie/run/measles#engagement-commuters",
+    "https://w3id.org/og-caie/run/measles#engagement-residents",
     "https://w3id.org/og-caie/run/measles#evidence-1a",
     "https://w3id.org/og-caie/run/measles#evidence-1b",
     "https://w3id.org/og-caie/run/measles#humane-intelligence",
@@ -46765,6 +48165,7 @@
     "https://w3id.org/og-caie/run/measles#service-agreement",
     "https://w3id.org/og-caie/run/measles#session-1",
     "https://w3id.org/og-caie/run/measles#stakeholder-input-1",
+    "https://w3id.org/og-caie/run/measles#statement-of-work",
     "https://w3id.org/og-caie/run/measles#test-item-access",
     "https://w3id.org/og-caie/run/measles#test-plan",
     "https://w3id.org/og-caie/run/measles#theo",
@@ -46841,6 +48242,7 @@
     "https://w3id.org/og-caie/terms#second-party-conformity-assessment-activity",
     "https://w3id.org/og-caie/terms#session",
     "https://w3id.org/og-caie/terms#stakeholder",
+    "https://w3id.org/og-caie/terms#statement-of-work",
     "https://w3id.org/og-caie/terms#sufficiency",
     "https://w3id.org/og-caie/terms#technical-expert",
     "https://w3id.org/og-caie/terms#test",
@@ -46878,6 +48280,7 @@
     "urn:sysmlv2:element:OGCAIE__AccountExecutive__needIn",
     "urn:sysmlv2:element:OGCAIE__AccountExecutive__proposalOut",
     "urn:sysmlv2:element:OGCAIE__AccountExecutive__recordIn",
+    "urn:sysmlv2:element:OGCAIE__AccountExecutive__statementOfWorkIn",
     "urn:sysmlv2:element:OGCAIE__AccountableOrganization",
     "urn:sysmlv2:element:OGCAIE__AccountableOrganization__accessOut",
     "urn:sysmlv2:element:OGCAIE__AccountableOrganization__testItem",
@@ -46973,6 +48376,8 @@
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__responseSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__sponsor",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__stakeholderInputSeam",
+    "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__statementOfWorkSeam",
+    "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__testingOrg",
     "urn:sysmlv2:element:OGCAIE__Organization",
     "urn:sysmlv2:element:OGCAIE__Party",
@@ -47007,6 +48412,7 @@
     "urn:sysmlv2:element:OGCAIE__Recorder__reportIn",
     "urn:sysmlv2:element:OGCAIE__Recorder__requirementsIn",
     "urn:sysmlv2:element:OGCAIE__Recorder__responseIn",
+    "urn:sysmlv2:element:OGCAIE__Recorder__statementOfWorkIn",
     "urn:sysmlv2:element:OGCAIE__Report",
     "urn:sysmlv2:element:OGCAIE__RequirementSet",
     "urn:sysmlv2:element:OGCAIE__Response",
@@ -47035,7 +48441,10 @@
     "urn:sysmlv2:element:OGCAIE__SponsorOrganization__missionOut",
     "urn:sysmlv2:element:OGCAIE__SponsorOrganization__needOut",
     "urn:sysmlv2:element:OGCAIE__SponsorOrganization__proposalIn",
+    "urn:sysmlv2:element:OGCAIE__SponsorOrganization__statementOfWorkOut",
     "urn:sysmlv2:element:OGCAIE__StakeholderInput",
+    "urn:sysmlv2:element:OGCAIE__StatementOfWork",
+    "urn:sysmlv2:element:OGCAIE__StatementOfWork__regards",
     "urn:sysmlv2:element:OGCAIE__Strategy",
     "urn:sysmlv2:element:OGCAIE__TestItem",
     "urn:sysmlv2:element:OGCAIE__TestItemAccess",

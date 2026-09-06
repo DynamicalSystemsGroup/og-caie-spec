@@ -25,8 +25,8 @@ flowchart LR
   accountable -- "TestItemAccess" --> testingOrg_recorder
   accountable_testItem -- "Response" --> testingOrg_recorder
   affected -- "StakeholderInput" --> testingOrg_recorder
-  sponsor -- "Mission, Need, ServiceAgreement, Acceptance" --> testingOrg_accountExecutive
-  sponsor -- "Mission, Need, Acceptance" --> testingOrg_recorder
+  sponsor -- "Mission, Need, ServiceAgreement, StatementOfWork, Acceptance" --> testingOrg_accountExecutive
+  sponsor -- "Mission, Need, StatementOfWork, Acceptance" --> testingOrg_recorder
   testingOrg_accountExecutive -- "Proposal, Delivery" --> sponsor
   testingOrg_accountExecutive -- "Proposal, ServiceAgreement, Delivery" --> testingOrg_recorder
   testingOrg_coverageCalculator -- "Report" --> testingOrg_recorder

@@ -39,7 +39,8 @@ audit of the evaluation by a body with no user interest would be the
 :class: specification
 
 The evaluation slice of the wiring. Two actor categories do the work: the
-{term}`domain expert` supplies or approves the DSO release, assesses the
+{term}`domain expert` engages the affected populations as the statement of
+work decided, interviewing or representing each, supplies or approves the DSO release, assesses the
 appropriateness of the requirement set, approves the plan, and attests; the
 {term}`evaluation operator` declares the requirements, writes the plan,
 applies the probes to the {term}`test item`, collects the evidence and

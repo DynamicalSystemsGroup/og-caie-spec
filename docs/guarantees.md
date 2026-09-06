@@ -70,8 +70,8 @@ the last column names the check that catches it.
 :class: checked
 
 The tests execute the runs, pin the coverage and the traceback row counts,
-assert that the first run conforms and is complete, that every mutation is
-caught by at least one check, that two executions produce identical graphs,
+assert that the first run conforms and is complete, that each of the eight
+mutations is caught by at least one check, that two executions produce identical graphs,
 and that a model with a step's output removed makes the executor refuse to
 run. Two findings are stated rather than hidden: skipping the plan approval
 or the access grant leaves a record the shapes accept, because the S-shapes

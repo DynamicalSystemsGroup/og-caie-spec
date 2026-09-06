@@ -46,6 +46,7 @@ EXPECTED = {
     "executive-attests": {"fired": ["S6-Attestation"]},
     "attest-without-determination": {"fired": ["S6-Attestation", "S8-Recommendation"], "traceback": 0},
     "requirements-before-agreement": {"fired": ["S0-Layers", "S0-Parties"]},
+    "engagement-mismatch": {"fired": ["S0-Population"]},
 }
 
 

@@ -179,10 +179,17 @@ def t_propose(r, i, p):
 
 
 def t_agree(r, i, p):
+    g = r.g
     n = r.new("ServiceAgreement", "agreement", i)
-    r.g.add((n, EPO.signedBy, r.agents["SponsorOrganization"])); r.g.add((n, EPO.signedBy, r.agents["AccountExecutive"]))
-    r.g.add((n, EPO.step, EPO.agree)); r.g.add((n, RDFS.label, Literal("the service agreement")))
-    return {"ServiceAgreement"}
+    g.add((n, EPO.signedBy, r.agents["SponsorOrganization"])); g.add((n, EPO.signedBy, r.agents["AccountExecutive"]))
+    g.add((n, EPO.step, EPO.agree)); g.add((n, RDFS.label, Literal("the service agreement")))
+    sow = r.new("StatementOfWork", "statement-of-work", i, 1)
+    g.add((sow, EPO.step, EPO.agree)); g.add((sow, RDFS.label, Literal("the scope of work: the first population interviewed, the others represented"))); by(r, sow, "StatementOfWork")
+    for k, pop in enumerate(r.agents["AffectedPopulation"]):
+        d = RUN[f"engagement-{k + 1}"]
+        g.add((d, RDF.type, EPO.EngagementDecision)); g.add((d, EPO.population, pop))
+        g.add((d, EPO.engagement, EPO.interview if k == 0 else EPO.representation)); g.add((sow, EPO.decides, d))
+    return {"ServiceAgreement", "StatementOfWork"}
 
 
 def t_access(r, i, p):
@@ -390,6 +397,12 @@ def m_requirements_before_agreement(g):
     g.remove((rs, PROV.generatedAtTime, None)); g.add((rs, PROV.generatedAtTime, Literal(str(t).replace("2026-09-03", "2026-08-30"), datatype=XSD.dateTime)))
 
 
+def m_engagement_mismatch(g):
+    """The statement of work said the first population would be interviewed; the decision is flipped to representation, which the record does not realize."""
+    d = next(d for d in g.subjects(RDF.type, EPO.EngagementDecision) if (d, EPO.engagement, EPO.interview) in g)
+    g.remove((d, EPO.engagement, None)); g.add((d, EPO.engagement, EPO.representation))
+
+
 MUTATIONS = {
     "skip-assessment": ("skip the appropriateness assessment (a step's output missing)", m_skip_assessment),
     "skip-approval": ("skip the plan approval", m_skip_approval),
@@ -398,6 +411,7 @@ MUTATIONS = {
     "executive-attests": ("the account executive attests instead of the domain expert", m_executive_attests),
     "attest-without-determination": ("attestations aggregate no determination", m_attest_without_determination),
     "requirements-before-agreement": ("the requirement set dated before the agreement", m_requirements_before_agreement),
+    "engagement-mismatch": ("the statement of work decides representation for a population the record only interviewed", m_engagement_mismatch),
 }
 
 

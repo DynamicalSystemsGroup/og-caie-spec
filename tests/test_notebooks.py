@@ -28,7 +28,7 @@ CHAPTERS = ["contracting.md", "evaluation.md", "model.md", "guarantees.md"]
 # The counterexamples each chapter's Checked block describes in prose, by file
 # name, since the prose names the fault and not the file.
 COUNTEREXAMPLES = {
-    "contracting.md": ["requirements-before-agreement.ttl", "population-unrepresented.ttl", "no-obligation.sysml"],
+    "contracting.md": ["requirements-before-agreement.ttl", "population-unrepresented.ttl", "engagement-mismatch.ttl", "no-obligation.sysml"],
     "evaluation.md": ["attestation-without-evidence.ttl", "attestation-off-plan.ttl", "attestation-off-turn.ttl",
                       "probe-before-requirements.ttl", "recommendation-untraced.ttl", "expert-administers-tests.ttl",
                       "executive-attests.ttl", "unwired-port.sysml", "expert-administers-tests.sysml"],

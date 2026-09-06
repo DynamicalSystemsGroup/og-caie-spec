@@ -9,6 +9,7 @@ For each kind of part, each port: its direction, the item kind it carries, and t
 | AccountExecutive | missionIn | in | MissionWrite | missionToExecutiveSeam | from SponsorOrganization.missionOut |
 | AccountExecutive | needIn | in | NeedWrite | needToExecutiveSeam | from SponsorOrganization.needOut |
 | AccountExecutive | recordIn | in | RecordWrite | recordToExecutiveSeam | from Recorder.recordOut |
+| AccountExecutive | statementOfWorkIn | in | StatementOfWorkWrite | statementOfWorkToExecutiveSeam | from SponsorOrganization.statementOfWorkOut |
 | AccountExecutive | agreementOut | out | AgreementWrite | countersignSeam | to Recorder.agreementIn |
 | AccountExecutive | deliveryOut | out | DeliveryWrite | deliveryRecordSeam | to Recorder.deliveryIn |
 | AccountExecutive | deliveryOut | out | DeliveryWrite | deliverySeam | to SponsorOrganization.deliveryIn |
@@ -57,6 +58,7 @@ For each kind of part, each port: its direction, the item kind it carries, and t
 | Recorder | reportIn | in | ReportWrite | reportSeam | from CoverageCalculator.reportOut |
 | Recorder | requirementsIn | in | RequirementSetWrite | requirementSeam | from EvaluationOperator.requirementsOut |
 | Recorder | responseIn | in | ResponseWrite | responseSeam | from TestItem.responseOut |
+| Recorder | statementOfWorkIn | in | StatementOfWorkWrite | statementOfWorkSeam | from SponsorOrganization.statementOfWorkOut |
 | Recorder | recordOut | out | RecordWrite | recordToCalculatorSeam | to CoverageCalculator.recordIn |
 | Recorder | recordOut | out | RecordWrite | recordToCheckerSeam | to ConformanceChecker.recordIn |
 | Recorder | recordOut | out | RecordWrite | recordToDeriverSeam | to ProbeDeriver.recordIn |
@@ -72,5 +74,7 @@ For each kind of part, each port: its direction, the item kind it carries, and t
 | SponsorOrganization | missionOut | out | MissionWrite | missionToExecutiveSeam | to AccountExecutive.missionIn |
 | SponsorOrganization | needOut | out | NeedWrite | needSeam | to Recorder.needIn |
 | SponsorOrganization | needOut | out | NeedWrite | needToExecutiveSeam | to AccountExecutive.needIn |
+| SponsorOrganization | statementOfWorkOut | out | StatementOfWorkWrite | statementOfWorkSeam | to Recorder.statementOfWorkIn |
+| SponsorOrganization | statementOfWorkOut | out | StatementOfWorkWrite | statementOfWorkToExecutiveSeam | to AccountExecutive.statementOfWorkIn |
 | TestItem | probesIn | in | ProbeWrite | probeRunSeam | from EvaluationOperator.probesToItem |
 | TestItem | responseOut | out | ResponseWrite | responseSeam | to Recorder.responseIn |

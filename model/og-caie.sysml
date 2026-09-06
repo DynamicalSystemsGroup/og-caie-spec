@@ -46,6 +46,11 @@ package OGCAIE {
         appropriate; inappropriate;
     }
 
+    enum def Engagement {
+        doc /* How an affected population is engaged, as the statement of work
+           decides (ruling R-40). */
+        interview; representation;
+    }
     enum def Sufficiency {
         doc /* Hawkins et al. 2011, section 3.3; ISA 500 paragraph 5(f):
            the measure of the quantity of evidence. */
@@ -84,6 +89,16 @@ package OGCAIE {
            more of the affected populations (ruling R-38). */
         attribute id : ScalarValues::String;
         ref part regards : AffectedPopulation[1..*];
+    }
+    item def StatementOfWork {
+        doc /* The sponsor's scope-of-work decisions under the contract (SEVOCAB
+           statement of work): for each affected population, interview or
+           representation. A boundary item between the contract and its
+           fulfilment (ruling R-40): decided with the agreement, consumed by
+           the scope step. Pinned at the contract. */
+        attribute id : ScalarValues::String;
+        ref part regards : AffectedPopulation[1..*];
+        attribute engagement : Engagement[1..*];
     }
     item def Need {
         doc /* The sponsor's stated mission problem and measures of success
@@ -218,6 +233,7 @@ package OGCAIE {
     // ------------------------------------------------------------
 
     port def MissionWrite { out item i : Mission; }
+    port def StatementOfWorkWrite { out item i : StatementOfWork; }
     port def NeedWrite { out item i : Need; }
     port def ProposalWrite { out item i : Proposal; }
     port def AcceptanceWrite { out item i : Acceptance; }
@@ -245,6 +261,7 @@ package OGCAIE {
     // ------------------------------------------------------------
 
     interface def MissionSeam { end supplier : MissionWrite; end consumer : ~MissionWrite; }
+    interface def StatementOfWorkSeam { end supplier : StatementOfWorkWrite; end consumer : ~StatementOfWorkWrite; }
     interface def NeedSeam { end supplier : NeedWrite; end consumer : ~NeedWrite; }
     interface def ProposalSeam { end supplier : ProposalWrite; end consumer : ~ProposalWrite; }
     interface def AcceptanceSeam { end supplier : AcceptanceWrite; end consumer : ~AcceptanceWrite; }
@@ -288,7 +305,7 @@ package OGCAIE {
            interface by typing. The flows say which item goes where. */
         action need { out mission : Mission; out statedNeed : Need; }
         action propose { in mission : Mission; in statedNeed : Need; out proposal : Proposal; }
-        action agree { in mission : Mission; in proposal : Proposal; out agreement : ServiceAgreement; }
+        action agree { in mission : Mission; in proposal : Proposal; out agreement : ServiceAgreement; out statementOfWork : StatementOfWork; }
         action access { in agreement : ServiceAgreement; out testItemAccess : TestItemAccess; }
         action fulfil : EvaluationProcess;
         action deliver { in reportIn : Report; in recommendation : Recommendation; out delivery : Delivery; }
@@ -305,6 +322,7 @@ package OGCAIE {
         flow propose.proposal to agree.proposal;
         flow agree.agreement to access.agreement;
         flow agree.agreement to fulfil.agreement;
+        flow agree.statementOfWork to fulfil.statementOfWork;
         flow access.testItemAccess to fulfil.testItemAccess;
         flow fulfil.reportOut to deliver.reportIn;
         flow fulfil.recommendation to deliver.recommendation;
@@ -317,11 +335,12 @@ package OGCAIE {
            the DSO enters as a parameter at the scope step; the record
            leaves as the result. */
         in agreement : ServiceAgreement;
+        in statementOfWork : StatementOfWork;
         in testItemAccess : TestItemAccess;
         out reportOut : Report;
         out recommendation : Recommendation;
         out record : EvaluationRecord;
-        action scope { in agreement : ServiceAgreement; out input : StakeholderInput[0..*]; out dso : DsoRelease; }
+        action scope { in agreement : ServiceAgreement; in statementOfWork : StatementOfWork; out input : StakeholderInput[0..*]; out dso : DsoRelease; }
         action declareRequirements { in agreement : ServiceAgreement; in dso : DsoRelease; in input : StakeholderInput[0..*];
             out requirements : RequirementSet; out criteria : AcceptanceCriterion[1..*]; out assessment : AppropriatenessAssessment; }
         action plan { in requirements : RequirementSet; in criteria : AcceptanceCriterion[1..*]; in dso : DsoRelease;
@@ -338,6 +357,7 @@ package OGCAIE {
         succession first execute then determineAndAttest;
         succession first determineAndAttest then report;
         bind scope.agreement = agreement;
+        bind scope.statementOfWork = statementOfWork;
         bind declareRequirements.agreement = agreement;
         bind execute.testItemAccess = testItemAccess;
         bind reportOut = report.reportOut;
@@ -388,6 +408,7 @@ package OGCAIE {
            accountable organization; the record says. */
         attribute isAccountable : ScalarValues::Boolean;
         port missionOut : MissionWrite;
+        port statementOfWorkOut : StatementOfWorkWrite;
         port needOut : NeedWrite;
         port proposalIn : ~ProposalWrite;
         port agreementOut : AgreementWrite;
@@ -405,6 +426,7 @@ package OGCAIE {
            attestation port: the account executive never judges the test
            item. The worked example's Mala. */
         port missionIn : ~MissionWrite;
+        port statementOfWorkIn : ~StatementOfWorkWrite;
         port needIn : ~NeedWrite;
         port proposalOut : ProposalWrite;
         port agreementIn : ~AgreementWrite;
@@ -510,6 +532,7 @@ package OGCAIE {
            one record port out, read by six (output wires are shared when
            what flows is information, R-25). */
         port missionIn : ~MissionWrite;
+        port statementOfWorkIn : ~StatementOfWorkWrite;
         port needIn : ~NeedWrite;
         port proposalIn : ~ProposalWrite;
         port agreementIn : ~AgreementWrite;
@@ -572,6 +595,8 @@ package OGCAIE {
         connection obligation : Obligation connect sponsor to affected;
         interface missionSeam : MissionSeam connect sponsor.missionOut to testingOrg.recorder.missionIn;
         interface missionToExecutiveSeam : MissionSeam connect sponsor.missionOut to testingOrg.accountExecutive.missionIn;
+        interface statementOfWorkSeam : StatementOfWorkSeam connect sponsor.statementOfWorkOut to testingOrg.recorder.statementOfWorkIn;
+        interface statementOfWorkToExecutiveSeam : StatementOfWorkSeam connect sponsor.statementOfWorkOut to testingOrg.accountExecutive.statementOfWorkIn;
         interface needSeam : NeedSeam connect sponsor.needOut to testingOrg.recorder.needIn;
         interface needToExecutiveSeam : NeedSeam connect sponsor.needOut to testingOrg.accountExecutive.needIn;
         interface proposalSeam : ProposalSeam connect testingOrg.accountExecutive.proposalOut to testingOrg.recorder.proposalIn;

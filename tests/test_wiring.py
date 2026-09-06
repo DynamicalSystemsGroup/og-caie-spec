@@ -11,8 +11,8 @@ from conftest import load
 from ogc import views
 from test_model_graph import OGM, SYS
 
-SEAMS = 35
-PORTS = 59
+SEAMS = 37
+PORTS = 62
 
 
 def graph():
@@ -53,7 +53,7 @@ def test_inputs_unique_outputs_shared():
                 shared.append((label, used[p]))
     assert sum(used.values()) == 2 * SEAMS
     assert sorted(shared) == [("AccountExecutive.deliveryOut", 2), ("AccountExecutive.proposalOut", 2), ("ProbeDeriver.probesOut", 2),
-                              ("Recorder.recordOut", 6), ("SponsorOrganization.acceptanceOut", 2), ("SponsorOrganization.missionOut", 2), ("SponsorOrganization.needOut", 2)]
+                              ("Recorder.recordOut", 6), ("SponsorOrganization.acceptanceOut", 2), ("SponsorOrganization.missionOut", 2), ("SponsorOrganization.needOut", 2), ("SponsorOrganization.statementOfWorkOut", 2)]
 
 
 def test_every_item_kind_reaches_the_recorder():
@@ -120,5 +120,5 @@ def test_views_have_perspectives_and_cover_every_seam():
     drawn = {name(g, s) for sl in ("contracting", "evaluation") for s in views.seams(g, sl)}
     assert drawn == {name(g, s) for s in views.seams(g)}
     contracting = views.wiring(g, "contracting")
-    assert 'sponsor -- "Mission, Need, ServiceAgreement, Acceptance" --> testingOrg_accountExecutive' in contracting
+    assert 'sponsor -- "Mission, Need, ServiceAgreement, StatementOfWork, Acceptance" --> testingOrg_accountExecutive' in contracting
     assert 'sponsor -. "obligation" .-> affected' in contracting

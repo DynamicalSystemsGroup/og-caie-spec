@@ -76,13 +76,36 @@ ogc:S0-Access a sh:NodeShape ;
 ogc:S0-Population a sh:NodeShape ;
     sh:targetClass epo:Population ;
     sh:sparql [
-        sh:message "S0: an affected population is interviewed (a stakeholder input attributed to it) or represented by a named domain expert (R-21)." ;
+        sh:message "S0: an affected population is engaged as the statement of work decided (R-21, R-40): interviewed, with a stakeholder input attributed to it, or represented by a named domain expert; and there is a decision for it." ;
         sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX prov: <http://www.w3.org/ns/prov#>
             SELECT $this WHERE {
-                FILTER NOT EXISTS { ?i a epo:StakeholderInput ; prov:wasAttributedTo $this }
-                FILTER NOT EXISTS { $this epo:representedBy ?p . ?p a prov:Person ; epo:role epo:domainExpertRole }
+                { FILTER NOT EXISTS { ?d a epo:EngagementDecision ; epo:population $this } }
+                UNION { ?d epo:population $this ; epo:engagement epo:interview . FILTER NOT EXISTS { ?i a epo:StakeholderInput ; prov:wasAttributedTo $this } }
+                UNION { ?d epo:population $this ; epo:engagement epo:representation . FILTER NOT EXISTS { $this epo:representedBy ?p . ?p a prov:Person ; epo:role epo:domainExpertRole } }
+            }
+        """ ] .
+
+ogc:S0-StatementOfWork a sh:NodeShape ;
+    sh:targetClass epo:StatementOfWork ;
+    sh:property [ sh:path epo:step ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue epo:agree ] ;
+    sh:property [ sh:path prov:generatedAtTime ; sh:minCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:sparql [
+        sh:message "S0: the statement of work is the sponsor's decision (R-40)." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            SELECT $this WHERE { FILTER NOT EXISTS { $this prov:wasAttributedTo ?o . ?o epo:role epo:sponsorRole } }
+        """ ] ;
+    sh:sparql [
+        sh:message "S0: the statement of work decides, for every affected population, exactly once, interview or representation (R-40)." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            SELECT $this ?value WHERE {
+                ?value a epo:Population .
+                { FILTER NOT EXISTS { $this epo:decides ?d . ?d epo:population ?value ; epo:engagement ?e . FILTER(?e IN (epo:interview, epo:representation)) } }
+                UNION { $this epo:decides ?d1 . $this epo:decides ?d2 . ?d1 epo:population ?value . ?d2 epo:population ?value . FILTER(?d1 != ?d2) }
             }
         """ ] .
 

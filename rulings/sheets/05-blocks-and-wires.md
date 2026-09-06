@@ -6,7 +6,7 @@ Generated from `model/og-caie.model.ttl` by `scripts/render.py`; do not edit the
 
 | # | Part kind | Inputs | Outputs | Validated |
 |---|---|---|---|---|
-| B1 | AccountExecutive | acceptanceIn, agreementIn, missionIn, needIn, recordIn | agreementOut, deliveryOut, proposalOut | [ ] |
+| B1 | AccountExecutive | acceptanceIn, agreementIn, missionIn, needIn, recordIn, statementOfWorkIn | agreementOut, deliveryOut, proposalOut | [ ] |
 | B2 | AccountableOrganization | (none) | accessOut | [ ] |
 | B3 | AffectedPopulation | (none) | inputOut | [ ] |
 | B4 | ConformanceChecker | recordIn | (none) | [ ] |
@@ -14,8 +14,8 @@ Generated from `model/og-caie.model.ttl` by `scripts/render.py`; do not edit the
 | B6 | DomainExpert | recordIn | assessmentOut, attestationOut, determinationOut, dsoOut, planApprovalOut | [ ] |
 | B7 | EvaluationOperator | probesIn, recordIn | determinationOut, evidenceOut, planOut, probesToItem, recommendationOut, requirementsOut | [ ] |
 | B8 | ProbeDeriver | recordIn | probesOut | [ ] |
-| B9 | Recorder | acceptanceIn, accessIn, agreementIn, assessmentIn, attestationIn, deliveryIn, dsoIn, evidenceIn, expertDeterminationIn, inputIn, missionIn, needIn, operatorDeterminationIn, planApprovalIn, planIn, probeIn, proposalIn, recommendationIn, reportIn, requirementsIn, responseIn | recordOut | [ ] |
-| B10 | SponsorOrganization | deliveryIn, proposalIn | acceptanceOut, agreementOut, missionOut, needOut | [ ] |
+| B9 | Recorder | acceptanceIn, accessIn, agreementIn, assessmentIn, attestationIn, deliveryIn, dsoIn, evidenceIn, expertDeterminationIn, inputIn, missionIn, needIn, operatorDeterminationIn, planApprovalIn, planIn, probeIn, proposalIn, recommendationIn, reportIn, requirementsIn, responseIn, statementOfWorkIn | recordOut | [ ] |
+| B10 | SponsorOrganization | deliveryIn, proposalIn | acceptanceOut, agreementOut, missionOut, needOut, statementOfWorkOut | [ ] |
 | B11 | TestItem | probesIn | responseOut | [ ] |
 
 ## Wires
@@ -57,6 +57,8 @@ Generated from `model/og-caie.model.ttl` by `scripts/render.py`; do not edit the
 | W33 | requirementSeam | EvaluationOperator.requirementsOut | Recorder.requirementsIn | RequirementSetWrite | [ ] |
 | W34 | responseSeam | TestItem.responseOut | Recorder.responseIn | ResponseWrite | [ ] |
 | W35 | stakeholderInputSeam | AffectedPopulation.inputOut | Recorder.inputIn | StakeholderInputWrite | [ ] |
+| W36 | statementOfWorkSeam | SponsorOrganization.statementOfWorkOut | Recorder.statementOfWorkIn | StatementOfWorkWrite | [ ] |
+| W37 | statementOfWorkToExecutiveSeam | SponsorOrganization.statementOfWorkOut | AccountExecutive.statementOfWorkIn | StatementOfWorkWrite | [ ] |
 
 ## Relations
 

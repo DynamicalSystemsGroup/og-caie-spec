@@ -119,6 +119,9 @@ session
 stakeholder
 : A person or organization that can affect, be affected by, or believe itself affected by a decision or activity. The sponsor, the evaluators and the domain experts are the stakeholders named in this specification. Source: ISO 9000:2026(en) Quality management — Fundamentals and vocabulary, 3.1.4: "person or organization that can affect, be affected by, or perceive itself to be affected by a decision or activity" (human). Also: interested party.
 
+statement of work
+: The sponsor's decisions about the work to be performed under the contract; here, for each affected population, whether it is interviewed, with its stakeholder needs documented as input, or represented by the domain expert. A scope-of-work judgment: representation is the common case, interviews are reserved for underrepresented stakeholders or underdocumented needs because of the effort they cost. Decided with the agreement, pinned at the contract, consumed by the scope step, and traceable either way. Source: IEEE Computer Society, statement of work, p. 406: "statement of the expected outcomes and outline of the work required to achieve the outcomes" (machine). Also: SOW, scope of work. Ruling R-40.
+
 sufficiency
 : The expert judgment that the evidence gathered is enough to support the claim being made. A quantity judgment, distinct from appropriateness. A judgment with no evidence cannot record a pass or a fail. Source: Hawkins, Section 3.3 Asserted solution, p. 10: "it is being asserted that the evidence put forward is sufficient to support the claim" (machine). Ruling R-08.
 

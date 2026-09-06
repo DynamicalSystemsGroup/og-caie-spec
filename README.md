@@ -18,9 +18,9 @@ deployed AI system against the needs of a specific domain, written down as:
 
 ## Status (2026-09-06)
 
-- **Glossary: ratified.** 61 terms, 4 coined (DSO, EPO, CAIE, OG-CAIE),
-  settled through 39 rulings (R-01 to R-39) recorded verbatim in
-  `rulings/adjudications.ttl`. 75 quotes are machine-located in
+- **Glossary: ratified.** 62 terms, 4 coined (DSO, EPO, CAIE, OG-CAIE),
+  settled through 40 rulings (R-01 to R-40) recorded verbatim in
+  `rulings/adjudications.ttl`. 76 quotes are machine-located in
   content-hashed snapshots, 34 verified by Z against the ISO screenshots or
   the browsing platforms, 13 transcribed and awaiting Z's tick on rulings
   sheet 04. Concerns C-25, C-26, C-30, C-43, C-44 and C-45 are open.
@@ -53,14 +53,14 @@ deployed AI system against the needs of a specific domain, written down as:
   (R-22), checked by wiring shapes M1 to M5 over kinds of parts and ports:
   four parties, three actor categories within the testing organization, the
   six-step EPO nested as the fulfil step of the contracting lifecycle (one
-  model, R-33), both process DAGs, 59 ports and 35 seams, every input wired
+  model, R-33), both process DAGs, 62 ports and 37 seams, every input wired
   once and every output somewhere, and the sponsor's obligation to the
   affected populations as a relation. Four model counterexamples fail their
   shape. The essentials SCI-01 to SCI-13 live in `model/trace.ttl`.
 - **The end-state demonstration (C-30) is built; Z's validation is not.**
   `ogc/executor.py` walks the process as the model states it and emits a
   record; the run conforms to S0 to S9, is complete against the model, has
-  a recomputable coverage and traces fully, and seven mutations are each
+  a recomputable coverage and traces fully, and eight mutations are each
   caught by a named check (`ogc execute`, chapter What the record proves).
   Two findings are open as concern C-43: a record without a plan approval
   or an access grant conforms to the shapes and is caught only by

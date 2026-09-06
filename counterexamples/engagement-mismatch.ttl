@@ -4,10 +4,10 @@
 @prefix earl: <http://www.w3.org/ns/earl#> .
 @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
 
-# Counterexample for S0 (rulings R-21): the requirement set was declared on
-# 2 August, the service agreement signed on 5 August. Requirements are agreed
-# under the contract, not before it. Must fail on ogc:S0-Parties and nothing
-# else.
+# Counterexample for S0 (ruling R-40): the statement of work decided that the
+# population would be interviewed, but the record holds no stakeholder input
+# from it, only the domain expert's representation. Must fail on
+# ogc:S0-Population and nothing else.
 cx:sponsor a prov:Agent, prov:Organization ; epo:role epo:sponsorRole ; epo:isAccountable false .
 cx:testing a prov:Agent, prov:Organization ; epo:role epo:testingOrganizationRole ; epo:independentOfAccountable true .
 cx:accountable a prov:Agent, prov:Organization ; epo:role epo:accountableOrganizationRole .
@@ -16,10 +16,10 @@ cx:expert a prov:Agent, prov:Person ; epo:role epo:domainExpertRole ; prov:acted
 cx:operator a prov:Agent, prov:Person ; epo:role epo:evaluationOperatorRole ; prov:actedOnBehalfOf cx:testing .
 cx:population a prov:Agent, epo:Population ; epo:representedBy cx:expert .
 cx:sow a epo:StatementOfWork ; epo:decides cx:decision ; prov:wasAttributedTo cx:sponsor ; prov:generatedAtTime "2026-07-31T00:30:00Z"^^xsd:dateTime ; epo:step epo:agree .
-cx:decision a epo:EngagementDecision ; epo:population cx:population ; epo:engagement epo:representation .
+cx:decision a epo:EngagementDecision ; epo:population cx:population ; epo:engagement epo:interview .
 cx:sut a prov:Agent, prov:SoftwareAgent, earl:TestSubject ; epo:version "v1" ; prov:actedOnBehalfOf cx:accountable .
 cx:checker a prov:Agent, prov:SoftwareAgent ; epo:version "0.27" .
-cx:agreement a epo:ServiceAgreement ; epo:signedBy cx:sponsor ; epo:signedBy cx:exec ; prov:generatedAtTime "2026-08-05T00:00:00Z"^^xsd:dateTime ; epo:step epo:agree .
+cx:agreement a epo:ServiceAgreement ; epo:signedBy cx:sponsor ; epo:signedBy cx:exec ; prov:generatedAtTime "2026-07-31T00:00:00Z"^^xsd:dateTime ; epo:step epo:agree .
 cx:access a epo:TestItemAccess ; epo:grantsAccessTo cx:sut ; prov:wasAttributedTo cx:accountable ; prov:generatedAtTime "2026-07-31T01:00:00Z"^^xsd:dateTime .
 cx:dso a epo:DsoRelease ; epo:version "r1" ; epo:approvedBy cx:expert ; prov:generatedAtTime "2026-08-01T00:00:00Z"^^xsd:dateTime .
 cx:reqs a epo:RequirementSet ; epo:environment "stated" ; epo:systemUnderTest cx:sut ; epo:underAgreement cx:agreement ; prov:wasAttributedTo cx:operator ; prov:generatedAtTime "2026-08-02T00:00:00Z"^^xsd:dateTime .

@@ -713,3 +713,14 @@ term:mission a skos:Concept ; skos:inScheme ogc:Glossary ;
     prov:wasDerivedFrom rul:R-37 ;
     ogc:binding "sysml item def Mission, port def MissionWrite, seams missionSeam and missionToExecutiveSeam; epo:Mission with epo:regards the populations" .
 
+term:statement-of-work a skos:Concept ; skos:inScheme ogc:Glossary ;
+    skos:prefLabel "statement of work"@en ;
+    skos:altLabel "SOW"@en ; skos:altLabel "scope of work"@en ;
+    skos:definition "The sponsor's decisions about the work to be performed under the contract; here, for each affected population, whether it is interviewed, with its stakeholder needs documented as input, or represented by the domain expert. A scope-of-work judgment: representation is the common case, interviews are reserved for underrepresented stakeholders or underdocumented needs because of the effort they cost. Decided with the agreement, pinned at the contract, consumed by the scope step, and traceable either way."@en ;
+    ogc:class "adopted" ;
+    ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "statement of work, p. 406" ; ogc:pdfPage 406 ;
+                    ogc:quote "statement of the expected outcomes and outline of the work required to achieve the outcomes" ; ogc:quoteStatus "machine" ] ;
+    ogc:scopeNote "Ruling R-40: a boundary item between the contract and its fulfilment; the sponsor decides, per affected population, interview or representation; the record must show the decision and the evaluation must realize it." ;
+    prov:wasDerivedFrom rul:R-40 ;
+    ogc:binding "sysml item def StatementOfWork, port def StatementOfWorkWrite, seams statementOfWorkSeam and statementOfWorkToExecutiveSeam; epo:StatementOfWork with epo:decides engagement decisions" .
+

@@ -24,7 +24,7 @@ ASSEMBLY = "OgCaieEvaluation"
 TOP_PACKAGE = "OGCAIE"
 OUTER_PROCESS = "ContractingProcess"
 INNER_PROCESS = "EvaluationProcess"
-CONTRACT_KINDS = {"Mission", "Need", "Proposal", "ServiceAgreement", "TestItemAccess", "Delivery", "Acceptance", "StakeholderInput"}
+CONTRACT_KINDS = {"Mission", "StatementOfWork", "Need", "Proposal", "ServiceAgreement", "TestItemAccess", "Delivery", "Acceptance", "StakeholderInput"}
 CLASSDEFS = ["  classDef person fill:#e8f5e9,stroke:#2e7d32;",
              "  classDef machine fill:#fce4ec,stroke:#ad1457;",
              "  classDef party fill:#fff8e1,stroke:#f9a825,stroke-dasharray: 4 4;"]

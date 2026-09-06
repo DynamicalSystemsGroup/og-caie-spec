@@ -9,8 +9,8 @@ flowchart LR
   testingOrg_recorder[["recorder : Recorder"]]
   accountable -- "TestItemAccess" --> testingOrg_recorder
   affected -- "StakeholderInput" --> testingOrg_recorder
-  sponsor -- "Mission, Need, ServiceAgreement, Acceptance" --> testingOrg_accountExecutive
-  sponsor -- "Mission, Need, Acceptance" --> testingOrg_recorder
+  sponsor -- "Mission, Need, ServiceAgreement, StatementOfWork, Acceptance" --> testingOrg_accountExecutive
+  sponsor -- "Mission, Need, StatementOfWork, Acceptance" --> testingOrg_recorder
   testingOrg_accountExecutive -- "Proposal, Delivery" --> sponsor
   testingOrg_accountExecutive -- "Proposal, ServiceAgreement, Delivery" --> testingOrg_recorder
   sponsor -. "obligation" .-> affected

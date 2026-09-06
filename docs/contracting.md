@@ -32,7 +32,12 @@ affected populations, states its mission and then its need, and receives
 the proposal; the account executive answers, countersigns and, at the end,
 delivers; the accountable organization grants access; every item reaches
 the recorder. Input wires are unique, output wires fan out, and each wire
-carries one item kind. The figure is one view of the model: wires between
+carries one item kind. One item sits on the boundary between the contract
+and its fulfilment: the {term}`statement of work`, the sponsor's scope-of-work
+decision that says, for each affected population, whether it is interviewed,
+with its stakeholder needs documented as input, or represented by the domain
+expert. Decided with the agreement, it is what the scope step consumes, and
+the record must realize it either way. The figure is one view of the model: wires between
 the same two parts are braided into one bundle labelled by what flows, in
 the order it is produced, and the obligation is dotted because it is a
 relation, not a flow. The caption says what the view brings into focus and
@@ -62,7 +67,13 @@ the public. Humane Intelligence proposed an OG-CAIE
 evaluation; Mala signed for it on 31 July with the county; the chatbot's
 vendor opened API access to version 1 the same day. Two populations were
 affected: commuters, who were interviewed, and county residents, whom Annie
-represents. After the evaluation, Mala delivered the report and the
+represents. That split was the county's decision in its statement of work,
+made with the agreement: representation is the common case, and interviews
+are reserved for underrepresented stakeholders or underdocumented needs
+because of the effort they cost; the commuters' needs were underdocumented,
+the residents' were not. The example splits the two on purpose, to show that
+both options are valid and traceable. After the evaluation, Mala delivered
+the report and the
 recommendation on 12 August and the county accepted on 14 August. The case
 is synthetic; the names recognise real roles, and no signature or
 attestation here was made by those people.
@@ -88,12 +99,13 @@ measured against.
 :::{admonition} Checked
 :class: checked
 
-Shapes S0-Parties, S0-Access, S0-Population, S0-Need, S0-Proposal, S0-Layers
-and S9-Acceptance run over the record; M1-Parties, M1-Obligation and
+Shapes S0-Parties, S0-Access, S0-Population, S0-StatementOfWork, S0-Need,
+S0-Proposal, S0-Layers and S9-Acceptance run over the record; M1-Parties, M1-Obligation and
 M5-Cardinality run over the model graph. The record conforms. Two counterexamples fail where
 they must: a requirement set declared before the agreement was signed fails
 the layer rule, and an affected population neither interviewed nor
-represented fails S0-Population. A model with a sponsor and populations but
+represented fails S0-Population, and so does a population the statement of
+work said would be interviewed but the record only represents. A model with a sponsor and populations but
 no obligation between them fails M1-Obligation.
 Computational proof: [run the checks](../notebooks/checked-contracting.ipynb).
 :::

@@ -4,6 +4,7 @@
 | AccountExecutive | agreementIn | in | AgreementWrite | agreementSeam | from SponsorOrganization.agreementOut |
 | AccountExecutive | missionIn | in | MissionWrite | missionToExecutiveSeam | from SponsorOrganization.missionOut |
 | AccountExecutive | needIn | in | NeedWrite | needToExecutiveSeam | from SponsorOrganization.needOut |
+| AccountExecutive | statementOfWorkIn | in | StatementOfWorkWrite | statementOfWorkToExecutiveSeam | from SponsorOrganization.statementOfWorkOut |
 | AccountExecutive | agreementOut | out | AgreementWrite | countersignSeam | to Recorder.agreementIn |
 | AccountExecutive | deliveryOut | out | DeliveryWrite | deliveryRecordSeam | to Recorder.deliveryIn |
 | AccountExecutive | deliveryOut | out | DeliveryWrite | deliverySeam | to SponsorOrganization.deliveryIn |
@@ -19,6 +20,7 @@
 | Recorder | missionIn | in | MissionWrite | missionSeam | from SponsorOrganization.missionOut |
 | Recorder | needIn | in | NeedWrite | needSeam | from SponsorOrganization.needOut |
 | Recorder | proposalIn | in | ProposalWrite | proposalSeam | from AccountExecutive.proposalOut |
+| Recorder | statementOfWorkIn | in | StatementOfWorkWrite | statementOfWorkSeam | from SponsorOrganization.statementOfWorkOut |
 | SponsorOrganization | deliveryIn | in | DeliveryWrite | deliverySeam | from AccountExecutive.deliveryOut |
 | SponsorOrganization | proposalIn | in | ProposalWrite | proposalToSponsorSeam | from AccountExecutive.proposalOut |
 | SponsorOrganization | acceptanceOut | out | AcceptanceWrite | acceptanceSeam | to Recorder.acceptanceIn |
@@ -28,3 +30,5 @@
 | SponsorOrganization | missionOut | out | MissionWrite | missionToExecutiveSeam | to AccountExecutive.missionIn |
 | SponsorOrganization | needOut | out | NeedWrite | needSeam | to Recorder.needIn |
 | SponsorOrganization | needOut | out | NeedWrite | needToExecutiveSeam | to AccountExecutive.needIn |
+| SponsorOrganization | statementOfWorkOut | out | StatementOfWorkWrite | statementOfWorkSeam | to Recorder.statementOfWorkIn |
+| SponsorOrganization | statementOfWorkOut | out | StatementOfWorkWrite | statementOfWorkToExecutiveSeam | to AccountExecutive.statementOfWorkIn |

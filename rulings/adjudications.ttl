@@ -826,3 +826,21 @@ rul:C-45 a ogc:Concern ;
     ogc:surfacedHow "the contracting proof notebook, which prints every shape a counterexample fires" ;
     prov:wasGeneratedBy rul:model-revision-planning-2026-09-06 .
 
+rul:C-46 a ogc:Concern ;
+    rdfs:label "the sponsor's decision to interview or represent each affected population had no item of its own" ;
+    ogc:problem """The record showed one population interviewed and one represented, and S0-Population accepted either, but nothing said who decided which, or that the decision was a scope-of-work judgment made with the contract; the evaluation's scope step had no input carrying it.""" ;
+    ogc:severity "M" ;
+    ogc:status "ruled" ;
+    ogc:surfacedOn "2026-09-06"^^xsd:date ;
+    ogc:surfacedHow "Z, reading the contracting walkthrough" ;
+    ogc:concernsTerm term:statement-of-work ;
+    prov:wasGeneratedBy rul:model-revision-planning-2026-09-06 .
+
+rul:R-40 a ogc:Ruling ;
+    ogc:order 40 ;
+    ogc:resolves rul:C-46 ;
+    ogc:rulingText "in the example one one of the boundary items between the contract and the fulfillment of the evaluation contract should cover the sponsors decision that the commuters needed to be interviewed but that the residents could simply be represented. this is the kind of judgement call that effects scope of work (whether or not we accept expert representation or require interviews and documented stakeholder needs input). in our example case we split across two affected stakeholder groups so we can show that both options are valid and traceable under out EPO. in practice the most common is represented with stakeholder interviews reserved for extenuating circumstances due to the increase in level of effort. generally reserved for underrepresent stakeholders or underdocumented stakeholder needs." ;
+    ogc:changeNote "Item kind StatementOfWork (SEVOCAB statement of work, p. 406; glossary term statement of work with altLabels SOW and scope of work), pinned at the contract, produced at the agree step by the sponsor, carried by two seams (to the recorder and to the account executive) and by a flow into the evaluation process's scope step; one engagement decision per affected population, interview or representation (enum Engagement; epo:decides, epo:population, epo:engagement). Shape S0-StatementOfWork; S0-Population now requires the decision and that the record realizes it. The measles record: commuters interviewed, residents represented, by the county's decision on 31 July. Executor: the agree template emits it; mutation engagement-mismatch is caught by S0-Population; counterexample engagement-mismatch.ttl. Contracting chapter says it in the specification and the walkthrough." ;
+    prov:wasAttributedTo rul:Z ;
+    prov:generatedAtTime "2026-09-06"^^xsd:date .
+

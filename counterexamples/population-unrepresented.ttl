@@ -14,6 +14,8 @@ cx:exec a prov:Agent, prov:Person ; epo:role epo:accountExecutiveRole ; prov:act
 cx:expert a prov:Agent, prov:Person ; epo:role epo:domainExpertRole ; prov:actedOnBehalfOf cx:testing .
 cx:operator a prov:Agent, prov:Person ; epo:role epo:evaluationOperatorRole ; prov:actedOnBehalfOf cx:testing .
 cx:population a prov:Agent, epo:Population ; epo:representedBy cx:expert .
+cx:sow a epo:StatementOfWork ; epo:decides cx:decision ; epo:decides cx:decision2 ; prov:wasAttributedTo cx:sponsor ; prov:generatedAtTime "2026-07-31T00:30:00Z"^^xsd:dateTime ; epo:step epo:agree .
+cx:decision a epo:EngagementDecision ; epo:population cx:population ; epo:engagement epo:representation .
 cx:sut a prov:Agent, prov:SoftwareAgent, earl:TestSubject ; epo:version "v1" ; prov:actedOnBehalfOf cx:accountable .
 cx:checker a prov:Agent, prov:SoftwareAgent ; epo:version "0.27" .
 cx:agreement a epo:ServiceAgreement ; epo:signedBy cx:sponsor ; epo:signedBy cx:exec ; prov:generatedAtTime "2026-07-31T00:00:00Z"^^xsd:dateTime ; epo:step epo:agree .
@@ -38,3 +40,4 @@ cx:attestation a epo:Attestation ; earl:test cx:a ; earl:subject cx:sut ; earl:m
     epo:appropriateness epo:appropriate ; epo:sufficiency epo:sufficient ; epo:step epo:determineAndAttest ;
     prov:endedAtTime "2026-08-11T09:00:00Z"^^xsd:dateTime .
 cx:forgotten a prov:Agent, epo:Population .
+cx:decision2 a epo:EngagementDecision ; epo:population cx:forgotten ; epo:engagement epo:representation .

@@ -97,6 +97,11 @@ epo:representedBy a owl:ObjectProperty ; rdfs:domain epo:Population ; rdfs:range
 
 # ---- things (prov:Entity)
 epo:Mission a owl:Class ; rdfs:subClassOf prov:Entity ; ogc:pinnedAt epo:contract ; rdfs:label "mission: the sponsor's purpose and its obligations towards the affected populations (ISO 9000:2026 3.4.11; R-37), the context the contract answers to" .
+epo:StatementOfWork a owl:Class ; rdfs:subClassOf prov:Entity ; ogc:pinnedAt epo:contract ; rdfs:label "statement of work: the sponsor's scope-of-work decisions under the contract, here one engagement decision per affected population (SEVOCAB statement of work; R-40)" .
+epo:EngagementDecision a owl:Class ; rdfs:subClassOf prov:Entity ; ogc:pinnedAt epo:contract ; rdfs:label "engagement decision: for one affected population, interview or representation (R-40)" .
+epo:Engagement a owl:Class ; rdfs:label "how an affected population is engaged" .
+epo:interview a epo:Engagement ; rdfs:label "interviewed: its stakeholder needs documented as input" .
+epo:representation a epo:Engagement ; rdfs:label "represented by the domain expert" .
 epo:Need a owl:Class ; rdfs:subClassOf prov:Entity ; ogc:pinnedAt epo:contract ; rdfs:label "need: the sponsor's stated mission problem and measures of success (ISO 9000:2026 requirement: need or expectation that is stated)" .
 epo:Proposal a owl:Class ; rdfs:subClassOf prov:Entity ; ogc:pinnedAt epo:contract ; rdfs:label "proposal: the testing organization's response to the sponsor's need, offering the service" .
 epo:Acceptance a owl:Class ; rdfs:subClassOf prov:Entity ; ogc:pinnedAt epo:contract ; rdfs:label "acceptance: the sponsor's acceptance of the delivery as performance of the agreement" .
@@ -168,6 +173,9 @@ epo:accepts a owl:ObjectProperty ; rdfs:domain epo:Acceptance ; rdfs:range epo:D
 epo:respondsTo a owl:ObjectProperty ; rdfs:domain epo:Proposal ; rdfs:range epo:Need .
 epo:regards a owl:ObjectProperty ; rdfs:domain epo:Mission ; rdfs:range epo:Population ; rdfs:comment "the affected populations the mission holds obligations towards (R-37)" .
 epo:underMission a owl:ObjectProperty ; rdfs:domain epo:Need ; rdfs:range epo:Mission .
+epo:decides a owl:ObjectProperty ; rdfs:domain epo:StatementOfWork ; rdfs:range epo:EngagementDecision .
+epo:population a owl:ObjectProperty ; rdfs:domain epo:EngagementDecision ; rdfs:range epo:Population .
+epo:engagement a owl:ObjectProperty ; rdfs:domain epo:EngagementDecision ; rdfs:range epo:Engagement ; rdfs:comment "interview or representation (R-40)" .
 
 # ---- the two judgment values (Hawkins et al. 2011; ruling R-08)
 epo:AppropriatenessValue a owl:Class .
