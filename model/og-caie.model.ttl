@@ -179,6 +179,14 @@ elmt:OGCAIE__AccountExecutive__deliveryOut
     sysml:qualifiedName "OGCAIE::AccountExecutive::deliveryOut" ;
     sysml:type elmt:OGCAIE__DeliveryWrite .
 
+elmt:OGCAIE__AccountExecutive__missionIn
+    a sysml:PortUsage ;
+    sysml:declaredName "missionIn" ;
+    sysml:isConjugated "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__AccountExecutive ;
+    sysml:qualifiedName "OGCAIE::AccountExecutive::missionIn" ;
+    sysml:type elmt:OGCAIE__MissionWrite .
+
 elmt:OGCAIE__AccountExecutive__needIn
     a sysml:PortUsage ;
     sysml:declaredName "needIn" ;
@@ -521,65 +529,83 @@ elmt:OGCAIE__ContractingProcess___4014
 
 elmt:OGCAIE__ContractingProcess___4015
     a sysml:FlowUsage ;
-    ogm:flowSource elmt:OGCAIE__ContractingProcess__propose__proposal ;
-    ogm:flowTarget elmt:OGCAIE__ContractingProcess__agree__proposal ;
+    ogm:flowSource elmt:OGCAIE__ContractingProcess__need__mission ;
+    ogm:flowTarget elmt:OGCAIE__ContractingProcess__propose__mission ;
     sysml:owner elmt:OGCAIE__ContractingProcess ;
     sysml:qualifiedName "OGCAIE::ContractingProcess::@15" ;
     sysx:relatedFeature expr:OGCAIE__ContractingProcess___4015_pflowSource, expr:OGCAIE__ContractingProcess___4015_pflowTarget ;
-    sysx:sourceText "flow propose.proposal to agree.proposal;" .
+    sysx:sourceText "flow need.mission to propose.mission;" .
 
 elmt:OGCAIE__ContractingProcess___4016
+    a sysml:FlowUsage ;
+    ogm:flowSource elmt:OGCAIE__ContractingProcess__need__mission ;
+    ogm:flowTarget elmt:OGCAIE__ContractingProcess__agree__mission ;
+    sysml:owner elmt:OGCAIE__ContractingProcess ;
+    sysml:qualifiedName "OGCAIE::ContractingProcess::@16" ;
+    sysx:relatedFeature expr:OGCAIE__ContractingProcess___4016_pflowSource, expr:OGCAIE__ContractingProcess___4016_pflowTarget ;
+    sysx:sourceText "flow need.mission to agree.mission;" .
+
+elmt:OGCAIE__ContractingProcess___4017
+    a sysml:FlowUsage ;
+    ogm:flowSource elmt:OGCAIE__ContractingProcess__propose__proposal ;
+    ogm:flowTarget elmt:OGCAIE__ContractingProcess__agree__proposal ;
+    sysml:owner elmt:OGCAIE__ContractingProcess ;
+    sysml:qualifiedName "OGCAIE::ContractingProcess::@17" ;
+    sysx:relatedFeature expr:OGCAIE__ContractingProcess___4017_pflowSource, expr:OGCAIE__ContractingProcess___4017_pflowTarget ;
+    sysx:sourceText "flow propose.proposal to agree.proposal;" .
+
+elmt:OGCAIE__ContractingProcess___4018
     a sysml:FlowUsage ;
     ogm:flowSource elmt:OGCAIE__ContractingProcess__agree__agreement ;
     ogm:flowTarget elmt:OGCAIE__ContractingProcess__access__agreement ;
     sysml:owner elmt:OGCAIE__ContractingProcess ;
-    sysml:qualifiedName "OGCAIE::ContractingProcess::@16" ;
-    sysx:relatedFeature expr:OGCAIE__ContractingProcess___4016_pflowSource, expr:OGCAIE__ContractingProcess___4016_pflowTarget ;
+    sysml:qualifiedName "OGCAIE::ContractingProcess::@18" ;
+    sysx:relatedFeature expr:OGCAIE__ContractingProcess___4018_pflowSource, expr:OGCAIE__ContractingProcess___4018_pflowTarget ;
     sysx:sourceText "flow agree.agreement to access.agreement;" .
 
-elmt:OGCAIE__ContractingProcess___4017
+elmt:OGCAIE__ContractingProcess___4019
     a sysml:FlowUsage ;
     ogm:flowSource elmt:OGCAIE__ContractingProcess__agree__agreement ;
     ogm:flowTarget elmt:OGCAIE__EvaluationProcess__agreement ;
     sysml:owner elmt:OGCAIE__ContractingProcess ;
-    sysml:qualifiedName "OGCAIE::ContractingProcess::@17" ;
-    sysx:relatedFeature expr:OGCAIE__ContractingProcess___4017_pflowSource, expr:OGCAIE__ContractingProcess___4017_pflowTarget ;
+    sysml:qualifiedName "OGCAIE::ContractingProcess::@19" ;
+    sysx:relatedFeature expr:OGCAIE__ContractingProcess___4019_pflowSource, expr:OGCAIE__ContractingProcess___4019_pflowTarget ;
     sysx:sourceText "flow agree.agreement to fulfil.agreement;" .
 
-elmt:OGCAIE__ContractingProcess___4018
+elmt:OGCAIE__ContractingProcess___4020
     a sysml:FlowUsage ;
     ogm:flowSource elmt:OGCAIE__ContractingProcess__access__testItemAccess ;
     ogm:flowTarget elmt:OGCAIE__EvaluationProcess__testItemAccess ;
     sysml:owner elmt:OGCAIE__ContractingProcess ;
-    sysml:qualifiedName "OGCAIE::ContractingProcess::@18" ;
-    sysx:relatedFeature expr:OGCAIE__ContractingProcess___4018_pflowSource, expr:OGCAIE__ContractingProcess___4018_pflowTarget ;
+    sysml:qualifiedName "OGCAIE::ContractingProcess::@20" ;
+    sysx:relatedFeature expr:OGCAIE__ContractingProcess___4020_pflowSource, expr:OGCAIE__ContractingProcess___4020_pflowTarget ;
     sysx:sourceText "flow access.testItemAccess to fulfil.testItemAccess;" .
 
-elmt:OGCAIE__ContractingProcess___4019
+elmt:OGCAIE__ContractingProcess___4021
     a sysml:FlowUsage ;
     ogm:flowSource elmt:OGCAIE__EvaluationProcess__reportOut ;
     ogm:flowTarget elmt:OGCAIE__ContractingProcess__deliver__reportIn ;
     sysml:owner elmt:OGCAIE__ContractingProcess ;
-    sysml:qualifiedName "OGCAIE::ContractingProcess::@19" ;
-    sysx:relatedFeature expr:OGCAIE__ContractingProcess___4019_pflowSource, expr:OGCAIE__ContractingProcess___4019_pflowTarget ;
+    sysml:qualifiedName "OGCAIE::ContractingProcess::@21" ;
+    sysx:relatedFeature expr:OGCAIE__ContractingProcess___4021_pflowSource, expr:OGCAIE__ContractingProcess___4021_pflowTarget ;
     sysx:sourceText "flow fulfil.reportOut to deliver.reportIn;" .
 
-elmt:OGCAIE__ContractingProcess___4020
+elmt:OGCAIE__ContractingProcess___4022
     a sysml:FlowUsage ;
     ogm:flowSource elmt:OGCAIE__EvaluationProcess__recommendation ;
     ogm:flowTarget elmt:OGCAIE__ContractingProcess__deliver__recommendation ;
     sysml:owner elmt:OGCAIE__ContractingProcess ;
-    sysml:qualifiedName "OGCAIE::ContractingProcess::@20" ;
-    sysx:relatedFeature expr:OGCAIE__ContractingProcess___4020_pflowSource, expr:OGCAIE__ContractingProcess___4020_pflowTarget ;
+    sysml:qualifiedName "OGCAIE::ContractingProcess::@22" ;
+    sysx:relatedFeature expr:OGCAIE__ContractingProcess___4022_pflowSource, expr:OGCAIE__ContractingProcess___4022_pflowTarget ;
     sysx:sourceText "flow fulfil.recommendation to deliver.recommendation;" .
 
-elmt:OGCAIE__ContractingProcess___4021
+elmt:OGCAIE__ContractingProcess___4023
     a sysml:FlowUsage ;
     ogm:flowSource elmt:OGCAIE__ContractingProcess__deliver__delivery ;
     ogm:flowTarget elmt:OGCAIE__ContractingProcess__acceptDelivery__delivery ;
     sysml:owner elmt:OGCAIE__ContractingProcess ;
-    sysml:qualifiedName "OGCAIE::ContractingProcess::@21" ;
-    sysx:relatedFeature expr:OGCAIE__ContractingProcess___4021_pflowSource, expr:OGCAIE__ContractingProcess___4021_pflowTarget ;
+    sysml:qualifiedName "OGCAIE::ContractingProcess::@23" ;
+    sysx:relatedFeature expr:OGCAIE__ContractingProcess___4023_pflowSource, expr:OGCAIE__ContractingProcess___4023_pflowTarget ;
     sysx:sourceText "flow deliver.delivery to acceptDelivery.delivery;" .
 
 elmt:OGCAIE__ContractingProcess___408
@@ -658,6 +684,14 @@ elmt:OGCAIE__ContractingProcess__agree__agreement
     sysml:qualifiedName "OGCAIE::ContractingProcess::agree::agreement" ;
     sysml:type elmt:OGCAIE__ServiceAgreement .
 
+elmt:OGCAIE__ContractingProcess__agree__mission
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "mission" ;
+    sysml:direction "in" ;
+    sysml:owner elmt:OGCAIE__ContractingProcess__agree ;
+    sysml:qualifiedName "OGCAIE::ContractingProcess::agree::mission" ;
+    sysml:type elmt:OGCAIE__Mission .
+
 elmt:OGCAIE__ContractingProcess__agree__proposal
     a sysml:ReferenceUsage ;
     sysml:declaredName "proposal" ;
@@ -709,6 +743,14 @@ elmt:OGCAIE__ContractingProcess__need
     sysml:owner elmt:OGCAIE__ContractingProcess ;
     sysml:qualifiedName "OGCAIE::ContractingProcess::need" .
 
+elmt:OGCAIE__ContractingProcess__need__mission
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "mission" ;
+    sysml:direction "out" ;
+    sysml:owner elmt:OGCAIE__ContractingProcess__need ;
+    sysml:qualifiedName "OGCAIE::ContractingProcess::need::mission" ;
+    sysml:type elmt:OGCAIE__Mission .
+
 elmt:OGCAIE__ContractingProcess__need__statedNeed
     a sysml:ReferenceUsage ;
     sysml:declaredName "statedNeed" ;
@@ -722,6 +764,14 @@ elmt:OGCAIE__ContractingProcess__propose
     sysml:declaredName "propose" ;
     sysml:owner elmt:OGCAIE__ContractingProcess ;
     sysml:qualifiedName "OGCAIE::ContractingProcess::propose" .
+
+elmt:OGCAIE__ContractingProcess__propose__mission
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "mission" ;
+    sysml:direction "in" ;
+    sysml:owner elmt:OGCAIE__ContractingProcess__propose ;
+    sysml:qualifiedName "OGCAIE::ContractingProcess::propose::mission" ;
+    sysml:type elmt:OGCAIE__Mission .
 
 elmt:OGCAIE__ContractingProcess__propose__proposal
     a sysml:ReferenceUsage ;
@@ -1907,6 +1957,65 @@ elmt:OGCAIE__Machine__version
     sysml:qualifiedName "OGCAIE::Machine::version" ;
     sysml:type "ScalarValues::String" .
 
+elmt:OGCAIE__Mission
+    a sysml:ItemDefinition ;
+    sysml:declaredName "Mission" ;
+    sysml:owner elmt:OGCAIE ;
+    sysml:qualifiedName "OGCAIE::Mission" .
+
+elmt:OGCAIE__MissionSeam
+    a sysml:InterfaceDefinition ;
+    sysml:declaredName "MissionSeam" ;
+    sysml:owner elmt:OGCAIE ;
+    sysml:qualifiedName "OGCAIE::MissionSeam" .
+
+elmt:OGCAIE__MissionSeam__consumer
+    a sysml:PortUsage ;
+    sysml:declaredName "consumer" ;
+    sysml:isConjugated "true"^^xsd:boolean ;
+    sysml:isEnd "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__MissionSeam ;
+    sysml:qualifiedName "OGCAIE::MissionSeam::consumer" ;
+    sysml:type elmt:OGCAIE__MissionWrite .
+
+elmt:OGCAIE__MissionSeam__supplier
+    a sysml:PortUsage ;
+    sysml:declaredName "supplier" ;
+    sysml:isEnd "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__MissionSeam ;
+    sysml:qualifiedName "OGCAIE::MissionSeam::supplier" ;
+    sysml:type elmt:OGCAIE__MissionWrite .
+
+elmt:OGCAIE__MissionWrite
+    a sysml:PortDefinition ;
+    sysml:declaredName "MissionWrite" ;
+    sysml:owner elmt:OGCAIE ;
+    sysml:qualifiedName "OGCAIE::MissionWrite" .
+
+elmt:OGCAIE__MissionWrite__i
+    a sysml:ItemUsage ;
+    sysml:declaredName "i" ;
+    sysml:direction "out" ;
+    sysml:owner elmt:OGCAIE__MissionWrite ;
+    sysml:qualifiedName "OGCAIE::MissionWrite::i" ;
+    sysml:type elmt:OGCAIE__Mission .
+
+elmt:OGCAIE__Mission___400
+    a sysml:Documentation ;
+    sysml:body """ The sponsor's purpose for existing as its top management
+           expresses it (ISO 9000:2026 3.4.11), and with it its obligations
+           towards the affected populations: the context the contract
+           answers to (ruling R-37). Pinned at the contract. """ ;
+    sysml:owner elmt:OGCAIE__Mission ;
+    sysml:qualifiedName "OGCAIE::Mission::@0" .
+
+elmt:OGCAIE__Mission__id
+    a sysml:AttributeUsage ;
+    sysml:declaredName "id" ;
+    sysml:owner elmt:OGCAIE__Mission ;
+    sysml:qualifiedName "OGCAIE::Mission::id" ;
+    sysml:type "ScalarValues::String" .
+
 elmt:OGCAIE__Mode
     a sysml:EnumerationDefinition ;
     sysml:declaredName "Mode" ;
@@ -2175,6 +2284,28 @@ elmt:OGCAIE__OgCaieEvaluation__expertDeterminationSeam
     sysml:type elmt:OGCAIE__DeterminationSeam ;
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__expertDeterminationSeam_pend0, expr:OGCAIE__OgCaieEvaluation__expertDeterminationSeam_pend1 ;
     sysx:sourceText "interface expertDeterminationSeam : DeterminationSeam connect testingOrg.team.domainExpert.determinationOut to testingOrg.recorder.expertDeterminationIn;" .
+
+elmt:OGCAIE__OgCaieEvaluation__missionSeam
+    a sysml:InterfaceUsage ;
+    ogm:consumerPort elmt:OGCAIE__Recorder__missionIn ;
+    ogm:supplierPort elmt:OGCAIE__SponsorOrganization__missionOut ;
+    sysml:declaredName "missionSeam" ;
+    sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
+    sysml:qualifiedName "OGCAIE::OgCaieEvaluation::missionSeam" ;
+    sysml:type elmt:OGCAIE__MissionSeam ;
+    sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__missionSeam_pend0, expr:OGCAIE__OgCaieEvaluation__missionSeam_pend1 ;
+    sysx:sourceText "interface missionSeam : MissionSeam connect sponsor.missionOut to testingOrg.recorder.missionIn;" .
+
+elmt:OGCAIE__OgCaieEvaluation__missionToExecutiveSeam
+    a sysml:InterfaceUsage ;
+    ogm:consumerPort elmt:OGCAIE__AccountExecutive__missionIn ;
+    ogm:supplierPort elmt:OGCAIE__SponsorOrganization__missionOut ;
+    sysml:declaredName "missionToExecutiveSeam" ;
+    sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
+    sysml:qualifiedName "OGCAIE::OgCaieEvaluation::missionToExecutiveSeam" ;
+    sysml:type elmt:OGCAIE__MissionSeam ;
+    sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__missionToExecutiveSeam_pend0, expr:OGCAIE__OgCaieEvaluation__missionToExecutiveSeam_pend1 ;
+    sysx:sourceText "interface missionToExecutiveSeam : MissionSeam connect sponsor.missionOut to testingOrg.accountExecutive.missionIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__needSeam
     a sysml:InterfaceUsage ;
@@ -2931,6 +3062,14 @@ elmt:OGCAIE__Recorder__inputIn
     sysml:qualifiedName "OGCAIE::Recorder::inputIn" ;
     sysml:type elmt:OGCAIE__StakeholderInputWrite .
 
+elmt:OGCAIE__Recorder__missionIn
+    a sysml:PortUsage ;
+    sysml:declaredName "missionIn" ;
+    sysml:isConjugated "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__Recorder ;
+    sysml:qualifiedName "OGCAIE::Recorder::missionIn" ;
+    sysml:type elmt:OGCAIE__MissionWrite .
+
 elmt:OGCAIE__Recorder__needIn
     a sysml:PortUsage ;
     sysml:declaredName "needIn" ;
@@ -3494,7 +3633,8 @@ elmt:OGCAIE__SponsorOrganization
 
 elmt:OGCAIE__SponsorOrganization___400
     a sysml:Documentation ;
-    sysml:body """ The customer (ISO 9000:2026 3.9.1): states the need,
+    sysml:body """ The customer (ISO 9000:2026 3.9.1): states its mission and
+           obligations towards the affected populations (R-37), states the need,
            receives the proposal, commissions the evaluation under the
            service agreement, receives the delivery through the account
            executive and accepts it (R-32). May or may not be the
@@ -3530,6 +3670,13 @@ elmt:OGCAIE__SponsorOrganization__isAccountable
     sysml:owner elmt:OGCAIE__SponsorOrganization ;
     sysml:qualifiedName "OGCAIE::SponsorOrganization::isAccountable" ;
     sysml:type "ScalarValues::Boolean" .
+
+elmt:OGCAIE__SponsorOrganization__missionOut
+    a sysml:PortUsage ;
+    sysml:declaredName "missionOut" ;
+    sysml:owner elmt:OGCAIE__SponsorOrganization ;
+    sysml:qualifiedName "OGCAIE::SponsorOrganization::missionOut" ;
+    sysml:type elmt:OGCAIE__MissionWrite .
 
 elmt:OGCAIE__SponsorOrganization__needOut
     a sysml:PortUsage ;
@@ -3891,167 +4038,215 @@ expr:OGCAIE__ContractingProcess___4014_pflowTarget_pa0
 expr:OGCAIE__ContractingProcess___4015_pflowSource
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__ContractingProcess___4015_pflowSource_pa0 ;
-    sysml:targetFeature "proposal" ;
+    sysml:targetFeature "mission" ;
     sysx:endIndex "0"^^xsd:integer ;
-    sysx:sourceText "propose.proposal" .
+    sysx:sourceText "need.mission" .
 
 expr:OGCAIE__ContractingProcess___4015_pflowSource_pa0
     a sysml:FeatureReferenceExpression ;
-    sysml:referent elmt:OGCAIE__ContractingProcess__propose ;
-    sysx:sourceText "propose" .
+    sysml:referent elmt:OGCAIE__ContractingProcess__need ;
+    sysx:sourceText "need" .
 
 expr:OGCAIE__ContractingProcess___4015_pflowTarget
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__ContractingProcess___4015_pflowTarget_pa0 ;
-    sysml:targetFeature "proposal" ;
+    sysml:targetFeature "mission" ;
     sysx:endIndex "1"^^xsd:integer ;
-    sysx:sourceText "agree.proposal" .
+    sysx:sourceText "propose.mission" .
 
 expr:OGCAIE__ContractingProcess___4015_pflowTarget_pa0
     a sysml:FeatureReferenceExpression ;
-    sysml:referent elmt:OGCAIE__ContractingProcess__agree ;
-    sysx:sourceText "agree" .
+    sysml:referent elmt:OGCAIE__ContractingProcess__propose ;
+    sysx:sourceText "propose" .
 
 expr:OGCAIE__ContractingProcess___4016_pflowSource
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__ContractingProcess___4016_pflowSource_pa0 ;
-    sysml:targetFeature "agreement" ;
+    sysml:targetFeature "mission" ;
     sysx:endIndex "0"^^xsd:integer ;
-    sysx:sourceText "agree.agreement" .
+    sysx:sourceText "need.mission" .
 
 expr:OGCAIE__ContractingProcess___4016_pflowSource_pa0
     a sysml:FeatureReferenceExpression ;
-    sysml:referent elmt:OGCAIE__ContractingProcess__agree ;
-    sysx:sourceText "agree" .
+    sysml:referent elmt:OGCAIE__ContractingProcess__need ;
+    sysx:sourceText "need" .
 
 expr:OGCAIE__ContractingProcess___4016_pflowTarget
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__ContractingProcess___4016_pflowTarget_pa0 ;
-    sysml:targetFeature "agreement" ;
+    sysml:targetFeature "mission" ;
     sysx:endIndex "1"^^xsd:integer ;
-    sysx:sourceText "access.agreement" .
+    sysx:sourceText "agree.mission" .
 
 expr:OGCAIE__ContractingProcess___4016_pflowTarget_pa0
-    a sysml:FeatureReferenceExpression ;
-    sysml:referent elmt:OGCAIE__ContractingProcess__access ;
-    sysx:sourceText "access" .
-
-expr:OGCAIE__ContractingProcess___4017_pflowSource
-    a sysml:FeatureChainExpression ;
-    sysml:argument expr:OGCAIE__ContractingProcess___4017_pflowSource_pa0 ;
-    sysml:targetFeature "agreement" ;
-    sysx:endIndex "0"^^xsd:integer ;
-    sysx:sourceText "agree.agreement" .
-
-expr:OGCAIE__ContractingProcess___4017_pflowSource_pa0
     a sysml:FeatureReferenceExpression ;
     sysml:referent elmt:OGCAIE__ContractingProcess__agree ;
     sysx:sourceText "agree" .
 
+expr:OGCAIE__ContractingProcess___4017_pflowSource
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__ContractingProcess___4017_pflowSource_pa0 ;
+    sysml:targetFeature "proposal" ;
+    sysx:endIndex "0"^^xsd:integer ;
+    sysx:sourceText "propose.proposal" .
+
+expr:OGCAIE__ContractingProcess___4017_pflowSource_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__ContractingProcess__propose ;
+    sysx:sourceText "propose" .
+
 expr:OGCAIE__ContractingProcess___4017_pflowTarget
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__ContractingProcess___4017_pflowTarget_pa0 ;
-    sysml:targetFeature "agreement" ;
+    sysml:targetFeature "proposal" ;
     sysx:endIndex "1"^^xsd:integer ;
-    sysx:sourceText "fulfil.agreement" .
+    sysx:sourceText "agree.proposal" .
 
 expr:OGCAIE__ContractingProcess___4017_pflowTarget_pa0
     a sysml:FeatureReferenceExpression ;
-    sysml:referent elmt:OGCAIE__ContractingProcess__fulfil ;
-    sysx:sourceText "fulfil" .
+    sysml:referent elmt:OGCAIE__ContractingProcess__agree ;
+    sysx:sourceText "agree" .
 
 expr:OGCAIE__ContractingProcess___4018_pflowSource
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__ContractingProcess___4018_pflowSource_pa0 ;
-    sysml:targetFeature "testItemAccess" ;
+    sysml:targetFeature "agreement" ;
     sysx:endIndex "0"^^xsd:integer ;
-    sysx:sourceText "access.testItemAccess" .
+    sysx:sourceText "agree.agreement" .
 
 expr:OGCAIE__ContractingProcess___4018_pflowSource_pa0
     a sysml:FeatureReferenceExpression ;
-    sysml:referent elmt:OGCAIE__ContractingProcess__access ;
-    sysx:sourceText "access" .
+    sysml:referent elmt:OGCAIE__ContractingProcess__agree ;
+    sysx:sourceText "agree" .
 
 expr:OGCAIE__ContractingProcess___4018_pflowTarget
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__ContractingProcess___4018_pflowTarget_pa0 ;
-    sysml:targetFeature "testItemAccess" ;
+    sysml:targetFeature "agreement" ;
     sysx:endIndex "1"^^xsd:integer ;
-    sysx:sourceText "fulfil.testItemAccess" .
+    sysx:sourceText "access.agreement" .
 
 expr:OGCAIE__ContractingProcess___4018_pflowTarget_pa0
     a sysml:FeatureReferenceExpression ;
-    sysml:referent elmt:OGCAIE__ContractingProcess__fulfil ;
-    sysx:sourceText "fulfil" .
+    sysml:referent elmt:OGCAIE__ContractingProcess__access ;
+    sysx:sourceText "access" .
 
 expr:OGCAIE__ContractingProcess___4019_pflowSource
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__ContractingProcess___4019_pflowSource_pa0 ;
-    sysml:targetFeature "reportOut" ;
+    sysml:targetFeature "agreement" ;
     sysx:endIndex "0"^^xsd:integer ;
-    sysx:sourceText "fulfil.reportOut" .
+    sysx:sourceText "agree.agreement" .
 
 expr:OGCAIE__ContractingProcess___4019_pflowSource_pa0
     a sysml:FeatureReferenceExpression ;
-    sysml:referent elmt:OGCAIE__ContractingProcess__fulfil ;
-    sysx:sourceText "fulfil" .
+    sysml:referent elmt:OGCAIE__ContractingProcess__agree ;
+    sysx:sourceText "agree" .
 
 expr:OGCAIE__ContractingProcess___4019_pflowTarget
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__ContractingProcess___4019_pflowTarget_pa0 ;
-    sysml:targetFeature "reportIn" ;
+    sysml:targetFeature "agreement" ;
     sysx:endIndex "1"^^xsd:integer ;
-    sysx:sourceText "deliver.reportIn" .
+    sysx:sourceText "fulfil.agreement" .
 
 expr:OGCAIE__ContractingProcess___4019_pflowTarget_pa0
-    a sysml:FeatureReferenceExpression ;
-    sysml:referent elmt:OGCAIE__ContractingProcess__deliver ;
-    sysx:sourceText "deliver" .
-
-expr:OGCAIE__ContractingProcess___4020_pflowSource
-    a sysml:FeatureChainExpression ;
-    sysml:argument expr:OGCAIE__ContractingProcess___4020_pflowSource_pa0 ;
-    sysml:targetFeature "recommendation" ;
-    sysx:endIndex "0"^^xsd:integer ;
-    sysx:sourceText "fulfil.recommendation" .
-
-expr:OGCAIE__ContractingProcess___4020_pflowSource_pa0
     a sysml:FeatureReferenceExpression ;
     sysml:referent elmt:OGCAIE__ContractingProcess__fulfil ;
     sysx:sourceText "fulfil" .
 
+expr:OGCAIE__ContractingProcess___4020_pflowSource
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__ContractingProcess___4020_pflowSource_pa0 ;
+    sysml:targetFeature "testItemAccess" ;
+    sysx:endIndex "0"^^xsd:integer ;
+    sysx:sourceText "access.testItemAccess" .
+
+expr:OGCAIE__ContractingProcess___4020_pflowSource_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__ContractingProcess__access ;
+    sysx:sourceText "access" .
+
 expr:OGCAIE__ContractingProcess___4020_pflowTarget
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__ContractingProcess___4020_pflowTarget_pa0 ;
-    sysml:targetFeature "recommendation" ;
+    sysml:targetFeature "testItemAccess" ;
     sysx:endIndex "1"^^xsd:integer ;
-    sysx:sourceText "deliver.recommendation" .
+    sysx:sourceText "fulfil.testItemAccess" .
 
 expr:OGCAIE__ContractingProcess___4020_pflowTarget_pa0
     a sysml:FeatureReferenceExpression ;
-    sysml:referent elmt:OGCAIE__ContractingProcess__deliver ;
-    sysx:sourceText "deliver" .
+    sysml:referent elmt:OGCAIE__ContractingProcess__fulfil ;
+    sysx:sourceText "fulfil" .
 
 expr:OGCAIE__ContractingProcess___4021_pflowSource
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__ContractingProcess___4021_pflowSource_pa0 ;
-    sysml:targetFeature "delivery" ;
+    sysml:targetFeature "reportOut" ;
     sysx:endIndex "0"^^xsd:integer ;
-    sysx:sourceText "deliver.delivery" .
+    sysx:sourceText "fulfil.reportOut" .
 
 expr:OGCAIE__ContractingProcess___4021_pflowSource_pa0
     a sysml:FeatureReferenceExpression ;
-    sysml:referent elmt:OGCAIE__ContractingProcess__deliver ;
-    sysx:sourceText "deliver" .
+    sysml:referent elmt:OGCAIE__ContractingProcess__fulfil ;
+    sysx:sourceText "fulfil" .
 
 expr:OGCAIE__ContractingProcess___4021_pflowTarget
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__ContractingProcess___4021_pflowTarget_pa0 ;
+    sysml:targetFeature "reportIn" ;
+    sysx:endIndex "1"^^xsd:integer ;
+    sysx:sourceText "deliver.reportIn" .
+
+expr:OGCAIE__ContractingProcess___4021_pflowTarget_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__ContractingProcess__deliver ;
+    sysx:sourceText "deliver" .
+
+expr:OGCAIE__ContractingProcess___4022_pflowSource
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__ContractingProcess___4022_pflowSource_pa0 ;
+    sysml:targetFeature "recommendation" ;
+    sysx:endIndex "0"^^xsd:integer ;
+    sysx:sourceText "fulfil.recommendation" .
+
+expr:OGCAIE__ContractingProcess___4022_pflowSource_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__ContractingProcess__fulfil ;
+    sysx:sourceText "fulfil" .
+
+expr:OGCAIE__ContractingProcess___4022_pflowTarget
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__ContractingProcess___4022_pflowTarget_pa0 ;
+    sysml:targetFeature "recommendation" ;
+    sysx:endIndex "1"^^xsd:integer ;
+    sysx:sourceText "deliver.recommendation" .
+
+expr:OGCAIE__ContractingProcess___4022_pflowTarget_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__ContractingProcess__deliver ;
+    sysx:sourceText "deliver" .
+
+expr:OGCAIE__ContractingProcess___4023_pflowSource
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__ContractingProcess___4023_pflowSource_pa0 ;
+    sysml:targetFeature "delivery" ;
+    sysx:endIndex "0"^^xsd:integer ;
+    sysx:sourceText "deliver.delivery" .
+
+expr:OGCAIE__ContractingProcess___4023_pflowSource_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__ContractingProcess__deliver ;
+    sysx:sourceText "deliver" .
+
+expr:OGCAIE__ContractingProcess___4023_pflowTarget
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__ContractingProcess___4023_pflowTarget_pa0 ;
     sysml:targetFeature "delivery" ;
     sysx:endIndex "1"^^xsd:integer ;
     sysx:sourceText "acceptDelivery.delivery" .
 
-expr:OGCAIE__ContractingProcess___4021_pflowTarget_pa0
+expr:OGCAIE__ContractingProcess___4023_pflowTarget_pa0
     a sysml:FeatureReferenceExpression ;
     sysml:referent elmt:OGCAIE__ContractingProcess__acceptDelivery ;
     sysx:sourceText "acceptDelivery" .
@@ -5168,6 +5363,74 @@ expr:OGCAIE__OgCaieEvaluation__expertDeterminationSeam_pend1_pa0
     sysx:sourceText "testingOrg.recorder" .
 
 expr:OGCAIE__OgCaieEvaluation__expertDeterminationSeam_pend1_pa0_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
+    sysx:sourceText "testingOrg" .
+
+expr:OGCAIE__OgCaieEvaluation__missionSeam_pend0
+    a sysml:FeatureChainExpression ;
+    ogm:endPart elmt:OGCAIE__OgCaieEvaluation__sponsor ;
+    ogm:resolvesTo elmt:OGCAIE__SponsorOrganization__missionOut ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__missionSeam_pend0_pa0 ;
+    sysml:targetFeature "missionOut" ;
+    sysx:endIndex "0"^^xsd:integer ;
+    sysx:sourceText "sponsor.missionOut" .
+
+expr:OGCAIE__OgCaieEvaluation__missionSeam_pend0_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__OgCaieEvaluation__sponsor ;
+    sysx:sourceText "sponsor" .
+
+expr:OGCAIE__OgCaieEvaluation__missionSeam_pend1
+    a sysml:FeatureChainExpression ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__recorder ;
+    ogm:resolvesTo elmt:OGCAIE__Recorder__missionIn ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__missionSeam_pend1_pa0 ;
+    sysml:targetFeature "missionIn" ;
+    sysx:endIndex "1"^^xsd:integer ;
+    sysx:sourceText "testingOrg.recorder.missionIn" .
+
+expr:OGCAIE__OgCaieEvaluation__missionSeam_pend1_pa0
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__missionSeam_pend1_pa0_pa0 ;
+    sysml:targetFeature "recorder" ;
+    sysx:sourceText "testingOrg.recorder" .
+
+expr:OGCAIE__OgCaieEvaluation__missionSeam_pend1_pa0_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
+    sysx:sourceText "testingOrg" .
+
+expr:OGCAIE__OgCaieEvaluation__missionToExecutiveSeam_pend0
+    a sysml:FeatureChainExpression ;
+    ogm:endPart elmt:OGCAIE__OgCaieEvaluation__sponsor ;
+    ogm:resolvesTo elmt:OGCAIE__SponsorOrganization__missionOut ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__missionToExecutiveSeam_pend0_pa0 ;
+    sysml:targetFeature "missionOut" ;
+    sysx:endIndex "0"^^xsd:integer ;
+    sysx:sourceText "sponsor.missionOut" .
+
+expr:OGCAIE__OgCaieEvaluation__missionToExecutiveSeam_pend0_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__OgCaieEvaluation__sponsor ;
+    sysx:sourceText "sponsor" .
+
+expr:OGCAIE__OgCaieEvaluation__missionToExecutiveSeam_pend1
+    a sysml:FeatureChainExpression ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__accountExecutive ;
+    ogm:resolvesTo elmt:OGCAIE__AccountExecutive__missionIn ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__missionToExecutiveSeam_pend1_pa0 ;
+    sysml:targetFeature "missionIn" ;
+    sysx:endIndex "1"^^xsd:integer ;
+    sysx:sourceText "testingOrg.accountExecutive.missionIn" .
+
+expr:OGCAIE__OgCaieEvaluation__missionToExecutiveSeam_pend1_pa0
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__missionToExecutiveSeam_pend1_pa0_pa0 ;
+    sysml:targetFeature "accountExecutive" ;
+    sysx:sourceText "testingOrg.accountExecutive" .
+
+expr:OGCAIE__OgCaieEvaluation__missionToExecutiveSeam_pend1_pa0_pa0
     a sysml:FeatureReferenceExpression ;
     sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
     sysx:sourceText "testingOrg" .

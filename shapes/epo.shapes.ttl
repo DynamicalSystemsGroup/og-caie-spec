@@ -531,6 +531,23 @@ ogc:S0-Need a sh:NodeShape ;
             SELECT $this WHERE { FILTER NOT EXISTS { $this prov:wasAttributedTo ?o . ?o epo:role epo:sponsorRole } }
         """ ] .
 
+ogc:S0-Mission a sh:NodeShape ;
+    sh:targetClass epo:Mission ;
+    sh:property [ sh:path epo:regards ; sh:minCount 1 ; sh:class epo:Population ;
+                  sh:message "The mission names the affected populations it holds obligations towards (R-37)." ] ;
+    sh:property [ sh:path prov:generatedAtTime ; sh:minCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path epo:step ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue epo:need ] ;
+    sh:sparql [
+        sh:message "S0: the mission is the sponsor organization's, and the need is stated under it." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            SELECT $this WHERE {
+                { FILTER NOT EXISTS { $this prov:wasAttributedTo ?o . ?o epo:role epo:sponsorRole } }
+                UNION { FILTER NOT EXISTS { ?n a epo:Need ; epo:underMission $this } }
+            }
+        """ ] .
+
 ogc:S0-Proposal a sh:NodeShape ;
     sh:targetClass epo:Proposal ;
     sh:property [ sh:path epo:respondsTo ; sh:minCount 1 ; sh:maxCount 1 ; sh:class epo:Need ] ;

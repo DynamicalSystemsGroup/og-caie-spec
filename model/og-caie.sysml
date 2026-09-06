@@ -76,6 +76,13 @@ package OGCAIE {
     // values of a run live in the evaluation record (ruling R-22).
     // ------------------------------------------------------------
 
+    item def Mission {
+        doc /* The sponsor's purpose for existing as its top management
+           expresses it (ISO 9000:2026 3.4.11), and with it its obligations
+           towards the affected populations: the context the contract
+           answers to (ruling R-37). Pinned at the contract. */
+        attribute id : ScalarValues::String;
+    }
     item def Need {
         doc /* The sponsor's stated mission problem and measures of success
            (ISO 9000:2026 requirement: need or expectation that is stated;
@@ -208,6 +215,7 @@ package OGCAIE {
     // consumes what the plain port supplies.
     // ------------------------------------------------------------
 
+    port def MissionWrite { out item i : Mission; }
     port def NeedWrite { out item i : Need; }
     port def ProposalWrite { out item i : Proposal; }
     port def AcceptanceWrite { out item i : Acceptance; }
@@ -234,6 +242,7 @@ package OGCAIE {
     // Definition). Supplier end plain, consumer end conjugated.
     // ------------------------------------------------------------
 
+    interface def MissionSeam { end supplier : MissionWrite; end consumer : ~MissionWrite; }
     interface def NeedSeam { end supplier : NeedWrite; end consumer : ~NeedWrite; }
     interface def ProposalSeam { end supplier : ProposalWrite; end consumer : ~ProposalWrite; }
     interface def AcceptanceSeam { end supplier : AcceptanceWrite; end consumer : ~AcceptanceWrite; }
@@ -275,9 +284,9 @@ package OGCAIE {
            pinned and whose outputs are what the delivery carries; its
            definition below is the drill-down, and it conforms to that
            interface by typing. The flows say which item goes where. */
-        action need { out statedNeed : Need; }
-        action propose { in statedNeed : Need; out proposal : Proposal; }
-        action agree { in proposal : Proposal; out agreement : ServiceAgreement; }
+        action need { out mission : Mission; out statedNeed : Need; }
+        action propose { in mission : Mission; in statedNeed : Need; out proposal : Proposal; }
+        action agree { in mission : Mission; in proposal : Proposal; out agreement : ServiceAgreement; }
         action access { in agreement : ServiceAgreement; out testItemAccess : TestItemAccess; }
         action fulfil : EvaluationProcess;
         action deliver { in reportIn : Report; in recommendation : Recommendation; out delivery : Delivery; }
@@ -289,6 +298,8 @@ package OGCAIE {
         succession first fulfil then deliver;
         succession first deliver then acceptDelivery;
         flow need.statedNeed to propose.statedNeed;
+        flow need.mission to propose.mission;
+        flow need.mission to agree.mission;
         flow propose.proposal to agree.proposal;
         flow agree.agreement to access.agreement;
         flow agree.agreement to fulfil.agreement;
@@ -367,12 +378,14 @@ package OGCAIE {
     }
 
     part def SponsorOrganization :> Organization {
-        doc /* The customer (ISO 9000:2026 3.9.1): states the need,
+        doc /* The customer (ISO 9000:2026 3.9.1): states its mission and
+           obligations towards the affected populations (R-37), states the need,
            receives the proposal, commissions the evaluation under the
            service agreement, receives the delivery through the account
            executive and accepts it (R-32). May or may not be the
            accountable organization; the record says. */
         attribute isAccountable : ScalarValues::Boolean;
+        port missionOut : MissionWrite;
         port needOut : NeedWrite;
         port proposalIn : ~ProposalWrite;
         port agreementOut : AgreementWrite;
@@ -389,6 +402,7 @@ package OGCAIE {
            the proposal and receives the acceptance (R-32). No evidence, determination or
            attestation port: the account executive never judges the test
            item. The worked example's Mala. */
+        port missionIn : ~MissionWrite;
         port needIn : ~NeedWrite;
         port proposalOut : ProposalWrite;
         port agreementIn : ~AgreementWrite;
@@ -493,6 +507,7 @@ package OGCAIE {
            per item kind in, each wired once (input wires are unique);
            one record port out, read by six (output wires are shared when
            what flows is information, R-25). */
+        port missionIn : ~MissionWrite;
         port needIn : ~NeedWrite;
         port proposalIn : ~ProposalWrite;
         port agreementIn : ~AgreementWrite;
@@ -544,6 +559,8 @@ package OGCAIE {
         doc /* Four parties wired along typed seams, performing the
            contracting lifecycle, whose fulfil step is the EPO (R-33). */
 
+        interface missionSeam : MissionSeam connect sponsor.missionOut to testingOrg.recorder.missionIn;
+        interface missionToExecutiveSeam : MissionSeam connect sponsor.missionOut to testingOrg.accountExecutive.missionIn;
         interface needSeam : NeedSeam connect sponsor.needOut to testingOrg.recorder.needIn;
         interface needToExecutiveSeam : NeedSeam connect sponsor.needOut to testingOrg.accountExecutive.needIn;
         interface proposalSeam : ProposalSeam connect testingOrg.accountExecutive.proposalOut to testingOrg.recorder.proposalIn;

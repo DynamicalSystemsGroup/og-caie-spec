@@ -12,6 +12,8 @@ flowchart LR
   testingOrg_accountExecutive -- "countersignSeam" --> testingOrg_recorder
   testingOrg_accountExecutive -- "deliveryRecordSeam" --> testingOrg_recorder
   testingOrg_accountExecutive -- "deliverySeam" --> sponsor
+  sponsor -- "missionSeam" --> testingOrg_recorder
+  sponsor -- "missionToExecutiveSeam" --> testingOrg_accountExecutive
   sponsor -- "needSeam" --> testingOrg_recorder
   sponsor -- "needToExecutiveSeam" --> testingOrg_accountExecutive
   testingOrg_accountExecutive -- "proposalSeam" --> testingOrg_recorder

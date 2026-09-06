@@ -2,6 +2,7 @@
 |---|---|---|---|---|---|
 | AccountExecutive | acceptanceIn | in | AcceptanceWrite | acceptanceToExecutiveSeam | from SponsorOrganization.acceptanceOut |
 | AccountExecutive | agreementIn | in | AgreementWrite | agreementSeam | from SponsorOrganization.agreementOut |
+| AccountExecutive | missionIn | in | MissionWrite | missionToExecutiveSeam | from SponsorOrganization.missionOut |
 | AccountExecutive | needIn | in | NeedWrite | needToExecutiveSeam | from SponsorOrganization.needOut |
 | AccountExecutive | agreementOut | out | AgreementWrite | countersignSeam | to Recorder.agreementIn |
 | AccountExecutive | deliveryOut | out | DeliveryWrite | deliveryRecordSeam | to Recorder.deliveryIn |
@@ -15,6 +16,7 @@
 | Recorder | agreementIn | in | AgreementWrite | countersignSeam | from AccountExecutive.agreementOut |
 | Recorder | deliveryIn | in | DeliveryWrite | deliveryRecordSeam | from AccountExecutive.deliveryOut |
 | Recorder | inputIn | in | StakeholderInputWrite | stakeholderInputSeam | from AffectedPopulation.inputOut |
+| Recorder | missionIn | in | MissionWrite | missionSeam | from SponsorOrganization.missionOut |
 | Recorder | needIn | in | NeedWrite | needSeam | from SponsorOrganization.needOut |
 | Recorder | proposalIn | in | ProposalWrite | proposalSeam | from AccountExecutive.proposalOut |
 | SponsorOrganization | deliveryIn | in | DeliveryWrite | deliverySeam | from AccountExecutive.deliveryOut |
@@ -22,5 +24,7 @@
 | SponsorOrganization | acceptanceOut | out | AcceptanceWrite | acceptanceSeam | to Recorder.acceptanceIn |
 | SponsorOrganization | acceptanceOut | out | AcceptanceWrite | acceptanceToExecutiveSeam | to AccountExecutive.acceptanceIn |
 | SponsorOrganization | agreementOut | out | AgreementWrite | agreementSeam | to AccountExecutive.agreementIn |
+| SponsorOrganization | missionOut | out | MissionWrite | missionSeam | to Recorder.missionIn |
+| SponsorOrganization | missionOut | out | MissionWrite | missionToExecutiveSeam | to AccountExecutive.missionIn |
 | SponsorOrganization | needOut | out | NeedWrite | needSeam | to Recorder.needIn |
 | SponsorOrganization | needOut | out | NeedWrite | needToExecutiveSeam | to AccountExecutive.needIn |

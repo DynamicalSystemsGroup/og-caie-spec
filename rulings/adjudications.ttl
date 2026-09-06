@@ -744,3 +744,21 @@ rul:R-36 a ogc:Ruling ;
     prov:wasAttributedTo rul:Z ;
     prov:generatedAtTime "2026-09-06"^^xsd:date .
 
+rul:C-40 a ogc:Concern ;
+    rdfs:label "no seam carried the sponsor's obligations towards the affected populations" ;
+    ogc:problem """The contracting slice of the wiring carried the need, the proposal, the agreement, the access, the delivery and the acceptance, but nothing about what the sponsor owes the affected populations: its expressed mission, duties and obligations, which is the context the contract answers to.""" ;
+    ogc:severity "M" ;
+    ogc:status "ruled" ;
+    ogc:surfacedOn "2026-09-06"^^xsd:date ;
+    ogc:surfacedHow "Z, reading the contracting wiring diagram" ;
+    ogc:concernsTerm term:mission ;
+    prov:wasGeneratedBy rul:model-revision-planning-2026-09-06 .
+
+rul:R-37 a ogc:Ruling ;
+    ogc:order 37 ;
+    ogc:resolves rul:C-40 ;
+    ogc:rulingText "i think we want to add in an extra seem here. specifically we want to account for any data covering what obligations, duties or expressed mission the sponsoring or has with regards to the affected populations. this is context which will inform what goes into the contract" ;
+    ogc:changeNote "Item kind Mission (ISO 9000:2026 3.4.11 mission, with 3.4.5 policy as neighbour; glossary term mission, pending Z's tick), pinned at the contract, produced at the need step before the need, regarding one or more affected populations. Seams missionSeam (sponsor to recorder) and missionToExecutiveSeam (sponsor to account executive), the sponsor's one output shared; flows carry it into propose and agree; shape S0-Mission checks it is the sponsor's, names the populations, and that the need is stated under it. The measles record opens with the county office's mission; SCI-10 says it; the crosswalk's first layer names it; the Contracting chapter says it in the standards block, the specification and the walkthrough." ;
+    prov:wasAttributedTo rul:Z ;
+    prov:generatedAtTime "2026-09-06"^^xsd:date .
+

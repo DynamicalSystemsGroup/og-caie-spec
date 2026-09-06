@@ -10,8 +10,8 @@ from rdflib import RDF
 from conftest import load
 from test_model_graph import OGM, SYS
 
-SEAMS = 33
-PORTS = 56
+SEAMS = 35
+PORTS = 59
 
 
 def graph():
@@ -52,7 +52,7 @@ def test_inputs_unique_outputs_shared():
                 shared.append((label, used[p]))
     assert sum(used.values()) == 2 * SEAMS
     assert sorted(shared) == [("AccountExecutive.deliveryOut", 2), ("AccountExecutive.proposalOut", 2), ("ProbeDeriver.probesOut", 2),
-                              ("Recorder.recordOut", 6), ("SponsorOrganization.acceptanceOut", 2), ("SponsorOrganization.needOut", 2)]
+                              ("Recorder.recordOut", 6), ("SponsorOrganization.acceptanceOut", 2), ("SponsorOrganization.missionOut", 2), ("SponsorOrganization.needOut", 2)]
 
 
 def test_every_item_kind_reaches_the_recorder():

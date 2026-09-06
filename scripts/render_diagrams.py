@@ -186,7 +186,7 @@ def render_wiring_table() -> str:
     return "\n".join(lines) + "\n"
 
 
-CONTRACT_KINDS = {"Need", "Proposal", "ServiceAgreement", "TestItemAccess", "Delivery", "Acceptance", "StakeholderInput"}
+CONTRACT_KINDS = {"Mission", "Need", "Proposal", "ServiceAgreement", "TestItemAccess", "Delivery", "Acceptance", "StakeholderInput"}
 
 
 def seam_chapter(g, s) -> str:

@@ -76,7 +76,7 @@ def test_verify_agrees_with_the_citation_tests():
     rows = json.loads(r.stdout)
     states = {x["state"] for x in rows}
     assert "NOT FOUND" not in states, [x for x in rows if x["state"] == "NOT FOUND"]
-    assert sum(1 for x in rows if x["state"] == "pending") == 11  # the sheet 04 quotes
+    assert sum(1 for x in rows if x["state"] == "pending") == 13  # the sheet 04 quotes
 
 
 def test_doctor_passes():

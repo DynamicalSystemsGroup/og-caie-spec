@@ -700,3 +700,16 @@ term:monitoring a skos:Concept ; skos:inScheme ogc:Glossary ;
     prov:wasDerivedFrom rul:R-36 ;
     ogc:binding "narration in docs/contracting.md; no node of the record" .
 
+term:mission a skos:Concept ; skos:inScheme ogc:Glossary ;
+    skos:prefLabel "mission"@en ;
+    skos:altLabel "mandate"@en ; skos:altLabel "obligations to the affected populations"@en ;
+    skos:definition "The sponsor organization's purpose for existing, as its top management expresses it, and with it the obligations and duties it holds towards the affected populations. Recorded before the need is stated, it is the context the contract answers to: what the sponsor owes the people the test item will serve. Pinned at the contract."@en ;
+    ogc:class "adopted" ;
+    ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.4.11" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-10.png" ;
+                    ogc:quote "organization's purpose for existing as expressed by top management" ; ogc:quoteStatus "pending" ] ;
+    ogc:seeAlso [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.4.5 policy" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-10.png" ;
+                  ogc:quote "intentions and direction of an organization as formally expressed by its top management" ; ogc:quoteStatus "pending" ] ;
+    ogc:scopeNote "Ruling R-37: a seam of its own from the sponsor, feeding the contract; the obligations towards the affected populations are the sponsor's mission and policy in ISO 9000's words, not a coinage." ;
+    prov:wasDerivedFrom rul:R-37 ;
+    ogc:binding "sysml item def Mission, port def MissionWrite, seams missionSeam and missionToExecutiveSeam; epo:Mission with epo:regards the populations" .
+

@@ -30,9 +30,9 @@ xw:auxiliary-assumption-contract a ogc:Crosswalk ; ogc:order 2 ;
     ogc:cites src:bof-deck-2026-07 ; ogc:locator "slide 5, Helpful Definitions" ;
     ogc:quote "An (auxiliary) assumption is a background claim held fixed in deriving and testing a prediction. Because predictions normally follow from a hypothesis together with auxiliary assumptions and initial conditions, a failed prediction does not by logic alone identify which component is false." ;
     ogc:quoteStatus "machine" ;
-    ogc:mapsTo term:contract, term:customer, term:provider, term:test-item, term:stakeholder ;
-    ogc:realizedBy epo:ServiceAgreement, epo:TestItemAccess, epo:Population, ogc:S0-Parties, ogc:S0-Access, ogc:S0-Population, ogc:S0-Layers ;
-    ogc:where "The service agreement, the access to the test item and the affected populations: the counterparties, the object, the requirements' frame and the method, fixed before the evaluation begins." ;
+    ogc:mapsTo term:mission, term:contract, term:customer, term:provider, term:test-item, term:stakeholder ;
+    ogc:realizedBy epo:Mission, epo:ServiceAgreement, epo:TestItemAccess, epo:Population, ogc:S0-Parties, ogc:S0-Access, ogc:S0-Population, ogc:S0-Layers ;
+    ogc:where "The sponsor's mission towards the affected populations, the service agreement and the access to the test item: the counterparties, the object, the requirements' frame and the method, fixed before the evaluation begins." ;
     ogc:checkable "Pinned at the contract and timestamped before the requirement set; the evaluation takes them as given, documents them, and cannot change them." .
 
 xw:auxiliary-assumption-evaluation a ogc:Crosswalk ; ogc:order 3 ;

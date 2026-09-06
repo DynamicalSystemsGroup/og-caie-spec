@@ -6,6 +6,7 @@ For each kind of part, each port: its direction, the item kind it carries, and t
 |---|---|---|---|---|---|
 | AccountExecutive | acceptanceIn | in | AcceptanceWrite | acceptanceToExecutiveSeam | from SponsorOrganization.acceptanceOut |
 | AccountExecutive | agreementIn | in | AgreementWrite | agreementSeam | from SponsorOrganization.agreementOut |
+| AccountExecutive | missionIn | in | MissionWrite | missionToExecutiveSeam | from SponsorOrganization.missionOut |
 | AccountExecutive | needIn | in | NeedWrite | needToExecutiveSeam | from SponsorOrganization.needOut |
 | AccountExecutive | recordIn | in | RecordWrite | recordToExecutiveSeam | from Recorder.recordOut |
 | AccountExecutive | agreementOut | out | AgreementWrite | countersignSeam | to Recorder.agreementIn |
@@ -45,6 +46,7 @@ For each kind of part, each port: its direction, the item kind it carries, and t
 | Recorder | evidenceIn | in | EvidenceWrite | evidenceSeam | from EvaluationOperator.evidenceOut |
 | Recorder | expertDeterminationIn | in | DeterminationWrite | expertDeterminationSeam | from DomainExpert.determinationOut |
 | Recorder | inputIn | in | StakeholderInputWrite | stakeholderInputSeam | from AffectedPopulation.inputOut |
+| Recorder | missionIn | in | MissionWrite | missionSeam | from SponsorOrganization.missionOut |
 | Recorder | needIn | in | NeedWrite | needSeam | from SponsorOrganization.needOut |
 | Recorder | operatorDeterminationIn | in | DeterminationWrite | operatorDeterminationSeam | from EvaluationOperator.determinationOut |
 | Recorder | planApprovalIn | in | PlanApprovalWrite | planApprovalSeam | from DomainExpert.planApprovalOut |
@@ -66,6 +68,8 @@ For each kind of part, each port: its direction, the item kind it carries, and t
 | SponsorOrganization | acceptanceOut | out | AcceptanceWrite | acceptanceSeam | to Recorder.acceptanceIn |
 | SponsorOrganization | acceptanceOut | out | AcceptanceWrite | acceptanceToExecutiveSeam | to AccountExecutive.acceptanceIn |
 | SponsorOrganization | agreementOut | out | AgreementWrite | agreementSeam | to AccountExecutive.agreementIn |
+| SponsorOrganization | missionOut | out | MissionWrite | missionSeam | to Recorder.missionIn |
+| SponsorOrganization | missionOut | out | MissionWrite | missionToExecutiveSeam | to AccountExecutive.missionIn |
 | SponsorOrganization | needOut | out | NeedWrite | needSeam | to Recorder.needIn |
 | SponsorOrganization | needOut | out | NeedWrite | needToExecutiveSeam | to AccountExecutive.needIn |
 | TestItem | probesIn | in | ProbeWrite | probeRunSeam | from EvaluationOperator.probesToItem |

@@ -6,7 +6,7 @@ Generated from `model/og-caie.model.ttl` by `scripts/render.py`; do not edit the
 
 | # | Part kind | Inputs | Outputs | Validated |
 |---|---|---|---|---|
-| B1 | AccountExecutive | acceptanceIn, agreementIn, needIn, recordIn | agreementOut, deliveryOut, proposalOut | [ ] |
+| B1 | AccountExecutive | acceptanceIn, agreementIn, missionIn, needIn, recordIn | agreementOut, deliveryOut, proposalOut | [ ] |
 | B2 | AccountableOrganization | (none) | accessOut | [ ] |
 | B3 | AffectedPopulation | (none) | inputOut | [ ] |
 | B4 | ConformanceChecker | recordIn | (none) | [ ] |
@@ -14,8 +14,8 @@ Generated from `model/og-caie.model.ttl` by `scripts/render.py`; do not edit the
 | B6 | DomainExpert | recordIn | assessmentOut, attestationOut, determinationOut, dsoOut, planApprovalOut | [ ] |
 | B7 | EvaluationOperator | probesIn, recordIn | determinationOut, evidenceOut, planOut, probesToItem, recommendationOut, requirementsOut | [ ] |
 | B8 | ProbeDeriver | recordIn | probesOut | [ ] |
-| B9 | Recorder | acceptanceIn, accessIn, agreementIn, assessmentIn, attestationIn, deliveryIn, dsoIn, evidenceIn, expertDeterminationIn, inputIn, needIn, operatorDeterminationIn, planApprovalIn, planIn, probeIn, proposalIn, recommendationIn, reportIn, requirementsIn, responseIn | recordOut | [ ] |
-| B10 | SponsorOrganization | deliveryIn, proposalIn | acceptanceOut, agreementOut, needOut | [ ] |
+| B9 | Recorder | acceptanceIn, accessIn, agreementIn, assessmentIn, attestationIn, deliveryIn, dsoIn, evidenceIn, expertDeterminationIn, inputIn, missionIn, needIn, operatorDeterminationIn, planApprovalIn, planIn, probeIn, proposalIn, recommendationIn, reportIn, requirementsIn, responseIn | recordOut | [ ] |
+| B10 | SponsorOrganization | deliveryIn, proposalIn | acceptanceOut, agreementOut, missionOut, needOut | [ ] |
 | B11 | TestItem | probesIn | responseOut | [ ] |
 
 ## Wires
@@ -35,23 +35,25 @@ Generated from `model/og-caie.model.ttl` by `scripts/render.py`; do not edit the
 | W11 | dsoSeam | DomainExpert.dsoOut | Recorder.dsoIn | DsoWrite | [ ] |
 | W12 | evidenceSeam | EvaluationOperator.evidenceOut | Recorder.evidenceIn | EvidenceWrite | [ ] |
 | W13 | expertDeterminationSeam | DomainExpert.determinationOut | Recorder.expertDeterminationIn | DeterminationWrite | [ ] |
-| W14 | needSeam | SponsorOrganization.needOut | Recorder.needIn | NeedWrite | [ ] |
-| W15 | needToExecutiveSeam | SponsorOrganization.needOut | AccountExecutive.needIn | NeedWrite | [ ] |
-| W16 | operatorDeterminationSeam | EvaluationOperator.determinationOut | Recorder.operatorDeterminationIn | DeterminationWrite | [ ] |
-| W17 | planApprovalSeam | DomainExpert.planApprovalOut | Recorder.planApprovalIn | PlanApprovalWrite | [ ] |
-| W18 | planSeam | EvaluationOperator.planOut | Recorder.planIn | PlanWrite | [ ] |
-| W19 | probeRecordSeam | ProbeDeriver.probesOut | Recorder.probeIn | ProbeWrite | [ ] |
-| W20 | probeRunSeam | EvaluationOperator.probesToItem | TestItem.probesIn | ProbeWrite | [ ] |
-| W21 | proposalSeam | AccountExecutive.proposalOut | Recorder.proposalIn | ProposalWrite | [ ] |
-| W22 | proposalToSponsorSeam | AccountExecutive.proposalOut | SponsorOrganization.proposalIn | ProposalWrite | [ ] |
-| W23 | recommendationSeam | EvaluationOperator.recommendationOut | Recorder.recommendationIn | RecommendationWrite | [ ] |
-| W24 | recordToCalculatorSeam | Recorder.recordOut | CoverageCalculator.recordIn | RecordWrite | [ ] |
-| W25 | recordToCheckerSeam | Recorder.recordOut | ConformanceChecker.recordIn | RecordWrite | [ ] |
-| W26 | recordToDeriverSeam | Recorder.recordOut | ProbeDeriver.recordIn | RecordWrite | [ ] |
-| W27 | recordToExecutiveSeam | Recorder.recordOut | AccountExecutive.recordIn | RecordWrite | [ ] |
-| W28 | recordToExpertSeam | Recorder.recordOut | DomainExpert.recordIn | RecordWrite | [ ] |
-| W29 | recordToOperatorSeam | Recorder.recordOut | EvaluationOperator.recordIn | RecordWrite | [ ] |
-| W30 | reportSeam | CoverageCalculator.reportOut | Recorder.reportIn | ReportWrite | [ ] |
-| W31 | requirementSeam | EvaluationOperator.requirementsOut | Recorder.requirementsIn | RequirementSetWrite | [ ] |
-| W32 | responseSeam | TestItem.responseOut | Recorder.responseIn | ResponseWrite | [ ] |
-| W33 | stakeholderInputSeam | AffectedPopulation.inputOut | Recorder.inputIn | StakeholderInputWrite | [ ] |
+| W14 | missionSeam | SponsorOrganization.missionOut | Recorder.missionIn | MissionWrite | [ ] |
+| W15 | missionToExecutiveSeam | SponsorOrganization.missionOut | AccountExecutive.missionIn | MissionWrite | [ ] |
+| W16 | needSeam | SponsorOrganization.needOut | Recorder.needIn | NeedWrite | [ ] |
+| W17 | needToExecutiveSeam | SponsorOrganization.needOut | AccountExecutive.needIn | NeedWrite | [ ] |
+| W18 | operatorDeterminationSeam | EvaluationOperator.determinationOut | Recorder.operatorDeterminationIn | DeterminationWrite | [ ] |
+| W19 | planApprovalSeam | DomainExpert.planApprovalOut | Recorder.planApprovalIn | PlanApprovalWrite | [ ] |
+| W20 | planSeam | EvaluationOperator.planOut | Recorder.planIn | PlanWrite | [ ] |
+| W21 | probeRecordSeam | ProbeDeriver.probesOut | Recorder.probeIn | ProbeWrite | [ ] |
+| W22 | probeRunSeam | EvaluationOperator.probesToItem | TestItem.probesIn | ProbeWrite | [ ] |
+| W23 | proposalSeam | AccountExecutive.proposalOut | Recorder.proposalIn | ProposalWrite | [ ] |
+| W24 | proposalToSponsorSeam | AccountExecutive.proposalOut | SponsorOrganization.proposalIn | ProposalWrite | [ ] |
+| W25 | recommendationSeam | EvaluationOperator.recommendationOut | Recorder.recommendationIn | RecommendationWrite | [ ] |
+| W26 | recordToCalculatorSeam | Recorder.recordOut | CoverageCalculator.recordIn | RecordWrite | [ ] |
+| W27 | recordToCheckerSeam | Recorder.recordOut | ConformanceChecker.recordIn | RecordWrite | [ ] |
+| W28 | recordToDeriverSeam | Recorder.recordOut | ProbeDeriver.recordIn | RecordWrite | [ ] |
+| W29 | recordToExecutiveSeam | Recorder.recordOut | AccountExecutive.recordIn | RecordWrite | [ ] |
+| W30 | recordToExpertSeam | Recorder.recordOut | DomainExpert.recordIn | RecordWrite | [ ] |
+| W31 | recordToOperatorSeam | Recorder.recordOut | EvaluationOperator.recordIn | RecordWrite | [ ] |
+| W32 | reportSeam | CoverageCalculator.reportOut | Recorder.reportIn | ReportWrite | [ ] |
+| W33 | requirementSeam | EvaluationOperator.requirementsOut | Recorder.requirementsIn | RequirementSetWrite | [ ] |
+| W34 | responseSeam | TestItem.responseOut | Recorder.responseIn | ResponseWrite | [ ] |
+| W35 | stakeholderInputSeam | AffectedPopulation.inputOut | Recorder.inputIn | StakeholderInputWrite | [ ] |

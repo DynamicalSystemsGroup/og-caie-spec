@@ -33,6 +33,8 @@ flowchart LR
   testingOrg_team_domainExpert -- "dsoSeam" --> testingOrg_recorder
   testingOrg_team_operator -- "evidenceSeam" --> testingOrg_recorder
   testingOrg_team_domainExpert -- "expertDeterminationSeam" --> testingOrg_recorder
+  sponsor -- "missionSeam" --> testingOrg_recorder
+  sponsor -- "missionToExecutiveSeam" --> testingOrg_accountExecutive
   sponsor -- "needSeam" --> testingOrg_recorder
   sponsor -- "needToExecutiveSeam" --> testingOrg_accountExecutive
   testingOrg_team_operator -- "operatorDeterminationSeam" --> testingOrg_recorder

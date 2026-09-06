@@ -18,5 +18,7 @@ Ruling R-31 bound each EPO step to the canon step it matches. The SEBoK and SEVO
 
 | 12 | monitoring (seeAlso) | 8.1 surveillance | systematic iteration of conformity assessment activities as a basis for maintaining the validity of the statement of conformity | [ ] |
 | 13 | monitoring | ISO 9000:2026 3.11.3, iso-9000-2026-obp-30.png | determining the status of a system, a process or an activity | [ ] |
+| 14 | mission | ISO 9000:2026 3.4.11, iso-9000-2026-obp-10.png | organization's purpose for existing as expressed by top management | [ ] |
+| 15 | mission (seeAlso policy) | ISO 9000:2026 3.4.5, iso-9000-2026-obp-10.png | intentions and direction of an organization as formally expressed by its top management | [ ] |
 
 Rows 8 to 11 belong to the contracting lifecycle (ruling R-32); row 2's quote moved from the evaluation's agree step to the contracting step propose, and row 7's to deliver.

@@ -41,6 +41,9 @@ evaluation record
 expected results
 : What the system under test should observably do if it meets an acceptance criterion under the probe's conditions. Stated on the criterion before testing, so the criterion is defined in terms of evidence a test can collect, and the attestation is a judgment that the actual result did or did not correspond. Source: IEEE Computer Society, expected results, p. 160: "observable predicted behavior of the test item under specified conditions based on its specification or another source" (machine). Also: expected result. Ruling R-12.
 
+mission
+: The sponsor organization's purpose for existing, as its top management expresses it, and with it the obligations and duties it holds towards the affected populations. Recorded before the need is stated, it is the context the contract answers to: what the sponsor owes the people the test item will serve. Pinned at the contract. Source: ISO 9000:2026(en) Quality management — Fundamentals and vocabulary, 3.4.11: "organization's purpose for existing as expressed by top management" (pending). Also: mandate, obligations to the affected populations. Ruling R-37.
+
 monitoring
 : Determining the status of a system at different stages or times. After an evaluation, a sponsor may require the accountable organization to change the system per the findings and then require new testing to certify that the flagged issues were addressed; in conformity assessment that repeat is called surveillance. Observed in practice; not a step of the contracting lifecycle. Source: ISO 9000:2026(en) Quality management — Fundamentals and vocabulary, 3.11.3: "determining the status of a system, a process or an activity" (pending). Also: re-evaluation, surveillance (ISO/IEC 17000 8.1). Ruling R-36.
 

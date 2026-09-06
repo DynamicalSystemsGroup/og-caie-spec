@@ -69,9 +69,9 @@ tr:SCI-09 a ogc:Trace ; rdfs:label "SCI-09 RecommendationTraceable" ;
     ogc:restsOn src:sevocab, src:nist-ai-700-2, rul:R-07 .
 tr:SCI-10 a ogc:Trace ; rdfs:label "SCI-10 PartiesNamedAndAgreed" ;
     ogc:page "contracting" ;
-    rdfs:comment "The sponsor, the testing organization and the accountable organization are named; the agreement is signed by the sponsor and the account executive; every affected population is interviewed or represented by a named domain expert." ;
-    ogc:checkedBy ogc:M1-Parties, ogc:S0-Parties, ogc:S0-Population, ogc:S0-Need, ogc:S0-Proposal, ogc:S8-Delivery, ogc:S9-Acceptance ; ogc:tag "machine" ;
-    ogc:usesTerm term:organization, term:customer, term:provider, term:first-party-conformity-assessment-activity, term:second-party-conformity-assessment-activity, term:third-party-conformity-assessment-activity, term:contract, term:stakeholder, term:account-executive ;
+    rdfs:comment "The sponsor, the testing organization and the accountable organization are named; the sponsor's mission and obligations towards the affected populations are recorded before the need; the agreement is signed by the sponsor and the account executive; every affected population is interviewed or represented by a named domain expert." ;
+    ogc:checkedBy ogc:M1-Parties, ogc:S0-Parties, ogc:S0-Population, ogc:S0-Mission, ogc:S0-Need, ogc:S0-Proposal, ogc:S8-Delivery, ogc:S9-Acceptance ; ogc:tag "machine" ;
+    ogc:usesTerm term:organization, term:customer, term:provider, term:mission, term:first-party-conformity-assessment-activity, term:second-party-conformity-assessment-activity, term:third-party-conformity-assessment-activity, term:contract, term:stakeholder, term:account-executive ;
     ogc:restsOn src:iso-9000-2026, src:iso-iec-17000-2020, rul:R-21, rul:R-23 .
 tr:SCI-11 a ogc:Trace ; rdfs:label "SCI-11 EndStateGuaranteed" ;
     ogc:page "guarantees" ;

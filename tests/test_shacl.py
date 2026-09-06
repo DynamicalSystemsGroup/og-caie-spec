@@ -51,7 +51,7 @@ def test_each_counterexample_fails_on_its_shape_only():
 def test_shapes_s0_to_s8():
     g = shapes()
     names = sorted(str(s).rsplit("/", 1)[-1] for s in g.subjects(RDF.type, SH.NodeShape))
-    assert names == ["S0-Access", "S0-Layers", "S0-Need", "S0-Parties", "S0-Population", "S0-Proposal",
+    assert names == ["S0-Access", "S0-Layers", "S0-Mission", "S0-Need", "S0-Parties", "S0-Population", "S0-Proposal",
                      "S1-DsoRelease", "S2-AcceptanceCriterion", "S2-Requirement", "S2-RequirementSet",
                      "S3-PlanApproval", "S3-Probe", "S3-Strategy", "S3-TestPlan",
                      "S4-Session", "S4-TestSuite", "S4-Turn", "S5-Evidence", "S5-Response", "S6-Attestation", "S6-Determination",

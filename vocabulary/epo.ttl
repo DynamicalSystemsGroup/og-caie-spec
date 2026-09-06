@@ -55,7 +55,7 @@ epo:report a epo:EpoStep ; rdfs:label "6 report: coverage and performance comput
 # specified requirements' frame and the methodology (ogc:pinnedAt epo:contract).
 epo:ContractingStep a owl:Class ; rdfs:label "contracting lifecycle step" ;
     ogc:canonical [ ogc:cites src:sebok-2-14 ; ogc:locator "Stakeholder Needs (Acquisition and Supply), p. 353" ; ogc:pdfPage 353 ; ogc:quote "These needs and requirements are expressed in agreements between acquirers and suppliers." ; ogc:quoteStatus "machine" ] .
-epo:need a epo:ContractingStep ; rdfs:label "C1 need: the sponsor states the mission problem and what success would look like" ;
+epo:need a epo:ContractingStep ; rdfs:label "C1 need: the sponsor states its mission and obligations towards the affected populations, the problem, and what success would look like" ;
     ogc:canonical [ ogc:cites src:sebok-2-14 ; ogc:locator "Business or Mission Analysis, p. 543" ; ogc:pdfPage 543 ; ogc:quote "The purpose of Business or Mission Analysis is to understand a mission or market problem, threat, or opportunity, and to establish the goals, objectives and measures of success of a potential solution class." ; ogc:quoteStatus "machine" ] ;
     ogc:seeAlso [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.5.1 requirement" ; ogc:quote "need or expectation that is stated, generally implied or obligatory" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-11.png" ] .
 epo:propose a epo:ContractingStep ; rdfs:label "C2 propose: the sponsor seeks the service and the testing organization responds" ;
@@ -96,6 +96,7 @@ epo:independentOfAccountable a owl:DatatypeProperty ; rdfs:range xsd:boolean ; r
 epo:representedBy a owl:ObjectProperty ; rdfs:domain epo:Population ; rdfs:range prov:Person ; rdfs:comment "the domain expert who represents a population that was not interviewed (R-21)" .
 
 # ---- things (prov:Entity)
+epo:Mission a owl:Class ; rdfs:subClassOf prov:Entity ; ogc:pinnedAt epo:contract ; rdfs:label "mission: the sponsor's purpose and its obligations towards the affected populations (ISO 9000:2026 3.4.11; R-37), the context the contract answers to" .
 epo:Need a owl:Class ; rdfs:subClassOf prov:Entity ; ogc:pinnedAt epo:contract ; rdfs:label "need: the sponsor's stated mission problem and measures of success (ISO 9000:2026 requirement: need or expectation that is stated)" .
 epo:Proposal a owl:Class ; rdfs:subClassOf prov:Entity ; ogc:pinnedAt epo:contract ; rdfs:label "proposal: the testing organization's response to the sponsor's need, offering the service" .
 epo:Acceptance a owl:Class ; rdfs:subClassOf prov:Entity ; ogc:pinnedAt epo:contract ; rdfs:label "acceptance: the sponsor's acceptance of the delivery as performance of the agreement" .
@@ -165,6 +166,8 @@ epo:approves a owl:ObjectProperty ; rdfs:domain epo:PlanApproval ; rdfs:range ep
 epo:deliveredTo a owl:ObjectProperty ; rdfs:domain epo:Delivery ; rdfs:range prov:Organization .
 epo:accepts a owl:ObjectProperty ; rdfs:domain epo:Acceptance ; rdfs:range epo:Delivery .
 epo:respondsTo a owl:ObjectProperty ; rdfs:domain epo:Proposal ; rdfs:range epo:Need .
+epo:regards a owl:ObjectProperty ; rdfs:domain epo:Mission ; rdfs:range epo:Population ; rdfs:comment "the affected populations the mission holds obligations towards (R-37)" .
+epo:underMission a owl:ObjectProperty ; rdfs:domain epo:Need ; rdfs:range epo:Mission .
 
 # ---- the two judgment values (Hawkins et al. 2011; ruling R-08)
 epo:AppropriatenessValue a owl:Class .

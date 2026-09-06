@@ -27,8 +27,8 @@ the standards' own, none coined here:
 :class: specification
 
 Four parties, three actor categories within the testing organization, and
-the wires between them. The sponsor states the need and receives the
-proposal; the account executive answers, countersigns and, at the end,
+the wires between them. The sponsor states its mission towards the affected populations, then the
+need, and receives the proposal; the account executive answers, countersigns and, at the end,
 delivers; the accountable organization grants access; every item reaches
 the recorder. Input wires are unique, output wires fan out, and each wire
 carries one item kind. In the model this cycle is the outer action def, and
@@ -49,8 +49,11 @@ essentials this chapter states:
 :::{admonition} The walkthrough
 :class: walkthrough
 
-The county public-health office needed to know whether its chatbot could
-give measles advice to the public. Humane Intelligence proposed an OG-CAIE
+The county public-health office exists to protect the health of residents
+and of the people passing through the county, and must inform the public
+accurately during an outbreak; that mission is the first item in the
+record. It needed to know whether its chatbot could give measles advice to
+the public. Humane Intelligence proposed an OG-CAIE
 evaluation; Mala signed for it on 31 July with the county; the chatbot's
 vendor opened API access to version 1 the same day. Two populations were
 affected: commuters, who were interviewed, and county residents, whom Annie

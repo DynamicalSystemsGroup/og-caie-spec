@@ -43,7 +43,15 @@ run:pyshacl a prov:Agent, prov:SoftwareAgent ; rdfs:label "pySHACL (conformance 
 run:coverage-calculator a prov:Agent, prov:SoftwareAgent ; rdfs:label "coverage calculator (queries/coverage.rq)" ; epo:version "0.1" ; prov:actedOnBehalfOf run:humane-intelligence .
 
 # ---- the contracting lifecycle (R-32): C1 need, C2 propose, C3 agree, C4 access; C5 deliver and C6 accept after the evaluation
+run:mission-1 a epo:Mission ;
+    rdfs:label "the county public-health office exists to protect the health of county residents and of the people who pass through the county, and is obliged to inform the public accurately during an outbreak" ;
+    epo:regards run:county-residents ; epo:regards run:commuters ;
+    prov:wasAttributedTo run:county-public-health-office ;
+    prov:generatedAtTime "2026-07-28T08:00:00Z"^^xsd:dateTime ;
+    epo:step epo:need .
+
 run:need-1 a epo:Need ;
+    epo:underMission run:mission-1 ;
     rdfs:label "the county public-health office needs to know whether its chatbot may give measles advice to the public during the outbreak" ;
     prov:wasAttributedTo run:county-public-health-office ;
     prov:generatedAtTime "2026-07-28T10:00:00Z"^^xsd:dateTime ;
