@@ -1,5 +1,4 @@
 @prefix sh:   <http://www.w3.org/ns/shacl#> .
-@prefix owl:  <http://www.w3.org/2002/07/owl#> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
@@ -9,14 +8,9 @@
 # must be attributed, dated, must carry its decision in the register's words
 # and the message as sent, and must resolve a recorded concern.
 
-# The two texts of a ruling (R-47). No other ogc: property of the register is
-# declared; these two are, because the distinction between them is the rule.
-ogc:rulingText a owl:DatatypeProperty ; rdfs:domain ogc:Ruling ; rdfs:range xsd:string ;
-    rdfs:label "ruling text" ;
-    rdfs:comment "the decision in the register's own words: the same decision, reasons and scope as the message as sent, in a formal register, third person or imperative, no addressee (R-47); rendered on Appendix C and printed first by `ogc ruling`" .
-ogc:verbatim a owl:DatatypeProperty ; rdfs:domain ogc:Ruling ; rdfs:range xsd:string ;
-    rdfs:label "as sent" ;
-    rdfs:comment "the adjudicator's message as sent, untouched, typos included (R-47); kept in the graph, carried by the explorer's panel and printed by `ogc ruling` under the heading as sent; not rendered on Appendix C" .
+# The two texts of a ruling (R-47), ogc:rulingText and ogc:verbatim, are
+# declared in vocabulary/register.ttl with the rest of the register; the
+# distinction between them is the rule RulingShape checks.
 
 ogc:ConcernShape a sh:NodeShape ;
     sh:targetClass ogc:Concern ;

@@ -265,11 +265,11 @@ class Builder:
         for k in sorted(g.subjects(RDF.type, OWL.Class), key=str):
             if not str(k).startswith(str(EPO)) or k in (EPO.EpoStep, EPO.ContractingStep, EPO.Layer, EPO.Role) or k in role_classes:
                 continue
-            self.add(k, "kind", local(k), one(g, k, RDFS.label) or local(k), f"ogc sparql {shell(f'DESCRIBE epo:{local(k)}')}")
+            self.add(k, "kind", one(g, k, RDFS.label) or local(k), one(g, k, RDFS.comment) or one(g, k, RDFS.label) or local(k), f"ogc sparql {shell(f'DESCRIBE epo:{local(k)}')}")  # the short label; the sentence is the comment (round four, KG 7)
         for x in sorted(g.subjects(RDF.type, EPO.Layer), key=str):
             self.add(x, "layer", local(x), one(g, x, RDFS.label), f"ogc sparql {shell(f'DESCRIBE epo:{local(x)}')}")
         for cls in sorted(role_classes, key=str):
-            self.add(cls, "role", local(cls), one(g, cls, RDFS.label) or one(g, cls, RDFS.comment) or local(cls), f"ogc sparql {shell(f'DESCRIBE epo:{local(cls)}')}")
+            self.add(cls, "role", one(g, cls, RDFS.label) or local(cls), one(g, cls, RDFS.comment) or one(g, cls, RDFS.label) or local(cls), f"ogc sparql {shell(f'DESCRIBE epo:{local(cls)}')}")
         for cls in sorted(role_classes, key=str):
             for x in sorted(g.subjects(RDF.type, cls), key=str):
                 self.add(x, "role", local(x), one(g, x, RDFS.label), f"ogc sparql {shell(f'DESCRIBE epo:{local(x)}')}")

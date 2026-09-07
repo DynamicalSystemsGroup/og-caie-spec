@@ -114,7 +114,7 @@ def test_every_epo_class_names_its_term_or_says_why_not():
             assert named <= terms, (c, named - terms)
         else:
             comment = str(g.value(c, RDFS.comment) or "")
-            assert comment.startswith("no term"), f"{c} neither names a term nor says why not"
+            assert "no term" in comment.lower(), f"{c} neither names a term nor says why not"  # the sentence comes first, the reason after it (round four, KG 7)
 
 
 def test_role_classes_form_a_tree_under_role_and_the_individuals_keep_their_iris():

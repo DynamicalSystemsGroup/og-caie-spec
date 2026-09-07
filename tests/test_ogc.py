@@ -662,7 +662,7 @@ def test_r3_finding_m5_epo_reader_and_find_indexes_the_epo_labels():
     assert d["terms"] == [] and d["comment"] and any(s["id"] == "S7-ReportApproval" for s in d["shapes"]) and any(s["id"] == "S8-Delivery" for s in d["shapes"])
     assert all({"id", "file", "where"} <= set(s) for s in d["shapes"])
     out = run("epo", "ConformanceVerdict").stdout
-    assert "pinned at: epo:evaluation" in out and "term: conformance (conformance)" in out and "superclasses: earl:Assertion, prov:Activity" in out and "shapes mentioning it" in out
+    assert "pinned at: epo:evaluation" in out and "term: conformance (conformance)" in out and "superclasses: earl:Assertion, prov:Entity" in out and "shapes mentioning it" in out
     r = run("epo", "scope")
     assert r.returncode == 1 and "ogc quote scope" in r.stdout
     r, d = _json("epo", "StakeholderRepresentatio")
