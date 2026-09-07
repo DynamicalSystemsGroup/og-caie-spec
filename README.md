@@ -17,13 +17,13 @@ deployed AI system against the needs of a specific domain, written down as:
   checked by SHACL shapes, with counterexamples that must fail;
 - a **rulings register** holding every interpretive choice verbatim.
 
-## Status (2026-09-06)
+## Status (2026-09-07)
 
 - **Glossary: ratified.** 66 terms, 4 coined (DSO, EPO, CAIE, OG-CAIE),
-  settled through 49 rulings (R-01 to R-49) recorded verbatim in
-  `rulings/adjudications.ttl`. 86 quotes are machine-located in
+  settled through 51 rulings (R-01 to R-51) recorded verbatim in
+  `rulings/adjudications.ttl`. 91 quotes are machine-located in
   content-hashed snapshots or, where the source is held locally, in its
-  committed digest, 57 verified by Z against the ISO screenshots or
+  committed digest, 56 verified by Z against the ISO screenshots or
   the browsing platforms; none pending. Concerns C-25, C-30, C-43 and C-45 are open.
 - **Both cycles are bound to the canon (R-31, R-32).** Each step cites the
   process step it matches: SEBoK's account of the ISO/IEC/IEEE 15288
@@ -31,13 +31,15 @@ deployed AI system against the needs of a specific domain, written down as:
   ISO/IEC/IEEE 29119-2 test strategy and planning, execution and completion
   processes via SEVOCAB; ISO/IEC 17000's review, decision and attestation.
   The contracting lifecycle (need, propose, agree, access, deliver, accept)
-  cites SEBoK's agreement processes, ISO/IEC 17000's access, scheme and
-  acceptance, ISO 9000's contract and the 29119-2 test environment and
-  completion report; every item kind says which layer pins it. The
+  cites its canon step by step: SEBoK's business or mission analysis and
+  account of proposals, ISO/IEC/IEEE 15288's agreement processes for the
+  agreement itself,
+  ISO 9000's contract, the 29119-2 test environment and completion report
+  and SEVOCAB's acceptance (sheet 10-22); every item kind says which layer pins it. The
   sponsor's mission and obligations towards the affected populations open
   the record (R-37, R-38).
 - **Site: a presentation layer over the model (R-34), seven pages and
-  five appendices.** The
+  six appendices.** The
   front page runs from why this counts as science to the bridge into the
   engineering standards; the vocabulary page shows exactly the terms the
   site uses, with hover definitions; four chapters (Stakeholders and
@@ -67,17 +69,17 @@ deployed AI system against the needs of a specific domain, written down as:
   once and every output somewhere, and the sponsor's obligation to the
   affected populations as a relation. Four model counterexamples fail their
   shape. The essentials SCI-01 to SCI-13 live in `model/trace.ttl`.
-- **The end-state demonstration (C-30) is built; Z's validation is not.**
+- **The end-state demonstration (C-30) is built; one block awaits its rebuild.**
   `ogc/executor.py` walks the process as the model states it and emits a
   record; the run conforms to S0 to S9, is complete against the model, has
   a recomputable coverage and traces fully, and ten mutations are each
   caught by a named check (`ogc execute`, chapter Records and reporting).
   Two findings are open as concern C-43: a record without a plan approval
   or an access grant conforms to the shapes and is caught only by
-  completeness or the traceback. Z's block-by-block and wire-by-wire
-  validation on rulings sheet 05 remains, in Z's words (2026-09-06): "i
-  still need to work through the model step by step and validate all the
-  individual blocks and wires."
+  completeness or the traceback. Z validated every block and wire on rulings sheet 05 but the report
+  assembler (B8), which is rebuilt so that the conformance check on the
+  record precedes the final report (sheet 10-41, R-50); C-30 closes with
+  its tick.
 - **Record and shapes: current.** The measles record names the parties, the
   mission, the agreement, the access, the stakeholder input, the
   appropriateness assessment, the plan approval and the delivery; shapes S0

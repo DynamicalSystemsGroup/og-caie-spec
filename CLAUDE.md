@@ -41,7 +41,8 @@ authors' earlier glossary work.
   R-23): **domain expert** (DSO, appropriateness, plan approval, attestation),
   **evaluation operator** (requirements, plan, probes, evidence,
   recommendation; never attests) and one **authorized representative** (signs the
-  contract, delivers the report; never judges). Parties (R-21): sponsor
+  contract, delivers the report; not responsible for the determinations in
+  the report: the organization's interface with its counterparties, R-49). Parties (R-21): sponsor
   organization (customer), testing organization (provider), test item provider (first party; was accountable organization, R-49), affected populations [0..*].
 - The worked example names Mala, Annie and Theo: synthetic case, real
   people's roles recognised, no attestation made by them (R-23).
@@ -197,7 +198,7 @@ authors' earlier glossary work.
   a seam; the assembly connects the parts; M1-Obligation checks it (R-38).
 - One nested model (R-33): the contracting lifecycle is the outer action
   def; its `fulfil` step is `action fulfil : EvaluationProcess`, a black
-  box whose inputs (agreement, access) and outputs (report, recommendation)
+  box whose inputs (agreement, statement of work, access) and outputs (report, its approval, recommendation)
   are bound by `flow` from and to the contracting steps; the evaluation
   process is the drill-down and conforms by typing (shape M4-Nesting).
   The assembly performs one action, the contracting lifecycle. Deeper
@@ -212,9 +213,10 @@ authors' earlier glossary work.
 
 ## Next (C-30, open)
 
-- Z validates the model block by block and wire by wire; then a
-  computational demonstration that the EPO guarantees a complete record
-  with full traceability and coverage (every run conforms to S0..S8).
+- C-30 closes when B8, the report assembler, is rebuilt so that the
+  conformance check on the record precedes the final report (sheet 10-41)
+  and Z ticks it on sheet 05; every other block and wire is validated
+  (R-50). The computational demonstration is built (R-48).
 
 ## Toolchain
 

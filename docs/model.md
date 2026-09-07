@@ -12,7 +12,7 @@ ISO/IEC/IEEE 15288 keeps its process groups coordinate; nothing nests.
 What nests here is the work: the acquirer's agreement
 opens and closes it, and the supplier performs the ISO/IEC/IEEE 29119-2
 test processes under it. So an evaluation is what a {term}`provider` does between the
-{term}`customer`'s access and the provider's delivery, and the six steps of
+test item provider's grant of access and its own delivery to the {term}`customer`, and the six steps of
 the inner cycle sit between C4 and C5 of the outer one. `ogc steps` prints
 both cycles with the canon step each matches; the previous two chapters
 quote them.
@@ -23,7 +23,7 @@ One view, read from the model graph, shows the nesting and nothing else:
 the outer chain with `fulfil` as a black box, the inner chain it opens
 into, and the only wires that cross the boundary. The contract hands in the
 agreement, the statement of work and the access; the evaluation hands back
-the report and the recommendation. Everything inside each chain is left
+the report, its approval and the recommendation. Everything inside each chain is left
 out on purpose; the two chapters before this one draw it.
 
 ```{include} ../generated/nesting.md
@@ -39,8 +39,8 @@ as steps in fixed succession, of seven steps, and the inner cycle another
 of six. The step `fulfil` is declared `action fulfil : EvaluationProcess`;
 its inputs, the agreement and the access, are bound by `flow`, SysML's
 binding of one step's output to another's input, from the agree and access
-steps, and its outputs, the report and the recommendation, flow to the
-deliver step. The inner process is the drill-down, the black box opened one
+steps, and its outputs, the report, its approval and the recommendation, flow
+to the deliver step. The inner process is the drill-down, the black box opened one
 level down, and conforms to the layer above by typing: shape M4-Nesting, one
 of the machine-checked rules over the model graph, checks that every input
 of the evaluation process is fed by a contracting step and every output

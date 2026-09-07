@@ -7,7 +7,7 @@ description: >
   it, which essential (SCI) is stated in it, which shape checks it, whether a
   word may be used in prose and how to mark it up, the Popper crosswalk, the
   sources, the rulings, the concerns, the views of the model, the executed
-  process, the worked example's record (the measles run) item by item.
+  process, the worked example's record (the measles evaluation) item by item.
   Triggers: any glossary question, "what does X mean", quotes,
   sources, rulings, concerns, shapes, {term} markup, check a word, the
   measles record, who attested or signed what and when, the model's
@@ -68,7 +68,7 @@ are a usage error (exit 2).
 1. Terms are used, not owned: each term cites exactly one canonical
    definition, from the highest-ranked source that defines it (1 ISO
    9000:2026, 2 SEVOCAB, 3 NIST AI 700-2, 4 W3C/OMG for binding only;
-   ranks 5 to 8 are ordinal: ISO-family vocabularies, other bodies, academic works, the authors' own session, which the four coinages cite).
+   ranks 5 to 8 are ordinal: ISO-family vocabularies, other bodies, academic works, the authors' own session, cited by the bridge's rows; the four coinages cite nothing).
    `ogc term <term>` reads it.
 2. Three classes: adopted (used as the source defines it), refined (a typed
    anchor, specializes / corresponds / synonym, keeping the source's word as

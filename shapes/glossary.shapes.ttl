@@ -74,7 +74,7 @@ ogc:RefinedAnchorShape a sh:NodeShape ;
 ogc:CoinedShape a sh:NodeShape ;
     sh:targetClass skos:Concept ;
     sh:sparql [
-        sh:message "A coined term derives from a recorded ruling and cites the authors' own source (rank 8)." ;
+        sh:message "A coined term derives from a recorded ruling; it cites no source." ;
         sh:select """
             PREFIX ogc: <https://w3id.org/og-caie/>
             PREFIX prov: <http://www.w3.org/ns/prov#>

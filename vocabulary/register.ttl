@@ -14,7 +14,7 @@
 
 <https://w3id.org/og-caie/register> a owl:Ontology ;
     rdfs:label "the OG-CAIE register vocabulary" ;
-    owl:versionInfo "0.3.0" ;
+    owl:versionInfo "0.3.0 in preparation; the git tag is the version" ;
     owl:imports <http://www.w3.org/ns/prov-o#> , <http://www.w3.org/2004/02/skos/core> ;
     rdfs:comment "Declares the ogc: classes and properties; the shapes over the register are shapes/glossary.shapes.ttl and shapes/rulings.shapes.ttl." .
 

@@ -3,7 +3,7 @@
 Appendix B opens the model, Appendix C runs its proofs and Appendix D
 records the judgments it rests on. This appendix says what all of it runs
 on, so that a reader can rebuild every page and verdict on their own
-machine: the environment is a lockfile and the reviewer recipe is six
+machine: the environment is a lockfile and the reviewer recipe is seven
 lines.
 
 ## What executable specification means here
@@ -96,8 +96,8 @@ prints its last lines.
 
 ## The first rung
 
-The appendices are the first rung of backup: the explorer, the proofs, the
-rulings and this review of the toolchain. The repository is the richer one:
+The appendices are the first rung of backup, the sample report through
+the works cited. The repository is the richer one:
 every graph, shape, script, test and notebook the site is rendered from,
 with the gate that judges them. A reader need not trust the authors. They
 can run the recipe and read the verdict themselves.

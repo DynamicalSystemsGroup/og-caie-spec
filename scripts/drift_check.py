@@ -64,22 +64,47 @@ def problems() -> list[str]:
     for letter, f in letters.items():
         if isinstance(f, str) and f in heading and heading[f] != letter:
             out.append(f"appendix letter: {f} is heading 'Appendix {heading[f]}' but sits at position {letter} in myst.yml")
+    n_app = len(appendix_files)
+    for p in PROSE_SOURCES:
+        text = p.read_text()
+        for m in re.finditer(r"Appendix ([A-Z])\b", text):
+            if m.group(1) not in letters:
+                out.append(f"appendix mention: 'Appendix {m.group(1)}' in {p.relative_to(ROOT)} but the table of contents has {n_app} appendices")
+        for m in re.finditer(r"\b(one|two|three|four|five|six|seven|eight|nine|ten)\s+appendices\b", text, re.I):
+            words = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"]
+            if words.index(m.group(1).lower()) + 1 != n_app:
+                out.append(f"appendix count: '{m.group(0)}' in {p.relative_to(ROOT)}; the table of contents has {n_app}")
+    _sys1 = __import__("sys"); _sys1.path.insert(0, str(ROOT))
+    from ogc.executor import MUTATIONS  # the count the prose may name
+    words = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"]
+    for p in PROSE_SOURCES + sorted((ROOT / "generated").glob("*.md")):
+        flat = re.sub(r"\s+", " ", p.read_text())
+        for m in re.finditer(r"\b(" + "|".join(words) + r")\s+(?:named\s+)?mutations\b", flat, re.I):
+            if words.index(m.group(1).lower()) + 1 != len(MUTATIONS):
+                out.append(f"mutation count: '{m.group(0)}' in {p.relative_to(ROOT)}; the executor has {len(MUTATIONS)}")
     # 2. forbidden phrases
     phrases = [l.strip() for l in (ROOT / "checks" / "drift-phrases.txt").read_text().splitlines() if l.strip() and not l.startswith("#")]
-    scan = PROSE_SOURCES + sorted((ROOT / "generated").glob("*.md")) + sorted((ROOT / "scripts").glob("*.py")) + sorted((ROOT / "ogc").glob("*.py")) + sorted((ROOT / "shapes").glob("*.ttl")) + [ROOT / "model" / "og-caie.sysml", ROOT / "model" / "trace.ttl"]
+    scan = PROSE_SOURCES + sorted((ROOT / "generated").glob("*.md")) + sorted((ROOT / "scripts").glob("*.py")) + sorted((ROOT / "ogc").glob("*.py")) + sorted((ROOT / "shapes").glob("*.ttl")) + sorted((ROOT / "queries").glob("*.rq")) + sorted((ROOT / "notebooks").glob("*.ipynb")) + [ROOT / "model" / "og-caie.sysml", ROOT / "model" / "trace.ttl"]
     for p in scan:
         rel = str(p.relative_to(ROOT))
         if any(rel.startswith(q) for q in QUOTING):
             continue
         text = p.read_text()
+        if p.suffix == ".ipynb":  # the notebooks' markdown and code cells, not their outputs
+            import json as _json
+            text = "\n".join("".join(c["source"]) for c in _json.loads(text)["cells"])
+        flat = re.sub(r"\s+", " ", text).lower()  # a phrase hides behind a line break (drift pass 1)
         for ph in phrases:
-            if ph.lower() in text.lower():
+            if re.sub(r"\s+", " ", ph).lower() in flat:
                 out.append(f"stale phrase '{ph}' in {rel}")
     # 3. retired words (the register's own list)
     g = Graph()
     for f in ("vocabulary/og-caie.ttl", "vocabulary/epo.ttl", "rulings/adjudications.ttl", "model/trace.ttl", "shapes/epo.shapes.ttl", "shapes/model.shapes.ttl"):
         g.parse(ROOT / f)
-    retired = {str(o) for o in g.objects(None, OGC.retired)}
+    import sys as _sys0
+    _sys0.path.insert(0, str(ROOT))
+    from ogc.api import RETIRED  # the tool's own retired words (drift pass 1: the register carries no ogc:retired)
+    retired = {w for w, note in RETIRED.items() if not str(note).startswith("reserved")}  # reserved words keep their one sense; retired ones are out
     for p in PAGES:
         text = re.sub(r"```.*?```", "", p.read_text(), flags=re.S)
         for w in retired:

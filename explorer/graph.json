@@ -10756,7 +10756,7 @@
     [
      "ogc:scopeNote",
      {
-      "text": "Sheet 10-21 (R-50): ISO/IEC 17000 4.10 access is the applicant's opportunity to obtain the service from the body, the sponsor's access to the evaluation, so it is cited on C2 propose and not here; the 17000 neighbour of this step is Annex A's selection function. Ruling R-47 (sheet 06-09) and R-48 (sheet 07-06): the accountable organization, the party that provides the test item, must provide access to it; the step is its duty, and the 29119-2 process names what that access establishes. The environment itself is a thing and stays a neighbour; ISO/IEC 17000 4.10 access is the applicant's side of the same fact."
+      "text": "Sheet 10-21 (R-50): ISO/IEC 17000 4.10 access is the applicant's opportunity to obtain the service from the body, the sponsor's access to the evaluation, so it is cited on C2 propose and not here; the 17000 neighbour of this step is Annex A's selection function. Ruling R-47 (sheet 06-09) and R-48 (sheet 07-06): the test item provider, the party that provides the test item, must provide access to it; the step is its duty, and the 29119-2 process names what that access establishes. The environment itself is a thing and stays a neighbour;"
      }
     ],
     [
@@ -10999,6 +10999,12 @@
      "ogc:canonical",
      {
       "ref": "cite:determineAndAttest:canonical:iso-iec-17000-2020:7-2-decision"
+     }
+    ],
+    [
+     "ogc:scopeNote",
+     {
+      "text": "Sheet 10-24 (R-50): the standard's decision (7.2) is the glossary's determination, the ruling on evidence that an attestation aggregates; the standard's determination (6.1) is the execute step."
      }
     ],
     [

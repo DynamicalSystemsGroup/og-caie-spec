@@ -14,10 +14,10 @@ Three organizations are parties. The sponsor is ISO 9000's customer, the
 testing organization its provider, and the organization that provides the
 test item is ISO/IEC 17000's
 {term}`first party <first-party conformity assessment activity>`, the one
-accountable for it. A sponsor with a user interest in the test item is a
-{term}`second party <second-party conformity assessment activity>`, and a
-testing organization working on its behalf performs a second-party activity
-even when independent of the provider. Affected stakeholders are
+accountable for it as its provider. A sponsor with a user interest in the
+test item performs a {term}`second-party <second-party conformity assessment activity>`
+activity when it commissions and accepts the evaluation; the independent
+testing organization performs a third-party activity whoever commissions it. Affected stakeholders are
 populations, spoken for, sometimes interviewed, who sign nothing. The
 six steps are the standards' own; each quote carries its tag,
 [defined on the vocabulary page](glossary.md#quote-tags):
@@ -129,8 +129,8 @@ requirement set declared before the agreement was signed fails the layer
 rule; an affected population nobody speaks for fails
 S0-Population, and so does a population the statement of work said would be
 interviewed but the record only speaks for; a model with a sponsor and
-populations but no obligation between them fails M1-Obligation. The
-population wiring awaits its tick on rulings sheet 05 (C-30).
+populations but no obligation between them fails M1-Obligation. Every
+block and wire of this slice is validated on rulings sheet 05.
 
 :::{admonition} Verdict
 :class: checked

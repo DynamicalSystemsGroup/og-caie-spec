@@ -10,7 +10,7 @@
 
 <https://w3id.org/og-caie/model> a owl:Ontology ;
     rdfs:label "the derived ends of the OG-CAIE model graph" ;
-    owl:versionInfo "0.3.0" ;
+    owl:versionInfo "0.3.0 in preparation; the git tag is the version" ;
     rdfs:comment "Predicates added by the pruner over the OpenSysML vocabulary; the term map model/sysml_term_map.csv says which SysML classes the graph keeps." .
 
 ogm:resolvesTo a owl:ObjectProperty ; rdfs:label "resolvesTo" ; rdfs:comment "the resolved end of a chained reference (a part or port reached through dots)" .

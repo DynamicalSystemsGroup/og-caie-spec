@@ -69,7 +69,7 @@ the gate reads:
 ## Checked
 
 The tests execute the runs, pin the coverage and the traceback row counts,
-assert that the first run conforms and is complete, that each of the nine
+assert that the first run conforms and is complete, that each of the ten
 mutations is caught by a named check, that two executions produce
 identical graphs, and that a model with a step's output removed makes the
 executor refuse. Two findings are stated rather than hidden: skipping

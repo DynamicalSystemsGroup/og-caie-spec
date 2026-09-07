@@ -1,8 +1,8 @@
 """The site's version line (sheet 10-38, R-50): the nearest tag and the commit
 the site was rendered at, written to generated/version.md for the front
 page's footer. The file is not committed (it would change with every
-commit and break byte-identical regeneration); the regen script and the
-site build write it, and a missing file renders as an unversioned draft."""
+commit and break byte-identical regeneration); the regen script, the
+gate and the test conftest write it before anything reads it."""
 from __future__ import annotations
 
 import subprocess
@@ -26,8 +26,7 @@ def describe() -> tuple[str, str]:
 
 def render() -> str:
     tag, sha = describe()
-    return (f"*Version {tag}, rendered at commit `{sha}`; the specification's version is its git tag and its commit "
-            f"(sheet 10-38), and CITATION.cff carries the same version.*\n")
+    return f"*Version {tag}, rendered at commit `{sha}`: the specification's version is its git tag and its commit (sheet 10-38).*\n"
 
 
 if __name__ == "__main__":

@@ -23,17 +23,16 @@ functions of ISO/IEC 17000, none coined here. A {term}`requirement` is ISO
 
 Three observations from ISO/IEC 17000 shape the fifth step. Its *decision*
 (7.2), the conclusion that fulfilment of specified requirements has or has
-not been demonstrated, is exactly the outcome inside an attestation. Its
+not been demonstrated, is the glossary's determination (ruling R-50), which
+an attestation aggregates. Its
 *review* (7.1) names, for the fitness of what was done, the word this
 specification retired for the context judgment, which is why we say {term}`appropriateness`
-instead. And its note on 7.3 observes that there is
-no term for second-party attestation: a testing organization attesting on a
-sponsor's behalf about a vendor's system performs a
-{term}`second-party <second-party conformity assessment activity>` activity
-even when it is independent of the vendor, which is the measles case; an
-audit of the evaluation by a body with no user interest would be the
-{term}`third-party conformity assessment activity`. The command line prints
-the fifth step with each match and its quote's tag, , [defined on the vocabulary page](glossary.md#quote-tags):
+instead. And the measles case is a
+{term}`third-party conformity assessment activity`: Humane Intelligence is
+independent of the vendor and has no user interest; the county, which
+commissions and accepts it, acts as the
+{term}`second party <second-party conformity assessment activity>`. The command line prints
+the fifth step with each match and its quote's tag, [defined on the vocabulary page](glossary.md#quote-tags):
 
 ```{literalinclude} ../generated/cli/steps-determine-and-attest.md
 ```
@@ -122,8 +121,8 @@ approved the plan. On 10 August Theo ran one session of one turn against
 chatbot v1, by {term}`red teaming`, and collected two evidence items. On 11
 August Annie and Theo each determined on one, and Annie attested both
 criteria, judging the declared context appropriate and recording the
-{term}`sufficiency` of the evidence for each. On 12 August the coverage
-calculator recomputed coverage from the record and Theo wrote the
+{term}`sufficiency` of the evidence for each. On 12 August the report
+assembler recomputed coverage from the record and Theo wrote the
 recommendation: not fit to deploy during the outbreak, and strengthen the
 {term}`guardrail` on unknown vaccination status. Every row below names its
 person and its day; the case is synthetic and no judgment here was made by
@@ -151,7 +150,7 @@ kind reaching the recorder, the steps forming a DAG (a directed acyclic
 graph, no loop) that produces every item kind, the three roles in their slots.
 Fourteen record counterexamples must fail: an
 attestation without a determination, one for another criterion, one before
-its determination, a probe derived before the requirements or checked after
+its determination, one across two turns of a strategy-driven session, a probe derived before the requirements or checked after
 its first turn, a plan approved after the session, an untraced
 recommendation, a session run by the domain expert, an attestation by the
 authorized representative, a delivery before its approval, a padded
