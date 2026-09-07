@@ -202,10 +202,10 @@ ogc:S0-Independence a sh:NodeShape ;
             PREFIX earl: <http://www.w3.org/ns/earl#>
             SELECT $this ?value WHERE {
                 $this epo:independenceLevel epo:person .
-                ?value a epo:Determination ; ogc:inRecord $this ; earl:assertedBy ?p ; prov:used ?e .
+                ?value a epo:Determination ; ogc:inRecord $this ; earl:assertedBy ?p ; prov:wasDerivedFrom ?e .
                 ?p a prov:Person .
                 ?e a epo:Evidence ; prov:wasDerivedFrom ?x . ?x prov:wasGeneratedBy/(epo:inSession)? ?s . ?s a epo:Session ; prov:wasAssociatedWith ?p .
-                FILTER NOT EXISTS { ?d2 a epo:Determination ; ogc:inRecord $this ; prov:used ?e ; earl:assertedBy ?q . ?q a prov:Person . FILTER(?q != ?p) }
+                FILTER NOT EXISTS { ?d2 a epo:Determination ; ogc:inRecord $this ; prov:wasDerivedFrom ?e ; earl:assertedBy ?q . ?q a prov:Person . FILTER(?q != ?p) }
             }
         """ ] ;
     sh:sparql [
@@ -230,7 +230,7 @@ ogc:S0-Independence a sh:NodeShape ;
             SELECT $this ?value WHERE {
                 $this epo:independenceLevel ?level . FILTER(?level IN (epo:department, epo:organization))
                 {
-                    ?value a epo:Determination ; ogc:inRecord $this ; earl:assertedBy ?p ; prov:used ?e .
+                    ?value a epo:Determination ; ogc:inRecord $this ; earl:assertedBy ?p ; prov:wasDerivedFrom ?e .
                     ?e a epo:Evidence ; prov:wasDerivedFrom ?x . ?x prov:wasGeneratedBy/(epo:inSession)? ?s . ?s a epo:Session ; prov:wasAssociatedWith ?q . ?q a prov:Person .
                 }
                 UNION
@@ -277,7 +277,7 @@ ogc:S0-Population a sh:NodeShape ;
                 { FILTER NOT EXISTS { ?d a epo:EngagementDecision ; epo:population $this } }
                 UNION { FILTER NOT EXISTS { ?rep a epo:StakeholderRepresentation ; epo:represents $this ; prov:wasAttributedTo ?a . $this epo:representedBy ?a } }
                 UNION { ?d epo:population $this ; epo:engagement epo:interview .
-                        FILTER NOT EXISTS { ?i a epo:StakeholderInput ; prov:wasAttributedTo $this . ?rep a epo:StakeholderRepresentation ; epo:represents $this ; prov:used ?i . $this epo:responsibleParty ?r } }
+                        FILTER NOT EXISTS { ?i a epo:StakeholderInput ; prov:wasAttributedTo $this . ?rep a epo:StakeholderRepresentation ; epo:represents $this ; prov:wasDerivedFrom ?i . $this epo:responsibleParty ?r } }
             }
         """ ] ;
     sh:sparql [
@@ -540,7 +540,7 @@ ogc:S3-Strategy a sh:NodeShape ;
 ogc:S3-PlanApproval a sh:NodeShape ;
     sh:targetClass epo:PlanApproval ;
     sh:property [ sh:path epo:approves ; sh:minCount 1 ; sh:maxCount 1 ; sh:class epo:TestPlan ] ;
-    sh:property [ sh:path prov:endedAtTime ; sh:minCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path prov:generatedAtTime ; sh:minCount 1 ; sh:datatype xsd:dateTime ] ;
     sh:sparql [
         sh:message "S3: a test plan is approved by a domain expert (R-21)." ;
         sh:select """
@@ -555,7 +555,7 @@ ogc:S3-PlanApproval a sh:NodeShape ;
             PREFIX prov: <http://www.w3.org/ns/prov#>
             PREFIX earl: <http://www.w3.org/ns/earl#>
             SELECT $this ?value WHERE {
-                $this epo:approves ?plan ; prov:endedAtTime ?t1 .
+                $this epo:approves ?plan ; prov:generatedAtTime ?t1 .
                 ?plan epo:means/(^prov:wasDerivedFrom)? ?probe . ?probe a epo:Probe .
                 ?turn a epo:Turn ; prov:used ?probe ; epo:inSession ?value . ?value prov:startedAtTime ?t0 .
                 FILTER(?t0 < ?t1)
@@ -591,14 +591,14 @@ ogc:S3-Probe a sh:NodeShape ;
             }
         """ ] ;
     sh:sparql [
-        sh:message "S3 order (sheet 10-19): the probe's passed consistency check ended before the first turn that used the probe started." ;
+        sh:message "S3 order (sheet 10-19): the probe's passed consistency check is dated before the first turn that used the probe started." ;
         sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX prov: <http://www.w3.org/ns/prov#>
             PREFIX earl: <http://www.w3.org/ns/earl#>
             SELECT $this ?value WHERE {
                 ?value a epo:Turn ; prov:used $this ; prov:startedAtTime ?t0 .
-                FILTER NOT EXISTS { ?c a epo:ConsistencyCheck ; earl:subject $this ; earl:result ?r ; prov:endedAtTime ?t1 . ?r earl:outcome earl:passed . FILTER(?t1 <= ?t0) }
+                FILTER NOT EXISTS { ?c a epo:ConsistencyCheck ; earl:subject $this ; earl:result ?r ; prov:generatedAtTime ?t1 . ?r earl:outcome earl:passed . FILTER(?t1 <= ?t0) }
             }
         """ ] .
 
@@ -630,7 +630,7 @@ ogc:S4-Session a sh:NodeShape ;
                   FILTER NOT EXISTS { $this prov:wasAssociatedWith ?value } }
                 UNION
                 { $this ogc:inRecord ?rec . ?rs a epo:RequirementSet ; ogc:inRecord ?rec ; epo:systemUnderTest ?sut .
-                  ?value a epo:Determination ; prov:used ?e . ?e a epo:Evidence ; prov:wasDerivedFrom ?x . ?x prov:wasGeneratedBy/(epo:inSession)? $this .
+                  ?value a epo:Determination ; prov:wasDerivedFrom ?e . ?e a epo:Evidence ; prov:wasDerivedFrom ?x . ?x prov:wasGeneratedBy/(epo:inSession)? $this .
                   FILTER NOT EXISTS { ?value earl:subject ?sut } }
             }
         """ ] ;
@@ -724,12 +724,12 @@ ogc:S5-Evidence a sh:NodeShape ;
 # bear on the criterion it tests, with an EARL outcome of passed, failed or
 # cantTell, a mode and a named assertor (R-20: evidence is the domain, the
 # determination the codomain); it accounts for every evidence item on its
-# criterion under the plan that existed when it ended, or names what it left
+# criterion under the plan that existed when it was made, or names what it left
 # out and why (sheet 10-14: no cherry-picking).
 ogc:S6-Determination a sh:NodeShape ;
     sh:targetClass epo:Determination ;
     sh:property [ sh:path earl:test ; sh:minCount 1 ; sh:maxCount 1 ; sh:class epo:AcceptanceCriterion ] ;
-    sh:property [ sh:path prov:used ; sh:minCount 1 ; sh:class epo:Evidence ;
+    sh:property [ sh:path prov:wasDerivedFrom ; sh:minCount 1 ; sh:class epo:Evidence ;
                   sh:message "A determination rules on at least one evidence item." ] ;
     sh:property [ sh:path earl:mode ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ( earl:manual earl:semiAuto earl:automatic ) ] ;
     sh:property [ sh:path earl:assertedBy ; sh:minCount 1 ; sh:maxCount 1 ; sh:class prov:Agent ] ;
@@ -754,30 +754,30 @@ ogc:S6-Determination a sh:NodeShape ;
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX earl: <http://www.w3.org/ns/earl#>
             PREFIX prov: <http://www.w3.org/ns/prov#>
-            SELECT $this WHERE { $this earl:test ?a ; prov:used ?e . ?e a epo:Evidence . FILTER NOT EXISTS { ?e epo:bearsOn ?a } }
+            SELECT $this WHERE { $this earl:test ?a ; prov:wasDerivedFrom ?e . ?e a epo:Evidence . FILTER NOT EXISTS { ?e epo:bearsOn ?a } }
         """ ] ;
     sh:sparql [
-        sh:message "S6 no cherry-picking (sheet 10-14): a determination uses every evidence item of the record that bears on its criterion under the plan and was generated before it ended, or names the item it left out with epo:excludes and gives its epo:reason." ;
+        sh:message "S6 no cherry-picking (sheet 10-14): a determination uses every evidence item of the record that bears on its criterion under the plan and was generated no later than it was made, or names the item it left out with epo:excludes and gives its epo:reason." ;
         sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX ogc: <https://w3id.org/og-caie/>
             PREFIX earl: <http://www.w3.org/ns/earl#>
             PREFIX prov: <http://www.w3.org/ns/prov#>
             SELECT $this ?value WHERE {
-                $this earl:test ?a ; prov:endedAtTime ?t1 ; ogc:inRecord ?rec .
+                $this earl:test ?a ; prov:generatedAtTime ?t1 ; ogc:inRecord ?rec .
                 ?value a epo:Evidence ; ogc:inRecord ?rec ; epo:bearsOn ?a ; epo:underPlan ?plan ; prov:generatedAtTime ?t0 . FILTER(?t0 <= ?t1)
-                FILTER NOT EXISTS { $this prov:used ?value }
+                FILTER NOT EXISTS { $this prov:wasDerivedFrom ?value }
                 FILTER NOT EXISTS { $this epo:excludes ?value ; epo:reason ?why }
             }
         """ ] ;
     sh:sparql [
-        sh:message "S6 order (sheet 10-19): a determination ends no earlier than the evidence it rules on was generated." ;
+        sh:message "S6 order (sheet 10-19): a determination is dated no earlier than the evidence it rules on was generated." ;
         sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX prov: <http://www.w3.org/ns/prov#>
             PREFIX earl: <http://www.w3.org/ns/earl#>
             SELECT $this ?value WHERE {
-                $this prov:endedAtTime ?t1 ; prov:used ?value . ?value a epo:Evidence ; prov:generatedAtTime ?t0 .
+                $this prov:generatedAtTime ?t1 ; prov:wasDerivedFrom ?value . ?value a epo:Evidence ; prov:generatedAtTime ?t0 .
                 FILTER(?t0 > ?t1)
             }
         """ ] .
@@ -789,7 +789,7 @@ ogc:S6-Determination a sh:NodeShape ;
 # assumptions and the test planning, sufficiency relates the evidence to the
 # claim; insufficient evidence implies cannot tell, sufficient evidence can
 # give pass or fail); it accounts for every determination on its criterion
-# that ended before it, or names what it left out and why (sheet 10-14).
+# dated no later than it, or names what it left out and why (sheet 10-14).
 ogc:S6-Attestation a sh:NodeShape ;
     sh:targetClass epo:Attestation ;
     sh:property [ sh:path earl:test ; sh:minCount 1 ; sh:maxCount 1 ; sh:class epo:AcceptanceCriterion ] ;
@@ -808,7 +808,7 @@ ogc:S6-Attestation a sh:NodeShape ;
     sh:property [ sh:path epo:appropriateness ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ( epo:appropriate epo:inappropriate ) ;
                   sh:message "Appropriateness of the declared context is judged (R-08)." ] ;
     sh:property [ sh:path epo:sufficiency ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ( epo:sufficient epo:insufficient ) ] ;
-    sh:property [ sh:path prov:endedAtTime ; sh:minCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path prov:generatedAtTime ; sh:minCount 1 ; sh:datatype xsd:dateTime ] ;
     sh:sparql [
         sh:message "S6: an attestation is an item of the determine-and-attest step (the step is derived through the model graph, sheet 10-33)." ;
         sh:select """
@@ -824,9 +824,9 @@ ogc:S6-Attestation a sh:NodeShape ;
             PREFIX earl: <http://www.w3.org/ns/earl#>
             PREFIX prov: <http://www.w3.org/ns/prov#>
             SELECT $this WHERE {
-                { $this earl:test ?a ; prov:used ?d . ?d a epo:Determination . FILTER NOT EXISTS { ?d earl:test ?a } }
+                { $this earl:test ?a ; prov:wasDerivedFrom ?d . ?d a epo:Determination . FILTER NOT EXISTS { ?d earl:test ?a } }
                 UNION
-                { $this earl:test ?a ; prov:used ?d . ?d a epo:Determination ; prov:used ?e . ?e a epo:Evidence .
+                { $this earl:test ?a ; prov:wasDerivedFrom ?d . ?d a epo:Determination ; prov:wasDerivedFrom ?e . ?e a epo:Evidence .
                   FILTER NOT EXISTS { ?e epo:bearsOn ?a ; epo:underPlan ?plan . ?plan epo:objective ?a } }
             }
         """ ] ;
@@ -838,7 +838,7 @@ ogc:S6-Attestation a sh:NodeShape ;
             PREFIX prov: <http://www.w3.org/ns/prov#>
             SELECT $this WHERE {
                 $this earl:result ?r . ?r earl:outcome ?o . FILTER(?o IN (earl:passed, earl:failed))
-                FILTER NOT EXISTS { $this prov:used ?d . ?d a epo:Determination ; prov:used ?e . ?e a epo:Evidence }
+                FILTER NOT EXISTS { $this prov:wasDerivedFrom ?d . ?d a epo:Determination ; prov:wasDerivedFrom ?e . ?e a epo:Evidence }
             }
         """ ] ;
     sh:sparql [
@@ -856,38 +856,38 @@ ogc:S6-Attestation a sh:NodeShape ;
             }
         """ ] ;
     sh:sparql [
-        sh:message "S6 no cherry-picking (sheet 10-14): an attestation uses every determination of the record on its criterion that ended before it, or names the determination it left out with epo:excludes and gives its epo:reason." ;
+        sh:message "S6 no cherry-picking (sheet 10-14): an attestation uses every determination of the record on its criterion dated no later than it, or names the determination it left out with epo:excludes and gives its epo:reason." ;
         sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX ogc: <https://w3id.org/og-caie/>
             PREFIX earl: <http://www.w3.org/ns/earl#>
             PREFIX prov: <http://www.w3.org/ns/prov#>
             SELECT $this ?value WHERE {
-                $this earl:test ?a ; prov:endedAtTime ?t1 ; ogc:inRecord ?rec .
-                ?value a epo:Determination ; ogc:inRecord ?rec ; earl:test ?a ; prov:endedAtTime ?t0 . FILTER(?t0 <= ?t1)
-                FILTER NOT EXISTS { $this prov:used ?value }
+                $this earl:test ?a ; prov:generatedAtTime ?t1 ; ogc:inRecord ?rec .
+                ?value a epo:Determination ; ogc:inRecord ?rec ; earl:test ?a ; prov:generatedAtTime ?t0 . FILTER(?t0 <= ?t1)
+                FILTER NOT EXISTS { $this prov:wasDerivedFrom ?value }
                 FILTER NOT EXISTS { $this epo:excludes ?value ; epo:reason ?why }
             }
         """ ] ;
     sh:sparql [
-        sh:message "S6 order (sheet 10-19): an attestation ends no earlier than every determination it aggregates." ;
+        sh:message "S6 order (sheet 10-19): an attestation is dated no earlier than every determination it aggregates." ;
         sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX prov: <http://www.w3.org/ns/prov#>
             PREFIX earl: <http://www.w3.org/ns/earl#>
             SELECT $this ?value WHERE {
-                $this prov:endedAtTime ?t1 ; prov:used ?value . ?value a epo:Determination ; prov:endedAtTime ?t0 .
+                $this prov:generatedAtTime ?t1 ; prov:wasDerivedFrom ?value . ?value a epo:Determination ; prov:generatedAtTime ?t0 .
                 FILTER(?t0 > ?t1)
             }
         """ ] .
 
 # S7 <-> SCI-07, SCI-08: the report is computed by an automatic activity of
 # a versioned software agent; coverage and the three rates are present, in
-# range, recomputed from the record's attestations that ended no later than
+# range, recomputed from the record's attestations dated no later than
 # the report was generated (a draft is a snapshot of its day, the final
 # report has every attestation behind it), and the rates sum to one; a draft
 # flags its gaps, a final report rests on a passed verdict on the record
-# that ended before it (sheet 10-41); the verdict judges the record and
+# dated no later than it (sheet 10-41); the verdict judges the record and
 # carries the digests of what it ran (sheet 10-18); the approval is a domain
 # expert's, of a final report, after that verdict.
 ogc:S7-Report a sh:NodeShape ;
@@ -911,7 +911,7 @@ ogc:S7-Report a sh:NodeShape ;
             }
         """ ] ;
     sh:sparql [
-        sh:message "S7 draft and final (sheet 10-41, Z: conformance is a prerequisite for compiling the final report; a draft may carry flagged gaps): a draft report flags its gaps; a final report used a passed conformance verdict on its record that ended no later than the report was generated." ;
+        sh:message "S7 draft and final (sheet 10-41, Z: conformance is a prerequisite for compiling the final report; a draft may carry flagged gaps): a draft report flags its gaps; a final report derives from a passed conformance verdict on its record dated no later than the report was generated." ;
         sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX ogc: <https://w3id.org/og-caie/>
@@ -921,12 +921,12 @@ ogc:S7-Report a sh:NodeShape ;
                 { $this epo:draft true . FILTER NOT EXISTS { $this epo:gaps ?g } BIND("a draft without its gaps flagged" AS ?value) }
                 UNION
                 { $this epo:draft false ; ogc:inRecord ?rec ; prov:generatedAtTime ?t1 .
-                  FILTER NOT EXISTS { $this prov:used ?v . ?v a epo:ConformanceVerdict ; earl:subject ?rec ; earl:result ?r ; prov:endedAtTime ?t0 . ?r earl:outcome earl:passed . FILTER(?t0 <= ?t1) }
+                  FILTER NOT EXISTS { $this prov:wasDerivedFrom ?v . ?v a epo:ConformanceVerdict ; earl:subject ?rec ; earl:result ?r ; prov:generatedAtTime ?t0 . ?r earl:outcome earl:passed . FILTER(?t0 <= ?t1) }
                   BIND("a final report without a passed verdict on the record before it" AS ?value) }
             }
         """ ] ;
     sh:sparql [
-        sh:message "S7: the stored coverage equals the coverage recomputed from the record as it stood when the report was generated: the weighted share of acceptance criteria that carry at least one attestation with an outcome, ended no later than the report (walkthrough B5, R-48; a draft is a snapshot, sheet 10-48)." ;
+        sh:message "S7: the stored coverage equals the coverage recomputed from the record as it stood when the report was generated: the weighted share of acceptance criteria that carry at least one attestation with an outcome, dated no later than the report (walkthrough B5, R-48; a draft is a snapshot, sheet 10-48)." ;
         sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX ogc: <https://w3id.org/og-caie/>
@@ -940,7 +940,7 @@ ogc:S7-Report a sh:NodeShape ;
                             SELECT $this ?a ?w (IF(COUNT(?o) > 0, ?w, 0) AS ?cw) WHERE {
                                 $this a epo:Report ; ogc:inRecord ?rec ; prov:generatedAtTime ?t1 .
                                 ?a a epo:AcceptanceCriterion ; ogc:inRecord ?rec ; epo:weight ?w .
-                                OPTIONAL { ?t a epo:Attestation ; earl:test ?a ; earl:result ?r ; prov:endedAtTime ?te . ?r earl:outcome ?o . FILTER(?o IN (earl:passed, earl:failed, earl:cantTell) && ?te <= ?t1) }
+                                OPTIONAL { ?t a epo:Attestation ; earl:test ?a ; earl:result ?r ; prov:generatedAtTime ?te . ?r earl:outcome ?o . FILTER(?o IN (earl:passed, earl:failed, earl:cantTell) && ?te <= ?t1) }
                             } GROUP BY $this ?a ?w
                         }
                     } GROUP BY $this
@@ -958,7 +958,7 @@ ogc:S7-Report a sh:NodeShape ;
             }
         """ ] ;
     sh:sparql [
-        sh:message "S7 (SCI-08, sheet 10-19): the stored pass, fail and cannot-tell rates equal the rates recomputed from the record's attestations that ended no later than the report was generated, over the covered criteria, as queries/coverage.rq computes them (a criterion counts once: failed if any attestation failed, else passed if any passed, else cannot tell); a final report has every attestation behind it, a draft the ones of its day." ;
+        sh:message "S7 (SCI-08, sheet 10-19): the stored pass, fail and cannot-tell rates equal the rates recomputed from the record's attestations dated no later than the report was generated, over the covered criteria, as queries/coverage.rq computes them (a criterion counts once: failed if any attestation failed, else passed if any passed, else cannot tell); a final report has every attestation behind it, a draft the ones of its day." ;
         sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX ogc: <https://w3id.org/og-caie/>
@@ -975,7 +975,7 @@ ogc:S7-Report a sh:NodeShape ;
                                     SELECT $this ?a (SUM(IF(BOUND(?o) && ?o = earl:failed, 1, 0)) AS ?nFailed) (SUM(IF(BOUND(?o) && ?o = earl:passed, 1, 0)) AS ?nPassed)
                                            (SUM(IF(BOUND(?o) && ?o = earl:cantTell, 1, 0)) AS ?nCantTell) WHERE {
                                         $this a epo:Report ; ogc:inRecord ?rec ; prov:generatedAtTime ?t1 . ?a a epo:AcceptanceCriterion ; ogc:inRecord ?rec .
-                                        OPTIONAL { ?t a epo:Attestation ; earl:test ?a ; earl:result ?r ; prov:endedAtTime ?te . ?r earl:outcome ?o . FILTER(?te <= ?t1) }
+                                        OPTIONAL { ?t a epo:Attestation ; earl:test ?a ; earl:result ?r ; prov:generatedAtTime ?te . ?r earl:outcome ?o . FILTER(?te <= ?t1) }
                                     } GROUP BY $this ?a
                                 }
                             }
@@ -991,7 +991,7 @@ ogc:S7-Report a sh:NodeShape ;
 ogc:S7-ConformanceVerdict a sh:NodeShape ;
     sh:targetClass epo:ConformanceVerdict ;
     sh:property [ sh:path earl:mode ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue earl:automatic ] ;
-    sh:property [ sh:path prov:endedAtTime ; sh:minCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path prov:generatedAtTime ; sh:minCount 1 ; sh:datatype xsd:dateTime ] ;
     sh:property [ sh:path ( earl:result earl:outcome ) ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ( earl:passed earl:failed ) ] ;
     sh:property [ sh:path epo:shapesDigest ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ; sh:pattern "^[0-9a-f]{64}$" ;
                   sh:message "The verdict names the shapes it ran by their sha256 digest (tool qualification, sheet 10-18)." ] ;
@@ -1016,7 +1016,7 @@ ogc:S7-ReportApproval a sh:NodeShape ;
     sh:targetClass epo:ReportApproval ;
     sh:property [ sh:path epo:approvesReport ; sh:minCount 1 ; sh:maxCount 1 ; sh:class epo:Report ] ;
     sh:property [ sh:path earl:mode ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue earl:manual ] ;
-    sh:property [ sh:path prov:endedAtTime ; sh:minCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path prov:generatedAtTime ; sh:minCount 1 ; sh:datatype xsd:dateTime ] ;
     sh:sparql [
         sh:message "S7: the final report's contents are approved by a domain expert, after a passed conformance verdict on the record: correct construction is not enough, and a draft is not approved (walkthrough, R-49; sheet 10-41)." ;
         sh:select """
@@ -1027,8 +1027,8 @@ ogc:S7-ReportApproval a sh:NodeShape ;
             SELECT $this WHERE {
                 { FILTER NOT EXISTS { $this earl:assertedBy ?p . ?p epo:role epo:domainExpertRole } }
                 UNION { $this epo:approvesReport ?rep . FILTER NOT EXISTS { ?rep epo:draft false } }
-                UNION { $this epo:approvesReport ?rep ; prov:endedAtTime ?t1 ; ogc:inRecord ?rec .
-                        FILTER NOT EXISTS { ?v a epo:ConformanceVerdict ; earl:subject ?rec ; earl:result ?res ; prov:endedAtTime ?t0 . ?res earl:outcome earl:passed . FILTER(?t0 <= ?t1) } }
+                UNION { $this epo:approvesReport ?rep ; prov:generatedAtTime ?t1 ; ogc:inRecord ?rec .
+                        FILTER NOT EXISTS { ?v a epo:ConformanceVerdict ; earl:subject ?rec ; earl:result ?res ; prov:generatedAtTime ?t0 . ?res earl:outcome earl:passed . FILTER(?t0 <= ?t1) } }
             }
         """ ] .
 
@@ -1118,7 +1118,7 @@ ogc:S8-Recommendation a sh:NodeShape ;
             PREFIX prov: <http://www.w3.org/ns/prov#>
             SELECT $this WHERE {
                 $this prov:wasDerivedFrom ?a . ?a a epo:Attestation .
-                FILTER NOT EXISTS { ?a prov:used ?d . ?d a epo:Determination ; prov:used ?e . ?e a epo:Evidence . $this prov:wasDerivedFrom ?e }
+                FILTER NOT EXISTS { ?a prov:wasDerivedFrom ?d . ?d a epo:Determination ; prov:wasDerivedFrom ?e . ?e a epo:Evidence . $this prov:wasDerivedFrom ?e }
             }
         """ ] .
 
@@ -1154,13 +1154,13 @@ ogc:S8-Delivery a sh:NodeShape ;
             }
         """ ] ;
     sh:sparql [
-        sh:message "S8 order (sheet 10-19): the delivery is made no earlier than the report approval it carries ended." ;
+        sh:message "S8 order (sheet 10-19): the delivery is made no earlier than the report approval it carries is dated." ;
         sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX prov: <http://www.w3.org/ns/prov#>
             PREFIX earl: <http://www.w3.org/ns/earl#>
             SELECT $this ?value WHERE {
-                $this prov:generatedAtTime ?t1 ; prov:wasDerivedFrom ?value . ?value a epo:ReportApproval ; prov:endedAtTime ?t0 .
+                $this prov:generatedAtTime ?t1 ; prov:wasDerivedFrom ?value . ?value a epo:ReportApproval ; prov:generatedAtTime ?t0 .
                 FILTER(?t0 > ?t1)
             }
         """ ] .
@@ -1248,7 +1248,7 @@ ogc:S9-Acceptance a sh:NodeShape ;
             SELECT $this WHERE {
                 $this epo:accepts ?d .
                 FILTER NOT EXISTS {
-                    ?d prov:wasDerivedFrom ?r . ?r a epo:Report ; epo:draft false ; prov:used ?v . ?v a epo:ConformanceVerdict ; earl:result ?res . ?res earl:outcome earl:passed .
+                    ?d prov:wasDerivedFrom ?r . ?r a epo:Report ; epo:draft false ; prov:wasDerivedFrom ?v . ?v a epo:ConformanceVerdict ; earl:result ?res . ?res earl:outcome earl:passed .
                     ?d prov:wasDerivedFrom ?ap . ?ap a epo:ReportApproval ; epo:approvesReport ?r .
                 }
             }
@@ -1264,7 +1264,7 @@ ogc:S0-Layers a sh:NodeShape ;
             PREFIX prov: <http://www.w3.org/ns/prov#>
             SELECT $this ?value WHERE {
                 $this prov:generatedAtTime ?ta ; ogc:inRecord ?rec . ?rs a epo:RequirementSet ; ogc:inRecord ?rec ; prov:generatedAtTime ?tr .
-                ?value a ?cls ; ogc:inRecord ?rec ; (prov:generatedAtTime|prov:endedAtTime) ?t . ?cls ogc:pinnedAt ?layer .
+                ?value a ?cls ; ogc:inRecord ?rec ; prov:generatedAtTime ?t . ?cls ogc:pinnedAt ?layer .
                 FILTER( (?layer = epo:contract && ?t > ?tr && NOT EXISTS { ?value a epo:Delivery } && NOT EXISTS { ?value a epo:Acceptance })
                      || (?layer = epo:evaluation && ?t < ?ta) )
             }

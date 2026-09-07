@@ -21,6 +21,7 @@ dev = [
     "nbformat>=5.10",
     "jupyter>=1.0",
     "ipykernel>=6.29",
+    "owlrl>=7.6.2",
 ]
 
 [project.scripts]

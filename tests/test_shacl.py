@@ -133,6 +133,9 @@ def test_epo_handles_subclass_prov_or_earl():
             continue
         supers = set(g.objects(c, RDFS.subClassOf))
         assert supers & {PROV.Entity, PROV.Activity, PROV.Agent, EARL.Assertion}, c
+        assert not ({PROV.Entity, PROV.Activity} <= supers), f"{c}: PROV-O declares prov:Entity and prov:Activity disjoint (round four, KG H1)"
+        if EARL.Assertion in supers:
+            assert PROV.Entity in supers and PROV.Activity not in supers, f"{c}: an assertion is an entity, dated by prov:generatedAtTime"
 
 
 def test_record_names_every_human_judgment():
@@ -147,8 +150,8 @@ def test_record_names_every_human_judgment():
     assert len(list(g.subjects(RDF.type, EPO.Determination))) == 7  # sheet 10-15: Theo's determination on a3 is paired with Annie's; a2 determined twice
     a2 = [t for t in g.subjects(RDF.type, EPO.Attestation) if str(g.value(t, EARL.test)).endswith("#a2")]
     assert sorted(str(g.value(g.value(t, EARL.result), EARL.outcome)).rsplit("#", 1)[-1] for t in a2) == ["cantTell", "passed"]
-    later = max(a2, key=lambda t: str(g.value(t, PROV.endedAtTime)))
-    assert len(list(g.objects(later, PROV.used))) == 2  # the superseding attestation names both determinations (no cherry-picking, sheet 10-14)
+    later = max(a2, key=lambda t: str(g.value(t, PROV.generatedAtTime)))
+    assert len(list(g.objects(later, PROV.wasDerivedFrom))) == 2  # the superseding attestation names both determinations (no cherry-picking, sheet 10-14)
 
 
 def test_record_names_the_parties_and_roles():

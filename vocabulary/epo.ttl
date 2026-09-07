@@ -224,24 +224,36 @@ epo:Probe a owl:Class ; ogc:pinnedAt epo:evaluation ; rdfs:subClassOf prov:Entit
 epo:Response a owl:Class ; ogc:pinnedAt epo:evaluation ; rdfs:subClassOf prov:Entity ; rdfs:label "response: what the system under test produced at one turn (the actual result)" ;
     rdfs:comment "no term: the actual result at one turn (SEVOCAB test execution, cited on term test); prose says response and the headword stays with the evidence it becomes" .
 epo:Evidence a owl:Class ; ogc:pinnedAt epo:evaluation ; rdfs:subClassOf prov:Entity ; rdfs:label "evidence: collected material (a response, a trajectory, or several) bearing on one criterion's expected result, under the test plan (R-18, R-20); the domain of a determination" ; ogc:term term:objective-evidence .
-epo:Determination a owl:Class ; rdfs:subClassOf earl:Assertion, prov:Activity ; rdfs:label "determination (ISO 9000:2026 3.11.1; the paper's judgment): the ruling on one or more evidence items that a criterion's expected result was met, not met, or cannot be told (R-20); the codomain of evidence" ; ogc:term term:determination .
-epo:ConformanceVerdict a owl:Class ; ogc:pinnedAt epo:evaluation ; rdfs:subClassOf earl:Assertion, prov:Activity ; rdfs:label "conformance verdict: the checker's automatic assertion that the record is correctly constructed to the shapes, traceable in both directions and covered; its subject is the record, and it precedes the final report (walkthrough, R-49; sheet 10-41, R-50). Carries the digests of the shapes, the ontology and the coverage query it ran (sheet 10-18)" ; ogc:term term:conformance .
-epo:ReportApproval a owl:Class ; ogc:pinnedAt epo:evaluation ; rdfs:subClassOf earl:Assertion, prov:Activity ; rdfs:label "report approval: a domain expert's approval of the final report's contents after the machine verdict on the record (walkthrough, R-49; sheet 10-41); the approval owns the recommendation (sheet 10-11)" ;
+# ---- assertions (earl:Assertion, prov:Entity; round four, KG H1). A
+# determination, an attestation, the verdict, the approvals, the assessment
+# and the consistency checks are statements, not doings: PROV-O declares
+# prov:Activity disjoint with prov:Entity, and a statement that other
+# statements derive from is an entity. So an assertion is dated by
+# prov:generatedAtTime, attributed by prov:wasAttributedTo (the same agent
+# as earl:assertedBy), and derives from what it rules on by
+# prov:wasDerivedFrom; prov:used belongs to the activities below.
+# tests/test_prov_consistency.py runs the OWL RL closure with PROV-O and
+# EARL over the record and finds no instance of two disjoint classes.
+epo:Determination a owl:Class ; rdfs:subClassOf earl:Assertion, prov:Entity ; rdfs:label "determination (ISO 9000:2026 3.11.1; the paper's judgment): the ruling on one or more evidence items that a criterion's expected result was met, not met, or cannot be told (R-20); the codomain of evidence" ; ogc:term term:determination .
+epo:ConformanceVerdict a owl:Class ; ogc:pinnedAt epo:evaluation ; rdfs:subClassOf earl:Assertion, prov:Entity ; rdfs:label "conformance verdict: the checker's automatic assertion that the record is correctly constructed to the shapes, traceable in both directions and covered; its subject is the record, and it precedes the final report (walkthrough, R-49; sheet 10-41, R-50). Carries the digests of the shapes, the ontology and the coverage query it ran (sheet 10-18)" ; ogc:term term:conformance .
+epo:ReportApproval a owl:Class ; ogc:pinnedAt epo:evaluation ; rdfs:subClassOf earl:Assertion, prov:Entity ; rdfs:label "report approval: a domain expert's approval of the final report's contents after the machine verdict on the record (walkthrough, R-49; sheet 10-41); the approval owns the recommendation (sheet 10-11)" ;
     rdfs:comment "no term: the approval is the domain expert's act on the report; the report and the technical expert are the terms" .
 epo:Report a owl:Class ; ogc:pinnedAt epo:evaluation ; rdfs:subClassOf prov:Entity ; rdfs:label "report: coverage and performance recomputed over the record; a draft may carry flagged gaps, a final report (epo:draft false) rests on a passed verdict on the record (sheet 10-41)" ; ogc:term term:test-coverage, term:performance .
 epo:Recommendation a owl:Class ; ogc:pinnedAt epo:evaluation ; rdfs:subClassOf prov:Entity ; rdfs:label "recommendation" ; ogc:term term:guardrail .
 
-# ---- doings (prov:Activity), two of them also EARL assertions
+# ---- doings (prov:Activity): the sessions, their turns, the suites, the
+# probe derivation and the coverage computations. What they consume is
+# prov:used; what they produce is prov:wasGeneratedBy them.
 epo:ProbeDerivation a owl:Class ; rdfs:subClassOf prov:Activity ; rdfs:label "probe derivation" ;
     rdfs:comment "no term: the machine activity that derives probes from the DSO release and the requirement set (term probe names its output)" .
-epo:ConsistencyCheck a owl:Class ; rdfs:subClassOf earl:Assertion, prov:Activity ; rdfs:label "automatic consistency check of a probe" ; ogc:term term:conformance .
+epo:ConsistencyCheck a owl:Class ; rdfs:subClassOf earl:Assertion, prov:Entity ; rdfs:label "automatic consistency check of a probe" ; ogc:term term:conformance .
 epo:Session a owl:Class ; rdfs:subClassOf prov:Activity ; rdfs:label "session (NIST AI 700-2): one tester, one system under test, a sequence of turns; the test execution" ; ogc:term term:session .
 epo:Turn a owl:Class ; rdfs:subClassOf prov:Activity ; rdfs:label "turn: one probe applied within a session, producing one response" ;
     rdfs:comment "no term by ruling R-13: a probe is applied at one turn of a session; turn is prose, session and trajectory are the headwords" .
 epo:TestSuite a owl:Class ; rdfs:subClassOf prov:Activity ; rdfs:label "test suite (SEVOCAB 29119-1): a set of sessions run together, e.g. a robustness battery (R-18)" ; ogc:term term:test-suite .
-epo:Attestation a owl:Class ; rdfs:subClassOf earl:Assertion, prov:Activity ; rdfs:label "attestation" ; ogc:term term:attestation .
-epo:AppropriatenessAssessment a owl:Class ; rdfs:subClassOf earl:Assertion, prov:Activity ; rdfs:label "appropriateness assessment: the domain expert's judgment that the requirement set is appropriate for the populations and the environment (R-08, R-21)" ; ogc:term term:appropriateness .
-epo:PlanApproval a owl:Class ; rdfs:subClassOf earl:Assertion, prov:Activity ; rdfs:label "plan approval: the domain expert's approval of a test plan (R-21)" ;
+epo:Attestation a owl:Class ; rdfs:subClassOf earl:Assertion, prov:Entity ; rdfs:label "attestation" ; ogc:term term:attestation .
+epo:AppropriatenessAssessment a owl:Class ; rdfs:subClassOf earl:Assertion, prov:Entity ; rdfs:label "appropriateness assessment: the domain expert's judgment that the requirement set is appropriate for the populations and the environment (R-08, R-21)" ; ogc:term term:appropriateness .
+epo:PlanApproval a owl:Class ; rdfs:subClassOf earl:Assertion, prov:Entity ; rdfs:label "plan approval: the domain expert's approval of a test plan (R-21)" ;
     rdfs:comment "no term: the domain expert's approval of the test plan (term test plan); SEVOCAB has no entry for the approval itself" .
 epo:CoverageComputation a owl:Class ; rdfs:subClassOf prov:Activity ; rdfs:label "coverage computation" ; ogc:term term:test-coverage .
 

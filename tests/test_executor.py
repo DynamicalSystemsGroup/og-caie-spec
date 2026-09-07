@@ -98,8 +98,8 @@ def test_the_executed_record_is_a_bundle_with_the_verdict_before_the_report(grap
         assert (s, OGC.inRecord, bundle) in g and (s, OGC.synthetic, None) in g, s
     (ver,) = list(g.subjects(RDF.type, EPO.ConformanceVerdict))
     (rep,) = list(g.subjects(RDF.type, EPO.Report))
-    assert g.value(ver, EARL.subject) == bundle and (rep, PROV.used, ver) in g and str(g.value(rep, EPO.draft)) == "false"
-    assert str(g.value(ver, PROV.endedAtTime)) <= str(g.value(rep, PROV.generatedAtTime))
+    assert g.value(ver, EARL.subject) == bundle and (rep, PROV.wasDerivedFrom, ver) in g and str(g.value(rep, EPO.draft)) == "false"
+    assert str(g.value(ver, PROV.generatedAtTime)) <= str(g.value(rep, PROV.generatedAtTime))
     for k, v in digests(ROOT).items():
         assert str(g.value(ver, EPO[k])) == v
     assert not list(g.subject_objects(EPO.step))
