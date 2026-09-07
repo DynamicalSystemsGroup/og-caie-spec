@@ -17,9 +17,9 @@ from conftest import OGC, ROOT, load, normalized
 
 logging.getLogger("pypdf").setLevel(logging.ERROR)
 
-TERMS = 66  # 62 before the tbox audit (sheet 08): evaluation service provider, test item provider, evaluation customer, test item customer
+TERMS = 69  # round four (10-36, the contracting officer's 9): sponsor signatory, report, recommendation  # 62 before the tbox audit (sheet 08): evaluation service provider, test item provider, evaluation customer, test item customer
 COINED = 4
-MACHINE_QUOTES = 91  # sheet 10-45: ontology, repeatability, reproducibility and dialogue take SEVOCAB (four); 10-26: tester (NIST) for the evaluation operator
+MACHINE_QUOTES = 94  # sheet 10-45: ontology, repeatability, reproducibility and dialogue take SEVOCAB (four); 10-26: tester (NIST) for the evaluation operator
 COMMITTED_MACHINE_QUOTES = 12  # NIST AI 700-2 (8, with Tester), NIST AI 100-1 (1), NIST TN 1297 (2), W3C EARL (1): always locatable, in CI too
 PENDING_QUOTES = 0  # sheet 10-25: Z dropped the Note 2 quote; the reading lives in the scope note
 HUMAN_QUOTES = 56  # sheet 10-21: the 4.10 access quote leaves C4 (it stays on C2)

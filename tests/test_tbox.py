@@ -20,11 +20,11 @@ EV = Namespace("https://w3id.org/og-caie/evaluation/measles#")  # the measles ev
 TERM = Namespace("https://w3id.org/og-caie/terms#")
 OGC_TERM = OGC["term"]  # OGC.term would be rdflib's Namespace.term method
 
-CONCEPTS = 66            # 62 before the audit, plus the four party specializations
+CONCEPTS = 69            # 62 before the audit, plus the four party specializations
 BROADER = 20             # each with its narrower stated on the other term
-RELATED = 180  # sheet 10: three pairs made symmetric            # stated on one or both sides in the Turtle; read in both directions
-CLAUSES = 57  # sheet 10-45 and 10-26: SEVOCAB ontology, repeatability, reproducibility, dialog; NIST tester             # the standards' own concepts (src: nodes) the canonical citations name
-MAPPINGS = {"exactMatch": 43, "broadMatch": 17, "closeMatch": 2, "relatedMatch": 0}  # adopted, specializes, corresponds, synonym; sheet 10-23, 24, 25, 30: attestation, determination, technical expert and mission refined
+RELATED = 190  # sheet 10: three pairs made symmetric            # stated on one or both sides in the Turtle; read in both directions
+CLAUSES = 59  # sheet 10-45 and 10-26: SEVOCAB ontology, repeatability, reproducibility, dialog; NIST tester             # the standards' own concepts (src: nodes) the canonical citations name
+MAPPINGS = {"exactMatch": 44, "broadMatch": 18, "closeMatch": 3, "relatedMatch": 0}  # adopted, specializes, corresponds, synonym; sheet 10-23, 24, 25, 30: attestation, determination, technical expert and mission refined
 EPO_CLASSES = 64  # R-51 (sheet 10-48): epo:FitnessValue; sheet 10: epo:Step, the range of epo:step over both cycles; R-50: RequirementSetApproval, IndependenceDeclaration, UserInterestDeclaration, PlanDeviation, SponsorSignatoryRole, IndependenceLevel         # 40 before the audit, plus the twelve role classes and epo:Affectedness, plus the report step opened (R-49: ConformanceVerdict, ReportApproval)
 DISJOINT = 8             # party/actor, the three actor categories pairwise, the two cycles, evidence/determination, probe/response, the two judgment values
 RELATION_BY_ANCHOR = {("adopted", ""): SKOS.exactMatch, ("refined", "specializes"): SKOS.broadMatch,

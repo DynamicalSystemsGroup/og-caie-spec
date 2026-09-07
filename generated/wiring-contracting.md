@@ -15,9 +15,9 @@ flowchart LR
   sponsor -- "Mission, Need, StatementOfWork" --> testingOrg_authorizedRepresentative
   sponsor -- "Mission, Need, StatementOfWork" --> testingOrg_recorder
   sponsor_signatory -- "ServiceAgreement, Acceptance" --> testingOrg_authorizedRepresentative
-  sponsor_signatory -- "Acceptance" --> testingOrg_recorder
+  sponsor_signatory -- "UserInterestDeclaration, Acceptance" --> testingOrg_recorder
   testingOrg_authorizedRepresentative -- "Proposal, Delivery" --> sponsor
-  testingOrg_authorizedRepresentative -- "Proposal, ServiceAgreement, Delivery" --> testingOrg_recorder
+  testingOrg_authorizedRepresentative -- "Proposal, ServiceAgreement, IndependenceDeclaration, Delivery" --> testingOrg_recorder
   sponsor -. "obligation" .-> affected
   classDef person fill:#1b5e20,stroke:#a5d6a7,stroke-width:2px,color:#ffffff;
   classDef machine fill:#880e4f,stroke:#f48fb1,stroke-width:2px,color:#ffffff;

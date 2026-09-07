@@ -60,7 +60,7 @@ HAND_ENTRIES = {
                               "url": "https://github.com/Open-MBEE/OpenSysML/releases/tag/v0.4.3",
                               "note": "kept from the hand-written references.bib; the toolchain of Appendix E, not a registered source"}),
     "iso-9000-2026": ("misc", {"organization": "International Organization for Standardization"}),
-    "sevocab": ("misc", {"organization": "IEEE Computer Society and ISO/IEC JTC 1/SC 7"}),
+    "sevocab": ("misc", {"organization": "IEEE Computer Society and ISO/IEC JTC 1/SC 7", "year": "2026", "urldate": "2026-09-05"}),
     "nist-ai-700-2": ("techreport", {"author": "Amironesei, Razvan and Godil, Afzal and Greenberg, Craig and Greene, Kristen and Hall, Patrick and Jensen, Theodore and Fiscus, Jonathan and Schulman, Noah",
                                      "institution": "National Institute of Standards and Technology", "doi": "10.6028/NIST.AI.700-2"}),
     "gruber-1993": ("article", {"author": "Gruber, Thomas R.", "journal": "Knowledge Acquisition", "volume": "5", "number": "2", "pages": "199--220", "doi": "10.1006/knac.1993.1008"}),
@@ -68,9 +68,10 @@ HAND_ENTRIES = {
                               "journal": "ACM Computing Surveys", "volume": "54", "number": "4", "pages": "71:1--71:37", "doi": "10.1145/3447772"}),
     "popper-1959": ("book", {"author": "Popper, Karl R.", "publisher": "Hutchinson", "address": "London"}),
     "nist-tn-1297": ("techreport", {"author": "Taylor, Barry N. and Kuyatt, Chris E.", "institution": "National Institute of Standards and Technology"}),
-    "sebok-2-14": ("misc", {"editor": "{SEBoK Editorial Board}", "publisher": "The Trustees of the Stevens Institute of Technology", "address": "Hoboken, NJ"}),
+    "sebok-2-14": ("misc", {"author": "{SEBoK Editorial Board}", "editor": "Hutchison, Nicole", "year": "2026", "publisher": "The Trustees of the Stevens Institute of Technology", "address": "Hoboken, NJ", "urldate": "2026-09-05"}),
     "hawkins-2011": ("inproceedings", {"author": "Hawkins, Richard and Kelly, Tim and Knight, John and Graydon, Patrick",
-                                       "booktitle": "Advances in Systems Safety: Proceedings of the Nineteenth Safety-Critical Systems Symposium"}),
+                                       "booktitle": "Advances in Systems Safety: Proceedings of the Nineteenth Safety-Critical Systems Symposium",
+                                       "editor": "Dale, Chris and Anderson, Tom", "publisher": "Springer", "address": "London", "pages": "3--23", "doi": "10.1007/978-0-85729-133-2_1"}),
     "scipy-2026-bof": ("misc", {"author": "Hollek, Julie and Zargham, Michael"}),  # Julie Hollek first author (Z, 2026-09-07)
     "isa-500": ("misc", {"organization": "International Auditing and Assurance Standards Board"}),
     "w3c-prov-o": ("misc", {"organization": "W3C"}),
@@ -198,6 +199,8 @@ def entries(g: Graph | None = None) -> dict[str, tuple[str, dict]]:
             for k, v in hand[1].items():
                 if k in FULLER or k not in fields:  # the label gives surnames and abbreviations; the hand-written file gives the full names
                     fields[k] = v
+        if "author" not in fields and "organization" in fields:  # a body renders as the author; misc styles drop organization (round four)
+            fields["author"] = "{" + fields["organization"] + "}"
         out[key] = (kind, fields)
     for key, (kind, fields) in HAND_ENTRIES.items():
         if key not in out:
@@ -401,6 +404,10 @@ def cited_through(g: Graph | None = None) -> dict[str, dict[str, set[str]]]:
                 designation = m.group(1).split(",")[0].strip()
                 if designation.startswith("fragment") or designation.startswith("first sentence"):
                     continue
+                if re.search(r"\d[a-z]:\d{4}$", designation):
+                    designation += " (as SEVOCAB tags the entry)"
+                elif designation.startswith("INCOSE"):
+                    designation += " (a SEBoK reference key)"
                 name = str(g.value(h, SKOS.prefLabel) or g.value(h, RDFS.label) or local(h)).split(":")[0]
                 out.setdefault(designation, {}).setdefault(via, set()).add(name)
     return out

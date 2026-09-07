@@ -52,6 +52,7 @@ definition is reproduced under the vocabulary's own terms:
 | test completion process | 433 | test management process that aims to ensure that useful test assets are made available for later use, test environments are left in a satisfactory condition, and the results of testing are recorded and communicated to relevant stakeholders | ISO/IEC/IEEE 29119-2:2021, 3.25 |
 | test process | 438 | set of testing activities performed to achieve a test objective | ISO/IEC/IEEE 29119-2:2021, 3.55 |
 | test environment | 434 | environment containing facilities, hardware, software, firmware, and procedures needed to conduct a test | ISO/IEC/IEEE 29119-2:2021, 3.34 |
+| recommendation | 340 | provision that conveys advice or guidance | ISO/IEC 14143-2:2011, 3.9 |
 | test completion report | 433 | report that provides a summary of the testing that was performed | ISO/IEC/IEEE 29119-2:2021, 3.26 |
 | acceptance | 4 | action by an authorized representative of the acquirer by which the acquirer assumes ownership of products as partial or complete performance of an agreement | ISO/IEC/IEEE 24748-5:2017, 3.1 |
 | proposal | 329 | supplier's offer to provide a system or service, usually including benefits, costs, risks, opportunities, and other factors applicable to decisions | ISO/IEC/IEEE 24765c:2014 |

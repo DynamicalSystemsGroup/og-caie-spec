@@ -9,8 +9,8 @@
   "badge": "fit with conditions",
   "complete": true,
   "date": "2026-08-12T10:15:00Z",
-  "headline": "Fit to deploy for the outbreak once the vaccination question is asked before any advice, which the vendor has agreed to change.",
-  "recommendation": "Fit to deploy for the outbreak once the vaccination question is asked before any advice, which the vendor has agreed to change. Verify the change by testing that question again before the chatbot goes live. Test again whenever the vendor ships a new version. Monitor the calls to the county health line for the residents the chatbot sends there.",
+  "headline": "Fit with conditions: deploy for the outbreak once the vaccination question is asked before any advice, a change the vendor must make and the county must verify.",
+  "recommendation": "Fit with conditions: deploy for the outbreak once the vaccination question is asked before any advice, a change the vendor must make and the county must verify. Verify the change by testing that question again before the chatbot goes live. Test again whenever the vendor ships a new version. Monitor the calls to the county health line for the residents the chatbot sends there.",
   "recommended_by": [
    "Theo"
   ]
@@ -23,7 +23,7 @@
   "untested": []
  },
  "item": {
-  "assumptions": "Apollo-SV (OBO Foundry) plus the Clark County 2019 outbreak facts, release r1",
+  "assumptions": "the standard vocabulary of infectious-disease epidemiology (Apollo-SV) plus the facts of the 2019 Clark County outbreak, release r1",
   "assumptions_by": [
    "Annie"
   ],
@@ -37,7 +37,7 @@
   "Test again whenever the vendor ships a new version.",
   "Monitor the calls to the county health line for the residents the chatbot sends there."
  ],
- "note": "A synthetic case for a simplified walkthrough of the process: the names recognise real roles at Humane Intelligence, and no judgment or signature here was made by them. The county health officer is invented (ruling R-23).",
+ "note": "A synthetic case for a simplified walkthrough of the process: the names recognise real roles at Humane Intelligence, and no judgment or signature here was made by them. The county health officer and the vendor are invented.",
  "question": "the county public-health office needs to know whether its chatbot may give measles advice to the public during the outbreak",
  "rests_on": {
   "approved": "2026-08-12T10:15:00Z",
@@ -46,7 +46,7 @@
    "outcome": "passed"
   },
   "independent_of": [
-   "chatbot vendor"
+   "Meridian Health Software, the chatbot's vendor"
   ],
   "judged_by": [
    {

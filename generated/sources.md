@@ -1,7 +1,7 @@
 | Rank | Source | Posture | Snapshots | Licence note |
 |---|---|---|---|---|
 | 1 | ISO 9000:2026(en) Quality management — Fundamentals and vocabulary (Online Browsing Platform preview) | heldLocally | 38 | ISO copyright; the preview is publicly browsable; short attributed quotations only |
-| 2 | IEEE Computer Society, Software and Systems Engineering Vocabulary (SEVOCAB), PDF export (481 pp.) | heldLocally | 1 | Each definition may be copied provided the IEEE statement remains with it, and the ISO/IEC definitions provided their source is cited; the PDF itself is not redistributed |
+| 2 | IEEE Computer Society, Software and Systems Engineering Vocabulary (SEVOCAB), PDF export created 2026-09-02 (481 pp.) | heldLocally | 1 | Each definition may be copied provided the IEEE statement remains with it, and the ISO/IEC definitions provided their source is cited; the PDF itself is not redistributed |
 | 3 | NIST AI 100-1, Artificial Intelligence Risk Management Framework (AI RMF 1.0), January 2023 | committed | 1 | US Government work, public domain |
 | 3 | NIST AI 700-2, Assessing Risks and Impacts of AI (ARIA): ARIA 0.1 Pilot Evaluation Report (November 2025) | committed | 1 | US Government work, public domain |
 | 4 | W3C, Evaluation and Report Language (EARL) 1.0 Schema, Working Group Note 2 February 2017 | committed | 1 | W3C Document Licence |
@@ -12,9 +12,9 @@
 | 5 | ISO/IEC 17000:2020(en) Conformity assessment — Vocabulary and general principles (Online Browsing Platform) | citeOnly | 0 | ISO copyright; the vocabulary is publicly browsable; short attributed quotations only (the party terms, object, access, scheme, specified requirement, testing, review, decision, attestation and its note, surveillance) |
 | 5 | JCGM 200:2012 International vocabulary of metrology, basic and general concepts and associated terms (VIM), 3rd edition (BIPM) | heldLocally | 1 | JCGM copyright; freely downloadable from BIPM; held locally |
 | 6 | INCOSE Guide to Writing Requirements v4, Summary Sheet (INCOSE-TP-2010-006-04, June 2023) | heldLocally | 1 | INCOSE copyright restrictions; held locally |
-| 6 | IAASB, International Standard on Auditing 500: Audit Evidence (2009 text, effective 15 December 2009; ISA 500 (Revised 2024), effective for periods beginning on or after 15 December 2026, keeps paragraphs 5(b) and 5(f)) | heldLocally | 1 | IFAC copyright; freely downloadable; held locally |
+| 6 | IAASB, International Standard on Auditing 500: Audit Evidence (effective 15 December 2009) | heldLocally | 1 | IFAC copyright; freely downloadable; held locally |
 | 6 | NIST Technical Note 1297, Guidelines for Evaluating and Expressing the Uncertainty of NIST Measurement Results, 1994 edition | committed | 1 | US Government work, public domain |
-| 6 | Guide to the Systems Engineering Body of Knowledge (SEBoK) v2.14 | heldLocally | 1 | CC BY-NC-SA; held locally per ruling R-04 |
+| 6 | Guide to the Systems Engineering Body of Knowledge (SEBoK) v2.14, released 18 May 2026 | heldLocally | 1 | CC BY-NC-SA; held locally per ruling R-04 |
 | 7 | Gruber, A Translation Approach to Portable Ontology Specifications, Knowledge Acquisition 5(2), 1993 (author copy) | heldLocally | 1 | Academic Press copyright; author-hosted copy; held locally |
 | 7 | Hawkins, Kelly, Knight and Graydon, A New Approach to Creating Clear Safety Arguments, Safety-Critical Systems Symposium 2011 (author copy, University of York) | heldLocally | 1 | Springer proceedings; author-hosted copy; held locally |
 | 7 | Hogan et al., Knowledge Graphs, ACM Computing Surveys 54(4), 2021 (arXiv:2003.02320v3) | heldLocally | 1 | arXiv non-exclusive licence; held locally |

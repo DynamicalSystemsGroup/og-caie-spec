@@ -2,7 +2,6 @@
 flowchart LR
   accountable_testItem[["testItem : test item"]]
   sponsor_signatory(["signatory : sponsor signatory"])
-  testingOrg_authorizedRepresentative(["authorizedRepresentative : authorized representative"])
   testingOrg_conformanceChecker[["conformanceChecker : conformance checker"]]
   testingOrg_recorder[["recorder : recorder"]]
   testingOrg_reportAssembler[["reportAssembler : report assembler"]]
@@ -11,8 +10,7 @@ flowchart LR
   testingOrg_team_representative(["representative : population representative"])
   testingOrg_testDriver[["testDriver : test driver"]]
   accountable_testItem -- "Response" --> testingOrg_recorder
-  sponsor_signatory -- "UserInterestDeclaration, RequirementSetApproval" --> testingOrg_recorder
-  testingOrg_authorizedRepresentative -- "IndependenceDeclaration" --> testingOrg_recorder
+  sponsor_signatory -- "RequirementSetApproval" --> testingOrg_recorder
   testingOrg_conformanceChecker -- "ConformanceVerdict" --> testingOrg_recorder
   testingOrg_conformanceChecker -- "ConformanceVerdict" --> testingOrg_reportAssembler
   testingOrg_recorder -- "EvaluationRecord" --> testingOrg_conformanceChecker
@@ -30,7 +28,7 @@ flowchart LR
   classDef party fill:#f9a825,stroke:#e65100,stroke-width:2px,stroke-dasharray: 6 3,color:#000000;
   classDef organization fill:#37474f,stroke:#cfd8dc,stroke-width:2px,color:#ffffff;
   linkStyle default stroke:#90a4ae,stroke-width:1.5px;
-  class sponsor_signatory,testingOrg_authorizedRepresentative,testingOrg_team_domainExpert,testingOrg_team_operator,testingOrg_team_representative person;
+  class sponsor_signatory,testingOrg_team_domainExpert,testingOrg_team_operator,testingOrg_team_representative person;
   class accountable_testItem,testingOrg_conformanceChecker,testingOrg_recorder,testingOrg_reportAssembler,testingOrg_testDriver machine;
 ```
 

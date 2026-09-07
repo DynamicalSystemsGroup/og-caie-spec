@@ -60,13 +60,13 @@ src:iso-9000-2026 a prov:Entity, ogc:Source ;
     ogc:licenceNote "ISO copyright; the preview is publicly browsable; short attributed quotations only" .
 
 src:sevocab a prov:Entity, ogc:Source ;
-    rdfs:label "IEEE Computer Society, Software and Systems Engineering Vocabulary (SEVOCAB), PDF export (481 pp.)" ;
+    rdfs:label "IEEE Computer Society, Software and Systems Engineering Vocabulary (SEVOCAB), PDF export created 2026-09-02 (481 pp.)" ;
     ogc:rank "2" ; ogc:bibkey "sevocab" ; ogc:kind "pdf" ; ogc:posture "heldLocally" ;
     ogc:url <https://www.computer.org/sevocab> ;
     ogc:digest "sources/digests/sevocab.md" ;
     ogc:snapshot [ ogc:file "sources/local/pdf/sevocab.pdf" ; ogc:contentHash "f6351ba98335af2e9c5c7e70ee09140721dd19da9693bbfef8bd4803cf71f0ee" ] ;
     ogc:permissionStatement "Copyright © 2021 IEEE. Used by permission." ;
-    ogc:retrievalNote "The statement as printed under every SEVOCAB entry, checked by Z on 2026-09-07 (sheet 10-29): \"This definition is copyrighted ©, 2021 by the IEEE. The reader is granted permission to copy the definition as long as the statement \"Copyright©, 2021, IEEE. Used by permission.\" remains with the definition. All other rights are reserved.\" and \"Copyright © 2021 ISO/IEC. In accordance with ISO/IEC JTC 1/SC 7 N2882 and N2930, this definition is made publicly available. Permission is granted to copy the definition providing that its source is cited.\" The year 2021 is the statement's own; the entries carry the dates of the standards they come from, up to 2026." ;
+    ogc:retrievalNote "PDF export created 2026-09-02 (the file's own creation date), held locally by content hash. The statement as printed under every SEVOCAB entry, checked by Z on 2026-09-07 (sheet 10-29): \"This definition is copyrighted ©, 2021 by the IEEE. The reader is granted permission to copy the definition as long as the statement \"Copyright©, 2021, IEEE. Used by permission.\" remains with the definition. All other rights are reserved.\" and \"Copyright © 2021 ISO/IEC. In accordance with ISO/IEC JTC 1/SC 7 N2882 and N2930, this definition is made publicly available. Permission is granted to copy the definition providing that its source is cited.\" The year 2021 is the statement's own; the entries carry the dates of the standards they come from, up to 2026." ;
     ogc:licenceNote "Each definition may be copied provided the IEEE statement remains with it, and the ISO/IEC definitions provided their source is cited; the PDF itself is not redistributed" .
 
 src:nist-ai-700-2 a prov:Entity, ogc:Source ;
@@ -140,7 +140,8 @@ src:hawkins-2011 a prov:Entity, ogc:Source ;
     ogc:licenceNote "Springer proceedings; author-hosted copy; held locally" .
 
 src:isa-500 a prov:Entity, ogc:Source ;
-    rdfs:label "IAASB, International Standard on Auditing 500: Audit Evidence (2009 text, effective 15 December 2009; ISA 500 (Revised 2024), effective for periods beginning on or after 15 December 2026, keeps paragraphs 5(b) and 5(f))" ;
+    rdfs:label "IAASB, International Standard on Auditing 500: Audit Evidence (effective 15 December 2009)" ;
+    ogc:status "the 2009 text is cited; ISA 500 (Revised 2024), effective for periods beginning on or after 15 December 2026, keeps paragraphs 5(b) and 5(f)" ;
     ogc:rank "6" ; ogc:bibkey "isa-500" ; ogc:kind "pdf" ; ogc:posture "heldLocally" ;
     ogc:digest "sources/digests/isa-500.md" ;
     ogc:snapshot [ ogc:file "sources/local/pdf/isa-500.pdf" ; ogc:contentHash "2ecc459ba84ce43199a5badf2807be9102d96aa717301a1d379a676549c231f4" ] ;
@@ -163,7 +164,7 @@ src:hogan-2021 a prov:Entity, ogc:Source ;
     ogc:licenceNote "arXiv non-exclusive licence; held locally" .
 
 src:sebok-2-14 a prov:Entity, ogc:Source ;
-    rdfs:label "Guide to the Systems Engineering Body of Knowledge (SEBoK) v2.14" ;
+    rdfs:label "Guide to the Systems Engineering Body of Knowledge (SEBoK) v2.14, released 18 May 2026" ;
     ogc:rank "6" ; ogc:bibkey "sebok-2-14" ; ogc:kind "pdf" ; ogc:posture "heldLocally" ;
     ogc:url <https://sebokwiki.org/> ;
     ogc:digest "sources/digests/sebok-2-14.md" ;

@@ -26,7 +26,19 @@ ASSEMBLY = "OgCaieEvaluation"
 TOP_PACKAGE = "OGCAIE"
 OUTER_PROCESS = "ContractingProcess"
 INNER_PROCESS = "EvaluationProcess"
-CONTRACT_KINDS = {"Mission", "StatementOfWork", "Need", "Proposal", "ServiceAgreement", "TestItemAccess", "Delivery", "Acceptance", "StakeholderInput"}
+from functools import lru_cache
+from pathlib import Path as _Path
+
+
+@lru_cache(maxsize=None)
+def contract_kinds() -> frozenset:
+    """The item kinds pinned at the contract by vocabulary/epo.ttl (ogc:pinnedAt epo:contract), plus a population's input,
+    so the contracting slice follows the ontology and not a hand-written list (round four, the contracting officer's 3)."""
+    root = _Path(__file__).resolve().parents[1]
+    e = Graph().parse(root / "vocabulary" / "epo.ttl")
+    OGC = Namespace("https://w3id.org/og-caie/")
+    EPO = Namespace("https://w3id.org/og-caie/epo#")
+    return frozenset({str(c).rsplit("#", 1)[-1] for c in e.subjects(OGC.pinnedAt, EPO.contract)} | {"StakeholderInput"})
 # Strong, distinct fills with an explicit text colour, so the figures read on
 # a light or a dark page (Z, 2026-09-06: pastel fills were hard to read).
 # Headwords for the figures where the identifier and the headword differ (R-49); identifiers stay.
@@ -114,7 +126,7 @@ def seam_item(g: Graph, s) -> str:
 
 def seam_slice(g: Graph, s) -> str:
     """A seam belongs to the contracting slice when the item it carries is pinned at the contract (or is a population's input)."""
-    return "contracting" if seam_item(g, s) in CONTRACT_KINDS else "evaluation"
+    return "contracting" if seam_item(g, s) in contract_kinds() else "evaluation"
 
 
 def seams(g: Graph, slice_: str | None = None) -> list:

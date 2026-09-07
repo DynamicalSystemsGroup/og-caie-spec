@@ -499,7 +499,7 @@ ev:requirement-set-approval-1 a epo:RequirementSetApproval ;
 ev:statement-of-work a epo:StatementOfWork ;
     rdfs:label "scope of work under the agreement: the commuters are interviewed, the county residents are represented by the domain expert" ;
     prov:generatedAtTime "2026-07-31T10:00:00+00:00"^^xsd:dateTime ;
-    prov:wasAttributedTo ev:county-public-health-office ;
+    prov:wasAttributedTo ev:dana-okafor ;
     epo:decides ev:engagement-commuters,
         ev:engagement-residents ;
     epo:underAgreement ev:service-agreement ;
@@ -810,6 +810,27 @@ ogc:term a owl:ObjectProperty ;
     rdfs:comment "the glossary term (vocabulary/og-caie.ttl) that names this class; the inverse of the term's ogc:binding string, as a link the explorer can draw and `ogc term` can print" ;
     rdfs:domain owl:Class ;
     rdfs:range skos:Concept .
+
+term:sponsor-signatory a skos:Concept ;
+    skos:altLabel "acquirer's authorized representative"@en,
+        "contracting officer"@en ;
+    skos:closeMatch src:sevocab_acceptance ;
+    skos:definition "The named person who acts for the sponsor organization in the contract: signs the agreement, declares the sponsor's user interest, approves the requirement set and accepts the delivery. The acquirer's authorized representative in SEVOCAB's words; the testing organization's counterpart is its own authorized representative. An abstract actor category, filled by exactly one named person in each evaluation."@en ;
+    skos:inScheme ogc:Glossary ;
+    skos:prefLabel "sponsor signatory"@en ;
+    skos:related term:authorized-representative,
+        term:contract,
+        term:evaluation-customer ;
+    prov:wasDerivedFrom rul:R-50 ;
+    ogc:anchorRelation "corresponds" ;
+    ogc:binding "sysml part def SponsorSignatory inside SponsorOrganization; epo:sponsorSignatoryRole; prov:Person acting on behalf of the sponsor" ;
+    ogc:canonical [ ogc:cites src:sevocab ;
+            ogc:locator "acceptance, p. 4 (ISO/IEC/IEEE 24748-5:2017, 3.1) (fragment of the entry)" ;
+            ogc:pdfPage 4 ;
+            ogc:quote "authorized representative of the acquirer" ;
+            ogc:quoteStatus "machine" ] ;
+    ogc:class "refined" ;
+    ogc:scopeNote "Sheet 10-06 (R-50): a person on the sponsor's side signs and accepts; the term names that person, so that SEVOCAB's phrase is read for the side it was written for. Round four (the contracting officer): the word signatory alone no longer names the testing organization's representative." .
 
 tr:SCI-01 a ogc:Trace ;
     rdfs:label "SCI-01 DsoApprovedBeforeProbes" ;
@@ -4995,7 +5016,7 @@ ev:coverage-computation a epo:CoverageComputation ;
     prov:wasAssociatedWith ev:report-assembler ;
     epo:ontologyDigest "5aff7757aed847f1ca2ecad24311037564a8bc17b5f007306744f781f978f5a7" ;
     epo:queryDigest "3ab9dc711479d53340c97c31be23dc071f5c8ed99a19378b4f1899e632325134" ;
-    epo:shapesDigest "386c1e1265f2cebf3dadc8445efe4f4677eb7abd420b2c7b33554b7e91686ab8" ;
+    epo:shapesDigest "7ea5c7ea4aafc14c400dd93b3343b2687bedfae340a4ab75447511fc2d619a08" ;
     ogc:inRecord ev:record ;
     ogc:synthetic true .
 
@@ -5011,7 +5032,7 @@ ev:coverage-computation-draft a epo:CoverageComputation ;
     prov:wasAssociatedWith ev:report-assembler ;
     epo:ontologyDigest "5aff7757aed847f1ca2ecad24311037564a8bc17b5f007306744f781f978f5a7" ;
     epo:queryDigest "3ab9dc711479d53340c97c31be23dc071f5c8ed99a19378b4f1899e632325134" ;
-    epo:shapesDigest "386c1e1265f2cebf3dadc8445efe4f4677eb7abd420b2c7b33554b7e91686ab8" ;
+    epo:shapesDigest "7ea5c7ea4aafc14c400dd93b3343b2687bedfae340a4ab75447511fc2d619a08" ;
     ogc:inRecord ev:record ;
     ogc:synthetic true .
 
@@ -5175,7 +5196,7 @@ ev:recommendation-1 a epo:Recommendation ;
         ev:test-plan ;
     epo:fitness epo:fitWithConditions ;
     epo:targetsGuardrail "vaccination-status" ;
-    epo:text "Fit to deploy for the outbreak once the vaccination question is asked before any advice, which the vendor has agreed to change. Verify the change by testing that question again before the chatbot goes live. Test again whenever the vendor ships a new version. Monitor the calls to the county health line for the residents the chatbot sends there." ;
+    epo:text "Fit with conditions: deploy for the outbreak once the vaccination question is asked before any advice, a change the vendor must make and the county must verify. Verify the change by testing that question again before the chatbot goes live. Test again whenever the vendor ships a new version. Monitor the calls to the county health line for the residents the chatbot sends there." ;
     ogc:inRecord ev:record ;
     ogc:synthetic true .
 
@@ -6146,15 +6167,10 @@ src:nist-ai-700-2_tester a ogc:SourceConcept ;
     ogc:cites src:nist-ai-700-2 ;
     ogc:locator "Appendix A, Tester, p. 17" .
 
-src:sevocab_acceptance a ogc:SourceConcept ;
-    rdfs:label "SEVOCAB acceptance, p. 4 (ISO/IEC/IEEE 24748-5:2017, 3.1)" ;
-    ogc:cites src:sevocab ;
-    ogc:locator "acceptance, p. 4 (ISO/IEC/IEEE 24748-5:2017, 3.1)" .
-
 src:sevocab_acceptance-criteria a ogc:SourceConcept ;
     rdfs:label "SEVOCAB acceptance criteria, p. 4" ;
     ogc:cites src:sevocab ;
-    ogc:locator "acceptance criteria, p. 4" .
+    ogc:locator "acceptance criteria, p. 4 (ISO/IEC 33202:2024, 3.1)" .
 
 src:sevocab_dialog a ogc:SourceConcept ;
     rdfs:label "SEVOCAB dialog, p. 129 (ISO TR 25060:2023, 2.4)" ;
@@ -6164,7 +6180,7 @@ src:sevocab_dialog a ogc:SourceConcept ;
 src:sevocab_evaluation a ogc:SourceConcept ;
     rdfs:label "SEVOCAB evaluation, p. 155" ;
     ogc:cites src:sevocab ;
-    ogc:locator "evaluation, p. 155" .
+    ogc:locator "evaluation, p. 155 (ISO/IEC 25001:2014, 4.1)" .
 
 src:sevocab_evaluator a ogc:SourceConcept ;
     rdfs:label "SEVOCAB evaluator, p. 157 (ISO/IEC 25000:2014, 4.18)" ;
@@ -6174,7 +6190,7 @@ src:sevocab_evaluator a ogc:SourceConcept ;
 src:sevocab_expected-results a ogc:SourceConcept ;
     rdfs:label "SEVOCAB expected results, p. 160" ;
     ogc:cites src:sevocab ;
-    ogc:locator "expected results, p. 160" .
+    ogc:locator "expected results, p. 160 (ISO/IEC/IEEE 29119-4:2021, 3.32)" .
 
 src:sevocab_non-deterministic-system a ogc:SourceConcept ;
     rdfs:label "SEVOCAB non-deterministic system, p. 272 (ISO/IEC TR 29119-11:2020, testing of AI-based systems)" ;
@@ -6189,7 +6205,12 @@ src:sevocab_ontology a ogc:SourceConcept ;
 src:sevocab_operational-environment a ogc:SourceConcept ;
     rdfs:label "SEVOCAB operational environment, p. 282" ;
     ogc:cites src:sevocab ;
-    ogc:locator "operational environment, p. 282" .
+    ogc:locator "operational environment, p. 282 (IEEE 982-2024, 3.1)" .
+
+src:sevocab_recommendation a ogc:SourceConcept ;
+    rdfs:label "SEVOCAB recommendation, p. 340 (ISO/IEC 14143-2:2011, 3.9)" ;
+    ogc:cites src:sevocab ;
+    ogc:locator "recommendation, p. 340 (ISO/IEC 14143-2:2011, 3.9)" .
 
 src:sevocab_repeatability a ogc:SourceConcept ;
     rdfs:label "SEVOCAB repeatability (of results of measurements), p. 348" ;
@@ -6204,22 +6225,27 @@ src:sevocab_reproducibility a ogc:SourceConcept ;
 src:sevocab_requirements-traceability a ogc:SourceConcept ;
     rdfs:label "SEVOCAB requirements traceability, p. 352" ;
     ogc:cites src:sevocab ;
-    ogc:locator "requirements traceability, p. 352" .
+    ogc:locator "requirements traceability, p. 352 (ISO/IEC/IEEE 29148:2018)" .
 
 src:sevocab_scenario a ogc:SourceConcept ;
     rdfs:label "SEVOCAB scenario, p. 369" ;
     ogc:cites src:sevocab ;
-    ogc:locator "scenario, p. 369" .
+    ogc:locator "scenario, p. 369 (ISO/IEC/IEEE 24765e:2015)" .
 
 src:sevocab_statement-of-work a ogc:SourceConcept ;
     rdfs:label "SEVOCAB statement of work, p. 406" ;
     ogc:cites src:sevocab ;
-    ogc:locator "statement of work, p. 406" .
+    ogc:locator "statement of work, p. 406 (ISO/IEC 33202:2024, 3.25)" .
+
+src:sevocab_test-completion-report a ogc:SourceConcept ;
+    rdfs:label "SEVOCAB test completion report, p. 433 (ISO/IEC/IEEE 29119-2:2021, 3.26)" ;
+    ogc:cites src:sevocab ;
+    ogc:locator "test completion report, p. 433 (ISO/IEC/IEEE 29119-2:2021, 3.26)" .
 
 src:sevocab_test-coverage a ogc:SourceConcept ;
     rdfs:label "SEVOCAB test coverage, p. 433" ;
     ogc:cites src:sevocab ;
-    ogc:locator "test coverage, p. 433" .
+    ogc:locator "test coverage, p. 433 (ISO/IEC/IEEE 29119-2:2021, 3.28)" .
 
 src:sevocab_test-item a ogc:SourceConcept ;
     rdfs:label "SEVOCAB test item, p. 435 (ISO/IEC/IEEE 29119-2:2021)" ;
@@ -6229,22 +6255,22 @@ src:sevocab_test-item a ogc:SourceConcept ;
 src:sevocab_test-plan a ogc:SourceConcept ;
     rdfs:label "SEVOCAB test plan, p. 437" ;
     ogc:cites src:sevocab ;
-    ogc:locator "test plan, p. 437" .
+    ogc:locator "test plan, p. 437 (ISO/IEC/IEEE 29119-2:2021, 3.50)" .
 
 src:sevocab_test-result a ogc:SourceConcept ;
     rdfs:label "SEVOCAB test result, p. 438" ;
     ogc:cites src:sevocab ;
-    ogc:locator "test result, p. 438" .
+    ogc:locator "test result, p. 438 (ISO/IEC/IEEE 29119-2:2021, 3.56)" .
 
 src:sevocab_test-strategy a ogc:SourceConcept ;
     rdfs:label "SEVOCAB test strategy, p. 439" ;
     ogc:cites src:sevocab ;
-    ogc:locator "test strategy, p. 439" .
+    ogc:locator "test strategy, p. 439 (ISO/IEC/IEEE 29119-2:2021, 3.59)" .
 
 src:sevocab_test-suite a ogc:SourceConcept ;
     rdfs:label "SEVOCAB test suite, p. 439" ;
     ogc:cites src:sevocab ;
-    ogc:locator "test suite, p. 439" .
+    ogc:locator "test suite, p. 439 (ISO/IEC/IEEE 29119-1:2022, 3.129)" .
 
 src:w3c-prov-o a prov:Entity,
         ogc:Source ;
@@ -6262,6 +6288,48 @@ src:w3c-prov-o a prov:Entity,
 ogc:synthetic a owl:DatatypeProperty ;
     rdfs:comment "true on a record and on each of its members when the content is synthetic (sheet 10-43, R-51): the worked example is a synthetic case whose names recognise the roles of real people (R-23); the tool prints the tag and the explorer can filter on it" ;
     rdfs:range xsd:boolean .
+
+term:recommendation a skos:Concept ;
+    skos:altLabel "deployment fitness finding"@en ;
+    skos:broadMatch src:sevocab_recommendation ;
+    skos:definition "The advice the evaluation gives the sponsor about deploying the test item: its fitness (fit to deploy, fit with conditions, not fit) and the conditions or remediation, written by the evaluation operator, owned by the domain expert's approval of the final report, and derived from every attestation the coverage used."@en ;
+    skos:inScheme ogc:Glossary ;
+    skos:prefLabel "recommendation"@en ;
+    skos:related term:attestation,
+        term:evaluation-customer,
+        term:report ;
+    prov:wasDerivedFrom rul:R-50,
+        rul:R-51 ;
+    ogc:anchorRelation "specializes" ;
+    ogc:binding "epo:Recommendation with epo:fitness; sysml item def Recommendation; S8-Recommendation" ;
+    ogc:canonical [ ogc:cites src:sevocab ;
+            ogc:locator "recommendation, p. 340 (ISO/IEC 14143-2:2011, 3.9)" ;
+            ogc:pdfPage 340 ;
+            ogc:quote "provision that conveys advice or guidance" ;
+            ogc:quoteStatus "machine" ] ;
+    ogc:class "refined" ;
+    ogc:scopeNote "Sheet 10-36 (R-50): a term of its own; sheet 10-11: the approval owns it and it rests on every attestation the coverage used or names its exclusions; the fitness value is the record's (R-51, 10-48). SEVOCAB's sense is a provision in a document; here it is the evaluation's advice, so the term specializes." .
+
+term:report a skos:Concept ;
+    skos:altLabel "final report"@en,
+        "test completion report"@en ;
+    skos:definition "The record's delivered export: the summary of the testing performed, assembled by machine from the record with coverage and performance recomputed, a draft while gaps remain and final when it rests on a passed conformance verdict on the record and every criterion is covered; approved by a domain expert and delivered with the recommendation."@en ;
+    skos:exactMatch src:sevocab_test-completion-report ;
+    skos:inScheme ogc:Glossary ;
+    skos:prefLabel "report"@en ;
+    skos:related term:evaluation-record,
+        term:performance,
+        term:recommendation,
+        term:test-coverage ;
+    prov:wasDerivedFrom rul:R-50 ;
+    ogc:binding "epo:Report with epo:draft, epo:coverage and the three rates; sysml item def Report; the sample report of Appendix A is one rendered" ;
+    ogc:canonical [ ogc:cites src:sevocab ;
+            ogc:locator "test completion report, p. 433 (ISO/IEC/IEEE 29119-2:2021, 3.26)" ;
+            ogc:pdfPage 433 ;
+            ogc:quote "report that provides a summary of the testing that was performed" ;
+            ogc:quoteStatus "machine" ] ;
+    ogc:class "adopted" ;
+    ogc:scopeNote "Sheet 10-36 (R-50): a term of its own, since it is the deliverable; sheet 10-02: the report is the record's export, the record is not delivered; sheet 10-41: the check on the record precedes the final report." .
 
 expr:OGCAIE__ContractingProcess___4010_pend0 a sysml:FeatureReferenceExpression ;
     sysml:referent elmt:OGCAIE__ContractingProcess__agree ;
@@ -9222,7 +9290,7 @@ ogc:S0-StatementOfWork a sh:NodeShape ;
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX prov: <http://www.w3.org/ns/prov#>
             SELECT $this WHERE {
-                { FILTER NOT EXISTS { $this prov:wasAttributedTo ?o . ?o epo:role epo:sponsorRole } }
+                { FILTER NOT EXISTS { $this prov:wasAttributedTo ?o . { ?o epo:role epo:sponsorRole } UNION { ?o epo:role epo:sponsorSignatoryRole } } }
                 UNION { $this epo:underAgreement ?ag ; prov:generatedAtTime ?t1 . ?ag prov:generatedAtTime ?t0 . FILTER(?t1 > ?t0) }
             }
         """ ],
@@ -10023,7 +10091,7 @@ src:incose-gtwr-v4 a prov:Entity,
 
 src:isa-500 a prov:Entity,
         ogc:Source ;
-    rdfs:label "IAASB, International Standard on Auditing 500: Audit Evidence (2009 text, effective 15 December 2009; ISA 500 (Revised 2024), effective for periods beginning on or after 15 December 2026, keeps paragraphs 5(b) and 5(f))" ;
+    rdfs:label "IAASB, International Standard on Auditing 500: Audit Evidence (effective 15 December 2009)" ;
     ogc:bibkey "isa-500" ;
     ogc:digest "sources/digests/isa-500.md" ;
     ogc:kind "pdf" ;
@@ -10031,7 +10099,8 @@ src:isa-500 a prov:Entity,
     ogc:posture "heldLocally" ;
     ogc:rank "6" ;
     ogc:snapshot [ ogc:contentHash "2ecc459ba84ce43199a5badf2807be9102d96aa717301a1d379a676549c231f4" ;
-            ogc:file "sources/local/pdf/isa-500.pdf" ] .
+            ogc:file "sources/local/pdf/isa-500.pdf" ] ;
+    ogc:status "the 2009 text is cited; ISA 500 (Revised 2024), effective for periods beginning on or after 15 December 2026, keeps paragraphs 5(b) and 5(f)" .
 
 src:iso-9000-2026_3.5.1 a ogc:SourceConcept ;
     rdfs:label "ISO 9000:2026 3.5.1 requirement" ;
@@ -10048,15 +10117,20 @@ src:iso-9000-2026_3.8.12 a ogc:SourceConcept ;
     ogc:cites src:iso-9000-2026 ;
     ogc:locator "3.8.12 record" .
 
+src:sevocab_acceptance a ogc:SourceConcept ;
+    rdfs:label "SEVOCAB acceptance, p. 4 (ISO/IEC/IEEE 24748-5:2017, 3.1)" ;
+    ogc:cites src:sevocab ;
+    ogc:locator "acceptance, p. 4 (ISO/IEC/IEEE 24748-5:2017, 3.1)" .
+
 src:sevocab_risk-based-testing a ogc:SourceConcept ;
     rdfs:label "SEVOCAB risk-based testing, p. 362" ;
     ogc:cites src:sevocab ;
-    ogc:locator "risk-based testing, p. 362" .
+    ogc:locator "risk-based testing, p. 362 (ISO/IEC/IEEE 29119-2:2021, 3.16)" .
 
 src:sevocab_test-case a ogc:SourceConcept ;
     rdfs:label "SEVOCAB test case, p. 432" ;
     ogc:cites src:sevocab ;
-    ogc:locator "test case, p. 432" .
+    ogc:locator "test case, p. 432 (IEEE 1012-2024, 3.3.31)" .
 
 src:w3c-earl a prov:Entity,
         ogc:Source ;
@@ -10145,7 +10219,7 @@ term:reproducibility a skos:Concept ;
             ogc:quote "closeness of the agreement between the results of measurements of the same measurand carried out under changed conditions of measurement" ;
             ogc:quoteStatus "machine" ] ;
     ogc:class "adopted" ;
-    ogc:scopeNote "Sheet 10-45 (R-51): SEVOCAB defines reproducibility of results of measurements, so it takes the canonical; JCGM 200 stays beside it." ;
+    ogc:scopeNote "Sheet 10-45 (R-51): SEVOCAB defines reproducibility of results of measurements, so it takes the canonical; JCGM 200 stays beside it, and its 2012 wording (VIM3) governs the concept; SEVOCAB's is the 1993 wording at second hand." ;
     ogc:seeAlso [ ogc:cites src:jcgm-200-2012 ;
             ogc:locator "2.25 measurement reproducibility, p. 41" ;
             ogc:pdfPage 41 ;
@@ -10171,7 +10245,7 @@ term:risk-based-testing a skos:Concept ;
         term:test-coverage ;
     ogc:binding "epo:weight on AcceptanceCriterion" ;
     ogc:canonical [ ogc:cites src:sevocab ;
-            ogc:locator "risk-based testing, p. 362" ;
+            ogc:locator "risk-based testing, p. 362 (ISO/IEC/IEEE 29119-2:2021, 3.16)" ;
             ogc:pdfPage 362 ;
             ogc:quote "testing in which the management, selection, prioritization, and use of testing activities and resources are consciously based on corresponding types and levels of analyzed risk" ;
             ogc:quoteStatus "machine" ] ;
@@ -11181,7 +11255,7 @@ ev:attestation-5 a epo:Attestation ;
 
 ev:chatbot-vendor a prov:Agent,
         prov:Organization ;
-    rdfs:label "chatbot vendor (test item provider)" ;
+    rdfs:label "Meridian Health Software, the chatbot's vendor (test item provider; an invented company)" ;
     epo:providesTestItem true ;
     epo:role epo:accountableOrganizationRole ;
     ogc:inRecord ev:record ;
@@ -11199,7 +11273,7 @@ ev:conformance-verdict-1 a epo:ConformanceVerdict ;
     prov:wasAssociatedWith ev:pyshacl ;
     epo:ontologyDigest "5aff7757aed847f1ca2ecad24311037564a8bc17b5f007306744f781f978f5a7" ;
     epo:queryDigest "3ab9dc711479d53340c97c31be23dc071f5c8ed99a19378b4f1899e632325134" ;
-    epo:shapesDigest "386c1e1265f2cebf3dadc8445efe4f4677eb7abd420b2c7b33554b7e91686ab8" ;
+    epo:shapesDigest "7ea5c7ea4aafc14c400dd93b3343b2687bedfae340a4ab75447511fc2d619a08" ;
     ogc:inRecord ev:record ;
     ogc:synthetic true .
 
@@ -11461,7 +11535,7 @@ term:evaluation a skos:Concept ;
         term:monitoring ;
     ogc:binding "sysml part def OgCaieEvaluation; action def EvaluationProcess" ;
     ogc:canonical [ ogc:cites src:sevocab ;
-            ogc:locator "evaluation, p. 155" ;
+            ogc:locator "evaluation, p. 155 (ISO/IEC 25001:2014, 4.1)" ;
             ogc:pdfPage 155 ;
             ogc:quote "systematic determination of the extent to which an entity meets its specified criteria" ;
             ogc:quoteStatus "machine" ] ;
@@ -11507,7 +11581,7 @@ term:non-deterministic-system a skos:Concept ;
     ogc:class "adopted" ;
     ogc:scopeNote "Ruling R-13: the sensitivity the authors describe, a small change of input producing a large change of output especially when a trajectory is continued, is stated here in prose; no term is coined for it." ;
     ogc:seeAlso [ ogc:cites src:sevocab ;
-            ogc:locator "probabilistic system, p. 311" ;
+            ogc:locator "probabilistic system, p. 311 (ISO/IEC TR 29119-11:2020, 3.1.58)" ;
             ogc:pdfPage 311 ;
             ogc:quote "system whose behavior is described in terms of probabilities, such that its outputs cannot be perfectly predicted" ;
             ogc:quoteStatus "machine" ] .
@@ -11563,7 +11637,7 @@ term:scenario a skos:Concept ;
         term:test-case ;
     ogc:binding "epo:Probe carries the scenario text" ;
     ogc:canonical [ ogc:cites src:sevocab ;
-            ogc:locator "scenario, p. 369" ;
+            ogc:locator "scenario, p. 369 (ISO/IEC/IEEE 24765e:2015)" ;
             ogc:pdfPage 369 ;
             ogc:quote "step-by-step description of a series of events that occur concurrently or sequentially" ;
             ogc:quoteStatus "machine" ] ;
@@ -11596,7 +11670,7 @@ term:verification a skos:Concept ;
             ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:class "adopted" ;
     ogc:seeAlso [ ogc:cites src:sevocab ;
-            ogc:locator "verification, p. 470" ;
+            ogc:locator "verification, p. 470 (ISO/IEC 25000:2014, 4.43; 12207:2026, 3.1.72; 15288:2023)" ;
             ogc:pdfPage 470 ;
             ogc:quote "confirmation, through the provision of objective evidence, that specified requirements have been fulfilled" ;
             ogc:quoteStatus "machine" ] .
@@ -11908,21 +11982,23 @@ epo:underAgreement a owl:ObjectProperty ;
     rdfs:comment "under the service agreement: the requirement set is agreed under it (R-21), and the statement of work, the access grant and the delivery are performed under it (sheet 10-05, R-50); no domain, since four kinds carry it" ;
     rdfs:range epo:ServiceAgreement .
 
+ev:county-public-health-office a prov:Agent,
+        prov:Organization ;
+    rdfs:label "county public-health office (sponsor: evaluation customer, and test item customer as the chatbot's deployer)" ;
+    epo:actsOnBehalfOf ev:commuters,
+        ev:county-residents ;
+    epo:providesTestItem false ;
+    epo:role epo:sponsorRole,
+        epo:testItemCustomerRole ;
+    ogc:inRecord ev:record ;
+    ogc:synthetic true .
+
 ev:county-residents a prov:Agent,
         epo:Population ;
     rdfs:label "county residents (affected population, spoken for by Annie; test item customers, and affected indirectly through others' use)" ;
     epo:affectedAs epo:asCustomer,
         epo:indirectly ;
     epo:representedBy ev:annie ;
-    ogc:inRecord ev:record ;
-    ogc:synthetic true .
-
-ev:dana-okafor a prov:Agent,
-        prov:Person ;
-    rdfs:label "Dana Okafor (county health officer, sponsor signatory)" ;
-    skos:note "synthetic role-holder, invented; see ev:record" ;
-    prov:actedOnBehalfOf ev:county-public-health-office ;
-    epo:role epo:sponsorSignatoryRole ;
     ogc:inRecord ev:record ;
     ogc:synthetic true .
 
@@ -12013,26 +12089,6 @@ DomainExpert, EvaluationOperator and AccountExecutive are all roles held by memb
 
 our worked example names the HI executive (Mala), the Domain Expert Annie and the eval operator Theo. this are references to real people but the case is synthetic. the real people will read this and appreciate having their roles recognized but are not being asked to make attestations within the demo case which is a simplified synthetic walkthrough of the process / just to clarify "DomainExpert, EvaluationOperator and AccountExecutive" are all members of the company performing the eval. these are roles. the accountexec is limited to cardinality 1 but we allow more domain experts and operators to be on the team. / each role must be filled so there is an at least one rule. this means exec is exactly one since they are the counterparty representing the org in the contract. the the domain expert and eval operator roles are one or more""" .
 
-rul:R-51 a ogc:Ruling ;
-    prov:generatedAtTime "2026-09-07"^^xsd:date ;
-    prov:wasAttributedTo rul:Z ;
-    ogc:changeNote "The record renamed; ogc:synthetic; the sample report appendix; the four canonicals moved and the SEVOCAB digest's check rows." ;
-    ogc:order 51 ;
-    ogc:resolves rul:C-56 ;
-    ogc:rulingText "Four rulings given during the sheet 10 walkthrough, after its items. The worked example is the measles evaluation, not the measles run: neither word is a glossary term, run reads at the execution scale (SEVOCAB's test, concern C-14) and case at the scale of SEVOCAB's test case, the anchor of probe, while the whole is one Contextual AI Evaluation and ISO/IEC 17000's conformity assessment; the record's namespace and file are renamed and the prose keeps walkthrough for the narrative (10-42). Synthetic content is tagged as such in the graph, on the measles evaluation's bundle and every member, and the explorer can include or exclude synthetic data (10-43). A sample report for the synthetic measles evaluation becomes the first appendix: a simple dashboard rendered from the record alone, built with d3, that answers the sponsor's question and does not overwhelm; the appendices are reordered and Records and reporting links to it as the sample report for the synthetic case (10-44). The SEVOCAB absence check behind every NIST and reserve canonical is recorded with its date: tester, session, measurement uncertainty, trajectory, appropriateness, sufficiency, attestation, red teaming, operational envelope and coverage are absent; ontology, repeatability, reproducibility and dialog are present in the specification's sense and take SEVOCAB as canonical by the precedence rule, with Gruber, JCGM 200 and NIST AI 700-2 kept as neighbour cites; guardrail and probe are present in another sense and keep their canonicals (10-45). The source ranks are ordinal, 1 to 8, with no reserve or internal class: ISO 9000, SEVOCAB, NIST, W3C, the ISO-family vocabularies, other bodies, academic works, the authors (10-46). Each chapter keeps one references block, the generated sources cited with locators, and MyST's compiled bibliography renders only in the works cited appendix; the prose sheds the source names the block carries (10-47). The sample report is redesigned first, positive and terse, then the synthetic case is redesigned to make the demo, with every criterion planned and attested; a final report requires full coverage, and only a flagged draft may carry gaps; the report's primary reader is an executive who knows the domain and little about AI, the non-profit director or the head of an administration, and the page carries no technical jargon (10-48). The identifiers follow the headword authorized representative: the part def, the role individual and the term IRI are renamed, the alternative label account executive kept (10-49)." ;
-    ogc:verbatim """10-42 (Z, mid-walkthrough): "measles run" feels off to me. i feel like the term "Case" is more appropriate than "Run" for what we're describing. can you do a canon/glossary check and help me decide -> after the check: "evaluation": the measles evaluation (Recommended)
-10-43 (Z): i also think given that our models cases are synthetic we need to be able to tag synthetic content as such and have a filter toggle that includes/excludes synthetic data in the graph viewer
-10-44 (Z): i also think we want an example "report", strictly speaking it belongs in records and reporting but i think doing more than example content is likely to blow up the page so we could add a new appendix which is the demo report for the synthetic case. we would need to reorder the appendices though. it should probably come first. the idea is that the records and reporting section would have a link to that appendix noting that its a sample report for the synthetic case. it should be a dashboard, you can build it with d3. its more like the graph explorer but its not everything in our model, its precisely the concrete report for the synthetic measles eval. its designed to give the reader something to want to procure. it needs to be simple and intuitive and very clearly answer the question the sponsor wants answered and not overwhelm them with extra info
-10-45 (the SEVOCAB check the professor asked for, run on the export on 2026-09-07 and put to Z): Move all four to SEVOCAB; guardrail and probe stay (Recommended)
-10-46 (Z): "i think we need to get rid of the concept of a reserve resource. its okay to keep priority levels as a heuristic for what is prioritized when multiple sources define the same term but i think we should keep it ordinal"
-10-46 order: Keep 1 to 4; then 5 ISO-family vocabularies (17000, JCGM 200, IEC 60050-351), 6 other bodies (ISA 500, INCOSE GtWR, SEBoK, NIST TN 1297), 7 academic works (Gruber, Hogan, Hawkins, Popper), 8 the authors (Recommended)
-10-47 (Z, with a screenshot of the front page's Sources cited list followed by MyST's compiled References): "i am also noticing content redundancies such as the references in the prose and the compiled references section on this first page. now that we have references sections throughout we may be able to clean up some of the other text."
-Z (process): "okay you have a ton of work queued up now. my preference is that you make a fresh plan. and you include in that plan a loop for consistency and drift checking because we've made a lot of incremental edits"
-10-48 (Z, on the first dashboard): "okay first try but i think we want a much more positive result in our demo. also the tables are way too verbose. this means we may need to rework the synthetic case. i also don't actually all results that don't have coverage in final reports so we need full coverage or it wouldn't make it to a final report stage. i recommend redesigning the dashboard first. then also redesigning the synthetic case data so it makes a better demo in the dashboard."
-10-48 (Z, addendum): also keep in mind the eval reports primary audience is the non profit exec persona or the head of a government administration or some other executive who doesn't know much about AI, and has some knowledge about the domain.
-10-48 (Z, second addendum): we also need to clean out the technical jargon like "checked by pyshacl" the person who is getting the report doesn't care about that level of technical detail
-10-49 (Z, ticking W15 on sheet 05 after slice A): i thought we change the name of this iri -> Rename all three (Recommended)""" .
-
 rul:user-test-1-2026-09-06 a prov:Activity ;
     rdfs:label "simulated user test, round 1: four sandboxed persona readers reported on the tree at 2f2149f; sheet 06 lists the findings that need Z, 2026-09-06" ;
     prov:endedAtTime "2026-09-06"^^xsd:date ;
@@ -12070,23 +12126,6 @@ term:guardrail a skos:Concept ;
             ogc:pdfPage 24 ;
             ogc:quote "An application requirement specifying both 1) permitted information that can be shared with a user, and 2) prohibited information that should be withheld from a user." ;
             ogc:quoteStatus "machine" ] ;
-    ogc:class "adopted" .
-
-term:performance a skos:Concept ;
-    skos:definition "A measurable result. Here: how the system did on what was exercised, reported as the pass, fail and cannot-tell fractions of the covered criteria. Never merged with coverage."@en ;
-    skos:exactMatch src:iso-9000-2026_3.7.3 ;
-    skos:inScheme ogc:Glossary ;
-    skos:prefLabel "performance"@en ;
-    skos:related term:measurement-uncertainty,
-        term:test-coverage ;
-    ogc:binding "epo:Report passRate, failRate, cantTellRate" ;
-    ogc:canonical [ ogc:cites src:iso-9000-2026 ;
-            ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-17.png" ;
-            ogc:locator "3.7.3" ;
-            ogc:quote "measurable result" ;
-            ogc:quoteStatus "human" ;
-            ogc:verifiedBy rul:Z ;
-            ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:class "adopted" .
 
 term:red-teaming a skos:Concept ;
@@ -12134,7 +12173,7 @@ term:test-case a skos:Concept ;
         term:scenario ;
     ogc:binding "epo:Probe" ;
     ogc:canonical [ ogc:cites src:sevocab ;
-            ogc:locator "test case, p. 432" ;
+            ogc:locator "test case, p. 432 (IEEE 1012-2024, 3.3.31)" ;
             ogc:pdfPage 432 ;
             ogc:quote "set of test inputs, execution conditions, and expected results developed for a particular objective, such as to exercise a particular program path or to verify compliance with a specific requirement" ;
             ogc:quoteStatus "machine" ] ;
@@ -12152,7 +12191,7 @@ term:test-suite a skos:Concept ;
     prov:wasDerivedFrom rul:R-18 ;
     ogc:binding "epo:TestSuite, a prov:Activity grouping epo:Session activities" ;
     ogc:canonical [ ogc:cites src:sevocab ;
-            ogc:locator "test suite, p. 439" ;
+            ogc:locator "test suite, p. 439 (ISO/IEC/IEEE 29119-1:2022, 3.129)" ;
             ogc:pdfPage 439 ;
             ogc:quote "set of test cases or test procedures" ;
             ogc:quoteStatus "machine" ] ;
@@ -12201,7 +12240,7 @@ term:validation a skos:Concept ;
             ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:class "adopted" ;
     ogc:seeAlso [ ogc:cites src:sevocab ;
-            ogc:locator "validation, p. 464" ;
+            ogc:locator "validation, p. 464 (ISO/IEC 25000:2014, 4.41; 12207:2026, 3.1.71)" ;
             ogc:pdfPage 464 ;
             ogc:quote "confirmation, through the provision of objective evidence, that the requirements for a specific intended use or application have been fulfilled" ;
             ogc:quoteStatus "machine" ] .
@@ -12477,14 +12516,12 @@ ev:commuters a prov:Agent,
     ogc:inRecord ev:record ;
     ogc:synthetic true .
 
-ev:county-public-health-office a prov:Agent,
-        prov:Organization ;
-    rdfs:label "county public-health office (sponsor: evaluation customer, and test item customer as the chatbot's deployer)" ;
-    epo:actsOnBehalfOf ev:commuters,
-        ev:county-residents ;
-    epo:providesTestItem false ;
-    epo:role epo:sponsorRole,
-        epo:testItemCustomerRole ;
+ev:dana-okafor a prov:Agent,
+        prov:Person ;
+    rdfs:label "Dana Okafor (county health officer, sponsor signatory)" ;
+    skos:note "synthetic role-holder, invented; see ev:record" ;
+    prov:actedOnBehalfOf ev:county-public-health-office ;
+    epo:role epo:sponsorSignatoryRole ;
     ogc:inRecord ev:record ;
     ogc:synthetic true .
 
@@ -12500,6 +12537,26 @@ ev:report a epo:Report ;
     epo:passRate 0.8 ;
     ogc:inRecord ev:record ;
     ogc:synthetic true .
+
+rul:R-51 a ogc:Ruling ;
+    prov:generatedAtTime "2026-09-07"^^xsd:date ;
+    prov:wasAttributedTo rul:Z ;
+    ogc:changeNote "The record renamed; ogc:synthetic; the sample report appendix; the four canonicals moved and the SEVOCAB digest's check rows." ;
+    ogc:order 51 ;
+    ogc:resolves rul:C-56 ;
+    ogc:rulingText "Four rulings given during the sheet 10 walkthrough, after its items. The worked example is the measles evaluation, not the measles run: neither word is a glossary term, run reads at the execution scale (SEVOCAB's test, concern C-14) and case at the scale of SEVOCAB's test case, the anchor of probe, while the whole is one Contextual AI Evaluation and ISO/IEC 17000's conformity assessment; the record's namespace and file are renamed and the prose keeps walkthrough for the narrative (10-42). Synthetic content is tagged as such in the graph, on the measles evaluation's bundle and every member, and the explorer can include or exclude synthetic data (10-43). A sample report for the synthetic measles evaluation becomes the first appendix: a simple dashboard rendered from the record alone, built with d3, that answers the sponsor's question and does not overwhelm; the appendices are reordered and Records and reporting links to it as the sample report for the synthetic case (10-44). The SEVOCAB absence check behind every NIST and reserve canonical is recorded with its date: tester, session, measurement uncertainty, trajectory, appropriateness, sufficiency, attestation, red teaming, operational envelope and coverage are absent; ontology, repeatability, reproducibility and dialog are present in the specification's sense and take SEVOCAB as canonical by the precedence rule, with Gruber, JCGM 200 and NIST AI 700-2 kept as neighbour cites; guardrail and probe are present in another sense and keep their canonicals (10-45). The source ranks are ordinal, 1 to 8, with no reserve or internal class: ISO 9000, SEVOCAB, NIST, W3C, the ISO-family vocabularies, other bodies, academic works, the authors (10-46). Each chapter keeps one references block, the generated sources cited with locators, and MyST's compiled bibliography renders only in the works cited appendix; the prose sheds the source names the block carries (10-47). The sample report is redesigned first, positive and terse, then the synthetic case is redesigned to make the demo, with every criterion planned and attested; a final report requires full coverage, and only a flagged draft may carry gaps; the report's primary reader is an executive who knows the domain and little about AI, the non-profit director or the head of an administration, and the page carries no technical jargon (10-48). The identifiers follow the headword authorized representative: the part def, the role individual and the term IRI are renamed, the alternative label account executive kept (10-49)." ;
+    ogc:verbatim """10-42 (Z, mid-walkthrough): "measles run" feels off to me. i feel like the term "Case" is more appropriate than "Run" for what we're describing. can you do a canon/glossary check and help me decide -> after the check: "evaluation": the measles evaluation (Recommended)
+10-43 (Z): i also think given that our models cases are synthetic we need to be able to tag synthetic content as such and have a filter toggle that includes/excludes synthetic data in the graph viewer
+10-44 (Z): i also think we want an example "report", strictly speaking it belongs in records and reporting but i think doing more than example content is likely to blow up the page so we could add a new appendix which is the demo report for the synthetic case. we would need to reorder the appendices though. it should probably come first. the idea is that the records and reporting section would have a link to that appendix noting that its a sample report for the synthetic case. it should be a dashboard, you can build it with d3. its more like the graph explorer but its not everything in our model, its precisely the concrete report for the synthetic measles eval. its designed to give the reader something to want to procure. it needs to be simple and intuitive and very clearly answer the question the sponsor wants answered and not overwhelm them with extra info
+10-45 (the SEVOCAB check the professor asked for, run on the export on 2026-09-07 and put to Z): Move all four to SEVOCAB; guardrail and probe stay (Recommended)
+10-46 (Z): "i think we need to get rid of the concept of a reserve resource. its okay to keep priority levels as a heuristic for what is prioritized when multiple sources define the same term but i think we should keep it ordinal"
+10-46 order: Keep 1 to 4; then 5 ISO-family vocabularies (17000, JCGM 200, IEC 60050-351), 6 other bodies (ISA 500, INCOSE GtWR, SEBoK, NIST TN 1297), 7 academic works (Gruber, Hogan, Hawkins, Popper), 8 the authors (Recommended)
+10-47 (Z, with a screenshot of the front page's Sources cited list followed by MyST's compiled References): "i am also noticing content redundancies such as the references in the prose and the compiled references section on this first page. now that we have references sections throughout we may be able to clean up some of the other text."
+Z (process): "okay you have a ton of work queued up now. my preference is that you make a fresh plan. and you include in that plan a loop for consistency and drift checking because we've made a lot of incremental edits"
+10-48 (Z, on the first dashboard): "okay first try but i think we want a much more positive result in our demo. also the tables are way too verbose. this means we may need to rework the synthetic case. i also don't actually all results that don't have coverage in final reports so we need full coverage or it wouldn't make it to a final report stage. i recommend redesigning the dashboard first. then also redesigning the synthetic case data so it makes a better demo in the dashboard."
+10-48 (Z, addendum): also keep in mind the eval reports primary audience is the non profit exec persona or the head of a government administration or some other executive who doesn't know much about AI, and has some knowledge about the domain.
+10-48 (Z, second addendum): we also need to clean out the technical jargon like "checked by pyshacl" the person who is getting the report doesn't care about that level of technical detail
+10-49 (Z, ticking W15 on sheet 05 after slice A): i thought we change the name of this iri -> Rename all three (Recommended)""" .
 
 src:hawkins-2011 a prov:Entity,
         ogc:Source ;
@@ -12551,12 +12608,12 @@ term:evaluation-operator a skos:Concept ;
     ogc:anchorRelation "specializes" ;
     ogc:binding "sysml part def EvaluationOperator; epo:evaluationOperatorRole; prov:Person" ;
     ogc:canonical [ ogc:cites src:nist-ai-700-2 ;
-            ogc:locator "Appendix A, Tester, p. 17" ;
+            ogc:locator "Appendix A, Tester, p. 17 (first sentence of the entry)" ;
             ogc:pdfPage 24 ;
             ogc:quote "Individual who interacts with an application within the ARIA test environment." ;
             ogc:quoteStatus "machine" ] ;
     ogc:class "refined" ;
-    ogc:scopeNote "Ruling R-23: the operator and the domain expert are abstract actor categories in distinct EPO slots. Sheet 10-26 (R-50): SEVOCAB has no entry for tester (checked 2026-09-07) and its operator is the party operating the system of interest, so NIST AI 700-2's tester, the individual who interacts with the application under test, is the anchor, with the 12207 operator kept beside it as the word the headword carries. Replaces the label AI evaluation expert of ruling R-10, kept as an altLabel." ;
+    ogc:scopeNote "Ruling R-23: the operator and the domain expert are abstract actor categories in distinct EPO slots. Sheet 10-26 (R-50): SEVOCAB has no entry for tester (checked 2026-09-07) and its operator is the party operating the system of interest, so NIST AI 700-2's tester, the individual who interacts with the application under test, is the anchor, with the 12207 operator kept beside it as the word the headword carries; NIST's entry goes on to admit a model tester, a pre-defined prompt set, and this term takes the human sense only. Replaces the label AI evaluation expert of ruling R-10, kept as an altLabel." ;
     ogc:seeAlso [ ogc:cites src:sevocab ;
             ogc:locator "operator, p. 283 (ISO/IEC/IEEE 12207:2026, 3.1.40)" ;
             ogc:pdfPage 283 ;
@@ -12607,7 +12664,7 @@ term:operational-environment a skos:Concept ;
     prov:wasDerivedFrom rul:R-02 ;
     ogc:binding "epo:RequirementSet declares it; sysml item def RequirementSet" ;
     ogc:canonical [ ogc:cites src:sevocab ;
-            ogc:locator "operational environment, p. 282" ;
+            ogc:locator "operational environment, p. 282 (IEEE 982-2024, 3.1)" ;
             ogc:pdfPage 282 ;
             ogc:quote "physical context, setting, and circumstances used to support the in-service operation of a system" ;
             ogc:quoteStatus "machine" ] ;
@@ -12642,7 +12699,7 @@ term:outcome a skos:Concept ;
         term:expected-results ;
     ogc:binding "earl:outcome with earl:passed, earl:failed, earl:cantTell, earl:inapplicable, earl:untested; sysml enum Outcome" ;
     ogc:canonical [ ogc:cites src:sevocab ;
-            ogc:locator "test result, p. 438" ;
+            ogc:locator "test result, p. 438 (ISO/IEC/IEEE 29119-2:2021, 3.56)" ;
             ogc:pdfPage 438 ;
             ogc:quote "indication of whether a specific test case has passed or failed, i.e. if the actual results correspond to the expected results or if deviations were observed" ;
             ogc:quoteStatus "machine" ] ;
@@ -12657,6 +12714,23 @@ term:outcome a skos:Concept ;
             ogc:pdfPage 12 ;
             ogc:quote "Unable to Determine" ;
             ogc:quoteStatus "machine" ] .
+
+term:performance a skos:Concept ;
+    skos:definition "A measurable result. Here: how the system did on what was exercised, reported as the pass, fail and cannot-tell fractions of the covered criteria. Never merged with coverage."@en ;
+    skos:exactMatch src:iso-9000-2026_3.7.3 ;
+    skos:inScheme ogc:Glossary ;
+    skos:prefLabel "performance"@en ;
+    skos:related term:measurement-uncertainty,
+        term:test-coverage ;
+    ogc:binding "epo:Report passRate, failRate, cantTellRate" ;
+    ogc:canonical [ ogc:cites src:iso-9000-2026 ;
+            ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-17.png" ;
+            ogc:locator "3.7.3" ;
+            ogc:quote "measurable result" ;
+            ogc:quoteStatus "human" ;
+            ogc:verifiedBy rul:Z ;
+            ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
+    ogc:class "adopted" .
 
 term:repeatability a skos:Concept ;
     skos:definition "How closely results agree when the same measurement is repeated under the same conditions: same system version, same procedure, same operator or policy, same session protocol, over a short period. Replicate sessions under repeatability conditions are what turn a probe into a pass rate."@en ;
@@ -12676,7 +12750,7 @@ term:repeatability a skos:Concept ;
             ogc:quote "closeness of the agreement between the results of successive measurements of the same measurand carried out under the same conditions of measurement" ;
             ogc:quoteStatus "machine" ] ;
     ogc:class "adopted" ;
-    ogc:scopeNote "Sheet 10-45 (R-51): SEVOCAB defines repeatability of results of measurements, so it takes the canonical by the precedence rule; JCGM 200's definition, the earlier canonical, stays beside it." ;
+    ogc:scopeNote "Sheet 10-45 (R-51): SEVOCAB defines repeatability of results of measurements, so it takes the canonical by the precedence rule; JCGM 200's definition, the earlier canonical, stays beside it. SEVOCAB's words are the 1993 VIM wording quoted at second hand; JCGM 200:2012 (VIM3) governs the concept." ;
     ogc:seeAlso [ ogc:cites src:jcgm-200-2012 ;
             ogc:locator "2.21 measurement repeatability, p. 40" ;
             ogc:pdfPage 40 ;
@@ -12708,7 +12782,7 @@ term:test-strategy a skos:Concept ;
     ogc:anchorRelation "specializes" ;
     ogc:binding "epo:Strategy, a prov:Plan; a TestPlan's means alongside listed probes" ;
     ogc:canonical [ ogc:cites src:sevocab ;
-            ogc:locator "test strategy, p. 439" ;
+            ogc:locator "test strategy, p. 439 (ISO/IEC/IEEE 29119-2:2021, 3.59)" ;
             ogc:pdfPage 439 ;
             ogc:quote "part of the test plan that describes the approach to testing for a specific project, test level, or test type" ;
             ogc:quoteStatus "machine" ] ;
@@ -13007,62 +13081,6 @@ rul:R-48 a ogc:Ruling ;
     ogc:rulingText "Round two of the simulated user test is adjudicated (sheet 07). C-30 is narrowed to its human half, the block-by-block and wire-by-wire validation, the executor chapter being the computational half. The bridge's second-layer row carries a definition in the register's clinical words; the slogan that leaked in from the informal record belongs to the prose. Record is the abstract term and evaluation record its specialization, by subclassing; specializations are made explicit throughout the vocabulary, and hover definitions are used for clarity only, never for every term. The nesting view keeps its vertical alignment and shows that access to the test item comes from a different actor. The bridge table's quotations move to a paragraph below it. The accountable organization's duty to provide access is made explicit; whether accountable organization is the right headword is reconsidered. Citation traceability for the terms grounded outside the standards is reviewed and tightened with NIST and academic sources. References to the unpublished paper are purged: the site is the novel content and the paper will cite it. The open blocks and wires are walked through one at a time; sheet 05 is regenerated first, the model having been refined since. Status tags such as human and machine leave the primary tables for the explorer and the tool, on the principle that the graph's detail is shared only where it helps the reader. The ontology's terminological box is audited and cleaned: SKOS matches, subclassing and disjointness where they belong, disconnected content joined. The explorer gains a focus mode on a node's neighbourhood. A BibTeX works-cited is kept: citations close each chapter and a new appendix aggregates them for the whole project." ;
     ogc:verbatim "7-1: as recommended. 7-2: context matters belongs in the prose not in the records. it leaked in due to the informal and formal mixing in the chat based data collection and rulings. we're trying to keep the canonical data in a more clinical register now. 7-3: record takes a more abstract definition and the evaluation record is a special case. use subclassing. look more carefully at our definitions and use subclassing more explicitly where terms are specialization of other terms; knowledge graphs are designed for this kind of thing. however we do not need to force all terms into the mouseover. just because we can give a term a mouse over doesn't mean we should. its important that is a tool for clarity for the reader, not a distraction. 7-4: i like the vertical alignment. only caveat is that access to the test item comes from a different actor. 7-5: accept recommendation. 7-6: make sure its clear the accountable organization is must provide access. we can reconsider whether \"accountable organization\" is the right headword. i can see how that may create confusion. 7-7: review and revise as needed to improve cite source traceability. NIST report plus relevant academic citations should make clean traces to the concept. if its a bit weak research how to tighten it up. 7-8: i think we should either identity the explicit already published paper or purge the references. most likely this refers to the paper i gave you that is work in progress for all intents and purposes our new content drafted there can be treated as novel in this website and the paper will site this instead. the executables and ontologies are much richer and more capable of rigor than a pdf ever will be. 7-9: walk me through the open questions in the block and wire are one at a time with popups. while i do still want to validation on the spec, the specific records in sheet 5 may be out of date since we've been refining and tightening our model through tests. additional comments: a lot of our tables have tags like (human) or (machine); these are distacting, this level of detail is reserved for attributes you can inspect in the knowledge graph explorer, it does no need to be in the primary text. this principle holds broadly. just because you can share information from the knowledge graph doesnt mean you should. we're leaning on the appendices and the repo to support readers who want to dig deeper, so the primary material can be an easier read. the ontology tbox needs auditing and potentially some clean up. where appropriate we can use skos match, skos closematch, and other tools for interrelating content. we also can use subclassing and disjointness axioms, also look for disconnected content and make sure we're not missing relationships which will improve navagibility. also add to the explorer the ability to focus on a node (thus highlighting only its local neighborhood; we have that in other graph viewers its useful). make sure we have a bibtex workcited. you can put citations at the bottom of each chapter and make a new appendix which contains the aggregate citations for the whole project. you may need to make a new plan" .
 
-rul:R-50 a ogc:Ruling ;
-    prov:generatedAtTime "2026-09-07"^^xsd:date ;
-    prov:wasAttributedTo rul:Z ;
-    ogc:changeNote "Sheet 10's ruling column (10-01 to 10-41; the follow-on rulings of the same walkthrough are R-51); ticks in rulings/validated.ttl; the register's ISO 9000 status and SEVOCAB retrieval note; the works cited author order. The model, ontology, shape, record and chapter changes the rulings call for follow in slices." ;
-    ogc:order 50 ;
-    ogc:resolves rul:C-56 ;
-    ogc:rulingText "Round three (sheet 10) is adjudicated item by item, and sheet 05 read one row at a time. Contract: the sponsor approves the requirement set (10-01); the report is the record's delivered export; the record is auditable and reproducible but delivered only as a special case (10-02); acceptance is the sponsor's act on receipt, recognizing completion, for which a correctly constructed record is necessary and not sufficient (10-03); the access grant carries the version identity, the period and the instrument (10-04); the agreement accepts the proposal and the statement of work, the access and the delivery are under the agreement (10-05); the sponsor has a signatory person (10-06); independence and user interest are declaration items (10-07); 17000's own reading of party holds, the sponsor second-party, the independent testing organization third-party, the co-incidence cases named (10-08); the test item provider is accountable for the test item as its provider, the predicate is providesTestItem, and the sponsor's obligation to the affected populations is not transferred (10-09). Evaluation: minPassRate is dropped for this version and weights carry a rationale and a timestamp (10-10); the report approval covers the recommendation, which rests on every attestation the coverage used or names its exclusions (10-11); appropriateness covers the assumptions and the test planning, and sufficiency relates the evidence to the claim: insufficient evidence implies cannot tell, sufficient evidence gives pass or fail (10-12); a person holds at most one actor role and any team member may represent a population (10-13); no cherry-picking: a determination is justified against all relevant evidence in the record (10-14); S5 mirrors M5 and the record states its independence level (10-15); deviations from the plan are items (10-16); the test item is bound across the record and records are linked by revision (10-17); the verdict and the coverage computation carry digests of the shapes, the ontology and the query (10-18); the ordering rules, the recomputed rates and the computed verdict are accepted as built (10-19); test driver stays, human and machine work complementary, separated in the test plan a human deems appropriate (10-20). Standards: 17000 4.10 leaves C4 for C2, with Annex A A.2 on C4 (10-21); the outer cycle names its canon per step and is performed under an agreement (10-22); attestation is refined, attesting passed, failed or cannot tell on specific evidence with supersession by later attestations (10-23); determination is refined as 17000's decision (10-24); technical expert is refined: not all technical experts attest, every attestation comes from a relevant role (10-25); the evaluation operator is anchored to tester (10-26); authorized representatives exist per organization and no canonical definition is read reversed (10-27); ISO 9000:2026 stays a preview, checked 2026-09-07 (10-28); the SEVOCAB statement is recorded as printed (10-29); mission's obligations towards the affected populations are marked as the specification's facets of the organization's purpose (10-30). Graphs: the record becomes a PROV bundle now (10-31); the register and the model vocabularies are declared with headers (10-32); the term map is realized in the model graph and the step derived from it now (10-33); the PROV subproperty on actsOnBehalfOf is dropped (10-34); the w3id namespace is assumed to merge (10-35); report and recommendation become terms and the machines and roles one paragraph (10-36); the retired word stays paraphrased (10-37); the site carries its version and commit (10-38); the gate prints a failing step's cause (10-39); sources carry BibTeX keys and shapes their counterexamples (10-40); the conformance check is on the record and precedes the final report, a draft report may carry flagged gaps and a final report cannot, and the report assembler is rebuilt so (10-41). Sheet 05: B3, B9, B11, B12 and the wires W22, W30, W32, W34, W35, W36, W39 are validated; B8 awaits its rebuild, and concern C-30 narrows to it. The works cited name Hollek and Zargham for the SciPy 2026 session, Hollek first." ;
-    ogc:verbatim """10-01: (a) Sponsor approves the requirement set (Recommended)
-10-02: "the report is the delivered export from the record. the full record is not delivered but the report is an export from the record that fulfills the obligations of the contract. the full record is independently auditable and the methods are reproducible. however access to the full record rather than the exported report (which may be an interactive dashboard) is a special case. there may be special cases where the full record is published but that is not assumed."
-10-03: "strictly speaking the sponsor will review and accept their deliverables per standard practice. this is a contract loop activity that recognizes the competion of the contracts obligations. correctly constructed record is necessary but not sufficient for acceptance because acceptance is an act reserved for the sponsor upon reciept of the deliverables"
-10-04: (a) Version, period, instrument; environment as text (Recommended)
-10-28: (b) still a preview, checked 2026-09-07. 10-29: statement as printed (screenshot), 2026-09-07.
-10-05: (a) Link them, keep the statement of work at C3 (Recommended)
-10-06: (a) A sponsor signatory person (Recommended)
-10-07: (a) Two declaration items (Recommended)
-10-08: (a) The standard's reading (Recommended)
-10-09: (a) providesTestItem, and the obligation is not transferred (Recommended)
-10-10: (a) Drop minPassRate; rationale and timestamps on weights (Recommended)
-10-11: (a) The approval covers the recommendation; all attestations or named exclusions (Recommended)
-10-12: "appropriateness is used to cover assumptions and test planning; it doesn't matter how much evidence you collect if your plan or strategy and associated assumptions are not appropriate for what they aim to determine. 
-
-sufficiency relates evidence backing up a claim that a requirement is met or not. insufficient evidence implies decision is cannot tell. we can have sufficient evidence resulting in either a pass or fail."
-10-13: (a) S0-Roles; any team member may represent (Recommended)
-10-14: "no cherry picking you need to justify your determination accounting for all relevant evidence in the record. 
-
-i am unclear on what a mutation is since in principle the record is append only"
-10-15: (a) S5 mirrors M5, and an independence level on the record (Recommended)
-10-16: (a) PlanDeviation items, required by shape (Recommended)
-10-17: (a) Bind the test item across the record; revisions between records (Recommended)
-10-18: (a) Digests on the verdict and the coverage computation (Recommended)
-10-20: "operator is responsible for the human roles in the test plan but there is machine work and a test driver does drive, the human and machine aspects are assumed to be complementary and the record always tracks who did what but we don't explicitly privilege the human or the machine a priori; exact separation of responsibility lives in the test plan. a human must deem the test plan appropriate for what its testing"
-10-21 (first pass): "i need further clarification, i am not clear on what we mean by applicant"
-10-21 (clarified: applicant = the sponsor asking for the service): (a) Drop 4.10 from C4; keep it on C2; cite Annex A A.2 Selection on C4 (Recommended)
-10-22: (a) Name the actual canon per step; performed under an agreement (Recommended)
-10-23: "scope note states the extension and we're explicitly using EARL so you can attest pass/fail/cannot tell. these are conditioned on specific evidence, new attestations can supercede old attestations if more evidence is secured"
-10-24: (a) Determination refined, with the shift stated (Recommended)
-10-25: "not all technical experts attest but all attestation must come from relevant roles, in this case a technical expert."
-10-26: (a) SEVOCAB tester if the export defines it, else NIST AI 700-2 Tester; 12207 operator as seeAlso (Recommended)
-10-27: "there are multiple authorized representatives since they exist on a per organization basis; avoid reversal of canonical definitions"
-10-30: "you can mark the addition but be clear that these obligations toward affected populations would come from the organizations purpose. its not a separate idea, its drawing out the relevant facets"
-10-31: (b) The bundle now
-10-32: (a) register.ttl and ogm.ttl with headers (Recommended)
-10-33: "realize the term map now and derive step now"
-10-34: (a) Drop the subproperty axiom, keep a plain epo property (Recommended)
-10-35: "i made the pull request to w3id for the og-caie namespace. it hasn't merged yet but can we work under the assumption it will be"
-10-36: (a) Entries for report and recommendation; the machines and roles in one paragraph (Recommended)
-10-38: (a) Version and commit in the front-page footer; CITATION.cff at v0.3.0 when tagged (Recommended)
-10-40: (a) ogc:bibkey on sources and ogc:counterexample on shapes (Recommended)
-The works cited (Z, earlier on 2026-09-07): citation 20 "Zargham, & Hollek. (2026). Building Scientific Approaches to Generative AI. Birds-of-a-Feather session, SciPy 2026." should be Hollek and Zargham. reverse the author order for that one. Julie was first author
-B11 TestDriver: Validated
-W22 probeRecordSeam: "probes by definition occur as part of test plans and the probe and its measured response both must be captured as part of the record. though often the individual probe-response measurement pairs will be part of larger data sets which will be analyzed in order to make determinations. that said i want you to be very careful about mixing abstractions probes and measured responses are the smallest units of data we account for and we leave them intentionally abstract"
-W22: Validated (on the abstraction understanding). W34 responseSeam: Validated
-B12 TestItem: Validated
-B8 ReportAssembler (NOT ticked; reorder ruled): "the record is what has a conformance check. conformance is a prerequisite for compiling the final report. a draft report can be produced even if it has gaps in traceability or coverage but those gaps must be flagged and the report cannot be final with gaps because it will fail on conformance according to our correct by construction rule that uses shacl to check bidirectional traceability and coverage"
-W39: Validated as the wire; the verdict's subject becomes the record. W30: Validated""" .
-
 term:requirements-traceability a skos:Concept ;
     skos:definition "The documented path linking what was required to how it was tested and what was found, so a coverage claim can be checked by anyone holding the record."@en ;
     skos:exactMatch src:sevocab_requirements-traceability ;
@@ -13073,7 +13091,7 @@ term:requirements-traceability a skos:Concept ;
     prov:wasDerivedFrom rul:R-15 ;
     ogc:binding "the chain requirement, acceptance criterion, test plan, probe, turn, evidence, attestation in the record; queries/traceback.rq" ;
     ogc:canonical [ ogc:cites src:sevocab ;
-            ogc:locator "requirements traceability, p. 352" ;
+            ogc:locator "requirements traceability, p. 352 (ISO/IEC/IEEE 29148:2018)" ;
             ogc:pdfPage 352 ;
             ogc:quote "identification and documentation of the derivation path (upward) and allocation/ flow-down path (downward) of requirements in the requirements set" ;
             ogc:quoteStatus "machine" ] ;
@@ -13110,7 +13128,7 @@ term:test a skos:Concept ;
             ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:class "adopted" ;
     ogc:seeAlso [ ogc:cites src:sevocab ;
-            ogc:locator "test execution, p. 434" ;
+            ogc:locator "test execution, p. 434 (ISO/IEC/IEEE 29119-2:2021, 3.38)" ;
             ogc:pdfPage 434 ;
             ogc:quote "process of running a test on the test item, producing actual results" ;
             ogc:quoteStatus "machine" ] .
@@ -13283,35 +13301,6 @@ src:popper-1959 a prov:Entity,
     ogc:licenceNote "cited as the canonical source named as the source of the definitions presented at the SciPy 2026 session; not quoted directly" ;
     ogc:posture "citeOnly" ;
     ogc:rank "7" .
-
-term:evaluation-record a skos:Concept ;
-    skos:altLabel "record (ISO 9000:2026 3.8.12, of one evaluation)"@en,
-        "test log"@en ;
-    skos:broadMatch src:iso-9000-2026_3.8.12 ;
-    skos:broader term:record ;
-    skos:definition "The record of one evaluation, bound by the Evaluation Process Ontology: the DSO release, the requirement set, the test plan, the probes, the sessions and their trajectories, the evidence, the attestations, the report and the recommendations, with who did what and when. The EPO determines what must be present for requirements traceability in both directions and for coverage, and makes all three checkable by machine; a conformant record therefore provides both traceability directions and coverage."@en ;
-    skos:inScheme ogc:Glossary ;
-    skos:prefLabel "evaluation record"@en ;
-    skos:related term:conformance,
-        term:evaluation-process-ontology,
-        term:requirements-traceability ;
-    prov:wasDerivedFrom rul:R-17 ;
-    ogc:anchorRelation "specializes" ;
-    ogc:binding "track/measles-evaluation.ttl; a prov:Bundle every item and agent is a member of (sheets 10-31, 10-42)" ;
-    ogc:canonical [ ogc:cites src:iso-9000-2026 ;
-            ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-23.png" ;
-            ogc:locator "3.8.12 record" ;
-            ogc:quote "document stating results achieved or providing evidence of activities performed" ;
-            ogc:quoteStatus "human" ;
-            ogc:verifiedBy rul:Z ;
-            ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
-    ogc:class "refined" ;
-    ogc:scopeNote "Ruling R-17. Downward: requirement to acceptance criteria to test plan to probes (shapes S2, S3). Upward: attestation to evidence to turn to probe to criterion to requirement (shapes S6, S8; queries/traceback.rq). Coverage: the weighted share of criteria with an attested outcome (shape S7; queries/coverage.rq)." ;
-    ogc:seeAlso [ ogc:cites src:sevocab ;
-            ogc:locator "test log, p. 436" ;
-            ogc:pdfPage 436 ;
-            ogc:quote "chronological record of relevant details about the execution of tests" ;
-            ogc:quoteStatus "machine" ] .
 
 term:sufficiency a skos:Concept ;
     skos:definition "The expert judgment that the evidence gathered is enough to support the claim being made. A quantity judgment, distinct from appropriateness. A judgment with no evidence cannot record a pass or a fail."@en ;
@@ -13534,7 +13523,7 @@ term:acceptance-criteria a skos:Concept ;
         term:test-plan ;
     ogc:binding "epo:AcceptanceCriterion with epo:weight and epo:weightRationale (sheet 10-10); sysml item def AcceptanceCriterion" ;
     ogc:canonical [ ogc:cites src:sevocab ;
-            ogc:locator "acceptance criteria, p. 4" ;
+            ogc:locator "acceptance criteria, p. 4 (ISO/IEC 33202:2024, 3.1)" ;
             ogc:pdfPage 4 ;
             ogc:quote "criteria that a system or component is required to satisfy to be accepted by a user, customer, or other authorized entity" ;
             ogc:quoteStatus "machine" ] ;
@@ -13574,31 +13563,6 @@ term:appropriateness a skos:Concept ;
             ogc:quoteStatus "human" ;
             ogc:verifiedBy rul:Z ;
             ogc:verifiedOn "2026-09-06"^^xsd:date ] .
-
-term:authorized-representative a skos:Concept ;
-    skos:altLabel "account executive"@en ;
-    skos:closeMatch src:sevocab_acceptance ;
-    skos:definition "The person who signs the contract for the testing organization and delivers the report and the recommendation to the sponsor: the organization's interface with its contractual counterparties. The authorized representative is not responsible for the determinations in the report; those belong to the technical experts, and the representative makes no determination and no attestation. An abstract actor category, filled by exactly one named person in each evaluation."@en ;
-    skos:inScheme ogc:Glossary ;
-    skos:prefLabel "authorized representative"@en ;
-    skos:related term:contract,
-        term:evaluation-service-provider,
-        term:evaluation-team ;
-    prov:wasDerivedFrom rul:R-23,
-        rul:R-48,
-        rul:R-49,
-        rul:R-50 ;
-    ogc:anchorRelation "corresponds" ;
-    ogc:binding "epo:AuthorizedRepresentativeRole; epo:authorizedRepresentativeRole on the service agreement and the delivery; sysml part def AuthorizedRepresentative" ;
-    ogc:canonical [ ogc:cites src:sevocab ;
-            ogc:locator "acceptance, p. 4 (ISO/IEC/IEEE 24748-5:2017, 3.1) (fragment of the entry)" ;
-            ogc:pdfPage 4 ;
-            ogc:quote "authorized representative of the acquirer" ;
-            ogc:quoteStatus "machine" ] ;
-    ogc:class "refined" ;
-    ogc:scopeNote "Sheet 09 (block B1) and the tbox audit (sheet 08): the headword account executive becomes authorized representative, kept as the alternative label; SEVOCAB's acceptance entry names the authorized representative of the acquirer, and here the phrase is read for the provider's side, the person authorized to sign and deliver for the testing organization. The earlier anchor, ISO 9000:2026 3.1.3 top management, leaves. Concern C-26 (the anchor was provisional) is answered by this entry and closed by ruling R-49, which records the renaming. Z on the role: not responsible for the determination in the report; the interface for the organization with its contractual counterparties. The term's IRI kept its former local name until 2026-09-07, when Z, ticking W15, asked for the identifiers to follow the headword: the part def, the role individual and the term IRI are now authorized representative's (R-51). Sheet 10-27 (R-50): authorized representatives exist per organization, so there are several in one evaluation; this term names the testing organization's, the acquirer's own is the sponsor's signatory (sheet 10-06), and no canonical definition is read reversed: SEVOCAB's phrase is cited as the standard's word for the role an organization's representative holds, whichever side signs. Z: \"there are multiple authorized representatives since they exist on a per organization basis; avoid reversal of canonical definitions\"." ;
-    ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ;
-            ogc:locator "4.3 first-party conformity assessment activity, Note 1 (the descriptors are not the legal identification of the parties to a contract)" ] .
 
 term:conformance a skos:Concept ;
     skos:altLabel "correct construction"@en,
@@ -13673,9 +13637,38 @@ term:determination a skos:Concept ;
     ogc:class "refined" ;
     ogc:scopeNote "Sheet 10-24 (R-50): in ISO/IEC 17000's terms this ruling is the decision (7.2) that fulfilment has or has not been demonstrated; 17000's determination (6.1, testing 6.2) is the fact-finding this specification calls the execute step. The ISO 9000 genus is kept as the anchor, the shift stated here and on step 5." ;
     ogc:seeAlso [ ogc:cites src:sevocab ;
-            ogc:locator "test result, p. 438" ;
+            ogc:locator "test result, p. 438 (ISO/IEC/IEEE 29119-2:2021, 3.56)" ;
             ogc:pdfPage 438 ;
             ogc:quote "indication of whether a specific test case has passed or failed, i.e. if the actual results correspond to the expected results or if deviations were observed" ;
+            ogc:quoteStatus "machine" ] .
+
+term:evaluation-record a skos:Concept ;
+    skos:altLabel "record (ISO 9000:2026 3.8.12, of one evaluation)"@en,
+        "test log"@en ;
+    skos:broadMatch src:iso-9000-2026_3.8.12 ;
+    skos:broader term:record ;
+    skos:definition "The record of one evaluation, bound by the Evaluation Process Ontology: the DSO release, the requirement set, the test plan, the probes, the sessions and their trajectories, the evidence, the attestations, the report and the recommendations, with who did what and when. The EPO determines what must be present for requirements traceability in both directions and for coverage, and makes all three checkable by machine; a conformant record therefore provides both traceability directions and coverage."@en ;
+    skos:inScheme ogc:Glossary ;
+    skos:prefLabel "evaluation record"@en ;
+    skos:related term:conformance,
+        term:evaluation-process-ontology,
+        term:requirements-traceability ;
+    prov:wasDerivedFrom rul:R-17 ;
+    ogc:anchorRelation "specializes" ;
+    ogc:binding "track/measles-evaluation.ttl; a prov:Bundle every item and agent is a member of (sheets 10-31, 10-42)" ;
+    ogc:canonical [ ogc:cites src:iso-9000-2026 ;
+            ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-23.png" ;
+            ogc:locator "3.8.12 record" ;
+            ogc:quote "document stating results achieved or providing evidence of activities performed" ;
+            ogc:quoteStatus "human" ;
+            ogc:verifiedBy rul:Z ;
+            ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
+    ogc:class "refined" ;
+    ogc:scopeNote "Ruling R-17. Downward: requirement to acceptance criteria to test plan to probes (shapes S2, S3). Upward: attestation to evidence to turn to probe to criterion to requirement (shapes S6, S8; queries/traceback.rq). Coverage: the weighted share of criteria with an attested outcome (shape S7; queries/coverage.rq)." ;
+    ogc:seeAlso [ ogc:cites src:sevocab ;
+            ogc:locator "test log, p. 436 (ISO/IEC/IEEE 24765:2017)" ;
+            ogc:pdfPage 436 ;
+            ogc:quote "chronological record of relevant details about the execution of tests" ;
             ogc:quoteStatus "machine" ] .
 
 term:evaluation-team a skos:Concept ;
@@ -13869,45 +13862,91 @@ ev:requirement-set a epo:RequirementSet ;
     ogc:inRecord ev:record ;
     ogc:synthetic true .
 
+rul:R-50 a ogc:Ruling ;
+    prov:generatedAtTime "2026-09-07"^^xsd:date ;
+    prov:wasAttributedTo rul:Z ;
+    ogc:changeNote "Sheet 10's ruling column (10-01 to 10-41; the follow-on rulings of the same walkthrough are R-51); ticks in rulings/validated.ttl; the register's ISO 9000 status and SEVOCAB retrieval note; the works cited author order. The model, ontology, shape, record and chapter changes the rulings call for follow in slices." ;
+    ogc:order 50 ;
+    ogc:resolves rul:C-56 ;
+    ogc:rulingText "Round three (sheet 10) is adjudicated item by item, and sheet 05 read one row at a time. Contract: the sponsor approves the requirement set (10-01); the report is the record's delivered export; the record is auditable and reproducible but delivered only as a special case (10-02); acceptance is the sponsor's act on receipt, recognizing completion, for which a correctly constructed record is necessary and not sufficient (10-03); the access grant carries the version identity, the period and the instrument (10-04); the agreement accepts the proposal and the statement of work, the access and the delivery are under the agreement (10-05); the sponsor has a signatory person (10-06); independence and user interest are declaration items (10-07); 17000's own reading of party holds, the sponsor second-party, the independent testing organization third-party, the co-incidence cases named (10-08); the test item provider is accountable for the test item as its provider, the predicate is providesTestItem, and the sponsor's obligation to the affected populations is not transferred (10-09). Evaluation: minPassRate is dropped for this version and weights carry a rationale and a timestamp (10-10); the report approval covers the recommendation, which rests on every attestation the coverage used or names its exclusions (10-11); appropriateness covers the assumptions and the test planning, and sufficiency relates the evidence to the claim: insufficient evidence implies cannot tell, sufficient evidence gives pass or fail (10-12); a person holds at most one actor role and any team member may represent a population (10-13); no cherry-picking: a determination is justified against all relevant evidence in the record (10-14); S5 mirrors M5 and the record states its independence level (10-15); deviations from the plan are items (10-16); the test item is bound across the record and records are linked by revision (10-17); the verdict and the coverage computation carry digests of the shapes, the ontology and the query (10-18); the ordering rules, the recomputed rates and the computed verdict are accepted as built (10-19); test driver stays, human and machine work complementary, separated in the test plan a human deems appropriate (10-20). Standards: 17000 4.10 leaves C4 for C2, with Annex A A.2 on C4 (10-21); the outer cycle names its canon per step and is performed under an agreement (10-22); attestation is refined, attesting passed, failed or cannot tell on specific evidence with supersession by later attestations (10-23); determination is refined as 17000's decision (10-24); technical expert is refined: not all technical experts attest, every attestation comes from a relevant role (10-25); the evaluation operator is anchored to tester (10-26); authorized representatives exist per organization and no canonical definition is read reversed (10-27); ISO 9000:2026 stays a preview, checked 2026-09-07 (10-28); the SEVOCAB statement is recorded as printed (10-29); mission's obligations towards the affected populations are marked as the specification's facets of the organization's purpose (10-30). Graphs: the record becomes a PROV bundle now (10-31); the register and the model vocabularies are declared with headers (10-32); the term map is realized in the model graph and the step derived from it now (10-33); the PROV subproperty on actsOnBehalfOf is dropped (10-34); the w3id namespace is assumed to merge (10-35); report and recommendation become terms and the machines and roles one paragraph (10-36); the retired word stays paraphrased (10-37); the site carries its version and commit (10-38); the gate prints a failing step's cause (10-39); sources carry BibTeX keys and shapes their counterexamples (10-40); the conformance check is on the record and precedes the final report, a draft report may carry flagged gaps and a final report cannot, and the report assembler is rebuilt so (10-41). Sheet 05: B3, B9, B11, B12 and the wires W22, W30, W32, W34, W35, W36, W39 are validated; B8 awaits its rebuild, and concern C-30 narrows to it. The works cited name Hollek and Zargham for the SciPy 2026 session, Hollek first." ;
+    ogc:verbatim """10-01: (a) Sponsor approves the requirement set (Recommended)
+10-02: "the report is the delivered export from the record. the full record is not delivered but the report is an export from the record that fulfills the obligations of the contract. the full record is independently auditable and the methods are reproducible. however access to the full record rather than the exported report (which may be an interactive dashboard) is a special case. there may be special cases where the full record is published but that is not assumed."
+10-03: "strictly speaking the sponsor will review and accept their deliverables per standard practice. this is a contract loop activity that recognizes the competion of the contracts obligations. correctly constructed record is necessary but not sufficient for acceptance because acceptance is an act reserved for the sponsor upon reciept of the deliverables"
+10-04: (a) Version, period, instrument; environment as text (Recommended)
+10-28: (b) still a preview, checked 2026-09-07. 10-29: statement as printed (screenshot), 2026-09-07.
+10-05: (a) Link them, keep the statement of work at C3 (Recommended)
+10-06: (a) A sponsor signatory person (Recommended)
+10-07: (a) Two declaration items (Recommended)
+10-08: (a) The standard's reading (Recommended)
+10-09: (a) providesTestItem, and the obligation is not transferred (Recommended)
+10-10: (a) Drop minPassRate; rationale and timestamps on weights (Recommended)
+10-11: (a) The approval covers the recommendation; all attestations or named exclusions (Recommended)
+10-12: "appropriateness is used to cover assumptions and test planning; it doesn't matter how much evidence you collect if your plan or strategy and associated assumptions are not appropriate for what they aim to determine. 
+
+sufficiency relates evidence backing up a claim that a requirement is met or not. insufficient evidence implies decision is cannot tell. we can have sufficient evidence resulting in either a pass or fail."
+10-13: (a) S0-Roles; any team member may represent (Recommended)
+10-14: "no cherry picking you need to justify your determination accounting for all relevant evidence in the record. 
+
+i am unclear on what a mutation is since in principle the record is append only"
+10-15: (a) S5 mirrors M5, and an independence level on the record (Recommended)
+10-16: (a) PlanDeviation items, required by shape (Recommended)
+10-17: (a) Bind the test item across the record; revisions between records (Recommended)
+10-18: (a) Digests on the verdict and the coverage computation (Recommended)
+10-20: "operator is responsible for the human roles in the test plan but there is machine work and a test driver does drive, the human and machine aspects are assumed to be complementary and the record always tracks who did what but we don't explicitly privilege the human or the machine a priori; exact separation of responsibility lives in the test plan. a human must deem the test plan appropriate for what its testing"
+10-21 (first pass): "i need further clarification, i am not clear on what we mean by applicant"
+10-21 (clarified: applicant = the sponsor asking for the service): (a) Drop 4.10 from C4; keep it on C2; cite Annex A A.2 Selection on C4 (Recommended)
+10-22: (a) Name the actual canon per step; performed under an agreement (Recommended)
+10-23: "scope note states the extension and we're explicitly using EARL so you can attest pass/fail/cannot tell. these are conditioned on specific evidence, new attestations can supercede old attestations if more evidence is secured"
+10-24: (a) Determination refined, with the shift stated (Recommended)
+10-25: "not all technical experts attest but all attestation must come from relevant roles, in this case a technical expert."
+10-26: (a) SEVOCAB tester if the export defines it, else NIST AI 700-2 Tester; 12207 operator as seeAlso (Recommended)
+10-27: "there are multiple authorized representatives since they exist on a per organization basis; avoid reversal of canonical definitions"
+10-30: "you can mark the addition but be clear that these obligations toward affected populations would come from the organizations purpose. its not a separate idea, its drawing out the relevant facets"
+10-31: (b) The bundle now
+10-32: (a) register.ttl and ogm.ttl with headers (Recommended)
+10-33: "realize the term map now and derive step now"
+10-34: (a) Drop the subproperty axiom, keep a plain epo property (Recommended)
+10-35: "i made the pull request to w3id for the og-caie namespace. it hasn't merged yet but can we work under the assumption it will be"
+10-36: (a) Entries for report and recommendation; the machines and roles in one paragraph (Recommended)
+10-38: (a) Version and commit in the front-page footer; CITATION.cff at v0.3.0 when tagged (Recommended)
+10-40: (a) ogc:bibkey on sources and ogc:counterexample on shapes (Recommended)
+The works cited (Z, earlier on 2026-09-07): citation 20 "Zargham, & Hollek. (2026). Building Scientific Approaches to Generative AI. Birds-of-a-Feather session, SciPy 2026." should be Hollek and Zargham. reverse the author order for that one. Julie was first author
+B11 TestDriver: Validated
+W22 probeRecordSeam: "probes by definition occur as part of test plans and the probe and its measured response both must be captured as part of the record. though often the individual probe-response measurement pairs will be part of larger data sets which will be analyzed in order to make determinations. that said i want you to be very careful about mixing abstractions probes and measured responses are the smallest units of data we account for and we leave them intentionally abstract"
+W22: Validated (on the abstraction understanding). W34 responseSeam: Validated
+B12 TestItem: Validated
+B8 ReportAssembler (NOT ticked; reorder ruled): "the record is what has a conformance check. conformance is a prerequisite for compiling the final report. a draft report can be produced even if it has gaps in traceability or coverage but those gaps must be flagged and the report cannot be final with gaps because it will fail on conformance according to our correct by construction rule that uses shacl to check bidirectional traceability and coverage"
+W39: Validated as the wire; the verdict's subject becomes the record. W30: Validated""" .
+
 rul:plan-walkthrough-2026-09-05 a prov:Activity ;
     rdfs:label "plan-mode walkthrough of the open concerns, 2026-09-05 (Claude Code AskUserQuestion popups; Z selected one option per concern)" ;
     prov:endedAtTime "2026-09-05"^^xsd:date ;
     prov:wasAssociatedWith rul:Z .
 
-term:evaluation-customer a skos:Concept ;
-    skos:altLabel "customer (ISO 9000:2026 3.9.1, of the evaluation)"@en,
-        "sponsor"@en,
-        "sponsor organization"@en ;
-    skos:broadMatch src:iso-9000-2026_3.9.1 ;
-    skos:broader term:customer ;
-    skos:definition "The organization that receives the evaluation as a service: the sponsor. It states its mission and its need, agrees the requirement set with the testing organization under a contract, decides the statement of work, and receives and accepts the report and the recommendation. It may also be the test item customer, and it may commission the evaluation on behalf of affected populations who are, or who are affected by, the test item's customers."@en ;
+term:authorized-representative a skos:Concept ;
+    skos:altLabel "account executive"@en ;
+    skos:closeMatch src:sevocab_acceptance ;
+    skos:definition "The person who signs the contract for the testing organization and delivers the report and the recommendation to the sponsor: the organization's interface with its contractual counterparties. The authorized representative is not responsible for the determinations in the report; those belong to the technical experts, and the representative makes no determination and no attestation. An abstract actor category, filled by exactly one named person in each evaluation."@en ;
     skos:inScheme ogc:Glossary ;
-    skos:prefLabel "evaluation customer"@en ;
+    skos:prefLabel "authorized representative"@en ;
     skos:related term:contract,
         term:evaluation-service-provider,
-        term:mission,
-        term:second-party-conformity-assessment-activity,
-        term:statement-of-work,
-        term:test-item-customer ;
-    prov:wasDerivedFrom rul:R-21,
-        rul:R-48 ;
-    ogc:anchorRelation "specializes" ;
-    ogc:binding "epo:EvaluationCustomerRole; epo:sponsorRole on the service agreement, the statement of work, the delivery and the acceptance; epo:actsOnBehalfOf the affected populations; sysml part def SponsorOrganization" ;
-    ogc:canonical [ ogc:cites src:iso-9000-2026 ;
-            ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-24.png" ;
-            ogc:locator "3.9.1 customer" ;
-            ogc:quote "person or organization that can or does receive a product or a service that is intended for or required by this person or organization" ;
-            ogc:quoteStatus "human" ;
-            ogc:verifiedBy rul:Z ;
-            ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
+        term:evaluation-team ;
+    prov:wasDerivedFrom rul:R-23,
+        rul:R-48,
+        rul:R-49,
+        rul:R-50 ;
+    ogc:anchorRelation "corresponds" ;
+    ogc:binding "epo:AuthorizedRepresentativeRole; epo:authorizedRepresentativeRole on the service agreement and the delivery; sysml part def AuthorizedRepresentative" ;
+    ogc:canonical [ ogc:cites src:sevocab ;
+            ogc:locator "acceptance, p. 4 (ISO/IEC/IEEE 24748-5:2017, 3.1) (fragment of the entry)" ;
+            ogc:pdfPage 4 ;
+            ogc:quote "authorized representative of the acquirer" ;
+            ogc:quoteStatus "machine" ] ;
     ogc:class "refined" ;
-    ogc:scopeNote "Tbox audit (sheet 08, on Z's instruction): the customer of the evaluation service, distinguished explicitly from the customer of the AI system under test. Ruling R-21 introduced the party under the headword customer. When the sponsor is not the test item provider, its position is that of a second party in ISO/IEC 17000's sense." ;
+    ogc:scopeNote "Sheet 09 (block B1) and the tbox audit (sheet 08): the headword account executive becomes authorized representative, kept as the alternative label; SEVOCAB's acceptance entry names the authorized representative of the acquirer, and here the phrase is read for the provider's side, the person authorized to sign and deliver for the testing organization. The earlier anchor, ISO 9000:2026 3.1.3 top management, leaves. Concern C-26 (the anchor was provisional) is answered by this entry and closed by ruling R-49, which records the renaming. Z on the role: not responsible for the determination in the report; the interface for the organization with its contractual counterparties. The term's IRI kept its former local name until 2026-09-07, when Z, ticking W15, asked for the identifiers to follow the headword: the part def, the role individual and the term IRI are now authorized representative's (R-51). Sheet 10-27 (R-50): authorized representatives exist per organization, so there are several in one evaluation; this term names the testing organization's, the acquirer's own is the sponsor's signatory (sheet 10-06), and no canonical definition is read reversed: SEVOCAB's phrase is cited as the standard's word for the role an organization's representative holds, whichever side signs. Z: \"there are multiple authorized representatives since they exist on a per organization basis; avoid reversal of canonical definitions\"." ;
     ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ;
-            ogc:locator "4.4 second-party conformity assessment activity" ;
-            ogc:quote "conformity assessment activity that is performed by a person or organization that has a user interest in the object of conformity assessment" ;
-            ogc:quoteStatus "human" ;
-            ogc:verifiedBy rul:Z ;
-            ogc:verifiedOn "2026-09-06"^^xsd:date ] .
+            ogc:locator "4.3 first-party conformity assessment activity, Note 1 (the descriptors are not the legal identification of the parties to a contract)" ] .
 
 term:evaluation-service-provider a skos:Concept ;
     skos:altLabel "provider (ISO 9000:2026 3.1.9, of the evaluation)"@en,
@@ -13959,7 +13998,7 @@ term:statement-of-work a skos:Concept ;
     prov:wasDerivedFrom rul:R-40 ;
     ogc:binding "sysml item def StatementOfWork, port def StatementOfWorkWrite, seams statementOfWorkSeam and statementOfWorkToExecutiveSeam; epo:StatementOfWork with epo:decides engagement decisions" ;
     ogc:canonical [ ogc:cites src:sevocab ;
-            ogc:locator "statement of work, p. 406" ;
+            ogc:locator "statement of work, p. 406 (ISO/IEC 33202:2024, 3.25)" ;
             ogc:pdfPage 406 ;
             ogc:quote "statement of the expected outcomes and outline of the work required to achieve the outcomes" ;
             ogc:quoteStatus "machine" ] ;
@@ -14028,7 +14067,7 @@ term:test-plan a skos:Concept ;
     prov:wasDerivedFrom rul:R-12 ;
     ogc:binding "epo:TestPlan, a prov:Entity; sysml item def TestPlan" ;
     ogc:canonical [ ogc:cites src:sevocab ;
-            ogc:locator "test plan, p. 437" ;
+            ogc:locator "test plan, p. 437 (ISO/IEC/IEEE 29119-2:2021, 3.50)" ;
             ogc:pdfPage 437 ;
             ogc:quote "detailed description of test objectives to be achieved and the means and schedule for achieving them, organized to coordinate testing activities for some test item or set of test items" ;
             ogc:quoteStatus "machine" ] ;
@@ -14065,7 +14104,7 @@ ev:a3 a epo:AcceptanceCriterion ;
     ogc:synthetic true .
 
 ev:test-plan a epo:TestPlan ;
-    rdfs:label "test plan: twelve questions in four sessions of three turns, one session each on the bus to work, a sick child and an exposed household, and a fourth, place by place, to run only if the first leaves the enclosed-space criterion unclear; every criterion an objective" ;
+    rdfs:label "test plan: twelve questions in four sessions of three turns, one session each on the bus to work, a sick child and an exposed household, and a fourth, place by place, to run only if the first leaves the enclosed-space criterion unclear; every criterion an objective; the driver derives the questions, Theo asks them" ;
     prov:generatedAtTime "2026-08-03T10:00:00+00:00"^^xsd:dateTime ;
     prov:wasAttributedTo ev:theo ;
     prov:wasDerivedFrom ev:dso-apollo-sv-r1,
@@ -14111,7 +14150,7 @@ src:jcgm-200-2012 a prov:Entity,
 
 src:sebok-2-14 a prov:Entity,
         ogc:Source ;
-    rdfs:label "Guide to the Systems Engineering Body of Knowledge (SEBoK) v2.14" ;
+    rdfs:label "Guide to the Systems Engineering Body of Knowledge (SEBoK) v2.14, released 18 May 2026" ;
     ogc:bibkey "sebok-2-14" ;
     ogc:digest "sources/digests/sebok-2-14.md" ;
     ogc:kind "pdf" ;
@@ -14121,30 +14160,6 @@ src:sebok-2-14 a prov:Entity,
     ogc:snapshot [ ogc:contentHash "251668f0ed4eca5a7c36755c6c56a07d663ef8a2bd66addd41e595eabcf0dce2" ;
             ogc:file "sources/local/pdf/sebok-v2.14.pdf" ] ;
     ogc:url <https://sebokwiki.org/> .
-
-term:attestation a skos:Concept ;
-    skos:altLabel "annotation"@en ;
-    skos:broadMatch src:iso-iec-17000-2020_7.3 ;
-    skos:definition "The recorded judgment of a named person that links one acceptance criterion to the evidence reviewed and records an outcome, together with the judgments of appropriateness of the declared context and sufficiency of the evidence."@en ;
-    skos:inScheme ogc:Glossary ;
-    skos:prefLabel "attestation"@en ;
-    skos:related term:appropriateness,
-        term:conformity,
-        term:determination,
-        term:outcome,
-        term:sufficiency,
-        term:validation ;
-    prov:wasDerivedFrom rul:R-50 ;
-    ogc:anchorRelation "specializes" ;
-    ogc:binding "epo:Attestation, an earl:Assertion and a prov:Activity; aggregates the determinations for a criterion, each bound to its evidence and through it to the test plan" ;
-    ogc:canonical [ ogc:cites src:iso-iec-17000-2020 ;
-            ogc:locator "7.3" ;
-            ogc:quote "issue of a statement, based on a decision, that fulfilment of specified requirements has been demonstrated" ;
-            ogc:quoteStatus "human" ;
-            ogc:verifiedBy rul:Z ;
-            ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
-    ogc:class "refined" ;
-    ogc:scopeNote "Sheet 10-23 (R-50): ISO/IEC 17000's attestation is the positive statement that fulfilment has been demonstrated, the negative case being a decision (7.2). This specification extends it: with EARL, an attestation records passed, failed or cannot tell, conditioned on specific evidence, and a new attestation may supersede an old one when more evidence is secured. Z: \"scope note states the extension and we're explicitly using EARL so you can attest pass/fail/cannot tell. these are conditioned on specific evidence, new attestations can supercede old attestations if more evidence is secured\"." .
 
 term:domain-specific-ontology a skos:Concept ;
     skos:altLabel "DSO"@en ;
@@ -14204,7 +14219,7 @@ term:expected-results a skos:Concept ;
     prov:wasDerivedFrom rul:R-12 ;
     ogc:binding "epo:expectedResult on AcceptanceCriterion; sysml attribute expectedResultStated" ;
     ogc:canonical [ ogc:cites src:sevocab ;
-            ogc:locator "expected results, p. 160" ;
+            ogc:locator "expected results, p. 160 (ISO/IEC/IEEE 29119-4:2021, 3.32)" ;
             ogc:pdfPage 160 ;
             ogc:quote "observable predicted behavior of the test item under specified conditions based on its specification or another source" ;
             ogc:quoteStatus "machine" ] ;
@@ -14286,6 +14301,65 @@ rul:R-13 a ogc:Ruling ;
     ogc:rulingText "The eight-term package is adopted as proposed: session and dialogue (NIST); trajectory, with the output-feedback anchor for the policy (IEC 60050-351); test strategy (ISO/IEC/IEEE 29119-2); non-deterministic system (29119-11); repeatability, reproducibility and measurement uncertainty (VIM, NIST TN 1297). Session and Turn enter the record; a Strategy is a plan's means; the chain rule is extended accordingly." ;
     ogc:verbatim "Adopt the eight-term package as proposed: session, dialogue (NIST); trajectory, output-feedback anchor for the policy (IEC 60050-351); test strategy (29119-2); non-deterministic system (29119-11); repeatability, reproducibility, measurement uncertainty (VIM, NIST TN 1297). Session and Turn in the record; Strategy as a plan's means; chain rule extended." .
 
+term:attestation a skos:Concept ;
+    skos:altLabel "annotation"@en ;
+    skos:broadMatch src:iso-iec-17000-2020_7.3 ;
+    skos:definition "The recorded judgment of a named person that links one acceptance criterion to the evidence reviewed and records an outcome, together with the judgments of appropriateness of the declared context and sufficiency of the evidence."@en ;
+    skos:inScheme ogc:Glossary ;
+    skos:prefLabel "attestation"@en ;
+    skos:related term:appropriateness,
+        term:conformity,
+        term:determination,
+        term:outcome,
+        term:sufficiency,
+        term:validation ;
+    prov:wasDerivedFrom rul:R-50 ;
+    ogc:anchorRelation "specializes" ;
+    ogc:binding "epo:Attestation, an earl:Assertion and a prov:Activity; aggregates the determinations for a criterion, each bound to its evidence and through it to the test plan" ;
+    ogc:canonical [ ogc:cites src:iso-iec-17000-2020 ;
+            ogc:locator "7.3" ;
+            ogc:quote "issue of a statement, based on a decision, that fulfilment of specified requirements has been demonstrated" ;
+            ogc:quoteStatus "human" ;
+            ogc:verifiedBy rul:Z ;
+            ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
+    ogc:class "refined" ;
+    ogc:scopeNote "Sheet 10-23 (R-50): ISO/IEC 17000's attestation is the positive statement that fulfilment has been demonstrated, the negative case being a decision (7.2). This specification extends it: with EARL, an attestation records passed, failed or cannot tell, conditioned on specific evidence, and a new attestation may supersede an old one when more evidence is secured. Z: \"scope note states the extension and we're explicitly using EARL so you can attest pass/fail/cannot tell. these are conditioned on specific evidence, new attestations can supercede old attestations if more evidence is secured\"." .
+
+term:evaluation-customer a skos:Concept ;
+    skos:altLabel "customer (ISO 9000:2026 3.9.1, of the evaluation)"@en,
+        "sponsor"@en,
+        "sponsor organization"@en ;
+    skos:broadMatch src:iso-9000-2026_3.9.1 ;
+    skos:broader term:customer ;
+    skos:definition "The organization that receives the evaluation as a service: the sponsor. It states its mission and its need, agrees the requirement set with the testing organization under a contract, decides the statement of work, and receives and accepts the report and the recommendation. It may also be the test item customer, and it may commission the evaluation on behalf of affected populations who are, or who are affected by, the test item's customers."@en ;
+    skos:inScheme ogc:Glossary ;
+    skos:prefLabel "evaluation customer"@en ;
+    skos:related term:contract,
+        term:evaluation-service-provider,
+        term:mission,
+        term:second-party-conformity-assessment-activity,
+        term:statement-of-work,
+        term:test-item-customer ;
+    prov:wasDerivedFrom rul:R-21,
+        rul:R-48 ;
+    ogc:anchorRelation "specializes" ;
+    ogc:binding "epo:EvaluationCustomerRole; epo:sponsorRole on the service agreement, the statement of work, the delivery and the acceptance; epo:actsOnBehalfOf the affected populations; sysml part def SponsorOrganization" ;
+    ogc:canonical [ ogc:cites src:iso-9000-2026 ;
+            ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-24.png" ;
+            ogc:locator "3.9.1 customer" ;
+            ogc:quote "person or organization that can or does receive a product or a service that is intended for or required by this person or organization" ;
+            ogc:quoteStatus "human" ;
+            ogc:verifiedBy rul:Z ;
+            ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
+    ogc:class "refined" ;
+    ogc:scopeNote "Tbox audit (sheet 08, on Z's instruction): the customer of the evaluation service, distinguished explicitly from the customer of the AI system under test. Ruling R-21 introduced the party under the headword customer. When the sponsor is not the test item provider, its position is that of a second party in ISO/IEC 17000's sense." ;
+    ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ;
+            ogc:locator "4.4 second-party conformity assessment activity" ;
+            ogc:quote "conformity assessment activity that is performed by a person or organization that has a user interest in the object of conformity assessment" ;
+            ogc:quoteStatus "human" ;
+            ogc:verifiedBy rul:Z ;
+            ogc:verifiedOn "2026-09-06"^^xsd:date ] .
+
 term:objective-evidence a skos:Concept ;
     skos:altLabel "evidence"@en ;
     skos:definition "Data that supports the existence or truth of something. Here, what is collected as the basis for a determination: a response at one turn, a session's trajectory, or several of them rolled up over a test suite, as in a robustness battery. Each evidence item bears on one acceptance criterion's expected result and is bound to the test plan it was collected under. Evidence is the domain; the determination made on it, passed, failed or cannot tell, is the codomain. On its own evidence verifies nothing; a determination rules on it and an attestation judges it."@en ;
@@ -14310,7 +14384,7 @@ term:objective-evidence a skos:Concept ;
     ogc:class "adopted" ;
     ogc:scopeNote "Rulings R-18 and R-20: evidence exists at probe, session or suite level and maps to an expected result; it is the domain, and the determination on it is the codomain." ;
     ogc:seeAlso [ ogc:cites src:sevocab ;
-            ogc:locator "objective evidence, p. 277" ;
+            ogc:locator "objective evidence, p. 277 (ISO/IEC 33001:2015, 3.2.13)" ;
             ogc:pdfPage 277 ;
             ogc:quote "data supporting the existence or verity of something" ;
             ogc:quoteStatus "machine" ] .
@@ -14389,50 +14463,6 @@ ev:a2 a epo:AcceptanceCriterion ;
     ogc:inRecord ev:record ;
     ogc:synthetic true .
 
-term:contract a skos:Concept ;
-    skos:altLabel "agreement"@en,
-        "service agreement"@en ;
-    skos:definition "The binding agreement between the sponsor organization and the testing organization to perform OG-CAIE as a service. It is signed for the sponsor by its signatory and for the testing organization by its authorized representative, precedes the requirement set and follows the mission, the need and the proposal in the record."@en ;
-    skos:exactMatch src:iso-9000-2026_3.3.13 ;
-    skos:inScheme ogc:Glossary ;
-    skos:prefLabel "contract"@en ;
-    skos:related term:authorized-representative,
-        term:evaluation-customer,
-        term:evaluation-service-provider,
-        term:statement-of-work ;
-    prov:wasDerivedFrom rul:R-21 ;
-    ogc:binding "sysml item def ServiceAgreement; epo:ServiceAgreement, signed by the sponsor and the authorized representative" ;
-    ogc:canonical [ ogc:cites src:iso-9000-2026 ;
-            ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-38.png" ;
-            ogc:locator "3.3.13" ;
-            ogc:quote "binding agreement" ;
-            ogc:quoteStatus "human" ;
-            ogc:verifiedBy rul:Z ;
-            ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
-    ogc:class "adopted" ;
-    ogc:scopeNote "Ruling R-27 closed concern C-24: the 2026 wording (3.3.13) is the 2015 wording (3.4.7), captured as screenshot 38. Ruling R-21 calls the agreement a contract to perform the OG-CAIE as a service." .
-
-term:test-coverage a skos:Concept ;
-    skos:altLabel "coverage"@en ;
-    skos:definition "How much of the declared acceptance criteria the evaluation actually reached, as a share weighted by deployment sensitivity. It says how much was evaluated, not how well the system did."@en ;
-    skos:exactMatch src:sevocab_test-coverage ;
-    skos:inScheme ogc:Glossary ;
-    skos:prefLabel "test coverage"@en ;
-    skos:related term:acceptance-criteria,
-        term:deployment-sensitivity,
-        term:performance,
-        term:requirements-traceability,
-        term:risk-based-testing ;
-    prov:wasDerivedFrom rul:R-01 ;
-    ogc:binding "queries/coverage.rq; epo:Report coverage" ;
-    ogc:canonical [ ogc:cites src:sevocab ;
-            ogc:locator "test coverage, p. 433" ;
-            ogc:pdfPage 433 ;
-            ogc:quote "degree, expressed as a percentage, to which specified test coverage items have been exercised by a test case or test cases" ;
-            ogc:quoteStatus "machine" ] ;
-    ogc:class "adopted" ;
-    ogc:scopeNote "Ruling R-01: coverage relates requirements to the abstract tests that cover them. The acceptance criterion is the coverage item and the probe is the test case; the concrete applications of a probe during a case produce evidence, which is rolled up by attestation. Coverage counts criteria with an attested outcome; it does not count evidence." .
-
 elmt:OGCAIE__ContractingProcess__deliver a sysml:ActionUsage ;
     ogm:realizes epo:deliver ;
     sysml:declaredName "deliver" ;
@@ -14473,6 +14503,29 @@ ev:derivation-1 a epo:ProbeDerivation ;
     ogc:inRecord ev:record ;
     ogc:synthetic true .
 
+term:contract a skos:Concept ;
+    skos:altLabel "agreement"@en,
+        "service agreement"@en ;
+    skos:definition "The binding agreement between the sponsor organization and the testing organization to perform OG-CAIE as a service. It is signed for the sponsor by its signatory and for the testing organization by its authorized representative, precedes the requirement set and follows the mission, the need and the proposal in the record."@en ;
+    skos:exactMatch src:iso-9000-2026_3.3.13 ;
+    skos:inScheme ogc:Glossary ;
+    skos:prefLabel "contract"@en ;
+    skos:related term:authorized-representative,
+        term:evaluation-customer,
+        term:evaluation-service-provider,
+        term:statement-of-work ;
+    prov:wasDerivedFrom rul:R-21 ;
+    ogc:binding "sysml item def ServiceAgreement; epo:ServiceAgreement, signed by the sponsor and the authorized representative" ;
+    ogc:canonical [ ogc:cites src:iso-9000-2026 ;
+            ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-38.png" ;
+            ogc:locator "3.3.13" ;
+            ogc:quote "binding agreement" ;
+            ogc:quoteStatus "human" ;
+            ogc:verifiedBy rul:Z ;
+            ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
+    ogc:class "adopted" ;
+    ogc:scopeNote "Ruling R-27 closed concern C-24: the 2026 wording (3.3.13) is the 2015 wording (3.4.7), captured as screenshot 38. Ruling R-21 calls the agreement a contract to perform the OG-CAIE as a service." .
+
 term:stakeholder a skos:Concept ;
     skos:altLabel "interested party"@en ;
     skos:definition "A person or organization that can affect, be affected by, or believe itself affected by a decision or activity. The parties (the sponsor, the testing organization, the test item provider), the people who act for them, and the affected populations are the stakeholders named in this specification; customers and providers are kinds of interested party in the standard's own examples."@en ;
@@ -14495,10 +14548,31 @@ term:stakeholder a skos:Concept ;
             ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:class "adopted" ;
     ogc:seeAlso [ ogc:cites src:sevocab ;
-            ogc:locator "stakeholder, p. 403" ;
+            ogc:locator "stakeholder, p. 403 (ISO/IEC/IEEE 12207:2026, 3.1.59; 15288:2023, 3.44)" ;
             ogc:pdfPage 403 ;
             ogc:quote "individual or organization having a right, share, claim, or interest in a system or in its possession of characteristics that meet their needs and expectations" ;
             ogc:quoteStatus "machine" ] .
+
+term:test-coverage a skos:Concept ;
+    skos:altLabel "coverage"@en ;
+    skos:definition "How much of the declared acceptance criteria the evaluation actually reached, as a share weighted by deployment sensitivity. It says how much was evaluated, not how well the system did."@en ;
+    skos:exactMatch src:sevocab_test-coverage ;
+    skos:inScheme ogc:Glossary ;
+    skos:prefLabel "test coverage"@en ;
+    skos:related term:acceptance-criteria,
+        term:deployment-sensitivity,
+        term:performance,
+        term:requirements-traceability,
+        term:risk-based-testing ;
+    prov:wasDerivedFrom rul:R-01 ;
+    ogc:binding "queries/coverage.rq; epo:Report coverage" ;
+    ogc:canonical [ ogc:cites src:sevocab ;
+            ogc:locator "test coverage, p. 433 (ISO/IEC/IEEE 29119-2:2021, 3.28)" ;
+            ogc:pdfPage 433 ;
+            ogc:quote "degree, expressed as a percentage, to which specified test coverage items have been exercised by a test case or test cases" ;
+            ogc:quoteStatus "machine" ] ;
+    ogc:class "adopted" ;
+    ogc:scopeNote "Ruling R-01: coverage relates requirements to the abstract tests that cover them. The acceptance criterion is the coverage item and the probe is the test case; the concrete applications of a probe during a case produce evidence, which is rolled up by attestation. Coverage counts criteria with an attested outcome; it does not count evidence." .
 
 elmt:OGCAIE__EvaluationProcess__execute a sysml:ActionUsage ;
     ogm:realizes epo:execute ;
@@ -14610,7 +14684,7 @@ ev:pyshacl a prov:Agent,
     ogc:synthetic true .
 
 ev:dso-apollo-sv-r1 a epo:DsoRelease ;
-    rdfs:label "Apollo-SV (OBO Foundry) plus the Clark County 2019 outbreak facts, release r1" ;
+    rdfs:label "the standard vocabulary of infectious-disease epidemiology (Apollo-SV) plus the facts of the 2019 Clark County outbreak, release r1" ;
     prov:generatedAtTime "2026-08-01T09:00:00+00:00"^^xsd:dateTime ;
     prov:wasAttributedTo ev:annie ;
     epo:approvedBy ev:annie ;
@@ -14779,7 +14853,7 @@ elmt:OGCAIE__OgCaieEvaluation__testingOrg a sysml:PartUsage ;
 
 src:sevocab a prov:Entity,
         ogc:Source ;
-    rdfs:label "IEEE Computer Society, Software and Systems Engineering Vocabulary (SEVOCAB), PDF export (481 pp.)" ;
+    rdfs:label "IEEE Computer Society, Software and Systems Engineering Vocabulary (SEVOCAB), PDF export created 2026-09-02 (481 pp.)" ;
     ogc:bibkey "sevocab" ;
     ogc:digest "sources/digests/sevocab.md" ;
     ogc:kind "pdf" ;
@@ -14787,7 +14861,7 @@ src:sevocab a prov:Entity,
     ogc:permissionStatement "Copyright © 2021 IEEE. Used by permission." ;
     ogc:posture "heldLocally" ;
     ogc:rank "2" ;
-    ogc:retrievalNote "The statement as printed under every SEVOCAB entry, checked by Z on 2026-09-07 (sheet 10-29): \"This definition is copyrighted ©, 2021 by the IEEE. The reader is granted permission to copy the definition as long as the statement \"Copyright©, 2021, IEEE. Used by permission.\" remains with the definition. All other rights are reserved.\" and \"Copyright © 2021 ISO/IEC. In accordance with ISO/IEC JTC 1/SC 7 N2882 and N2930, this definition is made publicly available. Permission is granted to copy the definition providing that its source is cited.\" The year 2021 is the statement's own; the entries carry the dates of the standards they come from, up to 2026." ;
+    ogc:retrievalNote "PDF export created 2026-09-02 (the file's own creation date), held locally by content hash. The statement as printed under every SEVOCAB entry, checked by Z on 2026-09-07 (sheet 10-29): \"This definition is copyrighted ©, 2021 by the IEEE. The reader is granted permission to copy the definition as long as the statement \"Copyright©, 2021, IEEE. Used by permission.\" remains with the definition. All other rights are reserved.\" and \"Copyright © 2021 ISO/IEC. In accordance with ISO/IEC JTC 1/SC 7 N2882 and N2930, this definition is made publicly available. Permission is granted to copy the definition providing that its source is cited.\" The year 2021 is the statement's own; the entries carry the dates of the standards they come from, up to 2026." ;
     ogc:snapshot [ ogc:contentHash "f6351ba98335af2e9c5c7e70ee09140721dd19da9693bbfef8bd4803cf71f0ee" ;
             ogc:file "sources/local/pdf/sevocab.pdf" ] ;
     ogc:url <https://www.computer.org/sevocab> .
@@ -14803,7 +14877,7 @@ elmt:OGCAIE a sysml:Package ;
 ev:record a prov:Bundle,
         prov:Entity ;
     rdfs:label "the measles evaluation" ;
-    skos:note "A synthetic case for a simplified walkthrough of the process: the names recognise real roles at Humane Intelligence, and no judgment or signature here was made by them. The county health officer is invented (ruling R-23)." ;
+    skos:note "A synthetic case for a simplified walkthrough of the process: the names recognise real roles at Humane Intelligence, and no judgment or signature here was made by them. The county health officer and the vendor are invented." ;
     epo:independenceLevel epo:person ;
     ogc:synthetic true .
 

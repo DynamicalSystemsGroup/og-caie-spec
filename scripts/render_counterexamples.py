@@ -160,8 +160,8 @@ COUNTEREXAMPLES: dict[str, dict] = {
     "statement-of-work-after-agreement": dict(
         shapes=["S0-StatementOfWork"],
         fault="the statement of work is dated the day after the agreement it is under: the scope is settled no later than the signature (sheet 10-05).",
-        replace=[("    epo:decides ev:engagement-commuters ; epo:decides ev:engagement-residents ;\n    prov:wasAttributedTo ev:county-public-health-office ;\n    prov:generatedAtTime \"2026-07-31T10:00:00Z\"",
-                  "    epo:decides ev:engagement-commuters ; epo:decides ev:engagement-residents ;\n    prov:wasAttributedTo ev:county-public-health-office ;\n    prov:generatedAtTime \"2026-08-01T10:00:00Z\"")]),
+        replace=[("    epo:decides ev:engagement-commuters ; epo:decides ev:engagement-residents ;\n    prov:wasAttributedTo ev:dana-okafor ;\n    prov:generatedAtTime \"2026-07-31T10:00:00Z\"",
+                  "    epo:decides ev:engagement-commuters ; epo:decides ev:engagement-residents ;\n    prov:wasAttributedTo ev:dana-okafor ;\n    prov:generatedAtTime \"2026-08-01T10:00:00Z\"")]),
     "item-outside-record": dict(
         shapes=["S0-Member"],
         fault="probe-1 is a member of no record: an item outside every bundle escapes the constraints anchored on the record (sheet 10-31).",

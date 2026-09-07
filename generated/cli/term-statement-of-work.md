@@ -12,7 +12,7 @@ $ uv run -q ogc term 'statement of work'
 class: adopted
 also: SOW; scope of work
 canonical:
-  sevocab (rank 2, heldLocally) statement of work, p. 406  [machine]
+  sevocab (rank 2, heldLocally) statement of work, p. 406 (ISO/IEC 33202:2024, 3.25)  [machine]
     "statement of the expected outcomes and outline of the work required to achieve the
     outcomes"
 scope note:

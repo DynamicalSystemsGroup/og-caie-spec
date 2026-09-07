@@ -12,6 +12,7 @@
 | AuthorizedRepresentative | agreementOut | out | AgreementWrite | countersignSeam | to Recorder.agreementIn |
 | AuthorizedRepresentative | deliveryOut | out | DeliveryWrite | deliveryRecordSeam | to Recorder.deliveryIn |
 | AuthorizedRepresentative | deliveryOut | out | DeliveryWrite | deliverySeam | to SponsorOrganization.deliveryIn |
+| AuthorizedRepresentative | independenceDeclarationOut | out | IndependenceDeclarationWrite | independenceDeclarationSeam | to Recorder.independenceDeclarationIn |
 | AuthorizedRepresentative | proposalOut | out | ProposalWrite | proposalSeam | to Recorder.proposalIn |
 | AuthorizedRepresentative | proposalOut | out | ProposalWrite | proposalToSponsorSeam | to SponsorOrganization.proposalIn |
 | EvaluationOperator | accessIn | in | AccessWrite | accessToOperatorSeam | from AccountableOrganization.accessOut |
@@ -19,11 +20,13 @@
 | Recorder | accessIn | in | AccessWrite | accessSeam | from AccountableOrganization.accessOut |
 | Recorder | agreementIn | in | AgreementWrite | countersignSeam | from AuthorizedRepresentative.agreementOut |
 | Recorder | deliveryIn | in | DeliveryWrite | deliveryRecordSeam | from AuthorizedRepresentative.deliveryOut |
+| Recorder | independenceDeclarationIn | in | IndependenceDeclarationWrite | independenceDeclarationSeam | from AuthorizedRepresentative.independenceDeclarationOut |
 | Recorder | inputIn | in | StakeholderInputWrite | stakeholderInputSeam | from AffectedPopulation.inputOut |
 | Recorder | missionIn | in | MissionWrite | missionSeam | from SponsorOrganization.missionOut |
 | Recorder | needIn | in | NeedWrite | needSeam | from SponsorOrganization.needOut |
 | Recorder | proposalIn | in | ProposalWrite | proposalSeam | from AuthorizedRepresentative.proposalOut |
 | Recorder | statementOfWorkIn | in | StatementOfWorkWrite | statementOfWorkSeam | from SponsorOrganization.statementOfWorkOut |
+| Recorder | userInterestDeclarationIn | in | UserInterestDeclarationWrite | userInterestDeclarationSeam | from SponsorSignatory.userInterestDeclarationOut |
 | Representative | inputIn | in | StakeholderInputWrite | stakeholderInputToRepresentativeSeam | from AffectedPopulation.inputOut |
 | SponsorOrganization | deliveryIn | in | DeliveryWrite | deliverySeam | from AuthorizedRepresentative.deliveryOut |
 | SponsorOrganization | proposalIn | in | ProposalWrite | proposalToSponsorSeam | from AuthorizedRepresentative.proposalOut |
@@ -36,3 +39,4 @@
 | SponsorSignatory | acceptanceOut | out | AcceptanceWrite | acceptanceSeam | to Recorder.acceptanceIn |
 | SponsorSignatory | acceptanceOut | out | AcceptanceWrite | acceptanceToExecutiveSeam | to AuthorizedRepresentative.acceptanceIn |
 | SponsorSignatory | agreementOut | out | AgreementWrite | agreementSeam | to AuthorizedRepresentative.agreementIn |
+| SponsorSignatory | userInterestDeclarationOut | out | UserInterestDeclarationWrite | userInterestDeclarationSeam | to Recorder.userInterestDeclarationIn |

@@ -65,7 +65,7 @@ method. The evaluation takes them as given and cannot change them. The
 record states the level at which independence between roles is required;
 the measles evaluation is at the person level: nobody determines alone on
 evidence from a session they ran, and nobody assesses a requirement set
-they wrote. The report is the record's delivered export; the record itself
+they wrote. The {term}`report` is the record's delivered export; the record itself
 is not delivered but is independently auditable, access to it a special
 case, publication not assumed.
 Acceptance is the sponsor's act on receipt of the deliverables,
@@ -102,7 +102,7 @@ commuters, interviewed and then spoken for by Theo, and county residents,
 spoken for by Annie, the domain expert, without an interview, as the
 county's statement of work decided. After the
 evaluation, Mala delivered the final report, its approval and the
-recommendation, fit to deploy once the vaccination question is asked before
+{term}`recommendation`, fit to deploy once the vaccination question is asked before
 any advice, on 12 August, and Dana Okafor accepted for the county on 14
 August. The case is synthetic: the names are borrowed from real colleagues
 whose roles they recognise, the health officer is invented, and no

@@ -34,13 +34,13 @@
 ev:record a prov:Entity, prov:Bundle ;
     rdfs:label "the measles evaluation" ;
     epo:independenceLevel epo:person ;
-    skos:note "A synthetic case for a simplified walkthrough of the process: the names recognise real roles at Humane Intelligence, and no judgment or signature here was made by them. The county health officer is invented (ruling R-23)." .
+    skos:note "A synthetic case for a simplified walkthrough of the process: the names recognise real roles at Humane Intelligence, and no judgment or signature here was made by them. The county health officer and the vendor are invented." .
 
 # ---- parties (rulings R-21, R-23, R-50) and machines
 ev:county-public-health-office a prov:Agent, prov:Organization ; rdfs:label "county public-health office (sponsor: evaluation customer, and test item customer as the chatbot's deployer)" ;
     epo:role epo:sponsorRole ; epo:role epo:testItemCustomerRole ; epo:providesTestItem false ;
     epo:actsOnBehalfOf ev:county-residents ; epo:actsOnBehalfOf ev:commuters .
-ev:chatbot-vendor a prov:Agent, prov:Organization ; rdfs:label "chatbot vendor (test item provider)" ;
+ev:chatbot-vendor a prov:Agent, prov:Organization ; rdfs:label "Meridian Health Software, the chatbot's vendor (test item provider; an invented company)" ;
     epo:role epo:accountableOrganizationRole ; epo:providesTestItem true .
 ev:humane-intelligence a prov:Agent, prov:Organization ; rdfs:label "Humane Intelligence (testing organization: evaluation service provider)" ;
     epo:role epo:testingOrganizationRole .
@@ -109,7 +109,7 @@ ev:statement-of-work a epo:StatementOfWork ;
     rdfs:label "scope of work under the agreement: the commuters are interviewed, the county residents are represented by the domain expert" ;
     epo:underAgreement ev:service-agreement ;
     epo:decides ev:engagement-commuters ; epo:decides ev:engagement-residents ;
-    prov:wasAttributedTo ev:county-public-health-office ;
+    prov:wasAttributedTo ev:dana-okafor ;
     prov:generatedAtTime "2026-07-31T10:00:00Z"^^xsd:dateTime .
 ev:engagement-commuters a epo:EngagementDecision ;
     rdfs:label "commuters: interviewed, their needs being underdocumented" ;
@@ -149,7 +149,7 @@ ev:representation-residents a epo:StakeholderRepresentation ;
     prov:generatedAtTime "2026-08-01T08:45:00Z"^^xsd:dateTime .
 
 ev:dso-apollo-sv-r1 a epo:DsoRelease ;
-    rdfs:label "Apollo-SV (OBO Foundry) plus the Clark County 2019 outbreak facts, release r1" ;
+    rdfs:label "the standard vocabulary of infectious-disease epidemiology (Apollo-SV) plus the facts of the 2019 Clark County outbreak, release r1" ;
     epo:version "apollo-sv-r1" ;
     epo:approvedBy ev:annie ;
     prov:wasAttributedTo ev:annie ;
@@ -231,7 +231,7 @@ ev:derivation-1 a epo:ProbeDerivation ;
     prov:endedAtTime "2026-08-03T10:00:00Z"^^xsd:dateTime .
 
 ev:test-plan a epo:TestPlan ;
-    rdfs:label "test plan: twelve questions in four sessions of three turns, one session each on the bus to work, a sick child and an exposed household, and a fourth, place by place, to run only if the first leaves the enclosed-space criterion unclear; every criterion an objective" ;
+    rdfs:label "test plan: twelve questions in four sessions of three turns, one session each on the bus to work, a sick child and an exposed household, and a fourth, place by place, to run only if the first leaves the enclosed-space criterion unclear; every criterion an objective; the driver derives the questions, Theo asks them" ;
     epo:objective ev:a1 ; epo:objective ev:a2 ; epo:objective ev:a3 ; epo:objective ev:a4 ; epo:objective ev:a5 ;
     epo:means ev:probe-1 ; epo:means ev:probe-2 ; epo:means ev:probe-3 ;
     epo:means ev:probe-4 ; epo:means ev:probe-5 ; epo:means ev:probe-6 ;
@@ -605,7 +605,7 @@ ev:coverage-computation-draft a epo:CoverageComputation ;
     prov:used ev:attestation-1 ; prov:used ev:attestation-2 ; prov:used ev:attestation-3 ; prov:used ev:attestation-4 ; prov:used ev:attestation-5 ;
     prov:wasAssociatedWith ev:report-assembler ;
     earl:mode earl:automatic ;
-    epo:shapesDigest "386c1e1265f2cebf3dadc8445efe4f4677eb7abd420b2c7b33554b7e91686ab8" ; epo:ontologyDigest "5aff7757aed847f1ca2ecad24311037564a8bc17b5f007306744f781f978f5a7" ; epo:queryDigest "3ab9dc711479d53340c97c31be23dc071f5c8ed99a19378b4f1899e632325134" ;
+    epo:shapesDigest "7ea5c7ea4aafc14c400dd93b3343b2687bedfae340a4ab75447511fc2d619a08" ; epo:ontologyDigest "5aff7757aed847f1ca2ecad24311037564a8bc17b5f007306744f781f978f5a7" ; epo:queryDigest "3ab9dc711479d53340c97c31be23dc071f5c8ed99a19378b4f1899e632325134" ;
     prov:endedAtTime "2026-08-11T11:00:00Z"^^xsd:dateTime .
 
 ev:report-draft a epo:Report ;
@@ -677,7 +677,7 @@ ev:conformance-verdict-1 a epo:ConformanceVerdict ;
     earl:mode earl:automatic ; earl:assertedBy ev:pyshacl ;
     prov:wasAssociatedWith ev:pyshacl ;
     prov:used ev:record ;
-    epo:shapesDigest "386c1e1265f2cebf3dadc8445efe4f4677eb7abd420b2c7b33554b7e91686ab8" ; epo:ontologyDigest "5aff7757aed847f1ca2ecad24311037564a8bc17b5f007306744f781f978f5a7" ; epo:queryDigest "3ab9dc711479d53340c97c31be23dc071f5c8ed99a19378b4f1899e632325134" ;
+    epo:shapesDigest "7ea5c7ea4aafc14c400dd93b3343b2687bedfae340a4ab75447511fc2d619a08" ; epo:ontologyDigest "5aff7757aed847f1ca2ecad24311037564a8bc17b5f007306744f781f978f5a7" ; epo:queryDigest "3ab9dc711479d53340c97c31be23dc071f5c8ed99a19378b4f1899e632325134" ;
     earl:result [ a earl:TestResult ; earl:outcome earl:passed ; earl:info "the record conforms to S0 to S9: every criterion planned, tested and attested, the follow-up session and the draft before the final report, traceable in both directions" ] ;
     prov:endedAtTime "2026-08-12T09:30:00Z"^^xsd:dateTime .
 
@@ -687,7 +687,7 @@ ev:coverage-computation a epo:CoverageComputation ;
     prov:used ev:conformance-verdict-1 ;
     prov:wasAssociatedWith ev:report-assembler ;
     earl:mode earl:automatic ;
-    epo:shapesDigest "386c1e1265f2cebf3dadc8445efe4f4677eb7abd420b2c7b33554b7e91686ab8" ; epo:ontologyDigest "5aff7757aed847f1ca2ecad24311037564a8bc17b5f007306744f781f978f5a7" ; epo:queryDigest "3ab9dc711479d53340c97c31be23dc071f5c8ed99a19378b4f1899e632325134" ;
+    epo:shapesDigest "7ea5c7ea4aafc14c400dd93b3343b2687bedfae340a4ab75447511fc2d619a08" ; epo:ontologyDigest "5aff7757aed847f1ca2ecad24311037564a8bc17b5f007306744f781f978f5a7" ; epo:queryDigest "3ab9dc711479d53340c97c31be23dc071f5c8ed99a19378b4f1899e632325134" ;
     prov:endedAtTime "2026-08-12T10:00:00Z"^^xsd:dateTime .
 
 ev:report a epo:Report ;
@@ -708,7 +708,7 @@ ev:report-approval-1 a epo:ReportApproval ;
     prov:endedAtTime "2026-08-12T10:15:00Z"^^xsd:dateTime .
 
 ev:recommendation-1 a epo:Recommendation ;
-    epo:text "Fit to deploy for the outbreak once the vaccination question is asked before any advice, which the vendor has agreed to change. Verify the change by testing that question again before the chatbot goes live. Test again whenever the vendor ships a new version. Monitor the calls to the county health line for the residents the chatbot sends there." ;
+    epo:text "Fit with conditions: deploy for the outbreak once the vaccination question is asked before any advice, a change the vendor must make and the county must verify. Verify the change by testing that question again before the chatbot goes live. Test again whenever the vendor ships a new version. Monitor the calls to the county health line for the residents the chatbot sends there." ;
     epo:fitness epo:fitToDeploy ;
     epo:targetsGuardrail "vaccination-status" ;
     prov:wasAttributedTo ev:theo ;

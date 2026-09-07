@@ -57,5 +57,5 @@ def test_traceback_returns_the_five_facets():
         (str(r.attestation).rsplit("#", 1)[-1], str(r.determination).rsplit("#", 1)[-1], str(r.run).rsplit("#", 1)[-1], int(r.turnIndex)) for r in rows)  # ordered, so the fragment regenerates byte for byte
     assert {str(r.deliverer) for r in rows} == {"Mala (authorized representative)"}
     assert {str(r.signatory) for r in rows} == {"Dana Okafor (county health officer, sponsor signatory)"}  # sheet 10-06
-    assert {str(r.independentOf) for r in rows} == {"chatbot vendor (test item provider)"}  # sheet 10-07
+    assert {str(r.independentOf) for r in rows} == {"Meridian Health Software, the chatbot's vendor (test item provider; an invented company)"}  # sheet 10-07
     assert str(rows[0].step).startswith("6 report")  # derived through the model graph (sheet 10-33)

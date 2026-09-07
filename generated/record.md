@@ -5,7 +5,7 @@
 | C3 agree | `service-agreement` (ServiceAgreement) |  | 2026-07-31T10:00:00+00:00 |
 | C3 agree | `independence-declaration-1` (IndependenceDeclaration) | Mala (authorized representative) | 2026-07-31T10:10:00+00:00 |
 | C3 agree | `user-interest-declaration-1` (UserInterestDeclaration) | Dana Okafor (county health officer, sponsor signatory) | 2026-07-31T10:15:00+00:00 |
-| C4 access | `test-item-access` (TestItemAccess) | chatbot vendor (test item provider) | 2026-07-31T15:00:00+00:00 |
+| C4 access | `test-item-access` (TestItemAccess) | Meridian Health Software, the chatbot's vendor (test item provider; an invented company) | 2026-07-31T15:00:00+00:00 |
 | 1 scope | `stakeholder-input-1` (StakeholderInput) | commuters through the county (affected population, interviewed and spoken for by Theo; test item customers) | 2026-08-01T08:00:00+00:00 |
 | 1 scope | `dso-apollo-sv-r1` (DsoRelease) | Annie (domain expert) | 2026-08-01T09:00:00+00:00 |
 | 2 declare the requirement set (operational envelope) | `requirement-set` (RequirementSet) | Theo (evaluation operator) | 2026-08-02T09:00:00+00:00 |

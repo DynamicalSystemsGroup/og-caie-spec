@@ -310,7 +310,7 @@ ogc:S0-StatementOfWork a sh:NodeShape ;
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX prov: <http://www.w3.org/ns/prov#>
             SELECT $this WHERE {
-                { FILTER NOT EXISTS { $this prov:wasAttributedTo ?o . ?o epo:role epo:sponsorRole } }
+                { FILTER NOT EXISTS { $this prov:wasAttributedTo ?o . { ?o epo:role epo:sponsorRole } UNION { ?o epo:role epo:sponsorSignatoryRole } } }
                 UNION { $this epo:underAgreement ?ag ; prov:generatedAtTime ?t1 . ?ag prov:generatedAtTime ?t0 . FILTER(?t1 > ?t0) }
             }
         """ ] ;
