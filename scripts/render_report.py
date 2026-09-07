@@ -13,8 +13,10 @@ and writes:
   (the recommendation, a badge, who approved the report and who wrote the
   recommendation, the date), the question (the need), the item tested (its
   name and version, whom it serves, where it is used, what the judgments
-  rest on), one row per requirement with a result word and one line of why
-  and its criteria beneath, the share of criteria tested recomputed by
+  rest on), one row per requirement with a result word and its why (one
+  sentence per criterion carrying that word, in criterion order; drift pass
+  4, contracting officer 7: the first such criterion alone told half the
+  story) and its criteria beneath, the share of criteria tested recomputed by
   queries/coverage.rq (the stored report must agree or the renderer
   refuses), what the report rests on (who tested and whom it declared its
   independence of, who judged, the machine check of the record and its date), what to do
@@ -27,8 +29,9 @@ and writes:
 Plain language: no word the record and the specification use among
 themselves reaches the page (tests/test_report.py lists them); the page says
 "tested" where the record says coverage, "met" where it says passed, and
-names no machine but the item tested. Terse: a cell is one sentence of at
-most 25 words.
+names no machine but the item tested. Terse: a criterion's cell is one
+sentence of at most 25 words; a requirement's why is one such sentence per
+criterion carrying its result, so its cap is 25 words a sentence.
 
 Honest: the report is final when a delivery derives from it and its
 approval passed; the evaluation is complete when the report is final and
@@ -234,7 +237,8 @@ def criterion_row(g: Graph, a, planned: set) -> dict:
 
 
 def results(g: Graph) -> tuple[list[dict], list[str]]:
-    """One row per requirement, its criteria beneath; the untested criteria named."""
+    """One row per requirement, its criteria beneath; the untested criteria named. The requirement's why joins the
+    whys of every criterion carrying the deciding word, in criterion order, each already one sentence."""
     planned = {a for plan in of_type(g, EPO.TestPlan) for a in g.objects(plan, EPO.objective)}
     rows, untested = [], []
     for q in of_type(g, EPO.Requirement):
@@ -242,9 +246,9 @@ def results(g: Graph) -> tuple[list[dict], list[str]]:
         untested += [c["text"] for c in criteria if c["result"] == NOT_TESTED]
         words = {c["result"] for c in criteria}
         word = next((w for w in PRECEDENCE if w in words), NOT_TESTED)
-        deciding = next((c for c in criteria if c["result"] == word), None)
+        deciding = [c for c in criteria if c["result"] == word]
         rows.append({"requirement": line(text(g, q, EPO.text)), "result": word,
-                     "why": deciding["why"] if deciding else "No criterion was set.", "criteria": criteria})
+                     "why": " ".join(c["why"] for c in deciding) if deciding else "No criterion was set.", "criteria": criteria})
     return rows, untested
 
 

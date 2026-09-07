@@ -3,7 +3,8 @@ the record for an executive who knows the domain and little about AI: the JSON
 regenerates byte-identically, the share of criteria tested equals
 queries/coverage.rq over the record, the visible table has one row per
 requirement and every criterion appears once beneath its requirement, the
-recommendation is the record's, no cell runs past 25 words, no technical
+recommendation is the record's, no sentence in a cell runs past 25 words (a
+requirement's why is one sentence per criterion carrying its result), no technical
 word and no machine's name reaches the page, the page carries no IRI and no
 render-time stamp, d3 comes from the explorer's vendored copy, the record
 is read through one function, and the appendix that embeds the report is
@@ -125,10 +126,25 @@ def test_the_answer_is_the_records_and_says_when_the_evaluation_is_not_complete(
 
 
 def test_no_cell_runs_past_twenty_five_words():
+    """A criterion's cells are one sentence of at most 25 words; a requirement's why is one such sentence per
+    criterion carrying its result (drift pass 4, contracting officer 7), so the cap there is per sentence."""
     for row in report()["results"]:
-        for cell in (row["requirement"], row["why"], *(k["text"] for k in row["criteria"]), *(k["why"] for k in row["criteria"])):
+        for cell in (row["requirement"], *(k["text"] for k in row["criteria"]), *(k["why"] for k in row["criteria"])):
             assert len(cell.split()) <= 25, cell
             assert "\n" not in cell
+        deciding = [k for k in row["criteria"] if k["result"] == row["result"]]
+        assert "\n" not in row["why"] and len(row["why"].split()) <= 25 * max(1, len(deciding)), row["why"]
+        for sentence in rr.sentences(row["why"]):
+            assert len(sentence.split()) <= 25, sentence
+
+
+def test_d4_requirement_why_joins_every_deciding_criterion():
+    """Contracting officer 7: a requirement's why is the whys of every criterion carrying its result word, in
+    criterion order, not the first one's alone."""
+    for row in report()["results"]:
+        deciding = [k["why"] for k in row["criteria"] if k["result"] == row["result"]]
+        assert deciding and row["why"] == " ".join(deciding), row["requirement"]
+    assert any(len([k for k in row["criteria"] if k["result"] == row["result"]]) > 1 for row in report()["results"])
 
 
 def test_no_technical_word_and_no_machines_name_reaches_the_page():
