@@ -308,7 +308,7 @@ def build(g: Graph) -> dict:
             "approved_by": [person(g, p) for p in sorted(g.objects(approval, EARL.assertedBy), key=str)],
             "date": when(g, approval),
         },
-        "question": {"text": label(g, need), "asked_by": names(g, need, PROV.wasAttributedTo) or names(g, mission, PROV.wasAttributedTo)},
+        "question": label(g, need),
         "item": {
             "name": plain(g, test_item), "version": text(g, test_item, EPO.version),
             "purpose": label(g, mission),
@@ -403,6 +403,7 @@ PAGE = r"""<!doctype html>
   const join = xs => xs.length <= 1 ? xs.join("") : xs.slice(0, -1).join(", ") + " and " + xs[xs.length - 1];
   const who = ps => join(ps.map(p => p.expertise ? `${p.name}, ${p.expertise}` : p.name));
   const esc = s => String(s == null ? "" : s);
+  const cap = s => { s = esc(s); return s.charAt(0).toUpperCase() + s.slice(1); };
   const section = title => { const s = root.append("section"); s.append("h2").text(title); return s; };
 
   // 1. the answer
@@ -412,15 +413,15 @@ PAGE = r"""<!doctype html>
   head.append("h1").text(A.headline);
   if (!A.complete && A.recommendation) head.append("p").text("The recommendation so far, in the record's words: " + A.recommendation);
   head.append("p").text(`Approved by ${who(A.approved_by)}, who is accountable for its words; the recommendation written by ${join(A.recommended_by)}. ${fmt(A.date)}.`);
-  head.append("p").attr("class", "question").text(`The question ${join(R.question.asked_by)} asked: ${R.question.text}.`);
+  head.append("p").attr("class", "question").text(`The question the sponsor asked: ${R.question}.`);
 
   // 2. what was tested
   const I = R.item;
   const item = section("What was tested").attr("class", "lines");
   item.append("p").html(`<b>${esc(I.name)}</b>, version ${esc(I.version)}.`);
-  item.append("p").html(`<b>Whom it serves.</b> ${esc(I.purpose)}.`);
-  item.append("p").html(`<b>Where it is used.</b> ${esc(I.environment)}`);
-  item.append("p").html(`<b>What the judgments rest on.</b> ${esc(I.assumptions)}, approved by ${esc(join(I.assumptions_by))}.`);
+  item.append("p").html(`<b>Whom it serves.</b> ${cap(I.purpose)}.`);
+  item.append("p").html(`<b>Where it is used.</b> ${cap(I.environment)}`);
+  item.append("p").html(`<b>What the judgments rest on.</b> ${cap(I.assumptions)}, approved by ${esc(join(I.assumptions_by))}.`);
 
   // 3. how it did: one row per requirement, its criteria folded beneath
   const how = section("How it did");
@@ -452,7 +453,9 @@ PAGE = r"""<!doctype html>
     ? `which declared its independence from ${esc(join(W.independent_of))}.`
     : `which did not declare its independence from the maker of what was tested.`));
   rests.append("p").html(`<b>Who judged.</b> ${esc(who(W.judged_by))}.`);
-  rests.append("p").html(`<b>Checked by machine.</b> The record of this evaluation was checked against the process it had to follow: ${esc(W.checked.outcome)}, ${fmt(W.checked.date)}, before the report was approved on ${fmt(W.approved)}.`);
+  const sameDay = fmt(W.checked.date) === fmt(W.approved);
+  rests.append("p").html(`<b>Checked by machine.</b> The record of this evaluation was checked against the process it had to follow: ${esc(W.checked.outcome)}, ${fmt(W.checked.date)}, ` +
+    (sameDay ? "the day the report was approved." : `before the report was approved on ${fmt(W.approved)}.`));
 
   // 5. what to do next
   const next = section("What to do next");

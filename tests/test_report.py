@@ -117,7 +117,7 @@ def test_the_answer_is_the_records_and_says_when_the_evaluation_is_not_complete(
     else:
         assert a["headline"].startswith("This evaluation is not complete")
     assert a["approved_by"] and a["recommended_by"] and a["date"]
-    assert r["question"]["text"] and r["question"]["asked_by"]
+    assert r["question"]
     assert r["item"]["name"] and r["item"]["version"] and r["item"]["purpose"] and r["item"]["environment"] and r["item"]["assumptions"]
     assert r["rests_on"]["tested_by"] and r["rests_on"]["judged_by"] and r["rests_on"]["checked"]["outcome"] and r["rests_on"]["checked"]["date"]
     assert isinstance(r["next"], list)

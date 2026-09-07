@@ -38,12 +38,7 @@
   "Strengthen the guardrail so that unknown vaccination status is asked about before any advice is given; retest a1 with more probes."
  ],
  "note": "Synthetic case (ruling R-23). The persons named recognise the roles of real people at Humane Intelligence; no attestation, determination or signature in this record was made by them. The case is a simplified synthetic walkthrough of the process.",
- "question": {
-  "asked_by": [
-   "county public-health office"
-  ],
-  "text": "the county public-health office needs to know whether its chatbot may give measles advice to the public during the outbreak"
- },
+ "question": "the county public-health office needs to know whether its chatbot may give measles advice to the public during the outbreak",
  "rests_on": {
   "approved": "2026-08-12T09:45:00Z",
   "checked": {
