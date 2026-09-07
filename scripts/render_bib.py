@@ -22,7 +22,7 @@ gate regenerates and diffs them):
   crosswalk tables name the session and Popper. One line per source, with
   a ``{cite:p}`` role so MyST links the entry.
 - ``generated/cited-all.md``: every source with the pages that cite it,
-  for Appendix E.
+  for Appendix F.
 """
 import re
 import sys
@@ -57,7 +57,7 @@ CORPORATE = {"organization", "institution"}  # a body's name is one name: doubly
 HAND_ENTRIES = {
     "opensysml043": ("misc", {"title": "OpenSysML v0.4.3", "organization": "Open-MBEE", "year": "2026",
                               "url": "https://github.com/Open-MBEE/OpenSysML/releases/tag/v0.4.3",
-                              "note": "kept from the hand-written references.bib; the toolchain of Appendix D, not a registered source"}),
+                              "note": "kept from the hand-written references.bib; the toolchain of Appendix E, not a registered source"}),
     "iso-9000-2026": ("misc", {"organization": "International Organization for Standardization"}),
     "sevocab": ("misc", {"organization": "IEEE Computer Society and ISO/IEC JTC 1/SC 7"}),
     "nist-ai-700-2": ("techreport", {"author": "Amironesei, Razvan and Godil, Afzal and Greenberg, Craig and Greene, Kristen and Hall, Patrick and Jensen, Theodore and Fiscus, Jonathan and Schulman, Noah",

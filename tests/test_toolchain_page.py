@@ -1,8 +1,8 @@
-"""Appendix D (toolchain and reproducibility) is rendered from the files that
+"""Appendix E (toolchain and reproducibility) is rendered from the files that
 pin the toolchain, never typed: the fragment regenerates byte-identically;
 every direct dependency of pyproject.toml appears with the version uv.lock
 pins; the pinned converter digests appear; every step of the gate appears in
-the gate's order; the page exists, precedes only Appendix E (works cited) in the table of contents, starts
+the gate's order; the page exists, precedes only Appendix F (works cited) in the table of contents, starts
 with its title, and keeps the house rules (no em-dash, no retired word)."""
 import re
 import sys
@@ -79,11 +79,11 @@ def test_ci_steps_and_enforcement_points_appear():
 def test_the_page_exists_precedes_only_the_works_cited_in_the_toc_and_keeps_the_house_rules():
     assert PAGE.exists()
     toc = yaml.safe_load((ROOT / "myst.yml").read_text())["project"]["toc"]
-    assert toc[-1] == {"file": "docs/appendix-works-cited.md"}  # Appendix E (R-48) closes the table of contents
+    assert toc[-1] == {"file": "docs/appendix-works-cited.md"}  # Appendix F (R-48; F since the sample report became Appendix A, sheet 10 item 10-44) closes the table of contents
     assert toc[-2] == {"file": "docs/appendix-toolchain.md"}
     assert toc[-3] == {"file": "docs/rulings.md"}
     text = PAGE.read_text()
-    assert text.startswith("# Appendix D: toolchain and reproducibility\n")
+    assert text.startswith("# Appendix E: toolchain and reproducibility\n")
     assert "```{include} ../generated/toolchain.md" in text
     for p in (PAGE, FRAGMENT):
         assert "—" not in p.read_text(), p.name

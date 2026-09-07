@@ -47,13 +47,15 @@ deployed AI system against the needs of a specific domain, written down as:
   with the separation principle; the conclusion reads the crosswalk
   backwards. Figures are views from a registry (`ogc/views.py`), each
   captioned with what it brings into focus and leaves out (R-38).
-  Appendix A opens the same model as a knowledge graph explorer
+  Appendix A is the sample report for the synthetic case (`report/`,
+  R-51), a d3 dashboard rendered from the record that answers the
+  sponsor's question and nothing else; Appendix B opens the same model as a knowledge graph explorer
   (`explorer/`, R-39), rendered from the RDF with the `ogc` command on
-  every node and an in-browser SPARQL box; Appendix B's notebooks run the
-  checks each chapter claims (`notebooks/`); Appendix C is the rulings, the
-  judgments the model is grounded in (R-41); Appendix D reviews the
+  every node and an in-browser SPARQL box; Appendix C's notebooks run the
+  checks each chapter claims (`notebooks/`); Appendix D is the rulings, the
+  judgments the model is grounded in (R-41); Appendix E reviews the
   toolchain, rendered from the lock file, the pinned digests, the gate and
-  the workflow, with the reviewer recipe (R-43); Appendix E is the works
+  the workflow, with the reviewer recipe (R-43); Appendix F is the works
   cited, rendered from the source register as BibTeX, with each chapter
   closing on the sources it cites (R-48).
 - **Model: revised (R-21 to R-38), draft.** SysML holds structure only; the

@@ -40,11 +40,11 @@ step "notebooks: executed by nbclient, outputs equal the committed ones, verdict
 step "tests: full suite" 0 uv run pytest -q
 
 regen() {
-  bash checks/regen.sh && git diff --quiet -- generated/ explorer/
+  bash checks/regen.sh && git diff --quiet -- generated/ explorer/ report/
 }
-step "generated/ and explorer/: regenerate byte-identically" 0 regen
+step "generated/, explorer/ and report/: regenerate byte-identically" 0 regen
 step "site: myst build --html" 0 uv run myst build --html
-step "site: the explorer copied next to the built site" 0 bash scripts/copy_explorer.sh
+step "site: the explorer and the sample report copied next to the built site" 0 bash scripts/copy_explorer.sh
 
 RESULT=$([ "$FAIL" -eq 0 ] && echo PASS || echo FAIL)
 printf '{"sha":"%s","dirty":%s,"time":"%s","steps":{%s},"result":"%s"}\n' \

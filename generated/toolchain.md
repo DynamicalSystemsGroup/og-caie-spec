@@ -65,7 +65,7 @@ What the graphs are written in, counted over the committed Turtle files (`vocabu
 
 ## The vendored browser libraries
 
-Appendix A runs in the browser on two libraries committed under `explorer/vendor/`, so the explorer loads nothing from the network. Versions and licences are as the files state them.
+Appendix B runs in the browser on two libraries committed under `explorer/vendor/`, so the explorer loads nothing from the network; Appendix A's report draws with the same d3 file, loaded by the relative path `../explorer/vendor/d3.v7.min.js`, so there is one copy. Versions and licences are as the files state them.
 
 | Library | Version | Licence | Source or copyright | Stated in |
 |---|---|---|---|---|
@@ -85,9 +85,9 @@ Appendix A runs in the browser on two libraries committed under `explorer/vendor
 | 5 | drift: the consistency loop, mechanical layer (appendix letters, stale phrases, retired words, file mentions, sheet ticks, twins, absence rows) | 0 | `uv run python scripts/drift_check.py` |
 | 6 | notebooks: executed by nbclient, outputs equal the committed ones, verdict NOTEBOOK: PASS | 0 | `uv run python scripts/execute_notebooks.py --check` |
 | 7 | tests: full suite | 0 | `uv run pytest -q` |
-| 8 | generated/ and explorer/: regenerate byte-identically | 0 | `bash checks/regen.sh (uv run python scripts/render.py && uv run python scripts/render_cli.py && uv run python scripts/render_diagrams.py && uv run python scripts/render_explorer.py && uv run python scripts/render_toolchain.py && uv run python scripts/render_bib.py && uv run python scripts/render_version.py) && git diff --quiet -- generated/ explorer/` |
+| 8 | generated/, explorer/ and report/: regenerate byte-identically | 0 | `bash checks/regen.sh (uv run python scripts/render.py && uv run python scripts/render_cli.py && uv run python scripts/render_diagrams.py && uv run python scripts/render_explorer.py && uv run python scripts/render_report.py && uv run python scripts/render_toolchain.py && uv run python scripts/render_bib.py && uv run python scripts/render_version.py) && git diff --quiet -- generated/ explorer/ report/` |
 | 9 | site: myst build --html | 0 | `uv run myst build --html` |
-| 10 | site: the explorer copied next to the built site | 0 | `bash scripts/copy_explorer.sh` |
+| 10 | site: the explorer and the sample report copied next to the built site | 0 | `bash scripts/copy_explorer.sh` |
 
 ## Continuous integration
 

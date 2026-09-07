@@ -140,7 +140,7 @@ authors' earlier glossary work.
   attributed and dated and carries two texts, both required (R-47): the
   decision in a formal register in `ogc:rulingText` (third person or
   imperative, no addressee, one paragraph per decision, every named item
-  kept) and Z's message as sent, untouched, in `ogc:verbatim`. Appendix C
+  kept) and Z's message as sent, untouched, in `ogc:verbatim`. Appendix D
   shows the former; `ogc ruling` prints both. File a concern the moment it
   surfaces; never buffer.
 

@@ -1,6 +1,6 @@
-# Appendix D: toolchain and reproducibility
+# Appendix E: toolchain and reproducibility
 
-Appendix A opens the model, Appendix B runs its proofs and Appendix C
+Appendix B opens the model, Appendix C runs its proofs and Appendix D
 records the judgments it rests on. This appendix says what all of it runs
 on, so that a reader can rebuild every page and verdict on their own
 machine: the environment is a lockfile and the reviewer recipe is six
@@ -37,7 +37,7 @@ notebooks and compares their outputs with the committed ones. The `ogc`
 command line, provided by the project package, reads the graphs for people
 and AI assistants; its skill file, `.claude/skills/ogc-glossary/SKILL.md`,
 tells an assistant to ask the graph and never to answer from memory. The
-vendored d3 and oxigraph run Appendix A in the browser without the network.
+vendored d3 and oxigraph run Appendices A and B in the browser without the network.
 
 The graphs themselves are written in a small set of ontologies, none
 invented here beyond the specification's own handles. PROV-O says who did
@@ -86,9 +86,9 @@ the pending quotes when there are any) and a cache line, and ends with
 `VERDICT: PASS` with the commit it judged. The notebook step prints one line
 per notebook, `fresh` or `STALE`, then `NOTEBOOK: PASS` or `NOTEBOOK: FAIL`;
 the kernel's warning about an unencrypted local transport is expected. `myst build --html` writes the site under `_build/html`; the gate copies
-Appendix A's explorer next to it, and after a build of your own
+Appendices A and B next to it, and after a build of your own
 `copy_explorer.sh` does the same; serving that folder over http is what
-makes Appendix A's frame and its SPARQL box work (`myst start` serves the
+makes the two frames and the SPARQL box work (`myst start` serves the
 pages live but not the explorer). The converter's fetch script supports
 macOS and Linux on x86-64 and arm64 and needs curl, tar and a sha256 tool;
 the site build and the notebooks need free local ports. A failing step

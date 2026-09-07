@@ -104,10 +104,10 @@ def test_the_appendix_exists_is_in_the_toc_and_embeds_the_explorer():
     assert page.exists()
     cfg = yaml.safe_load((ROOT / "myst.yml").read_text())
     files = [e.get("file") for e in cfg["project"]["toc"]]
-    # the appendix follows the conclusion; the notebooks section (off the main path) closes the toc
-    assert files[files.index("docs/conclusion.md") + 1] == "docs/appendix-explorer.md"
+    # the explorer is Appendix B, after the sample report (Appendix A, sheet 10 item 10-44), which follows the conclusion
+    assert files[files.index("docs/conclusion.md") + 2] == "docs/appendix-explorer.md"
     text = page.read_text()
-    assert text.startswith("# Appendix A: the knowledge graph explorer")
+    assert text.startswith("# Appendix B: the knowledge graph explorer")
     assert "```{iframe} explorer/index.html" in text and "(../explorer/index.html)" in text
     assert "—" not in text
     assert "appendix-explorer.md" in (ROOT / "generated" / "more-contracting.md").read_text()

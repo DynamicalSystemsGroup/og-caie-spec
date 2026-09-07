@@ -1,7 +1,7 @@
-# Appendix C: the rulings
+# Appendix D: the rulings
 
-The explorer in Appendix A opens the whole model to navigation, and the
-notebooks in Appendix B show what the model can prove by computation. This
+The explorer in Appendix B opens the whole model to navigation, and the
+notebooks in Appendix C show what the model can prove by computation. This
 appendix holds the other half of the account: the subjective choices,
 judgments and interpretations the model is grounded in. Every term whose
 definition a citation could not settle alone, every step whose canon match
@@ -13,7 +13,7 @@ implicit in every objective result the computational proofs produce. The
 front page's account of science asks that the assumptions held fixed while
 a test runs be written down; these are ours, held fixed while the model was
 built, and the claim that the method is scientific holds with them as its
-auxiliary assumptions. Appendix C is the specification holding itself to its
+auxiliary assumptions. Appendix D is the specification holding itself to its
 own definition.
 
 The table is rendered from `rulings/adjudications.ttl` and checked by
