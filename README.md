@@ -91,8 +91,8 @@ deployed AI system against the needs of a specific domain, written down as:
 `ogc schema`, `ogc find`, `ogc term`, `ogc define`, `ogc quote`, `ogc
 verify` (terms, sources and steps), `ogc list`, `ogc source`, `ogc sources`, `ogc ruling`, `ogc
 rulings`, `ogc concern`, `ogc concerns`, `ogc sci`, `ogc steps`, `ogc shapes`, `ogc shape` (a node shape's target and constraints), `ogc crosswalk`
-(`--popper` for the Popper rows), `ogc views`, `ogc view` (a model view as mermaid with its perspective), `ogc execute` (the process executed from the model, with its checks and a `VERDICT` line), `ogc check-word`, `ogc sparql`
-(read-only, sorted, one merged graph), `ogc doctor`. Every output starts with `# ogc <command> <args>
+(`--popper` for the Popper rows), `ogc views`, `ogc view` (a model view as mermaid with its perspective), `ogc execute` (the process executed from the model, with its checks and a `VERDICT` line; `--planned`, `--sessions`, `--requirements`, `--criteria` and `--populations` set the executor's parameters), `ogc record` (the worked example's record item by step, with who and when; `ogc record <name>` for one item), `ogc check-word`, `ogc sparql`
+(read-only, sorted, one merged graph; `--model` adds the model graph, `--record` the record), `ogc doctor`. Every output starts with `# ogc <command> <args>
 @ <sha>`; `--json` returns the result as one object carrying the same
 invocation and sha under `_ogc`; exit 0 found, 1 not found, ambiguous, a
 bad filter value or a failed verdict, 2 usage. The skill `.claude/skills/ogc-glossary/SKILL.md`

@@ -7,10 +7,12 @@ description: >
   it, which essential (SCI) is stated in it, which shape checks it, whether a
   word may be used in prose and how to mark it up, the Popper crosswalk, the
   sources, the rulings, the concerns, the views of the model, the executed
-  process. Triggers: any glossary question, "what does X mean", quotes,
-  sources, rulings, concerns, shapes, {term} markup, check a word,
+  process, the worked example's record (the measles run) item by item.
+  Triggers: any glossary question, "what does X mean", quotes,
+  sources, rulings, concerns, shapes, {term} markup, check a word, the
+  measles record, who attested or signed what and when,
   og-caie.ttl, sources.ttl, adjudications.ttl, trace.ttl, crosswalk.ttl,
-  epo.shapes.ttl, model.shapes.ttl, og-caie.model.ttl.
+  epo.shapes.ttl, model.shapes.ttl, og-caie.model.ttl, measles-run.ttl.
 ---
 
 # Ask the graph with `ogc`
@@ -35,7 +37,7 @@ essentials: `R-16`, `R16`, `r-016` and a bare `16` all name R-16; the same
 for `C-24` and `SCI-07`. Source slugs, view names, mutation names, shape ids
 and filter values are case-insensitive too.
 
-## The mental model (eleven lines)
+## The mental model (twelve lines)
 
 1. Terms are used, not owned: each term cites exactly one canonical
    definition, from the highest-ranked source that defines it (1 ISO
@@ -74,6 +76,12 @@ and filter values are case-insensitive too.
     parts into one bundle, and draws relations that carry no item dotted.
     The site's figures come from the same registry. `ogc views`, `ogc view
     <name>`; the shapes that check the model and the record: `ogc shapes`.
+12. The record of the worked example (`track/measles-run.ttl`) is read by
+    `ogc record` (R-47): its items by step, C1..C6 then 1..6, each with who
+    made, signed, approved or asserted it and when; then the items without a
+    step (criteria, turns, responses, trajectories, checks) and the parties.
+    `ogc record <local-name>` prints everything the record says about one
+    item. `--record` adds the record to `sparql` (the `run:` prefix).
 
 ## What is loaded
 
@@ -83,10 +91,11 @@ into one graph (named graphs are not exposed; GRAPH, FROM and FROM NAMED are
 refused). `--model` adds the canonical model graph, the OMG `sysml:`
 rendering of the structure (part, port, interface and action definitions,
 the assembly and its wiring), not EPO instances; `view`, `views` and
-`execute` load it on their own. `ogc` does not load the record
-(`track/measles-run.ttl`) yet: reading the record is open concern C-44 and
-needs a ruling before a reader is added, so questions about the measles run
-go to the notebooks and the pages for now.
+`execute` load it on their own. `--record` adds the worked example's record
+(`track/measles-run.ttl`, the `run:` namespace); `record` loads it on its
+own. The record is read by `ogc record` and `--record` (ruling R-47, which
+closes concern C-44). Both flags are part of the printed and hashed args,
+so a `sparql` answer says which graphs it was asked over.
 
 ## Start here
 
@@ -114,9 +123,13 @@ go to the notebooks and the pages for now.
 | The views of the model: what each brings into focus and leaves out | `ogc views` |
 | One view as mermaid, with its perspective (nesting, assemblage, contracting, evaluation) | `ogc view contracting` |
 | Execute the process from the model and run the checks over the emitted record; break one or more things | `ogc execute` (ends in `VERDICT: PASS` or `FAIL`, exit 1 on FAIL), `ogc execute --mutate skip-access`, `--mutate` repeated applies them in order, `ogc execute --turtle` |
+| Execute with other parameters: how many requirements, criteria per requirement, planned criteria, sessions, populations | `ogc execute --planned 3` (coverage 1.0), `ogc execute --requirements 2 --criteria 2 --planned 4 --sessions 2`; the `parameters:` line and the `params` key say what ran; positive integers, `planned` at most requirements times criteria, else exit 1 with the reason |
+| What is in the measles record, step by step: who made, signed, approved or asserted each item, and when | `ogc record` (C1..C6, then 1..6; then the items without a step; then the parties and machines) |
+| Everything the record says about one item, with the objects' labels and what points at it | `ogc record mission-1`, `ogc record attestation-1`, `ogc record annie` (local names, case-insensitive; a miss lists candidates) |
+| A query over the record | `ogc sparql 'DESCRIBE run:mission-1' --record`, `ogc --record sparql 'SELECT ?a WHERE { ?a a epo:Attestation }'` |
 | The anchor table, one row per term | `ogc crosswalk`, `ogc crosswalk --class refined`, `ogc crosswalk --source iso-9000-2026` |
 | Popper to the standards and back | `ogc crosswalk --popper` |
-| Anything else | `ogc sparql '<SELECT ...>'` or `ogc sparql @query.rq` (prefixes injected; read-only; `--model` adds the model graph and appears in the printed and hashed args) |
+| Anything else | `ogc sparql '<SELECT ...>'` or `ogc sparql @query.rq` (prefixes injected; read-only; `--model` adds the model graph, `--record` the record; both appear in the printed and hashed args) |
 | Is the graph healthy? | `ogc doctor` (VERDICT line; runs in the gate) |
 
 The eight mutations of `execute`: `skip-assessment`, `skip-approval`,
@@ -129,7 +142,8 @@ The eight mutations of `execute`: `skip-assessment`, `skip-approval`,
 - Term IRIs live in `term:` (`https://w3id.org/og-caie/terms#`), so
   `ogc sparql 'DESCRIBE term:probe'` prints one term's triples; sources
   are `src:`, rulings and concerns `rul:`, steps `epo:`, essentials `tr:`,
-  crosswalk rows `xw:`, the model `ogm:` with the OMG `sysml:` vocabulary.
+  crosswalk rows `xw:`, the model `ogm:` with the OMG `sysml:` vocabulary,
+  the record's items `run:` (present only under `--record`).
   `ogc schema` prints the whole prefix list.
 - Labels and definitions are language-tagged (`"probe"@en`): match with
   `STR(?l) = "probe"` or `LCASE(STR(?l))`.
