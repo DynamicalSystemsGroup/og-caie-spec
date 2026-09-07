@@ -40,12 +40,15 @@ flowchart LR
   testingOrg_team_operator -- "Probe" --> accountable_testItem
   testingOrg_team_operator -- "RequirementSet, TestPlan, Evidence, Determination, Recommendation" --> testingOrg_recorder
   sponsor -. "obligation" .-> affected
-  classDef person fill:#e8f5e9,stroke:#2e7d32;
-  classDef machine fill:#fce4ec,stroke:#ad1457;
-  classDef party fill:#fff8e1,stroke:#f9a825,stroke-dasharray: 4 4;
+  classDef person fill:#1b5e20,stroke:#a5d6a7,stroke-width:2px,color:#ffffff;
+  classDef machine fill:#880e4f,stroke:#f48fb1,stroke-width:2px,color:#ffffff;
+  classDef party fill:#f9a825,stroke:#e65100,stroke-width:2px,stroke-dasharray: 6 3,color:#000000;
+  classDef organization fill:#37474f,stroke:#cfd8dc,stroke-width:2px,color:#ffffff;
+  linkStyle default stroke:#90a4ae,stroke-width:1.5px;
   class testingOrg_accountExecutive,testingOrg_team_domainExpert,testingOrg_team_operator person;
   class accountable_testItem,testingOrg_conformanceChecker,testingOrg_coverageCalculator,testingOrg_probeDeriver,testingOrg_recorder machine;
   class affected party;
+  class sponsor organization;
 ```
 
 **View `assemblage`: the assemblage.** In focus: every party and every part of the testing organization, nested in the organization that holds it, with one bundled edge per pair of parts labelled by the item kinds that flow between them, and the sponsor's obligation to the affected populations dotted. Left out: the seam names and the ports (the wiring table has them, one row per port), and the order in which the items flow. Legend: rounded green, a person; double-boxed pink, a machine; dashed amber, an affected population; a plain box, an organization; a solid arrow bundles the items that flow from one part to another; a dotted arrow is a relation that carries no item.

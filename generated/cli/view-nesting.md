@@ -6,5 +6,5 @@ $ uv run -q ogc view nesting
   hands in and what the evaluation hands back, bundled by item kind.
   leaves out: the flows inside each chain, the parties, the parts and ports, the DSO as a
   parameter, and who performs which step (the two chapters before this one have them).
-(17 lines after this omitted; run the command for all)
+(20 lines after this omitted; run the command for all)
 (exit 0)

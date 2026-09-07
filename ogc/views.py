@@ -27,9 +27,13 @@ TOP_PACKAGE = "OGCAIE"
 OUTER_PROCESS = "ContractingProcess"
 INNER_PROCESS = "EvaluationProcess"
 CONTRACT_KINDS = {"Mission", "StatementOfWork", "Need", "Proposal", "ServiceAgreement", "TestItemAccess", "Delivery", "Acceptance", "StakeholderInput"}
-CLASSDEFS = ["  classDef person fill:#e8f5e9,stroke:#2e7d32;",
-             "  classDef machine fill:#fce4ec,stroke:#ad1457;",
-             "  classDef party fill:#fff8e1,stroke:#f9a825,stroke-dasharray: 4 4;"]
+# Strong, distinct fills with an explicit text colour, so the figures read on
+# a light or a dark page (Z, 2026-09-06: pastel fills were hard to read).
+CLASSDEFS = ["  classDef person fill:#1b5e20,stroke:#a5d6a7,stroke-width:2px,color:#ffffff;",
+             "  classDef machine fill:#880e4f,stroke:#f48fb1,stroke-width:2px,color:#ffffff;",
+             "  classDef party fill:#f9a825,stroke:#e65100,stroke-width:2px,stroke-dasharray: 6 3,color:#000000;",
+             "  classDef organization fill:#37474f,stroke:#cfd8dc,stroke-width:2px,color:#ffffff;",
+             "  linkStyle default stroke:#90a4ae,stroke-width:1.5px;"]
 
 
 @dataclass(frozen=True)
@@ -162,7 +166,7 @@ def wiring(g: Graph, slice_: str | None = None, nest: bool = False) -> str:
     for _, _, parts in rels:
         used.update(by_usage[p] for p in parts)
     ids = {p: p.replace(".", "_") for p, _, _ in tree}
-    classes: dict[str, list[str]] = {"person": [], "machine": [], "party": []}
+    classes: dict[str, list[str]] = {"person": [], "machine": [], "party": [], "organization": []}
     lines = ["flowchart LR"]
 
     def node(indent: str, path, u, d):
@@ -206,7 +210,7 @@ def wiring(g: Graph, slice_: str | None = None, nest: bool = False) -> str:
         a, b = (by_usage[p] for p in parts)
         lines.append(f'  {ids[a]} -. "{name(g, c)}" .-> {ids[b]}')
     lines += CLASSDEFS
-    for k in ("person", "machine", "party"):
+    for k in ("person", "machine", "party", "organization"):
         if classes[k]:
             lines.append(f"  class {','.join(classes[k])} {k};")
     return "\n".join(lines)
@@ -265,7 +269,10 @@ def nesting(g: Graph) -> str:
         named = [f"{k} (from the {re.sub(r'(?<!^)(?=[A-Z])', ' ', supplier[k]).lower()})" if k in supplier else k
                  for k in sorted(set(kinds), key=lambda n: (order.get(n, len(order)), n))]
         lines.append(f'  {a} -- "{", ".join(named)}" --> {b}')
-    lines.append("  classDef black fill:#eceff1,stroke:#263238,stroke-width:2px;")
+    lines.append("  classDef step fill:#37474f,stroke:#cfd8dc,stroke-width:1.5px,color:#ffffff;")
+    lines.append("  classDef black fill:#000000,stroke:#ffb300,stroke-width:3px,color:#ffffff;")
+    lines.append(f"  class {','.join(f'o_{st}' for st in outer_steps if st not in typed)},{','.join(f'i_{st}' for st in inner_steps)} step;")
+    lines.append("  linkStyle default stroke:#90a4ae,stroke-width:1.5px;")
     for st in typed:
         lines.append(f"  class o_{st} black;")
     return "\n".join(lines)

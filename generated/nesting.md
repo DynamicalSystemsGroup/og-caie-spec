@@ -12,7 +12,10 @@ flowchart TB
   o_access -- "TestItemAccess (from the accountable organization)" --> i_execute
   o_agree -- "ServiceAgreement (from the account executive)" --> i_declareRequirements
   o_agree -- "StatementOfWork (from the sponsor organization)" --> i_scope
-  classDef black fill:#eceff1,stroke:#263238,stroke-width:2px;
+  classDef step fill:#37474f,stroke:#cfd8dc,stroke-width:1.5px,color:#ffffff;
+  classDef black fill:#000000,stroke:#ffb300,stroke-width:3px,color:#ffffff;
+  class o_need,o_propose,o_agree,o_access,o_deliver,o_acceptDelivery,i_scope,i_declareRequirements,i_plan,i_execute,i_determineAndAttest,i_report step;
+  linkStyle default stroke:#90a4ae,stroke-width:1.5px;
   class o_fulfil black;
 ```
 
