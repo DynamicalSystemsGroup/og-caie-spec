@@ -130,7 +130,7 @@ what a second evaluation is measured against.
 Shapes S0-Record, S0-Member, S0-Parties, S0-Roles, S0-Independence,
 S0-Access, S0-Population, S0-StatementOfWork, S0-Mission, S0-Need,
 S0-Proposal, S0-Layers, S8-Delivery and S9-Acceptance run over the record; M1-Parties, M1-Obligation
-and M5-Cardinality run over the model graph. Eight counterexamples, seven
+and M5-Cardinality run over the model graph. Fifteen counterexamples, fourteen
 records and a model broken on purpose, must fail: among them a requirement
 set declared before the agreement, a population nobody speaks for, an
 untagged member, a person holding two roles, an independence nobody declared, an acceptance

@@ -37040,6 +37040,12 @@
      }
     ],
     [
+     "ogc:checkedBy",
+     {
+      "ref": "https://w3id.org/og-caie/S4-Session"
+     }
+    ],
+    [
      "ogc:page",
      {
       "text": "evaluation"
@@ -37114,7 +37120,7 @@
     [
      "rdfs:comment",
      {
-      "text": "The service agreement, the operational environment, the test item and the requirement set are declared, in that order, before any session runs: this system in this environment under this contract."
+      "text": "The service agreement, the operational environment, the test item and the requirement set are declared, in that order, before any session runs, and every session runs within the period access was granted for: this system in this environment under this contract."
      }
     ],
     [
@@ -62084,6 +62090,11 @@
    "target": "https://w3id.org/og-caie/S2-RequirementSet"
   },
   {
+   "rel": "checkedBy",
+   "source": "https://w3id.org/og-caie/trace#SCI-02",
+   "target": "https://w3id.org/og-caie/S4-Session"
+  },
+  {
    "rel": "restsOn",
    "source": "https://w3id.org/og-caie/trace#SCI-02",
    "target": "https://w3id.org/og-caie/rulings#R-02"
@@ -70800,7 +70811,7 @@
   },
   {
    "cls": "sci",
-   "desc": "EnvelopeDeclaredBeforeSessions: The service agreement, the operational environment, the test item and the requirement set are declared, in that order, before any session runs: this system in this environment under this contract. [machine]",
+   "desc": "EnvelopeDeclaredBeforeSessions: The service agreement, the operational environment, the test item and the requirement set are declared, in that order, before any session runs, and every session runs within the period access was granted for: this system in this environment under this contract. [machine]",
    "id": "https://w3id.org/og-caie/trace#SCI-02",
    "label": "SCI-02",
    "ogc": "ogc sci SCI-02",

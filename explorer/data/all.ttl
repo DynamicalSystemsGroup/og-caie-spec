@@ -1256,10 +1256,11 @@ tr:SCI-01 a ogc:Trace ;
 
 tr:SCI-02 a ogc:Trace ;
     rdfs:label "SCI-02 EnvelopeDeclaredBeforeSessions" ;
-    rdfs:comment "The service agreement, the operational environment, the test item and the requirement set are declared, in that order, before any session runs: this system in this environment under this contract." ;
+    rdfs:comment "The service agreement, the operational environment, the test item and the requirement set are declared, in that order, before any session runs, and every session runs within the period access was granted for: this system in this environment under this contract." ;
     ogc:checkedBy ogc:S0-Access,
         ogc:S0-Parties,
-        ogc:S2-RequirementSet ;
+        ogc:S2-RequirementSet,
+        ogc:S4-Session ;
     ogc:page "evaluation" ;
     ogc:restsOn rul:R-02,
         rul:R-03,
@@ -10231,65 +10232,6 @@ ogc:S3-TestPlan a sh:NodeShape ;
     sh:targetClass epo:TestPlan ;
     ogc:counterexample "counterexamples/deviation-unrecorded.ttl" .
 
-ogc:S4-Session a sh:NodeShape ;
-    sh:property [ sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path prov:startedAtTime ] ;
-    sh:sparql [ sh:message "S4: a session has at least one turn." ;
-            sh:select """
-            PREFIX epo: <https://w3id.org/og-caie/epo#>
-            PREFIX ogc: <https://w3id.org/og-caie/>
-            SELECT $this WHERE { $this ogc:inRecord ?rec . FILTER NOT EXISTS { ?t a epo:Turn ; ogc:inRecord ?rec ; epo:inSession $this } }
-        """ ],
-        [ sh:message "S4: a session must be associated with a versioned software agent (the system under test)." ;
-            sh:select """
-            PREFIX epo: <https://w3id.org/og-caie/epo#>
-            PREFIX prov: <http://www.w3.org/ns/prov#>
-            SELECT $this WHERE { FILTER NOT EXISTS { $this prov:wasAssociatedWith ?s . ?s a prov:SoftwareAgent ; epo:version ?v } }
-        """ ],
-        [ sh:message "S4 binding (sheet 10-17): the session's software agent is the system under test the record's requirement set binds, and every determination on evidence from this session names that agent as its subject." ;
-            sh:select """
-            PREFIX epo: <https://w3id.org/og-caie/epo#>
-            PREFIX ogc: <https://w3id.org/og-caie/>
-            PREFIX prov: <http://www.w3.org/ns/prov#>
-            PREFIX earl: <http://www.w3.org/ns/earl#>
-            SELECT $this ?value WHERE {
-                { $this ogc:inRecord ?rec . ?rs a epo:RequirementSet ; ogc:inRecord ?rec ; epo:systemUnderTest ?value .
-                  FILTER NOT EXISTS { $this prov:wasAssociatedWith ?value } }
-                UNION
-                { $this ogc:inRecord ?rec . ?rs a epo:RequirementSet ; ogc:inRecord ?rec ; epo:systemUnderTest ?sut .
-                  ?value a epo:Determination ; ogc:inRecord ?rec ; prov:wasDerivedFrom ?e . ?e a epo:Evidence ; prov:wasDerivedFrom ?x . ?x prov:wasGeneratedBy/(epo:inSession)? $this .
-                  FILTER NOT EXISTS { ?value earl:subject ?sut } }
-            }
-        """ ],
-        [ sh:message "S4: a session must be associated with a named person in the evaluation operator role; administering tests is the operator's activity, not the domain expert's (R-10, R-23)." ;
-            sh:select """
-            PREFIX epo: <https://w3id.org/og-caie/epo#>
-            PREFIX prov: <http://www.w3.org/ns/prov#>
-            SELECT $this WHERE { FILTER NOT EXISTS { $this prov:wasAssociatedWith ?p . ?p a prov:Person ; epo:role epo:evaluationOperatorRole } }
-        """ ],
-        [ sh:message "S4 access period (sheet 10-04; drift pass 4, contracting officer 4): a session runs within the period the record's access grant states for the session's test item: it starts no earlier than epo:accessFrom, and neither starts nor ends after epo:accessUntil. The period the contract fixed binds the sessions." ;
-            sh:select """
-            PREFIX epo: <https://w3id.org/og-caie/epo#>
-            PREFIX ogc: <https://w3id.org/og-caie/>
-            PREFIX prov: <http://www.w3.org/ns/prov#>
-            SELECT $this ?value WHERE {
-                { $this ogc:inRecord ?rec ; prov:wasAssociatedWith ?sut ; prov:startedAtTime ?t . ?sut a prov:SoftwareAgent .
-                  ?value a epo:TestItemAccess ; ogc:inRecord ?rec ; epo:grantsAccessTo ?sut ; epo:accessFrom ?f . FILTER(?t < ?f) }
-                UNION
-                { $this ogc:inRecord ?rec ; prov:wasAssociatedWith ?sut ; prov:startedAtTime ?t . ?sut a prov:SoftwareAgent .
-                  ?value a epo:TestItemAccess ; ogc:inRecord ?rec ; epo:grantsAccessTo ?sut ; epo:accessUntil ?u . FILTER(?t > ?u) }
-                UNION
-                { $this ogc:inRecord ?rec ; prov:wasAssociatedWith ?sut ; prov:endedAtTime ?t . ?sut a prov:SoftwareAgent .
-                  ?value a epo:TestItemAccess ; ogc:inRecord ?rec ; epo:grantsAccessTo ?sut ; epo:accessUntil ?u . FILTER(?t > ?u) }
-            }
-        """ ] ;
-    sh:targetClass epo:Session ;
-    ogc:counterexample "counterexamples/expert-administers-tests.ttl",
-        "counterexamples/session-on-another-item.ttl",
-        "counterexamples/session-outside-access-period.ttl" .
-
 ogc:S5-Evidence a sh:NodeShape ;
     sh:property [ sh:class epo:AcceptanceCriterion ;
             sh:maxCount 1 ;
@@ -11755,6 +11697,65 @@ ogc:S1-DsoRelease a sh:NodeShape ;
     sh:targetClass epo:DsoRelease ;
     ogc:counterexample "counterexamples/dso-approval-undated.ttl",
         "counterexamples/dso-before-stakeholder-input.ttl" .
+
+ogc:S4-Session a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path prov:startedAtTime ] ;
+    sh:sparql [ sh:message "S4: a session has at least one turn." ;
+            sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX ogc: <https://w3id.org/og-caie/>
+            SELECT $this WHERE { $this ogc:inRecord ?rec . FILTER NOT EXISTS { ?t a epo:Turn ; ogc:inRecord ?rec ; epo:inSession $this } }
+        """ ],
+        [ sh:message "S4: a session must be associated with a versioned software agent (the system under test)." ;
+            sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            SELECT $this WHERE { FILTER NOT EXISTS { $this prov:wasAssociatedWith ?s . ?s a prov:SoftwareAgent ; epo:version ?v } }
+        """ ],
+        [ sh:message "S4 binding (sheet 10-17): the session's software agent is the system under test the record's requirement set binds, and every determination on evidence from this session names that agent as its subject." ;
+            sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX ogc: <https://w3id.org/og-caie/>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            PREFIX earl: <http://www.w3.org/ns/earl#>
+            SELECT $this ?value WHERE {
+                { $this ogc:inRecord ?rec . ?rs a epo:RequirementSet ; ogc:inRecord ?rec ; epo:systemUnderTest ?value .
+                  FILTER NOT EXISTS { $this prov:wasAssociatedWith ?value } }
+                UNION
+                { $this ogc:inRecord ?rec . ?rs a epo:RequirementSet ; ogc:inRecord ?rec ; epo:systemUnderTest ?sut .
+                  ?value a epo:Determination ; ogc:inRecord ?rec ; prov:wasDerivedFrom ?e . ?e a epo:Evidence ; prov:wasDerivedFrom ?x . ?x prov:wasGeneratedBy/(epo:inSession)? $this .
+                  FILTER NOT EXISTS { ?value earl:subject ?sut } }
+            }
+        """ ],
+        [ sh:message "S4: a session must be associated with a named person in the evaluation operator role; administering tests is the operator's activity, not the domain expert's (R-10, R-23)." ;
+            sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            SELECT $this WHERE { FILTER NOT EXISTS { $this prov:wasAssociatedWith ?p . ?p a prov:Person ; epo:role epo:evaluationOperatorRole } }
+        """ ],
+        [ sh:message "S4 access period (sheet 10-04; drift pass 4, contracting officer 4): a session runs within the period the record's access grant states for the session's test item: it starts no earlier than epo:accessFrom, and neither starts nor ends after epo:accessUntil. The period the contract fixed binds the sessions." ;
+            sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX ogc: <https://w3id.org/og-caie/>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            SELECT $this ?value WHERE {
+                { $this ogc:inRecord ?rec ; prov:wasAssociatedWith ?sut ; prov:startedAtTime ?t . ?sut a prov:SoftwareAgent .
+                  ?value a epo:TestItemAccess ; ogc:inRecord ?rec ; epo:grantsAccessTo ?sut ; epo:accessFrom ?f . FILTER(?t < ?f) }
+                UNION
+                { $this ogc:inRecord ?rec ; prov:wasAssociatedWith ?sut ; prov:startedAtTime ?t . ?sut a prov:SoftwareAgent .
+                  ?value a epo:TestItemAccess ; ogc:inRecord ?rec ; epo:grantsAccessTo ?sut ; epo:accessUntil ?u . FILTER(?t > ?u) }
+                UNION
+                { $this ogc:inRecord ?rec ; prov:wasAssociatedWith ?sut ; prov:endedAtTime ?t . ?sut a prov:SoftwareAgent .
+                  ?value a epo:TestItemAccess ; ogc:inRecord ?rec ; epo:grantsAccessTo ?sut ; epo:accessUntil ?u . FILTER(?t > ?u) }
+            }
+        """ ] ;
+    sh:targetClass epo:Session ;
+    ogc:counterexample "counterexamples/expert-administers-tests.ttl",
+        "counterexamples/session-on-another-item.ttl",
+        "counterexamples/session-outside-access-period.ttl" .
 
 ogc:S6-Determination a sh:NodeShape ;
     sh:property [ sh:class epo:AcceptanceCriterion ;

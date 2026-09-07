@@ -5,7 +5,7 @@
 | ID | Name | Checked by | Statement |
 |---|---|---|---|
 | SCI-01 | DsoApprovedBeforeProbes | machine | The Domain-Specific Ontology release is versioned and approved by a named domain expert before any probe is derived from it. |
-| SCI-02 | EnvelopeDeclaredBeforeSessions | machine | The service agreement, the operational environment, the test item and the requirement set are declared, in that order, before any session runs: this system in this environment under this contract. |
+| SCI-02 | EnvelopeDeclaredBeforeSessions | machine | The service agreement, the operational environment, the test item and the requirement set are declared, in that order, before any session runs, and every session runs within the period access was granted for: this system in this environment under this contract. |
 | SCI-03 | CriteriaWellFormed | machine | Every requirement has at least one acceptance criterion derived from it; every criterion states its expected result and carries a positive weight. |
 | SCI-04 | PlanBeforeRuns | machine | A test plan states its objectives and its means; every probe belongs to a plan, derives from the DSO release and passes a consistency check before any session. |
 | SCI-05 | EvidenceFromNamedRuns | machine | Every response comes from a numbered turn of a session against a versioned test item; every evidence item bears on one criterion's expected result under the plan. |
