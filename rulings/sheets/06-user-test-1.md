@@ -21,8 +21,8 @@ IEEE statement on every rendered SEVOCAB quote; stale digest and licence
 notes; README numbers; the recipe's explorer copy; the notebook verdict
 printed; the interpreter pinned; prerequisites and network stated; the
 `ogc` hardening list (crash, determinism, `--model` in the header, filter
-validation, id forms, help strings, JSON header, a shape reader) on branch
-`ogc-hardening`.
+validation, id forms, help strings, JSON header, a shape reader), merged
+from branch `ogc-hardening`.
 
 The rows below need Z. Tick the recommended option or write another.
 
@@ -45,5 +45,5 @@ The rows below need Z. Tick the recommended option or write another.
 | 06-15 | `pytest` in the recipe versus the gate: the reviewer would have liked expected durations and a statement that a zip download cannot run the gate (reproducibility) | done in code (Appendix D says git, two to three minutes) | [x] |
 
 Findings from the same round that needed no ruling were fixed in code and
-are listed above; the machine user's twenty findings are on the
-`ogc-hardening` branch with one test each.
+are listed above; the machine user's twenty findings are fixed with one test each
+(`tests/test_ogc.py`, `test_finding_NN_*`).
