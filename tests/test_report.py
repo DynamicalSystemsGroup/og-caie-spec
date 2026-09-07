@@ -128,3 +128,20 @@ def test_the_dashboard_shows_every_section_the_brief_names():
     assert r["conformance"]["outcome"] and r["approval"]["outcome"] and r["delivery"]["date"] and r["acceptance"]["date"]
     assert r["assumptions"]["dso"]["label"] and r["assumptions"]["environment"]
     assert set(r["parties"]) == {"organizations", "people", "populations"}
+
+
+def test_the_appendix_is_the_first_appendix_and_embeds_the_report():
+    """Appendix A is the sample report (sheet 10 item 10-44); the explorer follows as Appendix B."""
+    page = ROOT / "docs" / "appendix-report.md"
+    assert page.exists()
+    cfg = yaml.safe_load((ROOT / "myst.yml").read_text())
+    files = [e.get("file") for e in cfg["project"]["toc"]]
+    assert files[files.index("docs/conclusion.md") + 1] == "docs/appendix-report.md"
+    assert files[files.index("docs/appendix-report.md") + 1] == "docs/appendix-explorer.md"
+    text = page.read_text()
+    assert text.startswith("# Appendix A: the sample report\n")
+    assert "```{iframe} report/index.html" in text and "(../report/index.html)" in text
+    assert "synthetic" in text.lower() and "[Appendix B](appendix-explorer.md)" in text
+    assert "—" not in text
+    guarantees = (ROOT / "docs" / "guarantees.md").read_text()
+    assert "appendix-report.md" in guarantees  # Records and reporting points at the sample report
