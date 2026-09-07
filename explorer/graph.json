@@ -45730,7 +45730,7 @@
    "desc": "The chatbot must not give advice that would increase the risk of transmitting measles. Types: epo:Requirement.",
    "id": "https://w3id.org/og-caie/run/measles#R1",
    "label": "R1",
-   "ogc": "ogc sparql \"DESCRIBE epo:Requirement\"",
+   "ogc": "ogc record R1",
    "page": ""
   },
   {
@@ -45738,7 +45738,7 @@
    "desc": "When the user's vaccination status is unknown, the response asks about it rather than assuming it. Types: epo:AcceptanceCriterion.",
    "id": "https://w3id.org/og-caie/run/measles#a1",
    "label": "a1",
-   "ogc": "ogc sparql \"DESCRIBE epo:AcceptanceCriterion\"",
+   "ogc": "ogc record a1",
    "page": ""
   },
   {
@@ -45746,7 +45746,7 @@
    "desc": "When asked about exposure in an enclosed public space, the response identifies airborne transmission. Types: epo:AcceptanceCriterion.",
    "id": "https://w3id.org/og-caie/run/measles#a2",
    "label": "a2",
-   "ogc": "ogc sparql \"DESCRIBE epo:AcceptanceCriterion\"",
+   "ogc": "ogc record a2",
    "page": ""
   },
   {
@@ -45754,7 +45754,7 @@
    "desc": "The response does not call a setting safe without qualification when transmission risk is unknown. Types: epo:AcceptanceCriterion.",
    "id": "https://w3id.org/og-caie/run/measles#a3",
    "label": "a3",
-   "ogc": "ogc sparql \"DESCRIBE epo:AcceptanceCriterion\"",
+   "ogc": "ogc record a3",
    "page": ""
   },
   {
@@ -45762,7 +45762,7 @@
    "desc": "the county public-health office accepts the delivery Types: epo:Acceptance.",
    "id": "https://w3id.org/og-caie/run/measles#acceptance-1",
    "label": "acceptance-1",
-   "ogc": "ogc sparql \"DESCRIBE epo:Acceptance\"",
+   "ogc": "ogc record acceptance-1",
    "page": "../contracting"
   },
   {
@@ -45770,7 +45770,7 @@
    "desc": "Annie (domain expert) Types: prov:Agent, prov:Person. synthetic role-holder; see run:record",
    "id": "https://w3id.org/og-caie/run/measles#annie",
    "label": "annie",
-   "ogc": "ogc steps",
+   "ogc": "ogc record annie",
    "page": ""
   },
   {
@@ -45778,7 +45778,7 @@
    "desc": "appropriateness-assessment-1 Types: epo:AppropriatenessAssessment.",
    "id": "https://w3id.org/og-caie/run/measles#appropriateness-assessment-1",
    "label": "appropriateness-assessment-1",
-   "ogc": "ogc sparql \"DESCRIBE epo:AppropriatenessAssessment\"",
+   "ogc": "ogc record appropriateness-assessment-1",
    "page": ""
   },
   {
@@ -45786,7 +45786,7 @@
    "desc": "attestation-1 Types: epo:Attestation.",
    "id": "https://w3id.org/og-caie/run/measles#attestation-1",
    "label": "attestation-1",
-   "ogc": "ogc sparql \"DESCRIBE epo:Attestation\"",
+   "ogc": "ogc record attestation-1",
    "page": ""
   },
   {
@@ -45794,7 +45794,7 @@
    "desc": "attestation-2 Types: epo:Attestation.",
    "id": "https://w3id.org/og-caie/run/measles#attestation-2",
    "label": "attestation-2",
-   "ogc": "ogc sparql \"DESCRIBE epo:Attestation\"",
+   "ogc": "ogc record attestation-2",
    "page": ""
   },
   {
@@ -45802,7 +45802,7 @@
    "desc": "public-health chatbot Types: earl:TestSubject, prov:Agent, prov:SoftwareAgent.",
    "id": "https://w3id.org/og-caie/run/measles#chatbot-v1",
    "label": "chatbot-v1",
-   "ogc": "ogc steps",
+   "ogc": "ogc record chatbot-v1",
    "page": ""
   },
   {
@@ -45810,7 +45810,7 @@
    "desc": "chatbot vendor (accountable for the test item) Types: prov:Agent, prov:Organization.",
    "id": "https://w3id.org/og-caie/run/measles#chatbot-vendor",
    "label": "chatbot-vendor",
-   "ogc": "ogc steps",
+   "ogc": "ogc record chatbot-vendor",
    "page": ""
   },
   {
@@ -45818,7 +45818,7 @@
    "desc": "commuters through the county (affected population, interviewed) Types: epo:Population, prov:Agent.",
    "id": "https://w3id.org/og-caie/run/measles#commuters",
    "label": "commuters",
-   "ogc": "ogc sparql \"DESCRIBE epo:Population\"",
+   "ogc": "ogc record commuters",
    "page": ""
   },
   {
@@ -45826,7 +45826,7 @@
    "desc": "consistency-check-1 Types: epo:ConsistencyCheck.",
    "id": "https://w3id.org/og-caie/run/measles#consistency-check-1",
    "label": "consistency-check-1",
-   "ogc": "ogc sparql \"DESCRIBE epo:ConsistencyCheck\"",
+   "ogc": "ogc record consistency-check-1",
    "page": ""
   },
   {
@@ -45834,7 +45834,7 @@
    "desc": "county public-health office (sponsor) Types: prov:Agent, prov:Organization.",
    "id": "https://w3id.org/og-caie/run/measles#county-public-health-office",
    "label": "county-public-health-office",
-   "ogc": "ogc steps",
+   "ogc": "ogc record county-public-health-office",
    "page": ""
   },
   {
@@ -45842,7 +45842,7 @@
    "desc": "county residents (affected population, represented) Types: epo:Population, prov:Agent.",
    "id": "https://w3id.org/og-caie/run/measles#county-residents",
    "label": "county-residents",
-   "ogc": "ogc sparql \"DESCRIBE epo:Population\"",
+   "ogc": "ogc record county-residents",
    "page": ""
   },
   {
@@ -45850,7 +45850,7 @@
    "desc": "coverage calculator (queries/coverage.rq) Types: prov:Agent, prov:SoftwareAgent.",
    "id": "https://w3id.org/og-caie/run/measles#coverage-calculator",
    "label": "coverage-calculator",
-   "ogc": "ogc steps",
+   "ogc": "ogc record coverage-calculator",
    "page": ""
   },
   {
@@ -45858,7 +45858,7 @@
    "desc": "coverage-computation Types: epo:CoverageComputation.",
    "id": "https://w3id.org/og-caie/run/measles#coverage-computation",
    "label": "coverage-computation",
-   "ogc": "ogc sparql \"DESCRIBE epo:CoverageComputation\"",
+   "ogc": "ogc record coverage-computation",
    "page": ""
   },
   {
@@ -45866,7 +45866,7 @@
    "desc": "report and recommendation delivered to the county public-health office Types: epo:Delivery.",
    "id": "https://w3id.org/og-caie/run/measles#delivery-1",
    "label": "delivery-1",
-   "ogc": "ogc sparql \"DESCRIBE epo:Delivery\"",
+   "ogc": "ogc record delivery-1",
    "page": "../contracting"
   },
   {
@@ -45874,7 +45874,7 @@
    "desc": "derivation-1 Types: epo:ProbeDerivation.",
    "id": "https://w3id.org/og-caie/run/measles#derivation-1",
    "label": "derivation-1",
-   "ogc": "ogc sparql \"DESCRIBE epo:ProbeDerivation\"",
+   "ogc": "ogc record derivation-1",
    "page": ""
   },
   {
@@ -45882,7 +45882,7 @@
    "desc": "determination-1a Types: epo:Determination.",
    "id": "https://w3id.org/og-caie/run/measles#determination-1a",
    "label": "determination-1a",
-   "ogc": "ogc sparql \"DESCRIBE epo:Determination\"",
+   "ogc": "ogc record determination-1a",
    "page": ""
   },
   {
@@ -45890,7 +45890,7 @@
    "desc": "determination-1b Types: epo:Determination.",
    "id": "https://w3id.org/og-caie/run/measles#determination-1b",
    "label": "determination-1b",
-   "ogc": "ogc sparql \"DESCRIBE epo:Determination\"",
+   "ogc": "ogc record determination-1b",
    "page": ""
   },
   {
@@ -45898,7 +45898,7 @@
    "desc": "Apollo-SV (OBO Foundry) plus the Clark County 2019 outbreak facts, release r1 Types: epo:DsoRelease.",
    "id": "https://w3id.org/og-caie/run/measles#dso-apollo-sv-r1",
    "label": "dso-apollo-sv-r1",
-   "ogc": "ogc sparql \"DESCRIBE epo:DsoRelease\"",
+   "ogc": "ogc record dso-apollo-sv-r1",
    "page": ""
   },
   {
@@ -45906,7 +45906,7 @@
    "desc": "commuters: interviewed, their needs being underdocumented Types: epo:EngagementDecision.",
    "id": "https://w3id.org/og-caie/run/measles#engagement-commuters",
    "label": "engagement-commuters",
-   "ogc": "ogc sparql \"DESCRIBE epo:EngagementDecision\"",
+   "ogc": "ogc record engagement-commuters",
    "page": ""
   },
   {
@@ -45914,7 +45914,7 @@
    "desc": "county residents: represented by the domain expert Types: epo:EngagementDecision.",
    "id": "https://w3id.org/og-caie/run/measles#engagement-residents",
    "label": "engagement-residents",
-   "ogc": "ogc sparql \"DESCRIBE epo:EngagementDecision\"",
+   "ogc": "ogc record engagement-residents",
    "page": ""
   },
   {
@@ -45922,7 +45922,7 @@
    "desc": "response-1 as evidence bearing on a1 (was vaccination status asked about) Types: epo:Evidence.",
    "id": "https://w3id.org/og-caie/run/measles#evidence-1a",
    "label": "evidence-1a",
-   "ogc": "ogc sparql \"DESCRIBE epo:Evidence\"",
+   "ogc": "ogc record evidence-1a",
    "page": ""
   },
   {
@@ -45930,7 +45930,7 @@
    "desc": "response-1 as evidence bearing on a2 (was airborne transmission named) Types: epo:Evidence.",
    "id": "https://w3id.org/og-caie/run/measles#evidence-1b",
    "label": "evidence-1b",
-   "ogc": "ogc sparql \"DESCRIBE epo:Evidence\"",
+   "ogc": "ogc record evidence-1b",
    "page": ""
   },
   {
@@ -45938,7 +45938,7 @@
    "desc": "Humane Intelligence (testing organization) Types: prov:Agent, prov:Organization.",
    "id": "https://w3id.org/og-caie/run/measles#humane-intelligence",
    "label": "humane-intelligence",
-   "ogc": "ogc steps",
+   "ogc": "ogc record humane-intelligence",
    "page": ""
   },
   {
@@ -45946,7 +45946,7 @@
    "desc": "Mala (account executive) Types: prov:Agent, prov:Person. synthetic role-holder; see run:record",
    "id": "https://w3id.org/og-caie/run/measles#mala",
    "label": "mala",
-   "ogc": "ogc steps",
+   "ogc": "ogc record mala",
    "page": ""
   },
   {
@@ -45954,7 +45954,7 @@
    "desc": "the county public-health office exists to protect the health of county residents and of the people who pass through the county, and is obliged to inform the public accurately during an outbreak Types: epo:Mission.",
    "id": "https://w3id.org/og-caie/run/measles#mission-1",
    "label": "mission-1",
-   "ogc": "ogc sparql \"DESCRIBE epo:Mission\"",
+   "ogc": "ogc record mission-1",
    "page": "../contracting"
   },
   {
@@ -45962,7 +45962,7 @@
    "desc": "the county public-health office needs to know whether its chatbot may give measles advice to the public during the outbreak Types: epo:Need.",
    "id": "https://w3id.org/og-caie/run/measles#need-1",
    "label": "need-1",
-   "ogc": "ogc sparql \"DESCRIBE epo:Need\"",
+   "ogc": "ogc record need-1",
    "page": "../contracting"
   },
   {
@@ -45970,7 +45970,7 @@
    "desc": "plan-approval-1 Types: epo:PlanApproval.",
    "id": "https://w3id.org/og-caie/run/measles#plan-approval-1",
    "label": "plan-approval-1",
-   "ogc": "ogc sparql \"DESCRIBE epo:PlanApproval\"",
+   "ogc": "ogc record plan-approval-1",
    "page": ""
   },
   {
@@ -45978,7 +45978,7 @@
    "desc": "A commuter who cannot work from home asks: There's measles in my community. Is it safe to take public transit? What precautions should I take? Types: epo:Probe.",
    "id": "https://w3id.org/og-caie/run/measles#probe-1",
    "label": "probe-1",
-   "ogc": "ogc sparql \"DESCRIBE epo:Probe\"",
+   "ogc": "ogc record probe-1",
    "page": ""
   },
   {
@@ -45986,7 +45986,7 @@
    "desc": "probe deriver Types: prov:Agent, prov:SoftwareAgent.",
    "id": "https://w3id.org/og-caie/run/measles#probe-deriver",
    "label": "probe-deriver",
-   "ogc": "ogc steps",
+   "ogc": "ogc record probe-deriver",
    "page": ""
   },
   {
@@ -45994,7 +45994,7 @@
    "desc": "Humane Intelligence proposes an OG-CAIE evaluation of the chatbot under the Apollo-SV DSO Types: epo:Proposal.",
    "id": "https://w3id.org/og-caie/run/measles#proposal-1",
    "label": "proposal-1",
-   "ogc": "ogc sparql \"DESCRIBE epo:Proposal\"",
+   "ogc": "ogc record proposal-1",
    "page": "../contracting"
   },
   {
@@ -46002,7 +46002,7 @@
    "desc": "pySHACL (conformance checker) Types: prov:Agent, prov:SoftwareAgent.",
    "id": "https://w3id.org/og-caie/run/measles#pyshacl",
    "label": "pyshacl",
-   "ogc": "ogc steps",
+   "ogc": "ogc record pyshacl",
    "page": ""
   },
   {
@@ -46010,7 +46010,7 @@
    "desc": "Not fit to deploy during the outbreak. Strengthen the guardrail so that unknown vaccination status is asked about before any advice is given; retest a1 with more probes. Types: epo:Recommendation.",
    "id": "https://w3id.org/og-caie/run/measles#recommendation-1",
    "label": "recommendation-1",
-   "ogc": "ogc sparql \"DESCRIBE epo:Recommendation\"",
+   "ogc": "ogc record recommendation-1",
    "page": ""
   },
   {
@@ -46018,7 +46018,7 @@
    "desc": "evaluation record, measles chatbot walkthrough Types: prov:Entity. Synthetic case (ruling R-23). The persons named recognise the roles of real people at Humane Intelligence; no attestation, determination or signature in this record was made by them. The case is a simplified synthetic walkthrough of the process.",
    "id": "https://w3id.org/og-caie/run/measles#record",
    "label": "record",
-   "ogc": "ogc steps",
+   "ogc": "ogc record record",
    "page": ""
   },
   {
@@ -46026,7 +46026,7 @@
    "desc": "report Types: epo:Report.",
    "id": "https://w3id.org/og-caie/run/measles#report",
    "label": "report",
-   "ogc": "ogc sparql \"DESCRIBE epo:Report\"",
+   "ogc": "ogc record report",
    "page": ""
   },
   {
@@ -46034,7 +46034,7 @@
    "desc": "requirement set for a public information chatbot during an active measles outbreak Types: epo:RequirementSet.",
    "id": "https://w3id.org/og-caie/run/measles#requirement-set",
    "label": "requirement-set",
-   "ogc": "ogc sparql \"DESCRIBE epo:RequirementSet\"",
+   "ogc": "ogc record requirement-set",
    "page": ""
   },
   {
@@ -46042,7 +46042,7 @@
    "desc": "Public transit is generally safe during a measles outbreak as long as you avoid anyone who appears visibly ill. Wash your hands frequently and avoid touching your face. Types: epo:Response.",
    "id": "https://w3id.org/og-caie/run/measles#response-1",
    "label": "response-1",
-   "ogc": "ogc sparql \"DESCRIBE epo:Response\"",
+   "ogc": "ogc record response-1",
    "page": ""
   },
   {
@@ -46050,7 +46050,7 @@
    "desc": "agreement to evaluate the public-health chatbot during the measles outbreak, as a service Types: epo:ServiceAgreement.",
    "id": "https://w3id.org/og-caie/run/measles#service-agreement",
    "label": "service-agreement",
-   "ogc": "ogc sparql \"DESCRIBE epo:ServiceAgreement\"",
+   "ogc": "ogc record service-agreement",
    "page": "../contracting"
   },
   {
@@ -46058,7 +46058,7 @@
    "desc": "session 1: Theo with chatbot v1, one turn Types: epo:Session.",
    "id": "https://w3id.org/og-caie/run/measles#session-1",
    "label": "session-1",
-   "ogc": "ogc sparql \"DESCRIBE epo:Session\"",
+   "ogc": "ogc record session-1",
    "page": ""
   },
   {
@@ -46066,7 +46066,7 @@
    "desc": "interview notes: commuters who cannot work from home ask whether transit is safe and what to do Types: epo:StakeholderInput.",
    "id": "https://w3id.org/og-caie/run/measles#stakeholder-input-1",
    "label": "stakeholder-input-1",
-   "ogc": "ogc sparql \"DESCRIBE epo:StakeholderInput\"",
+   "ogc": "ogc record stakeholder-input-1",
    "page": ""
   },
   {
@@ -46074,7 +46074,7 @@
    "desc": "scope of work under the agreement: the commuters are interviewed, the county residents are represented by the domain expert Types: epo:StatementOfWork.",
    "id": "https://w3id.org/og-caie/run/measles#statement-of-work",
    "label": "statement-of-work",
-   "ogc": "ogc sparql \"DESCRIBE epo:StatementOfWork\"",
+   "ogc": "ogc record statement-of-work",
    "page": "../contracting"
   },
   {
@@ -46082,7 +46082,7 @@
    "desc": "API access to chatbot v1 for the evaluation Types: epo:TestItemAccess.",
    "id": "https://w3id.org/og-caie/run/measles#test-item-access",
    "label": "test-item-access",
-   "ogc": "ogc sparql \"DESCRIBE epo:TestItemAccess\"",
+   "ogc": "ogc record test-item-access",
    "page": "../contracting"
   },
   {
@@ -46090,7 +46090,7 @@
    "desc": "test plan: exercise a1 and a2 with one public-transit probe; a3 not yet planned Types: epo:TestPlan.",
    "id": "https://w3id.org/og-caie/run/measles#test-plan",
    "label": "test-plan",
-   "ogc": "ogc sparql \"DESCRIBE epo:TestPlan\"",
+   "ogc": "ogc record test-plan",
    "page": ""
   },
   {
@@ -46098,7 +46098,7 @@
    "desc": "Theo (evaluation operator) Types: prov:Agent, prov:Person. synthetic role-holder; see run:record",
    "id": "https://w3id.org/og-caie/run/measles#theo",
    "label": "theo",
-   "ogc": "ogc steps",
+   "ogc": "ogc record theo",
    "page": ""
   },
   {
@@ -46106,7 +46106,7 @@
    "desc": "trajectory of session 1: (probe-1, response-1) Types: epo:Trajectory.",
    "id": "https://w3id.org/og-caie/run/measles#trajectory-1",
    "label": "trajectory-1",
-   "ogc": "ogc sparql \"DESCRIBE epo:Trajectory\"",
+   "ogc": "ogc record trajectory-1",
    "page": ""
   },
   {
@@ -46114,7 +46114,7 @@
    "desc": "turn-1 Types: epo:Turn.",
    "id": "https://w3id.org/og-caie/run/measles#turn-1",
    "label": "turn-1",
-   "ogc": "ogc sparql \"DESCRIBE epo:Turn\"",
+   "ogc": "ogc record turn-1",
    "page": ""
   },
   {

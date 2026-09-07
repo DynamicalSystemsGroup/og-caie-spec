@@ -19,12 +19,13 @@ EPO = Namespace("https://w3id.org/og-caie/epo#")
 XW = Namespace("https://w3id.org/og-caie/crosswalk#")
 TR = Namespace("https://w3id.org/og-caie/trace#")
 OGM = Namespace("https://w3id.org/og-caie/model#")
+RUN = Namespace("https://w3id.org/og-caie/run/measles#")  # the record's namespace (track/measles-run.ttl, loaded by --record)
 SKOS = Namespace("http://www.w3.org/2004/02/skos/core#")
 PROV = Namespace("http://www.w3.org/ns/prov#")
 EARL = Namespace("http://www.w3.org/ns/earl#")
 SH = Namespace("http://www.w3.org/ns/shacl#")
 RDFS = Namespace("http://www.w3.org/2000/01/rdf-schema#")
-PREFIXES = {"ogc": OGC, "term": TERM, "src": SRC, "rul": RUL, "epo": EPO, "xw": XW, "tr": TR, "ogm": OGM,
+PREFIXES = {"ogc": OGC, "term": TERM, "src": SRC, "rul": RUL, "epo": EPO, "xw": XW, "tr": TR, "ogm": OGM, "run": RUN,
             "skos": SKOS, "prov": PROV, "earl": EARL, "sh": SH, "rdfs": RDFS,
             "rdf": Namespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#"), "xsd": Namespace("http://www.w3.org/2001/XMLSchema#"),
             "sysml": Namespace("https://www.omg.org/spec/SysML#"), "sysx": Namespace("urn:opensysml:sysml:"), "elmt": Namespace("urn:sysmlv2:element:")}
@@ -32,6 +33,7 @@ SPARQL_PREFIXES = "".join(f"PREFIX {k}: <{v}>\n" for k, v in PREFIXES.items())
 SOURCE_FILES = ["vocabulary/og-caie.ttl", "vocabulary/epo.ttl", "vocabulary/crosswalk.ttl", "sources/sources.ttl",
                 "rulings/adjudications.ttl", "model/trace.ttl", "shapes/epo.shapes.ttl", "shapes/model.shapes.ttl"]
 MODEL_FILE = "model/og-caie.model.ttl"
+RECORD_FILE = "track/measles-run.ttl"  # the worked example's record; read by `ogc record` and `--record` (C-44, ruling R-47)
 
 
 def find_root(start: Path | None = None) -> Path:
@@ -45,10 +47,12 @@ def find_root(start: Path | None = None) -> Path:
     return Path(__file__).resolve().parents[1]
 
 
-def files(root: Path, model: bool = False) -> list[Path]:
+def files(root: Path, model: bool = False, record: bool = False) -> list[Path]:
     out = [root / f for f in SOURCE_FILES]
     if model and (root / MODEL_FILE).exists():
         out.append(root / MODEL_FILE)
+    if record and (root / RECORD_FILE).exists():
+        out.append(root / RECORD_FILE)
     return out
 
 
@@ -60,12 +64,12 @@ def _key(paths: list[Path]) -> str:
     return h.hexdigest()[:16]
 
 
-def load(root: Path | None = None, model: bool = False, cache: bool = True) -> Graph:
+def load(root: Path | None = None, model: bool = False, cache: bool = True, record: bool = False) -> Graph:
     # The pickle cache holds only graphs this tool parsed itself from the
     # checkout's own Turtle files, written under the gitignored .cache/ and
     # keyed on those files' mtimes; nothing untrusted is ever unpickled.
     root = root or find_root()
-    paths = files(root, model)
+    paths = files(root, model, record)
     cache_dir = root / ".cache"
     key = _key(paths)
     cp = cache_dir / f"ogc-graph-{key}.pkl"

@@ -11,7 +11,7 @@ import sys
 import pytest
 from rdflib import RDF
 
-from conftest import OGC, ROOT, load
+from conftest import EPO, OGC, ROOT, load
 
 SKOS = "http://www.w3.org/2004/02/skos/core#"
 COMMANDS = [
@@ -23,6 +23,8 @@ COMMANDS = [
     ["sparql", 'SELECT ?l WHERE { ?t a skos:Concept ; ogc:class "coined" ; skos:prefLabel ?l }'],
     ["sparql", "SELECT ?s ?p ?o WHERE { ?s ?p ?o } LIMIT 20"],
     ["sparql", "CONSTRUCT { ?s ?p ?o } WHERE { ?s ?p ?o } LIMIT 30"],
+    ["record"], ["record", "mission-1"], ["record", "attestation-1"], ["--record", "sparql", "DESCRIBE run:mission-1"],
+    ["execute", "--planned", "3", "--sessions", "2"],
 ]
 # A mutated run fails its VERDICT on purpose (finding 9): deterministic, exit 1.
 MUTATED = [["execute", "--mutate", "skip-access"]]
@@ -51,7 +53,7 @@ def test_json_twin_parses():
         assert r.returncode == (1 if cmd in MUTATED else 0), (cmd, r.stderr)
         d = json.loads(r.stdout)
         assert isinstance(d, dict), cmd
-        assert d["_ogc"]["command"] == cmd[0] and d["_ogc"]["sha"], cmd  # finding 13: every JSON object is citable
+        assert d["_ogc"]["command"] == next(x for x in cmd if not x.startswith("--")) and d["_ogc"]["sha"], cmd  # finding 13: every JSON object is citable
 
 
 def test_exit_codes():
@@ -244,3 +246,72 @@ def test_finding_20_coverage_is_prose_and_empty_grep_is_usage():
     out = run("execute").stdout
     assert re.search(r"^coverage: \d\.\d{4} \(pass \d\.\d\d, fail \d\.\d\d, cannot tell \d\.\d\d\)$", out, re.M) and "{'coverage'" not in out
     assert run("rulings", "--grep", "").returncode == 2
+
+
+# ---------------------------------------------------------------- the record (C-44, ruling R-47) and the executor's parameters
+
+def _rows(*cmd):
+    return json.loads(run(*cmd, "--json").stdout)["rows"]
+
+
+def test_record_lists_every_stepped_item_by_step():
+    rg = load("track/measles-run.ttl")
+    stepped = {str(s).rsplit("#", 1)[-1] for s in rg.subjects(EPO.step, None)}
+    r = run("record")
+    assert r.returncode == 0, r.stderr
+    rows = _rows("record")
+    assert {x["item"] for x in rows if x["group"] == "step"} == stepped and len(stepped) > 20
+    orders = [x["order"] for x in rows if x["group"] == "step"]
+    assert orders == sorted(orders) and orders[0] == 1 and orders[-1] == 16  # C1..C6 then 1..6
+    steps = [x["step"] for x in rows if x["group"] == "step"]
+    assert steps[0] == "C1 need" and steps[-1] == "6 report" and steps.index("C6 accept") < steps.index("1 scope")
+    for name in stepped:
+        assert re.search(rf"^\S.*\s{re.escape(name)}\s", r.stdout, re.M), name
+    assert "without a step" in r.stdout and any(x["item"] == "turn-1" and x["group"] == "no-step" for x in rows)
+    assert not any(x["item"] == "record" for x in rows)  # the record's own entity is not one of its items
+    who = next(x for x in rows if x["item"] == "attestation-1")
+    assert who["who"] == ["Annie (domain expert)"] and who["when"] == "2026-08-11"
+    assert any(x["item"] == "annie" and x["group"] == "party" for x in rows)
+
+
+def test_record_item_prints_its_label_and_step():
+    r = run("record", "mission-1")
+    assert r.returncode == 0 and "C1 need" in r.stdout and "protect the health of county residents" in r.stdout
+    d = json.loads(run("record", "mission-1", "--json").stdout)
+    assert d["item"] == "mission-1" and d["step"] == "C1 need" and d["class"] == "Mission"
+    assert any(t["predicate"] == "epo:regards" and t["object"] == "run:commuters" and t["label"].startswith("commuters") for t in d["out"])
+    assert any(t["predicate"] == "epo:underMission" and t["subject"] == "run:need-1" for t in d["in"])
+    r = run("record", "attestation-1")
+    assert "earl:outcome earl:failed" in r.stdout  # a blank node's triples are printed inline
+    assert run("record", "MISSION-1").returncode == 0
+    r = run("record", "mission")
+    assert r.returncode == 1 and "candidate: mission-1" in r.stdout
+    assert run("record", "no-such-item-xyz").returncode == 1
+
+
+def test_record_flag_loads_the_record_for_sparql():
+    q = "SELECT (COUNT(*) AS ?n) WHERE { ?s ?p ?o }"
+    with_record, without = run("--record", "sparql", q), run("sparql", q)
+    assert with_record.stdout.splitlines()[0] != without.stdout.splitlines()[0] and "--record" in with_record.stdout.splitlines()[0]
+    n = lambda r: int(json.loads(r.stdout)["rows"][0]["n"])
+    assert n(run("--record", "sparql", q, "--json")) > n(run("sparql", q, "--json"))
+    assert "--record" in json.loads(run("sparql", q, "--record", "--json").stdout)["_ogc"]["args"]
+    assert "run:mission-1" in run("sparql", "DESCRIBE run:mission-1", "--record").stdout
+
+
+def test_execute_exposes_the_executor_parameters():
+    r = run("execute", "--planned", "3")
+    assert r.returncode == 0, r.stdout
+    assert "coverage: 1.0000" in r.stdout and "traceback rows: 3" in r.stdout and r.stdout.rstrip().splitlines()[-1].startswith("VERDICT: PASS")
+    assert re.search(r"^parameters: requirements 1, criteria 3, planned 3, sessions 1, populations 2$", r.stdout, re.M)
+    d = json.loads(run("execute", "--planned", "3", "--json").stdout)
+    assert d["params"] == {"requirements": 1, "criteria": 3, "planned": 3, "sessions": 1, "populations": 2}
+    assert d["coverage"]["coverage"] == 1 and d["traceback"] == 3 and d["_ogc"]["args"] == "--planned 3"
+    r = run("execute", "--planned", "9")
+    assert r.returncode == 1 and "at most" in r.stdout and "VERDICT" not in r.stdout
+    assert json.loads(run("execute", "--planned", "9", "--json").stdout)["error"]
+    for bad in (["--sessions", "0"], ["--requirements", "-1"], ["--criteria", "0"], ["--populations", "0"]):
+        assert run("execute", *bad).returncode == 1, bad
+    assert run("execute", "--planned", "x").returncode == 2
+    d = json.loads(run("execute", "--requirements", "2", "--criteria", "2", "--planned", "4", "--sessions", "2", "--json").stdout)
+    assert d["ok"] and d["traceback"] == 8 and d["params"]["sessions"] == 2
