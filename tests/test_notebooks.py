@@ -1,6 +1,6 @@
 """The "Checked" notebooks are computational proof of the chapters' Checked
-blocks: every shape the block names is exercised in the notebook it links
-to, every counterexample the block describes is run there, the notebook
+sections: every shape the section names is exercised in the notebook its
+Verdict box links to, every counterexample the section describes is run there, the notebook
 executes cleanly with nbclient, its committed outputs equal a fresh
 execution (the site renders the committed outputs), it ends with the
 verdict line, and its outputs carry no date, path or object address."""
@@ -19,7 +19,8 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from execute_notebooks import NOTEBOOKS, VERDICT, execute, outputs, stale  # noqa: E402
 
 SH = Namespace("http://www.w3.org/ns/shacl#")
-CHECKED_BLOCK = re.compile(r":::\{admonition\} Checked\n(.*?)\n:::", re.S)
+CHECKED_SECTION = re.compile(r"\n## Checked\n(.*?)\n## There is more in the model\n", re.S)
+CHECKED_BLOCK = re.compile(r":::\{admonition\} Verdict\n(.*?)\n:::", re.S)  # the verdict box inside the section
 SHAPE_ID = re.compile(r"\b[SM]\d-\w+\b")
 SHAPE_RANGE = re.compile(r"\b([SM])(\d) to \1(\d)\b")  # "S1 to S8": every shape of those groups in its file
 SHAPE_FILES = {"S": "shapes/epo.shapes.ttl", "M": "shapes/model.shapes.ttl"}
@@ -44,8 +45,9 @@ RETIRED = {"adequacy", "adequate", "inadequate"}
 
 
 def checked_block(name):
-    m = CHECKED_BLOCK.search((ROOT / "docs" / name).read_text())
-    assert m, f"{name}: no Checked block"
+    """The chapter's Checked section: the prose naming the shapes and the counterexamples, and the Verdict box."""
+    m = CHECKED_SECTION.search((ROOT / "docs" / name).read_text())
+    assert m, f"{name}: no Checked section"
     return m.group(1)
 
 
@@ -62,9 +64,10 @@ def named_shapes(block):
 
 
 def linked_notebook(name):
-    block = checked_block(name)
-    m = PROOF_LINK.search(block.rstrip())
-    assert m, f"{name}: the Checked block does not end with the computational-proof sentence"
+    box = CHECKED_BLOCK.search(checked_block(name))
+    assert box, f"{name}: no Verdict box in the Checked section"
+    m = PROOF_LINK.search(box.group(1).rstrip())
+    assert m, f"{name}: the Verdict box does not end with the computational-proof sentence"
     path = ROOT / "notebooks" / m.group(1)
     assert path.exists(), path
     return path

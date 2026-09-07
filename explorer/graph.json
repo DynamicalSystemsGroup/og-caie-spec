@@ -12138,7 +12138,7 @@
     [
      "ogc:status",
      {
-      "text": "open"
+      "text": "ruled"
      }
     ],
     [
@@ -15107,6 +15107,12 @@
      "ogc:order",
      {
       "text": "47"
+     }
+    ],
+    [
+     "ogc:resolves",
+     {
+      "ref": "https://w3id.org/og-caie/rulings#C-44"
      }
     ],
     [
@@ -38603,6 +38609,11 @@
   {
    "rel": "resolves",
    "source": "https://w3id.org/og-caie/rulings#R-47",
+   "target": "https://w3id.org/og-caie/rulings#C-44"
+  },
+  {
+   "rel": "resolves",
+   "source": "https://w3id.org/og-caie/rulings#R-47",
    "target": "https://w3id.org/og-caie/rulings#C-53"
   },
   {
@@ -43467,7 +43478,7 @@
    "id": "cite:first-party-conformity-assessment-activity:canonical:iso-iec-17000-2020:4-3-first-party-conformity-assessment-activity",
    "label": "iso-iec-17000-2020 4.3 first-party conformity a…",
    "ogc": "ogc quote \"first-party conformity assessment activity\"",
-   "page": "../glossary"
+   "page": "../glossary#term-first-party-conformity-assessment-activity"
   },
   {
    "cls": "citation",
@@ -43859,7 +43870,7 @@
    "id": "cite:second-party-conformity-assessment-activity:canonical:iso-iec-17000-2020:4-4-second-party-conformity-assessment-activity",
    "label": "iso-iec-17000-2020 4.4 second-party conformity…",
    "ogc": "ogc quote \"second-party conformity assessment activity\"",
-   "page": "../glossary"
+   "page": "../glossary#term-second-party-conformity-assessment-activity"
   },
   {
    "cls": "citation",
@@ -45271,7 +45282,7 @@
   },
   {
    "cls": "concern",
-   "desc": "ogc has no reader for the record: explorer nodes for record items point at their class, not the item (L, open). The knowledge graph explorer names, on every node, the ogc command that prints it. For record items (track/measles-run.ttl) there is none: the record is not among the files ogc loads, so the node points at a DESCRIBE of the item's class. A --record flag on ogc sparql, or a reader of the record, would close this.",
+   "desc": "ogc has no reader for the record: explorer nodes for record items point at their class, not the item (L, ruled). The knowledge graph explorer names, on every node, the ogc command that prints it. For record items (track/measles-run.ttl) there is none: the record is not among the files ogc loads, so the node points at a DESCRIBE of the item's class. A --record flag on ogc sparql, or a reader of the record, would close this.",
    "id": "https://w3id.org/og-caie/rulings#C-44",
    "label": "C-44",
    "ogc": "ogc concern C-44",
@@ -46443,7 +46454,7 @@
    "id": "https://w3id.org/og-caie/terms#first-party-conformity-assessment-activity",
    "label": "first-party conformity assessment activity",
    "ogc": "ogc term \"first-party conformity assessment activity\"",
-   "page": "../glossary"
+   "page": "../glossary#term-first-party-conformity-assessment-activity"
   },
   {
    "cls": "term",
@@ -46643,7 +46654,7 @@
    "id": "https://w3id.org/og-caie/terms#second-party-conformity-assessment-activity",
    "label": "second-party conformity assessment activity",
    "ogc": "ogc term \"second-party conformity assessment activity\"",
-   "page": "../glossary"
+   "page": "../glossary#term-second-party-conformity-assessment-activity"
   },
   {
    "cls": "term",
@@ -49222,7 +49233,7 @@
    ]
   },
   {
-   "focus": "the front page's bridge as data: each row of the crosswalk, the terms it lands on, the kinds and shapes that realize it, and the deck it cites.",
+   "focus": "the front page's bridge as data: each row of the crosswalk, the terms it lands on, the kinds and shapes that realize it, and the session it cites.",
    "id": "crosswalk",
    "label": "Crosswalk",
    "leaves_out": "everything on the far side of the bridge a row does not name; a row's own words are in the panel.",

@@ -6,8 +6,7 @@ from outside and the whole of the previous chapter from inside. This chapter
 shows why the nesting is the standards' own, how the model states it, and
 how the measles record splits along it.
 
-:::{admonition} What the standards say
-:class: standards
+## What the standards say
 
 SEBoK and ISO/IEC/IEEE 15288 place the technical processes inside the
 agreement processes: needs and requirements are expressed in agreements
@@ -18,10 +17,8 @@ that kind. So an evaluation is what a {term}`provider` does between the
 the inner cycle sit between C4 and C5 of the outer one. `ogc steps` prints
 both cycles with the canon step each matches; the previous two chapters
 quote them.
-:::
 
-:::{admonition} The specification
-:class: specification
+## The specification
 
 One view, read from the model graph, shows the nesting and nothing else:
 the outer chain with `fulfil` as a black box, the inner chain it opens
@@ -33,42 +30,46 @@ out on purpose; the two chapters before this one draw it.
 ```{include} ../generated/nesting.md
 ```
 
-In SysML the outer cycle is an `action def` of seven steps in fixed
-succession and the inner cycle another of six. The step `fulfil` is declared
-`action fulfil : EvaluationProcess`; its inputs, the agreement and the
-access, are bound by `flow` from the agree and access steps, and its
-outputs, the report and the recommendation, flow to the deliver step. The
-inner process is the drill-down and conforms to the layer above by typing:
-shape M4-Nesting checks that every input of the evaluation process is fed by
-a contracting step and every output feeds one. The assembly performs one
-action, the contracting lifecycle.
+The same view as the tool prints it, perspective first, figure beneath:
 
-The record and the report rest on both lifecycles at once, and the nesting
-is what lets them. Every item that reaches the recorder comes from one of
-the two cycles: the mission, the statement of work, the agreement and the
-access from the contracting lifecycle; the DSO release, the requirement set,
-the plan, the sessions, the evidence, the determinations and the
-attestations from the evaluation. Coverage needs the criteria, an
-evaluation item, weighted as the contract's frame allows; the traceback from
-a recommendation reaches the evidence and the attestations on the inner
-side and the agreement, the access, the three organizations and the
-delivery on the outer side, in one query; and the report itself leaves the
-inner cycle to become the delivery's content in the outer. A record that
-held only the evaluation could say what was found, not under what contract
-or for whom; one that held only the contract could say what was agreed,
-not what was shown. The chapter on records and reporting counts on both
-being present, and shape S0-Layers on the record and shape M4-Nesting on
-the model are what guarantee it.
+```{literalinclude} ../generated/cli/view-nesting.md
+```
 
-SysML holds structure only: the source
-file is the authoring view, and its rendering as RDF by the pinned
-OpenSysML converter, pruned to a term map and committed with a manifest and
-a triple budget, is the canonical structure that every shape and every
-figure reads.
-:::
+In SysML the outer cycle is an `action def`, the definition of a process
+as steps in fixed succession, of seven steps, and the inner cycle another
+of six. The step `fulfil` is declared `action fulfil : EvaluationProcess`;
+its inputs, the agreement and the access, are bound by `flow`, SysML's
+binding of one step's output to another's input, from the agree and access
+steps, and its outputs, the report and the recommendation, flow to the
+deliver step. The inner process is the drill-down, the black box opened one
+level down, and conforms to the layer above by typing: shape M4-Nesting, one
+of the machine-checked rules over the model graph, checks that every input
+of the evaluation process is fed by a contracting step and every output
+feeds one. The assembly performs one action, the contracting lifecycle.
 
-:::{admonition} The walkthrough
-:class: walkthrough
+The record and the report rest on both lifecycles at once. Every item that
+reaches the recorder comes from one of the two cycles: the mission, the
+statement of work, the agreement and the access from the contracting
+lifecycle; the DSO release, the requirement set, the plan, the sessions,
+the evidence, the determinations and the attestations from the evaluation.
+The traceback from a recommendation reaches the evidence and the
+attestations on the inner side and the agreement, the access, the three
+organizations and the delivery on the outer side, in one query, and the
+report leaves the inner cycle to become the delivery's content in the
+outer. A record that held only the evaluation could say what was found,
+not under what contract or for whom; one that held only the contract could
+say what was agreed, not what was shown. Shape S0-Layers on the record and
+shape M4-Nesting on the model guarantee that both are present.
+
+SysML holds structure only: the source file is the authoring view, and its
+rendering as RDF by the pinned OpenSysML converter is the canonical
+structure that every shape and every figure reads. That rendering is
+pruned: the converter's full output is cut down to the terms in the term
+map (`model/sysml_term_map.csv`, the list of SysML vocabulary the graph
+keeps, each term with a rationale) and committed with a manifest and a
+triple budget (the cap on the graph's size, raised only with a reason).
+
+## The walkthrough
 
 The measles record splits along the same seam. What the contract pinned was
 recorded between 28 July and 31 July and again between 12 and 14 August:
@@ -81,23 +82,37 @@ layer contributed to the one record the report and the traceback read.
 
 ```{include} ../generated/layers-walkthrough.md
 ```
-:::
 
-:::{admonition} Checked
-:class: checked
+The shape that holds the layers apart, as the tool prints it: its target
+and the message of its one SPARQL constraint, the rule as a query over the
+record:
+
+```{literalinclude} ../generated/cli/shape-s0-layers.md
+```
+
+## Checked
 
 The authoring view validates strictly under the pinned converter; the
 canonical graph regenerates byte for byte within its budget; M4-Steps,
-M4-Nesting, M4-ProcessDag and M4-EveryItemProduced hold over it; S0-Layers
-holds over the record, and the counterexample of a requirement set declared
-before the agreement fails it.
+M4-Nesting, M4-ProcessDag and M4-EveryItemProduced hold over it, the third
+checking that the steps form a DAG (a directed acyclic graph: each step
+after the ones that produce what it consumes, and no loop); S0-Layers holds
+over the record, and the counterexample of a requirement set declared
+before the agreement must fail it.
 
 ```{include} ../generated/receipts.md
 ```
+
+:::{admonition} Verdict
+:class: checked
+The authoring view validates, the canonical graph regenerates and conforms,
+the record conforms, and the counterexample fails where it must.
 Computational proof: [run the checks](../notebooks/checked-model.ipynb).
 :::
 
-:::{admonition} There is more in the model
+## There is more in the model
+
+:::{admonition} Ask the graph
 :class: more
 
 ```{include} ../generated/more-model.md

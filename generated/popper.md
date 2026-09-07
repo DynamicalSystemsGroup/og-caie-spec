@@ -8,4 +8,4 @@
 | **falsifiability**: "Falsifiability is the property of excluding at least one possible empirical outcome." | {term}`attestation`, {term}`outcome`, {term}`test coverage` | The attestation's outcome for each criterion, and the report's coverage over all of them. | A failed outcome is a recorded falsifier; coverage is recomputed from the record, and a criterion with no attestation counts zero. |
 | **context**: "In practice, however, falsification also depends on auxiliary assumptions and methodological judgments." | {term}`appropriateness`, {term}`requirements traceability`, {term}`sufficiency` | The appropriateness and sufficiency judgments on every attestation, and the trace from each recommendation back to the requirement it answers. | A failed prediction is attributed: the record says which named person judged the context inappropriate or the evidence insufficient, and why. |
 
-The definitions in the first column are the authors' own, from slide 5 of the SciPy 2026 birds-of-a-feather deck, after Popper (1959).
+The definitions in the first column are the authors' own, as stated at their SciPy 2026 birds-of-a-feather session, after Popper (1959).

@@ -410,7 +410,7 @@ class Builder:
              "what each essential rests on, sources and rulings, and the record the S-shapes run over.",
              sci_core | touching(of("sci"), "term")),
             ("crosswalk", "Crosswalk",
-             "the front page's bridge as data: each row of the crosswalk, the terms it lands on, the kinds and shapes that realize it, and the deck it cites.",
+             "the front page's bridge as data: each row of the crosswalk, the terms it lands on, the kinds and shapes that realize it, and the session it cites.",
              "everything on the far side of the bridge a row does not name; a row's own words are in the panel.",
              xw_core | touching(xw_core, "term") | touching(xw_core, "kind") | touching(xw_core, "shape") | touching(xw_core, "source")),
             ("everything", "Everything",

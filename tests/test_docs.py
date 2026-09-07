@@ -10,7 +10,9 @@ from rdflib import Namespace
 
 SKOS = Namespace("http://www.w3.org/2004/02/skos/core#")
 PROSE = [ROOT / "index.md", *sorted((ROOT / "docs").glob("*.md")), ROOT / "README.md"]
-WORD_BUDGET = 5500  # the main path only; the appendices are backup and are not counted
+WORD_BUDGET = 6200  # the main path only; the appendices are backup and are not counted.
+# Raised from 5500 on R-47 (sheet 06): terms defined at first use in each chapter (06-05), the
+# outline headings and the lead-ins to the command blocks (06-03) paid for by trims, not by cuts to the graph.
 RETIRED = {"adequacy", "adequate", "inadequate"}
 
 
@@ -93,19 +95,31 @@ def test_word_budget():
 
 
 PATTERN = ["What the standards say", "The specification", "The walkthrough", "Checked", "There is more in the model"]
+BOXES = ["Verdict", "Ask the graph"]
 CHAPTERS = ["contracting.md", "evaluation.md", "model.md", "guarantees.md"]
+INCLUDE = re.compile(r"```\{(?:literal)?include\}[^\n]*\n(?::[^\n]*\n)*```")
+CLI_INCLUDE = re.compile(r"```\{literalinclude\} \.\./generated/cli/[\w-]+\.md\n```")
 
 
 def test_chapter_pages_follow_the_pattern():
-    """R-34: every chapter pairs the formal specification with the concrete
-    walkthrough in five titled blocks, in order, and closes with the
-    separation principle."""
+    """R-34 as revised by R-47 (sheet 06, item 06-03): every chapter keeps
+    the five parts in order as level-2 headings, so the contents panel shows
+    the outline, with prose between them; admonitions are reserved for the
+    two places that earn a box, the Verdict under Checked and Ask the graph
+    under There is more in the model; and at least one block shows an `ogc`
+    command and what it prints, rendered into generated/cli/ (06-15: what a
+    page says a command prints is what it prints)."""
     for name in CHAPTERS:
         text = (ROOT / "docs" / name).read_text()
-        positions = [text.find(f":::{{admonition}} {title}") for title in PATTERN]
+        positions = [text.find(f"\n## {title}\n") for title in PATTERN]
         assert all(p >= 0 for p in positions), (name, dict(zip(PATTERN, positions)))
         assert positions == sorted(positions), name
-        prose = re.sub(r"```\{include\}[^\n]*\n```", "", text)
+        boxes = re.findall(r"^:::\{admonition\} (.*)$", text, re.M)
+        assert boxes == BOXES, (name, boxes)
+        assert text.find(":::{admonition} Verdict") > positions[3], name
+        assert text.find(":::{admonition} Ask the graph") > positions[4], name
+        assert CLI_INCLUDE.search(text), (name, "no generated/cli/ block")
+        prose = INCLUDE.sub("", text)
         words = len(prose.split())
         assert 400 <= words <= 1400, (name, words)
 

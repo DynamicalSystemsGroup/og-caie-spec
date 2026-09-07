@@ -227,7 +227,7 @@ def test_finding_17_names_and_filter_values_are_case_insensitive():
 
 
 def test_finding_18_a_huge_query_is_refused_as_too_long():
-    r = run("sparql", "SELECT ?s WHERE { " + "?s ?p ?o . " * 12000 + "}")
+    r = run("sparql", "SELECT ?s WHERE { " + "?s ?p ?o . " * 2500 + "}")  # over the 20,000-character cap, under the OS argument limit
     assert r.returncode == 2 and "too long" in r.stderr and "recursion" not in r.stderr
 
 

@@ -21,9 +21,9 @@ cycle, scope to report; [A nested lifecycle](model.md) shows why the two are
 one model; [Records and reporting](guarantees.md) runs the checks and
 shows what the record proves; the [Conclusion](conclusion.md) returns to
 the front page's terms. Each chapter from the contracting on keeps one
-rhythm: what the standards say, the
-specification, the walkthrough, what was checked, and there is more in the
-model.
+outline: what the standards say, the specification, the walkthrough,
+checked, and there is more in the model, with at least one block on each
+page showing an `ogc` command and what it prints.
 
 ## Vocabulary discipline
 
@@ -33,9 +33,12 @@ chosen from the highest-ranked source that defines it: ISO 9000:2026,
 process term; SEVOCAB, the IEEE Computer Society's Software and Systems
 Engineering Vocabulary, for the systems-engineering and testing terms ISO
 9000 lacks; NIST AI 700-2, the ARIA pilot evaluation report, for the
-AI-evaluation terms; and W3C specifications (PROV-O, EARL, SHACL, SKOS) for
-the technical binding only, never for a narrative definition. A few
-single-purpose sources sit in reserve, named in the sources table below.
+AI-evaluation terms; and the W3C specifications for the technical binding
+only, never for a narrative definition: PROV-O for who did what and when,
+EARL for what was asserted and with what outcome, SHACL (the Shapes
+Constraint Language, in which every machine check on this site is written)
+and SKOS for the glossary itself. A few single-purpose sources sit in
+reserve, named in the sources table below.
 
 Exactly four terms are coined, with their shorthands:
 {term}`Contextual AI Evaluation` (CAIE), {term}`OG-CAIE`,
@@ -48,6 +51,7 @@ against the grain of its source, and says so: {term}`conformance`,
 deprecated by ISO 9000 as a synonym of {term}`conformity`, is reclaimed for
 the machine-checked, correctly constructed {term}`evaluation record`.
 
+(quote-tags)=
 ```{include} ../generated/quote-status.md
 ```
 
@@ -62,16 +66,21 @@ full register until a chapter needs them.
 
 The vocabulary graph answers directly from the command line: `uv run -q ogc
 term probe` gives one entry with its citations, rulings and the essentials
-it is stated in; `ogc define`, `ogc quote` and `ogc verify` give the
-definition, the verbatim quotes and where each quote was found; `ogc find`
-searches labels and quotes; `ogc check-word` says whether a word is a
-headword, an alternative label or retired, and what to write; `ogc sci`,
-`ogc rulings`, `ogc concerns` and `ogc sources` read the rest of the
-record, and `ogc crosswalk` prints the anchor table or, with a flag, the
-bridge rows of the front page; `ogc sparql` takes a read-only query. Every
-answer starts with the command and the commit it was read at, so it can be
-cited. The tool follows the one the authors built for their earlier
-glossaries (ruling R-29).
+it is stated in (the essentials being the thirteen statements the
+specification must keep, SCI-01 to SCI-13); `ogc define`, `ogc quote` and
+`ogc verify` give the definition, the verbatim quotes and where each quote
+was found; `ogc find` searches labels and quotes; `ogc check-word` says
+whether a word is a headword, an alternative label or retired, and what to
+write; `ogc sci`, `ogc rulings`, `ogc concerns` and `ogc sources` read the
+rest of the record, and `ogc crosswalk` prints the anchor table or, with a
+flag, the bridge rows of the front page; `ogc sparql` takes a read-only
+query. Every answer starts with the command and the commit it was read at, so it
+can be cited; on this site the commit is shown as `<sha>`. The tool follows the one the
+authors built for their earlier glossaries (ruling R-29). One answer, for
+the word this site's prose is allowed to use for the test item:
+
+```{literalinclude} ../generated/cli/check-word-system-under-test.md
+```
 
 ```{include} ../generated/key-terms.md
 ```
@@ -96,16 +105,17 @@ frame of the requirements and the method. The evaluation takes those as
 given, documents them, and cannot change them. What the evaluation pins is
 the second layer: the operational environment, the requirement set, the DSO
 release, the plan. Every item kind in the record declares which layer fixes
-it, and a shape checks that the first layer is closed before the second
-opens (ruling R-32). In the model the two cycles are one nested model
-(ruling R-33): the contracting lifecycle's fulfil step is a black box typed
-by the evaluation process, its inputs the agreement and the access the
-contract pinned, its outputs the report and the recommendation the delivery
-carries; the evaluation process is that box opened, and it conforms to the
-interface above it by typing, with a shape checking that every input is fed
-and every output used. What this specification adds to the standards is
-only the executable form: each step's inputs and outputs typed, each seam
-wired, each record checked.
+it, and a shape, one machine-checked rule over the record, checks that the
+first layer is closed before the second opens (ruling R-32). In the model
+the two cycles are one nested model (ruling R-33): the contracting
+lifecycle's fulfil step is a black box typed by the evaluation process, its
+inputs the agreement and the access the contract pinned, its outputs the
+report and the recommendation the delivery carries; the evaluation process
+is that box opened, and it conforms to the interface above it by typing,
+with a shape checking that every input is fed and every output used. What
+this specification adds to the standards is only the executable form: each
+step's inputs and outputs typed, each seam (a wire carrying one item kind
+from one step's output to another's input) wired, each record checked.
 
 ```{include} ../generated/steps.md
 ```

@@ -43,7 +43,7 @@ deployed AI system against the needs of a specific domain, written down as:
   site uses, with hover definitions; four chapters (Stakeholders and
   contracting, Context and evaluation, A nested lifecycle, Records and
   reporting) each pair the
-  specification with the measles walkthrough in five fixed blocks and close
+  specification with the measles walkthrough in five headed parts and close
   with the separation principle; the conclusion reads the crosswalk
   backwards. Figures are views from a registry (`ogc/views.py`), each
   captioned with what it brings into focus and leaves out (R-38).

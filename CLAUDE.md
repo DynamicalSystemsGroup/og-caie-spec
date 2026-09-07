@@ -65,10 +65,28 @@ authors' earlier glossary work.
   say what the graphs cannot answer by query; numbers and tables come from
   `generated/` fragments, never typed by hand.
 - Chapter pages (contracting, evaluation, model, guarantees) follow five
-  titled admonition blocks in order: What the standards say; The
-  specification; The walkthrough; Checked; There is more in the model.
-  Specification and walkthrough always appear as a pair; the walkthrough is
-  the measles record for exactly the rule the specification states.
+  parts in order as level-2 headings, so the contents panel shows the
+  outline (R-47, 06-03): What the standards say; The specification; The
+  walkthrough; Checked; There is more in the model. Prose between them;
+  admonitions only where they earn a box: the `Verdict` box under Checked
+  (short, ending with the computational-proof link) and the `Ask the graph`
+  box under There is more in the model (the `more-*.md` fragment with its
+  dropdown). Specification and walkthrough always appear as a pair; the
+  walkthrough is the measles record for exactly the rule the specification
+  states. Every chapter carries at least one block that shows an `ogc`
+  command and what it prints, rendered by `scripts/render_cli.py` into
+  `generated/cli/<name>.md` (the command first, the output beneath, the
+  commit stamp normalised to `<sha>`, an omission counted in lines, the
+  exit code last) and included with `{literalinclude}` (06-15: what a page
+  says a command prints is what it prints). Tested by
+  `tests/test_docs.py::test_chapter_pages_follow_the_pattern`.
+- Terms defined at first use, per chapter, in one clause the first time
+  the word appears (R-47, 06-05, the SciPy reviewers' pattern): a
+  parenthesis or an appositive, plain and operational, never a forward
+  reference; `{term}` roles for glossary headwords (`ogc check-word` says
+  which and how); the quote tags machine, human and pending are defined
+  once on the vocabulary page under the label `quote-tags` and linked.
+  Do not coin.
 - Trim the text, never the graph (Z, 2026-09-06): when a page carries
   too much for its reader, annotate the detail in the graph (presentation
   attributes: page, block, audience, the command that prints it) and
