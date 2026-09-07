@@ -19,7 +19,8 @@ from pathlib import Path
 from . import api, text, views
 from .graph import MODEL_FILE, PREFIXES, SOURCE_FILES, SPARQL_PREFIXES, find_root, git_sha, load
 
-GLOBAL_FLAGS = ("--json", "--no-cache", "--wide")  # --model changes the answer, so it stays in the argstr that is printed and hashed
+GLOBAL_FLAGS = ("--json", "--no-cache", "--wide")  # --model and --record change the answer, so they stay in the argstr that is printed and hashed
+PARAM_FLAGS = ("requirements", "criteria", "planned", "sessions", "populations")  # ogc execute: the executor's parameters, in the order printed
 VERIFY_COLS = ["holder", "citation", "source", "posture", "locator", "status", "state", "where"]
 CLASSES = ["adopted", "refined", "coined"]
 RANKS = ["1", "2", "3", "4", "reserve", "internal"]
@@ -33,7 +34,7 @@ STEP_HINT = "a step by local name or label head (scope, 1 scope, C1 need, need)"
 
 
 def argstr_of(argv: list[str], cmd: str) -> str:
-    out, skip, model = [], False, False
+    out, skip, loads = [], False, set()
     for a in argv:
         if skip:
             skip = False
@@ -43,14 +44,13 @@ def argstr_of(argv: list[str], cmd: str) -> str:
             continue
         if a.startswith("--root="):
             continue
-        if a == "--model":
-            model = True
+        if a in ("--model", "--record"):
+            loads.add(a)
             continue
         if a in GLOBAL_FLAGS or (a == cmd and not out):
             continue
         out.append(a)
-    if model:
-        out.append("--model")
+    out += sorted(loads)  # --model before --record, wherever they were typed
     return re.sub(r"\s+", " ", " ".join(out)).strip()
 
 
@@ -75,13 +75,13 @@ def emit(args, cmd: str, argstr: str, data, lines_fn, summary=None) -> int:
     return 0
 
 
-def not_found(args, what: str, hint: str, candidates=None) -> int:
-    payload = {"_ogc": stamp(args, "error", what), "error": f"{what} not found", "hint": hint, "candidates": candidates or []}
+def not_found(args, what: str, hint: str, candidates=None, state: str = "not found") -> int:
+    payload = {"_ogc": stamp(args, "error", what), "error": f"{what} {state}", "hint": hint, "candidates": candidates or []}
     if args.json:
         print(json.dumps(payload, indent=2, ensure_ascii=False))
     else:
         print(text.head("error", what, git_sha(args.root)))
-        print(f"{what}: not found. {hint}")
+        print(f"{what}: {state}. {hint}")
         for c in candidates or []:
             print(f"  candidate: {c}")
     return 1
@@ -153,13 +153,14 @@ def check_source(args, g, value):
 
 
 def build_parser() -> argparse.ArgumentParser:
-    from .executor import MUTATIONS
+    from .executor import MUTATIONS, Params
     common = argparse.ArgumentParser(add_help=False)
     common.add_argument("--json", action="store_true", default=argparse.SUPPRESS, help="machine output: one object carrying the api result plus the `_ogc` key (command, args, sha); list results sit under `rows`")
     common.add_argument("--root", type=Path, default=argparse.SUPPRESS, help="repository checkout (default: found from cwd or OGC_ROOT)")
     common.add_argument("--no-cache", action="store_true", default=argparse.SUPPRESS, help="parse the Turtle afresh instead of reading the pickle cache under .cache/")
     common.add_argument("--wide", action="store_true", default=argparse.SUPPRESS, help="do not clip table cells at 80 characters")
     common.add_argument("--model", action="store_true", default=argparse.SUPPRESS, help="also load the canonical model graph model/og-caie.model.ttl (the OMG sysml: rendering of the structure; sparql only, implied by view, views and execute); part of the printed and hashed args")
+    common.add_argument("--record", action="store_true", default=argparse.SUPPRESS, help="also load the worked example's record track/measles-run.ttl (the run: namespace; sparql only, implied by record); part of the printed and hashed args")
     ap = argparse.ArgumentParser(prog="ogc", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter, parents=[common],
                                  epilog="global flags may be placed before or after the subcommand; quote multi-word names.")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -187,9 +188,16 @@ def build_parser() -> argparse.ArgumentParser:
         (["--severity"], dict(help=f"one of {', '.join(SEVERITIES)} (case-insensitive)")))
     add("sci", f"the essentials ({SCI_RANGE}): statement, tag, shapes, terms, sources", (["id"], dict(nargs="?", help=f"one essential, {SCI_RANGE}; SCI7, sci-07 and 7 are accepted; omitted: the table")))
     add("steps", "the twelve steps of the two cycles and the canon step each matches (R-31, R-32)")
+    add("record", "the worked example's record (track/measles-run.ttl): its items by step, C1..C6 then 1..6, with who and when; then the items without a step and the parties; with a name, everything the record says about that one item (R-47, closes C-44)",
+        (["name"], dict(nargs="?", help="an item's local name, case-insensitive (mission-1, attestation-1, annie); omitted: the listing")))
     add("execute", "execute the process from the model graph and run the checks over the emitted record (C-30); VERDICT: PASS when the record conforms, no item kind is missing and the traceback is non-empty, else FAIL and exit 1",
         (["--mutate"], dict(action="append", metavar="NAME", help="break one thing in the emitted record before the checks; repeatable, applied in order; one of: " + ", ".join(sorted(MUTATIONS)))),
         (["--turtle"], dict(action="store_true", help="print the emitted record instead of the checks")),
+        (["--requirements"], dict(type=int, metavar="N", help=f"requirements in the requirement set (positive; default {Params.requirements})")),
+        (["--criteria"], dict(type=int, metavar="N", help=f"acceptance criteria per requirement (positive; default {Params.criteria_per_requirement})")),
+        (["--planned"], dict(type=int, metavar="N", help=f"criteria the test plan exercises, the rest stay uncovered (positive, at most requirements times criteria; default {Params.planned})")),
+        (["--sessions"], dict(type=int, metavar="N", help=f"sessions executed against the test item (positive; default {Params.sessions})")),
+        (["--populations"], dict(type=int, metavar="N", help=f"affected populations, the first interviewed and the others represented (positive; default {Params.populations})")),
         epilog="mutations:\n" + "\n".join(f"  {n:<32} {MUTATIONS[n][0]}" for n in sorted(MUTATIONS)))
     add("views", "the reusable views of the model graph: what each brings into focus and leaves out (R-38)")
     add("view", "one view of the model graph as mermaid, with the perspective it encodes (R-38)", (["name"], dict(help="one of " + ", ".join(sorted(views.VIEWS)) + " (case-insensitive)")))
@@ -214,7 +222,7 @@ def main(argv=None) -> int:
         args, extras = ap.parse_known_args(argv)
     except SystemExit as e:
         return int(e.code) if isinstance(e.code, int) else 2
-    for k, v in (("json", False), ("root", None), ("no_cache", False), ("wide", False), ("model", False)):
+    for k, v in (("json", False), ("root", None), ("no_cache", False), ("wide", False), ("model", False), ("record", False)):
         if not hasattr(args, k):
             setattr(args, k, v)
     text.WIDE = args.wide
@@ -238,7 +246,9 @@ def main(argv=None) -> int:
         return shapes(args, c, argstr)
     if c in ("view", "views", "execute"):
         args.model = True
-    g = load(args.root, model=args.model, cache=not args.no_cache)
+    if c == "record":
+        args.record = True
+    g = load(args.root, model=args.model, cache=not args.no_cache, record=args.record)
 
     if c == "schema":
         d = api.schema(g)
@@ -391,6 +401,9 @@ def main(argv=None) -> int:
     if c == "execute":
         return execute(args, g, argstr)
 
+    if c == "record":
+        return record(args, g, argstr)
+
     if c == "views":
         rows = views.views_table()
         return emit(args, c, argstr, rows, lambda: [l for r in rows for l in ([f"## {r['name']}: {r['title']}"] + text.wrap(f"in focus: {r['focus']}", "  ") + text.wrap(f"leaves out: {r['leaves_out']}", "  ") + [""])])
@@ -439,6 +452,32 @@ def quote_lines(name: str, q: list[dict], noq: list[str]) -> list[str]:
     return L
 
 
+def record(args, g, argstr: str) -> int:
+    if args.name is None:
+        rows = api.record_rows(g)
+        groups = {k: [r for r in rows if r["group"] == k] for k in ("step", "no-step", "party")}
+        return emit(args, "record", argstr, rows, lambda: [f"## items by step ({len(groups['step'])}; C1..C6 then 1..6)"] + text.table(groups["step"], ["step", "item", "class", "who", "when"])
+                    + ["", f"## items without a step ({len(groups['no-step'])})"] + text.table(groups["no-step"], ["item", "class", "who", "when"])
+                    + ["", f"## parties and machines ({len(groups['party'])})"] + text.table(groups["party"], ["item", "class", "label"]))
+    if not args.name.strip():
+        return usage(args, "record needs an item's local name (mission-1, attestation-1, annie), or nothing for the listing")
+    iri, cands = api.resolve_record_item(g, args.name)
+    if iri is None:
+        return not_found(args, f"record item '{args.name}'", "local names are case-insensitive; try `ogc record` for the listing", cands)
+    d = api.record_item(g, iri)
+
+    def lines():
+        L = [f"## {d['item']}  ({d['class']})" + (f"  step {d['step']}" if d["step"] else "")]
+        if d["label"]:
+            L += text.wrap(d["label"])
+        L += ["", f"who: {', '.join(d['who']) or '(none)'}   when: {d['when'] or '(none)'}", "", f"triples ({len(d['out'])}):"]
+        for t in d["out"]:
+            L += text.wrap(f"{t['predicate']} {t['object']}" + (f"  ({t['label']})" if t["label"] else ""), "  ", "      ")
+        L += ["", f"referenced by ({len(d['in'])}):"] + ([f"  {t['subject']} {t['predicate']}" + (f"  ({t['label']})" if t["label"] else "") for t in d["in"]] or ["  (none)"])
+        return L
+    return emit(args, "record", argstr, d, lines)
+
+
 def execute(args, g, argstr: str) -> int:
     from . import executor
     from rdflib import Graph
@@ -448,24 +487,33 @@ def execute(args, g, argstr: str) -> int:
         if key not in executor.MUTATIONS:
             return not_found(args, f"mutation '{m}'", "--mutate takes one of the names below (case-insensitive) and may be repeated", sorted(executor.MUTATIONS))
         names.append(key)
+    given = {k: getattr(args, k) for k in PARAM_FLAGS if getattr(args, k, None) is not None}
+    params = executor.params_of(**given)
+    reason = executor.validate(params)
+    if reason:
+        return not_found(args, "execute parameters " + ", ".join(f"{k} {v}" for k, v in given.items()), reason, state="refused")
     model = Graph()
     for t in g.triples((None, None, None)):
         model.add(t)
     shapes = Graph(); shapes.parse(args.root / "shapes" / "epo.shapes.ttl")
     epo = Graph(); epo.parse(args.root / "vocabulary" / "epo.ttl")
-    rec = executor.execute(model)
+    rec = executor.execute(model, params)
     for n in names:
         executor.MUTATIONS[n][1](rec)
+    pd = executor.params_dict(params)
     if args.turtle:
-        return emit(args, "execute", argstr, {"mutations": names, "turtle": rec.serialize(format="turtle")}, lambda: rec.serialize(format="turtle").splitlines())
+        return emit(args, "execute", argstr, {"mutations": names, "params": pd, "turtle": rec.serialize(format="turtle")}, lambda: rec.serialize(format="turtle").splitlines())
     d = executor.check(rec, model, shapes, epo)
     d["mutations"] = names
     d["mutation"] = ", ".join(names) or None
+    d["params"] = pd
     ok = bool(d["conforms"]) and not d["missing"] and d["traceback"] > 0
     d["ok"] = ok
-    d["verdict"] = f"VERDICT: {'PASS' if ok else 'FAIL'} (ogc execute" + (" --mutate " + " --mutate ".join(names) if names else "") + ")"
+    flags = "".join(f" --{k} {v}" for k, v in given.items()) + ("".join(f" --mutate {n}" for n in names))
+    d["verdict"] = f"VERDICT: {'PASS' if ok else 'FAIL'} (ogc execute{flags})"
     cov = d["coverage"]
-    emit(args, "execute", argstr, d, lambda: [f"mutations: {', '.join(names) or 'none'}", f"conforms: {d['conforms']}" + (f"  (fired: {', '.join(d['fired'])})" if d["fired"] else ""),
+    emit(args, "execute", argstr, d, lambda: ["parameters: " + ", ".join(f"{k} {v}" for k, v in pd.items()), f"mutations: {', '.join(names) or 'none'}",
+                                              f"conforms: {d['conforms']}" + (f"  (fired: {', '.join(d['fired'])})" if d["fired"] else ""),
                                               f"missing item kinds: {', '.join(d['missing']) or 'none'}",
                                               f"coverage: {cov['coverage']:.4f} (pass {cov['passRate']:.2f}, fail {cov['failRate']:.2f}, cannot tell {cov['cantTellRate']:.2f})",
                                               f"traceback rows: {d['traceback']}", d["verdict"]])

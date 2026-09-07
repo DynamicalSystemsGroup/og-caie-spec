@@ -55,6 +55,32 @@ class Params:
     outcomes: tuple = ("failed", "passed")   # cycled over the covered criteria
 
 
+PARAM_NAMES = {"requirements": "requirements", "criteria": "criteria_per_requirement", "planned": "planned", "sessions": "sessions", "populations": "populations"}
+
+
+def params_of(**given: int) -> Params:
+    """A Params from the command line's names (criteria is criteria_per_requirement); unspecified ones keep their defaults."""
+    return Params(**{PARAM_NAMES[k]: v for k, v in given.items()})
+
+
+def params_dict(p: Params) -> dict:
+    """The parameters under the command line's names, in the order printed."""
+    return {k: getattr(p, f) for k, f in PARAM_NAMES.items()}
+
+
+def validate(p: Params) -> str | None:
+    """The reason a Params cannot be run, or None: every count a positive
+    integer, and the planned criteria at most the criteria that exist."""
+    for k, f in PARAM_NAMES.items():
+        v = getattr(p, f)
+        if not isinstance(v, int) or isinstance(v, bool) or v < 1:
+            return f"{k} must be a positive integer (got {v!r})"
+    total = p.requirements * p.criteria_per_requirement
+    if p.planned > total:
+        return f"planned must be at most requirements times criteria ({p.requirements} x {p.criteria_per_requirement} = {total}; got planned {p.planned})"
+    return None
+
+
 @dataclass
 class Run:
     g: Graph

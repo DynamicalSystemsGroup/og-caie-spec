@@ -10,7 +10,7 @@ from pathlib import Path
 
 from rdflib import RDF, RDFS, BNode, Graph, URIRef
 
-from .graph import EPO, OGC, PROV, RUL, SH, SKOS, SRC, TERM, PREFIXES
+from .graph import EARL, EPO, OGC, PROV, RUL, RUN, SH, SKOS, SRC, TERM, PREFIXES
 
 RETIRED = {"adequacy": "ruling R-08: say appropriateness (of the context) or sufficiency (of the evidence)",
            "adequate": "ruling R-08: say appropriate or sufficient",
@@ -591,3 +591,97 @@ def bnode_labels(g: Graph, rounds: int = 3) -> dict:
         seen[sig[b]] += 1
         labels[b] = f"b{sig[b]}" + (f"n{seen[sig[b]]}" if seen[sig[b]] > 1 else "")
     return labels
+
+
+# ---------------------------------------------------------------- the record (C-44, ruling R-47)
+
+WHO = [PROV.wasAttributedTo, EARL.assertedBy, EPO.approvedBy, EPO.signedBy, PROV.wasAssociatedWith]
+WHEN = [PROV.generatedAtTime, PROV.startedAtTime, PROV.endedAtTime]
+
+
+def record_subjects(g: Graph) -> list:
+    """Every named subject of the record (the `run:` namespace), sorted; the graph must have been loaded with the record."""
+    return sorted({s for s in g.subjects() if isinstance(s, URIRef) and str(s).startswith(str(RUN))}, key=str)
+
+
+def step_heads(g: Graph) -> dict:
+    """Step IRI -> (order, head) as the two cycles order them: C1..C6 (1..6), then 1..6 (11..16), the order `ogc steps` prints."""
+    return {str(EPO[r["step"]]): (r["order"], r["label"].split(":", 1)[0]) for r in steps_table(g)}
+
+
+def _label(g: Graph, x) -> str:
+    if not isinstance(x, URIRef):
+        return ""
+    if (x, RDF.type, EPO.EpoStep) in g or (x, RDF.type, EPO.ContractingStep) in g:
+        return one(g, x, RDFS.label).split(":", 1)[0]
+    return one(g, x, RDFS.label) or one(g, x, SKOS.prefLabel)
+
+
+def _classes(g: Graph, n) -> list[str]:
+    epo = sorted(local(t) for t in g.objects(n, RDF.type) if str(t).startswith(str(EPO)))
+    return epo or sorted(local(t) for t in g.objects(n, RDF.type) if t != PROV.Agent)
+
+
+def _who(g: Graph, n) -> list[str]:
+    return sorted({_label(g, o) or local(o) for p in WHO for o in g.objects(n, p)})
+
+
+def _when(g: Graph, n) -> str:
+    for p in WHEN:
+        v = g.value(n, p)
+        if v is not None:
+            return str(v)[:10]
+    return ""
+
+
+def record_rows(g: Graph) -> list[dict]:
+    """One row per item of the record: the stepped items in step order (group
+    `step`), then the items without a step (`no-step`), then the parties and
+    machines (`party`). The record entity itself is left out."""
+    heads = step_heads(g)
+    stepped, unstepped, parties = [], [], []
+    for n in record_subjects(g):
+        if set(g.objects(n, RDF.type)) == {PROV.Entity}:
+            continue  # run:record, the record's own entity, is not an item of it
+        row = dict(item=local(n), iri=str(n), **{"class": ", ".join(_classes(g, n))}, label=one(g, n, RDFS.label) or one(g, n, EPO.text), who=_who(g, n), when=_when(g, n))
+        st = g.value(n, EPO.step)
+        if (n, RDF.type, PROV.Agent) in g:
+            parties.append(dict(group="party", step="", order=0, **row))
+        elif st is not None and str(st) in heads:
+            order, head = heads[str(st)]
+            stepped.append(dict(group="step", step=head, order=order, **row))
+        else:
+            unstepped.append(dict(group="no-step", step="", order=0, **row))
+    stepped.sort(key=lambda r: (r["order"], r["when"], r["item"]))
+    unstepped.sort(key=lambda r: (r["class"], r["item"]))
+    parties.sort(key=lambda r: r["item"])
+    return stepped + unstepped + parties
+
+
+def resolve_record_item(g: Graph, name: str):
+    """(iri, candidates): the record subject whose local name is `name`, case-insensitive; else None and the local names containing it."""
+    key = norm(name).lower()
+    subjects = record_subjects(g)
+    hit = next((s for s in subjects if local(s).lower() == key), None)
+    if hit is not None:
+        return hit, []
+    return None, [local(s) for s in subjects if key and key in local(s).lower()][:8]
+
+
+def record_item(g: Graph, n) -> dict:
+    """Everything the record says about one item: every triple with it as
+    subject (a blank node's own triples inline, as `[ p o ; ... ]`), each
+    object's label where it has one, and the triples that point at it."""
+    def render(o):
+        if isinstance(o, BNode):
+            inner = sorted((qname(g, p), render(x)) for p, x in g.predicate_objects(o))
+            return "[ " + " ; ".join(f"{p} {x}" for p, x in inner) + " ]"
+        return qname(g, o)
+    out = [dict(predicate=qname(g, p), object=render(o), label=_label(g, o)) for p, o in g.predicate_objects(n)]
+    out.sort(key=lambda t: (t["predicate"] != "rdf:type", t["predicate"], t["object"]))
+    inn = [dict(subject=qname(g, s), predicate=qname(g, p), label=_label(g, s)) for s, p in g.subject_predicates(n) if isinstance(s, URIRef)]
+    inn.sort(key=lambda t: (t["predicate"], t["subject"]))
+    heads = step_heads(g)
+    st = g.value(n, EPO.step)
+    return dict(item=local(n), iri=str(n), label=one(g, n, RDFS.label) or one(g, n, EPO.text), **{"class": ", ".join(_classes(g, n))},
+                step=heads[str(st)][1] if st is not None and str(st) in heads else "", who=_who(g, n), when=_when(g, n), out=out, **{"in": inn})
