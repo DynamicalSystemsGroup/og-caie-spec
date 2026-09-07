@@ -40,6 +40,10 @@ definition is reproduced under the vocabulary's own terms:
 | validation | 464 | confirmation, through the provision of objective evidence, that the requirements for a specific intended use or application have been fulfilled | ISO/IEC 25000:2014, 4.41; 12207:2026, 3.1.71 |
 | verification | 470 | confirmation, through the provision of objective evidence, that specified requirements have been fulfilled | ISO/IEC 25000:2014, 4.43; 12207:2026, 3.1.72; 15288:2023 |
 | operator | 283 | entity that performs the operation of a system | ISO/IEC/IEEE 12207:2026, 3.1.40 |
+| dialog | 129 | interaction between a user and an interactive system as a sequence of user actions (inputs) and system responses (outputs) in order to achieve a goal | ISO TR 25060:2023, 2.4 |
+| ontology | 280 | logical structure of the terms used to describe a domain of knowledge, including both the definitions of the applicable terms and their relationships | ISO/IEC/IEEE 24641:2023, 3.1.23 |
+| repeatability (of results of measurements) | 348 | closeness of the agreement between the results of successive measurements of the same measurand carried out under the same conditions of measurement | ISO/IEC TR 14143-3:2003, 3.8; ISO/IEC 25021:2012, 4.15 |
+| reproducibility (of results of measurements) | 349 | closeness of the agreement between the results of measurements of the same measurand carried out under changed conditions of measurement | ISO/IEC TR 14143-3:2003, 3.9; ISO/IEC 25021:2012, 4.16 |
 | evaluator | 157 | individual or organization that performs an evaluation | ISO/IEC 25000:2014, 4.18 |
 | assessment team | 30 | one or more individuals who jointly perform a process assessment | ISO/IEC 33001:2015, 3.2.10 |
 | test strategy and planning process | 439 | test management process used to design the test strategy, complete test planning, and create and maintain test plans | ISO/IEC/IEEE 29119-2:2021, 3.51 |

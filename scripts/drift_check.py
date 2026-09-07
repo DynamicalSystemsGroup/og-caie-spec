@@ -124,6 +124,24 @@ def problems() -> list[str]:
             words = [head] + [str(a).lower() for a in g.objects(t, SKOS.altLabel)]
             if not any(f"| {w}" in digest or f", {w}" in digest or f"{w} |" in digest for w in words):
                 out.append(f"no SEVOCAB absence row for '{head}' (canonical from a source ranked {ranks.get(cites)})")
+    # 8. the CI condition: every machine quote on a held-locally source is in its committed digest,
+    #    so a gate that passes here (with sources/local/) passes on a fresh clone too (drift pass 1, finding 1)
+    import sys as _s
+    _s.path.insert(0, str(ROOT))
+    from ogc.verify import normalized  # the same normalisation the citation tests use
+    digests = {}
+    for src_node in src.subjects(OGC.posture, None):
+        if str(src.value(src_node, OGC.posture)) == "heldLocally" and src.value(src_node, OGC.digest) is not None:
+            f = ROOT / str(src.value(src_node, OGC.digest))
+            digests[str(src_node)] = normalized(f.read_text()) if f.exists() else ""
+    for holder in set(g.subjects(RDF.type, SKOS.Concept)) | set(g.subjects(OGC.canonical, None)):
+        for pred in (OGC.canonical, OGC.seeAlso):
+            for c in g.objects(holder, pred):
+                if str(g.value(c, OGC.quoteStatus)) != "machine" or g.value(c, OGC.quote) is None:
+                    continue
+                cited = str(g.value(c, OGC.cites))
+                if cited in digests and normalized(str(g.value(c, OGC.quote))) not in digests[cited]:
+                    out.append(f"machine quote not in the digest (CI would fail): {str(holder).rsplit('#', 1)[-1]} cites {cited.rsplit('#', 1)[-1]}: {str(g.value(c, OGC.quote))[:60]}")
     return out
 
 
