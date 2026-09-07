@@ -10,3 +10,4 @@ uv run python scripts/render_diagrams.py
 uv run python scripts/render_explorer.py
 uv run python scripts/render_toolchain.py
 uv run python scripts/render_bib.py
+uv run python scripts/render_version.py

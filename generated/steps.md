@@ -1,6 +1,6 @@
 ### The contracting lifecycle, C1 to C6
 
-The outer cycle, contracting through delivery, whose actors are the parties and whose steps are the agreement processes of the standards (Guide to the Systems Engineering Body of Knowledge, Stakeholder Needs (Acquisition and Supply), p. 353: "These needs and requirements are expressed in agreements between acquirers and suppliers.").
+The outer cycle, contracting through delivery, whose actors are the parties and whose steps each cite their own canon, ordered under one agreement (Guide to the Systems Engineering Body of Knowledge, Stakeholder Needs (Acquisition and Supply), p. 353: "These needs and requirements are expressed in agreements between acquirers and suppliers."; sheet 10-22).
 
 | Step | Matches | Also |
 |---|---|---|

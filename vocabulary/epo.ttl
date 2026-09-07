@@ -54,10 +54,12 @@ epo:report a epo:EpoStep ; rdfs:label "6 report: the report assembled by machine
     ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "test completion process, p. 433 (ISO/IEC/IEEE 29119-2:2021, 3.25)" ; ogc:pdfPage 433 ; ogc:quote "test management process that aims to ensure that useful test assets are made available for later use, test environments are left in a satisfactory condition, and the results of testing are recorded and communicated to relevant stakeholders" ; ogc:quoteStatus "machine" ] .
 
 # ---- the contracting lifecycle (ruling R-32): contracting through delivery,
-# the outer cycle the evaluation sits inside. Its actors are the parties; its
-# steps are the ISO/IEC/IEEE 15288 agreement processes as SEBoK describes
-# them, ISO/IEC 17000's access, scheme and acceptance, ISO 9000's contract,
-# and the ISO/IEC/IEEE 29119-2 test environment and completion report. What
+# the outer cycle the evaluation sits inside. Its actors are the parties; each
+# step cites its own canon (sheet 10-22: the standards' process groups are
+# coordinate, and only C3 agree is a 15288 agreement process; the others are
+# business or mission analysis, the SEBoK's account of proposals, the
+# ISO/IEC/IEEE 29119-2 test environment and completion report, and SEVOCAB's
+# acceptance). What
 # it pins is the first layer of assumptions: the parties, the object, the
 # specified requirements' frame and the methodology (ogc:pinnedAt epo:contract).
 epo:ContractingStep a owl:Class ; rdfs:subClassOf epo:Step ; rdfs:label "contracting lifecycle step" ;

@@ -1,0 +1,26 @@
+@prefix ogm:  <https://w3id.org/og-caie/model#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sysml: <https://www.omg.org/spec/SysML#> .
+
+# The derived predicates of the canonical model graph (sheet 10-32, R-50):
+# scripts/prune_model.py writes them while pruning the OpenSysML rendering,
+# resolving chained references and naming the ends of seams, successions,
+# flows and relations, so that the shapes and the views read plain edges.
+
+<https://w3id.org/og-caie/model> a owl:Ontology ;
+    rdfs:label "the derived ends of the OG-CAIE model graph" ;
+    owl:versionInfo "0.3.0" ;
+    rdfs:comment "Predicates added by the pruner over the OpenSysML vocabulary; the term map model/sysml_term_map.csv says which SysML classes the graph keeps." .
+
+ogm:resolvesTo a owl:ObjectProperty ; rdfs:label "resolvesTo" ; rdfs:comment "the resolved end of a chained reference (a part or port reached through dots)" .
+ogm:endPart a owl:ObjectProperty ; rdfs:label "endPart" ; rdfs:comment "the part an interface end sits on" .
+ogm:supplierPort a owl:ObjectProperty ; rdfs:label "supplierPort" ; rdfs:comment "the output port a seam leaves" .
+ogm:consumerPort a owl:ObjectProperty ; rdfs:label "consumerPort" ; rdfs:comment "the input port a seam reaches" .
+ogm:first a owl:ObjectProperty ; rdfs:label "first" ; rdfs:comment "the step a succession runs from" .
+ogm:then a owl:ObjectProperty ; rdfs:label "then" ; rdfs:comment "the step a succession runs to" .
+ogm:flowSource a owl:ObjectProperty ; rdfs:label "flowSource" ; rdfs:comment "the parameter a flow carries from" .
+ogm:flowTarget a owl:ObjectProperty ; rdfs:label "flowTarget" ; rdfs:comment "the parameter a flow carries to" .
+ogm:relatesFrom a owl:ObjectProperty ; rdfs:label "relatesFrom" ; rdfs:comment "the source end of a relation (an obligation)" .
+ogm:relatesTo a owl:ObjectProperty ; rdfs:label "relatesTo" ; rdfs:comment "the target end of a relation" .
+ogm:realizes a owl:ObjectProperty ; rdfs:label "realizes" ; rdfs:comment "the EPO class a model element realizes, from the term map (sheet 10-33)" .

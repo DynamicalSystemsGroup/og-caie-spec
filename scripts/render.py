@@ -415,7 +415,7 @@ def render_steps() -> str:
     frame = citation(g.value(EPO.ContractingStep, OGC.canonical))
     (OUT / "steps-contracting.md").write_text(with_permission(table(EPO.ContractingStep, f"The outer cycle, contracting through delivery: {frame}.")))
     (OUT / "steps-evaluation.md").write_text(with_permission(table(EPO.EpoStep, "The inner cycle, performed between access and delivery.")))
-    return (table(EPO.ContractingStep, f"### The contracting lifecycle, C1 to C6\n\nThe outer cycle, contracting through delivery, whose actors are the parties and whose steps are the agreement processes of the standards ({frame}).")
+    return (table(EPO.ContractingStep, f"### The contracting lifecycle, C1 to C6\n\nThe outer cycle, contracting through delivery, whose actors are the parties and whose steps each cite their own canon, ordered under one agreement ({frame}; sheet 10-22).")
             + "\n" + table(EPO.EpoStep, "### The evaluation, steps 1 to 6\n\nThe inner cycle, performed between access and delivery."))
 
 

@@ -89,15 +89,17 @@ the word this site's prose is allowed to use for the test item:
 
 Work on an evaluation happens in two cycles, and neither is invented. The
 outer cycle is the contracting lifecycle, from the sponsor's need to its
-acceptance of the delivery: its actors are the parties named above, and its
-six steps are the ISO/IEC/IEEE 15288 agreement processes as the SEBoK (the Guide to the Systems Engineering Body of Knowledge)
-describes them, ISO/IEC 17000's access, scheme and acceptance, ISO 9000's
-{term}`contract`, and the ISO/IEC/IEEE 29119-2 test environment and
-completion report. The inner cycle is the
-{term}`Evaluation Process Ontology`, performed between access and delivery: its six steps are the 15288 stakeholder-needs and
-system-requirements processes, the 29119-2 test strategy and planning, test
-execution and test completion processes, and ISO/IEC 17000's own function,
-review, decision and attestation (ruling R-31).
+acceptance of the delivery: its actors are the parties named above, and
+its six steps each cite their canon below, from the SEBoK's (the Guide to
+the Systems Engineering Body of Knowledge) account of ISO/IEC/IEEE 15288
+to ISO 9000's {term}`contract` and the ISO/IEC/IEEE 29119-2 test
+environment and completion report; the standards' process groups stay
+coordinate; the cycle orders them under one agreement. The inner cycle is the {term}`Evaluation Process Ontology`,
+performed under that agreement between access and delivery: its six steps
+are the 15288 stakeholder-needs and system-requirements processes, the
+29119-2 test strategy and planning, test execution and test completion
+processes, and ISO/IEC 17000's own function, review, decision and
+attestation (ruling R-31).
 
 The distinction matters for what the record must say. What the contract pins
 is the first layer of assumptions: the counterparties, the test item, the

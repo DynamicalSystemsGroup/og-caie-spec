@@ -70,3 +70,6 @@ has been encoded.
 
 ```{include} generated/cited-index.md
 ```
+
+```{include} generated/version.md
+```

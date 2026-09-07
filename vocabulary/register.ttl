@@ -1,0 +1,80 @@
+@prefix ogc:  <https://w3id.org/og-caie/> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix epo:  <https://w3id.org/og-caie/epo#> .
+
+# The register vocabulary (sheet 10-32, R-50): the classes and properties the
+# glossary, the source register, the rulings, the essentials, the crosswalk and
+# the validation ticks are written in. Declared here so a reader loading the
+# graphs finds every ogc: term defined; the values are documented on each.
+
+<https://w3id.org/og-caie/register> a owl:Ontology ;
+    rdfs:label "the OG-CAIE register vocabulary" ;
+    owl:versionInfo "0.3.0" ;
+    owl:imports <http://www.w3.org/ns/prov-o#> , <http://www.w3.org/2004/02/skos/core> ;
+    rdfs:comment "Declares the ogc: classes and properties; the shapes over the register are shapes/glossary.shapes.ttl and shapes/rulings.shapes.ttl." .
+
+ogc:Source a owl:Class ; rdfs:label "Source" ; rdfs:comment "a registered source: a standard, a report, a specification, a paper or the authors' own session" .
+ogc:SourceConcept a owl:Class ; rdfs:label "SourceConcept" ; rdfs:comment "one clause or entry of a source that a term maps to by SKOS (sheet 08)" .
+ogc:Concern a owl:Class ; rdfs:label "Concern" ; rdfs:comment "a recorded doubt about the specification, open until a ruling resolves it" .
+ogc:Ruling a owl:Class ; rdfs:label "Ruling" ; rdfs:comment "Z's judgment on one or more concerns, formal and verbatim" .
+ogc:Trace a owl:Class ; rdfs:label "Trace" ; rdfs:comment "an essential, SCI-01 to SCI-13: a statement the specification must keep, with its shapes, terms and sources" .
+ogc:Crosswalk a owl:Class ; rdfs:label "Crosswalk" ; rdfs:comment "a row of the bridge from Popper's account of science to the standards" .
+ogc:Validation a owl:Class ; rdfs:label "Validation" ; rdfs:comment "Z's tick on one block or wire of the model (sheet 05)" .
+
+ogc:canonical a owl:ObjectProperty ; rdfs:label "canonical" ; rdfs:comment "a term's or step's one canonical citation (a blank node carrying cites, locator, quote, quoteStatus)" .
+ogc:seeAlso a owl:ObjectProperty ; rdfs:label "seeAlso" ; rdfs:comment "a neighbour citation: a related clause, kept beside the canonical" .
+ogc:also a owl:ObjectProperty ; rdfs:label "also" ; rdfs:comment "a second source a crosswalk row cites" ; rdfs:domain ogc:Crosswalk ; rdfs:range ogc:Source .
+ogc:cites a owl:ObjectProperty ; rdfs:label "cites" ; rdfs:comment "the source a citation, a source concept or a crosswalk row cites" ; rdfs:range ogc:Source .
+ogc:locator a owl:DatatypeProperty ; rdfs:label "locator" ; rdfs:comment "where in the source: clause, page, entry, with a fragment marker when the quote is shorter than the entry" ; rdfs:range xsd:string .
+ogc:quote a owl:DatatypeProperty ; rdfs:label "quote" ; rdfs:comment "the verbatim words at the locator" ; rdfs:range xsd:string .
+ogc:quoteStatus a owl:DatatypeProperty ; rdfs:label "quoteStatus" ; rdfs:comment "machine (located in the snapshot by the tests), human (verified by a named person on a date), pending (transcribed, awaiting that tick), authors (the authors' own words in the bridge)" ; rdfs:range xsd:string .
+ogc:pdfPage a owl:DatatypeProperty ; rdfs:label "pdfPage" ; rdfs:comment "the PDF page index the quote is located on" ; rdfs:range xsd:integer .
+ogc:file a owl:DatatypeProperty ; rdfs:label "file" ; rdfs:comment "the file a snapshot or a screenshot is held in" ; rdfs:range xsd:string .
+ogc:verifiedBy a owl:ObjectProperty ; rdfs:label "verifiedBy" ; rdfs:comment "the person who verified a human quote" ; rdfs:range prov:Agent .
+ogc:verifiedOn a owl:DatatypeProperty ; rdfs:label "verifiedOn" ; rdfs:comment "the date of that verification" ; rdfs:range xsd:date .
+ogc:class a owl:DatatypeProperty ; rdfs:label "class" ; rdfs:comment "a term's class: adopted, refined or coined (R-01)" ; rdfs:domain skos:Concept ; rdfs:range xsd:string .
+ogc:anchorRelation a owl:DatatypeProperty ; rdfs:label "anchorRelation" ; rdfs:comment "how a refined term relates to its anchor: specializes or corresponds" ; rdfs:domain skos:Concept ; rdfs:range xsd:string .
+ogc:binding a owl:DatatypeProperty ; rdfs:label "binding" ; rdfs:comment "the technical binding of a term: the SysML, EPO, PROV, EARL or SHACL element that realizes it" ; rdfs:domain skos:Concept ; rdfs:range xsd:string .
+ogc:scopeNote a owl:DatatypeProperty ; rdfs:label "scopeNote" ; rdfs:comment "the term's scope note: the rulings and the readings behind it" ; rdfs:domain skos:Concept ; rdfs:range xsd:string .
+ogc:coinedBy a owl:DatatypeProperty ; rdfs:label "coinedBy" ; rdfs:comment "who coined a coined term, and where" ; rdfs:domain skos:Concept ; rdfs:range xsd:string .
+ogc:term a owl:ObjectProperty ; rdfs:label "term" ; rdfs:comment "the glossary term an EPO class names (sheet 08)" ; rdfs:domain owl:Class ; rdfs:range skos:Concept .
+ogc:concernsTerm a owl:ObjectProperty ; rdfs:label "concernsTerm" ; rdfs:comment "the term a concern is about" ; rdfs:domain ogc:Concern ; rdfs:range skos:Concept .
+ogc:usesTerm a owl:ObjectProperty ; rdfs:label "usesTerm" ; rdfs:comment "a term an essential is stated in" ; rdfs:domain ogc:Trace ; rdfs:range skos:Concept .
+ogc:tag a owl:DatatypeProperty ; rdfs:label "tag" ; rdfs:comment "an essential's tag: machine (checked by shapes) or human (validated by Z)" ; rdfs:domain ogc:Trace ; rdfs:range xsd:string .
+ogc:checkedBy a owl:ObjectProperty ; rdfs:label "checkedBy" ; rdfs:comment "the shape that checks an essential" ; rdfs:domain ogc:Trace ; rdfs:range sh:NodeShape .
+ogc:restsOn a owl:ObjectProperty ; rdfs:label "restsOn" ; rdfs:comment "the source an essential rests on" ; rdfs:domain ogc:Trace ; rdfs:range ogc:Source .
+ogc:page a owl:DatatypeProperty ; rdfs:label "page" ; rdfs:comment "the chapter an essential is rendered on" ; rdfs:domain ogc:Trace ; rdfs:range xsd:string .
+ogc:pinnedAt a owl:ObjectProperty ; rdfs:label "pinnedAt" ; rdfs:comment "the layer that fixes an item kind: the contract or the evaluation (R-32)" ; rdfs:domain owl:Class ; rdfs:range epo:Layer .
+ogc:rank a owl:DatatypeProperty ; rdfs:label "rank" ; rdfs:comment "the source's ordinal rank, 1 to 8, a heuristic for which definition wins when several sources define a term (sheet 10-46)" ; rdfs:domain ogc:Source ; rdfs:range xsd:string .
+ogc:kind a owl:DatatypeProperty ; rdfs:label "kind" ; rdfs:comment "pdf, web, html or event" ; rdfs:domain ogc:Source ; rdfs:range xsd:string .
+ogc:posture a owl:DatatypeProperty ; rdfs:label "posture" ; rdfs:comment "committed (the snapshot is in the repository), heldLocally (hashed, not redistributed) or citeOnly" ; rdfs:domain ogc:Source ; rdfs:range xsd:string .
+ogc:url a owl:ObjectProperty ; rdfs:label "url" ; rdfs:comment "where the source is obtained" ; rdfs:domain ogc:Source .
+ogc:digest a owl:DatatypeProperty ; rdfs:label "digest" ; rdfs:comment "the committed digest file of a source" ; rdfs:domain ogc:Source ; rdfs:range xsd:string .
+ogc:snapshot a owl:ObjectProperty ; rdfs:label "snapshot" ; rdfs:comment "a snapshot of the source: its file and content hash" ; rdfs:domain ogc:Source .
+ogc:contentHash a owl:DatatypeProperty ; rdfs:label "contentHash" ; rdfs:comment "the sha256 of a snapshot file" ; rdfs:range xsd:string .
+ogc:status a owl:DatatypeProperty ; rdfs:label "status" ; rdfs:comment "a source's publication status, or a concern's: open or ruled" ; rdfs:range xsd:string .
+ogc:retrievalNote a owl:DatatypeProperty ; rdfs:label "retrievalNote" ; rdfs:comment "how and when the source was obtained, and the statement it carries" ; rdfs:domain ogc:Source ; rdfs:range xsd:string .
+ogc:licenceNote a owl:DatatypeProperty ; rdfs:label "licenceNote" ; rdfs:comment "the terms under which the source is quoted" ; rdfs:domain ogc:Source ; rdfs:range xsd:string .
+ogc:permissionStatement a owl:DatatypeProperty ; rdfs:label "permissionStatement" ; rdfs:comment "a statement that must travel with every quotation from the source" ; rdfs:domain ogc:Source ; rdfs:range xsd:string .
+ogc:order a owl:DatatypeProperty ; rdfs:label "order" ; rdfs:comment "a ruling's or crosswalk row's ordinal position" ; rdfs:range xsd:integer .
+ogc:resolves a owl:ObjectProperty ; rdfs:label "resolves" ; rdfs:comment "the concern a ruling resolves" ; rdfs:domain ogc:Ruling ; rdfs:range ogc:Concern .
+ogc:rulingText a owl:DatatypeProperty ; rdfs:label "rulingText" ; rdfs:comment "the ruling in the register's formal words" ; rdfs:domain ogc:Ruling ; rdfs:range xsd:string .
+ogc:verbatim a owl:DatatypeProperty ; rdfs:label "verbatim" ; rdfs:comment "the ruling as Z sent it" ; rdfs:domain ogc:Ruling ; rdfs:range xsd:string .
+ogc:changeNote a owl:DatatypeProperty ; rdfs:label "changeNote" ; rdfs:comment "what changed in the repository when the ruling landed" ; rdfs:domain ogc:Ruling ; rdfs:range xsd:string .
+ogc:problem a owl:DatatypeProperty ; rdfs:label "problem" ; rdfs:comment "what a concern is" ; rdfs:domain ogc:Concern ; rdfs:range xsd:string .
+ogc:severity a owl:DatatypeProperty ; rdfs:label "severity" ; rdfs:comment "a concern's severity: H, M or L" ; rdfs:domain ogc:Concern ; rdfs:range xsd:string .
+ogc:surfacedOn a owl:DatatypeProperty ; rdfs:label "surfacedOn" ; rdfs:comment "when a concern surfaced" ; rdfs:domain ogc:Concern ; rdfs:range xsd:date .
+ogc:surfacedHow a owl:DatatypeProperty ; rdfs:label "surfacedHow" ; rdfs:comment "how a concern surfaced" ; rdfs:domain ogc:Concern ; rdfs:range xsd:string .
+ogc:validates a owl:DatatypeProperty ; rdfs:label "validates" ; rdfs:comment "the model element (part kind or wire) a validation ticks" ; rdfs:domain ogc:Validation ; rdfs:range xsd:string .
+ogc:validatedBy a owl:ObjectProperty ; rdfs:label "validatedBy" ; rdfs:comment "who ticked it" ; rdfs:domain ogc:Validation ; rdfs:range prov:Agent .
+ogc:validatedOn a owl:DatatypeProperty ; rdfs:label "validatedOn" ; rdfs:comment "when" ; rdfs:domain ogc:Validation ; rdfs:range xsd:date .
+ogc:via a owl:DatatypeProperty ; rdfs:label "via" ; rdfs:comment "how the validation was given" ; rdfs:domain ogc:Validation ; rdfs:range xsd:string .
+ogc:mapsTo a owl:ObjectProperty ; rdfs:label "mapsTo" ; rdfs:comment "the terms a crosswalk row maps a Popper element to" ; rdfs:domain ogc:Crosswalk ; rdfs:range skos:Concept .
+ogc:realizedBy a owl:ObjectProperty ; rdfs:label "realizedBy" ; rdfs:comment "the EPO classes or shapes that realize a crosswalk row" ; rdfs:domain ogc:Crosswalk .
+ogc:where a owl:DatatypeProperty ; rdfs:label "where" ; rdfs:comment "where a crosswalk row is found in the specification" ; rdfs:domain ogc:Crosswalk ; rdfs:range xsd:string .
+ogc:checkable a owl:DatatypeProperty ; rdfs:label "checkable" ; rdfs:comment "what makes a crosswalk row checkable" ; rdfs:domain ogc:Crosswalk ; rdfs:range xsd:string .

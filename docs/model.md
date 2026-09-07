@@ -8,11 +8,10 @@ how the measles record splits along it.
 
 ## What the standards say
 
-SEBoK and ISO/IEC/IEEE 15288 place the technical processes inside the
-agreement processes: needs and requirements are expressed in agreements
-between acquirers and suppliers, and the supplier's work is performed under
-them. The test processes of ISO/IEC/IEEE 29119-2 are technical processes of
-that kind. So an evaluation is what a {term}`provider` does between the
+ISO/IEC/IEEE 15288 keeps its process groups coordinate; nothing nests.
+What nests here is the work: the acquirer's agreement
+opens and closes it, and the supplier performs the ISO/IEC/IEEE 29119-2
+test processes under it. So an evaluation is what a {term}`provider` does between the
 {term}`customer`'s access and the provider's delivery, and the six steps of
 the inner cycle sit between C4 and C5 of the outer one. `ogc steps` prints
 both cycles with the canon step each matches; the previous two chapters

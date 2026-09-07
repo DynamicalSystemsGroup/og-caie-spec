@@ -10,3 +10,5 @@ __pycache__/
 sources/local/
 .cache/
 .claude/worktrees/
+# the version line is written at render time (sheet 10-38), never committed
+generated/version.md
