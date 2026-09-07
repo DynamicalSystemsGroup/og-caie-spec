@@ -256,9 +256,9 @@ def _rows(*cmd):
 
 def test_record_lists_every_stepped_item_by_step():
     from ogc.graph import load as load_all
-    rg = load_all(ROOT, record=True, cache=False)  # the step is derived through the model graph (sheet 10-33), never asserted in the file
-    assert not list(load("track/measles-evaluation.ttl").subject_objects(EPO.step))
-    stepped = {str(s).rsplit("#", 1)[-1] for s in rg.subjects(EPO.step, None) if str(s).startswith("https://w3id.org/og-caie/evaluation/measles#")}
+    rg = load_all(ROOT, record=True, cache=False)  # the step is derived through the model graph (sheet 10-33), never asserted in the file; under ogc:derivedStep since round four (H3)
+    assert not list(load("track/measles-evaluation.ttl").subject_objects(EPO.step)) and not list(load("track/measles-evaluation.ttl").subject_objects(OGC.derivedStep))
+    stepped = {str(s).rsplit("#", 1)[-1] for s in rg.subjects(OGC.derivedStep, None) if str(s).startswith("https://w3id.org/og-caie/evaluation/measles#")}
     r = run("record")
     assert r.returncode == 0, r.stderr
     rows = _rows("record")

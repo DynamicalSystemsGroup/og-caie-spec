@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import difflib
 import hashlib
+import json
 import re
 import textwrap
 import unicodedata
@@ -847,6 +848,38 @@ def record_classes(g: Graph) -> set[str]:
     return {local(c) for c in g.subjects(RDF.type, OWL_CLASS) if str(c).startswith(str(EPO)) and c not in typed}
 
 
+def record_only(g: Graph, root: Path, cache: bool = True) -> dict[str, list[str]]:
+    """The predicates and the classes that occur in the record and nowhere in
+    the graph loaded by default, as CURIEs (round four, M1): what a query
+    without --record names when its empty answer would be a lie. The set
+    difference is computed once per checkout state and cached under
+    .cache/, keyed on the files as the graph cache is; `ogc:derivedStep`,
+    derived in memory whenever the record is loaded, is always in it."""
+    from .graph import RECORD_FILE, SOURCE_FILES, _key
+    if not (root / RECORD_FILE).exists():
+        return {"predicates": [], "classes": []}
+    paths = [root / f for f in SOURCE_FILES] + [root / RECORD_FILE]
+    cp = root / ".cache" / f"ogc-record-only-{_key(paths)}.json"
+    if cache and cp.exists():
+        try:
+            return json.loads(cp.read_text())
+        except Exception:
+            pass
+    rec = Graph().parse(root / RECORD_FILE)
+    preds = (set(rec.predicates()) - set(g.predicates())) | {OGC.derivedStep}
+    classes = set(rec.objects(None, RDF.type)) - set(g.objects(None, RDF.type))
+    out = {"predicates": sorted(qname(g, x) for x in preds), "classes": sorted(qname(g, x) for x in classes)}
+    if cache:
+        try:
+            cp.parent.mkdir(exist_ok=True)
+            for old in cp.parent.glob("ogc-record-only-*.json"):
+                old.unlink()
+            cp.write_text(json.dumps(out))
+        except Exception:
+            pass
+    return out
+
+
 def step_heads(g: Graph) -> dict:
     """Step IRI -> (order, head) as the two cycles order them: C1..C6 (1..6), then 1..6 (11..16), the order `ogc steps` prints."""
     return {str(EPO[r["step"]]): (r["order"], r["label"].split(":", 1)[0]) for r in steps_table(g)}
@@ -898,9 +931,9 @@ def attribution(g: Graph, n) -> dict:
 
 
 def _step(g: Graph, n, heads: dict):
-    """(order, head) of the item's derived step (sheet 10-33: `epo:step` is added in memory by ogc.graph.infer_steps through the
+    """(order, head) of the item's derived step (sheet 10-33: `ogc:derivedStep` is added in memory by ogc.graph.infer_steps through the
     model graph); a kind two steps may produce is listed at the earlier; (None, "") when no step derives."""
-    found = sorted(heads[str(st)] for st in g.objects(n, EPO.step) if str(st) in heads)
+    found = sorted(heads[str(st)] for st in g.objects(n, OGC.derivedStep) if str(st) in heads)
     return found[0] if found else (None, "")
 
 
@@ -943,7 +976,9 @@ def resolve_record_item(g: Graph, name: str):
 def record_item(g: Graph, n) -> dict:
     """Everything the record says about one item: every triple with it as
     subject (`triples`; a blank node's own triples inline, as `[ p o ; ... ]`),
-    each object's label where it has one, and the triples that point at it
+    each object's label where it has one (the derived step among them, under
+    `ogc:derivedStep`, as a DESCRIBE over the loaded graph shows it; round
+    four, H3), and the triples that point at it
     (`referenced_by`); `who` and `when` are None when the record carries none
     and nothing can be derived through `prov:wasGeneratedBy` (then `via` names
     the generating activity)."""
@@ -956,6 +991,5 @@ def record_item(g: Graph, n) -> dict:
     out.sort(key=lambda t: (t["predicate"] != "rdf:type", t["predicate"], t["object"]))
     inn = [dict(subject=qname(g, s), predicate=qname(g, p), label=_label(g, s)) for s, p in g.subject_predicates(n) if isinstance(s, URIRef)]
     inn.sort(key=lambda t: (t["predicate"], t["subject"]))
-    out = [t for t in out if t["predicate"] != "epo:step"]  # derived in memory, not the record's own triple (sheet 10-33); the step is the `step` key
     return dict(item=local(n), iri=str(n), label=one(g, n, RDFS.label) or one(g, n, EPO.text), **{"class": ", ".join(_classes(g, n))},
                 step=_step(g, n, step_heads(g))[1], **attribution(g, n), synthetic=str(g.value(n, OGC.synthetic)).lower() == "true", triples=out, referenced_by=inn)

@@ -133,9 +133,15 @@ are a usage error (exit 2).
     then `## items without a step` (the requirement, the engagement
     decisions, the trajectory, the consistency check), then `## parties and
     machines`. The step is derived, never asserted (sheet 10-33): no record
-    file carries `epo:step`; the tool derives it through the model graph
-    (the item's class is realized by an item kind, `ogm:realizes`, produced
-    by a step) and loads the model graph with the record for that. Every
+    file carries `epo:step`, and no item carries a step of its own; the
+    tool derives it through the model graph (the item's class is realized
+    by an item kind, `ogm:realizes`, produced by a step), loads the model
+    graph with the record for that, and holds the derived triple under its
+    own predicate, `ogc:derivedStep` (declared in `vocabulary/derived.ttl`,
+    loaded with the record), so that `ogc sparql 'DESCRIBE ev:mission-1'
+    --record` shows `ogc:derivedStep epo:need` and `ogc record mission-1`
+    shows the same triple, its heading saying `derived step C1 need
+    (ogc:derivedStep)`. Every
     row carries a `synthetic` flag (`tag` column `synthetic` in the text
     listing, the count in the `## the record` header; sheet 10-43): the
     measles evaluation is synthetic throughout. When an item carries no
@@ -143,7 +149,8 @@ are a usage error (exit 2).
     `prov:wasGeneratedBy` to the generating activity's agent and end time,
     and the listing says so: `report assembler (queries/coverage.rq) (via
     coverage-computation)`. `ogc record <local-name>` prints everything the
-    record says about one item, its derived step in the heading. `--record`
+    record says about one item, its derived step in the heading and among
+    the triples. `--record`
     adds the record to `sparql` (the `ev:` prefix).
 
 ## What is loaded
@@ -165,7 +172,9 @@ asked over.
 The files behind the tool are `vocabulary/og-caie.ttl`, `vocabulary/epo.ttl`,
 `vocabulary/crosswalk.ttl`, `sources/sources.ttl`,
 `rulings/adjudications.ttl`, `model/trace.ttl`, the four shape files under
-`shapes/`, `model/og-caie.model.ttl` and `track/measles-evaluation.ttl`.
+`shapes/`, `model/og-caie.model.ttl`, `vocabulary/derived.ttl` (the
+declaration of `ogc:derivedStep`, loaded with the record) and
+`track/measles-evaluation.ttl`.
 Never open these; they are what ogc reads. `ogc doctor` parses every one
 of them; `ogc shapes` and `ogc schema` count the shapes over all four
 shape files.

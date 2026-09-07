@@ -1,0 +1,17 @@
+@prefix ogc: <https://w3id.org/og-caie/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# The one predicate the tool derives and no file asserts (sheet 10-33; round
+# four, H3): a record item's step, computed through the model graph by
+# ogc.graph.infer_steps whenever the record is loaded. The item's class is
+# realized by an item kind of the model (ogm:realizes), the kind is an out
+# parameter of a model step, and that step realizes an EPO step. It is
+# declared here, apart from the register, and loaded with the record, so
+# that a DESCRIBE over the loaded graph and `ogc record <item>` agree on
+# what the graph holds and a reader can tell the derived triple from the
+# record's own.
+
+ogc:derivedStep a owl:ObjectProperty ;
+    rdfs:label "derived step" ;
+    rdfs:comment "the EPO step a record item belongs to, derived in memory through the model graph when the record is loaded (sheet 10-33); no record file carries it, so a record never claims its own step" .

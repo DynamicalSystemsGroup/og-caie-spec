@@ -327,7 +327,7 @@ def build_parser() -> argparse.ArgumentParser:
     add("steps", "the twelve steps of the two cycles and the canon step each matches (R-31, R-32)")
     add("epo", "one EPO class or role (vocabulary/epo.ttl): label, superclasses (a role's types), subclasses and instances, the layer it is pinned at, the term it names with its headword, the disjointness axioms, and the shapes whose targets, paths or SPARQL bodies mention it",
         (["name"], dict(help="a class or role by local name, case-insensitive (StakeholderRepresentation, AuthorizedRepresentativeRole, authorizedRepresentativeRole; epo: CURIE or IRI accepted); a step is read by `ogc quote`")))
-    add("record", "the worked example's record, the measles evaluation (track/measles-evaluation.ttl): the record's own entity, then its items by step (derived through the model graph, sheet 10-33), C1..C6 then 1..6, with who and when; then the items without a step and the parties; every row tagged synthetic where the content is (sheet 10-43); with a name, everything the record says about that one item (R-47, closes C-44)",
+    add("record", "the worked example's record, the measles evaluation (track/measles-evaluation.ttl): the record's own entity, then its items by step (derived through the model graph as ogc:derivedStep, sheet 10-33), C1..C6 then 1..6, with who and when; then the items without a step and the parties; every row tagged synthetic where the content is (sheet 10-43); with a name, everything the record says about that one item, the derived step among its triples (R-47, closes C-44)",
         (["name"], dict(nargs="?", help="an item's local name, case-insensitive (mission-1, attestation-1, annie; ev: CURIE or IRI accepted); omitted: the listing")))
     add("execute", "execute the process from the model graph and run the checks over the emitted record (C-30); VERDICT: PASS when the record conforms, no item kind is missing and the traceback is non-empty, else FAIL and exit 1; " + CAP_NOTE,
         (["--mutate"], dict(action="append", metavar="NAME", help="break one thing in the emitted record before the checks; repeatable, applied in order; one of: " + ", ".join(sorted(MUTATIONS)))),
@@ -723,7 +723,7 @@ def record(args, g, argstr: str) -> int:
     d = api.record_item(g, iri)
 
     def lines():
-        L = [f"## {d['item']}  ({d['class']})" + (f"  step {d['step']}" if d["step"] else "") + ("  synthetic" if d["synthetic"] else "")]
+        L = [f"## {d['item']}  ({d['class']})" + (f"  derived step {d['step']} (ogc:derivedStep)" if d["step"] else "") + ("  synthetic" if d["synthetic"] else "")]
         if d["label"]:
             L += text.wrap(d["label"])
         L += ["", f"who: {', '.join(d['who'] or []) or '(none)'}   when: {d['when'] or '(none)'}" + (f"   (via {d['via']})" if d["via"] else ""), "", f"triples ({len(d['triples'])}):"]
@@ -889,6 +889,51 @@ def _order_by_over_sorted_rows(ctx, part):
     return res
 
 
+def algebra_nodes(n):
+    """Every CompValue in a query's algebra, depth first."""
+    from rdflib.plugins.sparql.parserutils import CompValue
+    if isinstance(n, CompValue):
+        yield n
+        for v in n.values():
+            for x in (v if isinstance(v, list) else [v]):
+                if isinstance(x, CompValue):
+                    yield from algebra_nodes(x)
+
+
+def record_only_reference(g, root, pq, cache: bool = True):
+    """(what, curie) for the first predicate or class in the query's triple
+    patterns that occurs only in the record (round four, M1): a predicate in
+    predicate position, inside a property path too, or a class as the object
+    of `a`; None when every name has a use in the graphs loaded by default.
+    A name in subject or object position is not a use: `DESCRIBE epo:fitness`
+    reads the declaration, which the vocabulary holds."""
+    from rdflib import RDF, URIRef
+    from rdflib.paths import Path as SparqlPath
+    only = api.record_only(g, root, cache)
+    preds, classes = set(only["predicates"]), set(only["classes"])
+
+    def uris(p):
+        if isinstance(p, URIRef):
+            yield p
+        elif isinstance(p, SparqlPath):
+            for k in ("arg", "path"):
+                if getattr(p, k, None) is not None:
+                    yield from uris(getattr(p, k))
+            for v in getattr(p, "args", None) or ():
+                yield from uris(v)
+    def types(p) -> bool:  # `a`, or a sequence path that begins with it (rdf:type/rdfs:subClassOf*)
+        return p == RDF.type or (isinstance(p, SparqlPath) and bool(getattr(p, "args", None)) and types(p.args[0]))
+    for n in algebra_nodes(pq.algebra):
+        triples = n.get("triples")  # a missing part comes back as its own name, not None
+        for s, p, o in (triples if isinstance(triples, list) else []):
+            if types(p) and isinstance(o, URIRef) and api.qname(g, o) in classes:
+                return "a class", api.qname(g, o)
+            for u in uris(p):
+                if api.qname(g, u) in preds:
+                    return "a predicate", api.qname(g, u)
+    return None
+
+
 def sparql(args, g, argstr: str) -> int:
     from rdflib import BNode, Graph, URIRef
     from rdflib.plugins.sparql import CUSTOM_EVALS
@@ -952,15 +997,11 @@ def sparql(args, g, argstr: str) -> int:
     kind = pq.algebra.name
     if kind not in ("SelectQuery", "AskQuery", "ConstructQuery", "DescribeQuery"):
         return usage(args, f"only SELECT, ASK, CONSTRUCT, and DESCRIBE are accepted (got {kind}); the tool is read-only")
-
-    def nodes(n):
-        if isinstance(n, CompValue):
-            yield n
-            for v in n.values():
-                for x in (v if isinstance(v, list) else [v]):
-                    if isinstance(x, CompValue):
-                        yield from nodes(x)
-    names = {n.name for n in nodes(pq.algebra)}
+    if not args.record:
+        ref = record_only_reference(g, args.root, pq, cache=not args.no_cache)
+        if ref:
+            return refuse(args, f"the query names {ref[0]} that occurs only in the record ({ref[1]}), which is not loaded; add --record to load track/measles-evaluation.ttl (the ev: namespace, the record's item kinds and the predicates only its items carry)")
+    names = {n.name for n in algebra_nodes(pq.algebra)}
     if "Graph" in names or pq.algebra.get("datasetClause"):
         return usage(args, "named graphs are not exposed: the files are merged into one graph; drop GRAPH, FROM and FROM NAMED")
     # Determinism: without ORDER BY the engine's order is arbitrary, so a LIMIT

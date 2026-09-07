@@ -34,9 +34,10 @@ SOURCE_FILES = ["vocabulary/og-caie.ttl", "vocabulary/epo.ttl", "vocabulary/cros
                 "rulings/adjudications.ttl", "model/trace.ttl", "shapes/epo.shapes.ttl", "shapes/model.shapes.ttl"]
 SHAPE_FILES = ["shapes/epo.shapes.ttl", "shapes/model.shapes.ttl", "shapes/rulings.shapes.ttl", "shapes/glossary.shapes.ttl"]  # every shape file; `ogc shapes`, `ogc shape` and the schema's shape count read them all
 MODEL_FILE = "model/og-caie.model.ttl"
+DERIVED_FILE = "vocabulary/derived.ttl"  # declares ogc:derivedStep, the one predicate infer_steps adds in memory; loaded with the record (round four, H3)
 RECORD_FILE = "track/measles-evaluation.ttl"  # the worked example's record, the measles evaluation; read by `ogc record` and `--record` (C-44, ruling R-47; sheet 10-42)
 DIGEST_FILES = {"shapesDigest": "shapes/epo.shapes.ttl", "ontologyDigest": "vocabulary/epo.ttl", "queryDigest": "queries/coverage.rq"}  # what the verdict names by sha256 (tool qualification, sheet 10-18)
-DOCTOR_FILES = SOURCE_FILES + [f for f in SHAPE_FILES if f not in SOURCE_FILES] + [MODEL_FILE, RECORD_FILE]  # every file the tool reads; `ogc doctor` parses each
+DOCTOR_FILES = SOURCE_FILES + [f for f in SHAPE_FILES if f not in SOURCE_FILES] + [MODEL_FILE, DERIVED_FILE, RECORD_FILE]  # every file the tool reads; `ogc doctor` parses each
 
 
 def find_root(start: Path | None = None) -> Path:
@@ -58,6 +59,8 @@ def files(root: Path, model: bool = False, record: bool = False) -> list[Path]:
     if (model or record) and (root / MODEL_FILE).exists():
         out.append(root / MODEL_FILE)
     if record and (root / RECORD_FILE).exists():
+        if (root / DERIVED_FILE).exists():
+            out.append(root / DERIVED_FILE)
         out.append(root / RECORD_FILE)
     return out
 
@@ -73,8 +76,9 @@ def digests(root: Path | None = None) -> dict[str, str]:
 
 def infer_steps(g: Graph) -> int:
     """Derive the step of every record item in memory (sheet 10-33, R-50) and
-    add it as `epo:step`; the number of triples added. No record file
-    asserts a step. The derivation: the item's class is realized by an item
+    add it as `ogc:derivedStep` (declared in vocabulary/derived.ttl; round
+    four, H3: under its own name, so a DESCRIBE shows it as derived); the
+    number of triples added. No record file asserts a step. The derivation: the item's class is realized by an item
     kind of the model (ogm:realizes, written by scripts/prune_model.py), the
     item kind is an out parameter of a step of the model, and that step
     realizes an EPO step. An activity with no model element of its own (a
@@ -90,15 +94,15 @@ def infer_steps(g: Graph) -> int:
         }"""
     n = 0
     for item, step in g.query(q):
-        if (item, EPO.step, step) not in g:
-            g.add((item, EPO.step, step)); n += 1
+        if (item, OGC.derivedStep, step) not in g:
+            g.add((item, OGC.derivedStep, step)); n += 1
     for act in list(g.subjects(RDF.type, PROV.Activity)) + [a for a in g.objects(None, PROV.wasGeneratedBy)]:
-        if g.value(act, EPO.step) is not None:
+        if g.value(act, OGC.derivedStep) is not None:
             continue
         for produced in g.subjects(PROV.wasGeneratedBy, act):
-            for step in g.objects(produced, EPO.step):
-                if (act, EPO.step, step) not in g:
-                    g.add((act, EPO.step, step)); n += 1
+            for step in g.objects(produced, OGC.derivedStep):
+                if (act, OGC.derivedStep, step) not in g:
+                    g.add((act, OGC.derivedStep, step)); n += 1
     return n
 
 

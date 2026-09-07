@@ -206,10 +206,8 @@ def record_graph() -> Graph:
 
 def item_steps(g: Graph):
     """(item, step) pairs, one per item: a kind two steps may produce (the plan deviation) is listed at the earlier step."""
-    from rdflib import Namespace as NS
-    EPO = NS("https://w3id.org/og-caie/epo#")
     by_item: dict = {}
-    for n, st in g.subject_objects(EPO.step):
+    for n, st in g.subject_objects(OGC.derivedStep):  # derived in memory by ogc.graph.infer_steps (sheet 10-33; round four, H3)
         if not str(n).startswith("https://w3id.org/og-caie/evaluation/"):
             continue
         order = str(g.value(st, RDFS.label)).split(" ", 1)[0]
