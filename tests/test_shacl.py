@@ -77,6 +77,17 @@ def test_every_new_shape_has_a_counterexample():
     assert set(NEW_SHAPES) <= covered, sorted(set(NEW_SHAPES) - covered)
 
 
+def test_every_shape_names_its_counterexamples_and_only_those():
+    """Sheet 10-40 and drift pass 4 (QA 20): each node shape carries ogc:counterexample for every file of the generator's table
+    whose fault list names it, and for no other, so the counterexamples answer by query and scripts/drift_check.py finds every
+    file the annotations name."""
+    g = shapes()
+    for s in g.subjects(RDF.type, SH.NodeShape):
+        name = str(s).rsplit("/", 1)[-1]
+        expected = {f"counterexamples/{n}.ttl" for n, spec in COUNTEREXAMPLES.items() if name in spec["shapes"]}
+        assert {str(o) for o in g.objects(s, OGC.counterexample)} == expected, name
+
+
 def test_two_records_in_one_graph_both_conform():
     """Sheet 10-31: every global constraint is anchored on the record reachable
     from its focus node, so the measles evaluation loaded twice under two
