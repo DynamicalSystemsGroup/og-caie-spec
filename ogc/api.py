@@ -227,7 +227,7 @@ def ruling_record(g: Graph, rid: str) -> dict | None:
     r = RUL[rid]
     if (r, RDF.type, OGC.Ruling) not in g:
         return None
-    return dict(id=rid, order=int(one(g, r, OGC.order) or 0), text=one(g, r, OGC.rulingText), change=one(g, r, OGC.changeNote),
+    return dict(id=rid, order=int(one(g, r, OGC.order) or 0), text=one(g, r, OGC.rulingText), verbatim=one(g, r, OGC.verbatim), change=one(g, r, OGC.changeNote),
                 date=one(g, r, PROV.generatedAtTime), attributed=one(g, g.value(r, PROV.wasAttributedTo), RDFS.label),
                 resolves=sorted(local(c) for c in g.objects(r, OGC.resolves)),
                 resolves_labels=sorted(one(g, c, RDFS.label) for c in g.objects(r, OGC.resolves)),
@@ -243,7 +243,7 @@ def rulings_table(g: Graph, term_iri=None, grep=None) -> list[dict]:
             continue
         matched = snippet = ""
         if pat:
-            for field, val in (("text", one(g, r, OGC.rulingText)), ("change", one(g, r, OGC.changeNote))):
+            for field, val in (("text", one(g, r, OGC.rulingText)), ("verbatim", one(g, r, OGC.verbatim)), ("change", one(g, r, OGC.changeNote))):
                 m = pat.search(val)
                 if m:
                     matched = field

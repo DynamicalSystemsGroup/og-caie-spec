@@ -20,7 +20,9 @@ def cell(s: object) -> str:
 
 def render_rulings() -> str:
     g = Graph().parse(ROOT / "rulings" / "adjudications.ttl")
-    lines = ["| # | Concern | Severity | Status | Ruling (verbatim) | Adjudicator | Date | Change |",
+    # The Ruling column is the decision in the register's own words (ogc:rulingText, R-47);
+    # the message as sent stays in the graph as ogc:verbatim and is not rendered here.
+    lines = ["| # | Concern | Severity | Status | Ruling | Adjudicator | Date | Change |",
              "|---|---|---|---|---|---|---|---|"]
     rulings = sorted(g.subjects(RDF.type, OGC.Ruling), key=lambda r: int(g.value(r, OGC.order)))
     for r in rulings:

@@ -15,13 +15,15 @@ deployed AI system against the needs of a specific domain, written down as:
   human-validated, live beside it in `model/trace.ttl`;
 - one **evaluation record** (PROV-O + EARL) of the measles chatbot example,
   checked by SHACL shapes, with counterexamples that must fail;
-- a **rulings register** holding every interpretive choice verbatim.
+- a **rulings register** holding every interpretive choice: the decision in
+  the register's words and, in the graph, the adjudicator's message as sent.
 
 ## Status (2026-09-06)
 
 - **Glossary: ratified.** 62 terms, 4 coined (DSO, EPO, CAIE, OG-CAIE),
-  settled through 46 rulings (R-01 to R-46) recorded verbatim in
-  `rulings/adjudications.ttl`. 76 quotes are machine-located in
+  settled through 47 rulings (R-01 to R-47) recorded in
+  `rulings/adjudications.ttl`, each as a decision in the register's words
+  with the message as sent kept beside it (R-47). 76 quotes are machine-located in
   content-hashed snapshots or, where the source is held locally, in its
   committed digest, 34 verified by Z against the ISO screenshots or
   the browsing platforms, 13 transcribed and awaiting Z's tick on rulings
