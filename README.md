@@ -25,7 +25,7 @@ deployed AI system against the needs of a specific domain, written down as:
   `rulings/adjudications.ttl`. 91 quotes are machine-located in
   content-hashed snapshots or, where the source is held locally, in its
   committed digest, 56 verified by Z against the ISO screenshots or
-  the browsing platforms; none pending. Concerns C-25, C-30, C-43 and C-45 are open.
+  the browsing platforms; none pending. Concerns C-25, C-30, C-43, C-45 and C-57 are open.
 - **Both cycles are bound to the canon (R-31, R-32).** Each step cites the
   process step it matches: SEBoK's account of the ISO/IEC/IEEE 15288
   acquisition, stakeholder needs and system requirements processes; the
@@ -80,8 +80,8 @@ deployed AI system against the needs of a specific domain, written down as:
   conforms to the shapes and is caught only by completeness. Z validated
   every block and wire on rulings sheet 05 but the report assembler (B8),
   rebuilt so that the conformance check on the record precedes the final
-  report (sheet 10-41), and the sponsor signatory's block and wires, new
-  with R-50; C-30 closes with their ticks.
+  report (sheet 10-41), and four wires new with R-50 (W15, W22, W36, W44);
+  C-30 closes with their ticks.
 - **Record and shapes: current (R-50, sheet 10).** The measles evaluation
   (`track/measles-evaluation.ttl`) is a bundle every item is a member of,
   tagged synthetic; it names the parties and the sponsor's signatory, the

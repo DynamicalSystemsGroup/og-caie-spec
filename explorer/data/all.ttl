@@ -608,7 +608,7 @@ rul:C-57 a ogc:Concern ;
     ogc:severity "M" ;
     ogc:status "open" ;
     ogc:surfacedHow "slice D's report on the case redesign (R-51, 10-48)" ;
-    ogc:surfacedOn "2026-09-08"^^xsd:date .
+    ogc:surfacedOn "2026-09-07"^^xsd:date .
 
 rul:Julie a prov:Agent,
         prov:Person ;
@@ -981,7 +981,7 @@ tr:SCI-09 a ogc:Trace ;
 
 tr:SCI-10 a ogc:Trace ;
     rdfs:label "SCI-10 PartiesNamedAndAgreed" ;
-    rdfs:comment "The sponsor, the testing organization and the test item provider are named; the sponsor's mission and obligations towards the affected populations are recorded before the need, and its statement of work decides, per population, interview or representation; the agreement is signed by the sponsor and the authorized representative; every affected population is spoken for by a named representative on the team, and interviewed where the statement of work decided so." ;
+    rdfs:comment "The sponsor, the testing organization and the test item provider are named; the sponsor's mission and obligations towards the affected populations are recorded before the need, and its statement of work decides, per population, interview or representation; the agreement is signed for the sponsor by its signatory and for the testing organization by its authorized representative; every affected population is spoken for by a named representative on the team, and interviewed where the statement of work decided so." ;
     ogc:checkedBy ogc:M1-Obligation,
         ogc:M1-Parties,
         ogc:S0-Member,
@@ -1341,9 +1341,12 @@ elmt:OGCAIE__ConformanceVerdict__id a sysml:AttributeUsage ;
     sysml:type "ScalarValues::String" .
 
 elmt:OGCAIE__ContractingProcess___400 a sysml:Documentation ;
-    sysml:body """ The contracting lifecycle: the ISO/IEC/IEEE 15288 agreement
-           processes as SEBoK describes them, ISO/IEC 17000's access,
-           scheme and acceptance, ISO 9000's contract (ruling R-32). One
+    sysml:body """ The contracting lifecycle: each step citing its own canon
+           under one agreement (sheet 10-22): the SEBoK's business or
+           mission analysis and account of proposals, ISO/IEC/IEEE 15288's agreement
+           processes for the agreement itself, ISO 9000's contract, the
+           29119-2 test environment and completion report, SEVOCAB's
+           acceptance (rulings R-32, R-50). One
            nested model (ruling R-33): the fulfil step is a black box typed
            by the EvaluationProcess, whose inputs are what the contract
            pinned and whose outputs are what the delivery carries; its
@@ -1594,8 +1597,8 @@ elmt:OGCAIE__DeliveryWrite__i a sysml:ItemUsage ;
     sysml:type elmt:OGCAIE__Delivery .
 
 elmt:OGCAIE__Delivery___400 a sysml:Documentation ;
-    sysml:body """ The report and the recommendation handed to the sponsor by
-           the authorized representative: the output of the delivery activity,
+    sysml:body """ The final report, its approval and the recommendation handed
+           to the sponsor by the authorized representative: the output of the delivery activity,
            distinct from recommending (ruling R-24). """ ;
     sysml:owner elmt:OGCAIE__Delivery ;
     sysml:qualifiedName "OGCAIE::Delivery::@0" .
@@ -1646,8 +1649,8 @@ elmt:OGCAIE__DomainExpert___400 a sysml:Documentation ;
            assesses the appropriateness of the requirement set for the
            affected populations, approves test plans, may make
            determinations on evidence (an activity either expert may
-           perform, R-24), and attests. Represents the
-           populations that are not interviewed. The worked example's
+           perform, R-24), and attests. May speak for an affected
+           population, as any team member may (sheet 10-13). The worked example's
            Annie. """ ;
     sysml:owner elmt:OGCAIE__DomainExpert ;
     sysml:qualifiedName "OGCAIE::DomainExpert::@0" .
@@ -1705,8 +1708,9 @@ elmt:OGCAIE__Engagement__representation a sysml:EnumerationUsage ;
 elmt:OGCAIE__EpoStep___400 a sysml:Documentation ;
     sysml:body """ The six steps of the Evaluation Process Ontology (ruling
            R-21 split the paper's five; R-32 moved agree out to the
-           contracting lifecycle, ContractingStep). Every attestation and
-           every recommendation names its step. """ ;
+           contracting lifecycle, ContractingStep). An item's step is
+           derived through the model (ogm:realizes, sheet 10-33), never
+           asserted. """ ;
     sysml:owner elmt:OGCAIE__EpoStep ;
     sysml:qualifiedName "OGCAIE::EpoStep::@0" .
 
@@ -1741,8 +1745,9 @@ elmt:OGCAIE__EpoStep__scope a sysml:EnumerationUsage ;
     sysml:qualifiedName "OGCAIE::EpoStep::scope" .
 
 elmt:OGCAIE__EvaluationOperator___400 a sysml:Documentation ;
-    sysml:body """ The technical expert who operates the evaluation (SEVOCAB
-           operator, refined; rulings R-10, R-23): declares the
+    sysml:body """ The technical expert who operates the evaluation (NIST AI
+           700-2 tester, refined, the 12207 operator a neighbour, sheet
+           10-26; rulings R-10, R-23, R-50): declares the
            requirement set, writes the test plan, applies the probes to
            the test item, collects the evidence, makes determinations,
            records the deviations from the plan, and writes the
@@ -1755,7 +1760,8 @@ elmt:OGCAIE__EvaluationOperator___400 a sysml:Documentation ;
 
 elmt:OGCAIE__EvaluationProcess___400 a sysml:Documentation ;
     sysml:body """ The Evaluation Process Ontology. Domain-independent; the
-           agreement and the access enter from the contracting lifecycle;
+           agreement, the statement of work and the access enter from the
+           contracting lifecycle;
            the DSO enters as a parameter at the scope step; the record
            leaves as the result. """ ;
     sysml:owner elmt:OGCAIE__EvaluationProcess ;
@@ -3593,8 +3599,9 @@ elmt:OGCAIE__StakeholderInputWrite__i a sysml:ItemUsage ;
 
 elmt:OGCAIE__StakeholderInput___400 a sysml:Documentation ;
     sysml:body """ What an interviewed affected population said. Optional:
-           populations not interviewed are represented by the domain
-           expert, and the record names who represents them (R-21). """ ;
+           every population is spoken for by a member of the team, from
+           its interview when there was one, and the record names who
+           (R-21, R-49, sheet 10-13). """ ;
     sysml:owner elmt:OGCAIE__StakeholderInput ;
     sysml:qualifiedName "OGCAIE::StakeholderInput::@0" .
 
@@ -3819,7 +3826,7 @@ elmt:OGCAIE___400 a sysml:Documentation ;
        Vocabulary: terms are used, not owned. Canonical definitions are
        cited in vocabulary/og-caie.ttl in this precedence: ISO 9000:2026,
        SEVOCAB (IEEE CS), NIST AI 700-2, then W3C/OMG for binding only.
-       Coinage is exactly three: DSO, EPO, OG-CAIE. Rulings are recorded
+       Coinage is exactly four: DSO, EPO, CAIE, OG-CAIE. Rulings are recorded
        verbatim in rulings/adjudications.ttl. """ ;
     sysml:owner elmt:OGCAIE ;
     sysml:qualifiedName "OGCAIE::@0" .
@@ -4501,7 +4508,7 @@ epo:TestItemCustomerRole a owl:Class ;
     ogc:term term:test-item-customer .
 
 epo:TestItemProviderRole a owl:Class ;
-    rdfs:label "test item provider (the accountable organization): provides, and is accountable for, the AI system under test; ISO/IEC 17000 first party; grants access to the test item (C4)" ;
+    rdfs:label "test item provider: provides, and is accountable for, the AI system under test as its provider (ISO/IEC 17000 first party, sheet 10-09); grants access to the test item (C4)" ;
     rdfs:subClassOf epo:ProviderRole ;
     ogc:term term:test-item-provider .
 
@@ -4520,7 +4527,7 @@ epo:acceptDelivery a epo:ContractingStep ;
             ogc:quoteStatus "machine" ] .
 
 epo:access a epo:ContractingStep ;
-    rdfs:label "C4 access: the test item provider (the accountable organization) provides the test item and the test environment" ;
+    rdfs:label "C4 access: the test item provider (ISO/IEC 17000 first party) provides the test item and the test environment" ;
     ogc:canonical [ ogc:cites src:sevocab ;
             ogc:locator "test environment and data management process, p. 434 (ISO/IEC/IEEE 29119-2:2021, 3.37)" ;
             ogc:pdfPage 434 ;
@@ -4644,7 +4651,7 @@ epo:declareRequirements a epo:EpoStep ;
             ogc:verifiedOn "2026-09-06"^^xsd:date ] .
 
 epo:deliver a epo:ContractingStep ;
-    rdfs:label "C5 deliver: the authorized representative delivers the report and the recommendation to the sponsor" ;
+    rdfs:label "C5 deliver: the authorized representative delivers the final report, its approval and the recommendation to the sponsor" ;
     ogc:canonical [ ogc:cites src:sevocab ;
             ogc:locator "test completion report, p. 433 (ISO/IEC/IEEE 29119-2:2021, 3.26)" ;
             ogc:pdfPage 433 ;
@@ -4884,7 +4891,7 @@ epo:regards a owl:ObjectProperty ;
     rdfs:range epo:Population .
 
 epo:report a epo:EpoStep ;
-    rdfs:label "6 report: the report assembled by machine with coverage and performance recomputed; its correct construction checked by machine and the verdict recorded; its contents approved by a domain expert; recommendation written; handed to the authorized representative for delivery" ;
+    rdfs:label "6 report: the record's conformance checked by machine and the verdict recorded; the report assembled from the record and the verdict with coverage and performance recomputed, a draft with its gaps flagged or a final report resting on a passed verdict; its contents approved by a domain expert; recommendation written; handed to the authorized representative for delivery" ;
     ogc:canonical [ ogc:cites src:sevocab ;
             ogc:locator "test completion process, p. 433 (ISO/IEC/IEEE 29119-2:2021, 3.25)" ;
             ogc:pdfPage 433 ;
@@ -4986,9 +4993,9 @@ ev:coverage-computation a epo:CoverageComputation ;
         ev:conformance-verdict-1,
         ev:requirement-set ;
     prov:wasAssociatedWith ev:report-assembler ;
-    epo:ontologyDigest "31a18c6b47919c472a441c706a6d50a8e23e45d12d63cc3f087f291f13a5d42c" ;
+    epo:ontologyDigest "5aff7757aed847f1ca2ecad24311037564a8bc17b5f007306744f781f978f5a7" ;
     epo:queryDigest "3ab9dc711479d53340c97c31be23dc071f5c8ed99a19378b4f1899e632325134" ;
-    epo:shapesDigest "ed48afe7826bb5bb44552d12946d7e634ab2a06efd0b44a7830cd9dac342fd9d" ;
+    epo:shapesDigest "386c1e1265f2cebf3dadc8445efe4f4677eb7abd420b2c7b33554b7e91686ab8" ;
     ogc:inRecord ev:record ;
     ogc:synthetic true .
 
@@ -5002,9 +5009,9 @@ ev:coverage-computation-draft a epo:CoverageComputation ;
         ev:attestation-5,
         ev:requirement-set ;
     prov:wasAssociatedWith ev:report-assembler ;
-    epo:ontologyDigest "31a18c6b47919c472a441c706a6d50a8e23e45d12d63cc3f087f291f13a5d42c" ;
+    epo:ontologyDigest "5aff7757aed847f1ca2ecad24311037564a8bc17b5f007306744f781f978f5a7" ;
     epo:queryDigest "3ab9dc711479d53340c97c31be23dc071f5c8ed99a19378b4f1899e632325134" ;
-    epo:shapesDigest "ed48afe7826bb5bb44552d12946d7e634ab2a06efd0b44a7830cd9dac342fd9d" ;
+    epo:shapesDigest "386c1e1265f2cebf3dadc8445efe4f4677eb7abd420b2c7b33554b7e91686ab8" ;
     ogc:inRecord ev:record ;
     ogc:synthetic true .
 
@@ -6253,7 +6260,7 @@ src:w3c-prov-o a prov:Entity,
     ogc:url <https://www.w3.org/TR/2013/REC-prov-o-20130430/> .
 
 ogc:synthetic a owl:DatatypeProperty ;
-    rdfs:comment "true on a record and on each of its members when the content is synthetic (sheet 10-43, R-50): the worked example is a synthetic case whose names recognise the roles of real people (R-23); the tool prints the tag and the explorer can filter on it" ;
+    rdfs:comment "true on a record and on each of its members when the content is synthetic (sheet 10-43, R-51): the worked example is a synthetic case whose names recognise the roles of real people (R-23); the tool prints the tag and the explorer can filter on it" ;
     rdfs:range xsd:boolean .
 
 expr:OGCAIE__ContractingProcess___4010_pend0 a sysml:FeatureReferenceExpression ;
@@ -9144,7 +9151,7 @@ ogc:S0-Access a sh:NodeShape ;
             sh:message "Access names the instrument outside this agreement under which the provider owes it (sheet 10-04)." ;
             sh:minCount 1 ;
             sh:path epo:underInstrument ] ;
-    sh:sparql [ sh:message "S0: access to the test item is granted by the test item provider, the accountable organization (ISO/IEC 17000 first party), for a period that ends after it starts." ;
+    sh:sparql [ sh:message "S0: access to the test item is granted by the test item provider (ISO/IEC 17000 first party), for a period that ends after it starts." ;
             sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX prov: <http://www.w3.org/ns/prov#>
@@ -10775,7 +10782,7 @@ ogc:S0-Parties a sh:NodeShape ;
                                     ?p epo:role epo:sponsorSignatoryRole ; prov:actedOnBehalfOf ?org . ?org epo:role epo:sponsorRole }
             }
         """ ],
-        [ sh:message "S0: exactly one organization of the record holds each of the sponsor (evaluation customer), testing (evaluation service provider) and accountable (test item provider) roles (R-21)." ;
+        [ sh:message "S0: exactly one organization of the record holds each of the sponsor (evaluation customer), testing (evaluation service provider) and test item provider roles (R-21)." ;
             sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX ogc: <https://w3id.org/og-caie/>
@@ -11190,9 +11197,9 @@ ev:conformance-verdict-1 a epo:ConformanceVerdict ;
     prov:endedAtTime "2026-08-12T09:30:00+00:00"^^xsd:dateTime ;
     prov:used ev:record ;
     prov:wasAssociatedWith ev:pyshacl ;
-    epo:ontologyDigest "31a18c6b47919c472a441c706a6d50a8e23e45d12d63cc3f087f291f13a5d42c" ;
+    epo:ontologyDigest "5aff7757aed847f1ca2ecad24311037564a8bc17b5f007306744f781f978f5a7" ;
     epo:queryDigest "3ab9dc711479d53340c97c31be23dc071f5c8ed99a19378b4f1899e632325134" ;
-    epo:shapesDigest "ed48afe7826bb5bb44552d12946d7e634ab2a06efd0b44a7830cd9dac342fd9d" ;
+    epo:shapesDigest "386c1e1265f2cebf3dadc8445efe4f4677eb7abd420b2c7b33554b7e91686ab8" ;
     ogc:inRecord ev:record ;
     ogc:synthetic true .
 
@@ -12100,7 +12107,7 @@ term:red-teaming a skos:Concept ;
 
 term:second-party-conformity-assessment-activity a skos:Concept ;
     skos:altLabel "second party"@en ;
-    skos:definition "Evaluation performed by an organization with a user interest in the test item: a purchaser, a regulator, a deploying agency. The sponsor's own activity in commissioning and accepting an evaluation is second-party; the independent testing organization it commissions performs a third-party activity (sheet 10-08, R-50)."@en ;
+    skos:definition "Evaluation performed by an organization with a user interest in the test item: a purchaser, a deploying agency, those who represent its users (ISO/IEC 17000 4.4; a regulator is an authority that uses results, not a user). The sponsor's own activity in commissioning and accepting an evaluation is second-party; the independent testing organization it commissions performs a third-party activity (sheet 10-08, R-50)."@en ;
     skos:exactMatch src:iso-iec-17000-2020_4.4 ;
     skos:inScheme ogc:Glossary ;
     skos:prefLabel "second-party conformity assessment activity"@en ;
@@ -12108,7 +12115,7 @@ term:second-party-conformity-assessment-activity a skos:Concept ;
         term:first-party-conformity-assessment-activity,
         term:third-party-conformity-assessment-activity ;
     prov:wasDerivedFrom rul:R-21 ;
-    ogc:binding "epo:sponsorRole when the sponsor is not the test item provider (record fact epo:isAccountable, S0)" ;
+    ogc:binding "epo:sponsorRole when the sponsor is not the test item provider (record facts epo:providesTestItem and the user-interest declaration, S0-Parties; sheets 10-07, 10-09)" ;
     ogc:canonical [ ogc:cites src:iso-iec-17000-2020 ;
             ogc:locator "4.4 second-party conformity assessment activity" ;
             ogc:quote "conformity assessment activity that is performed by a person or organization that has a user interest in the object of conformity assessment" ;
@@ -12426,7 +12433,7 @@ elmt:OGCAIE__UserInterestDeclaration a sysml:ItemDefinition ;
 
 epo:Delivery a owl:Class ;
     rdfs:label "delivery: the final report, its approval and the recommendation handed to the sponsor by the authorized representative under the agreement (R-24; sheets 10-02, 10-41): the report is the record's delivered export, the record itself is not delivered" ;
-    rdfs:comment "no term: SEVOCAB delivery is cited on step C5; the item carries the report and the recommendation, whose terms are performance, test coverage and guardrail" ;
+    rdfs:comment "no term: SEVOCAB delivery is cited on step C5; the item carries the final report, its approval and the recommendation, whose terms are performance, test coverage and guardrail" ;
     rdfs:subClassOf prov:Entity ;
     ogc:pinnedAt epo:contract .
 
@@ -12534,7 +12541,7 @@ term:evaluation-operator a skos:Concept ;
         "tester"@en ;
     skos:broadMatch src:nist-ai-700-2_tester ;
     skos:broader term:technical-expert ;
-    skos:definition "The technical expert who operates the evaluation: declares the requirement set with the sponsor, writes the test plan, administers the probes to the test item, collects the responses and the evidence per the plan, and drafts the report and the recommendation. The operator makes determinations but does not attest; attestation belongs to the domain expert. An abstract actor category, filled by a named person in each evaluation."@en ;
+    skos:definition "The technical expert who operates the evaluation: declares the requirement set with the sponsor, writes the test plan, administers the probes to the test item, collects the responses and the evidence per the plan, records any departure from the plan with its reason, and writes the recommendation. The operator makes determinations but does not attest; attestation belongs to the domain expert. An abstract actor category, filled by a named person in each evaluation."@en ;
     skos:inScheme ogc:Glossary ;
     skos:prefLabel "evaluation operator"@en ;
     skos:related term:evaluation-team,
@@ -12662,7 +12669,7 @@ term:repeatability a skos:Concept ;
         term:test-suite ;
     prov:wasDerivedFrom rul:R-13,
         rul:R-51 ;
-    ogc:binding "replicate epo:Session activities under one Strategy against one SUT version; minPassRate on the criterion" ;
+    ogc:binding "replicate epo:Session activities under one Strategy against one SUT version; a per-criterion observation count in the criteria table; thresholds out of scope for this version (sheet 10-10)" ;
     ogc:canonical [ ogc:cites src:sevocab ;
             ogc:locator "repeatability (of results of measurements), p. 348 (ISO/IEC TR 14143-3:2003, 3.8; ISO/IEC 25021:2012, 4.15)" ;
             ogc:pdfPage 348 ;
@@ -13290,7 +13297,7 @@ term:evaluation-record a skos:Concept ;
         term:requirements-traceability ;
     prov:wasDerivedFrom rul:R-17 ;
     ogc:anchorRelation "specializes" ;
-    ogc:binding "track/measles-run.ttl; a prov:Bundle" ;
+    ogc:binding "track/measles-evaluation.ttl; a prov:Bundle every item and agent is a member of (sheets 10-31, 10-42)" ;
     ogc:canonical [ ogc:cites src:iso-9000-2026 ;
             ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-23.png" ;
             ogc:locator "3.8.12 record" ;
@@ -13525,7 +13532,7 @@ term:acceptance-criteria a skos:Concept ;
     skos:related term:expected-results,
         term:test-coverage,
         term:test-plan ;
-    ogc:binding "epo:AcceptanceCriterion; sysml item def AcceptanceCriterion (weight, minPassRate)" ;
+    ogc:binding "epo:AcceptanceCriterion with epo:weight and epo:weightRationale (sheet 10-10); sysml item def AcceptanceCriterion" ;
     ogc:canonical [ ogc:cites src:sevocab ;
             ogc:locator "acceptance criteria, p. 4" ;
             ogc:pdfPage 4 ;
@@ -13569,8 +13576,7 @@ term:appropriateness a skos:Concept ;
             ogc:verifiedOn "2026-09-06"^^xsd:date ] .
 
 term:authorized-representative a skos:Concept ;
-    skos:altLabel "account executive"@en,
-        "signatory"@en ;
+    skos:altLabel "account executive"@en ;
     skos:closeMatch src:sevocab_acceptance ;
     skos:definition "The person who signs the contract for the testing organization and delivers the report and the recommendation to the sponsor: the organization's interface with its contractual counterparties. The authorized representative is not responsible for the determinations in the report; those belong to the technical experts, and the representative makes no determination and no attestation. An abstract actor category, filled by exactly one named person in each evaluation."@en ;
     skos:inScheme ogc:Glossary ;
@@ -13942,7 +13948,7 @@ term:evaluation-service-provider a skos:Concept ;
 term:statement-of-work a skos:Concept ;
     skos:altLabel "SOW"@en,
         "scope of work"@en ;
-    skos:definition "The sponsor's decisions about the work to be performed under the contract; here, for each affected population, whether it is interviewed, with its stakeholder needs documented as input, or represented by the domain expert. A scope-of-work judgment: representation is the common case, interviews are reserved for underrepresented stakeholders or underdocumented needs because of the effort they cost. Decided with the agreement, pinned at the contract, consumed by the scope step, and traceable either way."@en ;
+    skos:definition "The sponsor's decisions about the work to be performed under the contract; here, for each affected population, whether it is interviewed, with its stakeholder needs documented as input, or represented by a member of the team. A scope-of-work judgment: representation is the common case, interviews are reserved for underrepresented stakeholders or underdocumented needs because of the effort they cost. Decided with the agreement, pinned at the contract, consumed by the scope step, and traceable either way."@en ;
     skos:exactMatch src:sevocab_statement-of-work ;
     skos:inScheme ogc:Glossary ;
     skos:prefLabel "statement of work"@en ;
@@ -14167,7 +14173,7 @@ term:evaluation-process-ontology a skos:Concept ;
     ogc:binding "vocabulary/epo.ttl; sysml action def EvaluationProcess" ;
     ogc:class "coined" ;
     ogc:coinedBy "Zargham and Hollek, for this specification (ruling R-47, sheet 06-10)" ;
-    ogc:scopeNote "Rulings R-31 and R-32: the steps are not invented. Each step in vocabulary/epo.ttl cites the process step it matches: the contracting lifecycle (need, propose, agree, access, deliver, accept) matches, step by step, the SEBoK's business or mission analysis and account of proposals, the ISO/IEC/IEEE 15288 agreement processes (for the agreement itself), ISO 9000's contract, the 29119-2 test environment and completion report and SEVOCAB's acceptance (sheet 10-22: the standards' process groups are coordinate and the cycle only orders them under one agreement); scope and declare requirements match the ISO/IEC/IEEE 15288 acquisition, stakeholder needs definition and system requirements definition processes as SEBoK describes them; plan, execute and report match the ISO/IEC/IEEE 29119-2 test strategy and planning, test execution and test completion processes as SEVOCAB defines them; determine and attest matches ISO/IEC 17000's review, decision and attestation. The EPO operationalizes those steps as executable checks." ;
+    ogc:scopeNote "Rulings R-31 and R-32: the steps are not invented. Each step in vocabulary/epo.ttl cites the process step it matches: the contracting lifecycle (need, propose, agree, access, deliver, accept) matches, step by step, the SEBoK's business or mission analysis and account of proposals, the ISO/IEC/IEEE 15288 agreement processes (for the agreement itself), ISO 9000's contract, the 29119-2 test environment and completion report and SEVOCAB's acceptance (sheet 10-22: the standards' process groups are coordinate and the cycle only orders them under one agreement); scope and declare requirements match the ISO/IEC/IEEE 15288 stakeholder needs definition and system requirements definition processes as SEBoK describes them; plan, execute and report match the ISO/IEC/IEEE 29119-2 test strategy and planning, test execution and test completion processes as SEVOCAB defines them; determine and attest matches ISO/IEC 17000's review, decision and attestation. The EPO operationalizes those steps as executable checks." ;
     ogc:seeAlso [ ogc:cites src:sevocab ;
             ogc:locator "test process, p. 438 (ISO/IEC/IEEE 29119-2:2021, 3.55)" ;
             ogc:pdfPage 438 ;
@@ -14386,7 +14392,7 @@ ev:a2 a epo:AcceptanceCriterion ;
 term:contract a skos:Concept ;
     skos:altLabel "agreement"@en,
         "service agreement"@en ;
-    skos:definition "The binding agreement between the sponsor organization and the testing organization to perform OG-CAIE as a service. It is signed by the sponsor and by the testing organization's authorized representative, precedes the requirement set and follows the mission, the need and the proposal in the record."@en ;
+    skos:definition "The binding agreement between the sponsor organization and the testing organization to perform OG-CAIE as a service. It is signed for the sponsor by its signatory and for the testing organization by its authorized representative, precedes the requirement set and follows the mission, the need and the proposal in the record."@en ;
     skos:exactMatch src:iso-9000-2026_3.3.13 ;
     skos:inScheme ogc:Glossary ;
     skos:prefLabel "contract"@en ;

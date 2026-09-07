@@ -8,9 +8,10 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
 # The OG-CAIE glossary. Terms are used, not owned: each term cites exactly one
-# canonical definition from the highest-ranked source that defines it
-# (ISO 9000:2026, then SEVOCAB, then NIST AI 700-2, then W3C for binding
-# only), with a verbatim quote and a locator. skos:definition is the
+# canonical definition from the highest-ranked source that defines it in the
+# sense used (ordinal ranks 1 to 8, sheet 10-46: ISO 9000:2026, SEVOCAB, NIST,
+# W3C for binding only, then the ISO-family vocabularies, other bodies,
+# academic works and the authors), with a verbatim quote and a locator. skos:definition is the
 # narrative reading: plain language, no citations.
 # ogc:class is adopted (used as the source defines it), refined (a typed
 # anchor plus an altLabel keeping the source's word) or coined (exactly
@@ -226,7 +227,7 @@ term:acceptance-criteria a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:related term:expected-results ;
     skos:related term:test-coverage ;
     skos:related term:test-plan ;
-    ogc:binding "epo:AcceptanceCriterion; sysml item def AcceptanceCriterion (weight, minPassRate)" .
+    ogc:binding "epo:AcceptanceCriterion with epo:weight and epo:weightRationale (sheet 10-10); sysml item def AcceptanceCriterion" .
 
 term:requirements-traceability a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "requirements traceability"@en ;
@@ -475,7 +476,7 @@ term:repeatability a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:related term:non-deterministic-system ;
     skos:related term:measurement-uncertainty ;
     skos:related term:test-suite ;
-    ogc:binding "replicate epo:Session activities under one Strategy against one SUT version; minPassRate on the criterion" .
+    ogc:binding "replicate epo:Session activities under one Strategy against one SUT version; a per-criterion observation count in the criteria table; thresholds out of scope for this version (sheet 10-10)" .
 
 term:reproducibility a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "reproducibility"@en ;
@@ -667,7 +668,7 @@ term:evaluation-record a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:related term:requirements-traceability ;
     skos:related term:conformance ;
     skos:related term:evaluation-process-ontology ;
-    ogc:binding "track/measles-run.ttl; a prov:Bundle" .
+    ogc:binding "track/measles-evaluation.ttl; a prov:Bundle every item and agent is a member of (sheets 10-31, 10-42)" .
 
 term:operational-envelope a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "operational envelope"@en ;
@@ -724,7 +725,7 @@ term:evaluation-process-ontology a skos:Concept ; skos:inScheme ogc:Glossary ;
                   ogc:quote "Each of the four process groups (Agreement Processes, Organizational Project-Enabling Processes, Technical Management Processes, and Technical Processes) can be used to establish a common understanding in a project." ; ogc:quoteStatus "machine" ] ;
     ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "4.1 conformity assessment, Note 3" ;
                   ogc:quote "Conformity assessment is explained in Annex A as a series of functions. Activities contributing to any of these functions can be described as conformity assessment activities." ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
-    ogc:scopeNote "Rulings R-31 and R-32: the steps are not invented. Each step in vocabulary/epo.ttl cites the process step it matches: the contracting lifecycle (need, propose, agree, access, deliver, accept) matches, step by step, the SEBoK's business or mission analysis and account of proposals, the ISO/IEC/IEEE 15288 agreement processes (for the agreement itself), ISO 9000's contract, the 29119-2 test environment and completion report and SEVOCAB's acceptance (sheet 10-22: the standards' process groups are coordinate and the cycle only orders them under one agreement); scope and declare requirements match the ISO/IEC/IEEE 15288 acquisition, stakeholder needs definition and system requirements definition processes as SEBoK describes them; plan, execute and report match the ISO/IEC/IEEE 29119-2 test strategy and planning, test execution and test completion processes as SEVOCAB defines them; determine and attest matches ISO/IEC 17000's review, decision and attestation. The EPO operationalizes those steps as executable checks." ;
+    ogc:scopeNote "Rulings R-31 and R-32: the steps are not invented. Each step in vocabulary/epo.ttl cites the process step it matches: the contracting lifecycle (need, propose, agree, access, deliver, accept) matches, step by step, the SEBoK's business or mission analysis and account of proposals, the ISO/IEC/IEEE 15288 agreement processes (for the agreement itself), ISO 9000's contract, the 29119-2 test environment and completion report and SEVOCAB's acceptance (sheet 10-22: the standards' process groups are coordinate and the cycle only orders them under one agreement); scope and declare requirements match the ISO/IEC/IEEE 15288 stakeholder needs definition and system requirements definition processes as SEBoK describes them; plan, execute and report match the ISO/IEC/IEEE 29119-2 test strategy and planning, test execution and test completion processes as SEVOCAB defines them; determine and attest matches ISO/IEC 17000's review, decision and attestation. The EPO operationalizes those steps as executable checks." ;
     prov:wasDerivedFrom rul:R-09 ; prov:wasDerivedFrom rul:R-31 ;
     skos:broader term:ontology ;
     skos:related term:og-caie ;
@@ -888,7 +889,7 @@ term:first-party-conformity-assessment-activity a skos:Concept ; skos:inScheme o
 term:second-party-conformity-assessment-activity a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "second-party conformity assessment activity"@en ;
     skos:altLabel "second party"@en ;
-    skos:definition "Evaluation performed by an organization with a user interest in the test item: a purchaser, a regulator, a deploying agency. The sponsor's own activity in commissioning and accepting an evaluation is second-party; the independent testing organization it commissions performs a third-party activity (sheet 10-08, R-50)."@en ;
+    skos:definition "Evaluation performed by an organization with a user interest in the test item: a purchaser, a deploying agency, those who represent its users (ISO/IEC 17000 4.4; a regulator is an authority that uses results, not a user). The sponsor's own activity in commissioning and accepting an evaluation is second-party; the independent testing organization it commissions performs a third-party activity (sheet 10-08, R-50)."@en ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "4.4 second-party conformity assessment activity" ;
                     ogc:quote "conformity assessment activity that is performed by a person or organization that has a user interest in the object of conformity assessment" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
@@ -896,7 +897,7 @@ term:second-party-conformity-assessment-activity a skos:Concept ; skos:inScheme 
     skos:related term:evaluation-customer ;
     skos:related term:first-party-conformity-assessment-activity ;
     skos:related term:third-party-conformity-assessment-activity ;
-    ogc:binding "epo:sponsorRole when the sponsor is not the test item provider (record fact epo:isAccountable, S0)" .
+    ogc:binding "epo:sponsorRole when the sponsor is not the test item provider (record facts epo:providesTestItem and the user-interest declaration, S0-Parties; sheets 10-07, 10-09)" .
 
 term:third-party-conformity-assessment-activity a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "third-party conformity assessment activity"@en ;
@@ -914,7 +915,7 @@ term:third-party-conformity-assessment-activity a skos:Concept ; skos:inScheme o
 term:contract a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "contract"@en ;
     skos:altLabel "service agreement"@en ; skos:altLabel "agreement"@en ;
-    skos:definition "The binding agreement between the sponsor organization and the testing organization to perform OG-CAIE as a service. It is signed by the sponsor and by the testing organization's authorized representative, precedes the requirement set and follows the mission, the need and the proposal in the record."@en ;
+    skos:definition "The binding agreement between the sponsor organization and the testing organization to perform OG-CAIE as a service. It is signed for the sponsor by its signatory and for the testing organization by its authorized representative, precedes the requirement set and follows the mission, the need and the proposal in the record."@en ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.3.13" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-38.png" ;
                     ogc:quote "binding agreement" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
@@ -950,7 +951,7 @@ term:evaluation-team a skos:Concept ; skos:inScheme ogc:Glossary ;
 term:evaluation-operator a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "evaluation operator"@en ;
     skos:altLabel "operator"@en ; skos:altLabel "tester"@en ; skos:altLabel "AI evaluation expert"@en ; skos:altLabel "red teamer"@en ;
-    skos:definition "The technical expert who operates the evaluation: declares the requirement set with the sponsor, writes the test plan, administers the probes to the test item, collects the responses and the evidence per the plan, and drafts the report and the recommendation. The operator makes determinations but does not attest; attestation belongs to the domain expert. An abstract actor category, filled by a named person in each evaluation."@en ;
+    skos:definition "The technical expert who operates the evaluation: declares the requirement set with the sponsor, writes the test plan, administers the probes to the test item, collects the responses and the evidence per the plan, records any departure from the plan with its reason, and writes the recommendation. The operator makes determinations but does not attest; attestation belongs to the domain expert. An abstract actor category, filled by a named person in each evaluation."@en ;
     ogc:class "refined" ;
     ogc:anchorRelation "specializes" ;
     ogc:canonical [ ogc:cites src:nist-ai-700-2 ; ogc:locator "Appendix A, Tester, p. 17" ; ogc:pdfPage 24 ;
@@ -966,7 +967,7 @@ term:evaluation-operator a skos:Concept ; skos:inScheme ogc:Glossary ;
 
 term:authorized-representative a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "authorized representative"@en ;
-    skos:altLabel "account executive"@en ; skos:altLabel "signatory"@en ;
+    skos:altLabel "account executive"@en ;
     skos:definition "The person who signs the contract for the testing organization and delivers the report and the recommendation to the sponsor: the organization's interface with its contractual counterparties. The authorized representative is not responsible for the determinations in the report; those belong to the technical experts, and the representative makes no determination and no attestation. An abstract actor category, filled by exactly one named person in each evaluation."@en ;
     ogc:class "refined" ;
     ogc:anchorRelation "corresponds" ;
@@ -1012,7 +1013,7 @@ term:mission a skos:Concept ; skos:inScheme ogc:Glossary ;
 term:statement-of-work a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "statement of work"@en ;
     skos:altLabel "SOW"@en ; skos:altLabel "scope of work"@en ;
-    skos:definition "The sponsor's decisions about the work to be performed under the contract; here, for each affected population, whether it is interviewed, with its stakeholder needs documented as input, or represented by the domain expert. A scope-of-work judgment: representation is the common case, interviews are reserved for underrepresented stakeholders or underdocumented needs because of the effort they cost. Decided with the agreement, pinned at the contract, consumed by the scope step, and traceable either way."@en ;
+    skos:definition "The sponsor's decisions about the work to be performed under the contract; here, for each affected population, whether it is interviewed, with its stakeholder needs documented as input, or represented by a member of the team. A scope-of-work judgment: representation is the common case, interviews are reserved for underrepresented stakeholders or underdocumented needs because of the effort they cost. Decided with the agreement, pinned at the contract, consumed by the scope step, and traceable either way."@en ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "statement of work, p. 406" ; ogc:pdfPage 406 ;
                     ogc:quote "statement of the expected outcomes and outline of the work required to achieve the outcomes" ; ogc:quoteStatus "machine" ] ;

@@ -1099,7 +1099,7 @@ rul:C-57 a ogc:Concern ;
     ogc:problem """Z ruled that results without coverage do not reach a final report. The redesigned measles evaluation has coverage one and a draft report before its final one, and S7-Report recomputes a draft's numbers over the attestations of its day, but no shape yet refuses a final report whose coverage is below one: the executor's default run (two of three criteria planned) still emits a final report at two thirds. Closing it needs the executor to emit a draft, with its gaps flagged, when coverage is below one, and S7 to require coverage one and epo:draft false together; a change to the executor's templates and its mutation expectations.""" ;
     ogc:severity "M" ;
     ogc:status "open" ;
-    ogc:surfacedOn "2026-09-08"^^xsd:date ;
+    ogc:surfacedOn "2026-09-07"^^xsd:date ;
     ogc:surfacedHow "slice D's report on the case redesign (R-51, 10-48)" ;
     prov:wasGeneratedBy rul:user-test-1-2026-09-06 .
 

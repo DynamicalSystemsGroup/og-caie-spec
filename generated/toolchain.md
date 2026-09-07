@@ -23,9 +23,9 @@ Python `>=3.12` (`pyproject.toml`), pinned to `3.12` by `.python-version` so tha
 | Fetched from | `https://github.com/Open-MBEE/OpenSysML/releases/download/v0.4.3` | `toolchain/get-sysml.sh` (`VER=v0.4.3`) |
 | Invocation | `-convert ttl` | `model/model_manifest.json` |
 | Digest file | `toolchain/sysml-binaries.sha256`, sha256 `8efae36144923a29a21aa57d59286442db5ffaaa9a3773fafcc57616ade6f961` | `model/model_manifest.json` |
-| Authoring source | `model/og-caie.sysml`, sha256 `4e93a267d226dbe29ebf1166ce707962029b1fe2a3b4d83405749fd306f2d503` | `model/model_manifest.json` |
+| Authoring source | `model/og-caie.sysml`, sha256 `d0764a4ea026fc29c2b8f603216679e10be00d799f853bbff28cc539c2fff735` | `model/model_manifest.json` |
 | Term map | `model/sysml_term_map.csv`, 59 terms, sha256 `6a58361b86b4a4a0a94c077efdb23a9541da988fca8735f74a4b02c6e4dd270f` | `model/model_manifest.json` |
-| Canonical graph | `model/og-caie.model.ttl`, 5712 triples of 18976 converted (budget 6600, headroom 888), sha256 `6c00b03ec95426dc5ae98981d84790c8ef1710208f9bf4fd4f1205027fcfb745` | `model/model_manifest.json` |
+| Canonical graph | `model/og-caie.model.ttl`, 5712 triples of 18976 converted (budget 6600, headroom 888), sha256 `deffb0f33dcd5d7e58de07b4a0b42f84e3ef92c9f132095b7166c4804c43e1e6` | `model/model_manifest.json` |
 
 Per platform, the digest the installed binary must hash to (`toolchain/sysml-binaries.sha256`) and the digest the release tarball must hash to before it is unpacked (`toolchain/SHA256SUMS.pinned`); `toolchain/get-sysml.sh` checks both on every run.
 
@@ -82,7 +82,7 @@ Appendix B runs in the browser on two libraries committed under `explorer/vendor
 | 2 | model: validate -strict (authoring view and model counterexamples) | 0 | `toolchain/bin/sysml model/og-caie.sysml counterexamples/model/unwired-port.sysml counterexamples/model/expert-administers-tests.sysml counterexamples/model/missing-accountable.sysml counterexamples/model/no-obligation.sysml -validate -strict` |
 | 3 | model graph: convert, prune, byte-identical to the committed canonical graph | 0 | `uv run python scripts/prune_model.py && git diff --quiet -- model/og-caie.model.ttl model/model_manifest.json` |
 | 4 | ogc: doctor (labels unambiguous, quotes located, record consistent) | 0 | `uv run -q ogc doctor --no-cache` |
-| 5 | drift: the consistency loop, mechanical layer (appendix letters, stale phrases, retired words, file mentions, sheet ticks, twins, absence rows) | 0 | `uv run python scripts/drift_check.py` |
+| 5 | drift: the consistency loop, mechanical layer (appendix letters and counts, the mutation count, stale phrases, retired words, file mentions, sheet ticks, twins, absence rows, the CI condition on held-locally quotes) | 0 | `uv run python scripts/drift_check.py` |
 | 6 | notebooks: executed by nbclient, outputs equal the committed ones, verdict NOTEBOOK: PASS | 0 | `uv run python scripts/execute_notebooks.py --check` |
 | 7 | tests: full suite | 0 | `uv run pytest -q` |
 | 8 | generated/, explorer/ and report/: regenerate byte-identically | 0 | `bash checks/regen.sh (uv run python scripts/render.py && uv run python scripts/render_cli.py && uv run python scripts/render_diagrams.py && uv run python scripts/render_explorer.py && uv run python scripts/render_report.py && uv run python scripts/render_toolchain.py && uv run python scripts/render_bib.py && uv run python scripts/render_version.py) && git diff --quiet -- generated/ explorer/ report/` |

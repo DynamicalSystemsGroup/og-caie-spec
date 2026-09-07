@@ -37,7 +37,8 @@ The same view as the tool prints it, perspective first, figure beneath:
 In SysML v2, the systems modelling language the model is written in, the
 outer cycle is an `action def`, a process as steps in fixed succession, of
 seven steps, and the inner cycle another of six. The step `fulfil` is declared `action fulfil : EvaluationProcess`;
-its inputs, the agreement and the access, are bound by `flow`, SysML's
+its inputs, the agreement, the statement of work and the access, are bound
+by `flow`, SysML's
 binding of one step's output to another's input, from the agree and access
 steps, and its outputs, the report, its approval and the recommendation, flow
 to the deliver step. The inner process is the drill-down, the black box opened one
@@ -70,10 +71,9 @@ only with a reason).
 
 The measles record splits along the same seam. What the contract pinned was
 recorded between 28 and 31 July and again between 12 and 14 August:
-the mission, the need, the proposal, the agreement, the access, the
-delivery and the acceptance. What the evaluation pinned was recorded
-between 1 and 12 August, inside that window, by Annie, Theo and the
-machines. The table counts what each layer contributed to the one record.
+the contract's items from the mission to the acceptance. What
+the evaluation pinned was recorded between 1 and 12 August, inside that
+window, by Annie, Theo, Dana Okafor and the machines. The table counts what each layer contributed to the one record.
 
 ```{include} ../generated/layers-walkthrough.md
 ```

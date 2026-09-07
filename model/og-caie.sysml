@@ -19,7 +19,7 @@ package OGCAIE {
        Vocabulary: terms are used, not owned. Canonical definitions are
        cited in vocabulary/og-caie.ttl in this precedence: ISO 9000:2026,
        SEVOCAB (IEEE CS), NIST AI 700-2, then W3C/OMG for binding only.
-       Coinage is exactly three: DSO, EPO, OG-CAIE. Rulings are recorded
+       Coinage is exactly four: DSO, EPO, CAIE, OG-CAIE. Rulings are recorded
        verbatim in rulings/adjudications.ttl. */
 
     // ------------------------------------------------------------
@@ -65,8 +65,9 @@ package OGCAIE {
     enum def EpoStep {
         doc /* The six steps of the Evaluation Process Ontology (ruling
            R-21 split the paper's five; R-32 moved agree out to the
-           contracting lifecycle, ContractingStep). Every attestation and
-           every recommendation names its step. */
+           contracting lifecycle, ContractingStep). An item's step is
+           derived through the model (ogm:realizes, sheet 10-33), never
+           asserted. */
         scope; declareRequirements; plan; execute; determineAndAttest; report;
     }
 
@@ -154,8 +155,9 @@ package OGCAIE {
     }
     item def StakeholderInput {
         doc /* What an interviewed affected population said. Optional:
-           populations not interviewed are represented by the domain
-           expert, and the record names who represents them (R-21). */
+           every population is spoken for by a member of the team, from
+           its interview when there was one, and the record names who
+           (R-21, R-49, sheet 10-13). */
         attribute id : ScalarValues::String;
     }
     item def StakeholderRepresentation {
@@ -275,8 +277,8 @@ package OGCAIE {
         attribute id : ScalarValues::String;
     }
     item def Delivery {
-        doc /* The report and the recommendation handed to the sponsor by
-           the authorized representative: the output of the delivery activity,
+        doc /* The final report, its approval and the recommendation handed
+           to the sponsor by the authorized representative: the output of the delivery activity,
            distinct from recommending (ruling R-24). */
         attribute id : ScalarValues::String;
     }
@@ -371,9 +373,12 @@ package OGCAIE {
     // ------------------------------------------------------------
 
     action def ContractingProcess {
-        doc /* The contracting lifecycle: the ISO/IEC/IEEE 15288 agreement
-           processes as SEBoK describes them, ISO/IEC 17000's access,
-           scheme and acceptance, ISO 9000's contract (ruling R-32). One
+        doc /* The contracting lifecycle: each step citing its own canon
+           under one agreement (sheet 10-22): the SEBoK's business or
+           mission analysis and account of proposals, ISO/IEC/IEEE 15288's agreement
+           processes for the agreement itself, ISO 9000's contract, the
+           29119-2 test environment and completion report, SEVOCAB's
+           acceptance (rulings R-32, R-50). One
            nested model (ruling R-33): the fulfil step is a black box typed
            by the EvaluationProcess, whose inputs are what the contract
            pinned and whose outputs are what the delivery carries; its
@@ -409,7 +414,8 @@ package OGCAIE {
 
     action def EvaluationProcess {
         doc /* The Evaluation Process Ontology. Domain-independent; the
-           agreement and the access enter from the contracting lifecycle;
+           agreement, the statement of work and the access enter from the
+           contracting lifecycle;
            the DSO enters as a parameter at the scope step; the record
            leaves as the result. */
         in agreement : ServiceAgreement;
@@ -553,8 +559,8 @@ package OGCAIE {
            assesses the appropriateness of the requirement set for the
            affected populations, approves test plans, may make
            determinations on evidence (an activity either expert may
-           perform, R-24), and attests. Represents the
-           populations that are not interviewed. The worked example's
+           perform, R-24), and attests. May speak for an affected
+           population, as any team member may (sheet 10-13). The worked example's
            Annie. */
         port dsoOut : DsoWrite;
         port assessmentOut : AssessmentWrite;
@@ -565,8 +571,9 @@ package OGCAIE {
     }
 
     part def EvaluationOperator :> Person {
-        doc /* The technical expert who operates the evaluation (SEVOCAB
-           operator, refined; rulings R-10, R-23): declares the
+        doc /* The technical expert who operates the evaluation (NIST AI
+           700-2 tester, refined, the 12207 operator a neighbour, sheet
+           10-26; rulings R-10, R-23, R-50): declares the
            requirement set, writes the test plan, applies the probes to
            the test item, collects the evidence, makes determinations,
            records the deviations from the plan, and writes the

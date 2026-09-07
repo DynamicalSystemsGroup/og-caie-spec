@@ -49,7 +49,7 @@ appropriate. The sponsor's signatory approves the requirement set before
 any session. At the end the checker's verdict on the record comes first
 and the assembler reads both; a draft report is a snapshot of its day with
 its gaps flagged, a final report rests on a passed verdict, and only a
-final report, every criterion tested, is approved and delivered.
+final report, every criterion tested, is approved and delivered (concern C-57).
 
 ```{include} ../generated/wiring-evaluation.md
 ```
@@ -161,7 +161,7 @@ the steps forming a DAG (a directed acyclic graph, no loop) that produces
 every item kind, the roles in their slots. Twenty-seven counterexamples
 over the record must fail, each the record with one change, among them a
 superseding judgment that drops the one
-it supersedes, a failed verdict on insufficient evidence, a draft without
+it supersedes, an attestation failed on insufficient evidence, a draft without
 its gap flagged and a recommendation fit to deploy over a failed
 criterion; and two model counterexamples, a port no seam reaches and a
 domain expert who applies probes.

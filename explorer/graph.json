@@ -9143,7 +9143,7 @@
     [
      "rdfs:comment",
      {
-      "text": "no term: SEVOCAB delivery is cited on step C5; the item carries the report and the recommendation, whose terms are performance, test coverage and guardrail"
+      "text": "no term: SEVOCAB delivery is cited on step C5; the item carries the final report, its approval and the recommendation, whose terms are performance, test coverage and guardrail"
      }
     ],
     [
@@ -11134,7 +11134,7 @@
     [
      "rdfs:label",
      {
-      "text": "test item provider (the accountable organization): provides, and is accountable for, the AI system under test; ISO/IEC 17000 first party; grants access to the test item (C4)"
+      "text": "test item provider: provides, and is accountable for, the AI system under test as its provider (ISO/IEC 17000 first party, sheet 10-09); grants access to the test item (C4)"
      }
     ],
     [
@@ -11492,7 +11492,7 @@
     [
      "rdfs:label",
      {
-      "text": "C4 access: the test item provider (the accountable organization) provides the test item and the test environment"
+      "text": "C4 access: the test item provider (ISO/IEC 17000 first party) provides the test item and the test environment"
      }
     ]
    ]
@@ -11660,7 +11660,7 @@
     [
      "rdfs:label",
      {
-      "text": "C5 deliver: the authorized representative delivers the report and the recommendation to the sponsor"
+      "text": "C5 deliver: the authorized representative delivers the final report, its approval and the recommendation to the sponsor"
      }
     ]
    ]
@@ -11927,7 +11927,7 @@
     [
      "rdfs:label",
      {
-      "text": "6 report: the report assembled by machine with coverage and performance recomputed; its correct construction checked by machine and the verdict recorded; its contents approved by a domain expert; recommendation written; handed to the authorized representative for delivery"
+      "text": "6 report: the record's conformance checked by machine and the verdict recorded; the report assembled from the record and the verdict with coverage and performance recomputed, a draft with its gaps flagged or a final report resting on a passed verdict; its contents approved by a domain expert; recommendation written; handed to the authorized representative for delivery"
      }
     ]
    ]
@@ -13371,7 +13371,7 @@
     [
      "epo:ontologyDigest",
      {
-      "text": "31a18c6b47919c472a441c706a6d50a8e23e45d12d63cc3f087f291f13a5d42c"
+      "text": "5aff7757aed847f1ca2ecad24311037564a8bc17b5f007306744f781f978f5a7"
      }
     ],
     [
@@ -13383,7 +13383,7 @@
     [
      "epo:shapesDigest",
      {
-      "text": "ed48afe7826bb5bb44552d12946d7e634ab2a06efd0b44a7830cd9dac342fd9d"
+      "text": "386c1e1265f2cebf3dadc8445efe4f4677eb7abd420b2c7b33554b7e91686ab8"
      }
     ],
     [
@@ -14340,7 +14340,7 @@
     [
      "epo:ontologyDigest",
      {
-      "text": "31a18c6b47919c472a441c706a6d50a8e23e45d12d63cc3f087f291f13a5d42c"
+      "text": "5aff7757aed847f1ca2ecad24311037564a8bc17b5f007306744f781f978f5a7"
      }
     ],
     [
@@ -14352,7 +14352,7 @@
     [
      "epo:shapesDigest",
      {
-      "text": "ed48afe7826bb5bb44552d12946d7e634ab2a06efd0b44a7830cd9dac342fd9d"
+      "text": "386c1e1265f2cebf3dadc8445efe4f4677eb7abd420b2c7b33554b7e91686ab8"
      }
     ],
     [
@@ -14453,7 +14453,7 @@
     [
      "epo:ontologyDigest",
      {
-      "text": "31a18c6b47919c472a441c706a6d50a8e23e45d12d63cc3f087f291f13a5d42c"
+      "text": "5aff7757aed847f1ca2ecad24311037564a8bc17b5f007306744f781f978f5a7"
      }
     ],
     [
@@ -14465,7 +14465,7 @@
     [
      "epo:shapesDigest",
      {
-      "text": "ed48afe7826bb5bb44552d12946d7e634ab2a06efd0b44a7830cd9dac342fd9d"
+      "text": "386c1e1265f2cebf3dadc8445efe4f4677eb7abd420b2c7b33554b7e91686ab8"
      }
     ],
     [
@@ -23312,7 +23312,7 @@
     [
      "ogc:surfacedOn",
      {
-      "text": "2026-09-08 (date)"
+      "text": "2026-09-07 (date)"
      }
     ],
     [
@@ -29327,7 +29327,7 @@
     [
      "ogc:binding",
      {
-      "text": "epo:AcceptanceCriterion; sysml item def AcceptanceCriterion (weight, minPassRate)"
+      "text": "epo:AcceptanceCriterion with epo:weight and epo:weightRationale (sheet 10-10); sysml item def AcceptanceCriterion"
      }
     ],
     [
@@ -29777,12 +29777,6 @@
      }
     ],
     [
-     "skos:altLabel",
-     {
-      "text": "signatory"
-     }
-    ],
-    [
      "skos:closeMatch",
      {
       "ref": "https://w3id.org/og-caie/sources#sevocab_acceptance"
@@ -30148,7 +30142,7 @@
     [
      "skos:definition",
      {
-      "text": "The binding agreement between the sponsor organization and the testing organization to perform OG-CAIE as a service. It is signed by the sponsor and by the testing organization's authorized representative, precedes the requirement set and follows the mission, the need and the proposal in the record."
+      "text": "The binding agreement between the sponsor organization and the testing organization to perform OG-CAIE as a service. It is signed for the sponsor by its signatory and for the testing organization by its authorized representative, precedes the requirement set and follows the mission, the need and the proposal in the record."
      }
     ],
     [
@@ -30998,7 +30992,7 @@
     [
      "skos:definition",
      {
-      "text": "The technical expert who operates the evaluation: declares the requirement set with the sponsor, writes the test plan, administers the probes to the test item, collects the responses and the evidence per the plan, and drafts the report and the recommendation. The operator makes determinations but does not attest; attestation belongs to the domain expert. An abstract actor category, filled by a named person in each evaluation."
+      "text": "The technical expert who operates the evaluation: declares the requirement set with the sponsor, writes the test plan, administers the probes to the test item, collects the responses and the evidence per the plan, records any departure from the plan with its reason, and writes the recommendation. The operator makes determinations but does not attest; attestation belongs to the domain expert. An abstract actor category, filled by a named person in each evaluation."
      }
     ],
     [
@@ -31058,7 +31052,7 @@
     [
      "ogc:scopeNote",
      {
-      "text": "Rulings R-31 and R-32: the steps are not invented. Each step in vocabulary/epo.ttl cites the process step it matches: the contracting lifecycle (need, propose, agree, access, deliver, accept) matches, step by step, the SEBoK's business or mission analysis and account of proposals, the ISO/IEC/IEEE 15288 agreement processes (for the agreement itself), ISO 9000's contract, the 29119-2 test environment and completion report and SEVOCAB's acceptance (sheet 10-22: the standards' process groups are coordinate and the cycle only orders them under one agreement); scope and declare requirements match the ISO/IEC/IEEE 15288 acquisition, stakeholder needs definition and system requirements definition processes as SEBoK describes them; plan, execute and report match the ISO/IEC/IEEE 29119-2 test strategy and planning, test execution and test completion processes as SEVOCAB defines them; determine and attest matches ISO/IEC 17000's review, decision and attestation. The EPO operationalizes those steps as executable checks."
+      "text": "Rulings R-31 and R-32: the steps are not invented. Each step in vocabulary/epo.ttl cites the process step it matches: the contracting lifecycle (need, propose, agree, access, deliver, accept) matches, step by step, the SEBoK's business or mission analysis and account of proposals, the ISO/IEC/IEEE 15288 agreement processes (for the agreement itself), ISO 9000's contract, the 29119-2 test environment and completion report and SEVOCAB's acceptance (sheet 10-22: the standards' process groups are coordinate and the cycle only orders them under one agreement); scope and declare requirements match the ISO/IEC/IEEE 15288 stakeholder needs definition and system requirements definition processes as SEBoK describes them; plan, execute and report match the ISO/IEC/IEEE 29119-2 test strategy and planning, test execution and test completion processes as SEVOCAB defines them; determine and attest matches ISO/IEC 17000's review, decision and attestation. The EPO operationalizes those steps as executable checks."
      }
     ],
     [
@@ -31153,7 +31147,7 @@
     [
      "ogc:binding",
      {
-      "text": "track/measles-run.ttl; a prov:Bundle"
+      "text": "track/measles-evaluation.ttl; a prov:Bundle every item and agent is a member of (sheets 10-31, 10-42)"
      }
     ],
     [
@@ -33242,7 +33236,7 @@
     [
      "ogc:binding",
      {
-      "text": "replicate epo:Session activities under one Strategy against one SUT version; minPassRate on the criterion"
+      "text": "replicate epo:Session activities under one Strategy against one SUT version; a per-criterion observation count in the criteria table; thresholds out of scope for this version (sheet 10-10)"
      }
     ],
     [
@@ -33764,7 +33758,7 @@
     [
      "ogc:binding",
      {
-      "text": "epo:sponsorRole when the sponsor is not the test item provider (record fact epo:isAccountable, S0)"
+      "text": "epo:sponsorRole when the sponsor is not the test item provider (record facts epo:providesTestItem and the user-interest declaration, S0-Parties; sheets 10-07, 10-09)"
      }
     ],
     [
@@ -33800,7 +33794,7 @@
     [
      "skos:definition",
      {
-      "text": "Evaluation performed by an organization with a user interest in the test item: a purchaser, a regulator, a deploying agency. The sponsor's own activity in commissioning and accepting an evaluation is second-party; the independent testing organization it commissions performs a third-party activity (sheet 10-08, R-50)."
+      "text": "Evaluation performed by an organization with a user interest in the test item: a purchaser, a deploying agency, those who represent its users (ISO/IEC 17000 4.4; a regulator is an authority that uses results, not a user). The sponsor's own activity in commissioning and accepting an evaluation is second-party; the independent testing organization it commissions performs a third-party activity (sheet 10-08, R-50)."
      }
     ],
     [
@@ -34085,7 +34079,7 @@
     [
      "skos:definition",
      {
-      "text": "The sponsor's decisions about the work to be performed under the contract; here, for each affected population, whether it is interviewed, with its stakeholder needs documented as input, or represented by the domain expert. A scope-of-work judgment: representation is the common case, interviews are reserved for underrepresented stakeholders or underdocumented needs because of the effort they cost. Decided with the agreement, pinned at the contract, consumed by the scope step, and traceable either way."
+      "text": "The sponsor's decisions about the work to be performed under the contract; here, for each affected population, whether it is interviewed, with its stakeholder needs documented as input, or represented by a member of the team. A scope-of-work judgment: representation is the common case, interviews are reserved for underrepresented stakeholders or underdocumented needs because of the effort they cost. Decided with the agreement, pinned at the contract, consumed by the scope step, and traceable either way."
      }
     ],
     [
@@ -36850,7 +36844,7 @@
     [
      "rdfs:comment",
      {
-      "text": "The sponsor, the testing organization and the test item provider are named; the sponsor's mission and obligations towards the affected populations are recorded before the need, and its statement of work decides, per population, interview or representation; the agreement is signed by the sponsor and the authorized representative; every affected population is spoken for by a named representative on the team, and interviewed where the statement of work decided so."
+      "text": "The sponsor, the testing organization and the test item provider are named; the sponsor's mission and obligations towards the affected populations are recorded before the need, and its statement of work decides, per population, interview or representation; the agreement is signed for the sponsor by its signatory and for the testing organization by its authorized representative; every affected population is spoken for by a named representative on the team, and interviewed where the statement of work decided so."
      }
     ],
     [
@@ -65014,7 +65008,7 @@
   },
   {
    "cls": "shape",
-   "desc": "Targets epo:TestItemAccess. S0: access to the test item is granted by the test item provider, the accountable organization (ISO/IEC 17000 first party), for a period that ends after it starts. Access is granted under the service agreement (sheet 10-05). Access names the instrument outside this agreement under which the provider owes it (sheet 10-04). Access names the test item it is granted to. Access states its period: from when (sheet 10-04). Access states its period: until when (sheet 10-04).",
+   "desc": "Targets epo:TestItemAccess. S0: access to the test item is granted by the test item provider (ISO/IEC 17000 first party), for a period that ends after it starts. Access is granted under the service agreement (sheet 10-05). Access names the instrument outside this agreement under which the provider owes it (sheet 10-04). Access names the test item it is granted to. Access states its period: from when (sheet 10-04). Access states its period: until when (sheet 10-04).",
    "id": "https://w3id.org/og-caie/S0-Access",
    "label": "S0-Access",
    "ogc": "ogc sparql \"DESCRIBE ogc:S0-Access\"",
@@ -65062,7 +65056,7 @@
   },
   {
    "cls": "shape",
-   "desc": "Targets epo:ServiceAgreement. S0: exactly one organization of the record holds each of the sponsor (evaluation customer), testing (evaluation service provider) and accountable (test item provider) roles (R-21). S0: the agreement is an item of the agree step: its class realizes an item kind the model's agree step produces (the step is derived through the model graph, sheet 10-33). S0: the agreement is signed by the authorized representative, a named person acting on behalf of the testing organization, the evaluation service provider (R-23; sheet 09). S0: the agreement is signed by the sponsor's signatory, a named person acting on behalf of the sponsor organization, the evaluation customer (sheet 10-06). S0: the agreement precedes the requirement set: requirements are agreed under the contract, not before it (R-21). S0: the provider fact agrees with the roles (sheet 10-09): the organization that says it provides the test item holds the test item provider's role and the one that holds the role says so; a sponsor that says it does not provide it does not hold the role. S0: the sponsor's user interest is declared, not assumed (sheet 10-07): a user-interest declaration in the record, attributed to the sponsor's signatory and dated, says true or false. S0: the testing organization's independence is declared, not assumed (sheet 10-07): an independence declaration in the record, attributed to the authorized representative and dated, names the test item provider it is independent of; a testing organization that holds the test item provider's role declares no such independence. The agreement accepts the proposal (sheet 10-05).",
+   "desc": "Targets epo:ServiceAgreement. S0: exactly one organization of the record holds each of the sponsor (evaluation customer), testing (evaluation service provider) and test item provider roles (R-21). S0: the agreement is an item of the agree step: its class realizes an item kind the model's agree step produces (the step is derived through the model graph, sheet 10-33). S0: the agreement is signed by the authorized representative, a named person acting on behalf of the testing organization, the evaluation service provider (R-23; sheet 09). S0: the agreement is signed by the sponsor's signatory, a named person acting on behalf of the sponsor organization, the evaluation customer (sheet 10-06). S0: the agreement precedes the requirement set: requirements are agreed under the contract, not before it (R-21). S0: the provider fact agrees with the roles (sheet 10-09): the organization that says it provides the test item holds the test item provider's role and the one that holds the role says so; a sponsor that says it does not provide it does not hold the role. S0: the sponsor's user interest is declared, not assumed (sheet 10-07): a user-interest declaration in the record, attributed to the sponsor's signatory and dated, says true or false. S0: the testing organization's independence is declared, not assumed (sheet 10-07): an independence declaration in the record, attributed to the authorized representative and dated, names the test item provider it is independent of; a testing organization that holds the test item provider's role declares no such independence. The agreement accepts the proposal (sheet 10-05).",
    "id": "https://w3id.org/og-caie/S0-Parties",
    "label": "S0-Parties",
    "ogc": "ogc sparql \"DESCRIBE ogc:S0-Parties\"",
@@ -65782,7 +65776,7 @@
   },
   {
    "cls": "role",
-   "desc": "test item provider (the accountable organization): provides, and is accountable for, the AI system under test; ISO/IEC 17000 first party; grants access to the test item (C4)",
+   "desc": "test item provider: provides, and is accountable for, the AI system under test as its provider (ISO/IEC 17000 first party, sheet 10-09); grants access to the test item (C4)",
    "id": "https://w3id.org/og-caie/epo#TestItemProviderRole",
    "label": "TestItemProviderRole",
    "ogc": "ogc sparql \"DESCRIBE epo:TestItemProviderRole\"",
@@ -65838,7 +65832,7 @@
   },
   {
    "cls": "step",
-   "desc": "C4 access: the test item provider (the accountable organization) provides the test item and the test environment",
+   "desc": "C4 access: the test item provider (ISO/IEC 17000 first party) provides the test item and the test environment",
    "id": "https://w3id.org/og-caie/epo#access",
    "label": "C4 access",
    "ogc": "ogc steps",
@@ -65886,7 +65880,7 @@
   },
   {
    "cls": "step",
-   "desc": "C5 deliver: the authorized representative delivers the report and the recommendation to the sponsor",
+   "desc": "C5 deliver: the authorized representative delivers the final report, its approval and the recommendation to the sponsor",
    "id": "https://w3id.org/og-caie/epo#deliver",
    "label": "C5 deliver",
    "ogc": "ogc steps",
@@ -65958,7 +65952,7 @@
   },
   {
    "cls": "step",
-   "desc": "6 report: the report assembled by machine with coverage and performance recomputed; its correct construction checked by machine and the verdict recorded; its contents approved by a domain expert; recommendation written; handed to the authorized representative for delivery",
+   "desc": "6 report: the record's conformance checked by machine and the verdict recorded; the report assembled from the record and the verdict with coverage and performance recomputed, a draft with its gaps flagged or a final report resting on a passed verdict; its contents approved by a domain expert; recommendation written; handed to the authorized representative for delivery",
    "id": "https://w3id.org/og-caie/epo#report",
    "label": "6 report",
    "ogc": "ogc steps",
@@ -68693,7 +68687,7 @@
   },
   {
    "cls": "term",
-   "desc": "The binding agreement between the sponsor organization and the testing organization to perform OG-CAIE as a service. It is signed by the sponsor and by the testing organization's authorized representative, precedes the requirement set and follows the mission, the need and the proposal in the record.",
+   "desc": "The binding agreement between the sponsor organization and the testing organization to perform OG-CAIE as a service. It is signed for the sponsor by its signatory and for the testing organization by its authorized representative, precedes the requirement set and follows the mission, the need and the proposal in the record.",
    "id": "https://w3id.org/og-caie/terms#contract",
    "label": "contract",
    "ogc": "ogc term contract",
@@ -68757,7 +68751,7 @@
   },
   {
    "cls": "term",
-   "desc": "The technical expert who operates the evaluation: declares the requirement set with the sponsor, writes the test plan, administers the probes to the test item, collects the responses and the evidence per the plan, and drafts the report and the recommendation. The operator makes determinations but does not attest; attestation belongs to the domain expert. An abstract actor category, filled by a named person in each evaluation.",
+   "desc": "The technical expert who operates the evaluation: declares the requirement set with the sponsor, writes the test plan, administers the probes to the test item, collects the responses and the evidence per the plan, records any departure from the plan with its reason, and writes the recommendation. The operator makes determinations but does not attest; attestation belongs to the domain expert. An abstract actor category, filled by a named person in each evaluation.",
    "id": "https://w3id.org/og-caie/terms#evaluation-operator",
    "label": "evaluation operator",
    "ogc": "ogc term \"evaluation operator\"",
@@ -69005,7 +68999,7 @@
   },
   {
    "cls": "term",
-   "desc": "Evaluation performed by an organization with a user interest in the test item: a purchaser, a regulator, a deploying agency. The sponsor's own activity in commissioning and accepting an evaluation is second-party; the independent testing organization it commissions performs a third-party activity (sheet 10-08, R-50).",
+   "desc": "Evaluation performed by an organization with a user interest in the test item: a purchaser, a deploying agency, those who represent its users (ISO/IEC 17000 4.4; a regulator is an authority that uses results, not a user). The sponsor's own activity in commissioning and accepting an evaluation is second-party; the independent testing organization it commissions performs a third-party activity (sheet 10-08, R-50).",
    "id": "https://w3id.org/og-caie/terms#second-party-conformity-assessment-activity",
    "label": "second-party conformity assessment activity",
    "ogc": "ogc term \"second-party conformity assessment activity\"",
@@ -69029,7 +69023,7 @@
   },
   {
    "cls": "term",
-   "desc": "The sponsor's decisions about the work to be performed under the contract; here, for each affected population, whether it is interviewed, with its stakeholder needs documented as input, or represented by the domain expert. A scope-of-work judgment: representation is the common case, interviews are reserved for underrepresented stakeholders or underdocumented needs because of the effort they cost. Decided with the agreement, pinned at the contract, consumed by the scope step, and traceable either way.",
+   "desc": "The sponsor's decisions about the work to be performed under the contract; here, for each affected population, whether it is interviewed, with its stakeholder needs documented as input, or represented by a member of the team. A scope-of-work judgment: representation is the common case, interviews are reserved for underrepresented stakeholders or underdocumented needs because of the effort they cost. Decided with the agreement, pinned at the contract, consumed by the scope step, and traceable either way.",
    "id": "https://w3id.org/og-caie/terms#statement-of-work",
    "label": "statement of work",
    "ogc": "ogc term \"statement of work\"",
@@ -69229,7 +69223,7 @@
   },
   {
    "cls": "sci",
-   "desc": "PartiesNamedAndAgreed: The sponsor, the testing organization and the test item provider are named; the sponsor's mission and obligations towards the affected populations are recorded before the need, and its statement of work decides, per population, interview or representation; the agreement is signed by the sponsor and the authorized representative; every affected population is spoken for by a named representative on the team, and interviewed where the statement of work decided so. [machine]",
+   "desc": "PartiesNamedAndAgreed: The sponsor, the testing organization and the test item provider are named; the sponsor's mission and obligations towards the affected populations are recorded before the need, and its statement of work decides, per population, interview or representation; the agreement is signed for the sponsor by its signatory and for the testing organization by its authorized representative; every affected population is spoken for by a named representative on the team, and interviewed where the statement of work decided so. [machine]",
    "id": "https://w3id.org/og-caie/trace#SCI-10",
    "label": "SCI-10",
    "ogc": "ogc sci SCI-10",
@@ -69445,7 +69439,7 @@
   },
   {
    "cls": "process",
-   "desc": "The contracting lifecycle: the ISO/IEC/IEEE 15288 agreement\n processes as SEBoK describes them, ISO/IEC 17000's access,\n scheme and acceptance, ISO 9000's contract (ruling R-32). One\n nested model (ruling R-33): the fulfil step is a black box typed\n by the EvaluationProcess, whose inputs are what the contract\n pinned and whose outputs are what the delivery carries; its\n definition below is the drill-down, and it conforms to that\n interface by typing. The flows say which item goes where.",
+   "desc": "The contracting lifecycle: each step citing its own canon\n under one agreement (sheet 10-22): the SEBoK's business or\n mission analysis and account of proposals, ISO/IEC/IEEE 15288's agreement\n processes for the agreement itself, ISO 9000's contract, the\n 29119-2 test environment and completion report, SEVOCAB's\n acceptance (rulings R-32, R-50). One\n nested model (ruling R-33): the fulfil step is a black box typed\n by the EvaluationProcess, whose inputs are what the contract\n pinned and whose outputs are what the delivery carries; its\n definition below is the drill-down, and it conforms to that\n interface by typing. The flows say which item goes where.",
    "id": "urn:sysmlv2:element:OGCAIE__ContractingProcess",
    "label": "ContractingProcess",
    "ogc": "ogc view layers",
@@ -69509,7 +69503,7 @@
   },
   {
    "cls": "item",
-   "desc": "The report and the recommendation handed to the sponsor by\n the authorized representative: the output of the delivery activity,\n distinct from recommending (ruling R-24).",
+   "desc": "The final report, its approval and the recommendation handed\n to the sponsor by the authorized representative: the output of the delivery activity,\n distinct from recommending (ruling R-24).",
    "id": "urn:sysmlv2:element:OGCAIE__Delivery",
    "label": "Delivery",
    "ogc": "ogc view layers",
@@ -69525,7 +69519,7 @@
   },
   {
    "cls": "part",
-   "desc": "The technical expert (ISO 9000:2026 3.12.9) in the domain\n (rulings R-10, R-21): supplies or approves the DSO release,\n assesses the appropriateness of the requirement set for the\n affected populations, approves test plans, may make\n determinations on evidence (an activity either expert may\n perform, R-24), and attests. Represents the\n populations that are not interviewed. The worked example's\n Annie.",
+   "desc": "The technical expert (ISO 9000:2026 3.12.9) in the domain\n (rulings R-10, R-21): supplies or approves the DSO release,\n assesses the appropriateness of the requirement set for the\n affected populations, approves test plans, may make\n determinations on evidence (an activity either expert may\n perform, R-24), and attests. May speak for an affected\n population, as any team member may (sheet 10-13). The worked example's\n Annie.",
    "id": "urn:sysmlv2:element:OGCAIE__DomainExpert",
    "label": "DomainExpert",
    "ogc": "ogc view assemblage",
@@ -69589,7 +69583,7 @@
   },
   {
    "cls": "part",
-   "desc": "The technical expert who operates the evaluation (SEVOCAB\n operator, refined; rulings R-10, R-23): declares the\n requirement set, writes the test plan, applies the probes to\n the test item, collects the evidence, makes determinations,\n records the deviations from the plan, and writes the\n recommendation. Responsible for the human roles in the test plan,\n the test driver for the machine work (sheet 10-20). No\n attestation port: attestation belongs to the domain expert. The\n worked example's Theo.",
+   "desc": "The technical expert who operates the evaluation (NIST AI\n 700-2 tester, refined, the 12207 operator a neighbour, sheet\n 10-26; rulings R-10, R-23, R-50): declares the\n requirement set, writes the test plan, applies the probes to\n the test item, collects the evidence, makes determinations,\n records the deviations from the plan, and writes the\n recommendation. Responsible for the human roles in the test plan,\n the test driver for the machine work (sheet 10-20). No\n attestation port: attestation belongs to the domain expert. The\n worked example's Theo.",
    "id": "urn:sysmlv2:element:OGCAIE__EvaluationOperator",
    "label": "EvaluationOperator",
    "ogc": "ogc view assemblage",
@@ -69669,7 +69663,7 @@
   },
   {
    "cls": "process",
-   "desc": "The Evaluation Process Ontology. Domain-independent; the\n agreement and the access enter from the contracting lifecycle;\n the DSO enters as a parameter at the scope step; the record\n leaves as the result.",
+   "desc": "The Evaluation Process Ontology. Domain-independent; the\n agreement, the statement of work and the access enter from the\n contracting lifecycle;\n the DSO enters as a parameter at the scope step; the record\n leaves as the result.",
    "id": "urn:sysmlv2:element:OGCAIE__EvaluationProcess",
    "label": "EvaluationProcess",
    "ogc": "ogc view layers",
@@ -70869,7 +70863,7 @@
   },
   {
    "cls": "item",
-   "desc": "What an interviewed affected population said. Optional:\n populations not interviewed are represented by the domain\n expert, and the record names who represents them (R-21).",
+   "desc": "What an interviewed affected population said. Optional:\n every population is spoken for by a member of the team, from\n its interview when there was one, and the record names who\n (R-21, R-49, sheet 10-13).",
    "id": "urn:sysmlv2:element:OGCAIE__StakeholderInput",
    "label": "StakeholderInput",
    "ogc": "ogc view layers",

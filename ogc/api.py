@@ -435,7 +435,7 @@ def sci_table(g: Graph, sid=None) -> list[dict]:
 
 
 def steps_table(g: Graph) -> list[dict]:
-    """The seven EPO steps with the canon step each matches (R-31)."""
+    """The twelve steps of the two cycles, C1..C6 then 1..6, with the canon step each matches (R-31, R-32)."""
     rows = []
     for st in list(g.subjects(RDF.type, EPO.ContractingStep)) + list(g.subjects(RDF.type, EPO.EpoStep)):
         label = one(g, st, RDFS.label)

@@ -27,7 +27,10 @@ Checks:
      an existing file;
   7. absence checks: every canonical citation from a source ranked below
      SEVOCAB (rank 3 to 8) has a dated row for its headword in
-     sources/digests/sevocab.md.
+     sources/digests/sevocab.md;
+  8. the CI condition: every machine quote on a held-locally source is in
+     its committed digest; and, within check 1, appendix mentions and
+     counts and the mutation count against the executor.
 """
 from __future__ import annotations
 

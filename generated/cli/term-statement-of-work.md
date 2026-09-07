@@ -4,7 +4,7 @@ $ uv run -q ogc term 'statement of work'
 
   The sponsor's decisions about the work to be performed under the contract; here, for each
   affected population, whether it is interviewed, with its stakeholder needs documented as
-  input, or represented by the domain expert. A scope-of-work judgment: representation is the
+  input, or represented by a member of the team. A scope-of-work judgment: representation is the
   common case, interviews are reserved for underrepresented stakeholders or underdocumented
   needs because of the effort they cost. Decided with the agreement, pinned at the contract,
   consumed by the scope step, and traceable either way.

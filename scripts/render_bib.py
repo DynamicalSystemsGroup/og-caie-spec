@@ -5,7 +5,7 @@ Three outputs, all deterministic (same graphs and pages, same bytes; the
 gate regenerates and diffs them):
 
 - ``references.bib``: one BibTeX entry per ``ogc:Source`` in the register,
-  keyed by the source's local name. The register carries a label, a kind, a
+  keyed by the source's own BibTeX key (`ogc:bibkey`, sheet 10-40). The register carries a label, a kind, a
   rank, a posture and a URL, not bibliographic fields, so the entry's type
   and fields are read off the label's form by the rules in ``parse_label``
   (a standard, a report, a paper, a book, an event, or a bare title) and

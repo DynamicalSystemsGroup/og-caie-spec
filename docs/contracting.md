@@ -2,7 +2,7 @@
 
 An evaluation is work done under a contract. Before any test runs, a
 {term}`customer` has stated a need, a {term}`provider` has answered it, the
-two have signed, and the organization accountable for the {term}`test item`
+two have signed, and the {term}`test item`'s provider
 has opened it up. After the last attestation, the provider delivers and the
 customer accepts. This chapter is that outer cycle: the parties, the steps,
 what the contract pins, and the measles case.
@@ -128,15 +128,15 @@ what a second evaluation is measured against.
 ## Checked
 
 Shapes S0-Record, S0-Member, S0-Parties, S0-Roles, S0-Independence,
-S0-Access, S0-Population, S0-StatementOfWork, S0-Need, S0-Proposal,
-S0-Layers and S9-Acceptance run over the record; M1-Parties, M1-Obligation
+S0-Access, S0-Population, S0-StatementOfWork, S0-Mission, S0-Need,
+S0-Proposal, S0-Layers, S8-Delivery and S9-Acceptance run over the record; M1-Parties, M1-Obligation
 and M5-Cardinality run over the model graph. Seven counterexamples, six
 records and a model broken on purpose, must fail: among them a requirement
 set declared before the agreement, a population nobody speaks for, a
 person holding two roles, an independence nobody declared, an acceptance
 by the organization instead of its signatory, and a model with no
-obligation between the sponsor and the populations. The signatory block
-and its wires await their ticks on rulings sheet 05 (C-30).
+obligation between the sponsor and the populations. Five rows await their ticks on
+rulings sheet 05 (C-30).
 
 :::{admonition} Verdict
 :class: checked

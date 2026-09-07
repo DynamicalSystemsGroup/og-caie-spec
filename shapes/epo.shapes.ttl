@@ -152,7 +152,7 @@ ogc:S0-Parties a sh:NodeShape ;
             }
         """ ] ;
     sh:sparql [
-        sh:message "S0: exactly one organization of the record holds each of the sponsor (evaluation customer), testing (evaluation service provider) and accountable (test item provider) roles (R-21)." ;
+        sh:message "S0: exactly one organization of the record holds each of the sponsor (evaluation customer), testing (evaluation service provider) and test item provider roles (R-21)." ;
         sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX ogc: <https://w3id.org/og-caie/>
@@ -255,7 +255,7 @@ ogc:S0-Access a sh:NodeShape ;
     sh:property [ sh:path epo:underInstrument ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ;
                   sh:message "Access names the instrument outside this agreement under which the provider owes it (sheet 10-04)." ] ;
     sh:sparql [
-        sh:message "S0: access to the test item is granted by the test item provider, the accountable organization (ISO/IEC 17000 first party), for a period that ends after it starts." ;
+        sh:message "S0: access to the test item is granted by the test item provider (ISO/IEC 17000 first party), for a period that ends after it starts." ;
         sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX prov: <http://www.w3.org/ns/prov#>
