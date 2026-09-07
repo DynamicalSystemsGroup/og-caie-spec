@@ -64,6 +64,7 @@ HAND_ENTRIES = {
                                      "institution": "National Institute of Standards and Technology", "doi": "10.6028/NIST.AI.700-2"}),
     "hawkins-2011": ("inproceedings", {"author": "Hawkins, Richard and Kelly, Tim and Knight, John and Graydon, Patrick",
                                        "booktitle": "Advances in Systems Safety: Proceedings of the Nineteenth Safety-Critical Systems Symposium"}),
+    "scipy-2026-bof": ("misc", {"author": "Hollek, Julie and Zargham, Michael"}),  # Julie Hollek first author (Z, 2026-09-07)
     "isa-500": ("misc", {"organization": "International Auditing and Assurance Standards Board"}),
     "w3c-prov-o": ("misc", {"organization": "W3C"}),
     "w3c-earl": ("misc", {"organization": "W3C"}),

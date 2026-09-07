@@ -21398,7 +21398,7 @@
     [
      "rdfs:label",
      {
-      "text": "Zargham and Hollek, Building Scientific Approaches to Generative AI, Birds-of-a-Feather session, SciPy 2026 (public event)"
+      "text": "Hollek and Zargham, Building Scientific Approaches to Generative AI, Birds-of-a-Feather session, SciPy 2026 (public event)"
      }
     ]
    ]
@@ -55847,7 +55847,7 @@
   },
   {
    "cls": "source",
-   "desc": "Zargham and Hollek, Building Scientific Approaches to Generative AI, Birds-of-a-Feather session, SciPy 2026 (public event) Rank internal, posture citeOnly.",
+   "desc": "Hollek and Zargham, Building Scientific Approaches to Generative AI, Birds-of-a-Feather session, SciPy 2026 (public event) Rank internal, posture citeOnly.",
    "id": "https://w3id.org/og-caie/sources#scipy-2026-bof",
    "label": "scipy-2026-bof",
    "ogc": "ogc source scipy-2026-bof",

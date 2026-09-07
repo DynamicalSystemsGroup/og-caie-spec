@@ -11,4 +11,4 @@
 - JCGM, JCGM 200:2012 International vocabulary of metrology, basic and general concepts and associated terms (VIM), 3rd edition (2.41 metrological traceability, p. 45) {cite:p}`jcgm-200-2012`
 - Popper, The Logic of Scientific Discovery (as the source of those definitions) {cite:p}`popper-1959`
 - Guide to the Systems Engineering Body of Knowledge (SEBoK) v2.14 (Applying Life Cycle Processes, p. 444 (ISO/IEC/IEEE 24748-2 on 15288)) {cite:p}`sebok-2-14`
-- Zargham and Hollek, Building Scientific Approaches to Generative AI (the definitions presented at the session) {cite:p}`scipy-2026-bof`
+- Hollek and Zargham, Building Scientific Approaches to Generative AI (the definitions presented at the session) {cite:p}`scipy-2026-bof`

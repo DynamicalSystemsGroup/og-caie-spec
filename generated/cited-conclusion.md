@@ -9,4 +9,4 @@
 - ISO/IEC, ISO/IEC 17000:2020 Conformity assessment — Vocabulary and general principles (4.2 object of conformity assessment; 7.3) {cite:p}`iso-iec-17000-2020`
 - JCGM, JCGM 200:2012 International vocabulary of metrology, basic and general concepts and associated terms (VIM), 3rd edition (2.41 metrological traceability, p. 45) {cite:p}`jcgm-200-2012`
 - Popper, The Logic of Scientific Discovery (as the source of those definitions) {cite:p}`popper-1959`
-- Zargham and Hollek, Building Scientific Approaches to Generative AI (the definitions presented at the session) {cite:p}`scipy-2026-bof`
+- Hollek and Zargham, Building Scientific Approaches to Generative AI (the definitions presented at the session) {cite:p}`scipy-2026-bof`

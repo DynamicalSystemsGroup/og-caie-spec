@@ -170,7 +170,7 @@ src:sebok-2-14 a prov:Entity, ogc:Source ;
     ogc:licenceNote "CC BY-NC-SA; held locally per ruling R-04" .
 
 src:scipy-2026-bof a prov:Entity, ogc:Source ;
-    rdfs:label "Zargham and Hollek, Building Scientific Approaches to Generative AI, Birds-of-a-Feather session, SciPy 2026 (public event)" ;
+    rdfs:label "Hollek and Zargham, Building Scientific Approaches to Generative AI, Birds-of-a-Feather session, SciPy 2026 (public event)" ;
     ogc:rank "internal" ; ogc:kind "event" ; ogc:posture "citeOnly" ;
     ogc:digest "sources/digests/scipy-2026-bof.md" ;
     ogc:licenceNote "a public event on the conference record, cited as a fact about what was presented there; the definitions in the digest are the authors' own words as presented; the organization logos shown at the session are reproduced at assets/hi-dsg-collaboration.png with the organizations' agreement (ruling R-47, sheet 06-02)" .

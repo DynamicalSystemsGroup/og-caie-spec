@@ -1,6 +1,6 @@
 # Building Scientific Approaches to Generative AI (Birds-of-a-Feather session, SciPy 2026): digest
 
-Source: `src:scipy-2026-bof`, Zargham and Hollek. A public session on the
+Source: `src:scipy-2026-bof`, Hollek and Zargham. A public session on the
 conference record. The definitions presented there, in the authors' own
 wording (the source they named: Popper 1959):
 

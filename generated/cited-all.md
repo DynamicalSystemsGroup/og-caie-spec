@@ -19,6 +19,6 @@
 | reserve | NIST, Guidelines for Evaluating and Expressing the Uncertainty of NIST Measurement Results {cite:p}`nist-tn-1297` | [Standards and definitions](glossary.md), [Context and evaluation](evaluation.md), [Records and reporting](guarantees.md) |
 | reserve | Popper, The Logic of Scientific Discovery {cite:p}`popper-1959` | [OG-CAIE as an executable specification](../index.md), [Conclusion](conclusion.md) |
 | reserve | Guide to the Systems Engineering Body of Knowledge (SEBoK) v2.14 {cite:p}`sebok-2-14` | [OG-CAIE as an executable specification](../index.md), [Standards and definitions](glossary.md), [Stakeholders and contracting](contracting.md), [Context and evaluation](evaluation.md) |
-| internal | Zargham and Hollek, Building Scientific Approaches to Generative AI {cite:p}`scipy-2026-bof` | [OG-CAIE as an executable specification](../index.md), [Stakeholders and contracting](contracting.md), [Conclusion](conclusion.md) |
+| internal | Hollek and Zargham, Building Scientific Approaches to Generative AI {cite:p}`scipy-2026-bof` | [OG-CAIE as an executable specification](../index.md), [Stakeholders and contracting](contracting.md), [Conclusion](conclusion.md) |
 
 Also in the bibliography, kept from the hand-written file and cited by no page's terms or tables: Open-MBEE, OpenSysML v0.4.3 {cite:p}`opensysml043`.
