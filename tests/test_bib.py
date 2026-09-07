@@ -2,7 +2,7 @@
 the source register, every registered source has an entry under its own
 key, the file parses, every main-path page closes with a "Sources cited"
 section whose fragment names exactly the sources the page's terms and
-tables cite, the aggregate table lists every source, Appendix E is the last
+tables cite, the aggregate table lists every source, Appendix F is the last
 page of the table of contents and cites every entry, and the site builds
 without a citation warning."""
 import re
@@ -105,7 +105,7 @@ def test_the_aggregate_table_lists_every_source_with_its_pages():
             assert title in row, (key, page, row)
 
 
-def test_appendix_e_exists_is_last_in_the_toc_and_keeps_the_house_rules():
+def test_appendix_f_exists_is_last_in_the_toc_and_keeps_the_house_rules():
     assert APPENDIX.exists()
     toc = yaml.safe_load((ROOT / "myst.yml").read_text())["project"]["toc"]
     assert toc[-1] == {"file": "docs/appendix-works-cited.md"}
@@ -113,7 +113,7 @@ def test_appendix_e_exists_is_last_in_the_toc_and_keeps_the_house_rules():
     cfg = yaml.safe_load((ROOT / "myst.yml").read_text())["project"]
     assert cfg["bibliography"] == ["references.bib"]
     text = APPENDIX.read_text()
-    assert text.startswith("# Appendix E: works cited\n")
+    assert text.startswith("# Appendix F: works cited\n")  # F since the sample report became Appendix A (sheet 10 item 10-44)
     assert "```{include} ../generated/cited-all.md" in text
     assert "```{bibliography}\n```" in text
     assert "—" not in text  # the fragments may carry a source's own title verbatim; the prose may not

@@ -65,7 +65,7 @@ What the graphs are written in, counted over the committed Turtle files (`vocabu
 
 ## The vendored browser libraries
 
-Appendix A runs in the browser on two libraries committed under `explorer/vendor/`, so the explorer loads nothing from the network. Versions and licences are as the files state them.
+Appendix B runs in the browser on two libraries committed under `explorer/vendor/`, so the explorer loads nothing from the network; Appendix A's report draws with the same d3 file, loaded by the relative path `../explorer/vendor/d3.v7.min.js`, so there is one copy. Versions and licences are as the files state them.
 
 | Library | Version | Licence | Source or copyright | Stated in |
 |---|---|---|---|---|

@@ -1,4 +1,4 @@
-# Appendix E: works cited
+# Appendix F: works cited
 
 Every chapter closes with the sources it cites, and each of those lists is
 derived from the graph rather than typed: the term references on the page

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render generated/toolchain.md, the tables of Appendix D, from the files
+"""Render generated/toolchain.md, the tables of Appendix E, from the files
 that pin the toolchain, never from prose: pyproject.toml and uv.lock (the
 Python requirement, the direct dependencies with their locked versions, the
 count of packages resolved), model/model_manifest.json and toolchain/ (the
@@ -104,8 +104,9 @@ def render_vendored() -> str:
     ox_source = re.search(r"Source: (\S+)", notice).group(1)
     ox_files = re.findall(r"`(web\w*\.\w+)`", notice)  # the vendored files, not the `web` target name
     lines = ["## The vendored browser libraries\n",
-             "Appendix A runs in the browser on two libraries committed under `explorer/vendor/`, "
-             "so the explorer loads nothing from the network. Versions and licences are as the files state them.\n",
+             "Appendix B runs in the browser on two libraries committed under `explorer/vendor/`, "
+             "so the explorer loads nothing from the network; Appendix A's report draws with the same d3 file, "
+             "loaded by the relative path `../explorer/vendor/d3.v7.min.js`, so there is one copy. Versions and licences are as the files state them.\n",
              "| Library | Version | Licence | Source or copyright | Stated in |", "|---|---|---|---|---|",
              f"| d3 | {d3_version} | {d3_licence.group(1) if d3_licence else 'not stated in the file'} | {cell(d3_copyright)} | `{rel(D3)}` (first line) |",
              f"| oxigraph (WebAssembly, `{'`, `'.join(ox_files)}`) | {ox_version} | {cell(ox_licence)} | <{ox_source}> | `{rel(OXIGRAPH_NOTICE)}` |"]

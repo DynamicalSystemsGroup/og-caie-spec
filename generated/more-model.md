@@ -1,4 +1,4 @@
-This page is a view. The model is the repository, and it holds more than the page shows: [Appendix A](appendix-explorer.md) opens the same model as a graph, and [Appendix D](appendix-toolchain.md) says how to run every check yourself.
+This page is a view. The model is the repository, and it holds more than the page shows: [Appendix B](appendix-explorer.md) opens the same model as a graph, and [Appendix E](appendix-toolchain.md) says how to run every check yourself.
 
 :::{dropdown} For the shell: ask the graph, read the sources
 - Rendered here: `generated/nesting.md`, `generated/layers-walkthrough.md`, `generated/receipts.md`, regenerated from the graphs by the gate (`checks/run-checks.sh`, the one script that runs every check and prints PASS or FAIL) and diffed byte for byte.

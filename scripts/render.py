@@ -344,7 +344,7 @@ def render_more(page: str, fragments: list[str], commands: list[str], files: lis
     """Block 5 of the page pattern: this page is a view; the model is the repository. The reader is pointed at the
     appendices first; the commands and files, which the graph also carries, sit in a dropdown."""
     lines = ["This page is a view. The model is the repository, and it holds more than the page shows: "
-             "[Appendix A](appendix-explorer.md) opens the same model as a graph, and [Appendix D](appendix-toolchain.md) says how to run every check yourself.", "",
+             "[Appendix B](appendix-explorer.md) opens the same model as a graph, and [Appendix E](appendix-toolchain.md) says how to run every check yourself.", "",
              ":::{dropdown} For the shell: ask the graph, read the sources",
              "- Rendered here: " + ", ".join(f"`generated/{f}`" for f in fragments) + ", regenerated from the graphs by the gate (`checks/run-checks.sh`, the one script that runs every check and prints PASS or FAIL) and diffed byte for byte.",
              "- Ask the graph: " + ", ".join(f"`{c}`" for c in commands) + ".",

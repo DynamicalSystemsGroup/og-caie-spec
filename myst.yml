@@ -49,8 +49,9 @@ project:
     - file: docs/model.md
     - file: docs/guarantees.md
     - file: docs/conclusion.md
+    - file: docs/appendix-report.md
     - file: docs/appendix-explorer.md
-    - title: "Appendix B: computational proofs"
+    - title: "Appendix C: computational proofs"
       children:
         - file: notebooks/checked-contracting.ipynb
         - file: notebooks/checked-evaluation.ipynb
