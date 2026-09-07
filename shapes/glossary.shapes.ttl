@@ -74,7 +74,7 @@ ogc:RefinedAnchorShape a sh:NodeShape ;
 ogc:CoinedShape a sh:NodeShape ;
     sh:targetClass skos:Concept ;
     sh:sparql [
-        sh:message "A coined term derives from a recorded ruling and cites an internal source." ;
+        sh:message "A coined term derives from a recorded ruling and cites the authors' own source (rank 8)." ;
         sh:select """
             PREFIX ogc: <https://w3id.org/og-caie/>
             PREFIX prov: <http://www.w3.org/ns/prov#>
@@ -98,7 +98,7 @@ ogc:BindingOnlyShape a sh:NodeShape ;
 
 ogc:SourceShape a sh:NodeShape ;
     sh:targetClass ogc:Source ;
-    sh:property [ sh:path ogc:rank ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ( "1" "2" "3" "4" "reserve" "internal" ) ] ;
+    sh:property [ sh:path ogc:rank ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ( "1" "2" "3" "4" "5" "6" "7" "8" ) ] ;
     sh:property [ sh:path ogc:kind ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ( "pdf" "html" "web" "git" "event" ) ] ;
     sh:property [ sh:path ogc:posture ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ( "committed" "heldLocally" "citeOnly" ) ] ;
     sh:property [ sh:path ogc:licenceNote ; sh:minCount 1 ;

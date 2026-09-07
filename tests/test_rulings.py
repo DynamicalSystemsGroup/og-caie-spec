@@ -13,7 +13,7 @@ from rdflib import RDF
 from conftest import OGC, ROOT, load
 
 CONCERNS = 56
-RULINGS = 50
+RULINGS = 51
 # What a message to an assistant leaves behind and a decision must not: an addressee,
 # hedging, the tooling, the tick. Matched case-insensitively as substrings.
 CHAT_MARKERS = ("you ", "i think", "plan mode", "tick all", "go ahead", "assistant", "claude")

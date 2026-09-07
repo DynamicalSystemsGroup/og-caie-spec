@@ -92,9 +92,12 @@ term:determination a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "determination"@en ;
     skos:altLabel "judgment"@en ;
     skos:definition "The ruling, made on one or more evidence items, that a criterion's expected result was met, was not met, or cannot be told. It is the ruling made on evidence, recorded with an EARL outcome of passed, failed or cannot tell, made by machine or by a named person, and it is what an attestation aggregates for a criterion."@en ;
-    ogc:class "adopted" ;
+    ogc:class "refined" ;
+    ogc:anchorRelation "specializes" ;
     ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.11.1" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-29.png" ;
                     ogc:quote "activity to find out one or more characteristics and their characteristic values" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
+    ogc:scopeNote "Sheet 10-24 (R-50): in ISO/IEC 17000's terms this ruling is the decision (7.2) that fulfilment has or has not been demonstrated; 17000's determination (6.1, testing 6.2) is the fact-finding this specification calls the execute step. The ISO 9000 genus is kept as the anchor, the shift stated here and on step 5." ;
+    prov:wasDerivedFrom rul:R-50 ;
     ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "test result, p. 438" ; ogc:pdfPage 438 ;
                   ogc:quote "indication of whether a specific test case has passed or failed, i.e. if the actual results correspond to the expected results or if deviations were observed" ; ogc:quoteStatus "machine" ] ;
     prov:wasDerivedFrom rul:R-20 ;
@@ -199,11 +202,14 @@ term:technical-expert a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "technical expert"@en ;
     skos:altLabel "domain expert"@en ; skos:altLabel "subject matter expert"@en ;
     skos:definition "A person who provides specific knowledge or expertise to the evaluation team. Two kinds sit on the team. The domain expert is expert in the Domain-Specific Ontology: they supply or approve its release, attest that it is appropriate for the case being evaluated (this system under test, these requirements, this operational environment), and may be consulted on interpreting evidence. The evaluation operator is expert in performing the tests the Evaluation Process Ontology specifies, conditioned on the DSO, and in assembling the evidence."@en ;
-    ogc:class "adopted" ;
+    ogc:class "refined" ;
+    ogc:anchorRelation "specializes" ;
     ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.12.9" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-34.png" ;
                     ogc:quote "person who provides specific knowledge or expertise to the audit team" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
-    ogc:scopeNote "Ruling R-10: the ISO entry is marked <audit>; here the team is an evaluation team, not an audit team, and both the domain expert and the evaluation operator are technical experts on it (R-23 names the second). Assessors of the assessment are out of scope (R-11)." ;
-    prov:wasDerivedFrom rul:R-10 ;
+    ogc:seeAlso [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.12.9 Note 2 (transcribed from the 2015 edition's 3.13.16, awaiting Z's tick against the screenshot)" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-34.png" ;
+                  ogc:quote "A technical expert does not act as an auditor in the audit team." ; ogc:quoteStatus "pending" ] ;
+    ogc:scopeNote "Ruling R-10: the ISO entry is marked <audit>; here the team is an evaluation team, not an audit team, and both the domain expert and the evaluation operator are technical experts on it (R-23 names the second). Assessors of the assessment are out of scope (R-11). Sheet 10-25 (R-50): the standard's Note 2 keeps the technical expert from acting as an auditor; here not all technical experts attest, but every attestation comes from a relevant role, the domain expert, so the term specializes the standard's. Z: \"not all technical experts attest but all attestation must come from relevant roles, in this case a technical expert.\"" ;
+    prov:wasDerivedFrom rul:R-10 ; prov:wasDerivedFrom rul:R-50 ;
     skos:narrower term:evaluation-operator ;
     skos:related term:evaluation-team ;
     skos:related term:domain-specific-ontology ;
@@ -384,11 +390,15 @@ term:session a skos:Concept ; skos:inScheme ogc:Glossary ;
 
 term:dialogue a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "dialogue"@en ;
-    skos:altLabel "conversation"@en ;
+    skos:altLabel "conversation"@en ; skos:altLabel "dialog"@en ;
     skos:definition "The ordered prompts to, and responses by, the system under test within one session. Its recorded form is the trajectory."@en ;
     ogc:class "adopted" ;
-    ogc:canonical [ ogc:cites src:nist-ai-700-2 ; ogc:locator "Appendix A, Dialogue, p. 16 (first sentence of the entry)" ; ogc:pdfPage 23 ;
-                    ogc:quote "A set of prompts to, and responses by, an application." ; ogc:quoteStatus "machine" ] ;
+    ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "dialog, p. 129 (ISO TR 25060:2023, 2.4)" ; ogc:pdfPage 129 ;
+                    ogc:quote "interaction between a user and an interactive system as a sequence of user actions (inputs) and system responses (outputs) in order to achieve a goal" ; ogc:quoteStatus "machine" ] ;
+    ogc:seeAlso [ ogc:cites src:nist-ai-700-2 ; ogc:locator "Appendix A, Dialogue, p. 16 (first sentence of the entry)" ; ogc:pdfPage 23 ;
+                  ogc:quote "A set of prompts to, and responses by, an application." ; ogc:quoteStatus "machine" ] ;
+    ogc:scopeNote "Sheet 10-45 (R-51): SEVOCAB defines dialog (synonym dialogue) as the user's interaction with an interactive system, the sense used here, so it takes the canonical; NIST's AI-evaluation wording stays beside it." ;
+    prov:wasDerivedFrom rul:R-51 ;
     prov:wasDerivedFrom rul:R-13 ;
     skos:related term:trajectory ;
     skos:related term:session ;
@@ -452,11 +462,15 @@ term:repeatability a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "repeatability"@en ;
     skos:definition "How closely results agree when the same measurement is repeated under the same conditions: same system version, same procedure, same operator or policy, same session protocol, over a short period. Replicate sessions under repeatability conditions are what turn a probe into a pass rate."@en ;
     ogc:class "adopted" ;
-    ogc:canonical [ ogc:cites src:jcgm-200-2012 ; ogc:locator "2.21 measurement repeatability, p. 40" ; ogc:pdfPage 40 ;
-                    ogc:quote "measurement precision under a set of repeatability conditions of measurement" ; ogc:quoteStatus "machine" ] ;
+    ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "repeatability (of results of measurements), p. 348 (ISO/IEC TR 14143-3:2003, 3.8; ISO/IEC 25021:2012, 4.15)" ; ogc:pdfPage 348 ;
+                    ogc:quote "closeness of the agreement between the results of successive measurements of the same measurand carried out under the same conditions of measurement" ; ogc:quoteStatus "machine" ] ;
+    ogc:seeAlso [ ogc:cites src:jcgm-200-2012 ; ogc:locator "2.21 measurement repeatability, p. 40" ; ogc:pdfPage 40 ;
+                  ogc:quote "measurement precision under a set of repeatability conditions of measurement" ; ogc:quoteStatus "machine" ] ;
+    ogc:scopeNote "Sheet 10-45 (R-51): SEVOCAB defines repeatability of results of measurements, so it takes the canonical by the precedence rule; JCGM 200's definition, the earlier canonical, stays beside it." ;
+    prov:wasDerivedFrom rul:R-51 ;
     ogc:seeAlso [ ogc:cites src:jcgm-200-2012 ; ogc:locator "2.20 repeatability condition of measurement, p. 39" ; ogc:pdfPage 39 ;
                   ogc:quote "condition of measurement, out of a set of conditions that includes the same measurement procedure, same operators, same measuring system, same operating conditions and same location, and replicate measurements on the same or similar objects over a short period of time" ; ogc:quoteStatus "machine" ] ;
-    ogc:seeAlso [ ogc:cites src:nist-tn-1297 ; ogc:locator "Appendix D.1.1.2, p. 14" ; ogc:pdfPage 19 ;
+    ogc:seeAlso [ ogc:cites src:nist-tn-1297 ; ogc:locator "Appendix D.1.1.2, p. 14 (the same words as SEVOCAB's)" ; ogc:pdfPage 19 ;
                   ogc:quote "closeness of the agreement between the results of successive measurements of the same measurand carried out under the same conditions of measurement" ; ogc:quoteStatus "machine" ] ;
     prov:wasDerivedFrom rul:R-13 ;
     skos:related term:reproducibility ;
@@ -469,11 +483,15 @@ term:reproducibility a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "reproducibility"@en ;
     skos:definition "How closely results agree when the measurement is repeated under changed conditions: different operators, different sessions, a different evaluation team. Two evaluations that share a requirement set and a DSO release are comparable to the extent their results reproduce."@en ;
     ogc:class "adopted" ;
-    ogc:canonical [ ogc:cites src:jcgm-200-2012 ; ogc:locator "2.25 measurement reproducibility, p. 41" ; ogc:pdfPage 41 ;
-                    ogc:quote "measurement precision under reproducibility conditions of measurement" ; ogc:quoteStatus "machine" ] ;
+    ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "reproducibility (of results of measurements), p. 349 (ISO/IEC TR 14143-3:2003, 3.9; ISO/IEC 25021:2012, 4.16)" ; ogc:pdfPage 349 ;
+                    ogc:quote "closeness of the agreement between the results of measurements of the same measurand carried out under changed conditions of measurement" ; ogc:quoteStatus "machine" ] ;
+    ogc:seeAlso [ ogc:cites src:jcgm-200-2012 ; ogc:locator "2.25 measurement reproducibility, p. 41" ; ogc:pdfPage 41 ;
+                  ogc:quote "measurement precision under reproducibility conditions of measurement" ; ogc:quoteStatus "machine" ] ;
+    ogc:scopeNote "Sheet 10-45 (R-51): SEVOCAB defines reproducibility of results of measurements, so it takes the canonical; JCGM 200 stays beside it." ;
+    prov:wasDerivedFrom rul:R-51 ;
     ogc:seeAlso [ ogc:cites src:jcgm-200-2012 ; ogc:locator "2.24 reproducibility condition of measurement, p. 40" ; ogc:pdfPage 40 ;
                   ogc:quote "condition of measurement, out of a set of conditions that includes different locations, operators, measuring systems, and replicate measurements on the same or similar objects" ; ogc:quoteStatus "machine" ] ;
-    ogc:seeAlso [ ogc:cites src:nist-tn-1297 ; ogc:locator "Appendix D.1.1.3, p. 14" ; ogc:pdfPage 19 ;
+    ogc:seeAlso [ ogc:cites src:nist-tn-1297 ; ogc:locator "Appendix D.1.1.3, p. 14 (the same words as SEVOCAB's)" ; ogc:pdfPage 19 ;
                   ogc:quote "closeness of the agreement between the results of measurements of the same measurand carried out under changed conditions of measurement" ; ogc:quoteStatus "machine" ] ;
     prov:wasDerivedFrom rul:R-13 ;
     skos:related term:repeatability ;
@@ -514,15 +532,18 @@ term:guardrail a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:related term:red-teaming ;
     ogc:binding "epo:Recommendation targets a guardrail" .
 
-# --------------------------------------------------------- reserve sources
+# ------------------------------------- sources ranked 5 to 8 (ordinal, sheet 10-46)
 
 term:attestation a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "attestation"@en ;
     skos:altLabel "annotation"@en ;
     skos:definition "The recorded judgment of a named person that links one acceptance criterion to the evidence reviewed and records an outcome, together with the judgments of appropriateness of the declared context and sufficiency of the evidence."@en ;
-    ogc:class "adopted" ;
+    ogc:class "refined" ;
+    ogc:anchorRelation "specializes" ;
     ogc:canonical [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "7.3" ;
                     ogc:quote "issue of a statement, based on a decision, that fulfilment of specified requirements has been demonstrated" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
+    ogc:scopeNote "Sheet 10-23 (R-50): ISO/IEC 17000's attestation is the positive statement that fulfilment has been demonstrated, the negative case being a decision (7.2). This specification extends it: with EARL, an attestation records passed, failed or cannot tell, conditioned on specific evidence, and a new attestation may supersede an old one when more evidence is secured. Z: \"scope note states the extension and we're explicitly using EARL so you can attest pass/fail/cannot tell. these are conditioned on specific evidence, new attestations can supercede old attestations if more evidence is secured\"." ;
+    prov:wasDerivedFrom rul:R-50 ;
     skos:related term:determination ;
     skos:related term:appropriateness ;
     skos:related term:sufficiency ;
@@ -565,8 +586,12 @@ term:ontology a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "ontology"@en ;
     skos:definition "A shared, formal vocabulary for a domain, precise enough that a computer can check whether a body of data follows its rules."@en ;
     ogc:class "adopted" ;
-    ogc:canonical [ ogc:cites src:gruber-1993 ; ogc:locator "Section 1, p. 2 (author copy)" ; ogc:pdfPage 2 ;
-                    ogc:quote "An ontology is an explicit specification of a conceptualization." ; ogc:quoteStatus "machine" ] ;
+    ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "ontology, p. 280 (ISO/IEC/IEEE 24641:2023, 3.1.23)" ; ogc:pdfPage 280 ;
+                    ogc:quote "logical structure of the terms used to describe a domain of knowledge, including both the definitions of the applicable terms and their relationships" ; ogc:quoteStatus "machine" ] ;
+    ogc:seeAlso [ ogc:cites src:gruber-1993 ; ogc:locator "Section 1, p. 2 (author copy)" ; ogc:pdfPage 2 ;
+                  ogc:quote "An ontology is an explicit specification of a conceptualization." ; ogc:quoteStatus "machine" ] ;
+    ogc:scopeNote "Sheet 10-45 (R-51): the SEVOCAB check of 2026-09-07 found ontology defined there, so it takes the canonical by the precedence rule; Gruber's definition, the earlier canonical, stays beside it." ;
+    prov:wasDerivedFrom rul:R-51 ;
     skos:narrower term:domain-specific-ontology ;
     skos:narrower term:evaluation-process-ontology ;
     skos:related term:knowledge-graph ;
@@ -863,7 +888,7 @@ term:first-party-conformity-assessment-activity a skos:Concept ; skos:inScheme o
 term:second-party-conformity-assessment-activity a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "second-party conformity assessment activity"@en ;
     skos:altLabel "second party"@en ;
-    skos:definition "Evaluation performed by, or on behalf of, an organization with a user interest in the test item: a purchaser, a regulator, a deploying agency. A sponsor that is not the test item provider commissions the evaluation in this position."@en ;
+    skos:definition "Evaluation performed by an organization with a user interest in the test item: a purchaser, a regulator, a deploying agency. The sponsor's own activity in commissioning and accepting an evaluation is second-party; the independent testing organization it commissions performs a third-party activity (sheet 10-08, R-50)."@en ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "4.4 second-party conformity assessment activity" ;
                     ogc:quote "conformity assessment activity that is performed by a person or organization that has a user interest in the object of conformity assessment" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
@@ -876,7 +901,7 @@ term:second-party-conformity-assessment-activity a skos:Concept ; skos:inScheme 
 term:third-party-conformity-assessment-activity a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "third-party conformity assessment activity"@en ;
     skos:altLabel "third party"@en ; skos:altLabel "independent testing"@en ;
-    skos:definition "Evaluation performed by an organization independent of the provider of the test item and with no user interest in it, and not on behalf of anyone who has one. Independence of the testing organization from the test item provider is what makes an OG-CAIE result independent; the record states it as a fact about the parties rather than assuming it, and states separately whether the sponsor has a user interest."@en ;
+    skos:definition "Evaluation performed by an organization independent of the provider of the test item and with no user interest in it, whoever commissions it (sheet 10-08, R-50). Independence of the testing organization from the test item provider is what makes an OG-CAIE result independent; the record states it as a fact about the parties rather than assuming it, and states separately whether the sponsor has a user interest."@en ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "4.5 third-party conformity assessment activity" ;
                     ogc:quote "conformity assessment activity that is performed by a person or organization that is independent of the provider of the object of conformity assessment and has no user interest in the object" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
@@ -924,14 +949,16 @@ term:evaluation-team a skos:Concept ; skos:inScheme ogc:Glossary ;
 
 term:evaluation-operator a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "evaluation operator"@en ;
-    skos:altLabel "operator"@en ; skos:altLabel "AI evaluation expert"@en ; skos:altLabel "red teamer"@en ;
+    skos:altLabel "operator"@en ; skos:altLabel "tester"@en ; skos:altLabel "AI evaluation expert"@en ; skos:altLabel "red teamer"@en ;
     skos:definition "The technical expert who operates the evaluation: declares the requirement set with the sponsor, writes the test plan, administers the probes to the test item, collects the responses and the evidence per the plan, and drafts the report and the recommendation. The operator makes determinations but does not attest; attestation belongs to the domain expert. An abstract actor category, filled by a named person in each evaluation."@en ;
     ogc:class "refined" ;
     ogc:anchorRelation "specializes" ;
-    ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "operator, p. 283 (ISO/IEC/IEEE 12207:2026, 3.1.40)" ; ogc:pdfPage 283 ;
-                    ogc:quote "entity that performs the operation of a system" ; ogc:quoteStatus "machine" ] ;
-    ogc:scopeNote "Ruling R-23: the operator and the domain expert are abstract actor categories in distinct EPO slots; the system operated is the evaluation, not the test item. Replaces the label AI evaluation expert of ruling R-10, kept as an altLabel." ;
-    prov:wasDerivedFrom rul:R-23 ;
+    ogc:canonical [ ogc:cites src:nist-ai-700-2 ; ogc:locator "Appendix A, Tester, p. 17" ; ogc:pdfPage 24 ;
+                    ogc:quote "Individual who interacts with an application within the ARIA test environment." ; ogc:quoteStatus "machine" ] ;
+    ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "operator, p. 283 (ISO/IEC/IEEE 12207:2026, 3.1.40)" ; ogc:pdfPage 283 ;
+                  ogc:quote "entity that performs the operation of a system" ; ogc:quoteStatus "machine" ] ;
+    ogc:scopeNote "Ruling R-23: the operator and the domain expert are abstract actor categories in distinct EPO slots. Sheet 10-26 (R-50): SEVOCAB has no entry for tester (checked 2026-09-07) and its operator is the party operating the system of interest, so NIST AI 700-2's tester, the individual who interacts with the application under test, is the anchor, with the 12207 operator kept beside it as the word the headword carries. Replaces the label AI evaluation expert of ruling R-10, kept as an altLabel." ;
+    prov:wasDerivedFrom rul:R-23 ; prov:wasDerivedFrom rul:R-50 ;
     skos:broader term:technical-expert ;
     skos:related term:evaluation-team ;
     skos:related term:red-teaming ;
@@ -946,8 +973,8 @@ term:account-executive a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "acceptance, p. 4 (ISO/IEC/IEEE 24748-5:2017, 3.1) (fragment of the entry)" ; ogc:pdfPage 4 ;
                     ogc:quote "authorized representative of the acquirer" ; ogc:quoteStatus "machine" ] ;
     ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "4.3 first-party conformity assessment activity, Note 1 (the descriptors are not the legal identification of the parties to a contract)" ] ;
-    ogc:scopeNote "Sheet 09 (block B1) and the tbox audit (sheet 08): the headword account executive becomes authorized representative, kept as the alternative label; SEVOCAB's acceptance entry names the authorized representative of the acquirer, and here the phrase is read for the provider's side, the person authorized to sign and deliver for the testing organization. The earlier anchor, ISO 9000:2026 3.1.3 top management, leaves. Concern C-26 (the anchor was provisional) is answered by this entry and closed by ruling R-49, which records the renaming. Z on the role: not responsible for the determination in the report; the interface for the organization with its contractual counterparties. The term's IRI keeps its former local name." ;
-    prov:wasDerivedFrom rul:R-23 ; prov:wasDerivedFrom rul:R-48 ; prov:wasDerivedFrom rul:R-49 ;
+    ogc:scopeNote "Sheet 09 (block B1) and the tbox audit (sheet 08): the headword account executive becomes authorized representative, kept as the alternative label; SEVOCAB's acceptance entry names the authorized representative of the acquirer, and here the phrase is read for the provider's side, the person authorized to sign and deliver for the testing organization. The earlier anchor, ISO 9000:2026 3.1.3 top management, leaves. Concern C-26 (the anchor was provisional) is answered by this entry and closed by ruling R-49, which records the renaming. Z on the role: not responsible for the determination in the report; the interface for the organization with its contractual counterparties. The term's IRI keeps its former local name. Sheet 10-27 (R-50): authorized representatives exist per organization, so there are several in one evaluation; this term names the testing organization's, the acquirer's own is the sponsor's signatory (sheet 10-06), and no canonical definition is read reversed: SEVOCAB's phrase is cited as the standard's word for the role an organization's representative holds, whichever side signs. Z: \"there are multiple authorized representatives since they exist on a per organization basis; avoid reversal of canonical definitions\"." ;
+    prov:wasDerivedFrom rul:R-23 ; prov:wasDerivedFrom rul:R-48 ; prov:wasDerivedFrom rul:R-49 ; prov:wasDerivedFrom rul:R-50 ;
     skos:related term:contract ; skos:related term:evaluation-service-provider ; skos:related term:evaluation-team ;
     ogc:binding "epo:AuthorizedRepresentativeRole; epo:accountExecutiveRole on the service agreement and the delivery; sysml part def AccountExecutive" .
 
@@ -969,13 +996,14 @@ term:mission a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "mission"@en ;
     skos:altLabel "mandate"@en ; skos:altLabel "obligations to the affected populations"@en ;
     skos:definition "The sponsor organization's purpose for existing, as its top management expresses it, and with it the obligations and duties it holds towards the affected populations. Recorded before the need is stated, it is the context the contract answers to: what the sponsor owes the people the test item will serve. Pinned at the contract."@en ;
-    ogc:class "adopted" ;
+    ogc:class "refined" ;
+    ogc:anchorRelation "specializes" ;
     ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.4.11" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-10.png" ;
                     ogc:quote "organization's purpose for existing as expressed by top management" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:seeAlso [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.4.5 policy" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-10.png" ;
                   ogc:quote "intentions and direction of an organization as formally expressed by its top management" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
-    ogc:scopeNote "Ruling R-37: a seam of its own from the sponsor, feeding the contract; the obligations towards the affected populations are the sponsor's mission and policy in ISO 9000's words, not a coinage." ;
-    prov:wasDerivedFrom rul:R-37 ;
+    ogc:scopeNote "Ruling R-37: a seam of its own from the sponsor, feeding the contract. Sheet 10-30 (R-50): ISO 9000 says only the organization's purpose for existing; the obligations and duties towards the affected populations are this specification's addition, drawn out of that purpose as its relevant facets, not a separate idea. Z: \"be clear that these obligations toward affected populations would come from the organizations purpose. its not a separate idea, its drawing out the relevant facets\"." ;
+    prov:wasDerivedFrom rul:R-37 ; prov:wasDerivedFrom rul:R-50 ;
     skos:related term:evaluation-customer ;
     skos:related term:stakeholder ;
     skos:related term:statement-of-work ;
@@ -1046,6 +1074,11 @@ src:sevocab_expected-results a ogc:SourceConcept ; ogc:cites src:sevocab ; ogc:l
 src:sevocab_non-deterministic-system a ogc:SourceConcept ; ogc:cites src:sevocab ; ogc:locator "non-deterministic system, p. 272 (ISO/IEC TR 29119-11:2020, testing of AI-based systems)" ; rdfs:label "SEVOCAB non-deterministic system, p. 272 (ISO/IEC TR 29119-11:2020, testing of AI-based systems)" .
 src:sevocab_operational-environment a ogc:SourceConcept ; ogc:cites src:sevocab ; ogc:locator "operational environment, p. 282" ; rdfs:label "SEVOCAB operational environment, p. 282" .
 src:sevocab_operator a ogc:SourceConcept ; ogc:cites src:sevocab ; ogc:locator "operator, p. 283 (ISO/IEC/IEEE 12207:2026, 3.1.40)" ; rdfs:label "SEVOCAB operator, p. 283 (ISO/IEC/IEEE 12207:2026, 3.1.40)" .
+src:sevocab_ontology a ogc:SourceConcept ; ogc:cites src:sevocab ; ogc:locator "ontology, p. 280 (ISO/IEC/IEEE 24641:2023, 3.1.23)" ; rdfs:label "SEVOCAB ontology, p. 280 (ISO/IEC/IEEE 24641:2023, 3.1.23)" .
+src:sevocab_repeatability a ogc:SourceConcept ; ogc:cites src:sevocab ; ogc:locator "repeatability (of results of measurements), p. 348" ; rdfs:label "SEVOCAB repeatability (of results of measurements), p. 348" .
+src:sevocab_reproducibility a ogc:SourceConcept ; ogc:cites src:sevocab ; ogc:locator "reproducibility (of results of measurements), p. 349" ; rdfs:label "SEVOCAB reproducibility (of results of measurements), p. 349" .
+src:sevocab_dialog a ogc:SourceConcept ; ogc:cites src:sevocab ; ogc:locator "dialog, p. 129 (ISO TR 25060:2023, 2.4)" ; rdfs:label "SEVOCAB dialog, p. 129 (ISO TR 25060:2023, 2.4)" .
+src:nist-ai-700-2_tester a ogc:SourceConcept ; ogc:cites src:nist-ai-700-2 ; ogc:locator "Appendix A, Tester, p. 17" ; rdfs:label "NIST AI 700-2 Appendix A, Tester, p. 17" .
 src:sevocab_requirements-traceability a ogc:SourceConcept ; ogc:cites src:sevocab ; ogc:locator "requirements traceability, p. 352" ; rdfs:label "SEVOCAB requirements traceability, p. 352" .
 src:sevocab_risk-based-testing a ogc:SourceConcept ; ogc:cites src:sevocab ; ogc:locator "risk-based testing, p. 362" ; rdfs:label "SEVOCAB risk-based testing, p. 362" .
 src:sevocab_scenario a ogc:SourceConcept ; ogc:cites src:sevocab ; ogc:locator "scenario, p. 369" ; rdfs:label "SEVOCAB scenario, p. 369" .
@@ -1061,18 +1094,18 @@ src:sevocab_test-suite a ogc:SourceConcept ; ogc:cites src:sevocab ; ogc:locator
 term:acceptance-criteria skos:exactMatch src:sevocab_acceptance-criteria .
 term:account-executive skos:closeMatch src:sevocab_acceptance .
 term:appropriateness skos:exactMatch src:hawkins-2011_3.2 .
-term:attestation skos:exactMatch src:iso-iec-17000-2020_7.3 .
+term:attestation skos:broadMatch src:iso-iec-17000-2020_7.3 .
 term:authoritative-reference skos:closeMatch src:hogan-2021_section-1 .
 term:conformance skos:broadMatch src:iso-9000-2026_3.5.9 .
 term:conformity skos:exactMatch src:iso-9000-2026_3.5.9 .
 term:contract skos:exactMatch src:iso-9000-2026_3.3.13 .
 term:customer skos:exactMatch src:iso-9000-2026_3.9.1 .
 term:deployment-sensitivity skos:broadMatch src:sevocab_risk-based-testing .
-term:determination skos:exactMatch src:iso-9000-2026_3.11.1 .
-term:dialogue skos:exactMatch src:nist-ai-700-2_dialogue .
+term:determination skos:broadMatch src:iso-9000-2026_3.11.1 .
+term:dialogue skos:exactMatch src:sevocab_dialog .
 term:evaluation skos:exactMatch src:sevocab_evaluation .
 term:evaluation-customer skos:broadMatch src:iso-9000-2026_3.9.1 .
-term:evaluation-operator skos:broadMatch src:sevocab_operator .
+term:evaluation-operator skos:broadMatch src:nist-ai-700-2_tester .
 term:evaluation-record skos:broadMatch src:iso-9000-2026_3.8.12 .
 term:evaluation-service-provider skos:broadMatch src:iso-9000-2026_3.1.9 .
 term:evaluation-team skos:broadMatch src:sevocab_evaluator .
@@ -1081,11 +1114,11 @@ term:first-party-conformity-assessment-activity skos:exactMatch src:iso-iec-1700
 term:guardrail skos:exactMatch src:nist-ai-700-2_guardrail .
 term:knowledge-graph skos:exactMatch src:hogan-2021_section-1 .
 term:measurement-uncertainty skos:exactMatch src:jcgm-200-2012_2.26 .
-term:mission skos:exactMatch src:iso-9000-2026_3.4.11 .
+term:mission skos:broadMatch src:iso-9000-2026_3.4.11 .
 term:monitoring skos:exactMatch src:iso-9000-2026_3.11.3 .
 term:non-deterministic-system skos:exactMatch src:sevocab_non-deterministic-system .
 term:objective-evidence skos:exactMatch src:iso-9000-2026_3.8.6 .
-term:ontology skos:exactMatch src:gruber-1993_section-1 .
+term:ontology skos:exactMatch src:sevocab_ontology .
 term:operational-envelope skos:broadMatch src:iso-9000-2026_3.5.1 .
 term:operational-environment skos:exactMatch src:sevocab_operational-environment .
 term:organization skos:exactMatch src:iso-9000-2026_3.1.1 .
@@ -1095,8 +1128,8 @@ term:probe skos:broadMatch src:sevocab_test-case .
 term:provider skos:exactMatch src:iso-9000-2026_3.1.9 .
 term:record skos:exactMatch src:iso-9000-2026_3.8.12 .
 term:red-teaming skos:exactMatch src:nist-ai-700-2_red-teaming .
-term:repeatability skos:exactMatch src:jcgm-200-2012_2.21 .
-term:reproducibility skos:exactMatch src:jcgm-200-2012_2.25 .
+term:repeatability skos:exactMatch src:sevocab_repeatability .
+term:reproducibility skos:exactMatch src:sevocab_reproducibility .
 term:requirement skos:exactMatch src:iso-9000-2026_3.5.1 .
 term:requirements-traceability skos:exactMatch src:sevocab_requirements-traceability .
 term:risk-based-testing skos:exactMatch src:sevocab_risk-based-testing .
@@ -1106,7 +1139,7 @@ term:session skos:exactMatch src:nist-ai-700-2_session .
 term:stakeholder skos:exactMatch src:iso-9000-2026_3.1.4 .
 term:statement-of-work skos:exactMatch src:sevocab_statement-of-work .
 term:sufficiency skos:exactMatch src:hawkins-2011_3.3 .
-term:technical-expert skos:exactMatch src:iso-9000-2026_3.12.9 .
+term:technical-expert skos:broadMatch src:iso-9000-2026_3.12.9 .
 term:test skos:exactMatch src:iso-9000-2026_3.11.13 .
 term:test-case skos:exactMatch src:sevocab_test-case .
 term:test-coverage skos:exactMatch src:sevocab_test-coverage .

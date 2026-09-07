@@ -2,11 +2,11 @@
 - IEEE Computer Society, Software and Systems Engineering Vocabulary (SEVOCAB) (acceptance criteria, p. 4; artificial intelligence-based system, p. 28 (ISO/IEC TR 29119-11:2020); expected results, p. 160; objective evidence, p. 277; operational environment, p. 282; requirements traceability, p. 352; stakeholder, p. 403; statement of work, p. 406; system under test (SUT), p. 423 (ISO/IEC 14756:1999); system-of-interest (SOI), p. 423 (ISO/IEC/IEEE 15288:2023); test case, p. 432 (fragment of the entry); test coverage, p. 433; test item, p. 435 (ISO/IEC/IEEE 29119-2:2021); test plan, p. 437; test result, p. 438) {cite:p}`sevocab`
 - NIST, Assessing Risks and Impacts of AI (ARIA): ARIA 0.1 Pilot Evaluation Report (Appendix A, Application, p. 16 (fragment of the entry); Appendix A, Session, p. 17 (first sentence of the entry); Section 3.1 Validity Risk Assessment, p. 5 (one of the four annotation values, a fragment)) {cite:p}`nist-ai-700-2`
 - W3C, Evaluation and Report Language (EARL) 1.0 Schema (Section 2.7 OutcomeValue Class) {cite:p}`w3c-earl`
-- Hawkins, Kelly, Knight and Graydon, A New Approach to Creating Clear Safety Arguments (Section 3.2 Asserted context, p. 7; Section 3.3 Asserted solution, p. 10) {cite:p}`hawkins-2011`
 - IEC, IEC 60050-351:2013 International Electrotechnical Vocabulary, Part 351: Control technology (351-41-08 state variable, Note 1; 351-41-10 trajectory) {cite:p}`iec-60050-351`
-- INCOSE, Guide to Writing Requirements v4, Summary Sheet (C7 Verifiable, p. 2) {cite:p}`incose-gtwr-v4`
-- IAASB, International Standard on Auditing 500: Audit Evidence (2009 text (paragraph 5(b) (fragment of the paragraph); paragraph 5(f) (first sentence of the paragraph)) {cite:p}`isa-500`
 - ISO/IEC, ISO/IEC 17000:2020 Conformity assessment — Vocabulary and general principles (4.2 object of conformity assessment; 7.3) {cite:p}`iso-iec-17000-2020`
 - JCGM, JCGM 200:2012 International vocabulary of metrology, basic and general concepts and associated terms (VIM), 3rd edition (2.41 metrological traceability, p. 45) {cite:p}`jcgm-200-2012`
+- INCOSE, Guide to Writing Requirements v4, Summary Sheet (C7 Verifiable, p. 2) {cite:p}`incose-gtwr-v4`
+- IAASB, International Standard on Auditing 500: Audit Evidence (2009 text (paragraph 5(b) (fragment of the paragraph); paragraph 5(f) (first sentence of the paragraph)) {cite:p}`isa-500`
+- Hawkins, Kelly, Knight and Graydon, A New Approach to Creating Clear Safety Arguments (Section 3.2 Asserted context, p. 7; Section 3.3 Asserted solution, p. 10) {cite:p}`hawkins-2011`
 - Popper, The Logic of Scientific Discovery (as the source of those definitions) {cite:p}`popper-1959`
 - Hollek and Zargham, Building Scientific Approaches to Generative AI (the authors' definition for this specification (sheet 07-02); the slide read 'Context Matters!'; the definitions presented at the session) {cite:p}`scipy-2026-bof`

@@ -29,7 +29,7 @@ page showing an `ogc` command and what it prints.
 ## Vocabulary discipline
 
 Terms are used, not owned. Each term cites exactly one canonical definition,
-chosen from the highest-ranked source that defines it: ISO 9000:2026,
+chosen from the highest-ranked source that defines it in the sense used: ISO 9000:2026,
 *Quality management: fundamentals and vocabulary*, for every quality and
 process term; SEVOCAB, the IEEE Computer Society's Software and Systems
 Engineering Vocabulary, for the systems-engineering and testing terms ISO
@@ -38,8 +38,8 @@ AI-evaluation terms; and the W3C specifications for the technical binding
 only, never for a narrative definition: PROV-O for who did what and when,
 EARL for what was asserted and with what outcome, SHACL (the Shapes
 Constraint Language, in which every machine check on this site is written)
-and SKOS for the glossary itself. A few single-purpose sources sit in
-reserve, named in the sources table below.
+and SKOS for the glossary itself. The other sources follow in ordinal
+ranks, a heuristic for which definition wins when several define a term.
 
 Exactly four terms are coined, with their shorthands:
 {term}`Contextual AI Evaluation` (CAIE), {term}`OG-CAIE`,
@@ -61,9 +61,8 @@ the machine-checked, correctly constructed {term}`evaluation record`.
 Hover any highlighted term on any page to see its definition. The entries
 below are exactly those terms: the narrative definition, then the canonical
 source with its locator and verbatim quote, then the alternative labels and
-the ruling the term rests on. Terms the site's prose does not yet reach,
-such as test case, knowledge graph and authoritative reference, stay in the
-full register until a chapter needs them.
+the ruling the term rests on. Terms the prose does not reach, such as authoritative
+reference, stay in the full register.
 
 The vocabulary graph answers directly from the command line: `uv run -q ogc
 term probe` gives one entry with its citations, rulings and the essentials

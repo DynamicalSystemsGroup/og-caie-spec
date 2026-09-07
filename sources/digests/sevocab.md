@@ -57,5 +57,24 @@ definition is reproduced under the vocabulary's own terms:
 | delivery | 120 | release of a system or component to its customer or intended user | ISO/IEC/IEEE 24765:2017 |
 | system requirements specification (SyRS) | 422 | structured collection of the requirements (functions, performance, design constraints, and attributes) of the system and its operational environments and external interfaces | ISO/IEC/IEEE 29148:2018, 4.1.29 |
 
-Absent from SEVOCAB (checked 2026-09-05): attestation, red teaming,
-operational envelope, probe (in our sense), coverage on its own.
+The absence check behind every canonical taken from a source ranked below
+SEVOCAB (sheet 10-45, R-51), run on this export on 2026-09-07 by searching
+every page for an entry starting with the word:
+
+| Word | SEVOCAB | Consequence |
+|---|---|---|
+| attestation | absent (2026-09-05, 2026-09-07) | ISO/IEC 17000 7.3 stays |
+| red teaming | absent (2026-09-05, 2026-09-07) | NIST AI 700-2 stays |
+| operational envelope | absent (2026-09-05, 2026-09-07) | the house term stays (R-03) |
+| probe | present in another sense, p. 311 (product line technical probe, ISO/IEC 26561:2019) | SEVOCAB test case stays the anchor |
+| coverage | absent on its own (test coverage is present, p. 433) | test coverage stays |
+| tester | absent (2026-09-07) | NIST AI 700-2 Tester anchors the evaluation operator (10-26) |
+| session | absent (2026-09-07) | NIST AI 700-2 stays |
+| dialogue | present as dialog, p. 129 (ISO TR 25060:2023, 2.4), synonym dialogue | canonical moved to SEVOCAB |
+| guardrail | present in another sense, p. 188 (ISO/IEC TS 19770-10:2025, IT asset management) | NIST AI 700-2 stays |
+| repeatability | present as repeatability (of results of measurements), p. 348 | canonical moved to SEVOCAB |
+| reproducibility | present as reproducibility (of results of measurements), p. 349 | canonical moved to SEVOCAB |
+| measurement uncertainty | absent (2026-09-07) | JCGM 200 stays |
+| ontology | present, p. 280 (ISO/IEC/IEEE 24641:2023, 3.1.23) | canonical moved to SEVOCAB |
+| trajectory | absent (2026-09-07) | IEC 60050-351 stays |
+| appropriateness, sufficiency | absent (2026-09-07) | ISA 500 and Hawkins et al. stay |

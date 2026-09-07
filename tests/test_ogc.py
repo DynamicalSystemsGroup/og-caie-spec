@@ -578,9 +578,10 @@ def test_r3_finding_h1_offset_without_limit_returns_rows_from_the_offset():
     """Round three, machine user H1: OFFSET with no LIMIT and no ORDER BY crashed in the slice helper."""
     all_rows = run("sparql", "SELECT ?s WHERE { ?s a ogc:Ruling }")
     assert all_rows.returncode == 0
+    total = int(re.search(r"\((\d+) rows\)", all_rows.stdout).group(1))  # however many rulings the register holds
     r = run("sparql", "SELECT ?s WHERE { ?s a ogc:Ruling } OFFSET 47")
     assert r.returncode == 0 and "Traceback" not in r.stderr, r.stderr[-300:]
-    assert "(2 rows)" in r.stdout, r.stdout[-200:]
+    assert f"({total - 47} rows)" in r.stdout, r.stdout[-200:]
     j = run("sparql", "SELECT ?s WHERE { ?s a ogc:Ruling } OFFSET 47", "--json")
     assert j.returncode == 0 and "Traceback" not in j.stderr
 

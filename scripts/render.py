@@ -78,7 +78,7 @@ def _render_glossary_bare() -> str:
 
 def render_sources() -> str:
     g = Graph().parse(ROOT / "sources" / "sources.ttl")
-    rank_order = {"1": 0, "2": 1, "3": 2, "4": 3, "reserve": 4, "internal": 5}
+    rank_order = {str(i): i - 1 for i in range(1, 9)}  # ordinal ranks, sheet 10-46
     srcs = sorted(g.subjects(RDF.type, OGC.Source), key=lambda s: (rank_order[str(g.value(s, OGC.rank))], str(s)))
     lines = ["| Rank | Source | Posture | Snapshots | Licence note |", "|---|---|---|---|---|"]
     for s in srcs:

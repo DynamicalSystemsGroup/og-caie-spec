@@ -3,12 +3,12 @@
 - NIST, Artificial Intelligence Risk Management Framework (AI RMF 1.0) (Section 3, p. 35) {cite:p}`nist-ai-100-1`
 - NIST, Assessing Risks and Impacts of AI (ARIA): ARIA 0.1 Pilot Evaluation Report (Appendix A, Application, p. 16 (fragment of the entry); Appendix A, Session, p. 17 (first sentence of the entry); Section 3.1 Validity Risk Assessment, p. 5 (one of the four annotation values, a fragment)) {cite:p}`nist-ai-700-2`
 - W3C, Evaluation and Report Language (EARL) 1.0 Schema (Section 2.7 OutcomeValue Class) {cite:p}`w3c-earl`
-- Hawkins, Kelly, Knight and Graydon, A New Approach to Creating Clear Safety Arguments (Section 3.2 Asserted context, p. 7; Section 3.3 Asserted solution, p. 10) {cite:p}`hawkins-2011`
 - IEC, IEC 60050-351:2013 International Electrotechnical Vocabulary, Part 351: Control technology (351-41-08 state variable, Note 1; 351-41-10 trajectory) {cite:p}`iec-60050-351`
-- INCOSE, Guide to Writing Requirements v4, Summary Sheet (C7 Verifiable, p. 2) {cite:p}`incose-gtwr-v4`
-- IAASB, International Standard on Auditing 500: Audit Evidence (2009 text (paragraph 5(b) (fragment of the paragraph); paragraph 5(f) (first sentence of the paragraph)) {cite:p}`isa-500`
 - ISO/IEC, ISO/IEC 17000:2020 Conformity assessment — Vocabulary and general principles (4.1 conformity assessment, Note 3; 4.2 object of conformity assessment; 7.3) {cite:p}`iso-iec-17000-2020`
 - JCGM, JCGM 200:2012 International vocabulary of metrology, basic and general concepts and associated terms (VIM), 3rd edition (2.41 metrological traceability, p. 45) {cite:p}`jcgm-200-2012`
-- Popper, The Logic of Scientific Discovery (as the source of those definitions) {cite:p}`popper-1959`
+- INCOSE, Guide to Writing Requirements v4, Summary Sheet (C7 Verifiable, p. 2) {cite:p}`incose-gtwr-v4`
+- IAASB, International Standard on Auditing 500: Audit Evidence (2009 text (paragraph 5(b) (fragment of the paragraph); paragraph 5(f) (first sentence of the paragraph)) {cite:p}`isa-500`
 - Guide to the Systems Engineering Body of Knowledge (SEBoK) v2.14 (Applying Life Cycle Processes, p. 444 (ISO/IEC/IEEE 24748-2 on 15288)) {cite:p}`sebok-2-14`
+- Hawkins, Kelly, Knight and Graydon, A New Approach to Creating Clear Safety Arguments (Section 3.2 Asserted context, p. 7; Section 3.3 Asserted solution, p. 10) {cite:p}`hawkins-2011`
+- Popper, The Logic of Scientific Discovery (as the source of those definitions) {cite:p}`popper-1959`
 - Hollek and Zargham, Building Scientific Approaches to Generative AI (the authors' definition for this specification (sheet 07-02); the slide read 'Context Matters!'; the definitions presented at the session) {cite:p}`scipy-2026-bof`

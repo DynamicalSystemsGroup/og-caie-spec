@@ -68,7 +68,7 @@ are a usage error (exit 2).
 1. Terms are used, not owned: each term cites exactly one canonical
    definition, from the highest-ranked source that defines it (1 ISO
    9000:2026, 2 SEVOCAB, 3 NIST AI 700-2, 4 W3C/OMG for binding only;
-   reserve sources for single terms; internal sources for the four coinages).
+   ranks 5 to 8 are ordinal: ISO-family vocabularies, other bodies, academic works, the authors' own session, which the four coinages cite).
    `ogc term <term>` reads it.
 2. Three classes: adopted (used as the source defines it), refined (a typed
    anchor, specializes / corresponds / synonym, keeping the source's word as

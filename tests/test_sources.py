@@ -66,7 +66,7 @@ def test_held_locally_files_are_not_tracked():
 def test_every_source_has_a_digest_file_or_is_internal():
     g = _graph()
     for s in g.subjects(RDF.type, OGC.Source):
-        if str(g.value(s, OGC.rank)) == "internal":
+        if str(g.value(s, OGC.rank)) == "8":  # the authors' own source (sheet 10-46: ordinal ranks, no reserve)
             continue
         d = g.value(s, OGC.digest)
         assert d is not None, s

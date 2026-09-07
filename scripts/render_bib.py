@@ -44,7 +44,7 @@ GRAPH_FILES = ("vocabulary/og-caie.ttl", "vocabulary/epo.ttl", "vocabulary/cross
 PAGES = {"index": ROOT / "index.md", "glossary": ROOT / "docs" / "glossary.md", "contracting": ROOT / "docs" / "contracting.md",
          "evaluation": ROOT / "docs" / "evaluation.md", "model": ROOT / "docs" / "model.md",
          "guarantees": ROOT / "docs" / "guarantees.md", "conclusion": ROOT / "docs" / "conclusion.md"}
-RANK_ORDER = {"1": 0, "2": 1, "3": 2, "4": 3, "reserve": 4, "internal": 5}
+RANK_ORDER = {str(i): i - 1 for i in range(1, 9)}  # ordinal ranks, sheet 10-46
 FIELD_ORDER = ["title", "author", "organization", "institution", "number", "booktitle", "journal", "volume", "publisher", "address",
                "howpublished", "year", "doi", "url", "note"]
 INCLUDE = re.compile(r"```\{include\}\s+(\S+)")
