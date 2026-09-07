@@ -4,10 +4,10 @@
 @prefix earl: <http://www.w3.org/ns/earl#> .
 @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
 
-# Counterexample for S1 (sheet 08): an interviewed affected population whose
-# stakeholder input exists, with an interviewer named, but was generated
-# after the DSO release was approved, so its input was not available to the
-# domain expert who approved the release. Must fail on ogc:S1-DsoRelease and
+# Counterexample for S1 (sheet 08, R-49): an interviewed affected population
+# whose representation exists, built from its interview, but was generated
+# after the DSO release was approved, so it was not available to the domain
+# expert who approved the release. Must fail on ogc:S1-DsoRelease and
 # nothing else (S0-Population is satisfied: the input exists and the
 # responsible party is named).
 cx:sponsor a prov:Agent, prov:Organization ; epo:role epo:sponsorRole ; epo:isAccountable false .
@@ -25,6 +25,7 @@ cx:agreement a epo:ServiceAgreement ; epo:signedBy cx:sponsor ; epo:signedBy cx:
 cx:access a epo:TestItemAccess ; epo:grantsAccessTo cx:sut ; prov:wasAttributedTo cx:accountable ; prov:generatedAtTime "2026-07-31T01:00:00Z"^^xsd:dateTime .
 cx:dso a epo:DsoRelease ; epo:version "r1" ; epo:approvedBy cx:expert ; prov:generatedAtTime "2026-08-01T00:00:00Z"^^xsd:dateTime .
 cx:input a epo:StakeholderInput ; prov:wasAttributedTo cx:population ; prov:generatedAtTime "2026-08-01T12:00:00Z"^^xsd:dateTime ; epo:step epo:scope .
+cx:representation a epo:StakeholderRepresentation ; epo:represents cx:population ; prov:used cx:input ; prov:wasAttributedTo cx:operator ; prov:generatedAtTime "2026-08-01T12:00:00Z"^^xsd:dateTime .
 cx:reqs a epo:RequirementSet ; epo:environment "stated" ; epo:systemUnderTest cx:sut ; epo:underAgreement cx:agreement ; prov:wasAttributedTo cx:operator ; prov:generatedAtTime "2026-08-02T00:00:00Z"^^xsd:dateTime .
 cx:assessment a epo:AppropriatenessAssessment ; earl:subject cx:reqs ; earl:assertedBy cx:expert ; epo:appropriateness epo:appropriate ; prov:endedAtTime "2026-08-02T01:00:00Z"^^xsd:dateTime .
 cx:R a epo:Requirement ; epo:partOf cx:reqs ; epo:text "r" .

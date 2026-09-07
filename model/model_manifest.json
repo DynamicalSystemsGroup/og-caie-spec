@@ -1,8 +1,8 @@
 {
  "artifact": {
-  "derived_triples": 294,
+  "derived_triples": 308,
   "path": "model/og-caie.model.ttl",
-  "sha256": "05015a02d5d8a01de73a01be8b4eedd67f4e2b2d6558029eb9ca2db5f375f63f",
+  "sha256": "067097a7a6858b474b733c42f2798d42f24494eb49f3628e82bcfec9953305b0",
   "terms_used": [
    "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>",
    "ogm:consumerPort",
@@ -65,7 +65,7 @@
    "sysx:relatedFeature",
    "sysx:sourceText"
   ],
-  "triples": 4901
+  "triples": 5109
  },
  "converter": {
   "invocation": "-convert ttl",
@@ -74,11 +74,11 @@
   "release": "OpenSysML v0.4.3"
  },
  "raw": {
-  "triples": 16527
+  "triples": 17132
  },
  "source": {
   "path": "model/og-caie.sysml",
-  "sha256": "bd0d1df55b22c8e0aeea39a5169adb96c7ed1cab007b0354c47c4f3579de637f"
+  "sha256": "c5fe92bf9834a7ce7558a99969c1724435795a47b00ddad67760644b510eb35d"
  },
  "term_map": {
   "path": "model/sysml_term_map.csv",
@@ -86,8 +86,8 @@
   "terms": 59
  },
  "triple_budget": {
-  "headroom": 1399,
+  "headroom": 1491,
   "rationale": "Parsimony gate on the canonical model graph: the structure-only model plus resolved ends; bump with a rationale when a seam or a party is added.",
-  "value": 6300
+  "value": 6600
  }
 }

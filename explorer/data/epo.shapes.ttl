@@ -92,18 +92,20 @@ ogc:S0-Access a sh:NodeShape ;
 ogc:S0-Population a sh:NodeShape ;
     sh:targetClass epo:Population ;
     sh:sparql [
-        sh:message "S0: an affected population is engaged as the statement of work decided (R-21, R-40): interviewed, with a stakeholder input attributed to it, or represented by a named domain expert; and there is a decision for it." ;
+        sh:message "S0: every affected population is spoken for: a stakeholder representation attributed to its responsible party; where the statement of work decided an interview, a stakeholder input attributed to the population exists and the representation used it (R-21, R-40, R-49 series wiring)." ;
         sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX prov: <http://www.w3.org/ns/prov#>
             SELECT $this WHERE {
+                $this a epo:Population .
                 { FILTER NOT EXISTS { ?d a epo:EngagementDecision ; epo:population $this } }
-                UNION { ?d epo:population $this ; epo:engagement epo:interview . FILTER NOT EXISTS { ?i a epo:StakeholderInput ; prov:wasAttributedTo $this } }
-                UNION { ?d epo:population $this ; epo:engagement epo:representation . FILTER NOT EXISTS { $this epo:representedBy ?p . ?p a prov:Person ; epo:role epo:domainExpertRole } }
+                UNION { FILTER NOT EXISTS { ?rep a epo:StakeholderRepresentation ; epo:represents $this ; prov:wasAttributedTo ?a . $this (epo:responsibleParty|epo:representedBy) ?a } }
+                UNION { ?d epo:population $this ; epo:engagement epo:interview .
+                        FILTER NOT EXISTS { ?i a epo:StakeholderInput ; prov:wasAttributedTo $this . ?rep a epo:StakeholderRepresentation ; epo:represents $this ; prov:used ?i } }
             }
         """ ] ;
     sh:sparql [
-        sh:message "S0: an affected population names the party responsible for its engagement, a person or an organization (sheet 08): the interviewer or the organization that ran the interviews, or its representative (epo:representedBy is a specialization of epo:responsibleParty)." ;
+        sh:message "S0: an affected population names the party responsible for its engagement, a person or an organization (sheet 08): the interviewer or the organization that ran the interviews, or its representative." ;
         sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX prov: <http://www.w3.org/ns/prov#>
@@ -151,15 +153,15 @@ ogc:S1-DsoRelease a sh:NodeShape ;
         """ ] ;
     sh:property [ sh:path prov:generatedAtTime ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
     sh:sparql [
-        sh:message "S1 precondition (sheet 08): every affected population's input is available before the DSO release is approved: a stakeholder input attributed to the population and generated before the release's approval time, or a representative named for it." ;
+        sh:message "S1 precondition (sheet 08, R-49): every affected population's representation is available before the DSO release is approved: the population's stakeholder representation was generated before the release's approval time (a population with no representation at all is S0's finding)." ;
         sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX prov: <http://www.w3.org/ns/prov#>
             SELECT $this ?value WHERE {
                 $this prov:generatedAtTime ?t0 .
                 ?value a epo:Population .
-                FILTER NOT EXISTS { ?i a epo:StakeholderInput ; prov:wasAttributedTo ?value ; prov:generatedAtTime ?t1 . FILTER(?t1 < ?t0) }
-                FILTER NOT EXISTS { ?value epo:representedBy ?p . ?p a prov:Person }
+                ?rep a epo:StakeholderRepresentation ; epo:represents ?value .
+                FILTER NOT EXISTS { ?rep2 a epo:StakeholderRepresentation ; epo:represents ?value ; prov:generatedAtTime ?t1 . FILTER(?t1 < ?t0) }
             }
         """ ] ;
     sh:sparql [

@@ -6178,13 +6178,13 @@
     [
      "sh:sparql",
      {
-      "text": "[sh:message S0: an affected population is engaged a…; sh:select PREFIX epo: <https://w3id.org/og-caie/e…]"
+      "text": "[sh:message S0: an affected population names the pa…; sh:select PREFIX epo: <https://w3id.org/og-caie/e…]"
      }
     ],
     [
      "sh:sparql",
      {
-      "text": "[sh:message S0: an affected population names the pa…; sh:select PREFIX epo: <https://w3id.org/og-caie/e…]"
+      "text": "[sh:message S0: every affected population is spoken…; sh:select PREFIX epo: <https://w3id.org/og-caie/e…]"
      }
     ],
     [
@@ -6301,7 +6301,7 @@
     [
      "sh:sparql",
      {
-      "text": "[sh:message S1 precondition (sheet 08): every affec…; sh:select PREFIX epo: <https://w3id.org/og-caie/e…]"
+      "text": "[sh:message S1 precondition (sheet 08, R-49): every…; sh:select PREFIX epo: <https://w3id.org/og-caie/e…]"
      }
     ],
     [
@@ -9240,6 +9240,12 @@
      }
     ],
     [
+     "rdfs:range",
+     {
+      "text": "epo:represents"
+     }
+    ],
+    [
      "sh:class",
      {
       "text": "[sh:message The mission names the affected populati…; sh:minCount 1; sh:path https://w3id.org/og-caie/epo#regards]"
@@ -9932,6 +9938,48 @@
      "rdfs:label",
      {
       "text": "stakeholder input: what an interviewed population said"
+     }
+    ],
+    [
+     "rdfs:subClassOf",
+     {
+      "text": "prov:Entity"
+     }
+    ]
+   ]
+  },
+  "https://w3id.org/og-caie/epo#StakeholderRepresentation": {
+   "in": [
+    [
+     "rdfs:domain",
+     {
+      "text": "epo:represents"
+     }
+    ]
+   ],
+   "out": [
+    [
+     "ogc:pinnedAt",
+     {
+      "ref": "https://w3id.org/og-caie/epo#evaluation"
+     }
+    ],
+    [
+     "ogc:term",
+     {
+      "ref": "https://w3id.org/og-caie/terms#stakeholder"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "owl:Class"
+     }
+    ],
+    [
+     "rdfs:label",
+     {
+      "text": "stakeholder representation: what a representative says on behalf of an affected population, built from its interview when there was one (walkthrough B3, R-49)"
      }
     ],
     [
@@ -11027,7 +11075,7 @@
     [
      "rdfs:label",
      {
-      "text": "1 scope: interview or represent the affected populations; build or select the DSO release; declare the operational environment"
+      "text": "1 scope: every affected population represented, with its interview when the statement of work decided one; build or select the DSO release; declare the operational environment"
      }
     ]
    ]
@@ -18735,6 +18783,94 @@
      "rdf:type",
      {
       "ref": "https://w3id.org/og-caie/epo#ConformanceVerdict"
+     }
+    ]
+   ]
+  },
+  "https://w3id.org/og-caie/run/measles#representation-commuters": {
+   "in": [],
+   "out": [
+    [
+     "epo:represents",
+     {
+      "ref": "https://w3id.org/og-caie/run/measles#commuters"
+     }
+    ],
+    [
+     "epo:step",
+     {
+      "ref": "https://w3id.org/og-caie/epo#scope"
+     }
+    ],
+    [
+     "prov:generatedAtTime",
+     {
+      "text": "2026-08-01T08:30:00+00:00 (dateTime)"
+     }
+    ],
+    [
+     "prov:used",
+     {
+      "ref": "https://w3id.org/og-caie/run/measles#stakeholder-input-1"
+     }
+    ],
+    [
+     "prov:wasAttributedTo",
+     {
+      "ref": "https://w3id.org/og-caie/run/measles#theo"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "ref": "https://w3id.org/og-caie/epo#StakeholderRepresentation"
+     }
+    ],
+    [
+     "rdfs:label",
+     {
+      "text": "commuters, spoken for by Theo from the interview notes: transit safety and what to do when exposed on the way to work"
+     }
+    ]
+   ]
+  },
+  "https://w3id.org/og-caie/run/measles#representation-residents": {
+   "in": [],
+   "out": [
+    [
+     "epo:represents",
+     {
+      "ref": "https://w3id.org/og-caie/run/measles#county-residents"
+     }
+    ],
+    [
+     "epo:step",
+     {
+      "ref": "https://w3id.org/og-caie/epo#scope"
+     }
+    ],
+    [
+     "prov:generatedAtTime",
+     {
+      "text": "2026-08-01T08:45:00+00:00 (dateTime)"
+     }
+    ],
+    [
+     "prov:wasAttributedTo",
+     {
+      "ref": "https://w3id.org/og-caie/run/measles#annie"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "ref": "https://w3id.org/og-caie/epo#StakeholderRepresentation"
+     }
+    ],
+    [
+     "rdfs:label",
+     {
+      "text": "county residents, spoken for by Annie: accurate advice on exposure, vaccination and isolation for households"
      }
     ]
    ]
@@ -30652,6 +30788,12 @@
      {
       "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__stakeholderInputSeam_pend0"
      }
+    ],
+    [
+     "ogm:resolvesTo",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__stakeholderInputToRepresentativeSeam_pend0"
+     }
     ]
    ],
    "out": [
@@ -32978,6 +33120,12 @@
     [
      "sysml:owner",
      {
+      "text": "elmt:OGCAIE__EvaluationProcess___4038"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
       "text": "elmt:OGCAIE__EvaluationProcess__agreement"
      }
     ],
@@ -33092,6 +33240,12 @@
     [
      "sysml:owner",
      {
+      "text": "elmt:OGCAIE__EvaluationProcess__declareRequirements__representations"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
       "text": "elmt:OGCAIE__EvaluationProcess__declareRequirements__requirements"
      }
     ],
@@ -33122,7 +33276,7 @@
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4029_pflowSource_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4028_pflowTarget_pa0"
      }
     ],
     [
@@ -33134,13 +33288,19 @@
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4034_pflowSource_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4031_pflowSource_pa0"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4037_pflowSource_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4035_pflowSource_pa0"
+     }
+    ],
+    [
+     "sysml:referent",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4038_pflowSource_pa0"
      }
     ]
    ],
@@ -33167,6 +33327,12 @@
      "in (derived)",
      {
       "ref": "urn:sysmlv2:element:OGCAIE__StakeholderInput"
+     }
+    ],
+    [
+     "in (derived)",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__StakeholderRepresentation"
      }
     ],
     [
@@ -33272,25 +33438,25 @@
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4033_pflowTarget_pa0"
-     }
-    ],
-    [
-     "sysml:referent",
-     {
       "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4034_pflowTarget_pa0"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4035_pflowSource_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4035_pflowTarget_pa0"
      }
     ],
     [
      "sysml:referent",
      {
       "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4036_pflowSource_pa0"
+     }
+    ],
+    [
+     "sysml:referent",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4037_pflowSource_pa0"
      }
     ]
    ],
@@ -33422,19 +33588,19 @@
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4031_pflowTarget_pa0"
-     }
-    ],
-    [
-     "sysml:referent",
-     {
       "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4032_pflowTarget_pa0"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4033_pflowSource_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4033_pflowTarget_pa0"
+     }
+    ],
+    [
+     "sysml:referent",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4034_pflowSource_pa0"
      }
     ]
    ],
@@ -33584,12 +33750,6 @@
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4028_pflowTarget_pa0"
-     }
-    ],
-    [
-     "sysml:referent",
-     {
       "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4029_pflowTarget_pa0"
      }
     ],
@@ -33602,13 +33762,19 @@
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4031_pflowSource_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4031_pflowTarget_pa0"
      }
     ],
     [
      "sysml:referent",
      {
       "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4032_pflowSource_pa0"
+     }
+    ],
+    [
+     "sysml:referent",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4033_pflowSource_pa0"
      }
     ]
    ],
@@ -33770,12 +33936,6 @@
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4035_pflowTarget_pa0"
-     }
-    ],
-    [
-     "sysml:referent",
-     {
       "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4036_pflowTarget_pa0"
      }
     ],
@@ -33783,6 +33943,12 @@
      "sysml:referent",
      {
       "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4037_pflowTarget_pa0"
+     }
+    ],
+    [
+     "sysml:referent",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4038_pflowTarget_pa0"
      }
     ]
    ],
@@ -33890,6 +34056,12 @@
     [
      "sysml:owner",
      {
+      "text": "elmt:OGCAIE__EvaluationProcess__scope__representations"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
       "text": "elmt:OGCAIE__EvaluationProcess__scope__statementOfWork"
      }
     ],
@@ -33915,6 +34087,12 @@
      "sysml:referent",
      {
       "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4028_pflowSource_pa0"
+     }
+    ],
+    [
+     "sysml:referent",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4029_pflowSource_pa0"
      }
     ]
    ],
@@ -33947,6 +34125,12 @@
      "out (derived)",
      {
       "ref": "urn:sysmlv2:element:OGCAIE__StakeholderInput"
+     }
+    ],
+    [
+     "out (derived)",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__StakeholderRepresentation"
      }
     ],
     [
@@ -34247,6 +34431,66 @@
      "sysml:upperBound",
      {
       "text": "urn:opensysml:expr:OGCAIE__EvaluationTeam__operator_pupperBound"
+     }
+    ]
+   ]
+  },
+  "urn:sysmlv2:element:OGCAIE__EvaluationTeam__representative": {
+   "in": [
+    [
+     "ogm:endPart",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__representationSeam_pend0"
+     }
+    ],
+    [
+     "ogm:endPart",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__stakeholderInputToRepresentativeSeam_pend1"
+     }
+    ]
+   ],
+   "out": [
+    [
+     "rdf:type",
+     {
+      "text": "sysml:PartUsage"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "representative"
+     }
+    ],
+    [
+     "sysml:lowerBound",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationTeam__representative_plowerBound"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__EvaluationTeam"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::EvaluationTeam::representative"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__Representative"
+     }
+    ],
+    [
+     "sysml:upperBound",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationTeam__representative_pupperBound"
      }
     ]
    ]
@@ -34957,6 +35201,12 @@
      }
     ],
     [
+     "ogm:endPart",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__stakeholderInputToRepresentativeSeam_pend0"
+     }
+    ],
+    [
      "sysml:referent",
      {
       "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__obligation_pend1"
@@ -34966,6 +35216,12 @@
      "sysml:referent",
      {
       "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__stakeholderInputSeam_pend0_pa0"
+     }
+    ],
+    [
+     "sysml:referent",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__stakeholderInputToRepresentativeSeam_pend0_pa0"
      }
     ]
    ],
@@ -36996,6 +37252,77 @@
     ]
    ]
   },
+  "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__representationSeam": {
+   "in": [],
+   "out": [
+    [
+     "carries (derived)",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__StakeholderRepresentation"
+     }
+    ],
+    [
+     "ogm:consumerPort",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__Recorder__representationIn"
+     }
+    ],
+    [
+     "ogm:supplierPort",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__Representative__representationOut"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "sysml:InterfaceUsage"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "representationSeam"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::OgCaieEvaluation::representationSeam"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__RepresentationSeam"
+     }
+    ],
+    [
+     "sysx:relatedFeature",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__representationSeam_pend0"
+     }
+    ],
+    [
+     "sysx:relatedFeature",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__representationSeam_pend1"
+     }
+    ],
+    [
+     "sysx:sourceText",
+     {
+      "text": "interface representationSeam : RepresentationSeam connect testingOrg.team.representative.representationOut to testingOrg.recorder.representationIn;"
+     }
+    ]
+   ]
+  },
   "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__requirementSeam": {
    "in": [],
    "out": [
@@ -37379,6 +37706,77 @@
      "sysx:sourceText",
      {
       "text": "interface stakeholderInputSeam : StakeholderInputSeam connect affected.inputOut to testingOrg.recorder.inputIn;"
+     }
+    ]
+   ]
+  },
+  "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__stakeholderInputToRepresentativeSeam": {
+   "in": [],
+   "out": [
+    [
+     "carries (derived)",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__StakeholderInput"
+     }
+    ],
+    [
+     "ogm:consumerPort",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__Representative__inputIn"
+     }
+    ],
+    [
+     "ogm:supplierPort",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__AffectedPopulation__inputOut"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "sysml:InterfaceUsage"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "stakeholderInputToRepresentativeSeam"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::OgCaieEvaluation::stakeholderInputToRepresentativeSeam"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__StakeholderInputSeam"
+     }
+    ],
+    [
+     "sysx:relatedFeature",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__stakeholderInputToRepresentativeSeam_pend0"
+     }
+    ],
+    [
+     "sysx:relatedFeature",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__stakeholderInputToRepresentativeSeam_pend1"
+     }
+    ],
+    [
+     "sysx:sourceText",
+     {
+      "text": "interface stakeholderInputToRepresentativeSeam : StakeholderInputSeam connect affected.inputOut to testingOrg.team.representative.inputIn;"
      }
     ]
    ]
@@ -37830,6 +38228,18 @@
     [
      "sysml:referent",
      {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__representationSeam_pend0_pa0_pa0_pa0"
+     }
+    ],
+    [
+     "sysml:referent",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__representationSeam_pend1_pa0_pa0"
+     }
+    ],
+    [
+     "sysml:referent",
+     {
       "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__requirementSeam_pend0_pa0_pa0_pa0"
      }
     ],
@@ -37849,6 +38259,12 @@
      "sysml:referent",
      {
       "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__stakeholderInputSeam_pend1_pa0_pa0"
+     }
+    ],
+    [
+     "sysml:referent",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__stakeholderInputToRepresentativeSeam_pend1_pa0_pa0_pa0"
      }
     ],
     [
@@ -39432,6 +39848,54 @@
     ]
    ]
   },
+  "urn:sysmlv2:element:OGCAIE__Recorder__representationIn": {
+   "in": [
+    [
+     "ogm:resolvesTo",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__representationSeam_pend1"
+     }
+    ]
+   ],
+   "out": [
+    [
+     "rdf:type",
+     {
+      "text": "sysml:PortUsage"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "representationIn"
+     }
+    ],
+    [
+     "sysml:isConjugated",
+     {
+      "text": "true"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__Recorder"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::Recorder::representationIn"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__RepresentationWrite"
+     }
+    ]
+   ]
+  },
   "urn:sysmlv2:element:OGCAIE__Recorder__requirementsIn": {
    "in": [
     [
@@ -39896,6 +40360,138 @@
      "sysml:type",
      {
       "text": "elmt:OGCAIE__ReportWrite"
+     }
+    ]
+   ]
+  },
+  "urn:sysmlv2:element:OGCAIE__Representative": {
+   "in": [
+    [
+     "sysml:owner",
+     {
+      "text": "elmt:OGCAIE__Representative___400"
+     }
+    ]
+   ],
+   "out": [
+    [
+     "rdf:type",
+     {
+      "text": "sysml:PartDefinition"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "Representative"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "text": "elmt:OGCAIE"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::Representative"
+     }
+    ],
+    [
+     "sysml:specializes",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__Person"
+     }
+    ]
+   ]
+  },
+  "urn:sysmlv2:element:OGCAIE__Representative__inputIn": {
+   "in": [
+    [
+     "ogm:resolvesTo",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__stakeholderInputToRepresentativeSeam_pend1"
+     }
+    ]
+   ],
+   "out": [
+    [
+     "rdf:type",
+     {
+      "text": "sysml:PortUsage"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "inputIn"
+     }
+    ],
+    [
+     "sysml:isConjugated",
+     {
+      "text": "true"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__Representative"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::Representative::inputIn"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__StakeholderInputWrite"
+     }
+    ]
+   ]
+  },
+  "urn:sysmlv2:element:OGCAIE__Representative__representationOut": {
+   "in": [
+    [
+     "ogm:resolvesTo",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__representationSeam_pend0"
+     }
+    ]
+   ],
+   "out": [
+    [
+     "rdf:type",
+     {
+      "text": "sysml:PortUsage"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "representationOut"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__Representative"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::Representative::representationOut"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__RepresentationWrite"
      }
     ]
    ]
@@ -41230,6 +41826,72 @@
     ]
    ]
   },
+  "urn:sysmlv2:element:OGCAIE__StakeholderRepresentation": {
+   "in": [
+    [
+     "sysml:owner",
+     {
+      "text": "elmt:OGCAIE__StakeholderRepresentation___400"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "text": "elmt:OGCAIE__StakeholderRepresentation__id"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__EvaluationProcess__declareRequirements__representations"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__EvaluationProcess__scope__representations"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__RepresentationWrite__i"
+     }
+    ]
+   ],
+   "out": [
+    [
+     "corresponds (derived)",
+     {
+      "ref": "https://w3id.org/og-caie/epo#StakeholderRepresentation"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "sysml:ItemDefinition"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "StakeholderRepresentation"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "text": "elmt:OGCAIE"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::StakeholderRepresentation"
+     }
+    ]
+   ]
+  },
   "urn:sysmlv2:element:OGCAIE__StatementOfWork": {
    "in": [
     [
@@ -42147,6 +42809,12 @@
      "ogm:endPart",
      {
       "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__reportSeam_pend1"
+     }
+    ],
+    [
+     "ogm:endPart",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__representationSeam_pend1"
      }
     ],
     [
@@ -44098,6 +44766,16 @@
   },
   {
    "rel": "pinnedAt",
+   "source": "https://w3id.org/og-caie/epo#StakeholderRepresentation",
+   "target": "https://w3id.org/og-caie/epo#evaluation"
+  },
+  {
+   "rel": "term",
+   "source": "https://w3id.org/og-caie/epo#StakeholderRepresentation",
+   "target": "https://w3id.org/og-caie/terms#stakeholder"
+  },
+  {
+   "rel": "pinnedAt",
    "source": "https://w3id.org/og-caie/epo#StatementOfWork",
    "target": "https://w3id.org/og-caie/epo#contract"
   },
@@ -45650,6 +46328,51 @@
    "rel": "used",
    "source": "https://w3id.org/og-caie/run/measles#report-verdict-1",
    "target": "https://w3id.org/og-caie/run/measles#report"
+  },
+  {
+   "rel": "type",
+   "source": "https://w3id.org/og-caie/run/measles#representation-commuters",
+   "target": "https://w3id.org/og-caie/epo#StakeholderRepresentation"
+  },
+  {
+   "rel": "step",
+   "source": "https://w3id.org/og-caie/run/measles#representation-commuters",
+   "target": "https://w3id.org/og-caie/epo#scope"
+  },
+  {
+   "rel": "represents",
+   "source": "https://w3id.org/og-caie/run/measles#representation-commuters",
+   "target": "https://w3id.org/og-caie/run/measles#commuters"
+  },
+  {
+   "rel": "used",
+   "source": "https://w3id.org/og-caie/run/measles#representation-commuters",
+   "target": "https://w3id.org/og-caie/run/measles#stakeholder-input-1"
+  },
+  {
+   "rel": "wasAttributedTo",
+   "source": "https://w3id.org/og-caie/run/measles#representation-commuters",
+   "target": "https://w3id.org/og-caie/run/measles#theo"
+  },
+  {
+   "rel": "type",
+   "source": "https://w3id.org/og-caie/run/measles#representation-residents",
+   "target": "https://w3id.org/og-caie/epo#StakeholderRepresentation"
+  },
+  {
+   "rel": "step",
+   "source": "https://w3id.org/og-caie/run/measles#representation-residents",
+   "target": "https://w3id.org/og-caie/epo#scope"
+  },
+  {
+   "rel": "wasAttributedTo",
+   "source": "https://w3id.org/og-caie/run/measles#representation-residents",
+   "target": "https://w3id.org/og-caie/run/measles#annie"
+  },
+  {
+   "rel": "represents",
+   "source": "https://w3id.org/og-caie/run/measles#representation-residents",
+   "target": "https://w3id.org/og-caie/run/measles#county-residents"
   },
   {
    "rel": "type",
@@ -49742,6 +50465,11 @@
    "target": "urn:sysmlv2:element:OGCAIE__StakeholderInput"
   },
   {
+   "rel": "in",
+   "source": "urn:sysmlv2:element:OGCAIE__EvaluationProcess__declareRequirements",
+   "target": "urn:sysmlv2:element:OGCAIE__StakeholderRepresentation"
+  },
+  {
    "rel": "corresponds",
    "source": "urn:sysmlv2:element:OGCAIE__EvaluationProcess__determineAndAttest",
    "target": "https://w3id.org/og-caie/epo#determineAndAttest"
@@ -49947,6 +50675,11 @@
    "target": "urn:sysmlv2:element:OGCAIE__StakeholderInput"
   },
   {
+   "rel": "out",
+   "source": "urn:sysmlv2:element:OGCAIE__EvaluationProcess__scope",
+   "target": "urn:sysmlv2:element:OGCAIE__StakeholderRepresentation"
+  },
+  {
    "rel": "in",
    "source": "urn:sysmlv2:element:OGCAIE__EvaluationProcess__scope",
    "target": "urn:sysmlv2:element:OGCAIE__StatementOfWork"
@@ -49970,6 +50703,16 @@
    "rel": "owner",
    "source": "urn:sysmlv2:element:OGCAIE__EvaluationTeam__operator",
    "target": "urn:sysmlv2:element:OGCAIE__EvaluationTeam"
+  },
+  {
+   "rel": "owner",
+   "source": "urn:sysmlv2:element:OGCAIE__EvaluationTeam__representative",
+   "target": "urn:sysmlv2:element:OGCAIE__EvaluationTeam"
+  },
+  {
+   "rel": "type",
+   "source": "urn:sysmlv2:element:OGCAIE__EvaluationTeam__representative",
+   "target": "urn:sysmlv2:element:OGCAIE__Representative"
   },
   {
    "rel": "corresponds",
@@ -50657,6 +51400,26 @@
    "target": "urn:sysmlv2:element:OGCAIE__ReportAssembler__reportOut"
   },
   {
+   "rel": "owner",
+   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__representationSeam",
+   "target": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation"
+  },
+  {
+   "rel": "consumerPort",
+   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__representationSeam",
+   "target": "urn:sysmlv2:element:OGCAIE__Recorder__representationIn"
+  },
+  {
+   "rel": "supplierPort",
+   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__representationSeam",
+   "target": "urn:sysmlv2:element:OGCAIE__Representative__representationOut"
+  },
+  {
+   "rel": "carries",
+   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__representationSeam",
+   "target": "urn:sysmlv2:element:OGCAIE__StakeholderRepresentation"
+  },
+  {
    "rel": "supplierPort",
    "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__requirementSeam",
    "target": "urn:sysmlv2:element:OGCAIE__EvaluationOperator__requirementsOut"
@@ -50724,6 +51487,26 @@
   {
    "rel": "carries",
    "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__stakeholderInputSeam",
+   "target": "urn:sysmlv2:element:OGCAIE__StakeholderInput"
+  },
+  {
+   "rel": "supplierPort",
+   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__stakeholderInputToRepresentativeSeam",
+   "target": "urn:sysmlv2:element:OGCAIE__AffectedPopulation__inputOut"
+  },
+  {
+   "rel": "owner",
+   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__stakeholderInputToRepresentativeSeam",
+   "target": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation"
+  },
+  {
+   "rel": "consumerPort",
+   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__stakeholderInputToRepresentativeSeam",
+   "target": "urn:sysmlv2:element:OGCAIE__Representative__inputIn"
+  },
+  {
+   "rel": "carries",
+   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__stakeholderInputToRepresentativeSeam",
    "target": "urn:sysmlv2:element:OGCAIE__StakeholderInput"
   },
   {
@@ -50938,6 +51721,11 @@
   },
   {
    "rel": "owner",
+   "source": "urn:sysmlv2:element:OGCAIE__Recorder__representationIn",
+   "target": "urn:sysmlv2:element:OGCAIE__Recorder"
+  },
+  {
+   "rel": "owner",
    "source": "urn:sysmlv2:element:OGCAIE__Recorder__requirementsIn",
    "target": "urn:sysmlv2:element:OGCAIE__Recorder"
   },
@@ -50980,6 +51768,21 @@
    "rel": "owner",
    "source": "urn:sysmlv2:element:OGCAIE__ReportAssembler__reportOut",
    "target": "urn:sysmlv2:element:OGCAIE__ReportAssembler"
+  },
+  {
+   "rel": "specializes",
+   "source": "urn:sysmlv2:element:OGCAIE__Representative",
+   "target": "urn:sysmlv2:element:OGCAIE__Person"
+  },
+  {
+   "rel": "owner",
+   "source": "urn:sysmlv2:element:OGCAIE__Representative__inputIn",
+   "target": "urn:sysmlv2:element:OGCAIE__Representative"
+  },
+  {
+   "rel": "owner",
+   "source": "urn:sysmlv2:element:OGCAIE__Representative__representationOut",
+   "target": "urn:sysmlv2:element:OGCAIE__Representative"
   },
   {
    "rel": "corresponds",
@@ -51125,6 +51928,11 @@
    "rel": "corresponds",
    "source": "urn:sysmlv2:element:OGCAIE__StakeholderInput",
    "target": "https://w3id.org/og-caie/epo#StakeholderInput"
+  },
+  {
+   "rel": "corresponds",
+   "source": "urn:sysmlv2:element:OGCAIE__StakeholderRepresentation",
+   "target": "https://w3id.org/og-caie/epo#StakeholderRepresentation"
   },
   {
    "rel": "corresponds",
@@ -52575,7 +53383,7 @@
   },
   {
    "cls": "shape",
-   "desc": "Targets epo:Population. S0: an affected population is engaged as the statement of work decided (R-21, R-40): interviewed, with a stakeholder input attributed to it, or represented by a named domain expert; and there is a decision for it. S0: an affected population names the party responsible for its engagement, a person or an organization (sheet 08): the interviewer or the organization that ran the interviews, or its representative (epo:representedBy is a specialization of epo:responsibleParty).",
+   "desc": "Targets epo:Population. S0: an affected population names the party responsible for its engagement, a person or an organization (sheet 08): the interviewer or the organization that ran the interviews, or its representative. S0: every affected population is spoken for: a stakeholder representation attributed to its responsible party; where the statement of work decided an interview, a stakeholder input attributed to the population exists and the representation used it (R-21, R-40, R-49 series wiring).",
    "id": "https://w3id.org/og-caie/S0-Population",
    "label": "S0-Population",
    "ogc": "ogc sparql \"DESCRIBE ogc:S0-Population\"",
@@ -52599,7 +53407,7 @@
   },
   {
    "cls": "shape",
-   "desc": "Targets epo:DsoRelease. S1 precondition (sheet 08): every affected population's input is available before the DSO release is approved: a stakeholder input attributed to the population and generated before the release's approval time, or a representative named for it. S1: a probe derived from this DSO release was generated before the release was approved. S1: the DSO release is approved by a domain expert (R-21, R-23). A DSO release is approved by a named person.",
+   "desc": "Targets epo:DsoRelease. S1 precondition (sheet 08, R-49): every affected population's representation is available before the DSO release is approved: the population's stakeholder representation was generated before the release's approval time (a population with no representation at all is S0's finding). S1: a probe derived from this DSO release was generated before the release was approved. S1: the DSO release is approved by a domain expert (R-21, R-23). A DSO release is approved by a named person.",
    "id": "https://w3id.org/og-caie/S1-DsoRelease",
    "label": "S1-DsoRelease",
    "ogc": "ogc sparql \"DESCRIBE ogc:S1-DsoRelease\"",
@@ -53151,6 +53959,14 @@
   },
   {
    "cls": "kind",
+   "desc": "stakeholder representation: what a representative says on behalf of an affected population, built from its interview when there was one (walkthrough B3, R-49)",
+   "id": "https://w3id.org/og-caie/epo#StakeholderRepresentation",
+   "label": "StakeholderRepresentation",
+   "ogc": "ogc sparql \"DESCRIBE epo:StakeholderRepresentation\"",
+   "page": ""
+  },
+  {
+   "cls": "kind",
    "desc": "statement of work: the sponsor's scope-of-work decisions under the contract, here one engagement decision per affected population (SEVOCAB statement of work; R-40)",
    "id": "https://w3id.org/og-caie/epo#StatementOfWork",
    "label": "StatementOfWork",
@@ -53375,7 +54191,7 @@
   },
   {
    "cls": "step",
-   "desc": "1 scope: interview or represent the affected populations; build or select the DSO release; declare the operational environment",
+   "desc": "1 scope: every affected population represented, with its interview when the statement of work decided one; build or select the DSO release; declare the operational environment",
    "id": "https://w3id.org/og-caie/epo#scope",
    "label": "1 scope",
    "ogc": "ogc steps",
@@ -54555,6 +55371,22 @@
    "id": "https://w3id.org/og-caie/run/measles#report-verdict-1",
    "label": "report-verdict-1",
    "ogc": "ogc record report-verdict-1",
+   "page": ""
+  },
+  {
+   "cls": "record",
+   "desc": "commuters, spoken for by Theo from the interview notes: transit safety and what to do when exposed on the way to work Types: epo:StakeholderRepresentation.",
+   "id": "https://w3id.org/og-caie/run/measles#representation-commuters",
+   "label": "representation-commuters",
+   "ogc": "ogc record representation-commuters",
+   "page": ""
+  },
+  {
+   "cls": "record",
+   "desc": "county residents, spoken for by Annie: accurate advice on exposure, vaccination and isolation for households Types: epo:StakeholderRepresentation.",
+   "id": "https://w3id.org/og-caie/run/measles#representation-residents",
+   "label": "representation-residents",
+   "ogc": "ogc record representation-residents",
    "page": ""
   },
   {
@@ -56334,6 +57166,14 @@
    "page": ""
   },
   {
+   "cls": "usage",
+   "desc": "OGCAIE::EvaluationTeam::representative",
+   "id": "urn:sysmlv2:element:OGCAIE__EvaluationTeam__representative",
+   "label": "EvaluationTeam::representative : Representative",
+   "ogc": "ogc view assemblage",
+   "page": ""
+  },
+  {
    "cls": "item",
    "desc": "Collected material bearing on one criterion's expected\n result under the plan; the domain (R-18, R-20).",
    "id": "urn:sysmlv2:element:OGCAIE__Evidence",
@@ -56655,6 +57495,14 @@
   },
   {
    "cls": "seam",
+   "desc": "interface representationSeam : RepresentationSeam connect testingOrg.team.representative.representationOut to testingOrg.recorder.representationIn;",
+   "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__representationSeam",
+   "label": "OgCaieEvaluation::representationSeam",
+   "ogc": "ogc view evaluation",
+   "page": ""
+  },
+  {
+   "cls": "seam",
    "desc": "interface requirementSeam : RequirementSeam connect testingOrg.team.operator.requirementsOut to testingOrg.recorder.requirementsIn;",
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__requirementSeam",
    "label": "OgCaieEvaluation::requirementSeam",
@@ -56682,6 +57530,14 @@
    "desc": "interface stakeholderInputSeam : StakeholderInputSeam connect affected.inputOut to testingOrg.recorder.inputIn;",
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__stakeholderInputSeam",
    "label": "OgCaieEvaluation::stakeholderInputSeam",
+   "ogc": "ogc view contracting",
+   "page": "../contracting"
+  },
+  {
+   "cls": "seam",
+   "desc": "interface stakeholderInputToRepresentativeSeam : StakeholderInputSeam connect affected.inputOut to testingOrg.team.representative.inputIn;",
+   "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__stakeholderInputToRepresentativeSeam",
+   "label": "OgCaieEvaluation::stakeholderInputToRepresentat…",
    "ogc": "ogc view contracting",
    "page": "../contracting"
   },
@@ -56951,6 +57807,14 @@
   },
   {
    "cls": "port",
+   "desc": "in port typed RepresentationWrite, carrying StakeholderRepresentation.",
+   "id": "urn:sysmlv2:element:OGCAIE__Recorder__representationIn",
+   "label": "Recorder::representationIn",
+   "ogc": "ogc view assemblage",
+   "page": ""
+  },
+  {
+   "cls": "port",
    "desc": "in port typed RequirementSetWrite, carrying RequirementSet.",
    "id": "urn:sysmlv2:element:OGCAIE__Recorder__requirementsIn",
    "label": "Recorder::requirementsIn",
@@ -57018,6 +57882,30 @@
    "desc": "out port typed ReportWrite, carrying Report.",
    "id": "urn:sysmlv2:element:OGCAIE__ReportAssembler__reportOut",
    "label": "ReportAssembler::reportOut",
+   "ogc": "ogc view assemblage",
+   "page": ""
+  },
+  {
+   "cls": "part",
+   "desc": "Speaks on behalf of an affected population, as the statement\n of work decided: every named population has one; a domain expert\n may be one; the population's interview, when it had one, feeds\n the representation (walkthrough B3, R-49).",
+   "id": "urn:sysmlv2:element:OGCAIE__Representative",
+   "label": "Representative",
+   "ogc": "ogc view assemblage",
+   "page": ""
+  },
+  {
+   "cls": "port",
+   "desc": "in port typed StakeholderInputWrite, carrying StakeholderInput.",
+   "id": "urn:sysmlv2:element:OGCAIE__Representative__inputIn",
+   "label": "Representative::inputIn",
+   "ogc": "ogc view assemblage",
+   "page": ""
+  },
+  {
+   "cls": "port",
+   "desc": "out port typed RepresentationWrite, carrying StakeholderRepresentation.",
+   "id": "urn:sysmlv2:element:OGCAIE__Representative__representationOut",
+   "label": "Representative::representationOut",
    "ogc": "ogc view assemblage",
    "page": ""
   },
@@ -57250,6 +58138,14 @@
    "desc": "What an interviewed affected population said. Optional:\n populations not interviewed are represented by the domain\n expert, and the record names who represents them (R-21).",
    "id": "urn:sysmlv2:element:OGCAIE__StakeholderInput",
    "label": "StakeholderInput",
+   "ogc": "ogc view layers",
+   "page": ""
+  },
+  {
+   "cls": "item",
+   "desc": "What a representative says on behalf of an affected\n population, built from its interview when there was one:\n representation is always present for a named population, the\n interview layer is optional and feeds it (walkthrough B3, R-49).\n Pinned within the evaluation.",
+   "id": "urn:sysmlv2:element:OGCAIE__StakeholderRepresentation",
+   "label": "StakeholderRepresentation",
    "ogc": "ogc view layers",
    "page": ""
   },
@@ -57844,6 +58740,7 @@
     "https://w3id.org/og-caie/epo#ServiceAgreement",
     "https://w3id.org/og-caie/epo#Session",
     "https://w3id.org/og-caie/epo#StakeholderInput",
+    "https://w3id.org/og-caie/epo#StakeholderRepresentation",
     "https://w3id.org/og-caie/epo#StatementOfWork",
     "https://w3id.org/og-caie/epo#Strategy",
     "https://w3id.org/og-caie/epo#SufficiencyValue",
@@ -57904,6 +58801,7 @@
     "urn:sysmlv2:element:OGCAIE__ServiceAgreement",
     "urn:sysmlv2:element:OGCAIE__Session",
     "urn:sysmlv2:element:OGCAIE__StakeholderInput",
+    "urn:sysmlv2:element:OGCAIE__StakeholderRepresentation",
     "urn:sysmlv2:element:OGCAIE__StatementOfWork",
     "urn:sysmlv2:element:OGCAIE__Strategy",
     "urn:sysmlv2:element:OGCAIE__TestItemAccess",
@@ -57961,6 +58859,7 @@
     "urn:sysmlv2:element:OGCAIE__EvaluationTeam",
     "urn:sysmlv2:element:OGCAIE__EvaluationTeam__domainExpert",
     "urn:sysmlv2:element:OGCAIE__EvaluationTeam__operator",
+    "urn:sysmlv2:element:OGCAIE__EvaluationTeam__representative",
     "urn:sysmlv2:element:OGCAIE__Evidence",
     "urn:sysmlv2:element:OGCAIE__Machine",
     "urn:sysmlv2:element:OGCAIE__Mission",
@@ -58001,10 +58900,12 @@
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToDriverSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__reportApprovalSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__reportSeam",
+    "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__representationSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__requirementSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__responseSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__sponsor",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__stakeholderInputSeam",
+    "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__stakeholderInputToRepresentativeSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__statementOfWorkSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__testingOrg",
@@ -58038,6 +58939,7 @@
     "urn:sysmlv2:element:OGCAIE__Recorder__recordOut",
     "urn:sysmlv2:element:OGCAIE__Recorder__reportApprovalIn",
     "urn:sysmlv2:element:OGCAIE__Recorder__reportIn",
+    "urn:sysmlv2:element:OGCAIE__Recorder__representationIn",
     "urn:sysmlv2:element:OGCAIE__Recorder__requirementsIn",
     "urn:sysmlv2:element:OGCAIE__Recorder__responseIn",
     "urn:sysmlv2:element:OGCAIE__Recorder__statementOfWorkIn",
@@ -58047,6 +58949,9 @@
     "urn:sysmlv2:element:OGCAIE__ReportAssembler",
     "urn:sysmlv2:element:OGCAIE__ReportAssembler__recordIn",
     "urn:sysmlv2:element:OGCAIE__ReportAssembler__reportOut",
+    "urn:sysmlv2:element:OGCAIE__Representative",
+    "urn:sysmlv2:element:OGCAIE__Representative__inputIn",
+    "urn:sysmlv2:element:OGCAIE__Representative__representationOut",
     "urn:sysmlv2:element:OGCAIE__RequirementSet",
     "urn:sysmlv2:element:OGCAIE__Response",
     "urn:sysmlv2:element:OGCAIE__Runs__MeaslesRun",
@@ -58076,6 +58981,7 @@
     "urn:sysmlv2:element:OGCAIE__SponsorOrganization__proposalIn",
     "urn:sysmlv2:element:OGCAIE__SponsorOrganization__statementOfWorkOut",
     "urn:sysmlv2:element:OGCAIE__StakeholderInput",
+    "urn:sysmlv2:element:OGCAIE__StakeholderRepresentation",
     "urn:sysmlv2:element:OGCAIE__StatementOfWork",
     "urn:sysmlv2:element:OGCAIE__StatementOfWork__regards",
     "urn:sysmlv2:element:OGCAIE__Strategy",
@@ -58142,6 +59048,8 @@
     "https://w3id.org/og-caie/run/measles#report",
     "https://w3id.org/og-caie/run/measles#report-approval-1",
     "https://w3id.org/og-caie/run/measles#report-verdict-1",
+    "https://w3id.org/og-caie/run/measles#representation-commuters",
+    "https://w3id.org/og-caie/run/measles#representation-residents",
     "https://w3id.org/og-caie/run/measles#requirement-set",
     "https://w3id.org/og-caie/run/measles#response-1",
     "https://w3id.org/og-caie/run/measles#service-agreement",
@@ -58591,6 +59499,7 @@
     "https://w3id.org/og-caie/epo#ServiceAgreement",
     "https://w3id.org/og-caie/epo#Session",
     "https://w3id.org/og-caie/epo#StakeholderInput",
+    "https://w3id.org/og-caie/epo#StakeholderRepresentation",
     "https://w3id.org/og-caie/epo#StatementOfWork",
     "https://w3id.org/og-caie/epo#Strategy",
     "https://w3id.org/og-caie/epo#SufficiencyValue",
@@ -58767,6 +59676,8 @@
     "https://w3id.org/og-caie/run/measles#report",
     "https://w3id.org/og-caie/run/measles#report-approval-1",
     "https://w3id.org/og-caie/run/measles#report-verdict-1",
+    "https://w3id.org/og-caie/run/measles#representation-commuters",
+    "https://w3id.org/og-caie/run/measles#representation-residents",
     "https://w3id.org/og-caie/run/measles#requirement-set",
     "https://w3id.org/og-caie/run/measles#response-1",
     "https://w3id.org/og-caie/run/measles#service-agreement",
@@ -58989,6 +59900,7 @@
     "urn:sysmlv2:element:OGCAIE__EvaluationTeam",
     "urn:sysmlv2:element:OGCAIE__EvaluationTeam__domainExpert",
     "urn:sysmlv2:element:OGCAIE__EvaluationTeam__operator",
+    "urn:sysmlv2:element:OGCAIE__EvaluationTeam__representative",
     "urn:sysmlv2:element:OGCAIE__Evidence",
     "urn:sysmlv2:element:OGCAIE__Machine",
     "urn:sysmlv2:element:OGCAIE__Mission",
@@ -59029,10 +59941,12 @@
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToDriverSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__reportApprovalSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__reportSeam",
+    "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__representationSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__requirementSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__responseSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__sponsor",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__stakeholderInputSeam",
+    "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__stakeholderInputToRepresentativeSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__statementOfWorkSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__testingOrg",
@@ -59066,6 +59980,7 @@
     "urn:sysmlv2:element:OGCAIE__Recorder__recordOut",
     "urn:sysmlv2:element:OGCAIE__Recorder__reportApprovalIn",
     "urn:sysmlv2:element:OGCAIE__Recorder__reportIn",
+    "urn:sysmlv2:element:OGCAIE__Recorder__representationIn",
     "urn:sysmlv2:element:OGCAIE__Recorder__requirementsIn",
     "urn:sysmlv2:element:OGCAIE__Recorder__responseIn",
     "urn:sysmlv2:element:OGCAIE__Recorder__statementOfWorkIn",
@@ -59075,6 +59990,9 @@
     "urn:sysmlv2:element:OGCAIE__ReportAssembler",
     "urn:sysmlv2:element:OGCAIE__ReportAssembler__recordIn",
     "urn:sysmlv2:element:OGCAIE__ReportAssembler__reportOut",
+    "urn:sysmlv2:element:OGCAIE__Representative",
+    "urn:sysmlv2:element:OGCAIE__Representative__inputIn",
+    "urn:sysmlv2:element:OGCAIE__Representative__representationOut",
     "urn:sysmlv2:element:OGCAIE__RequirementSet",
     "urn:sysmlv2:element:OGCAIE__Response",
     "urn:sysmlv2:element:OGCAIE__Runs__MeaslesRun",
@@ -59104,6 +60022,7 @@
     "urn:sysmlv2:element:OGCAIE__SponsorOrganization__proposalIn",
     "urn:sysmlv2:element:OGCAIE__SponsorOrganization__statementOfWorkOut",
     "urn:sysmlv2:element:OGCAIE__StakeholderInput",
+    "urn:sysmlv2:element:OGCAIE__StakeholderRepresentation",
     "urn:sysmlv2:element:OGCAIE__StatementOfWork",
     "urn:sysmlv2:element:OGCAIE__StatementOfWork__regards",
     "urn:sysmlv2:element:OGCAIE__Strategy",

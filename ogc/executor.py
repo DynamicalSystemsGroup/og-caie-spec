@@ -164,6 +164,7 @@ def parties(r: Run, params: Params):
     a["TestDriver"] = agent("test-driver", "test driver", PROV.SoftwareAgent, version=Literal("1"), actedOnBehalfOf=a["TestingOrganization"])
     a["ConformanceChecker"] = agent("checker", "conformance checker", PROV.SoftwareAgent, version=Literal("1"), actedOnBehalfOf=a["TestingOrganization"])
     a["ReportAssembler"] = agent("assembler", "report assembler", PROV.SoftwareAgent, version=Literal("1"), actedOnBehalfOf=a["TestingOrganization"])
+    a["Representative"] = a["DomainExpert"]  # a domain expert may be a representative; the operator represents the interviewed population
     a["AffectedPopulation"] = []
     for i in range(params.populations):
         p = agent(f"population-{i + 1}", f"affected population {i + 1}", EPO.Population)
@@ -228,11 +229,18 @@ def t_access(r, i, p):
 
 def t_scope(r, i, p):
     g = r.g
-    s = r.new("StakeholderInput", "input", i)
-    g.add((s, PROV.wasAttributedTo, r.agents["AffectedPopulation"][0])); g.add((s, EPO.step, EPO.scope)); g.add((s, RDFS.label, Literal("interview notes")))
-    d = r.new("DsoRelease", "dso", i, 1)
+    for k, pop in enumerate(r.agents["AffectedPopulation"]):
+        rep = r.new("StakeholderRepresentation", "representation", i, 2 * k + 1)
+        g.add((rep, EPO.represents, pop)); g.add((rep, EPO.step, EPO.scope)); g.add((rep, RDFS.label, Literal(f"population {k + 1}, spoken for")))
+        if k == 0:  # the interviewed population: its interview feeds the representation (series wiring, R-49)
+            s = r.new("StakeholderInput", "input", i, 2 * k)
+            g.add((s, PROV.wasAttributedTo, pop)); g.add((s, EPO.step, EPO.scope)); g.add((s, RDFS.label, Literal("interview notes")))
+            g.add((rep, PROV.used, s)); g.add((rep, PROV.wasAttributedTo, r.agents["EvaluationOperator"]))
+        else:
+            g.add((rep, PROV.wasAttributedTo, r.agents["DomainExpert"]))
+    d = r.new("DsoRelease", "dso", i, 2 * len(r.agents["AffectedPopulation"]) + 1)
     g.add((d, EPO.version, Literal("r1"))); g.add((d, EPO.approvedBy, r.agents["DomainExpert"])); g.add((d, EPO.step, EPO.scope)); by(r, d, "DsoRelease")
-    return {"StakeholderInput", "DsoRelease"}
+    return {"StakeholderInput", "StakeholderRepresentation", "DsoRelease"}
 
 
 def t_declare(r, i, p):
@@ -438,9 +446,13 @@ def m_skip_report_approval(g):
 
 
 def m_engagement_mismatch(g):
-    """The statement of work said the first population would be interviewed; the decision is flipped to representation, which the record does not realize."""
-    d = next(d for d in g.subjects(RDF.type, EPO.EngagementDecision) if (d, EPO.engagement, EPO.interview) in g)
-    g.remove((d, EPO.engagement, None)); g.add((d, EPO.engagement, EPO.representation))
+    """The statement of work is made to decide an interview for a population the record only speaks for: a representation-only decision is flipped to interview, or, with a single population, its interview is struck from the record while the decision stands (series wiring, R-49)."""
+    reps = [d for d in g.subjects(RDF.type, EPO.EngagementDecision) if (d, EPO.engagement, EPO.representation) in g]
+    if reps:
+        g.remove((reps[0], EPO.engagement, None)); g.add((reps[0], EPO.engagement, EPO.interview))
+        return
+    for s in list(g.subjects(RDF.type, EPO.StakeholderInput)):
+        g.remove((s, None, None)); g.remove((None, None, s))
 
 
 MUTATIONS = {
@@ -451,7 +463,7 @@ MUTATIONS = {
     "executive-attests": ("the account executive attests instead of the domain expert", m_executive_attests),
     "attest-without-determination": ("attestations aggregate no determination", m_attest_without_determination),
     "requirements-before-agreement": ("the requirement set dated before the agreement", m_requirements_before_agreement),
-    "engagement-mismatch": ("the statement of work decides representation for a population the record only interviewed", m_engagement_mismatch),
+    "engagement-mismatch": ("the statement of work decides an interview for a population the record only speaks for", m_engagement_mismatch),
     "skip-report-approval": ("the report delivered without a domain expert's approval of its contents", m_skip_report_approval),
 }
 

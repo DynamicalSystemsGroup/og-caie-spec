@@ -11,8 +11,8 @@ from conftest import load
 from ogc import views
 from test_model_graph import OGM, SYS
 
-SEAMS = 37
-PORTS = 64
+SEAMS = 39
+PORTS = 67
 
 
 def graph():
@@ -52,7 +52,7 @@ def test_inputs_unique_outputs_shared():
             if used[p] > 1:
                 shared.append((label, used[p]))
     assert sum(used.values()) == 2 * SEAMS
-    assert sorted(shared) == [("AccountExecutive.deliveryOut", 2), ("AccountExecutive.proposalOut", 2), ("AccountableOrganization.accessOut", 2),
+    assert sorted(shared) == [("AccountExecutive.deliveryOut", 2), ("AccountExecutive.proposalOut", 2), ("AccountableOrganization.accessOut", 2), ("AffectedPopulation.inputOut", 2),
                               ("Recorder.recordOut", 3), ("SponsorOrganization.acceptanceOut", 2), ("SponsorOrganization.missionOut", 2), ("SponsorOrganization.needOut", 2), ("SponsorOrganization.statementOfWorkOut", 2), ("TestDriver.probesOut", 2)]
 
 

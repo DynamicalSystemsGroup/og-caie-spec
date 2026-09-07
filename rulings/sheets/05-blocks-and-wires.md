@@ -12,11 +12,12 @@ Generated from `model/og-caie.model.ttl` by `scripts/render.py`; do not edit the
 | B4 | ConformanceChecker | recordIn | verdictOut | [x] 2026-09-06 |
 | B5 | DomainExpert | (none) | assessmentOut, attestationOut, determinationOut, dsoOut, planApprovalOut, reportApprovalOut | [x] 2026-09-06 |
 | B6 | EvaluationOperator | accessIn, probesIn | determinationOut, evidenceOut, planOut, probesToItem, recommendationOut, requirementsOut | [x] 2026-09-06 |
-| B7 | Recorder | acceptanceIn, accessIn, agreementIn, assessmentIn, attestationIn, deliveryIn, dsoIn, evidenceIn, expertDeterminationIn, inputIn, missionIn, needIn, operatorDeterminationIn, planApprovalIn, planIn, probeIn, proposalIn, recommendationIn, reportApprovalIn, reportIn, requirementsIn, responseIn, statementOfWorkIn, verdictIn | recordOut | [x] 2026-09-06 |
+| B7 | Recorder | acceptanceIn, accessIn, agreementIn, assessmentIn, attestationIn, deliveryIn, dsoIn, evidenceIn, expertDeterminationIn, inputIn, missionIn, needIn, operatorDeterminationIn, planApprovalIn, planIn, probeIn, proposalIn, recommendationIn, reportApprovalIn, reportIn, representationIn, requirementsIn, responseIn, statementOfWorkIn, verdictIn | recordOut | [x] 2026-09-06 |
 | B8 | ReportAssembler | recordIn | reportOut | [ ] |
-| B9 | SponsorOrganization | deliveryIn, proposalIn | acceptanceOut, agreementOut, missionOut, needOut, statementOfWorkOut | [x] 2026-09-06 |
-| B10 | TestDriver | recordIn | probesOut | [ ] |
-| B11 | TestItem | probesIn | responseOut | [ ] |
+| B9 | Representative | inputIn | representationOut | [ ] |
+| B10 | SponsorOrganization | deliveryIn, proposalIn | acceptanceOut, agreementOut, missionOut, needOut, statementOfWorkOut | [x] 2026-09-06 |
+| B11 | TestDriver | recordIn | probesOut | [ ] |
+| B12 | TestItem | probesIn | responseOut | [ ] |
 
 ## Wires
 
@@ -53,12 +54,14 @@ Generated from `model/og-caie.model.ttl` by `scripts/render.py`; do not edit the
 | W29 | recordToDriverSeam | Recorder.recordOut | TestDriver.recordIn | RecordWrite | [x] 2026-09-06 |
 | W30 | reportApprovalSeam | DomainExpert.reportApprovalOut | Recorder.reportApprovalIn | ReportApprovalWrite | [ ] |
 | W31 | reportSeam | ReportAssembler.reportOut | Recorder.reportIn | ReportWrite | [x] 2026-09-06 |
-| W32 | requirementSeam | EvaluationOperator.requirementsOut | Recorder.requirementsIn | RequirementSetWrite | [x] 2026-09-06 |
-| W33 | responseSeam | TestItem.responseOut | Recorder.responseIn | ResponseWrite | [ ] |
-| W34 | stakeholderInputSeam | AffectedPopulation.inputOut | Recorder.inputIn | StakeholderInputWrite | [ ] |
-| W35 | statementOfWorkSeam | SponsorOrganization.statementOfWorkOut | Recorder.statementOfWorkIn | StatementOfWorkWrite | [x] 2026-09-06 |
-| W36 | statementOfWorkToExecutiveSeam | SponsorOrganization.statementOfWorkOut | AccountExecutive.statementOfWorkIn | StatementOfWorkWrite | [x] 2026-09-06 |
-| W37 | verdictSeam | ConformanceChecker.verdictOut | Recorder.verdictIn | ConformanceVerdictWrite | [ ] |
+| W32 | representationSeam | Representative.representationOut | Recorder.representationIn | RepresentationWrite | [ ] |
+| W33 | requirementSeam | EvaluationOperator.requirementsOut | Recorder.requirementsIn | RequirementSetWrite | [x] 2026-09-06 |
+| W34 | responseSeam | TestItem.responseOut | Recorder.responseIn | ResponseWrite | [ ] |
+| W35 | stakeholderInputSeam | AffectedPopulation.inputOut | Recorder.inputIn | StakeholderInputWrite | [ ] |
+| W36 | stakeholderInputToRepresentativeSeam | AffectedPopulation.inputOut | Representative.inputIn | StakeholderInputWrite | [ ] |
+| W37 | statementOfWorkSeam | SponsorOrganization.statementOfWorkOut | Recorder.statementOfWorkIn | StatementOfWorkWrite | [x] 2026-09-06 |
+| W38 | statementOfWorkToExecutiveSeam | SponsorOrganization.statementOfWorkOut | AccountExecutive.statementOfWorkIn | StatementOfWorkWrite | [x] 2026-09-06 |
+| W39 | verdictSeam | ConformanceChecker.verdictOut | Recorder.verdictIn | ConformanceVerdictWrite | [ ] |
 
 ## Relations
 

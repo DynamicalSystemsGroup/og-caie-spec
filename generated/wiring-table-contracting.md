@@ -13,6 +13,7 @@
 | AccountableOrganization | accessOut | out | AccessWrite | accessSeam | to Recorder.accessIn |
 | AccountableOrganization | accessOut | out | AccessWrite | accessToOperatorSeam | to EvaluationOperator.accessIn |
 | AffectedPopulation | inputOut | out | StakeholderInputWrite | stakeholderInputSeam | to Recorder.inputIn |
+| AffectedPopulation | inputOut | out | StakeholderInputWrite | stakeholderInputToRepresentativeSeam | to Representative.inputIn |
 | EvaluationOperator | accessIn | in | AccessWrite | accessToOperatorSeam | from AccountableOrganization.accessOut |
 | Recorder | acceptanceIn | in | AcceptanceWrite | acceptanceSeam | from SponsorOrganization.acceptanceOut |
 | Recorder | accessIn | in | AccessWrite | accessSeam | from AccountableOrganization.accessOut |
@@ -23,6 +24,7 @@
 | Recorder | needIn | in | NeedWrite | needSeam | from SponsorOrganization.needOut |
 | Recorder | proposalIn | in | ProposalWrite | proposalSeam | from AccountExecutive.proposalOut |
 | Recorder | statementOfWorkIn | in | StatementOfWorkWrite | statementOfWorkSeam | from SponsorOrganization.statementOfWorkOut |
+| Representative | inputIn | in | StakeholderInputWrite | stakeholderInputToRepresentativeSeam | from AffectedPopulation.inputOut |
 | SponsorOrganization | deliveryIn | in | DeliveryWrite | deliverySeam | from AccountExecutive.deliveryOut |
 | SponsorOrganization | proposalIn | in | ProposalWrite | proposalToSponsorSeam | from AccountExecutive.proposalOut |
 | SponsorOrganization | acceptanceOut | out | AcceptanceWrite | acceptanceSeam | to Recorder.acceptanceIn |

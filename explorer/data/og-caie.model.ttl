@@ -1461,92 +1461,101 @@ elmt:OGCAIE__EvaluationProcess___4027
 
 elmt:OGCAIE__EvaluationProcess___4028
     a sysml:FlowUsage ;
-    ogm:flowSource elmt:OGCAIE__EvaluationProcess__scope__dso ;
-    ogm:flowTarget elmt:OGCAIE__EvaluationProcess__plan__dso ;
+    ogm:flowSource elmt:OGCAIE__EvaluationProcess__scope__representations ;
+    ogm:flowTarget elmt:OGCAIE__EvaluationProcess__declareRequirements__representations ;
     sysml:owner elmt:OGCAIE__EvaluationProcess ;
     sysml:qualifiedName "OGCAIE::EvaluationProcess::@28" ;
     sysx:relatedFeature expr:OGCAIE__EvaluationProcess___4028_pflowSource, expr:OGCAIE__EvaluationProcess___4028_pflowTarget ;
-    sysx:sourceText "flow scope.dso to plan.dso;" .
+    sysx:sourceText "flow scope.representations to declareRequirements.representations;" .
 
 elmt:OGCAIE__EvaluationProcess___4029
+    a sysml:FlowUsage ;
+    ogm:flowSource elmt:OGCAIE__EvaluationProcess__scope__dso ;
+    ogm:flowTarget elmt:OGCAIE__EvaluationProcess__plan__dso ;
+    sysml:owner elmt:OGCAIE__EvaluationProcess ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::@29" ;
+    sysx:relatedFeature expr:OGCAIE__EvaluationProcess___4029_pflowSource, expr:OGCAIE__EvaluationProcess___4029_pflowTarget ;
+    sysx:sourceText "flow scope.dso to plan.dso;" .
+
+elmt:OGCAIE__EvaluationProcess___4030
     a sysml:FlowUsage ;
     ogm:flowSource elmt:OGCAIE__EvaluationProcess__declareRequirements__requirements ;
     ogm:flowTarget elmt:OGCAIE__EvaluationProcess__plan__requirements ;
     sysml:owner elmt:OGCAIE__EvaluationProcess ;
-    sysml:qualifiedName "OGCAIE::EvaluationProcess::@29" ;
-    sysx:relatedFeature expr:OGCAIE__EvaluationProcess___4029_pflowSource, expr:OGCAIE__EvaluationProcess___4029_pflowTarget ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::@30" ;
+    sysx:relatedFeature expr:OGCAIE__EvaluationProcess___4030_pflowSource, expr:OGCAIE__EvaluationProcess___4030_pflowTarget ;
     sysx:sourceText "flow declareRequirements.requirements to plan.requirements;" .
 
-elmt:OGCAIE__EvaluationProcess___4030
+elmt:OGCAIE__EvaluationProcess___4031
     a sysml:FlowUsage ;
     ogm:flowSource elmt:OGCAIE__EvaluationProcess__declareRequirements__criteria ;
     ogm:flowTarget elmt:OGCAIE__EvaluationProcess__plan__criteria ;
     sysml:owner elmt:OGCAIE__EvaluationProcess ;
-    sysml:qualifiedName "OGCAIE::EvaluationProcess::@30" ;
-    sysx:relatedFeature expr:OGCAIE__EvaluationProcess___4030_pflowSource, expr:OGCAIE__EvaluationProcess___4030_pflowTarget ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::@31" ;
+    sysx:relatedFeature expr:OGCAIE__EvaluationProcess___4031_pflowSource, expr:OGCAIE__EvaluationProcess___4031_pflowTarget ;
     sysx:sourceText "flow declareRequirements.criteria to plan.criteria;" .
 
-elmt:OGCAIE__EvaluationProcess___4031
+elmt:OGCAIE__EvaluationProcess___4032
     a sysml:FlowUsage ;
     ogm:flowSource elmt:OGCAIE__EvaluationProcess__plan__testPlan ;
     ogm:flowTarget elmt:OGCAIE__EvaluationProcess__execute__testPlan ;
     sysml:owner elmt:OGCAIE__EvaluationProcess ;
-    sysml:qualifiedName "OGCAIE::EvaluationProcess::@31" ;
-    sysx:relatedFeature expr:OGCAIE__EvaluationProcess___4031_pflowSource, expr:OGCAIE__EvaluationProcess___4031_pflowTarget ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::@32" ;
+    sysx:relatedFeature expr:OGCAIE__EvaluationProcess___4032_pflowSource, expr:OGCAIE__EvaluationProcess___4032_pflowTarget ;
     sysx:sourceText "flow plan.testPlan to execute.testPlan;" .
 
-elmt:OGCAIE__EvaluationProcess___4032
+elmt:OGCAIE__EvaluationProcess___4033
     a sysml:FlowUsage ;
     ogm:flowSource elmt:OGCAIE__EvaluationProcess__plan__probes ;
     ogm:flowTarget elmt:OGCAIE__EvaluationProcess__execute__probes ;
     sysml:owner elmt:OGCAIE__EvaluationProcess ;
-    sysml:qualifiedName "OGCAIE::EvaluationProcess::@32" ;
-    sysx:relatedFeature expr:OGCAIE__EvaluationProcess___4032_pflowSource, expr:OGCAIE__EvaluationProcess___4032_pflowTarget ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::@33" ;
+    sysx:relatedFeature expr:OGCAIE__EvaluationProcess___4033_pflowSource, expr:OGCAIE__EvaluationProcess___4033_pflowTarget ;
     sysx:sourceText "flow plan.probes to execute.probes;" .
 
-elmt:OGCAIE__EvaluationProcess___4033
+elmt:OGCAIE__EvaluationProcess___4034
     a sysml:FlowUsage ;
     ogm:flowSource elmt:OGCAIE__EvaluationProcess__execute__evidence ;
     ogm:flowTarget elmt:OGCAIE__EvaluationProcess__determineAndAttest__evidence ;
     sysml:owner elmt:OGCAIE__EvaluationProcess ;
-    sysml:qualifiedName "OGCAIE::EvaluationProcess::@33" ;
-    sysx:relatedFeature expr:OGCAIE__EvaluationProcess___4033_pflowSource, expr:OGCAIE__EvaluationProcess___4033_pflowTarget ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::@34" ;
+    sysx:relatedFeature expr:OGCAIE__EvaluationProcess___4034_pflowSource, expr:OGCAIE__EvaluationProcess___4034_pflowTarget ;
     sysx:sourceText "flow execute.evidence to determineAndAttest.evidence;" .
 
-elmt:OGCAIE__EvaluationProcess___4034
+elmt:OGCAIE__EvaluationProcess___4035
     a sysml:FlowUsage ;
     ogm:flowSource elmt:OGCAIE__EvaluationProcess__declareRequirements__criteria ;
     ogm:flowTarget elmt:OGCAIE__EvaluationProcess__determineAndAttest__criteria ;
     sysml:owner elmt:OGCAIE__EvaluationProcess ;
-    sysml:qualifiedName "OGCAIE::EvaluationProcess::@34" ;
-    sysx:relatedFeature expr:OGCAIE__EvaluationProcess___4034_pflowSource, expr:OGCAIE__EvaluationProcess___4034_pflowTarget ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::@35" ;
+    sysx:relatedFeature expr:OGCAIE__EvaluationProcess___4035_pflowSource, expr:OGCAIE__EvaluationProcess___4035_pflowTarget ;
     sysx:sourceText "flow declareRequirements.criteria to determineAndAttest.criteria;" .
 
-elmt:OGCAIE__EvaluationProcess___4035
+elmt:OGCAIE__EvaluationProcess___4036
     a sysml:FlowUsage ;
     ogm:flowSource elmt:OGCAIE__EvaluationProcess__determineAndAttest__attestations ;
     ogm:flowTarget elmt:OGCAIE__EvaluationProcess__report__attestations ;
     sysml:owner elmt:OGCAIE__EvaluationProcess ;
-    sysml:qualifiedName "OGCAIE::EvaluationProcess::@35" ;
-    sysx:relatedFeature expr:OGCAIE__EvaluationProcess___4035_pflowSource, expr:OGCAIE__EvaluationProcess___4035_pflowTarget ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::@36" ;
+    sysx:relatedFeature expr:OGCAIE__EvaluationProcess___4036_pflowSource, expr:OGCAIE__EvaluationProcess___4036_pflowTarget ;
     sysx:sourceText "flow determineAndAttest.attestations to report.attestations;" .
 
-elmt:OGCAIE__EvaluationProcess___4036
+elmt:OGCAIE__EvaluationProcess___4037
     a sysml:FlowUsage ;
     ogm:flowSource elmt:OGCAIE__EvaluationProcess__determineAndAttest__determinations ;
     ogm:flowTarget elmt:OGCAIE__EvaluationProcess__report__determinations ;
     sysml:owner elmt:OGCAIE__EvaluationProcess ;
-    sysml:qualifiedName "OGCAIE::EvaluationProcess::@36" ;
-    sysx:relatedFeature expr:OGCAIE__EvaluationProcess___4036_pflowSource, expr:OGCAIE__EvaluationProcess___4036_pflowTarget ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::@37" ;
+    sysx:relatedFeature expr:OGCAIE__EvaluationProcess___4037_pflowSource, expr:OGCAIE__EvaluationProcess___4037_pflowTarget ;
     sysx:sourceText "flow determineAndAttest.determinations to report.determinations;" .
 
-elmt:OGCAIE__EvaluationProcess___4037
+elmt:OGCAIE__EvaluationProcess___4038
     a sysml:FlowUsage ;
     ogm:flowSource elmt:OGCAIE__EvaluationProcess__declareRequirements__criteria ;
     ogm:flowTarget elmt:OGCAIE__EvaluationProcess__report__criteria ;
     sysml:owner elmt:OGCAIE__EvaluationProcess ;
-    sysml:qualifiedName "OGCAIE::EvaluationProcess::@37" ;
-    sysx:relatedFeature expr:OGCAIE__EvaluationProcess___4037_pflowSource, expr:OGCAIE__EvaluationProcess___4037_pflowTarget ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::@38" ;
+    sysx:relatedFeature expr:OGCAIE__EvaluationProcess___4038_pflowSource, expr:OGCAIE__EvaluationProcess___4038_pflowTarget ;
     sysx:sourceText "flow declareRequirements.criteria to report.criteria;" .
 
 elmt:OGCAIE__EvaluationProcess__agreement
@@ -1606,6 +1615,16 @@ elmt:OGCAIE__EvaluationProcess__declareRequirements__input
     sysml:qualifiedName "OGCAIE::EvaluationProcess::declareRequirements::input" ;
     sysml:type elmt:OGCAIE__StakeholderInput ;
     sysml:upperBound expr:OGCAIE__EvaluationProcess__declareRequirements__input_pupperBound .
+
+elmt:OGCAIE__EvaluationProcess__declareRequirements__representations
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "representations" ;
+    sysml:direction "in" ;
+    sysml:lowerBound expr:OGCAIE__EvaluationProcess__declareRequirements__representations_plowerBound ;
+    sysml:owner elmt:OGCAIE__EvaluationProcess__declareRequirements ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::declareRequirements::representations" ;
+    sysml:type elmt:OGCAIE__StakeholderRepresentation ;
+    sysml:upperBound expr:OGCAIE__EvaluationProcess__declareRequirements__representations_pupperBound .
 
 elmt:OGCAIE__EvaluationProcess__declareRequirements__requirements
     a sysml:ReferenceUsage ;
@@ -1923,6 +1942,16 @@ elmt:OGCAIE__EvaluationProcess__scope__input
     sysml:type elmt:OGCAIE__StakeholderInput ;
     sysml:upperBound expr:OGCAIE__EvaluationProcess__scope__input_pupperBound .
 
+elmt:OGCAIE__EvaluationProcess__scope__representations
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "representations" ;
+    sysml:direction "out" ;
+    sysml:lowerBound expr:OGCAIE__EvaluationProcess__scope__representations_plowerBound ;
+    sysml:owner elmt:OGCAIE__EvaluationProcess__scope ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::scope::representations" ;
+    sysml:type elmt:OGCAIE__StakeholderRepresentation ;
+    sysml:upperBound expr:OGCAIE__EvaluationProcess__scope__representations_pupperBound .
+
 elmt:OGCAIE__EvaluationProcess__scope__statementOfWork
     a sysml:ReferenceUsage ;
     sysml:declaredName "statementOfWork" ;
@@ -1999,6 +2028,15 @@ elmt:OGCAIE__EvaluationTeam__operator
     sysml:qualifiedName "OGCAIE::EvaluationTeam::operator" ;
     sysml:type elmt:OGCAIE__EvaluationOperator ;
     sysml:upperBound expr:OGCAIE__EvaluationTeam__operator_pupperBound .
+
+elmt:OGCAIE__EvaluationTeam__representative
+    a sysml:PartUsage ;
+    sysml:declaredName "representative" ;
+    sysml:lowerBound expr:OGCAIE__EvaluationTeam__representative_plowerBound ;
+    sysml:owner elmt:OGCAIE__EvaluationTeam ;
+    sysml:qualifiedName "OGCAIE::EvaluationTeam::representative" ;
+    sysml:type elmt:OGCAIE__Representative ;
+    sysml:upperBound expr:OGCAIE__EvaluationTeam__representative_pupperBound .
 
 elmt:OGCAIE__Evidence
     a sysml:ItemDefinition ;
@@ -2686,6 +2724,17 @@ elmt:OGCAIE__OgCaieEvaluation__reportSeam
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__reportSeam_pend0, expr:OGCAIE__OgCaieEvaluation__reportSeam_pend1 ;
     sysx:sourceText "interface reportSeam : ReportSeam connect testingOrg.reportAssembler.reportOut to testingOrg.recorder.reportIn;" .
 
+elmt:OGCAIE__OgCaieEvaluation__representationSeam
+    a sysml:InterfaceUsage ;
+    ogm:consumerPort elmt:OGCAIE__Recorder__representationIn ;
+    ogm:supplierPort elmt:OGCAIE__Representative__representationOut ;
+    sysml:declaredName "representationSeam" ;
+    sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
+    sysml:qualifiedName "OGCAIE::OgCaieEvaluation::representationSeam" ;
+    sysml:type elmt:OGCAIE__RepresentationSeam ;
+    sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__representationSeam_pend0, expr:OGCAIE__OgCaieEvaluation__representationSeam_pend1 ;
+    sysx:sourceText "interface representationSeam : RepresentationSeam connect testingOrg.team.representative.representationOut to testingOrg.recorder.representationIn;" .
+
 elmt:OGCAIE__OgCaieEvaluation__requirementSeam
     a sysml:InterfaceUsage ;
     ogm:consumerPort elmt:OGCAIE__Recorder__requirementsIn ;
@@ -2725,6 +2774,17 @@ elmt:OGCAIE__OgCaieEvaluation__stakeholderInputSeam
     sysml:type elmt:OGCAIE__StakeholderInputSeam ;
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__stakeholderInputSeam_pend0, expr:OGCAIE__OgCaieEvaluation__stakeholderInputSeam_pend1 ;
     sysx:sourceText "interface stakeholderInputSeam : StakeholderInputSeam connect affected.inputOut to testingOrg.recorder.inputIn;" .
+
+elmt:OGCAIE__OgCaieEvaluation__stakeholderInputToRepresentativeSeam
+    a sysml:InterfaceUsage ;
+    ogm:consumerPort elmt:OGCAIE__Representative__inputIn ;
+    ogm:supplierPort elmt:OGCAIE__AffectedPopulation__inputOut ;
+    sysml:declaredName "stakeholderInputToRepresentativeSeam" ;
+    sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
+    sysml:qualifiedName "OGCAIE::OgCaieEvaluation::stakeholderInputToRepresentativeSeam" ;
+    sysml:type elmt:OGCAIE__StakeholderInputSeam ;
+    sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__stakeholderInputToRepresentativeSeam_pend0, expr:OGCAIE__OgCaieEvaluation__stakeholderInputToRepresentativeSeam_pend1 ;
+    sysx:sourceText "interface stakeholderInputToRepresentativeSeam : StakeholderInputSeam connect affected.inputOut to testingOrg.team.representative.inputIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__statementOfWorkSeam
     a sysml:InterfaceUsage ;
@@ -3344,6 +3404,14 @@ elmt:OGCAIE__Recorder__reportIn
     sysml:qualifiedName "OGCAIE::Recorder::reportIn" ;
     sysml:type elmt:OGCAIE__ReportWrite .
 
+elmt:OGCAIE__Recorder__representationIn
+    a sysml:PortUsage ;
+    sysml:declaredName "representationIn" ;
+    sysml:isConjugated "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__Recorder ;
+    sysml:qualifiedName "OGCAIE::Recorder::representationIn" ;
+    sysml:type elmt:OGCAIE__RepresentationWrite .
+
 elmt:OGCAIE__Recorder__requirementsIn
     a sysml:PortUsage ;
     sysml:declaredName "requirementsIn" ;
@@ -3522,6 +3590,74 @@ elmt:OGCAIE__Report__id
     sysml:owner elmt:OGCAIE__Report ;
     sysml:qualifiedName "OGCAIE::Report::id" ;
     sysml:type "ScalarValues::String" .
+
+elmt:OGCAIE__RepresentationSeam
+    a sysml:InterfaceDefinition ;
+    sysml:declaredName "RepresentationSeam" ;
+    sysml:owner elmt:OGCAIE ;
+    sysml:qualifiedName "OGCAIE::RepresentationSeam" .
+
+elmt:OGCAIE__RepresentationSeam__consumer
+    a sysml:PortUsage ;
+    sysml:declaredName "consumer" ;
+    sysml:isConjugated "true"^^xsd:boolean ;
+    sysml:isEnd "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__RepresentationSeam ;
+    sysml:qualifiedName "OGCAIE::RepresentationSeam::consumer" ;
+    sysml:type elmt:OGCAIE__RepresentationWrite .
+
+elmt:OGCAIE__RepresentationSeam__supplier
+    a sysml:PortUsage ;
+    sysml:declaredName "supplier" ;
+    sysml:isEnd "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__RepresentationSeam ;
+    sysml:qualifiedName "OGCAIE::RepresentationSeam::supplier" ;
+    sysml:type elmt:OGCAIE__RepresentationWrite .
+
+elmt:OGCAIE__RepresentationWrite
+    a sysml:PortDefinition ;
+    sysml:declaredName "RepresentationWrite" ;
+    sysml:owner elmt:OGCAIE ;
+    sysml:qualifiedName "OGCAIE::RepresentationWrite" .
+
+elmt:OGCAIE__RepresentationWrite__i
+    a sysml:ItemUsage ;
+    sysml:declaredName "i" ;
+    sysml:direction "out" ;
+    sysml:owner elmt:OGCAIE__RepresentationWrite ;
+    sysml:qualifiedName "OGCAIE::RepresentationWrite::i" ;
+    sysml:type elmt:OGCAIE__StakeholderRepresentation .
+
+elmt:OGCAIE__Representative
+    a sysml:PartDefinition ;
+    sysml:declaredName "Representative" ;
+    sysml:owner elmt:OGCAIE ;
+    sysml:qualifiedName "OGCAIE::Representative" ;
+    sysml:specializes elmt:OGCAIE__Person .
+
+elmt:OGCAIE__Representative___400
+    a sysml:Documentation ;
+    sysml:body """ Speaks on behalf of an affected population, as the statement
+           of work decided: every named population has one; a domain expert
+           may be one; the population's interview, when it had one, feeds
+           the representation (walkthrough B3, R-49). """ ;
+    sysml:owner elmt:OGCAIE__Representative ;
+    sysml:qualifiedName "OGCAIE::Representative::@0" .
+
+elmt:OGCAIE__Representative__inputIn
+    a sysml:PortUsage ;
+    sysml:declaredName "inputIn" ;
+    sysml:isConjugated "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__Representative ;
+    sysml:qualifiedName "OGCAIE::Representative::inputIn" ;
+    sysml:type elmt:OGCAIE__StakeholderInputWrite .
+
+elmt:OGCAIE__Representative__representationOut
+    a sysml:PortUsage ;
+    sysml:declaredName "representationOut" ;
+    sysml:owner elmt:OGCAIE__Representative ;
+    sysml:qualifiedName "OGCAIE::Representative::representationOut" ;
+    sysml:type elmt:OGCAIE__RepresentationWrite .
 
 elmt:OGCAIE__RequirementSeam
     a sysml:InterfaceDefinition ;
@@ -4065,6 +4201,29 @@ elmt:OGCAIE__StakeholderInput__id
     sysml:declaredName "id" ;
     sysml:owner elmt:OGCAIE__StakeholderInput ;
     sysml:qualifiedName "OGCAIE::StakeholderInput::id" ;
+    sysml:type "ScalarValues::String" .
+
+elmt:OGCAIE__StakeholderRepresentation
+    a sysml:ItemDefinition ;
+    sysml:declaredName "StakeholderRepresentation" ;
+    sysml:owner elmt:OGCAIE ;
+    sysml:qualifiedName "OGCAIE::StakeholderRepresentation" .
+
+elmt:OGCAIE__StakeholderRepresentation___400
+    a sysml:Documentation ;
+    sysml:body """ What a representative says on behalf of an affected
+           population, built from its interview when there was one:
+           representation is always present for a named population, the
+           interview layer is optional and feeds it (walkthrough B3, R-49).
+           Pinned within the evaluation. """ ;
+    sysml:owner elmt:OGCAIE__StakeholderRepresentation ;
+    sysml:qualifiedName "OGCAIE::StakeholderRepresentation::@0" .
+
+elmt:OGCAIE__StakeholderRepresentation__id
+    a sysml:AttributeUsage ;
+    sysml:declaredName "id" ;
+    sysml:owner elmt:OGCAIE__StakeholderRepresentation ;
+    sysml:qualifiedName "OGCAIE::StakeholderRepresentation::id" ;
     sysml:type "ScalarValues::String" .
 
 elmt:OGCAIE__StatementOfWork
@@ -4913,9 +5072,9 @@ expr:OGCAIE__EvaluationProcess___4027_pflowTarget_pa0
 expr:OGCAIE__EvaluationProcess___4028_pflowSource
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__EvaluationProcess___4028_pflowSource_pa0 ;
-    sysml:targetFeature "dso" ;
+    sysml:targetFeature "representations" ;
     sysx:endIndex "0"^^xsd:integer ;
-    sysx:sourceText "scope.dso" .
+    sysx:sourceText "scope.representations" .
 
 expr:OGCAIE__EvaluationProcess___4028_pflowSource_pa0
     a sysml:FeatureReferenceExpression ;
@@ -4925,33 +5084,33 @@ expr:OGCAIE__EvaluationProcess___4028_pflowSource_pa0
 expr:OGCAIE__EvaluationProcess___4028_pflowTarget
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__EvaluationProcess___4028_pflowTarget_pa0 ;
-    sysml:targetFeature "dso" ;
+    sysml:targetFeature "representations" ;
     sysx:endIndex "1"^^xsd:integer ;
-    sysx:sourceText "plan.dso" .
+    sysx:sourceText "declareRequirements.representations" .
 
 expr:OGCAIE__EvaluationProcess___4028_pflowTarget_pa0
-    a sysml:FeatureReferenceExpression ;
-    sysml:referent elmt:OGCAIE__EvaluationProcess__plan ;
-    sysx:sourceText "plan" .
-
-expr:OGCAIE__EvaluationProcess___4029_pflowSource
-    a sysml:FeatureChainExpression ;
-    sysml:argument expr:OGCAIE__EvaluationProcess___4029_pflowSource_pa0 ;
-    sysml:targetFeature "requirements" ;
-    sysx:endIndex "0"^^xsd:integer ;
-    sysx:sourceText "declareRequirements.requirements" .
-
-expr:OGCAIE__EvaluationProcess___4029_pflowSource_pa0
     a sysml:FeatureReferenceExpression ;
     sysml:referent elmt:OGCAIE__EvaluationProcess__declareRequirements ;
     sysx:sourceText "declareRequirements" .
 
+expr:OGCAIE__EvaluationProcess___4029_pflowSource
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__EvaluationProcess___4029_pflowSource_pa0 ;
+    sysml:targetFeature "dso" ;
+    sysx:endIndex "0"^^xsd:integer ;
+    sysx:sourceText "scope.dso" .
+
+expr:OGCAIE__EvaluationProcess___4029_pflowSource_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__EvaluationProcess__scope ;
+    sysx:sourceText "scope" .
+
 expr:OGCAIE__EvaluationProcess___4029_pflowTarget
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__EvaluationProcess___4029_pflowTarget_pa0 ;
-    sysml:targetFeature "requirements" ;
+    sysml:targetFeature "dso" ;
     sysx:endIndex "1"^^xsd:integer ;
-    sysx:sourceText "plan.requirements" .
+    sysx:sourceText "plan.dso" .
 
 expr:OGCAIE__EvaluationProcess___4029_pflowTarget_pa0
     a sysml:FeatureReferenceExpression ;
@@ -4961,9 +5120,9 @@ expr:OGCAIE__EvaluationProcess___4029_pflowTarget_pa0
 expr:OGCAIE__EvaluationProcess___4030_pflowSource
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__EvaluationProcess___4030_pflowSource_pa0 ;
-    sysml:targetFeature "criteria" ;
+    sysml:targetFeature "requirements" ;
     sysx:endIndex "0"^^xsd:integer ;
-    sysx:sourceText "declareRequirements.criteria" .
+    sysx:sourceText "declareRequirements.requirements" .
 
 expr:OGCAIE__EvaluationProcess___4030_pflowSource_pa0
     a sysml:FeatureReferenceExpression ;
@@ -4973,9 +5132,9 @@ expr:OGCAIE__EvaluationProcess___4030_pflowSource_pa0
 expr:OGCAIE__EvaluationProcess___4030_pflowTarget
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__EvaluationProcess___4030_pflowTarget_pa0 ;
-    sysml:targetFeature "criteria" ;
+    sysml:targetFeature "requirements" ;
     sysx:endIndex "1"^^xsd:integer ;
-    sysx:sourceText "plan.criteria" .
+    sysx:sourceText "plan.requirements" .
 
 expr:OGCAIE__EvaluationProcess___4030_pflowTarget_pa0
     a sysml:FeatureReferenceExpression ;
@@ -4985,33 +5144,33 @@ expr:OGCAIE__EvaluationProcess___4030_pflowTarget_pa0
 expr:OGCAIE__EvaluationProcess___4031_pflowSource
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__EvaluationProcess___4031_pflowSource_pa0 ;
-    sysml:targetFeature "testPlan" ;
+    sysml:targetFeature "criteria" ;
     sysx:endIndex "0"^^xsd:integer ;
-    sysx:sourceText "plan.testPlan" .
+    sysx:sourceText "declareRequirements.criteria" .
 
 expr:OGCAIE__EvaluationProcess___4031_pflowSource_pa0
     a sysml:FeatureReferenceExpression ;
-    sysml:referent elmt:OGCAIE__EvaluationProcess__plan ;
-    sysx:sourceText "plan" .
+    sysml:referent elmt:OGCAIE__EvaluationProcess__declareRequirements ;
+    sysx:sourceText "declareRequirements" .
 
 expr:OGCAIE__EvaluationProcess___4031_pflowTarget
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__EvaluationProcess___4031_pflowTarget_pa0 ;
-    sysml:targetFeature "testPlan" ;
+    sysml:targetFeature "criteria" ;
     sysx:endIndex "1"^^xsd:integer ;
-    sysx:sourceText "execute.testPlan" .
+    sysx:sourceText "plan.criteria" .
 
 expr:OGCAIE__EvaluationProcess___4031_pflowTarget_pa0
     a sysml:FeatureReferenceExpression ;
-    sysml:referent elmt:OGCAIE__EvaluationProcess__execute ;
-    sysx:sourceText "execute" .
+    sysml:referent elmt:OGCAIE__EvaluationProcess__plan ;
+    sysx:sourceText "plan" .
 
 expr:OGCAIE__EvaluationProcess___4032_pflowSource
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__EvaluationProcess___4032_pflowSource_pa0 ;
-    sysml:targetFeature "probes" ;
+    sysml:targetFeature "testPlan" ;
     sysx:endIndex "0"^^xsd:integer ;
-    sysx:sourceText "plan.probes" .
+    sysx:sourceText "plan.testPlan" .
 
 expr:OGCAIE__EvaluationProcess___4032_pflowSource_pa0
     a sysml:FeatureReferenceExpression ;
@@ -5021,9 +5180,9 @@ expr:OGCAIE__EvaluationProcess___4032_pflowSource_pa0
 expr:OGCAIE__EvaluationProcess___4032_pflowTarget
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__EvaluationProcess___4032_pflowTarget_pa0 ;
-    sysml:targetFeature "probes" ;
+    sysml:targetFeature "testPlan" ;
     sysx:endIndex "1"^^xsd:integer ;
-    sysx:sourceText "execute.probes" .
+    sysx:sourceText "execute.testPlan" .
 
 expr:OGCAIE__EvaluationProcess___4032_pflowTarget_pa0
     a sysml:FeatureReferenceExpression ;
@@ -5033,45 +5192,45 @@ expr:OGCAIE__EvaluationProcess___4032_pflowTarget_pa0
 expr:OGCAIE__EvaluationProcess___4033_pflowSource
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__EvaluationProcess___4033_pflowSource_pa0 ;
-    sysml:targetFeature "evidence" ;
+    sysml:targetFeature "probes" ;
     sysx:endIndex "0"^^xsd:integer ;
-    sysx:sourceText "execute.evidence" .
+    sysx:sourceText "plan.probes" .
 
 expr:OGCAIE__EvaluationProcess___4033_pflowSource_pa0
     a sysml:FeatureReferenceExpression ;
-    sysml:referent elmt:OGCAIE__EvaluationProcess__execute ;
-    sysx:sourceText "execute" .
+    sysml:referent elmt:OGCAIE__EvaluationProcess__plan ;
+    sysx:sourceText "plan" .
 
 expr:OGCAIE__EvaluationProcess___4033_pflowTarget
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__EvaluationProcess___4033_pflowTarget_pa0 ;
-    sysml:targetFeature "evidence" ;
+    sysml:targetFeature "probes" ;
     sysx:endIndex "1"^^xsd:integer ;
-    sysx:sourceText "determineAndAttest.evidence" .
+    sysx:sourceText "execute.probes" .
 
 expr:OGCAIE__EvaluationProcess___4033_pflowTarget_pa0
     a sysml:FeatureReferenceExpression ;
-    sysml:referent elmt:OGCAIE__EvaluationProcess__determineAndAttest ;
-    sysx:sourceText "determineAndAttest" .
+    sysml:referent elmt:OGCAIE__EvaluationProcess__execute ;
+    sysx:sourceText "execute" .
 
 expr:OGCAIE__EvaluationProcess___4034_pflowSource
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__EvaluationProcess___4034_pflowSource_pa0 ;
-    sysml:targetFeature "criteria" ;
+    sysml:targetFeature "evidence" ;
     sysx:endIndex "0"^^xsd:integer ;
-    sysx:sourceText "declareRequirements.criteria" .
+    sysx:sourceText "execute.evidence" .
 
 expr:OGCAIE__EvaluationProcess___4034_pflowSource_pa0
     a sysml:FeatureReferenceExpression ;
-    sysml:referent elmt:OGCAIE__EvaluationProcess__declareRequirements ;
-    sysx:sourceText "declareRequirements" .
+    sysml:referent elmt:OGCAIE__EvaluationProcess__execute ;
+    sysx:sourceText "execute" .
 
 expr:OGCAIE__EvaluationProcess___4034_pflowTarget
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__EvaluationProcess___4034_pflowTarget_pa0 ;
-    sysml:targetFeature "criteria" ;
+    sysml:targetFeature "evidence" ;
     sysx:endIndex "1"^^xsd:integer ;
-    sysx:sourceText "determineAndAttest.criteria" .
+    sysx:sourceText "determineAndAttest.evidence" .
 
 expr:OGCAIE__EvaluationProcess___4034_pflowTarget_pa0
     a sysml:FeatureReferenceExpression ;
@@ -5081,33 +5240,33 @@ expr:OGCAIE__EvaluationProcess___4034_pflowTarget_pa0
 expr:OGCAIE__EvaluationProcess___4035_pflowSource
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__EvaluationProcess___4035_pflowSource_pa0 ;
-    sysml:targetFeature "attestations" ;
+    sysml:targetFeature "criteria" ;
     sysx:endIndex "0"^^xsd:integer ;
-    sysx:sourceText "determineAndAttest.attestations" .
+    sysx:sourceText "declareRequirements.criteria" .
 
 expr:OGCAIE__EvaluationProcess___4035_pflowSource_pa0
     a sysml:FeatureReferenceExpression ;
-    sysml:referent elmt:OGCAIE__EvaluationProcess__determineAndAttest ;
-    sysx:sourceText "determineAndAttest" .
+    sysml:referent elmt:OGCAIE__EvaluationProcess__declareRequirements ;
+    sysx:sourceText "declareRequirements" .
 
 expr:OGCAIE__EvaluationProcess___4035_pflowTarget
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__EvaluationProcess___4035_pflowTarget_pa0 ;
-    sysml:targetFeature "attestations" ;
+    sysml:targetFeature "criteria" ;
     sysx:endIndex "1"^^xsd:integer ;
-    sysx:sourceText "report.attestations" .
+    sysx:sourceText "determineAndAttest.criteria" .
 
 expr:OGCAIE__EvaluationProcess___4035_pflowTarget_pa0
     a sysml:FeatureReferenceExpression ;
-    sysml:referent elmt:OGCAIE__EvaluationProcess__report ;
-    sysx:sourceText "report" .
+    sysml:referent elmt:OGCAIE__EvaluationProcess__determineAndAttest ;
+    sysx:sourceText "determineAndAttest" .
 
 expr:OGCAIE__EvaluationProcess___4036_pflowSource
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__EvaluationProcess___4036_pflowSource_pa0 ;
-    sysml:targetFeature "determinations" ;
+    sysml:targetFeature "attestations" ;
     sysx:endIndex "0"^^xsd:integer ;
-    sysx:sourceText "determineAndAttest.determinations" .
+    sysx:sourceText "determineAndAttest.attestations" .
 
 expr:OGCAIE__EvaluationProcess___4036_pflowSource_pa0
     a sysml:FeatureReferenceExpression ;
@@ -5117,9 +5276,9 @@ expr:OGCAIE__EvaluationProcess___4036_pflowSource_pa0
 expr:OGCAIE__EvaluationProcess___4036_pflowTarget
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__EvaluationProcess___4036_pflowTarget_pa0 ;
-    sysml:targetFeature "determinations" ;
+    sysml:targetFeature "attestations" ;
     sysx:endIndex "1"^^xsd:integer ;
-    sysx:sourceText "report.determinations" .
+    sysx:sourceText "report.attestations" .
 
 expr:OGCAIE__EvaluationProcess___4036_pflowTarget_pa0
     a sysml:FeatureReferenceExpression ;
@@ -5129,23 +5288,47 @@ expr:OGCAIE__EvaluationProcess___4036_pflowTarget_pa0
 expr:OGCAIE__EvaluationProcess___4037_pflowSource
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__EvaluationProcess___4037_pflowSource_pa0 ;
-    sysml:targetFeature "criteria" ;
+    sysml:targetFeature "determinations" ;
     sysx:endIndex "0"^^xsd:integer ;
-    sysx:sourceText "declareRequirements.criteria" .
+    sysx:sourceText "determineAndAttest.determinations" .
 
 expr:OGCAIE__EvaluationProcess___4037_pflowSource_pa0
     a sysml:FeatureReferenceExpression ;
-    sysml:referent elmt:OGCAIE__EvaluationProcess__declareRequirements ;
-    sysx:sourceText "declareRequirements" .
+    sysml:referent elmt:OGCAIE__EvaluationProcess__determineAndAttest ;
+    sysx:sourceText "determineAndAttest" .
 
 expr:OGCAIE__EvaluationProcess___4037_pflowTarget
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__EvaluationProcess___4037_pflowTarget_pa0 ;
+    sysml:targetFeature "determinations" ;
+    sysx:endIndex "1"^^xsd:integer ;
+    sysx:sourceText "report.determinations" .
+
+expr:OGCAIE__EvaluationProcess___4037_pflowTarget_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__EvaluationProcess__report ;
+    sysx:sourceText "report" .
+
+expr:OGCAIE__EvaluationProcess___4038_pflowSource
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__EvaluationProcess___4038_pflowSource_pa0 ;
+    sysml:targetFeature "criteria" ;
+    sysx:endIndex "0"^^xsd:integer ;
+    sysx:sourceText "declareRequirements.criteria" .
+
+expr:OGCAIE__EvaluationProcess___4038_pflowSource_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__EvaluationProcess__declareRequirements ;
+    sysx:sourceText "declareRequirements" .
+
+expr:OGCAIE__EvaluationProcess___4038_pflowTarget
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__EvaluationProcess___4038_pflowTarget_pa0 ;
     sysml:targetFeature "criteria" ;
     sysx:endIndex "1"^^xsd:integer ;
     sysx:sourceText "report.criteria" .
 
-expr:OGCAIE__EvaluationProcess___4037_pflowTarget_pa0
+expr:OGCAIE__EvaluationProcess___4038_pflowTarget_pa0
     a sysml:FeatureReferenceExpression ;
     sysml:referent elmt:OGCAIE__EvaluationProcess__report ;
     sysx:sourceText "report" .
@@ -5165,6 +5348,15 @@ expr:OGCAIE__EvaluationProcess__declareRequirements__input_plowerBound
     sysx:sourceText "0" .
 
 expr:OGCAIE__EvaluationProcess__declareRequirements__input_pupperBound
+    a sysml:LiteralInfinity ;
+    sysx:sourceText "*" .
+
+expr:OGCAIE__EvaluationProcess__declareRequirements__representations_plowerBound
+    a sysml:LiteralInteger ;
+    sysml:value "1"^^xsd:integer ;
+    sysx:sourceText "1" .
+
+expr:OGCAIE__EvaluationProcess__declareRequirements__representations_pupperBound
     a sysml:LiteralInfinity ;
     sysx:sourceText "*" .
 
@@ -5304,6 +5496,15 @@ expr:OGCAIE__EvaluationProcess__scope__input_pupperBound
     a sysml:LiteralInfinity ;
     sysx:sourceText "*" .
 
+expr:OGCAIE__EvaluationProcess__scope__representations_plowerBound
+    a sysml:LiteralInteger ;
+    sysml:value "1"^^xsd:integer ;
+    sysx:sourceText "1" .
+
+expr:OGCAIE__EvaluationProcess__scope__representations_pupperBound
+    a sysml:LiteralInfinity ;
+    sysx:sourceText "*" .
+
 expr:OGCAIE__EvaluationTeam__domainExpert_plowerBound
     a sysml:LiteralInteger ;
     sysml:value "1"^^xsd:integer ;
@@ -5319,6 +5520,15 @@ expr:OGCAIE__EvaluationTeam__operator_plowerBound
     sysx:sourceText "1" .
 
 expr:OGCAIE__EvaluationTeam__operator_pupperBound
+    a sysml:LiteralInfinity ;
+    sysx:sourceText "*" .
+
+expr:OGCAIE__EvaluationTeam__representative_plowerBound
+    a sysml:LiteralInteger ;
+    sysml:value "1"^^xsd:integer ;
+    sysx:sourceText "1" .
+
+expr:OGCAIE__EvaluationTeam__representative_pupperBound
     a sysml:LiteralInfinity ;
     sysx:sourceText "*" .
 
@@ -6604,6 +6814,52 @@ expr:OGCAIE__OgCaieEvaluation__reportSeam_pend1_pa0_pa0
     sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
     sysx:sourceText "testingOrg" .
 
+expr:OGCAIE__OgCaieEvaluation__representationSeam_pend0
+    a sysml:FeatureChainExpression ;
+    ogm:endPart elmt:OGCAIE__EvaluationTeam__representative ;
+    ogm:resolvesTo elmt:OGCAIE__Representative__representationOut ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__representationSeam_pend0_pa0 ;
+    sysml:targetFeature "representationOut" ;
+    sysx:endIndex "0"^^xsd:integer ;
+    sysx:sourceText "testingOrg.team.representative.representationOut" .
+
+expr:OGCAIE__OgCaieEvaluation__representationSeam_pend0_pa0
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__representationSeam_pend0_pa0_pa0 ;
+    sysml:targetFeature "representative" ;
+    sysx:sourceText "testingOrg.team.representative" .
+
+expr:OGCAIE__OgCaieEvaluation__representationSeam_pend0_pa0_pa0
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__representationSeam_pend0_pa0_pa0_pa0 ;
+    sysml:targetFeature "team" ;
+    sysx:sourceText "testingOrg.team" .
+
+expr:OGCAIE__OgCaieEvaluation__representationSeam_pend0_pa0_pa0_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
+    sysx:sourceText "testingOrg" .
+
+expr:OGCAIE__OgCaieEvaluation__representationSeam_pend1
+    a sysml:FeatureChainExpression ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__recorder ;
+    ogm:resolvesTo elmt:OGCAIE__Recorder__representationIn ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__representationSeam_pend1_pa0 ;
+    sysml:targetFeature "representationIn" ;
+    sysx:endIndex "1"^^xsd:integer ;
+    sysx:sourceText "testingOrg.recorder.representationIn" .
+
+expr:OGCAIE__OgCaieEvaluation__representationSeam_pend1_pa0
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__representationSeam_pend1_pa0_pa0 ;
+    sysml:targetFeature "recorder" ;
+    sysx:sourceText "testingOrg.recorder" .
+
+expr:OGCAIE__OgCaieEvaluation__representationSeam_pend1_pa0_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
+    sysx:sourceText "testingOrg" .
+
 expr:OGCAIE__OgCaieEvaluation__requirementSeam_pend0
     a sysml:FeatureChainExpression ;
     ogm:endPart elmt:OGCAIE__EvaluationTeam__operator ;
@@ -6720,6 +6976,46 @@ expr:OGCAIE__OgCaieEvaluation__stakeholderInputSeam_pend1_pa0
     sysx:sourceText "testingOrg.recorder" .
 
 expr:OGCAIE__OgCaieEvaluation__stakeholderInputSeam_pend1_pa0_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
+    sysx:sourceText "testingOrg" .
+
+expr:OGCAIE__OgCaieEvaluation__stakeholderInputToRepresentativeSeam_pend0
+    a sysml:FeatureChainExpression ;
+    ogm:endPart elmt:OGCAIE__OgCaieEvaluation__affected ;
+    ogm:resolvesTo elmt:OGCAIE__AffectedPopulation__inputOut ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__stakeholderInputToRepresentativeSeam_pend0_pa0 ;
+    sysml:targetFeature "inputOut" ;
+    sysx:endIndex "0"^^xsd:integer ;
+    sysx:sourceText "affected.inputOut" .
+
+expr:OGCAIE__OgCaieEvaluation__stakeholderInputToRepresentativeSeam_pend0_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__OgCaieEvaluation__affected ;
+    sysx:sourceText "affected" .
+
+expr:OGCAIE__OgCaieEvaluation__stakeholderInputToRepresentativeSeam_pend1
+    a sysml:FeatureChainExpression ;
+    ogm:endPart elmt:OGCAIE__EvaluationTeam__representative ;
+    ogm:resolvesTo elmt:OGCAIE__Representative__inputIn ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__stakeholderInputToRepresentativeSeam_pend1_pa0 ;
+    sysml:targetFeature "inputIn" ;
+    sysx:endIndex "1"^^xsd:integer ;
+    sysx:sourceText "testingOrg.team.representative.inputIn" .
+
+expr:OGCAIE__OgCaieEvaluation__stakeholderInputToRepresentativeSeam_pend1_pa0
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__stakeholderInputToRepresentativeSeam_pend1_pa0_pa0 ;
+    sysml:targetFeature "representative" ;
+    sysx:sourceText "testingOrg.team.representative" .
+
+expr:OGCAIE__OgCaieEvaluation__stakeholderInputToRepresentativeSeam_pend1_pa0_pa0
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__stakeholderInputToRepresentativeSeam_pend1_pa0_pa0_pa0 ;
+    sysml:targetFeature "team" ;
+    sysx:sourceText "testingOrg.team" .
+
+expr:OGCAIE__OgCaieEvaluation__stakeholderInputToRepresentativeSeam_pend1_pa0_pa0_pa0
     a sysml:FeatureReferenceExpression ;
     sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
     sysx:sourceText "testingOrg" .

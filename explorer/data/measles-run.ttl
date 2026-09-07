@@ -101,6 +101,21 @@ run:stakeholder-input-1 a epo:StakeholderInput ;
     prov:generatedAtTime "2026-08-01T08:00:00Z"^^xsd:dateTime ;
     epo:step epo:scope .
 
+run:representation-commuters a epo:StakeholderRepresentation ;
+    rdfs:label "commuters, spoken for by Theo from the interview notes: transit safety and what to do when exposed on the way to work" ;
+    epo:represents run:commuters ;
+    prov:used run:stakeholder-input-1 ;
+    prov:wasAttributedTo run:theo ;
+    prov:generatedAtTime "2026-08-01T08:30:00Z"^^xsd:dateTime ;
+    epo:step epo:scope .
+
+run:representation-residents a epo:StakeholderRepresentation ;
+    rdfs:label "county residents, spoken for by Annie: accurate advice on exposure, vaccination and isolation for households" ;
+    epo:represents run:county-residents ;
+    prov:wasAttributedTo run:annie ;
+    prov:generatedAtTime "2026-08-01T08:45:00Z"^^xsd:dateTime ;
+    epo:step epo:scope .
+
 run:dso-apollo-sv-r1 a epo:DsoRelease ;
     rdfs:label "Apollo-SV (OBO Foundry) plus the Clark County 2019 outbreak facts, release r1" ;
     epo:version "apollo-sv-r1" ;

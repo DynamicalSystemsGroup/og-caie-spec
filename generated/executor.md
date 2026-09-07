@@ -17,5 +17,5 @@
 | executive-attests: the account executive attests instead of the domain expert | fails S6-Attestation | none | 0.6667 (0.50 / 0.50 / 0.00) | 2 | shapes S6-Attestation |
 | attest-without-determination: attestations aggregate no determination | fails S6-Attestation, S8-Recommendation | none | 0.6667 (0.50 / 0.50 / 0.00) | 0 | shapes S6-Attestation, S8-Recommendation; traceback (no row) |
 | requirements-before-agreement: the requirement set dated before the agreement | fails S0-Layers, S0-Parties | none | 0.6667 (0.50 / 0.50 / 0.00) | 2 | shapes S0-Layers, S0-Parties |
-| engagement-mismatch: the statement of work decides representation for a population the record only interviewed | fails S0-Population | none | 0.6667 (0.50 / 0.50 / 0.00) | 2 | shapes S0-Population |
+| engagement-mismatch: the statement of work decides an interview for a population the record only speaks for | fails S0-Population | none | 0.6667 (0.50 / 0.50 / 0.00) | 2 | shapes S0-Population |
 | skip-report-approval: the report delivered without a domain expert's approval of its contents | fails S8-Delivery | ReportApproval | 0.6667 (0.50 / 0.50 / 0.00) | 2 | shapes S8-Delivery; completeness (ReportApproval missing) |

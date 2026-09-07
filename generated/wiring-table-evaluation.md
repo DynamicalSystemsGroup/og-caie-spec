@@ -27,6 +27,7 @@
 | Recorder | recommendationIn | in | RecommendationWrite | recommendationSeam | from EvaluationOperator.recommendationOut |
 | Recorder | reportApprovalIn | in | ReportApprovalWrite | reportApprovalSeam | from DomainExpert.reportApprovalOut |
 | Recorder | reportIn | in | ReportWrite | reportSeam | from ReportAssembler.reportOut |
+| Recorder | representationIn | in | RepresentationWrite | representationSeam | from Representative.representationOut |
 | Recorder | requirementsIn | in | RequirementSetWrite | requirementSeam | from EvaluationOperator.requirementsOut |
 | Recorder | responseIn | in | ResponseWrite | responseSeam | from TestItem.responseOut |
 | Recorder | verdictIn | in | ConformanceVerdictWrite | verdictSeam | from ConformanceChecker.verdictOut |
@@ -35,6 +36,7 @@
 | Recorder | recordOut | out | RecordWrite | recordToDriverSeam | to TestDriver.recordIn |
 | ReportAssembler | recordIn | in | RecordWrite | recordToAssemblerSeam | from Recorder.recordOut |
 | ReportAssembler | reportOut | out | ReportWrite | reportSeam | to Recorder.reportIn |
+| Representative | representationOut | out | RepresentationWrite | representationSeam | to Recorder.representationIn |
 | TestDriver | recordIn | in | RecordWrite | recordToDriverSeam | from Recorder.recordOut |
 | TestDriver | probesOut | out | ProbeWrite | derivedProbeSeam | to EvaluationOperator.probesIn |
 | TestDriver | probesOut | out | ProbeWrite | probeRecordSeam | to Recorder.probeIn |

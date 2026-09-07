@@ -33,7 +33,7 @@ CONTRACT_KINDS = {"Mission", "StatementOfWork", "Need", "Proposal", "ServiceAgre
 DISPLAY = {"AccountExecutive": "authorized representative", "AccountableOrganization": "test item provider", "TestDriver": "test driver",
            "ReportAssembler": "report assembler", "ConformanceChecker": "conformance checker", "SponsorOrganization": "sponsor", "TestingOrganization": "testing organization",
            "AffectedPopulation": "affected population", "DomainExpert": "domain expert", "EvaluationOperator": "evaluation operator", "EvaluationTeam": "evaluation team",
-           "Recorder": "recorder", "TestItem": "test item"}
+           "Recorder": "recorder", "TestItem": "test item", "Representative": "population representative"}
 
 
 def display(defname: str) -> str:

@@ -17,6 +17,7 @@ For each kind of part, each port: its direction, the item kind it carries, and t
 | AccountableOrganization | accessOut | out | AccessWrite | accessSeam | to Recorder.accessIn |
 | AccountableOrganization | accessOut | out | AccessWrite | accessToOperatorSeam | to EvaluationOperator.accessIn |
 | AffectedPopulation | inputOut | out | StakeholderInputWrite | stakeholderInputSeam | to Recorder.inputIn |
+| AffectedPopulation | inputOut | out | StakeholderInputWrite | stakeholderInputToRepresentativeSeam | to Representative.inputIn |
 | ConformanceChecker | recordIn | in | RecordWrite | recordToCheckerSeam | from Recorder.recordOut |
 | ConformanceChecker | verdictOut | out | ConformanceVerdictWrite | verdictSeam | to Recorder.verdictIn |
 | DomainExpert | assessmentOut | out | AssessmentWrite | assessmentSeam | to Recorder.assessmentIn |
@@ -53,6 +54,7 @@ For each kind of part, each port: its direction, the item kind it carries, and t
 | Recorder | recommendationIn | in | RecommendationWrite | recommendationSeam | from EvaluationOperator.recommendationOut |
 | Recorder | reportApprovalIn | in | ReportApprovalWrite | reportApprovalSeam | from DomainExpert.reportApprovalOut |
 | Recorder | reportIn | in | ReportWrite | reportSeam | from ReportAssembler.reportOut |
+| Recorder | representationIn | in | RepresentationWrite | representationSeam | from Representative.representationOut |
 | Recorder | requirementsIn | in | RequirementSetWrite | requirementSeam | from EvaluationOperator.requirementsOut |
 | Recorder | responseIn | in | ResponseWrite | responseSeam | from TestItem.responseOut |
 | Recorder | statementOfWorkIn | in | StatementOfWorkWrite | statementOfWorkSeam | from SponsorOrganization.statementOfWorkOut |
@@ -62,6 +64,8 @@ For each kind of part, each port: its direction, the item kind it carries, and t
 | Recorder | recordOut | out | RecordWrite | recordToDriverSeam | to TestDriver.recordIn |
 | ReportAssembler | recordIn | in | RecordWrite | recordToAssemblerSeam | from Recorder.recordOut |
 | ReportAssembler | reportOut | out | ReportWrite | reportSeam | to Recorder.reportIn |
+| Representative | inputIn | in | StakeholderInputWrite | stakeholderInputToRepresentativeSeam | from AffectedPopulation.inputOut |
+| Representative | representationOut | out | RepresentationWrite | representationSeam | to Recorder.representationIn |
 | SponsorOrganization | deliveryIn | in | DeliveryWrite | deliverySeam | from AccountExecutive.deliveryOut |
 | SponsorOrganization | proposalIn | in | ProposalWrite | proposalToSponsorSeam | from AccountExecutive.proposalOut |
 | SponsorOrganization | acceptanceOut | out | AcceptanceWrite | acceptanceSeam | to Recorder.acceptanceIn |

@@ -137,6 +137,14 @@ package OGCAIE {
            expert, and the record names who represents them (R-21). */
         attribute id : ScalarValues::String;
     }
+    item def StakeholderRepresentation {
+        doc /* What a representative says on behalf of an affected
+           population, built from its interview when there was one:
+           representation is always present for a named population, the
+           interview layer is optional and feeds it (walkthrough B3, R-49).
+           Pinned within the evaluation. */
+        attribute id : ScalarValues::String;
+    }
     item def DsoRelease {
         doc /* A versioned release of the Domain-Specific Ontology,
            approved by a named domain expert before any probe is derived. */
@@ -252,6 +260,7 @@ package OGCAIE {
     port def AgreementWrite { out item i : ServiceAgreement; }
     port def AccessWrite { out item i : TestItemAccess; }
     port def StakeholderInputWrite { out item i : StakeholderInput; }
+    port def RepresentationWrite { out item i : StakeholderRepresentation; }
     port def DsoWrite { out item i : DsoRelease; }
     port def RequirementSetWrite { out item i : RequirementSet; }
     port def AssessmentWrite { out item i : AppropriatenessAssessment; }
@@ -282,6 +291,7 @@ package OGCAIE {
     interface def AgreementSeam { end supplier : AgreementWrite; end consumer : ~AgreementWrite; }
     interface def AccessSeam { end supplier : AccessWrite; end consumer : ~AccessWrite; }
     interface def StakeholderInputSeam { end supplier : StakeholderInputWrite; end consumer : ~StakeholderInputWrite; }
+    interface def RepresentationSeam { end supplier : RepresentationWrite; end consumer : ~RepresentationWrite; }
     interface def DsoSeam { end supplier : DsoWrite; end consumer : ~DsoWrite; }
     interface def RequirementSeam { end supplier : RequirementSetWrite; end consumer : ~RequirementSetWrite; }
     interface def AssessmentSeam { end supplier : AssessmentWrite; end consumer : ~AssessmentWrite; }
@@ -358,8 +368,8 @@ package OGCAIE {
         out reportApproval : ReportApproval;
         out recommendation : Recommendation;
         out record : EvaluationRecord;
-        action scope { in agreement : ServiceAgreement; in statementOfWork : StatementOfWork; out input : StakeholderInput[0..*]; out dso : DsoRelease; }
-        action declareRequirements { in agreement : ServiceAgreement; in dso : DsoRelease; in input : StakeholderInput[0..*];
+        action scope { in agreement : ServiceAgreement; in statementOfWork : StatementOfWork; out input : StakeholderInput[0..*]; out representations : StakeholderRepresentation[1..*]; out dso : DsoRelease; }
+        action declareRequirements { in agreement : ServiceAgreement; in dso : DsoRelease; in input : StakeholderInput[0..*]; in representations : StakeholderRepresentation[1..*];
             out requirements : RequirementSet; out criteria : AcceptanceCriterion[1..*]; out assessment : AppropriatenessAssessment; }
         action plan { in requirements : RequirementSet; in criteria : AcceptanceCriterion[1..*]; in dso : DsoRelease;
             out testPlan : TestPlan; out approval : PlanApproval; out strategy : Strategy[0..1]; out probes : Probe[1..*]; }
@@ -383,6 +393,7 @@ package OGCAIE {
         bind recommendation = report.recommendation;
         flow scope.dso to declareRequirements.dso;
         flow scope.input to declareRequirements.input;
+        flow scope.representations to declareRequirements.representations;
         flow scope.dso to plan.dso;
         flow declareRequirements.requirements to plan.requirements;
         flow declareRequirements.criteria to plan.criteria;
@@ -488,12 +499,22 @@ package OGCAIE {
         port recommendationOut : RecommendationWrite;
     }
 
+    part def Representative :> Person {
+        doc /* Speaks on behalf of an affected population, as the statement
+           of work decided: every named population has one; a domain expert
+           may be one; the population's interview, when it had one, feeds
+           the representation (walkthrough B3, R-49). */
+        port inputIn : ~StakeholderInputWrite;
+        port representationOut : RepresentationWrite;
+    }
+
     part def EvaluationTeam {
         doc /* The evaluation team (refined from ISO 9000:2026 3.12.7 audit
            team): at least one domain expert and at least one evaluation
            operator, distinct actor categories (rulings R-10, R-23). */
         part domainExpert : DomainExpert[1..*];
         part operator : EvaluationOperator[1..*];
+        part representative : Representative[1..*];
     }
 
     part def TestItem :> Machine {
@@ -564,6 +585,7 @@ package OGCAIE {
         port accessIn : ~AccessWrite;
         port acceptanceIn : ~AcceptanceWrite;
         port inputIn : ~StakeholderInputWrite;
+        port representationIn : ~RepresentationWrite;
         port dsoIn : ~DsoWrite;
         port requirementsIn : ~RequirementSetWrite;
         port assessmentIn : ~AssessmentWrite;
@@ -633,6 +655,8 @@ package OGCAIE {
         interface accessSeam : AccessSeam connect accountable.accessOut to testingOrg.recorder.accessIn;
         interface accessToOperatorSeam : AccessSeam connect accountable.accessOut to testingOrg.team.operator.accessIn;
         interface stakeholderInputSeam : StakeholderInputSeam connect affected.inputOut to testingOrg.recorder.inputIn;
+        interface stakeholderInputToRepresentativeSeam : StakeholderInputSeam connect affected.inputOut to testingOrg.team.representative.inputIn;
+        interface representationSeam : RepresentationSeam connect testingOrg.team.representative.representationOut to testingOrg.recorder.representationIn;
         interface dsoSeam : DsoSeam connect testingOrg.team.domainExpert.dsoOut to testingOrg.recorder.dsoIn;
         interface requirementSeam : RequirementSeam connect testingOrg.team.operator.requirementsOut to testingOrg.recorder.requirementsIn;
         interface assessmentSeam : AssessmentSeam connect testingOrg.team.domainExpert.assessmentOut to testingOrg.recorder.assessmentIn;

@@ -26,7 +26,7 @@ epo: a owl:Ontology ;
 # them, and ISO/IEC 17000's functions (selection, determination, review,
 # decision and attestation). The steps are operationalized, not invented.
 epo:EpoStep a owl:Class ; rdfs:label "EPO step" .
-epo:scope a epo:EpoStep ; rdfs:label "1 scope: interview or represent the affected populations; build or select the DSO release; declare the operational environment" ;
+epo:scope a epo:EpoStep ; rdfs:label "1 scope: every affected population represented, with its interview when the statement of work decided one; build or select the DSO release; declare the operational environment" ;
     ogc:canonical [ ogc:cites src:sebok-2-14 ; ogc:locator "Stakeholder Needs and Requirements, p. 549 (Stakeholder Needs Definition, Concept Definition)" ; ogc:pdfPage 549 ; ogc:quote "Stakeholder Needs Definition, the second process in Concept Definition, explores what capabilities are needed by various stakeholders for the system-of-interest (SoI) to accomplish the mission." ; ogc:quoteStatus "machine" ] ;
     ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "Annex A, A.2 Selection (the functional approach)" ] .
 epo:declareRequirements a epo:EpoStep ; rdfs:label "2 declare the requirement set (operational envelope): requirements, acceptance criteria, weights; the domain expert assesses its appropriateness" ;
@@ -181,6 +181,8 @@ epo:TestItemAccess a owl:Class ; rdfs:subClassOf prov:Entity ; ogc:pinnedAt epo:
 epo:StakeholderInput a owl:Class ; rdfs:subClassOf prov:Entity ; ogc:pinnedAt epo:evaluation ; rdfs:label "stakeholder input: what an interviewed population said" ; ogc:term term:stakeholder .
 epo:Delivery a owl:Class ; rdfs:subClassOf prov:Entity ; ogc:pinnedAt epo:contract ; rdfs:label "delivery: the report and the recommendation handed to the sponsor by the authorized representative (R-24)" ;
     rdfs:comment "no term: SEVOCAB delivery is cited on step C5; the item carries the report and the recommendation, whose terms are performance, test coverage and guardrail" .
+epo:StakeholderRepresentation a owl:Class ; ogc:pinnedAt epo:evaluation ; rdfs:subClassOf prov:Entity ; rdfs:label "stakeholder representation: what a representative says on behalf of an affected population, built from its interview when there was one (walkthrough B3, R-49)" ; ogc:term term:stakeholder .
+epo:represents a owl:ObjectProperty ; rdfs:domain epo:StakeholderRepresentation ; rdfs:range epo:Population ; rdfs:comment "the population spoken for" .
 epo:DsoRelease a owl:Class ; ogc:pinnedAt epo:evaluation ; rdfs:subClassOf prov:Entity ; rdfs:label "DSO release" ; ogc:term term:domain-specific-ontology .
 epo:RequirementSet a owl:Class ; ogc:pinnedAt epo:evaluation ; rdfs:subClassOf prov:Entity ; rdfs:label "requirement set (operational envelope): the requirements one system under test must meet in one operational environment (R-14)" ; ogc:term term:operational-envelope .
 epo:Requirement a owl:Class ; ogc:pinnedAt epo:evaluation ; rdfs:subClassOf prov:Entity ; rdfs:label "requirement" ; ogc:term term:requirement .

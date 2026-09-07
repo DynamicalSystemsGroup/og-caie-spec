@@ -45,9 +45,10 @@ the recorder, the machine that keeps the record. Input wires are unique,
 output wires fan out. One item sits on the boundary between the contract
 and its fulfilment: the {term}`statement of work`, the sponsor's
 scope-of-work decision that says, for each affected population, whether it
-is interviewed, with its stakeholder needs documented as input, or
-represented by the domain expert. Decided with the agreement, it is what
-the scope step consumes, and the record must realize it either way.
+is interviewed before it is spoken for. A representative on the team speaks
+for every population; the interview, when decided, feeds that representation.
+Decided with the agreement, it is what the scope step consumes, and the
+record must realize it either way.
 
 The figure is one view of the model: wires between the same two parts are
 braided into one bundle labelled by what flows, in the order it is
@@ -86,8 +87,9 @@ record. It needed to know whether its chatbot could give measles advice to
 the public. Humane Intelligence proposed an OG-CAIE evaluation; Mala, its
 authorized representative, signed for it on 31 July with the county; the chatbot's
 vendor opened API access to version 1 the same day. Two populations were
-affected: commuters, who were interviewed, and county residents, whom
-Annie, the domain expert, represents. The split was the county's decision in its statement of work, made with
+affected: commuters, interviewed and then spoken for by Theo from the
+interview, and county residents, spoken for by Annie, the domain expert,
+without one. The split was the county's decision in its statement of work, made with
 the agreement: representation is the common case, and interviews are
 reserved for underdocumented needs because of the effort they cost; the
 commuters' needs were underdocumented, the residents' were not. After the
@@ -124,9 +126,9 @@ S0-Proposal, S0-Layers and S9-Acceptance run over the record; M1-Parties,
 M1-Obligation and M5-Cardinality run over the model graph. Three
 counterexamples, records and a model broken on purpose, must fail: a
 requirement set declared before the agreement was signed fails the layer
-rule; an affected population neither interviewed nor represented fails
+rule; an affected population nobody speaks for fails
 S0-Population, and so does a population the statement of work said would be
-interviewed but the record only represents; a model with a sponsor and
+interviewed but the record only speaks for; a model with a sponsor and
 populations but no obligation between them fails M1-Obligation.
 
 :::{admonition} Verdict

@@ -50,6 +50,9 @@ run:probe-deriver a prov:Agent, prov:SoftwareAgent ; rdfs:label "test driver" ; 
 run:pyshacl a prov:Agent, prov:SoftwareAgent ; rdfs:label "pySHACL (conformance checker)" ; epo:version "0.27" ; prov:actedOnBehalfOf run:humane-intelligence .
 run:coverage-calculator a prov:Agent, prov:SoftwareAgent ; rdfs:label "report assembler (queries/coverage.rq)" ; epo:version "0.1" ; prov:actedOnBehalfOf run:humane-intelligence .
 
+run:representation-commuters a epo:StakeholderRepresentation ; epo:represents run:commuters ; prov:used run:stakeholder-input-1 ; prov:wasAttributedTo run:theo ; prov:generatedAtTime "2026-08-01T08:30:00Z"^^xsd:dateTime ; epo:step epo:scope .
+run:representation-residents a epo:StakeholderRepresentation ; epo:represents run:county-residents ; prov:wasAttributedTo run:annie ; prov:generatedAtTime "2026-08-01T08:45:00Z"^^xsd:dateTime ; epo:step epo:scope .
+
 # ---- the contracting lifecycle (R-32): C1 need, C2 propose, C3 agree, C4 access; C5 deliver and C6 accept after the evaluation
 run:mission-1 a epo:Mission ;
     rdfs:label "the county public-health office exists to protect the health of county residents and of the people who pass through the county, and is obliged to inform the public accurately during an outbreak" ;

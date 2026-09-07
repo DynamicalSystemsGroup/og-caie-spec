@@ -44,9 +44,9 @@ pending, [defined on the vocabulary page](glossary.md#quote-tags):
 
 The evaluation slice of the wiring, in the parts, ports and wires the
 previous chapter defined. Two actor categories do the work: the
-{term}`domain expert <technical expert>` engages the affected populations
-as the statement of work decided, interviewing or representing each,
-supplies or approves the DSO release, assesses the appropriateness of the
+{term}`domain expert <technical expert>`, with the team's population
+representatives, speaks for each affected population as the statement of
+work decided, from its interview if any, supplies or approves the DSO release, assesses the appropriateness of the
 requirement set, approves the plan, and attests; the
 {term}`evaluation operator` declares the requirements, writes the plan,
 applies the probes to the {term}`test item`, collects the evidence and
@@ -110,7 +110,8 @@ The essential on attestations as the tool prints it:
 ## The walkthrough
 
 Annie, the domain expert, approved the DSO release on 1 August, after the
-commuters were interviewed and county residents represented: Apollo-SV, the
+commuters had been interviewed and spoken for, and the county residents
+spoken for: Apollo-SV, the
 Apollo Structured Vocabulary of infectious-disease epidemiology, an ontology
 published through the OBO Foundry (the Open Biological and Biomedical
 Ontologies library), plus the facts of the 2019 measles outbreak in Clark

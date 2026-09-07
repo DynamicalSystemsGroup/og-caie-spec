@@ -15,6 +15,7 @@ cx:exec a prov:Agent, prov:Person ; epo:role epo:accountExecutiveRole ; prov:act
 cx:expert a prov:Agent, prov:Person ; epo:role epo:domainExpertRole ; prov:actedOnBehalfOf cx:testing .
 cx:operator a prov:Agent, prov:Person ; epo:role epo:evaluationOperatorRole ; prov:actedOnBehalfOf cx:testing .
 cx:population a prov:Agent, epo:Population ; epo:representedBy cx:expert .
+cx:representation a epo:StakeholderRepresentation ; epo:represents cx:population ; prov:wasAttributedTo cx:expert ; prov:generatedAtTime "2026-07-31T02:00:00Z"^^xsd:dateTime .
 cx:sow a epo:StatementOfWork ; epo:decides cx:decision ; prov:wasAttributedTo cx:sponsor ; prov:generatedAtTime "2026-07-31T00:30:00Z"^^xsd:dateTime ; epo:step epo:agree .
 cx:decision a epo:EngagementDecision ; epo:population cx:population ; epo:engagement epo:interview .
 cx:sut a prov:Agent, prov:SoftwareAgent, earl:TestSubject ; epo:version "v1" ; prov:actedOnBehalfOf cx:accountable .

@@ -58,7 +58,9 @@ PREFIXES = {"sysml": SYS, "sysx": SYSX, "ogm": OGM, "elmt": Namespace("urn:sysml
 #     two seams and three ports, measured after the build.
 #   2026-09-06 bumped to 6300 (R-49): the report step opened (verdict, report
 #     approval), one more access wire, measured after the build.
-TRIPLE_BUDGET = 6300
+#   2026-09-06 bumped to 6600 (R-49, B3): the representative and the
+#     representation, series wiring after the interview.
+TRIPLE_BUDGET = 6600
 TRIPLE_BUDGET_RATIONALE = ("Parsimony gate on the canonical model graph: the structure-only model "
                            "plus resolved ends; bump with a rationale when a seam or a party is added.")
 
