@@ -17,12 +17,12 @@ from conftest import OGC, ROOT, load, normalized
 
 logging.getLogger("pypdf").setLevel(logging.ERROR)
 
-TERMS = 62
+TERMS = 66  # 62 before the tbox audit (sheet 08): evaluation service provider, test item provider, evaluation customer, test item customer
 COINED = 4
-MACHINE_QUOTES = 85
+MACHINE_QUOTES = 86  # sheet 08: authorized representative anchored to SEVOCAB acceptance
 COMMITTED_MACHINE_QUOTES = 11  # NIST AI 700-2 (7), NIST AI 100-1 (1), NIST TN 1297 (2), W3C EARL (1): always locatable, in CI too
 PENDING_QUOTES = 0
-HUMAN_QUOTES = 48
+HUMAN_QUOTES = 57  # sheet 08: the four party specializations reuse the verified ISO 9000 and ISO/IEC 17000 quotes; top management left
 PENDING_ALLOWED_SOURCES = {"iso-9000-2026", "iso-iec-17000-2020", "iec-60050-351"}
 
 
