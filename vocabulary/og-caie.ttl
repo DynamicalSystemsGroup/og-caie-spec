@@ -541,11 +541,12 @@ term:appropriateness a skos:Concept ; skos:inScheme ogc:Glossary ;
                   ogc:quote "The measure of the quality of audit evidence; that is, its relevance and its reliability" ; ogc:quoteStatus "machine" ] ;
     ogc:seeAlso [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.11.2 review" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-30.png" ;
                   ogc:quote "determination of the suitability, adequacy or effectiveness of an object to achieve established objectives" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
+    ogc:scopeNote "Sheet 10-12 (R-50), in Z's words: appropriateness covers the assumptions and the test planning: no amount of evidence helps if the plan, the strategy and their assumptions are not appropriate for what they aim to determine. Shape S6 allows an inappropriate context only a cannot-tell or inapplicable outcome." ;
     prov:wasDerivedFrom rul:R-08 ;
     skos:related term:attestation ;
     skos:related term:sufficiency ;
     skos:related term:validation ;
-    ogc:binding "epo:appropriateness on Attestation; sysml enum Appropriateness" .
+    ogc:binding "epo:appropriateness on Attestation; sysml enum Appropriateness; judgment rules in shape S6" .
 
 term:sufficiency a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "sufficiency"@en ;
@@ -555,11 +556,12 @@ term:sufficiency a skos:Concept ; skos:inScheme ogc:Glossary ;
                     ogc:quote "it is being asserted that the evidence put forward is sufficient to support the claim" ; ogc:quoteStatus "machine" ] ;
     ogc:seeAlso [ ogc:cites src:isa-500 ; ogc:locator "paragraph 5(f) (first sentence of the paragraph)" ; ogc:pdfPage 2 ;
                   ogc:quote "The measure of the quantity of audit evidence." ; ogc:quoteStatus "machine" ] ;
+    ogc:scopeNote "Sheet 10-12 (R-50), in Z's words: sufficiency relates the evidence to the claim that a requirement is met or not: insufficient evidence implies cannot tell, sufficient evidence can give pass or fail. One failing response can suffice to show a criterion unmet in that instance; shape S6 holds the rule." ;
     prov:wasDerivedFrom rul:R-08 ;
     skos:related term:attestation ;
     skos:related term:appropriateness ;
     skos:related term:objective-evidence ;
-    ogc:binding "epo:sufficiency on Attestation; sysml enum Sufficiency; closure rule in shape S6" .
+    ogc:binding "epo:sufficiency on Attestation; sysml enum Sufficiency; judgment rules in shape S6" .
 
 term:ontology a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "ontology"@en ;
