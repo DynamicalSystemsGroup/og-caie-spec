@@ -1,5 +1,5 @@
-# Counterexample for S7-CoverageComputation: the final report's coverage computation names neither the shapes, the ontology nor the coverage query it ran by their digests (sheet 10-18).
-# Must fail on ogc:S7-CoverageComputation and nothing else.
+# Counterexample for S0-Parties: the county public-health office, which holds the test item customer role and deploys the chatbot, declares that it has no user interest in it: the declaration disagrees with the role (ISO/IEC 17000 4.4; sheet 10-07; drift pass 4, contracting officer 12).
+# Must fail on ogc:S0-Parties and nothing else.
 # A copy of track/measles-evaluation.ttl with one change (sheet 10-19; written by scripts/render_counterexamples.py).
 @prefix ev:   <https://w3id.org/og-caie/evaluation/measles#> .
 @prefix epo:  <https://w3id.org/og-caie/epo#> .
@@ -101,7 +101,7 @@ ev:independence-declaration-1 a epo:IndependenceDeclaration ;
 
 ev:user-interest-declaration-1 a epo:UserInterestDeclaration ;
     rdfs:label "the county public-health office declares that it has a user interest in the chatbot, which it deploys to the public" ;
-    epo:hasUserInterest true ;
+    epo:hasUserInterest false ;
     prov:wasAttributedTo ev:dana-okafor ;
     prov:generatedAtTime "2026-07-31T10:15:00Z"^^xsd:dateTime .
 
@@ -689,7 +689,7 @@ ev:coverage-computation a epo:CoverageComputation ;
     prov:used ev:conformance-verdict-1 ;
     prov:wasAssociatedWith ev:report-assembler ;
     earl:mode earl:automatic ;
-    epo:shapesDigest "not recorded" ; epo:ontologyDigest "not recorded" ; epo:queryDigest "not recorded" ;
+    epo:shapesDigest "ea74f869046a3d427092f7a6d456819168428fb51d307fee6016fc46f60db8c5" ; epo:ontologyDigest "0a7cacfca8a29515a4349e93dd514a77eae575154831f60efa49ed40639533be" ; epo:queryDigest "ecc9688b862ffd77beae1e94d4cba1ae07701ca7521f2cff63b908da90eb9bb3" ;
     prov:endedAtTime "2026-08-12T10:00:00Z"^^xsd:dateTime .
 
 ev:report a epo:Report ;

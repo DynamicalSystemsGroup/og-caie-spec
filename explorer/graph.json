@@ -6515,6 +6515,12 @@
      }
     ],
     [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/user-interest-denied.ttl"
+     }
+    ],
+    [
      "rdf:type",
      {
       "text": "sh:NodeShape"
@@ -6578,6 +6584,12 @@
      "sh:sparql",
      {
       "text": "[sh:message S0: the testing organization's independ…; sh:select PREFIX epo: <https://w3id.org/og-caie/e…]"
+     }
+    ],
+    [
+     "sh:sparql",
+     {
+      "text": "[sh:message S0: the user-interest declaration agree…; sh:select PREFIX epo: <https://w3id.org/og-caie/e…]"
      }
     ],
     [
@@ -7310,6 +7322,12 @@
      }
     ],
     [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/session-outside-access-period.ttl"
+     }
+    ],
+    [
      "rdf:type",
      {
       "text": "sh:NodeShape"
@@ -7319,6 +7337,12 @@
      "sh:property",
      {
       "text": "[sh:datatype http://www.w3.org/2001/XMLSchema#dateTi…; sh:maxCount 1; sh:minCount 1; sh:path http://www.w3.org/ns/prov#startedAtTime]"
+     }
+    ],
+    [
+     "sh:sparql",
+     {
+      "text": "[sh:message S4 access period (sheet 10-04; drift pa…; sh:select PREFIX epo: <https://w3id.org/og-caie/e…]"
      }
     ],
     [
@@ -14136,13 +14160,13 @@
     [
      "epo:recordDigest",
      {
-      "text": "81ec5a38fe4479966fd7219d0baa5ddd6563b49f35ec94b3f19be8a4842109c3"
+      "text": "6443d24357a94b386f828e3fc6d3fa27ab9dba3ffa7c2535a94d45124f46ad59"
      }
     ],
     [
      "epo:shapesDigest",
      {
-      "text": "3fa00f1459936636e66671f16548cdcbb8fd37d5b4f82b3e47b36ff7c9a3e07d"
+      "text": "ea74f869046a3d427092f7a6d456819168428fb51d307fee6016fc46f60db8c5"
      }
     ],
     [
@@ -15183,7 +15207,7 @@
     [
      "epo:shapesDigest",
      {
-      "text": "3fa00f1459936636e66671f16548cdcbb8fd37d5b4f82b3e47b36ff7c9a3e07d"
+      "text": "ea74f869046a3d427092f7a6d456819168428fb51d307fee6016fc46f60db8c5"
      }
     ],
     [
@@ -15296,7 +15320,7 @@
     [
      "epo:shapesDigest",
      {
-      "text": "3fa00f1459936636e66671f16548cdcbb8fd37d5b4f82b3e47b36ff7c9a3e07d"
+      "text": "ea74f869046a3d427092f7a6d456819168428fb51d307fee6016fc46f60db8c5"
      }
     ],
     [
@@ -66589,7 +66613,7 @@
   },
   {
    "cls": "shape",
-   "desc": "Targets epo:ServiceAgreement. S0: exactly one organization of the record holds each of the sponsor (evaluation customer), testing (evaluation service provider) and test item provider roles (R-21). S0: the agreement is an item of the agree step: its class realizes an item kind the model's agree step produces (the step is derived through the model graph, sheet 10-33). S0: the agreement is signed by the authorized representative, a named person acting on behalf of the testing organization, the evaluation service provider (R-23; sheet 09). S0: the agreement is signed by the sponsor's signatory, a named person acting on behalf of the sponsor organization, the evaluation customer (sheet 10-06). S0: the agreement precedes the requirement set: requirements are agreed under the contract, not before it (R-21). S0: the provider fact agrees with the roles (sheet 10-09): the organization that says it provides the test item holds the test item provider's role and the one that holds the role says so; a sponsor that says it does not provide it does not hold the role. S0: the sponsor's user interest is declared, not assumed (sheet 10-07): a user-interest declaration in the record, attributed to the sponsor's signatory and dated, says true or false. S0: the testing organization's independence is declared, not assumed (sheet 10-07): an independence declaration in the record, attributed to the authorized representative and dated, names the test item provider it is independent of; a testing organization that holds the test item provider's role declares no such independence. The agreement accepts the proposal (sheet 10-05).",
+   "desc": "Targets epo:ServiceAgreement. S0: exactly one organization of the record holds each of the sponsor (evaluation customer), testing (evaluation service provider) and test item provider roles (R-21). S0: the agreement is an item of the agree step: its class realizes an item kind the model's agree step produces (the step is derived through the model graph, sheet 10-33). S0: the agreement is signed by the authorized representative, a named person acting on behalf of the testing organization, the evaluation service provider (R-23; sheet 09). S0: the agreement is signed by the sponsor's signatory, a named person acting on behalf of the sponsor organization, the evaluation customer (sheet 10-06). S0: the agreement precedes the requirement set: requirements are agreed under the contract, not before it (R-21). S0: the provider fact agrees with the roles (sheet 10-09): the organization that says it provides the test item holds the test item provider's role and the one that holds the role says so; a sponsor that says it does not provide it does not hold the role. S0: the sponsor's user interest is declared, not assumed (sheet 10-07): a user-interest declaration in the record, attributed to the sponsor's signatory and dated, says true or false. S0: the testing organization's independence is declared, not assumed (sheet 10-07): an independence declaration in the record, attributed to the authorized representative and dated, names the test item provider it is independent of; a testing organization that holds the test item provider's role declares no such independence. S0: the user-interest declaration agrees with the roles (sheet 10-07; drift pass 4, contracting officer 12): a sponsor that holds the test item customer role, receiving the test item it commissions the evaluation of, declares a user interest, not its absence (ISO/IEC 17000 4.4). The agreement accepts the proposal (sheet 10-05).",
    "id": "https://w3id.org/og-caie/S0-Parties",
    "label": "S0-Parties",
    "ogc": "ogc sparql \"DESCRIBE ogc:S0-Parties\"",
@@ -66709,7 +66733,7 @@
   },
   {
    "cls": "shape",
-   "desc": "Targets epo:Session. S4 binding (sheet 10-17): the session's software agent is the system under test the record's requirement set binds, and every determination on evidence from this session names that agent as its subject. S4: a session has at least one turn. S4: a session must be associated with a named person in the evaluation operator role; administering tests is the operator's activity, not the domain expert's (R-10, R-23). S4: a session must be associated with a versioned software agent (the system under test).",
+   "desc": "Targets epo:Session. S4 access period (sheet 10-04; drift pass 4, contracting officer 4): a session runs within the period the record's access grant states for the session's test item: it starts no earlier than epo:accessFrom, and neither starts nor ends after epo:accessUntil. The period the contract fixed binds the sessions. S4 binding (sheet 10-17): the session's software agent is the system under test the record's requirement set binds, and every determination on evidence from this session names that agent as its subject. S4: a session has at least one turn. S4: a session must be associated with a named person in the evaluation operator role; administering tests is the operator's activity, not the domain expert's (R-10, R-23). S4: a session must be associated with a versioned software agent (the system under test).",
    "id": "https://w3id.org/og-caie/S4-Session",
    "label": "S4-Session",
    "ogc": "ogc sparql \"DESCRIBE ogc:S4-Session\"",

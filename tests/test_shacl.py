@@ -30,6 +30,8 @@ NEW_SHAPES = ["S0-Independence", "S0-Member", "S0-Record", "S0-Roles", "S3-PlanD
 DRIFT_PASS_4 = {
     "dso-approval-undated": "S1-DsoRelease",              # QA 9: the DSO approval is dated (epo:approvedAt)
     "assessment-after-session": "S2-RequirementSet",      # QA 9: the appropriateness assessment precedes the sessions
+    "session-outside-access-period": "S4-Session",        # contracting officer 4: the access period binds the sessions
+    "user-interest-denied": "S0-Parties",                 # contracting officer 12: the user-interest declaration agrees with the customer role
 }
 
 

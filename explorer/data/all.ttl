@@ -4883,7 +4883,11 @@ ogc:S4-TestSuite a sh:NodeShape ;
     sh:targetClass epo:TestSuite .
 
 ogc:S4-Turn a sh:NodeShape ;
-    sh:property [ sh:datatype xsd:integer ;
+    sh:property [ sh:class epo:Session ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path epo:inSession ],
+        [ sh:datatype xsd:integer ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
             sh:minInclusive 1 ;
@@ -4892,11 +4896,7 @@ ogc:S4-Turn a sh:NodeShape ;
             sh:maxCount 1 ;
             sh:message "A turn applies exactly one probe." ;
             sh:minCount 1 ;
-            sh:path prov:used ],
-        [ sh:class epo:Session ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path epo:inSession ] ;
+            sh:path prov:used ] ;
     sh:targetClass epo:Turn .
 
 ogc:S5-Response a sh:NodeShape ;
@@ -5586,7 +5586,7 @@ ev:coverage-computation a epo:CoverageComputation ;
     prov:wasAssociatedWith ev:report-assembler ;
     epo:ontologyDigest "0a7cacfca8a29515a4349e93dd514a77eae575154831f60efa49ed40639533be" ;
     epo:queryDigest "ecc9688b862ffd77beae1e94d4cba1ae07701ca7521f2cff63b908da90eb9bb3" ;
-    epo:shapesDigest "3fa00f1459936636e66671f16548cdcbb8fd37d5b4f82b3e47b36ff7c9a3e07d" ;
+    epo:shapesDigest "ea74f869046a3d427092f7a6d456819168428fb51d307fee6016fc46f60db8c5" ;
     ogc:inRecord ev:record ;
     ogc:synthetic true .
 
@@ -5602,7 +5602,7 @@ ev:coverage-computation-draft a epo:CoverageComputation ;
     prov:wasAssociatedWith ev:report-assembler ;
     epo:ontologyDigest "0a7cacfca8a29515a4349e93dd514a77eae575154831f60efa49ed40639533be" ;
     epo:queryDigest "ecc9688b862ffd77beae1e94d4cba1ae07701ca7521f2cff63b908da90eb9bb3" ;
-    epo:shapesDigest "3fa00f1459936636e66671f16548cdcbb8fd37d5b4f82b3e47b36ff7c9a3e07d" ;
+    epo:shapesDigest "ea74f869046a3d427092f7a6d456819168428fb51d307fee6016fc46f60db8c5" ;
     ogc:inRecord ev:record ;
     ogc:synthetic true .
 
@@ -10223,7 +10223,13 @@ ogc:S4-Session a sh:NodeShape ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
             sh:path prov:startedAtTime ] ;
-    sh:sparql [ sh:message "S4: a session must be associated with a versioned software agent (the system under test)." ;
+    sh:sparql [ sh:message "S4: a session has at least one turn." ;
+            sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX ogc: <https://w3id.org/og-caie/>
+            SELECT $this WHERE { $this ogc:inRecord ?rec . FILTER NOT EXISTS { ?t a epo:Turn ; ogc:inRecord ?rec ; epo:inSession $this } }
+        """ ],
+        [ sh:message "S4: a session must be associated with a versioned software agent (the system under test)." ;
             sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX prov: <http://www.w3.org/ns/prov#>
@@ -10250,15 +10256,26 @@ ogc:S4-Session a sh:NodeShape ;
             PREFIX prov: <http://www.w3.org/ns/prov#>
             SELECT $this WHERE { FILTER NOT EXISTS { $this prov:wasAssociatedWith ?p . ?p a prov:Person ; epo:role epo:evaluationOperatorRole } }
         """ ],
-        [ sh:message "S4: a session has at least one turn." ;
+        [ sh:message "S4 access period (sheet 10-04; drift pass 4, contracting officer 4): a session runs within the period the record's access grant states for the session's test item: it starts no earlier than epo:accessFrom, and neither starts nor ends after epo:accessUntil. The period the contract fixed binds the sessions." ;
             sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX ogc: <https://w3id.org/og-caie/>
-            SELECT $this WHERE { $this ogc:inRecord ?rec . FILTER NOT EXISTS { ?t a epo:Turn ; ogc:inRecord ?rec ; epo:inSession $this } }
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            SELECT $this ?value WHERE {
+                { $this ogc:inRecord ?rec ; prov:wasAssociatedWith ?sut ; prov:startedAtTime ?t . ?sut a prov:SoftwareAgent .
+                  ?value a epo:TestItemAccess ; ogc:inRecord ?rec ; epo:grantsAccessTo ?sut ; epo:accessFrom ?f . FILTER(?t < ?f) }
+                UNION
+                { $this ogc:inRecord ?rec ; prov:wasAssociatedWith ?sut ; prov:startedAtTime ?t . ?sut a prov:SoftwareAgent .
+                  ?value a epo:TestItemAccess ; ogc:inRecord ?rec ; epo:grantsAccessTo ?sut ; epo:accessUntil ?u . FILTER(?t > ?u) }
+                UNION
+                { $this ogc:inRecord ?rec ; prov:wasAssociatedWith ?sut ; prov:endedAtTime ?t . ?sut a prov:SoftwareAgent .
+                  ?value a epo:TestItemAccess ; ogc:inRecord ?rec ; epo:grantsAccessTo ?sut ; epo:accessUntil ?u . FILTER(?t > ?u) }
+            }
         """ ] ;
     sh:targetClass epo:Session ;
     ogc:counterexample "counterexamples/expert-administers-tests.ttl",
-        "counterexamples/session-on-another-item.ttl" .
+        "counterexamples/session-on-another-item.ttl",
+        "counterexamples/session-outside-access-period.ttl" .
 
 ogc:S5-Evidence a sh:NodeShape ;
     sh:property [ sh:class epo:AcceptanceCriterion ;
@@ -11636,6 +11653,17 @@ ogc:S0-Parties a sh:NodeShape ;
                                     ?p epo:role epo:sponsorSignatoryRole ; prov:actedOnBehalfOf ?org . ?org epo:role epo:sponsorRole }
             }
         """ ],
+        [ sh:message "S0: the user-interest declaration agrees with the roles (sheet 10-07; drift pass 4, contracting officer 12): a sponsor that holds the test item customer role, receiving the test item it commissions the evaluation of, declares a user interest, not its absence (ISO/IEC 17000 4.4)." ;
+            sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX ogc: <https://w3id.org/og-caie/>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            SELECT $this ?value WHERE {
+                $this ogc:inRecord ?rec .
+                ?value a prov:Organization ; ogc:inRecord ?rec ; epo:role epo:sponsorRole ; epo:role epo:testItemCustomerRole .
+                ?d a epo:UserInterestDeclaration ; ogc:inRecord ?rec ; epo:hasUserInterest false ; prov:wasAttributedTo ?p . ?p prov:actedOnBehalfOf ?value .
+            }
+        """ ],
         [ sh:message "S0: exactly one organization of the record holds each of the sponsor (evaluation customer), testing (evaluation service provider) and test item provider roles (R-21)." ;
             sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
@@ -11662,7 +11690,8 @@ ogc:S0-Parties a sh:NodeShape ;
     sh:targetClass epo:ServiceAgreement ;
     ogc:counterexample "counterexamples/independence-undeclared.ttl",
         "counterexamples/provider-fact-contradicted.ttl",
-        "counterexamples/requirements-before-agreement.ttl" .
+        "counterexamples/requirements-before-agreement.ttl",
+        "counterexamples/user-interest-denied.ttl" .
 
 ogc:S1-DsoRelease a sh:NodeShape ;
     sh:property [ sh:datatype xsd:string ;
@@ -12061,8 +12090,8 @@ ev:conformance-verdict-1 a epo:ConformanceVerdict ;
     prov:wasAttributedTo ev:pyshacl ;
     prov:wasDerivedFrom ev:record ;
     epo:ontologyDigest "0a7cacfca8a29515a4349e93dd514a77eae575154831f60efa49ed40639533be" ;
-    epo:recordDigest "81ec5a38fe4479966fd7219d0baa5ddd6563b49f35ec94b3f19be8a4842109c3" ;
-    epo:shapesDigest "3fa00f1459936636e66671f16548cdcbb8fd37d5b4f82b3e47b36ff7c9a3e07d" ;
+    epo:recordDigest "6443d24357a94b386f828e3fc6d3fa27ab9dba3ffa7c2535a94d45124f46ad59" ;
+    epo:shapesDigest "ea74f869046a3d427092f7a6d456819168428fb51d307fee6016fc46f60db8c5" ;
     ogc:inRecord ev:record ;
     ogc:synthetic true .
 

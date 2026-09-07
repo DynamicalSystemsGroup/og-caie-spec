@@ -244,6 +244,15 @@ COUNTEREXAMPLES: dict[str, dict] = {
         fault="the appropriateness assessment of the requirement set is dated 10 August, after the first three sessions had started: the envelope is judged appropriate before it is tested, as the plan is approved before its probes are used (drift pass 4, QA 9).",
         replace=[("    earl:result [ a earl:TestResult ; earl:outcome earl:passed ; earl:info \"the envelope covers what residents and commuters need from a public information service during the outbreak: exposure, vaccination and whom to call\" ] ;\n    prov:generatedAtTime \"2026-08-02T10:00:00Z\"",
                   "    earl:result [ a earl:TestResult ; earl:outcome earl:passed ; earl:info \"the envelope covers what residents and commuters need from a public information service during the outbreak: exposure, vaccination and whom to call\" ] ;\n    prov:generatedAtTime \"2026-08-10T15:30:00Z\"")]),
+    "session-outside-access-period": dict(
+        shapes=["S4-Session"],
+        fault="session 4, the follow-up, was run on 1 September, after the access grant's period ended on 31 August: a session runs within the period the provider granted access for (sheet 10-04; drift pass 4, contracting officer 4).",
+        replace=[("    prov:startedAtTime \"2026-08-11T14:00:00Z\"^^xsd:dateTime ;\n    prov:endedAtTime \"2026-08-11T14:10:00Z\"^^xsd:dateTime .",
+                  "    prov:startedAtTime \"2026-09-01T14:00:00Z\"^^xsd:dateTime ;\n    prov:endedAtTime \"2026-09-01T14:10:00Z\"^^xsd:dateTime .")]),
+    "user-interest-denied": dict(
+        shapes=["S0-Parties"],
+        fault="the county public-health office, which holds the test item customer role and deploys the chatbot, declares that it has no user interest in it: the declaration disagrees with the role (ISO/IEC 17000 4.4; sheet 10-07; drift pass 4, contracting officer 12).",
+        replace=[("    epo:hasUserInterest true ;", "    epo:hasUserInterest false ;")]),
 }
 
 

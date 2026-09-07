@@ -1,5 +1,5 @@
-# Counterexample for S7-CoverageComputation: the final report's coverage computation names neither the shapes, the ontology nor the coverage query it ran by their digests (sheet 10-18).
-# Must fail on ogc:S7-CoverageComputation and nothing else.
+# Counterexample for S4-Session: session 4, the follow-up, was run on 1 September, after the access grant's period ended on 31 August: a session runs within the period the provider granted access for (sheet 10-04; drift pass 4, contracting officer 4).
+# Must fail on ogc:S4-Session and nothing else.
 # A copy of track/measles-evaluation.ttl with one change (sheet 10-19; written by scripts/render_counterexamples.py).
 @prefix ev:   <https://w3id.org/og-caie/evaluation/measles#> .
 @prefix epo:  <https://w3id.org/og-caie/epo#> .
@@ -623,8 +623,8 @@ ev:session-4 a epo:Session ;
     rdfs:label "session 4: Theo with chatbot v1, place by place, the follow-up on the enclosed-space criterion, three turns" ;
     prov:wasAssociatedWith ev:chatbot-v1 ;
     prov:wasAssociatedWith ev:theo ;
-    prov:startedAtTime "2026-08-11T14:00:00Z"^^xsd:dateTime ;
-    prov:endedAtTime "2026-08-11T14:10:00Z"^^xsd:dateTime .
+    prov:startedAtTime "2026-09-01T14:00:00Z"^^xsd:dateTime ;
+    prov:endedAtTime "2026-09-01T14:10:00Z"^^xsd:dateTime .
 ev:turn-10 a epo:Turn ; epo:inSession ev:session-4 ; epo:turnIndex 1 ; prov:used ev:probe-10 ; prov:startedAtTime "2026-08-11T14:00:00Z"^^xsd:dateTime .
 ev:turn-11 a epo:Turn ; epo:inSession ev:session-4 ; epo:turnIndex 2 ; prov:used ev:probe-11 ; prov:startedAtTime "2026-08-11T14:03:00Z"^^xsd:dateTime .
 ev:turn-12 a epo:Turn ; epo:inSession ev:session-4 ; epo:turnIndex 3 ; prov:used ev:probe-12 ; prov:startedAtTime "2026-08-11T14:06:00Z"^^xsd:dateTime .
@@ -689,7 +689,7 @@ ev:coverage-computation a epo:CoverageComputation ;
     prov:used ev:conformance-verdict-1 ;
     prov:wasAssociatedWith ev:report-assembler ;
     earl:mode earl:automatic ;
-    epo:shapesDigest "not recorded" ; epo:ontologyDigest "not recorded" ; epo:queryDigest "not recorded" ;
+    epo:shapesDigest "ea74f869046a3d427092f7a6d456819168428fb51d307fee6016fc46f60db8c5" ; epo:ontologyDigest "0a7cacfca8a29515a4349e93dd514a77eae575154831f60efa49ed40639533be" ; epo:queryDigest "ecc9688b862ffd77beae1e94d4cba1ae07701ca7521f2cff63b908da90eb9bb3" ;
     prov:endedAtTime "2026-08-12T10:00:00Z"^^xsd:dateTime .
 
 ev:report a epo:Report ;

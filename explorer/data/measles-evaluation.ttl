@@ -603,7 +603,7 @@ ev:coverage-computation-draft a epo:CoverageComputation ;
     prov:used ev:attestation-1 ; prov:used ev:attestation-2 ; prov:used ev:attestation-3 ; prov:used ev:attestation-4 ; prov:used ev:attestation-5 ;
     prov:wasAssociatedWith ev:report-assembler ;
     earl:mode earl:automatic ;
-    epo:shapesDigest "3fa00f1459936636e66671f16548cdcbb8fd37d5b4f82b3e47b36ff7c9a3e07d" ; epo:ontologyDigest "0a7cacfca8a29515a4349e93dd514a77eae575154831f60efa49ed40639533be" ; epo:queryDigest "ecc9688b862ffd77beae1e94d4cba1ae07701ca7521f2cff63b908da90eb9bb3" ;
+    epo:shapesDigest "ea74f869046a3d427092f7a6d456819168428fb51d307fee6016fc46f60db8c5" ; epo:ontologyDigest "0a7cacfca8a29515a4349e93dd514a77eae575154831f60efa49ed40639533be" ; epo:queryDigest "ecc9688b862ffd77beae1e94d4cba1ae07701ca7521f2cff63b908da90eb9bb3" ;
     prov:endedAtTime "2026-08-11T11:00:00Z"^^xsd:dateTime .
 
 ev:report-draft a epo:Report ;
@@ -675,8 +675,8 @@ ev:conformance-verdict-1 a epo:ConformanceVerdict ;
     earl:mode earl:automatic ; earl:assertedBy ev:pyshacl ;
     prov:wasAttributedTo ev:pyshacl ;
     prov:wasDerivedFrom ev:record ;
-    epo:recordDigest "81ec5a38fe4479966fd7219d0baa5ddd6563b49f35ec94b3f19be8a4842109c3" ;
-    epo:shapesDigest "3fa00f1459936636e66671f16548cdcbb8fd37d5b4f82b3e47b36ff7c9a3e07d" ; epo:ontologyDigest "0a7cacfca8a29515a4349e93dd514a77eae575154831f60efa49ed40639533be" ;
+    epo:recordDigest "6443d24357a94b386f828e3fc6d3fa27ab9dba3ffa7c2535a94d45124f46ad59" ;
+    epo:shapesDigest "ea74f869046a3d427092f7a6d456819168428fb51d307fee6016fc46f60db8c5" ; epo:ontologyDigest "0a7cacfca8a29515a4349e93dd514a77eae575154831f60efa49ed40639533be" ;
     earl:result [ a earl:TestResult ; earl:outcome earl:passed ; earl:info "the record conforms to S0 to S9: every criterion planned, tested and attested, the follow-up session and the draft before the final report, traceable in both directions" ] ;
     prov:generatedAtTime "2026-08-12T09:30:00Z"^^xsd:dateTime .
 
@@ -686,7 +686,7 @@ ev:coverage-computation a epo:CoverageComputation ;
     prov:used ev:conformance-verdict-1 ;
     prov:wasAssociatedWith ev:report-assembler ;
     earl:mode earl:automatic ;
-    epo:shapesDigest "3fa00f1459936636e66671f16548cdcbb8fd37d5b4f82b3e47b36ff7c9a3e07d" ; epo:ontologyDigest "0a7cacfca8a29515a4349e93dd514a77eae575154831f60efa49ed40639533be" ; epo:queryDigest "ecc9688b862ffd77beae1e94d4cba1ae07701ca7521f2cff63b908da90eb9bb3" ;
+    epo:shapesDigest "ea74f869046a3d427092f7a6d456819168428fb51d307fee6016fc46f60db8c5" ; epo:ontologyDigest "0a7cacfca8a29515a4349e93dd514a77eae575154831f60efa49ed40639533be" ; epo:queryDigest "ecc9688b862ffd77beae1e94d4cba1ae07701ca7521f2cff63b908da90eb9bb3" ;
     prov:endedAtTime "2026-08-12T10:00:00Z"^^xsd:dateTime .
 
 ev:report a epo:Report ;
