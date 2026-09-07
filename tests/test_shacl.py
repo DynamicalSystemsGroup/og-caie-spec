@@ -22,6 +22,7 @@ COUNTEREXAMPLES = {
     "counterexamples/report-coverage-padded.ttl": "S7-Report",
     "counterexamples/expert-administers-tests.ttl": "S4-Session",
     "counterexamples/executive-attests.ttl": "S6-Attestation",
+    "counterexamples/dso-before-stakeholder-input.ttl": "S1-DsoRelease",  # sheet 08: the population's input came after the DSO approval
 }
 
 
@@ -63,8 +64,9 @@ def test_shapes_s0_to_s8():
 def test_epo_handles_subclass_prov_or_earl():
     g = load("vocabulary/epo.ttl")
     OWL = Namespace("http://www.w3.org/2002/07/owl#")
+    roles = {c for c in g.subjects(RDF.type, OWL.Class) if EPO.Role in g.transitive_objects(c, RDFS.subClassOf)}  # the role classes sit under prov:Role (sheet 08)
     for c in g.subjects(RDF.type, OWL.Class):
-        if c in (EPO.EpoStep, EPO.ContractingStep, EPO.Layer, EPO.AppropriatenessValue, EPO.SufficiencyValue, EPO.Engagement, EPO.Role):
+        if c in (EPO.EpoStep, EPO.ContractingStep, EPO.Layer, EPO.AppropriatenessValue, EPO.SufficiencyValue, EPO.Engagement, EPO.Affectedness) or c in roles:
             continue
         if c == EPO.Strategy:  # a prov:Plan, itself a prov:Entity
             continue
@@ -87,7 +89,8 @@ def test_record_names_the_parties_and_roles():
     g = data("track/measles-run.ttl")
     roles = {str(r).rsplit("#", 1)[-1] for r in g.objects(None, EPO.role)}
     assert roles == {"sponsorRole", "testingOrganizationRole", "accountableOrganizationRole",
-                     "accountExecutiveRole", "domainExpertRole", "evaluationOperatorRole"}
+                     "accountExecutiveRole", "domainExpertRole", "evaluationOperatorRole",
+                     "testItemCustomerRole"}  # sheet 08: the sponsor is also the customer of the chatbot it deploys
     persons = [a for a in g.subjects(RDF.type, PROV.Person)]
     assert len(persons) == 3
     for person in persons:

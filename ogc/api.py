@@ -71,7 +71,29 @@ def term_record(g: Graph, s) -> dict:
     return dict(iri=str(s), local=local(s), pref=one(g, s, SKOS.prefLabel), definition=norm(one(g, s, SKOS.definition)),
                 alts=many(g, s, SKOS.altLabel), **{"class": one(g, s, OGC["class"])}, anchor_relation=one(g, s, OGC.anchorRelation),
                 canonical=citation_record(g, canon) if canon is not None else {}, coined_by=one(g, s, OGC.coinedBy), see_also=sorted((citation_record(g, c) for c in g.objects(s, OGC.seeAlso)), key=lambda d: (d["source"], d["locator"])),
-                scope_note=norm(one(g, s, OGC.scopeNote)), binding=one(g, s, OGC.binding), rulings=rulings, concerns=concerns, sci=sci, crosswalk=xw)
+                scope_note=norm(one(g, s, OGC.scopeNote)), binding=one(g, s, OGC.binding), rulings=rulings, concerns=concerns, sci=sci, crosswalk=xw,
+                **relations(g, s))
+
+
+MATCHES = (SKOS.exactMatch, SKOS.closeMatch, SKOS.broadMatch, SKOS.relatedMatch)
+
+
+def relations(g: Graph, s) -> dict:
+    """The SKOS relations of a term (tbox audit, sheet 08): broader, narrower
+    and related terms within the glossary (related read in both directions),
+    the mappings to the standards' own concepts (a src: clause node with its
+    locator), and the EPO classes that name the term (ogc:term)."""
+    def terms(objs):
+        return sorted((dict(term=one(g, t, SKOS.prefLabel), local=local(t)) for t in objs if (t, RDF.type, SKOS.Concept) in g), key=lambda d: d["term"].lower())
+    related = set(g.objects(s, SKOS.related)) | set(g.subjects(SKOS.related, s))
+    matches = []
+    for p in MATCHES:
+        for c in g.objects(s, p):
+            src = g.value(c, OGC.cites)
+            matches.append(dict(relation=local(p), concept=one(g, c, RDFS.label) or local(c), local=local(c), source=local(src) if src is not None else "", locator=one(g, c, OGC.locator)))
+    matches.sort(key=lambda d: (d["relation"], d["concept"]))
+    classes = sorted(f"epo:{local(c)}" for c in g.subjects(OGC["term"], s))  # OGC.term would be rdflib's Namespace.term method
+    return dict(broader=terms(g.objects(s, SKOS.broader)), narrower=terms(g.objects(s, SKOS.narrower)), related=terms(related), matches=matches, classes=classes)
 
 
 def all_terms(g: Graph) -> dict[str, dict]:

@@ -168,7 +168,9 @@ def parties(r: Run, params: Params):
     for i in range(params.populations):
         p = agent(f"population-{i + 1}", f"affected population {i + 1}", EPO.Population)
         if i > 0:
-            g.add((p, EPO.representedBy, a["DomainExpert"]))
+            g.add((p, EPO.representedBy, a["DomainExpert"]))  # the representative is the responsible party (a specialization, sheet 08)
+        else:
+            g.add((p, EPO.responsibleParty, a["EvaluationOperator"]))  # the interviewer of the interviewed population (S0-Population, sheet 08)
         a["AffectedPopulation"].append(p)
 
 

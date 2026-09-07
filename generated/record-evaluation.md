@@ -1,6 +1,6 @@
 | Step | Item | What it says | Who | When |
 |---|---|---|---|---|
-| 1 scope | `stakeholder-input-1` (StakeholderInput) | interview notes: commuters who cannot work from home ask whether transit is safe and what to do | commuters through the county (affected population, interviewed) | 2026-08-01 |
+| 1 scope | `stakeholder-input-1` (StakeholderInput) | interview notes: commuters who cannot work from home ask whether transit is safe and what to do | commuters through the county (affected population, interviewed by Theo; test item customers) | 2026-08-01 |
 | 1 scope | `dso-apollo-sv-r1` (DsoRelease) | Apollo-SV (OBO Foundry) plus the Clark County 2019 outbreak facts, release r1 | Annie (domain expert) | 2026-08-01 |
 | 2 declare the requirement set (operational envelope) | `requirement-set` (RequirementSet) | requirement set for a public information chatbot during an active measles outbreak | Theo (evaluation operator); Annie (domain expert) | 2026-08-02 |
 | 2 declare the requirement set (operational envelope) | `appropriateness-assessment-1` (AppropriatenessAssessment) | passed: the envelope covers what residents and commuters need from a public information service during the outbreak | Annie (domain expert) | 2026-08-02 |

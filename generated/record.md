@@ -3,8 +3,8 @@
 | Step | Node | Who | When |
 |---|---|---|---|
 | C3 agree | `service-agreement` (ServiceAgreement) |  | 2026-07-31T10:00:00+00:00 |
-| C4 access | `test-item-access` (TestItemAccess) | chatbot vendor (accountable for the test item) | 2026-07-31T15:00:00+00:00 |
-| 1 scope | `stakeholder-input-1` (StakeholderInput) | commuters through the county (affected population, interviewed) | 2026-08-01T08:00:00+00:00 |
+| C4 access | `test-item-access` (TestItemAccess) | chatbot vendor (test item provider) | 2026-07-31T15:00:00+00:00 |
+| 1 scope | `stakeholder-input-1` (StakeholderInput) | commuters through the county (affected population, interviewed by Theo; test item customers) | 2026-08-01T08:00:00+00:00 |
 | 1 scope | `dso-apollo-sv-r1` (DsoRelease) | Annie (domain expert) | 2026-08-01T09:00:00+00:00 |
 | 2 declare the requirement set (operational envelope) | `requirement-set` (RequirementSet) | Theo (evaluation operator); Annie (domain expert) | 2026-08-02T09:00:00+00:00 |
 |  | `R1` (Requirement) |  |  |
@@ -29,7 +29,7 @@
 | 6 report | `coverage-computation` (CoverageComputation) | report assembler (queries/coverage.rq) | 2026-08-12T09:00:00+00:00 |
 |  | `report` (Report) |  |  |
 | 6 report | `recommendation-1` (Recommendation) | Theo (evaluation operator) | 2026-08-12T10:00:00+00:00 |
-| C5 deliver | `delivery-1` (Delivery) | Mala (account executive) | 2026-08-12T11:00:00+00:00 |
+| C5 deliver | `delivery-1` (Delivery) | Mala (authorized representative) | 2026-08-12T11:00:00+00:00 |
 
 ### Coverage and performance, recomputed
 
@@ -57,6 +57,7 @@ Covered criteria: 2 of 3; the third criterion is untested and counts for nothing
 | `counterexamples/attestation-off-plan.ttl` | False | S6-Attestation | S6 chain rule (R-12, R-18, R-20): every determination an attestation aggregates tests the attested criterion, and every evidence item it rules on bears on that criterion under a plan that has it as an objective. |
 | `counterexamples/attestation-off-turn.ttl` | False | S6-Attestation | S6 chain rule (R-12, R-18, R-20): every determination an attestation aggregates tests the attested criterion, and every evidence item it rules on bears on that criterion under a plan that has it as an objective. |
 | `counterexamples/attestation-without-evidence.ttl` | False | S6-Attestation | S6 closure rule: an attestation with outcome passed or failed must aggregate at least one determination that rules on evidence; with none it can only say cantTell. |
+| `counterexamples/dso-before-stakeholder-input.ttl` | False | S1-DsoRelease | S1 precondition (sheet 08): every affected population's input is available before the DSO release is approved: a stakeholder input attributed to the population and generated before the release's approval time, or a representative named for it. |
 | `counterexamples/engagement-mismatch.ttl` | False | S0-Population | S0: an affected population is engaged as the statement of work decided (R-21, R-40): interviewed, with a stakeholder input attributed to it, or represented by a named domain expert; and there is a decision for it. |
 | `counterexamples/executive-attests.ttl` | False | S6-Attestation | S6: the attesting person holds the domain expert role; the operator collects and determines, the account executive signs and delivers, only the domain expert attests (R-21, R-23). |
 | `counterexamples/expert-administers-tests.ttl` | False | S4-Session | S4: a session must be associated with a named person in the evaluation operator role; administering tests is the operator's activity, not the domain expert's (R-10, R-23). |

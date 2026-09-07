@@ -13,25 +13,30 @@
 # and its required fields filled; what it cannot say is whether the
 # judgments in it are right. That is what the named humans attest.
 
-# S0 <-> SCI-02, SCI-10: the parties (rulings R-21, R-23). The service
-# agreement is signed by the sponsor organization and by the account
-# executive acting for the testing organization; the three organizations
-# are named with their roles and their two facts; the agreement precedes the
-# requirement set; access to the test item is granted by the accountable
-# organization; every affected population is interviewed or represented.
+# S0 <-> SCI-02, SCI-10: the parties (rulings R-21, R-23; the party model of
+# sheet 08). The service agreement is signed by the evaluation customer (the
+# sponsor organization) and by the authorized representative acting for the
+# evaluation service provider (the testing organization); the three
+# organizations are named with their roles and their two facts, and the
+# facts agree with the roles (the sponsor that says it is accountable holds
+# the test item provider's role; the testing organization that says it is
+# independent does not); the agreement precedes the requirement set; access
+# to the test item is granted by the test item provider (the accountable
+# organization); every affected population is interviewed or represented
+# and has a responsible party.
 ogc:S0-Parties a sh:NodeShape ;
     sh:targetClass epo:ServiceAgreement ;
     sh:property [ sh:path prov:generatedAtTime ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
     sh:property [ sh:path epo:step ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue epo:agree ] ;
     sh:sparql [
-        sh:message "S0: the agreement is signed by the sponsor organization (a prov:Organization in the sponsor role)." ;
+        sh:message "S0: the agreement is signed by the sponsor organization, the evaluation customer (a prov:Organization in the sponsor role)." ;
         sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX prov: <http://www.w3.org/ns/prov#>
             SELECT $this WHERE { FILTER NOT EXISTS { $this epo:signedBy ?o . ?o a prov:Organization ; epo:role epo:sponsorRole } }
         """ ] ;
     sh:sparql [
-        sh:message "S0: the agreement is signed by the account executive, a named person acting on behalf of the testing organization (R-23)." ;
+        sh:message "S0: the agreement is signed by the authorized representative, a named person acting on behalf of the testing organization, the evaluation service provider (R-23; sheet 09)." ;
         sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX prov: <http://www.w3.org/ns/prov#>
@@ -40,7 +45,18 @@ ogc:S0-Parties a sh:NodeShape ;
             }
         """ ] ;
     sh:sparql [
-        sh:message "S0: exactly one organization holds each of the sponsor, testing and accountable roles, the sponsor says whether it is accountable, and the testing organization says whether it is independent (R-21)." ;
+        sh:message "S0: the two party facts agree with the roles: a sponsor that says it is accountable holds the test item provider's role and one that says it is not does not; a testing organization that says it is independent of the test item provider does not hold that role (sheet 08: the evaluation service provider and the test item provider are disjoint only when independent)." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            SELECT $this ?value WHERE {
+                { ?value a prov:Organization ; epo:role epo:sponsorRole ; epo:isAccountable true . FILTER NOT EXISTS { ?value epo:role epo:accountableOrganizationRole } }
+                UNION { ?value a prov:Organization ; epo:role epo:sponsorRole ; epo:isAccountable false . ?value epo:role epo:accountableOrganizationRole }
+                UNION { ?value a prov:Organization ; epo:role epo:testingOrganizationRole ; epo:independentOfAccountable true . ?value epo:role epo:accountableOrganizationRole }
+            }
+        """ ] ;
+    sh:sparql [
+        sh:message "S0: exactly one organization holds each of the sponsor (evaluation customer), testing (evaluation service provider) and accountable (test item provider) roles, the sponsor says whether it is accountable, and the testing organization says whether it is independent (R-21)." ;
         sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX prov: <http://www.w3.org/ns/prov#>
@@ -66,7 +82,7 @@ ogc:S0-Access a sh:NodeShape ;
                   sh:message "Access names the test item it is granted to." ] ;
     sh:property [ sh:path prov:generatedAtTime ; sh:minCount 1 ; sh:datatype xsd:dateTime ] ;
     sh:sparql [
-        sh:message "S0: access to the test item is granted by the accountable organization (ISO/IEC 17000 first party)." ;
+        sh:message "S0: access to the test item is granted by the test item provider, the accountable organization (ISO/IEC 17000 first party)." ;
         sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX prov: <http://www.w3.org/ns/prov#>
@@ -84,6 +100,15 @@ ogc:S0-Population a sh:NodeShape ;
                 { FILTER NOT EXISTS { ?d a epo:EngagementDecision ; epo:population $this } }
                 UNION { ?d epo:population $this ; epo:engagement epo:interview . FILTER NOT EXISTS { ?i a epo:StakeholderInput ; prov:wasAttributedTo $this } }
                 UNION { ?d epo:population $this ; epo:engagement epo:representation . FILTER NOT EXISTS { $this epo:representedBy ?p . ?p a prov:Person ; epo:role epo:domainExpertRole } }
+            }
+        """ ] ;
+    sh:sparql [
+        sh:message "S0: an affected population names the party responsible for its engagement, a person or an organization (sheet 08): the interviewer or the organization that ran the interviews, or its representative (epo:representedBy is a specialization of epo:responsibleParty)." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            SELECT $this WHERE {
+                FILTER NOT EXISTS { $this (epo:responsibleParty|epo:representedBy) ?a . { ?a a prov:Person } UNION { ?a a prov:Organization } }
             }
         """ ] .
 
@@ -110,7 +135,9 @@ ogc:S0-StatementOfWork a sh:NodeShape ;
         """ ] .
 
 # S1 <-> SCI-01: the DSO release is versioned, approved by a named person,
-# and approved before any probe derived from it was generated.
+# approved before any probe derived from it was generated, and approved only
+# once every affected population's input or representation is available to
+# the domain expert who approves it (sheet 08).
 ogc:S1-DsoRelease a sh:NodeShape ;
     sh:targetClass epo:DsoRelease ;
     sh:property [ sh:path epo:version ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ;
@@ -123,6 +150,18 @@ ogc:S1-DsoRelease a sh:NodeShape ;
             SELECT $this WHERE { FILTER NOT EXISTS { $this epo:approvedBy ?p . ?p epo:role epo:domainExpertRole } }
         """ ] ;
     sh:property [ sh:path prov:generatedAtTime ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:sparql [
+        sh:message "S1 precondition (sheet 08): every affected population's input is available before the DSO release is approved: a stakeholder input attributed to the population and generated before the release's approval time, or a representative named for it." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            SELECT $this ?value WHERE {
+                $this prov:generatedAtTime ?t0 .
+                ?value a epo:Population .
+                FILTER NOT EXISTS { ?i a epo:StakeholderInput ; prov:wasAttributedTo ?value ; prov:generatedAtTime ?t1 . FILTER(?t1 < ?t0) }
+                FILTER NOT EXISTS { ?value epo:representedBy ?p . ?p a prov:Person }
+            }
+        """ ] ;
     sh:sparql [
         sh:message "S1: a probe derived from this DSO release was generated before the release was approved." ;
         sh:select """

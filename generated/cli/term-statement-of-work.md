@@ -22,6 +22,10 @@ scope note:
 binding: sysml item def StatementOfWork, port def StatementOfWorkWrite, seams
     statementOfWorkSeam and statementOfWorkToExecutiveSeam; epo:StatementOfWork with epo:decides
     engagement decisions
+related: contract (contract); evaluation customer (evaluation-customer); mission (mission);
+    stakeholder (stakeholder)
+matches: exactMatch SEVOCAB statement of work, p. 406
+EPO classes naming it: epo:EngagementDecision, epo:StatementOfWork
 derives from rulings: R-40
 concerns naming it: C-46 (ruled) the sponsor's decision to interview or represent each affected
     population had no item of its own
