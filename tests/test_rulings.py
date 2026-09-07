@@ -12,7 +12,7 @@ from rdflib import RDF
 
 from conftest import OGC, ROOT, load
 
-CONCERNS = 56
+CONCERNS = 57
 RULINGS = 51
 # What a message to an assistant leaves behind and a decision must not: an addressee,
 # hedging, the tooling, the tick. Matched case-insensitively as substrings.

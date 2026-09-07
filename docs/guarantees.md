@@ -34,14 +34,12 @@ the evaluation steps, the item kinds each step produces and consumes, and,
 from the wiring, which part supplies each. It emits a record by walking
 the steps, one template per step saying what a conformant item of each
 kind carries, written against the shapes, and refuses to run if a
-template's outputs disagree with the model's step signature, so the two
-cannot drift apart. Over the emitted record four checks run: conformance to the shapes S0 to S9; completeness, every item
+template's outputs disagree with the model's step signature. Over the emitted record four checks run: conformance to the shapes S0 to S9; completeness, every item
 kind the process produces being present; coverage, recomputed by the
-coverage query; and the traceback, one row per determination an
-attestation aggregates, from every recommendation back to the evidence,
-the experiment, the judgments and their people, the DSO release, the
-agreement and the proposal it accepts, the parties with their two
-declarations, and the delivery. The guarantee is the
+coverage query; and the traceback from every recommendation back to the
+evidence, the experiment, the judgments and their people, the DSO release,
+the agreement, the parties with their declarations, and the delivery. The
+guarantee is the
 conjunction: a run that follows the wiring conforms, is complete, has a
 recomputable coverage and traces fully, and each way of departing from the
 wiring is caught by a named check.
@@ -49,17 +47,18 @@ wiring is caught by a named check.
 ## The walkthrough
 
 The measles evaluation of the previous chapters is one record, written by
-hand; its report, as the sponsor receives it, is the sample report in
-[Appendix A](appendix-report.md). The executor's are generated from the same model with named parties,
+hand: three requirements, five criteria, four sessions, a draft that
+flagged one cannot-tell, a final report after the follow-up resolved it,
+one criterion unmet and a recommendation fit with conditions. Its report
+is the sample report in [Appendix A](appendix-report.md). The executor's records are generated from the same model with named parties,
 one requirement, three criteria, a plan that exercises two of them with
 the third's deviation recorded, and one session that applies every probe
 once. Coverage comes out at two thirds by weight because one criterion was
-left unplanned, as in the measles case, where it is three quarters; the
-operator's determination is paired with the domain expert's, so the
-traceback returns three rows. The variants change the parameters, one
-cycling through every judgment the shapes allow; the mutations each break
-one thing in the first run and the last column names the check that
-catches it.
+left unplanned, where the measles case, every criterion attested, reaches
+one; the operator's determination is paired with the domain expert's, so
+the traceback returns three rows. The variants change the parameters, one
+cycling through every judgment the shapes allow; each mutation breaks one
+thing, and the last column names the check that catches it.
 
 ```{include} ../generated/executor.md
 ```
@@ -79,9 +78,9 @@ executor refuse to run. One finding is stated rather than hidden: skipping
 the plan approval leaves a record the shapes accept, because no shape yet
 requires that item to exist; completeness against the model catches it,
 and whether a shape should is concern C-43, open for a ruling. Skipping
-the access grant was the second such finding until the envelope was bound
-to the test item an access grant names: now a shape, completeness and the
-traceback all refuse it, as the command line shows.
+the access grant was such a finding until the envelope was bound to the
+test item an access grant names; now a shape, completeness and the
+traceback all refuse it:
 
 ```{literalinclude} ../generated/cli/execute-mutate-skip-access.md
 ```

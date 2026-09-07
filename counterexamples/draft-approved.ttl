@@ -1,5 +1,5 @@
-# Counterexample for S3-Probe: the consistency check of probe-1 ended after the first turn that used the probe had started (sheet 10-19).
-# Must fail on ogc:S3-Probe and nothing else.
+# Counterexample for S7-ReportApproval: the report approval names the draft, not the final report: a draft is not approved (sheet 10-41), and the accepted delivery then carries no approval of the final report it delivers (sheet 10-03).
+# Must fail on ogc:S7-ReportApproval, ogc:S9-Acceptance and nothing else, the fault rippling to each.
 # A copy of track/measles-evaluation.ttl with one change (sheet 10-19; written by scripts/render_counterexamples.py).
 @prefix ev:   <https://w3id.org/og-caie/evaluation/measles#> .
 @prefix epo:  <https://w3id.org/og-caie/epo#> .
@@ -323,7 +323,7 @@ ev:probe-12 a epo:Probe ;
 ev:consistency-check-1 a epo:ConsistencyCheck ;
     earl:subject ev:probe-1 ; earl:test ev:dso-apollo-sv-r1 ; earl:mode earl:automatic ; earl:assertedBy ev:pyshacl ; prov:wasAssociatedWith ev:pyshacl ;
     earl:result [ a earl:TestResult ; earl:outcome earl:passed ; earl:info "scenario conforms to the DSO shapes" ] ;
-    prov:endedAtTime "2026-08-10T14:30:00Z"^^xsd:dateTime .
+    prov:endedAtTime "2026-08-03T10:05:00Z"^^xsd:dateTime .
 ev:consistency-check-2 a epo:ConsistencyCheck ;
     earl:subject ev:probe-2 ; earl:test ev:dso-apollo-sv-r1 ; earl:mode earl:automatic ; earl:assertedBy ev:pyshacl ; prov:wasAssociatedWith ev:pyshacl ;
     earl:result [ a earl:TestResult ; earl:outcome earl:passed ; earl:info "scenario conforms to the DSO shapes" ] ;
@@ -700,8 +700,8 @@ ev:report a epo:Report ;
     prov:generatedAtTime "2026-08-12T10:00:00Z"^^xsd:dateTime .
 
 ev:report-approval-1 a epo:ReportApproval ;
-    epo:approvesReport ev:report ;
-    earl:subject ev:report ; earl:mode earl:manual ; earl:assertedBy ev:annie ;
+    epo:approvesReport ev:report-draft ;
+    earl:subject ev:report-draft ; earl:mode earl:manual ; earl:assertedBy ev:annie ;
     prov:wasAssociatedWith ev:annie ;
     prov:used ev:report ; prov:used ev:conformance-verdict-1 ;
     earl:result [ a earl:TestResult ; earl:outcome earl:passed ; earl:info "the report says what the evidence and the attestations support: every criterion tested, four met, the vaccination question not met, and the enclosed-space criterion resolved by the follow-up session after the draft could not tell" ] ;

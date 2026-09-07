@@ -1,5 +1,5 @@
-# Counterexample for S3-Probe: the consistency check of probe-1 ended after the first turn that used the probe had started (sheet 10-19).
-# Must fail on ogc:S3-Probe and nothing else.
+# Counterexample for S8-Recommendation: the recommendation says fit to deploy while the vaccination question was attested failed: fit to deploy rests on no failed attestation (sheet 10-48).
+# Must fail on ogc:S8-Recommendation and nothing else.
 # A copy of track/measles-evaluation.ttl with one change (sheet 10-19; written by scripts/render_counterexamples.py).
 @prefix ev:   <https://w3id.org/og-caie/evaluation/measles#> .
 @prefix epo:  <https://w3id.org/og-caie/epo#> .
@@ -323,7 +323,7 @@ ev:probe-12 a epo:Probe ;
 ev:consistency-check-1 a epo:ConsistencyCheck ;
     earl:subject ev:probe-1 ; earl:test ev:dso-apollo-sv-r1 ; earl:mode earl:automatic ; earl:assertedBy ev:pyshacl ; prov:wasAssociatedWith ev:pyshacl ;
     earl:result [ a earl:TestResult ; earl:outcome earl:passed ; earl:info "scenario conforms to the DSO shapes" ] ;
-    prov:endedAtTime "2026-08-10T14:30:00Z"^^xsd:dateTime .
+    prov:endedAtTime "2026-08-03T10:05:00Z"^^xsd:dateTime .
 ev:consistency-check-2 a epo:ConsistencyCheck ;
     earl:subject ev:probe-2 ; earl:test ev:dso-apollo-sv-r1 ; earl:mode earl:automatic ; earl:assertedBy ev:pyshacl ; prov:wasAssociatedWith ev:pyshacl ;
     earl:result [ a earl:TestResult ; earl:outcome earl:passed ; earl:info "scenario conforms to the DSO shapes" ] ;
@@ -709,7 +709,7 @@ ev:report-approval-1 a epo:ReportApproval ;
 
 ev:recommendation-1 a epo:Recommendation ;
     epo:text "Fit to deploy for the outbreak once the vaccination question is asked before any advice, which the vendor has agreed to change. Verify the change by testing that question again before the chatbot goes live. Test again whenever the vendor ships a new version. Monitor the calls to the county health line for the residents the chatbot sends there." ;
-    epo:fitness epo:fitWithConditions ;
+    epo:fitness epo:fitToDeploy ;
     epo:targetsGuardrail "vaccination-status" ;
     prov:wasAttributedTo ev:theo ;
     prov:wasDerivedFrom ev:attestation-1 ; prov:wasDerivedFrom ev:attestation-2 ; prov:wasDerivedFrom ev:attestation-3 ; prov:wasDerivedFrom ev:attestation-4 ; prov:wasDerivedFrom ev:attestation-5 ; prov:wasDerivedFrom ev:attestation-6 ;

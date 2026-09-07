@@ -7,8 +7,11 @@
 # and its declaration of independence, the sponsor's declaration of user
 # interest, the test item provider, and the delivery under the agreement
 # (sheet 10-05, 10-06, 10-07). Ruling R-12: the chain requirement, criterion,
-# plan, probe, run, evidence, attestation. One row per determination an
-# attestation aggregates (sheet 10-15: a determination may be paired).
+# plan, probe, run, evidence, attestation. One row per response a
+# determination an attestation aggregates rests on (sheet 10-15: a
+# determination may be paired; an evidence item may derive from several
+# responses of a session), ordered by attestation, determination, evidence,
+# session and turn so that the rows regenerate byte for byte.
 #
 # Preconditions (sheets 10-31, 10-33): the record, the EPO vocabulary and the
 # model graph sit in one default graph; the record is read through
@@ -60,4 +63,4 @@ WHERE {
   ?access a epo:TestItemAccess ; epo:grantsAccessTo ?sutNode ; epo:underAgreement ?agreement ; prov:wasAttributedTo ?accountableNode . ?accountableNode rdfs:label ?accountable .
   ?delivery a epo:Delivery ; epo:underAgreement ?agreement ; prov:wasDerivedFrom ?recommendation ; prov:wasAttributedTo ?delivererNode . ?delivererNode rdfs:label ?deliverer .
 }
-ORDER BY ?attestation ?determination
+ORDER BY ?attestation ?determination ?evidence ?run ?turnIndex

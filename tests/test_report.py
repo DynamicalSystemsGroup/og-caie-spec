@@ -121,7 +121,7 @@ def test_the_answer_is_the_records_and_says_when_the_evaluation_is_not_complete(
     assert r["item"]["name"] and r["item"]["version"] and r["item"]["purpose"] and r["item"]["environment"] and r["item"]["assumptions"]
     assert r["rests_on"]["tested_by"] and r["rests_on"]["judged_by"] and r["rests_on"]["checked"]["outcome"] and r["rests_on"]["checked"]["date"]
     assert isinstance(r["next"], list)
-    assert "Synthetic case" in r["note"]
+    assert "synthetic case" in r["note"].lower()
 
 
 def test_no_cell_runs_past_twenty_five_words():
@@ -138,7 +138,7 @@ def test_no_technical_word_and_no_machines_name_reaches_the_page():
     html = PAGE.read_text()
     r = report()
     note = r.pop("note")  # the record's own note, verbatim by the brief; the record words it for the reader
-    assert "Synthetic case" in note
+    assert "synthetic case" in note.lower()
     visible = "\n".join(strings(r))
     for word in JARGON:
         pattern = re.compile(rf"\b{re.escape(word)}\b", re.I)

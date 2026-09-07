@@ -417,6 +417,8 @@ def t_report(r, i, p):
     rec = r.new("Recommendation", "recommendation", i, 3)
     g.add((rec, EPO.text, Literal("the recommendation"))); by(r, rec, "Recommendation")
     g.add((rec, PROV.wasDerivedFrom, ap))  # the approval owns the recommendation (sheet 10-11)
+    failed = any(g.value(g.value(att, EARL.result), EARL.outcome) == EARL.failed for att in r.items["Attestation"])
+    g.add((rec, EPO.fitness, EPO.notFit if failed else EPO.fitToDeploy))  # the fitness stated, never parsed from the prose (sheet 10-48, R-51)
     for att in r.items["Attestation"]:
         g.add((rec, PROV.wasDerivedFrom, att))
         for det in g.objects(att, PROV.used):

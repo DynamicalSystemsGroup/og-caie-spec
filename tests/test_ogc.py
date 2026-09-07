@@ -274,7 +274,7 @@ def test_record_lists_every_stepped_item_by_step():
     who = next(x for x in rows if x["item"] == "attestation-1")
     assert who["who"] == ["Annie (domain expert)"] and who["when"] == "2026-08-11"
     assert any(x["item"] == "annie" and x["group"] == "party" for x in rows)
-    assert all(x["synthetic"] for x in rows) and "59 of 59 rows tagged synthetic" in r.stdout and r.stdout.splitlines()[4].endswith("the measles evaluation") and "synthetic" in r.stdout.splitlines()[4]  # sheet 10-43: the tag in the header and on every row
+    assert all(x["synthetic"] for x in rows) and "127 of 127 rows tagged synthetic" in r.stdout and r.stdout.splitlines()[4].endswith("the measles evaluation") and "synthetic" in r.stdout.splitlines()[4]  # sheet 10-43: the tag in the header and on every row
     assert rows[0]["class"] == "Bundle, Entity"  # sheet 10-31
 
 
@@ -286,7 +286,7 @@ def test_record_item_prints_its_label_and_step():
     assert any(t["predicate"] == "epo:regards" and t["object"] == "ev:commuters" and t["label"].startswith("commuters") for t in d["triples"])
     assert any(t["predicate"] == "epo:underMission" and t["subject"] == "ev:need-1" for t in d["referenced_by"])
     r = run("record", "attestation-1")
-    assert "earl:outcome earl:failed" in r.stdout  # a blank node's triples are printed inline
+    assert "earl:outcome earl:passed" in r.stdout  # a blank node's triples are printed inline
     assert run("record", "MISSION-1").returncode == 0
     r = run("record", "mission")
     assert r.returncode == 1 and "candidate: mission-1" in r.stdout
@@ -686,7 +686,7 @@ def test_r3_finding_m7_record_lists_its_own_entity_first():
     assert rows[0]["item"] == "record" and rows[0]["group"] == "record" and rows[0]["label"] == "the measles evaluation"
     out = run("record").stdout.splitlines()
     assert out[1].startswith("## the record (1;") and 1 < next(i for i, l in enumerate(out) if l.startswith("## items by step"))
-    assert run("record", "record").returncode == 0 and "Synthetic case" in run("record", "record").stdout
+    assert run("record", "record").returncode == 0 and "synthetic case" in run("record", "record").stdout.lower()
 
 
 def test_r3_finding_l1_a_record_name_in_a_comment_is_not_a_reference():

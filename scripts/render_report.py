@@ -16,8 +16,8 @@ and writes:
   rest on), one row per requirement with a result word and one line of why
   and its criteria beneath, the share of criteria tested recomputed by
   queries/coverage.rq (the stored report must agree or the renderer
-  refuses), what the report rests on (who tested and declared independence,
-  who judged, the machine check of the record and its date), what to do
+  refuses), what the report rests on (who tested and whom it declared its
+  independence of, who judged, the machine check of the record and its date), what to do
   next (the recommendation's remaining sentences), and the synthetic-case
   note;
 - report/index.html: one self-contained page (inline CSS and JS, d3 loaded
@@ -34,9 +34,10 @@ Honest: the report is final when a delivery derives from it and its
 approval passed; the evaluation is complete when the report is final and
 every criterion was tested. Otherwise the badge reads "not complete", the
 headline says so and the page shows what was tested. When complete, the
-badge reads "fit to deploy" if every requirement was met, else "not fit"
-when the recommendation's first sentence opens with "not", else "fit with
-conditions".
+badge is the fitness the recommendation states (epo:fitness: fit to
+deploy, fit with conditions, not fit), the word the domain expert's
+approval owns, never a parse of the prose; the shapes refuse "fit to
+deploy" over a failed attestation.
 
 Deterministic: same record, same bytes. Keys are sorted, lists are sorted
 by what they hold, and nothing is stamped at render time; every date in the
@@ -74,6 +75,7 @@ BADGE_NOT_COMPLETE = "not complete"
 BADGE_FIT = "fit to deploy"
 BADGE_CONDITIONS = "fit with conditions"
 BADGE_NOT_FIT = "not fit"
+FITNESS = {"fitToDeploy": BADGE_FIT, "fitWithConditions": BADGE_CONDITIONS, "notFit": BADGE_NOT_FIT}  # the recommendation's epo:fitness, as the page words it
 
 
 def record_graph() -> Graph:
@@ -253,12 +255,15 @@ def tested_line(share: dict, untested: list[str], total: int) -> str:
             f"Not tested: {' '.join(untested)}")
 
 
-def badge(complete: bool, rows: list[dict], recommendation: str) -> str:
+def badge(g: Graph, complete: bool, recommendation) -> str:
+    """The badge: not complete until the report is final and every criterion was tested; then the fitness the
+    recommendation states, in the page's words."""
     if not complete:
         return BADGE_NOT_COMPLETE
-    if all(r["result"] == "met" for r in rows):
-        return BADGE_FIT
-    return BADGE_NOT_FIT if sentences(recommendation)[0].lower().startswith("not") else BADGE_CONDITIONS
+    fitness = g.value(recommendation, EPO.fitness)
+    if fitness is None or local(fitness) not in FITNESS:
+        raise RuntimeError("the recommendation states no fitness the page can word")
+    return FITNESS[local(fitness)]
 
 
 def person(g: Graph, s) -> dict:
@@ -293,14 +298,13 @@ def build(g: Graph) -> dict:
     else:
         headline = f"This evaluation is not complete: {share['tested']} of {total} criteria were tested."
     testers = organizations_with(g, EPO.testingOrganizationRole)
-    providers = organizations_with(g, EPO.accountableOrganizationRole) or list(g.objects(test_item, PROV.actedOnBehalfOf))
-    independent = any(str(g.value(t, EPO.independentOfAccountable)).lower() == "true" for t in testers)
+    independent_of = sorted({o for d in of_type(g, EPO.IndependenceDeclaration) for o in g.objects(d, EPO.independentOf)}, key=str)  # declared, not assumed (sheet 10-07)
     judges = sorted({p for t in of_type(g, EPO.Attestation) for p in g.objects(t, EARL.assertedBy) if (p, RDF.type, PROV.Person) in g}, key=str)
     check_outcome, _ = result(g, check)
     return {
         "title": TITLE,
         "answer": {
-            "badge": badge(complete, rows, rec_text),
+            "badge": badge(g, complete, recommendation),
             "complete": complete,
             "headline": headline,
             "recommendation": rec_text,
@@ -319,7 +323,7 @@ def build(g: Graph) -> dict:
         "criteria": {**share, "of": total, "untested": untested, "line": tested_line(share, untested, total)},
         "rests_on": {
             "tested_by": [plain(g, t) for t in testers],
-            "independent_of": [plain(g, p) for p in providers] if independent else [],
+            "independent_of": [plain(g, p) for p in independent_of],
             "judged_by": [person(g, p) for p in judges],
             "checked": {"outcome": CHECK_WORDS.get(check_outcome, check_outcome), "date": when(g, check)},
             "approved": when(g, approval),

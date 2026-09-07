@@ -90,7 +90,7 @@ def test_two_records_in_one_graph_both_conform():
     ok, _, report = validate(g, shacl_graph=shapes(), advanced=True)
     assert ok, report
     rows = list(g.query((ROOT / "queries" / "coverage.rq").read_text()))
-    assert len(rows) == 2 and {float(r.coverage) for r in rows} == {0.75}
+    assert len(rows) == 2 and {float(r.coverage) for r in rows} == {1.0}  # every criterion attested (sheet 10-48, R-51)
 
 
 def test_record_digests_are_current():
@@ -99,7 +99,7 @@ def test_record_digests_are_current():
     expected = {k: hashlib.sha256((ROOT / f).read_bytes()).hexdigest()
                 for k, f in (("shapesDigest", "shapes/epo.shapes.ttl"), ("ontologyDigest", "vocabulary/epo.ttl"), ("queryDigest", "queries/coverage.rq"))}
     holders = list(g.subjects(RDF.type, EPO.ConformanceVerdict)) + list(g.subjects(RDF.type, EPO.CoverageComputation))
-    assert len(holders) == 2
+    assert len(holders) == 3  # the verdict, the draft's coverage computation and the final's (sheet 10-41)
     for h in holders:
         for k, v in expected.items():
             assert str(g.value(h, EPO[k])) == v, f"{h} {k} is stale: run scripts/stamp_digests.py"
@@ -127,7 +127,7 @@ def test_epo_handles_subclass_prov_or_earl():
     OWL = Namespace("http://www.w3.org/2002/07/owl#")
     roles = {c for c in g.subjects(RDF.type, OWL.Class) if EPO.Role in g.transitive_objects(c, RDFS.subClassOf)}  # the role classes sit under prov:Role (sheet 08)
     for c in g.subjects(RDF.type, OWL.Class):
-        if c in (EPO.Step, EPO.EpoStep, EPO.ContractingStep, EPO.Layer, EPO.AppropriatenessValue, EPO.SufficiencyValue, EPO.Engagement, EPO.Affectedness, EPO.IndependenceLevel) or c in roles:
+        if c in (EPO.Step, EPO.EpoStep, EPO.ContractingStep, EPO.Layer, EPO.AppropriatenessValue, EPO.SufficiencyValue, EPO.FitnessValue, EPO.Engagement, EPO.Affectedness, EPO.IndependenceLevel) or c in roles:
             continue
         if c == EPO.Strategy:  # a prov:Plan, itself a prov:Entity
             continue
@@ -142,9 +142,13 @@ def test_record_names_every_human_judgment():
         assert (who, RDF.type, PROV.Person) in g
         assert g.value(att, EPO.appropriateness) is not None and g.value(att, EPO.sufficiency) is not None
         assert (who, EPO.role, EPO.domainExpertRole) in g
-    assert len(list(g.subjects(RDF.type, EPO.Attestation))) == 2
-    assert len(list(g.subjects(RDF.type, EPO.AcceptanceCriterion))) == 3
-    assert len(list(g.subjects(RDF.type, EPO.Determination))) == 3  # sheet 10-15: Theo's determination on a2 is paired with Annie's
+    assert len(list(g.subjects(RDF.type, EPO.Attestation))) == 6  # five criteria, a2 attested twice: cannot tell, then passed after the follow-up (sheet 10-48)
+    assert len(list(g.subjects(RDF.type, EPO.AcceptanceCriterion))) == 5
+    assert len(list(g.subjects(RDF.type, EPO.Determination))) == 7  # sheet 10-15: Theo's determination on a3 is paired with Annie's; a2 determined twice
+    a2 = [t for t in g.subjects(RDF.type, EPO.Attestation) if str(g.value(t, EARL.test)).endswith("#a2")]
+    assert sorted(str(g.value(g.value(t, EARL.result), EARL.outcome)).rsplit("#", 1)[-1] for t in a2) == ["cantTell", "passed"]
+    later = max(a2, key=lambda t: str(g.value(t, PROV.endedAtTime)))
+    assert len(list(g.objects(later, PROV.used))) == 2  # the superseding attestation names both determinations (no cherry-picking, sheet 10-14)
 
 
 def test_record_names_the_parties_and_roles():

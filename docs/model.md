@@ -69,12 +69,11 @@ only with a reason).
 ## The walkthrough
 
 The measles record splits along the same seam. What the contract pinned was
-recorded between 28 July and 31 July and again between 12 and 14 August:
+recorded between 28 and 31 July and again between 12 and 14 August:
 the mission, the need, the proposal, the agreement, the access, the
 delivery and the acceptance. What the evaluation pinned was recorded
 between 1 and 12 August, inside that window, by Annie, Theo and the
-machines. The table counts what each layer contributed to the one record
-the report and the traceback read.
+machines. The table counts what each layer contributed to the one record.
 
 ```{include} ../generated/layers-walkthrough.md
 ```

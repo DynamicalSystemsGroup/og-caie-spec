@@ -883,11 +883,13 @@ ogc:S6-Attestation a sh:NodeShape ;
 
 # S7 <-> SCI-07, SCI-08: the report is computed by an automatic activity of
 # a versioned software agent; coverage and the three rates are present, in
-# range, recomputed from the record's attestations, and the rates sum to one;
-# a draft flags its gaps, a final report rests on a passed verdict on the
-# record that ended before it (sheet 10-41); the verdict judges the record
-# and carries the digests of what it ran (sheet 10-18); the approval is a
-# domain expert's, of a final report, after that verdict.
+# range, recomputed from the record's attestations that ended no later than
+# the report was generated (a draft is a snapshot of its day, the final
+# report has every attestation behind it), and the rates sum to one; a draft
+# flags its gaps, a final report rests on a passed verdict on the record
+# that ended before it (sheet 10-41); the verdict judges the record and
+# carries the digests of what it ran (sheet 10-18); the approval is a domain
+# expert's, of a final report, after that verdict.
 ogc:S7-Report a sh:NodeShape ;
     sh:targetClass epo:Report ;
     sh:property [ sh:path epo:coverage ; sh:minCount 1 ; sh:maxCount 1 ; sh:minInclusive 0 ; sh:maxInclusive 1 ] ;
@@ -924,20 +926,21 @@ ogc:S7-Report a sh:NodeShape ;
             }
         """ ] ;
     sh:sparql [
-        sh:message "S7: the stored coverage equals the coverage recomputed from the record: the weighted share of acceptance criteria that carry at least one attestation with an outcome (walkthrough B5, R-48)." ;
+        sh:message "S7: the stored coverage equals the coverage recomputed from the record as it stood when the report was generated: the weighted share of acceptance criteria that carry at least one attestation with an outcome, ended no later than the report (walkthrough B5, R-48; a draft is a snapshot, sheet 10-48)." ;
         sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX ogc: <https://w3id.org/og-caie/>
             PREFIX earl: <http://www.w3.org/ns/earl#>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
             SELECT $this ?value WHERE {
                 $this epo:coverage ?value .
                 {
                     SELECT $this (SUM(?cw) AS ?covered) (SUM(?w) AS ?total) WHERE {
                         {
                             SELECT $this ?a ?w (IF(COUNT(?o) > 0, ?w, 0) AS ?cw) WHERE {
-                                $this a epo:Report ; ogc:inRecord ?rec .
+                                $this a epo:Report ; ogc:inRecord ?rec ; prov:generatedAtTime ?t1 .
                                 ?a a epo:AcceptanceCriterion ; ogc:inRecord ?rec ; epo:weight ?w .
-                                OPTIONAL { ?t a epo:Attestation ; earl:test ?a ; earl:result ?r . ?r earl:outcome ?o . FILTER(?o IN (earl:passed, earl:failed, earl:cantTell)) }
+                                OPTIONAL { ?t a epo:Attestation ; earl:test ?a ; earl:result ?r ; prov:endedAtTime ?te . ?r earl:outcome ?o . FILTER(?o IN (earl:passed, earl:failed, earl:cantTell) && ?te <= ?t1) }
                             } GROUP BY $this ?a ?w
                         }
                     } GROUP BY $this
@@ -955,7 +958,7 @@ ogc:S7-Report a sh:NodeShape ;
             }
         """ ] ;
     sh:sparql [
-        sh:message "S7 (SCI-08, sheet 10-19): the stored pass, fail and cannot-tell rates equal the rates recomputed from the record's attestations over the covered criteria, as queries/coverage.rq computes them (a criterion counts once: failed if any attestation failed, else passed if any passed, else cannot tell)." ;
+        sh:message "S7 (SCI-08, sheet 10-19): the stored pass, fail and cannot-tell rates equal the rates recomputed from the record's attestations that ended no later than the report was generated, over the covered criteria, as queries/coverage.rq computes them (a criterion counts once: failed if any attestation failed, else passed if any passed, else cannot tell); a final report has every attestation behind it, a draft the ones of its day." ;
         sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX ogc: <https://w3id.org/og-caie/>
@@ -971,8 +974,8 @@ ogc:S7-Report a sh:NodeShape ;
                                 {
                                     SELECT $this ?a (SUM(IF(BOUND(?o) && ?o = earl:failed, 1, 0)) AS ?nFailed) (SUM(IF(BOUND(?o) && ?o = earl:passed, 1, 0)) AS ?nPassed)
                                            (SUM(IF(BOUND(?o) && ?o = earl:cantTell, 1, 0)) AS ?nCantTell) WHERE {
-                                        $this a epo:Report ; ogc:inRecord ?rec . ?a a epo:AcceptanceCriterion ; ogc:inRecord ?rec .
-                                        OPTIONAL { ?t a epo:Attestation ; earl:test ?a ; earl:result ?r . ?r earl:outcome ?o . }
+                                        $this a epo:Report ; ogc:inRecord ?rec ; prov:generatedAtTime ?t1 . ?a a epo:AcceptanceCriterion ; ogc:inRecord ?rec .
+                                        OPTIONAL { ?t a epo:Attestation ; earl:test ?a ; earl:result ?r ; prov:endedAtTime ?te . ?r earl:outcome ?o . FILTER(?te <= ?t1) }
                                     } GROUP BY $this ?a
                                 }
                             }
@@ -1029,16 +1032,30 @@ ogc:S7-ReportApproval a sh:NodeShape ;
             }
         """ ] .
 
-# S8 <-> SCI-09: a recommendation is attributed to a named person, is an item
-# of the report step, derives from the report approval that owns it (sheet
-# 10-11) and from every attestation the coverage used (or names the ones it
-# left out and why), and from at least one attestation, its evidence, the
-# plan and the DSO release.
+# S8 <-> SCI-09: a recommendation is attributed to a named person, states its
+# fitness (fit to deploy, fit with conditions, not fit; fit to deploy only
+# when nothing it rests on failed, sheet 10-48), is an item of the report
+# step, derives from the report approval that owns it (sheet 10-11) and from
+# every attestation the coverage used (or names the ones it left out and
+# why), and from at least one attestation, its evidence, the plan and the
+# DSO release.
 ogc:S8-Recommendation a sh:NodeShape ;
     sh:targetClass epo:Recommendation ;
     sh:property [ sh:path prov:wasAttributedTo ; sh:minCount 1 ; sh:class prov:Person ;
                   sh:message "A recommendation is a named person's." ] ;
     sh:property [ sh:path epo:text ; sh:minCount 1 ] ;
+    sh:property [ sh:path epo:fitness ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ( epo:fitToDeploy epo:fitWithConditions epo:notFit ) ;
+                  sh:message "A recommendation states the fitness it recommends: fit to deploy, fit with conditions or not fit (sheet 10-48, R-51); the report's badge is this word, never a parse of the prose." ] ;
+    sh:sparql [
+        sh:message "S8 (sheet 10-48): a recommendation that says fit to deploy rests on no failed attestation; a criterion attested failed leaves fit with conditions or not fit." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX earl: <http://www.w3.org/ns/earl#>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            SELECT $this ?value WHERE {
+                $this epo:fitness epo:fitToDeploy ; prov:wasDerivedFrom ?value . ?value a epo:Attestation ; earl:result ?r . ?r earl:outcome earl:failed .
+            }
+        """ ] ;
     sh:sparql [
         sh:message "S8: a recommendation is an item of the report step (the step is derived through the model graph, sheet 10-33)." ;
         sh:select """

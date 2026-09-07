@@ -216,11 +216,21 @@ def item_steps(g: Graph):
         key = (0 if order.startswith("C") else 1, order)
         if n not in by_item or key < by_item[n][0]:
             by_item[n] = (key, st)
-    return sorted(((n, st) for n, (_, st) in by_item.items()), key=lambda x: str(x[0]))
+    return sorted(((n, st) for n, (_, st) in by_item.items()), key=lambda x: natural(str(x[0])))
+
+
+def natural(s: str) -> list:
+    """A sort key that puts probe-2 before probe-10: digits compared as numbers."""
+    import re
+    return [int(part) if part.isdigit() else part for part in re.split(r"(\d+)", s)]
+
+
+CHAPTER_TABLE_SKIPS = {"Turn", "ConsistencyCheck"}  # rendered less, never trimmed from the graph (Z, 2026-09-06): a turn says nothing its probe and response do not, and the consistency checks are one line twelve times; `ogc record` and generated/record.md list them
 
 
 def render_record_chapter(chapter: str) -> str:
-    """The walkthrough rows of one chapter: the record's items at that chapter's steps, with who and when."""
+    """The walkthrough rows of one chapter: the record's items at that chapter's steps, with who and when, the item
+    kinds in CHAPTER_TABLE_SKIPS left to the record and the tool."""
     from rdflib import Namespace as NS
     EPO = NS("https://w3id.org/og-caie/epo#")
     PROV = NS("http://www.w3.org/ns/prov#")
@@ -235,12 +245,14 @@ def render_record_chapter(chapter: str) -> str:
         if want is None and step in CONTRACT_STEPS:
             continue
         cls = next((c for c in g.objects(n, RDF.type) if str(c).startswith(str(EPO))), None)
+        if str(cls).rsplit("#", 1)[-1] in CHAPTER_TABLE_SKIPS:
+            continue
         who = [g.value(a, RDFS.label) or str(a).rsplit("#", 1)[-1] for pr in (EARL.assertedBy, EPO.approvedBy, EPO.signedBy, PROV.wasAttributedTo, PROV.wasAssociatedWith) for a in g.objects(n, pr)]
         when = g.value(n, PROV.generatedAtTime) or g.value(n, PROV.startedAtTime) or g.value(n, PROV.endedAtTime) or ""
         label = g.value(n, RDFS.label) or g.value(n, EPO.text) or ""
         if not label and str(cls).endswith("ProbeDerivation"):
-            probe = next((p for p in g.subjects(PROV.wasGeneratedBy, n) if (p, RDF.type, EPO.Probe) in g), None)
-            label = f"derived the probe: {g.value(probe, EPO.text)}" if probe is not None else "derived the probes"
+            probes = [p for p in g.subjects(PROV.wasGeneratedBy, n) if (p, RDF.type, EPO.Probe) in g]
+            label = f"derived the probe: {g.value(probes[0], EPO.text)}" if len(probes) == 1 else f"derived the {len(probes)} probes from the DSO release and the requirement set"
         if not label and str(cls).endswith("CoverageComputation"):
             rep = next((r for r in g.subjects(PROV.wasGeneratedBy, n) if (r, RDF.type, EPO.Report) in g), None)
             label = f"coverage {g.value(rep, EPO.coverage)} by weight; pass {g.value(rep, EPO.passRate)}, fail {g.value(rep, EPO.failRate)}, cannot tell {g.value(rep, EPO.cantTellRate)}" if rep is not None else ""
@@ -251,6 +263,8 @@ def render_record_chapter(chapter: str) -> str:
         order = str(g.value(st, RDFS.label)).split(" ", 1)[0]
         rows.append((order, str(when), f"| {cell(str(g.value(st, RDFS.label)).split(':')[0])} | `{str(n).rsplit('#', 1)[-1]}` ({cell(str(cls).rsplit('#', 1)[-1])}) | {cell(label)} | {cell('; '.join(dict.fromkeys(str(w) for w in who)))} | {cell(str(when)[:10])} |"))
     lines = ["| Step | Item | What it says | Who | When |", "|---|---|---|---|---|"] + [r[2] for r in sorted(rows, key=lambda r: (r[1], r[0]))]
+    if want is None:
+        lines += ["", f"Left to the record and to `ogc record`: the {len(list(g.subjects(RDF.type, EPO.Turn)))} turns and the {len(list(g.subjects(RDF.type, EPO.ConsistencyCheck)))} consistency checks, one per probe."]
     return "\n".join(lines) + "\n"
 
 
@@ -373,7 +387,7 @@ def render_criteria() -> str:
                      f"| {observations} | {', '.join(suff) or ''} | {', '.join(appr) or ''} | {', '.join(outs) or 'none'} | {status} |")
     row = next(iter(g.query((ROOT / "queries" / "coverage.rq").read_text())))
     lines += ["", f"Coverage recomputed from the record by `queries/coverage.rq`: {float(row.coverage):.4f} by weight "
-                  f"(pass {float(row.passRate):.2f}, fail {float(row.failRate):.2f}, cannot tell {float(row.cantTellRate):.2f}); the report stores the same numbers. "
+                  f"(pass {float(row.passRate):.2f}, fail {float(row.failRate):.2f}, cannot tell {float(row.cantTellRate):.2f}); the final report stores the same numbers, and a criterion attested twice counts once, by its later judgment. "
                   "Thresholds and replication are out of scope for this version (sheet 10-10): the observation count says how much each judgment rests on."]
     return "\n".join(lines) + "\n"
 
@@ -518,7 +532,7 @@ def render_record() -> str:
             out.append(f"| {step} | `{str(n).rsplit('#', 1)[-1]}` ({cell(str(cls).rsplit('#', 1)[-1])}) | {cell('; '.join(dict.fromkeys(str(w) for w in who)))} | {cell(when)} |")
     # coverage
     (row,) = list(g.query((ROOT / "queries" / "coverage.rq").read_text()))
-    report = next(g.subjects(RDF.type, EPO.Report))
+    (report,) = [r for r in g.subjects(RDF.type, EPO.Report) if str(g.value(r, EPO.draft)) == "false"]  # the final report; a draft is a snapshot of its day (sheet 10-48)
     out.append("\n### Coverage and performance, recomputed\n")
     out.append("| Quantity | Stored in the report | Recomputed by queries/coverage.rq |\n|---|---|---|")
     for k, v in (("coverage", row.coverage), ("passRate", row.passRate), ("failRate", row.failRate), ("cantTellRate", row.cantTellRate)):
