@@ -37,3 +37,4 @@ Seven counterexamples, six records
 Eight counterexamples, seven records
 Twenty-eight counterexamples
 the thirty counterexamples fail
+shapes S0 to S9 and forty-one counterexamples
