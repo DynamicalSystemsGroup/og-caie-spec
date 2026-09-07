@@ -19,11 +19,11 @@ deployed AI system against the needs of a specific domain, written down as:
 
 ## Status (2026-09-06)
 
-- **Glossary: ratified.** 62 terms, 4 coined (DSO, EPO, CAIE, OG-CAIE),
+- **Glossary: ratified.** 66 terms, 4 coined (DSO, EPO, CAIE, OG-CAIE),
   settled through 49 rulings (R-01 to R-49) recorded verbatim in
-  `rulings/adjudications.ttl`. 85 quotes are machine-located in
+  `rulings/adjudications.ttl`. 86 quotes are machine-located in
   content-hashed snapshots or, where the source is held locally, in its
-  committed digest, 48 verified by Z against the ISO screenshots or
+  committed digest, 57 verified by Z against the ISO screenshots or
   the browsing platforms; none pending. Concerns C-25, C-30, C-43 and C-45 are open.
 - **Both cycles are bound to the canon (R-31, R-32).** Each step cites the
   process step it matches: SEBoK's account of the ISO/IEC/IEEE 15288
@@ -37,7 +37,7 @@ deployed AI system against the needs of a specific domain, written down as:
   sponsor's mission and obligations towards the affected populations open
   the record (R-37, R-38).
 - **Site: a presentation layer over the model (R-34), seven pages and
-  four appendices.** The
+  five appendices.** The
   front page runs from why this counts as science to the bridge into the
   engineering standards; the vocabulary page shows exactly the terms the
   site uses, with hover definitions; four chapters (Stakeholders and
@@ -53,7 +53,9 @@ deployed AI system against the needs of a specific domain, written down as:
   checks each chapter claims (`notebooks/`); Appendix C is the rulings, the
   judgments the model is grounded in (R-41); Appendix D reviews the
   toolchain, rendered from the lock file, the pinned digests, the gate and
-  the workflow, with the reviewer recipe (R-43).
+  the workflow, with the reviewer recipe (R-43); Appendix E is the works
+  cited, rendered from the source register as BibTeX, with each chapter
+  closing on the sources it cites (R-48).
 - **Model: revised (R-21 to R-38), draft.** SysML holds structure only; the
   pruned RDF rendering `model/og-caie.model.ttl` is the canonical structure
   (R-22), checked by wiring shapes M1 to M5 over kinds of parts and ports:

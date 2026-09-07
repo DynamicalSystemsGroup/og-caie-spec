@@ -8,11 +8,12 @@ in the repository and the explorer.
 
 ## The map of the site
 
-Seven pages, each a view of the model in the repository, and four
-appendices: A opens the same model as a knowledge graph, B runs the checks
-each chapter claims, C records the judgments the model is grounded in,
-as [Rulings](rulings.md), and [D](appendix-toolchain.md) reviews the
-toolchain and how to reproduce every check. The
+Seven pages, each a view of the model in the repository, and five
+appendices: [A](appendix-explorer.md) opens the same model as a knowledge
+graph, B runs each chapter's checks, C records the judgments the model
+is grounded in, as [Rulings](rulings.md), [D](appendix-toolchain.md)
+reviews the toolchain and the reproduction, and
+[E](appendix-works-cited.md) collects the works cited. The
 [front page](../index.md) sets the bar for science in plain terms and
 crosses the bridge into the standards; this page gives the terms and the
 two cycles; [Stakeholders and contracting](contracting.md) is the outer cycle, from
