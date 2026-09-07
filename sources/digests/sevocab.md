@@ -53,3 +53,12 @@ operational envelope, probe (in our sense), coverage on its own.
 | test environment | 434 | environment containing facilities, hardware, software, firmware, and procedures needed to conduct a test | ISO/IEC/IEEE 29119-2:2021, 3.34 |
 | test completion report | 433 | report that provides a summary of the testing that was performed | ISO/IEC/IEEE 29119-2:2021, 3.26 |
 | acceptance | 4 | action by an authorized representative of the acquirer by which the acquirer assumes ownership of products as partial or complete performance of an agreement | ISO/IEC/IEEE 24748-5:2017, 3.1 |
+| proposal | 329 | supplier's offer to provide a system or service, usually including benefits, costs, risks, opportunities, and other factors applicable to decisions | ISO/IEC/IEEE 24765c:2014 |
+| request for proposal (RFP) | 350 | document used by the acquirer as the means to announce its intention to potential bidders to acquire a specified system, software product, or software service | ISO/IEC/IEEE 24765:2017 |
+| test environment and data management process | 434 | test process for establishing and maintaining a required test environment and corresponding test data | ISO/IEC/IEEE 29119-2:2021, 3.37 |
+| test environment | 434 | environment containing facilities, hardware, software, firmware, and procedures | ISO/IEC/IEEE 29119-2:2021, 3.34 |
+| test item transmittal report | 435 | document identifying test items | ISO/IEC/IEEE 24765:2017 |
+| delivery | 120 | release of a system or component to its customer or intended user | ISO/IEC/IEEE 24765:2017 |
+| system requirements specification (SyRS) | 422 | structured collection of the requirements (functions, performance, design constraints, and attributes) of the system and its operational environments and external interfaces | ISO/IEC/IEEE 29148:2018, 4.1.29 |
+| test result | 438 | indication of whether a specific test case has passed or failed, i.e. if the actual results correspond to the expected results or if deviations were observed | ISO/IEC/IEEE 29119-1:2022 |
+

@@ -31,6 +31,14 @@ jobs:
         run: uv sync
       - name: full gate
         run: bash checks/run-checks.sh
+      - name: gate log, for diagnosis when a step fails
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gate-log
+          path: |
+            checks/out/last.log
+            checks/out/report.json
       - name: build the site for Pages
         env:
           REPO_NAME: ${{ github.event.repository.name }}

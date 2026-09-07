@@ -16,3 +16,11 @@ Process steps the EPO matches (ruling R-31), PDF pages:
 - p. 352, Acquisition and Supply: "The supplier is an organization or individual that enters into an agreement with the acquirer to supply a product or service."
 - p. 353, Stakeholder Needs: "These needs and requirements are expressed in agreements between acquirers and suppliers."
 - p. 543, Business or Mission Analysis: "The purpose of Business or Mission Analysis is to understand a mission or market problem, threat, or opportunity, and to establish the goals, objectives and measures of success of a potential solution class."
+
+Process canon re-cited under ruling R-47 (sheet 06-09), PDF pages:
+
+- p. 935, Enterprise Systems Engineering, contract products and services: "Contract products and services often demand tailor-made system/service solutions which are typically specified by a single customer to whom the solution is provided. The supplier responds with proposed solutions."
+- p. 1437, Acceptance Criteria (glossary, INCOSE 2011, Section 6.1.15): "The procurement specification, in the context of the overall agreement, should clearly state the criteria by which the acquirer will accept delivery from the supplier."
+- p. 558, System Requirements Definition, Process for Generating System Requirements: "The System Requirement Definition activities begin with the transformation of the integrated set of needs into a set of requirements for the SoI. These requirements must be appropriate to the level that the SoI exists within the system architecture and communicate "what" the SoI must do to meet the needs, avoiding requirements that state implementation of "how" to achieve the design realization of the physical SoI."
+- p. 559, System Requirements Definition: "A detailed analysis of a single need statement may result in multiple requirements expressing what the system must do to meet it, including definition of measurable performance criteria (INCOSE NRM 2022)."
+
