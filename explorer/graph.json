@@ -6542,6 +6542,12 @@
      }
     ],
     [
+     "sh:sparql",
+     {
+      "text": "[sh:message S7: the stored coverage equals the cove…; sh:select PREFIX epo: <https://w3id.org/og-caie/e…]"
+     }
+    ],
+    [
      "sh:targetClass",
      {
       "ref": "https://w3id.org/og-caie/epo#Report"
@@ -44823,7 +44829,7 @@
   },
   {
    "cls": "shape",
-   "desc": "Targets epo:Report. S7: the outcome distribution must sum to one. S7: the report must be computed by an automatic activity of a versioned software agent.",
+   "desc": "Targets epo:Report. S7: the outcome distribution must sum to one. S7: the report must be computed by an automatic activity of a versioned software agent. S7: the stored coverage equals the coverage recomputed from the record: the weighted share of acceptance criteria that carry at least one attestation with an outcome (walkthrough B5, R-48).",
    "id": "https://w3id.org/og-caie/S7-Report",
    "label": "S7-Report",
    "ogc": "ogc sparql \"DESCRIBE ogc:S7-Report\"",

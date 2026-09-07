@@ -31,3 +31,24 @@ ogm:validation-AccountableOrganization a ogc:Validation ; ogc:validates "Account
 ogm:validation-accessSeam a ogc:Validation ; ogc:validates "accessSeam" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .
 ogm:validation-accessToOperatorSeam a ogc:Validation ; ogc:validates "accessToOperatorSeam" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .
 ogm:validation-obligation a ogc:Validation ; ogc:validates "obligation" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .
+ogm:validation-ConformanceChecker a ogc:Validation ; ogc:validates "ConformanceChecker" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date ; ogc:via "walkthrough popup, blocks 5 and 6 of 11" .
+ogm:validation-recordToCheckerSeam a ogc:Validation ; ogc:validates "recordToCheckerSeam" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .
+ogm:validation-CoverageCalculator a ogc:Validation ; ogc:validates "CoverageCalculator" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date ; ogc:via "walkthrough popup, blocks 5 and 6 of 11: coverage also computable as a SHACL constraint (S7)" .
+ogm:validation-recordToCalculatorSeam a ogc:Validation ; ogc:validates "recordToCalculatorSeam" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .
+ogm:validation-reportSeam a ogc:Validation ; ogc:validates "reportSeam" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .
+ogm:validation-DomainExpert a ogc:Validation ; ogc:validates "DomainExpert" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date ; ogc:via "walkthrough popup, block 7 of 11" .
+ogm:validation-dsoSeam a ogc:Validation ; ogc:validates "dsoSeam" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .
+ogm:validation-assessmentSeam a ogc:Validation ; ogc:validates "assessmentSeam" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .
+ogm:validation-planApprovalSeam a ogc:Validation ; ogc:validates "planApprovalSeam" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .
+ogm:validation-expertDeterminationSeam a ogc:Validation ; ogc:validates "expertDeterminationSeam" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .
+ogm:validation-attestationSeam a ogc:Validation ; ogc:validates "attestationSeam" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .
+ogm:validation-recordToExpertSeam a ogc:Validation ; ogc:validates "recordToExpertSeam" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .
+ogm:validation-EvaluationOperator a ogc:Validation ; ogc:validates "EvaluationOperator" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date ; ogc:via "walkthrough popup, block 8 of 11" .
+ogm:validation-derivedProbeSeam a ogc:Validation ; ogc:validates "derivedProbeSeam" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .
+ogm:validation-recordToOperatorSeam a ogc:Validation ; ogc:validates "recordToOperatorSeam" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .
+ogm:validation-requirementSeam a ogc:Validation ; ogc:validates "requirementSeam" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .
+ogm:validation-planSeam a ogc:Validation ; ogc:validates "planSeam" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .
+ogm:validation-probeRunSeam a ogc:Validation ; ogc:validates "probeRunSeam" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .
+ogm:validation-evidenceSeam a ogc:Validation ; ogc:validates "evidenceSeam" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .
+ogm:validation-operatorDeterminationSeam a ogc:Validation ; ogc:validates "operatorDeterminationSeam" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .
+ogm:validation-recommendationSeam a ogc:Validation ; ogc:validates "recommendationSeam" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .

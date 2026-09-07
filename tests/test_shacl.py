@@ -19,6 +19,7 @@ COUNTEREXAMPLES = {
     "counterexamples/requirements-before-agreement.ttl": {"S0-Parties", "S0-Layers"},
     "counterexamples/population-unrepresented.ttl": "S0-Population",
     "counterexamples/engagement-mismatch.ttl": "S0-Population",
+    "counterexamples/report-coverage-padded.ttl": "S7-Report",
     "counterexamples/expert-administers-tests.ttl": "S4-Session",
     "counterexamples/executive-attests.ttl": "S6-Attestation",
 }

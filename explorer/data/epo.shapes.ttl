@@ -461,6 +461,27 @@ ogc:S7-Report a sh:NodeShape ;
             }
         """ ] ;
     sh:sparql [
+        sh:message "S7: the stored coverage equals the coverage recomputed from the record: the weighted share of acceptance criteria that carry at least one attestation with an outcome (walkthrough B5, R-48)." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX earl: <http://www.w3.org/ns/earl#>
+            SELECT $this ?value WHERE {
+                $this epo:coverage ?value .
+                {
+                    SELECT $this (SUM(?cw) AS ?covered) (SUM(?w) AS ?total) WHERE {
+                        {
+                            SELECT $this ?a ?w (IF(COUNT(?o) > 0, ?w, 0) AS ?cw) WHERE {
+                                $this a epo:Report .
+                                ?a a epo:AcceptanceCriterion ; epo:weight ?w .
+                                OPTIONAL { ?t a epo:Attestation ; earl:test ?a ; earl:result ?r . ?r earl:outcome ?o . }
+                            } GROUP BY $this ?a ?w
+                        }
+                    } GROUP BY $this
+                }
+                FILTER(ABS(?value - (?covered / ?total)) > 0.0001)
+            }
+        """ ] ;
+    sh:sparql [
         sh:message "S7: the outcome distribution must sum to one." ;
         sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
