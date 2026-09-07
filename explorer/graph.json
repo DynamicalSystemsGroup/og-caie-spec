@@ -36673,6 +36673,12 @@
     [
      "ogc:checkedBy",
      {
+      "ref": "https://w3id.org/og-caie/S7-CoverageComputation"
+     }
+    ],
+    [
+     "ogc:checkedBy",
+     {
       "ref": "https://w3id.org/og-caie/S7-Report"
      }
     ],
@@ -36775,6 +36781,12 @@
      "ogc:checkedBy",
      {
       "ref": "https://w3id.org/og-caie/S7-ConformanceVerdict"
+     }
+    ],
+    [
+     "ogc:checkedBy",
+     {
+      "ref": "https://w3id.org/og-caie/S7-CoverageComputation"
      }
     ],
     [
@@ -61228,6 +61240,11 @@
   {
    "rel": "checkedBy",
    "source": "https://w3id.org/og-caie/trace#SCI-07",
+   "target": "https://w3id.org/og-caie/S7-CoverageComputation"
+  },
+  {
+   "rel": "checkedBy",
+   "source": "https://w3id.org/og-caie/trace#SCI-07",
    "target": "https://w3id.org/og-caie/S7-Report"
   },
   {
@@ -61284,6 +61301,11 @@
    "rel": "checkedBy",
    "source": "https://w3id.org/og-caie/trace#SCI-08",
    "target": "https://w3id.org/og-caie/S7-ConformanceVerdict"
+  },
+  {
+   "rel": "checkedBy",
+   "source": "https://w3id.org/og-caie/trace#SCI-08",
+   "target": "https://w3id.org/og-caie/S7-CoverageComputation"
   },
   {
    "rel": "checkedBy",

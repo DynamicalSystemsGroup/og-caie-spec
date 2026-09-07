@@ -161,39 +161,6 @@ ogc:RulingShape a sh:NodeShape ;
             sh:path ogc:order ] ;
     sh:targetClass ogc:Ruling .
 
-ogc:S7-CoverageComputation a sh:NodeShape ;
-    sh:property [ sh:hasValue earl:automatic ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path earl:mode ],
-        [ sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path prov:endedAtTime ],
-        [ sh:class prov:SoftwareAgent ;
-            sh:message "The coverage computation is a software agent's activity, the report assembler's." ;
-            sh:minCount 1 ;
-            sh:path prov:wasAssociatedWith ],
-        [ sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:message "The coverage computation names the shapes it ran by their sha256 digest (sheet 10-18)." ;
-            sh:minCount 1 ;
-            sh:path epo:shapesDigest ;
-            sh:pattern "^[0-9a-f]{64}$" ],
-        [ sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:message "The coverage computation names the ontology it ran by its sha256 digest (sheet 10-18)." ;
-            sh:minCount 1 ;
-            sh:path epo:ontologyDigest ;
-            sh:pattern "^[0-9a-f]{64}$" ],
-        [ sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:message "The coverage computation names the coverage query it ran by its sha256 digest (sheet 10-18; round four, KG 8: the query is the assembler's tool, not the checker's)." ;
-            sh:minCount 1 ;
-            sh:path epo:queryDigest ;
-            sh:pattern "^[0-9a-f]{64}$" ] ;
-    sh:targetClass epo:CoverageComputation .
-
 ogc:SourceShape a sh:NodeShape ;
     sh:property [ sh:datatype xsd:integer ;
             sh:maxCount 1 ;
@@ -1368,6 +1335,7 @@ tr:SCI-07 a ogc:Trace ;
     rdfs:label "SCI-07 CoverageRecomputable" ;
     rdfs:comment "Coverage is recomputable from a conformant record: a criterion counts as covered only with an attestation behind it." ;
     ogc:checkedBy ogc:S7-ConformanceVerdict,
+        ogc:S7-CoverageComputation,
         ogc:S7-Report,
         ogc:S7-ReportApproval ;
     ogc:page "guarantees" ;
@@ -1386,6 +1354,7 @@ tr:SCI-08 a ogc:Trace ;
     rdfs:label "SCI-08 CoverageAndPerformanceKeptApart" ;
     rdfs:comment "Coverage and performance are reported together and never merged." ;
     ogc:checkedBy ogc:S7-ConformanceVerdict,
+        ogc:S7-CoverageComputation,
         ogc:S7-Report,
         ogc:S7-ReportApproval ;
     ogc:page "guarantees" ;
@@ -10265,6 +10234,39 @@ ogc:S7-ConformanceVerdict a sh:NodeShape ;
             }
         """ ] ;
     sh:targetClass epo:ConformanceVerdict .
+
+ogc:S7-CoverageComputation a sh:NodeShape ;
+    sh:property [ sh:hasValue earl:automatic ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path earl:mode ],
+        [ sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path prov:endedAtTime ],
+        [ sh:class prov:SoftwareAgent ;
+            sh:message "The coverage computation is a software agent's activity, the report assembler's." ;
+            sh:minCount 1 ;
+            sh:path prov:wasAssociatedWith ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:message "The coverage computation names the shapes it ran by their sha256 digest (sheet 10-18)." ;
+            sh:minCount 1 ;
+            sh:path epo:shapesDigest ;
+            sh:pattern "^[0-9a-f]{64}$" ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:message "The coverage computation names the ontology it ran by its sha256 digest (sheet 10-18)." ;
+            sh:minCount 1 ;
+            sh:path epo:ontologyDigest ;
+            sh:pattern "^[0-9a-f]{64}$" ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:message "The coverage computation names the coverage query it ran by its sha256 digest (sheet 10-18; round four, KG 8: the query is the assembler's tool, not the checker's)." ;
+            sh:minCount 1 ;
+            sh:path epo:queryDigest ;
+            sh:pattern "^[0-9a-f]{64}$" ] ;
+    sh:targetClass epo:CoverageComputation .
 
 ogc:S7-ReportApproval a sh:NodeShape ;
     sh:property [ sh:class epo:Report ;
