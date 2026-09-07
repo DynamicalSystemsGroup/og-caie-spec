@@ -66,10 +66,10 @@ the contracting of an evaluation and then the evaluation itself, and to
 show its properties. The conclusion returns to Popper's terms and says what
 has been encoded.
 
+```{include} generated/version.md
+```
+
 ## Sources cited
 
 ```{include} generated/cited-index.md
-```
-
-```{include} generated/version.md
 ```

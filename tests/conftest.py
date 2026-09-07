@@ -24,6 +24,14 @@ import sys as _sys
 _sys.path.insert(0, str(ROOT))
 from ogc.verify import normalized  # noqa: E402  (one normalisation, shared with `ogc verify`)
 
+# The version line is written at render time and never committed (sheet 10-38);
+# a fresh checkout has none, so the tests that resolve includes render it first.
+if not (ROOT / "generated" / "version.md").exists():
+    _sys.path.insert(0, str(ROOT / "scripts"))
+    import render_version as _rv  # noqa: E402
+    _rv.OUT.write_text(_rv.render())
+
+
 
 @pytest.fixture(scope="session")
 def rulings() -> Graph:

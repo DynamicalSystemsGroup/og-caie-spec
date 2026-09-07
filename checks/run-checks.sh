@@ -26,6 +26,7 @@ step() { # step <name> <expected-exit> <cmd...>
   fi
 }
 
+uv run python scripts/render_version.py >> "$LOG" 2>&1  # the version line (sheet 10-38), written before anything reads it, never committed
 step "toolchain: pinned sysml v0.4.3, digest-verified" 0 bash toolchain/get-sysml.sh
 step "model: validate -strict (authoring view and model counterexamples)" 0 toolchain/bin/sysml model/og-caie.sysml counterexamples/model/unwired-port.sysml counterexamples/model/expert-administers-tests.sysml counterexamples/model/missing-accountable.sysml counterexamples/model/no-obligation.sysml -validate -strict
 

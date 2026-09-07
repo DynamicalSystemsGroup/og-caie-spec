@@ -4588,41 +4588,6 @@
     ]
    ]
   },
-  "cite:technical-expert:seeAlso:iso-9000-2026:3-12-9-note-2-transcribed-from-the-2015-edition-s-3-13-16-awaiting-z-s-tick-against-the-screenshot": {
-   "in": [],
-   "out": [
-    [
-     "ogc:cites",
-     {
-      "ref": "https://w3id.org/og-caie/sources#iso-9000-2026"
-     }
-    ],
-    [
-     "ogc:file",
-     {
-      "text": "sources/local/iso-9000-2026/iso-9000-2026-obp-34.png"
-     }
-    ],
-    [
-     "ogc:locator",
-     {
-      "text": "3.12.9 Note 2 (transcribed from the 2015 edition's 3.13.16, awaiting Z's tick against the screenshot)"
-     }
-    ],
-    [
-     "ogc:quote",
-     {
-      "text": "A technical expert does not act as an auditor in the audit team."
-     }
-    ],
-    [
-     "ogc:quoteStatus",
-     {
-      "text": "pending"
-     }
-    ]
-   ]
-  },
   "cite:test-case:canonical:sevocab:test-case-p-432": {
    "in": [],
    "out": [
@@ -17307,13 +17272,13 @@
     [
      "ogc:rulingText",
      {
-      "text": "Four rulings given during the sheet 10 walkthrough, after its items. The worked example is the measles evaluation, not the measles run: neither word is a glossary term, run reads at the execution scale (SEVOCAB's test, concern C-14) and case at the scale of SEVOCAB's test case, the anchor of probe, while the whole is one Contextual AI Evaluation and ISO/IEC 17000's conformity assessment; the record's namespace and file are renamed and the prose keeps walkthrough for the narrative (10-42). Synthetic content is tagged as such in the graph, on the measles evaluation's bundle and every member, and the explorer can include or exclude synthetic data (10-43). A sample report for the synthetic measles evaluation becomes the first appendix: a simple dashboard rendered from the record alone, built with d3, that answers the sponsor's question and does not overwhelm; the appendices are reordered and Records and reporting links to it as the sample report for the synthetic case (10-44). The SEVOCAB absence check behind every NIST and reserve canonical is recorded with its date: tester, session, measurement uncertainty, trajectory, appropriateness, sufficiency, attestation, red teaming, operational envelope and coverage are absent; ontology, repeatability, reproducibility and dialog are present in the specification's sense and take SEVOCAB as canonical by the precedence rule, with Gruber, JCGM 200 and NIST AI 700-2 kept as neighbour cites; guardrail and probe are present in another sense and keep their canonicals (10-45)."
+      "text": "Four rulings given during the sheet 10 walkthrough, after its items. The worked example is the measles evaluation, not the measles run: neither word is a glossary term, run reads at the execution scale (SEVOCAB's test, concern C-14) and case at the scale of SEVOCAB's test case, the anchor of probe, while the whole is one Contextual AI Evaluation and ISO/IEC 17000's conformity assessment; the record's namespace and file are renamed and the prose keeps walkthrough for the narrative (10-42). Synthetic content is tagged as such in the graph, on the measles evaluation's bundle and every member, and the explorer can include or exclude synthetic data (10-43). A sample report for the synthetic measles evaluation becomes the first appendix: a simple dashboard rendered from the record alone, built with d3, that answers the sponsor's question and does not overwhelm; the appendices are reordered and Records and reporting links to it as the sample report for the synthetic case (10-44). The SEVOCAB absence check behind every NIST and reserve canonical is recorded with its date: tester, session, measurement uncertainty, trajectory, appropriateness, sufficiency, attestation, red teaming, operational envelope and coverage are absent; ontology, repeatability, reproducibility and dialog are present in the specification's sense and take SEVOCAB as canonical by the precedence rule, with Gruber, JCGM 200 and NIST AI 700-2 kept as neighbour cites; guardrail and probe are present in another sense and keep their canonicals (10-45). The source ranks are ordinal, 1 to 8, with no reserve or internal class: ISO 9000, SEVOCAB, NIST, W3C, the ISO-family vocabularies, other bodies, academic works, the authors (10-46). Each chapter keeps one references block, the generated sources cited with locators, and MyST's compiled bibliography renders only in the works cited appendix; the prose sheds the source names the block carries (10-47). The sample report is redesigned first, positive and terse, then the synthetic case is redesigned to make the demo, with every criterion planned and attested; a final report requires full coverage, and only a flagged draft may carry gaps; the report's primary reader is an executive who knows the domain and little about AI, the non-profit director or the head of an administration, and the page carries no technical jargon (10-48)."
      }
     ],
     [
      "ogc:verbatim",
      {
-      "text": "10-42 (Z, mid-walkthrough): \"measles run\" feels off to me. i feel like the term \"Case\" is more appropriate than \"Run\" for what we're describing. can you do a canon/glossary check and help me decide -> after the check: \"evaluation\": the measles evaluation (Recommended)\n10-43 (Z): i also think given that our models cases are synthetic we need to be able to tag synthetic content as such and have a filter toggle that includes/excludes synthetic data in the graph viewer\n10-44 (Z): i also think we want an example \"report\", strictly speaking it belongs in records and reporting but i think doing more than example content is likely to blow up the page so we could add a new appendix which is the demo report for the synthetic case. we would need to reorder the appendices though. it should probably come first. the idea is that the records and reporting section would have a link to that appendix noting that its a sample report for the synthetic case. it should be a dashboard, you can build it with d3. its more like the graph explorer but its not everything in our model, its precisely the concrete report for the synthetic measles eval. its designed to give the reader something to want to procure. it needs to be simple and intuitive and very clearly answer the question the sponsor wants answered and not overwhelm them with extra info\n10-45 (the SEVOCAB check the professor asked for, run on the export on 2026-09-07 and put to Z): Move all four to SEVOCAB; guardrail and probe stay (Recommended)"
+      "text": "10-42 (Z, mid-walkthrough): \"measles run\" feels off to me. i feel like the term \"Case\" is more appropriate than \"Run\" for what we're describing. can you do a canon/glossary check and help me decide -> after the check: \"evaluation\": the measles evaluation (Recommended)\n10-43 (Z): i also think given that our models cases are synthetic we need to be able to tag synthetic content as such and have a filter toggle that includes/excludes synthetic data in the graph viewer\n10-44 (Z): i also think we want an example \"report\", strictly speaking it belongs in records and reporting but i think doing more than example content is likely to blow up the page so we could add a new appendix which is the demo report for the synthetic case. we would need to reorder the appendices though. it should probably come first. the idea is that the records and reporting section would have a link to that appendix noting that its a sample report for the synthetic case. it should be a dashboard, you can build it with d3. its more like the graph explorer but its not everything in our model, its precisely the concrete report for the synthetic measles eval. its designed to give the reader something to want to procure. it needs to be simple and intuitive and very clearly answer the question the sponsor wants answered and not overwhelm them with extra info\n10-45 (the SEVOCAB check the professor asked for, run on the export on 2026-09-07 and put to Z): Move all four to SEVOCAB; guardrail and probe stay (Recommended)\n10-46 (Z): \"i think we need to get rid of the concept of a reserve resource. its okay to keep priority levels as a heuristic for what is prioritized when multiple sources define the same term but i think we should keep it ordinal\"\n10-46 order: Keep 1 to 4; then 5 ISO-family vocabularies (17000, JCGM 200, IEC 60050-351), 6 other bodies (ISA 500, INCOSE GtWR, SEBoK, NIST TN 1297), 7 academic works (Gruber, Hogan, Hawkins, Popper), 8 the authors (Recommended)\n10-47 (Z, with a screenshot of the front page's Sources cited list followed by MyST's compiled References): \"i am also noticing content redundancies such as the references in the prose and the compiled references section on this first page. now that we have references sections throughout we may be able to clean up some of the other text.\"\nZ (process): \"okay you have a ton of work queued up now. my preference is that you make a fresh plan. and you include in that plan a loop for consistency and drift checking because we've made a lot of incremental edits\"\n10-48 (Z, on the first dashboard): \"okay first try but i think we want a much more positive result in our demo. also the tables are way too verbose. this means we may need to rework the synthetic case. i also don't actually all results that don't have coverage in final reports so we need full coverage or it wouldn't make it to a final report stage. i recommend redesigning the dashboard first. then also redesigning the synthetic case data so it makes a better demo in the dashboard.\"\n10-48 (Z, addendum): also keep in mind the eval reports primary audience is the non profit exec persona or the head of a government administration or some other executive who doesn't know much about AI, and has some knowledge about the domain.\n10-48 (Z, second addendum): we also need to clean out the technical jargon like \"checked by pyshacl\" the person who is getting the report doesn't care about that level of technical detail"
      }
     ],
     [
@@ -27842,13 +27807,7 @@
     [
      "ogc:scopeNote",
      {
-      "text": "Ruling R-10: the ISO entry is marked <audit>; here the team is an evaluation team, not an audit team, and both the domain expert and the evaluation operator are technical experts on it (R-23 names the second). Assessors of the assessment are out of scope (R-11). Sheet 10-25 (R-50): the standard's Note 2 keeps the technical expert from acting as an auditor; here not all technical experts attest, but every attestation comes from a relevant role, the domain expert, so the term specializes the standard's. Z: \"not all technical experts attest but all attestation must come from relevant roles, in this case a technical expert.\""
-     }
-    ],
-    [
-     "ogc:seeAlso",
-     {
-      "ref": "cite:technical-expert:seeAlso:iso-9000-2026:3-12-9-note-2-transcribed-from-the-2015-edition-s-3-13-16-awaiting-z-s-tick-against-the-screenshot"
+      "text": "Ruling R-10: the ISO entry is marked <audit>; here the team is an evaluation team, not an audit team, and both the domain expert and the evaluation operator are technical experts on it (R-23 names the second). Assessors of the assessment are out of scope (R-11). Sheet 10-25 (R-50): the standard's Note 2 keeps the technical expert from acting as an auditor (Z: the Note is not quoted, the reading stands in this note); here not all technical experts attest, but every attestation comes from a relevant role, the domain expert, so the term specializes the standard's. Z: \"not all technical experts attest but all attestation must come from relevant roles, in this case a technical expert.\""
      }
     ],
     [
@@ -44578,11 +44537,6 @@
   },
   {
    "rel": "cites",
-   "source": "cite:technical-expert:seeAlso:iso-9000-2026:3-12-9-note-2-transcribed-from-the-2015-edition-s-3-13-16-awaiting-z-s-tick-against-the-screenshot",
-   "target": "https://w3id.org/og-caie/sources#iso-9000-2026"
-  },
-  {
-   "rel": "cites",
    "source": "cite:test-case:canonical:sevocab:test-case-p-432",
    "target": "https://w3id.org/og-caie/sources#sevocab"
   },
@@ -49492,11 +49446,6 @@
    "target": "cite:technical-expert:canonical:iso-9000-2026:3-12-9"
   },
   {
-   "rel": "seeAlso",
-   "source": "https://w3id.org/og-caie/terms#technical-expert",
-   "target": "cite:technical-expert:seeAlso:iso-9000-2026:3-12-9-note-2-transcribed-from-the-2015-edition-s-3-13-16-awaiting-z-s-tick-against-the-screenshot"
-  },
-  {
    "rel": "wasDerivedFrom",
    "source": "https://w3id.org/og-caie/terms#technical-expert",
    "target": "https://w3id.org/og-caie/rulings#R-10"
@@ -53989,14 +53938,6 @@
   },
   {
    "cls": "citation",
-   "desc": "“A technical expert does not act as an auditor in the audit team.” [pending]",
-   "id": "cite:technical-expert:seeAlso:iso-9000-2026:3-12-9-note-2-transcribed-from-the-2015-edition-s-3-13-16-awaiting-z-s-tick-against-the-screenshot",
-   "label": "iso-9000-2026 3.12.9 Note 2 (transcribed from t…",
-   "ogc": "ogc quote \"technical expert\"",
-   "page": "../glossary#term-technical-expert"
-  },
-  {
-   "cls": "citation",
    "desc": "“set of test inputs, execution conditions, and expected results developed for a particular objective, such as to exercise a particular program path or to verify compliance with a specific requirement” [machine]",
    "id": "cite:test-case:canonical:sevocab:test-case-p-432",
    "label": "sevocab test case, p. 432",
@@ -56069,7 +56010,7 @@
   },
   {
    "cls": "ruling",
-   "desc": "Four rulings given during the sheet 10 walkthrough, after its items. The worked example is the measles evaluation, not the measles run: neither word is a glossary term, run reads at the execution scale (SEVOCAB's test, concern C-14) and case at the scale of SEVOCAB's test case, the anchor of probe, while the whole is one Contextual AI Evaluation and ISO/IEC 17000's conformity assessment; the record's namespace and file are renamed and the prose keeps walkthrough for the narrative (10-42). Synthetic content is tagged as such in the graph, on the measles evaluation's bundle and every member, and the explorer can include or exclude synthetic data (10-43). A sample report for the synthetic measles evaluation becomes the first appendix: a simple dashboard rendered from the record alone, built with d3, that answers the sponsor's question and does not overwhelm; the appendices are reordered and Records and reporting links to it as the sample report for the synthetic case (10-44). The SEVOCAB absence check behind every NIST and reserve canonical is recorded with its date: tester, session, measurement uncertainty, trajectory, appropriateness, sufficiency, attestation, red teaming, operational envelope and coverage are absent; ontology, repeatability, reproducibility and dialog are present in the specification's sense and take SEVOCAB as canonical by the precedence rule, with Gruber, JCGM 200 and NIST AI 700-2 kept as neighbour cites; guardrail and probe are present in another sense and keep their canonicals (10-45).",
+   "desc": "Four rulings given during the sheet 10 walkthrough, after its items. The worked example is the measles evaluation, not the measles run: neither word is a glossary term, run reads at the execution scale (SEVOCAB's test, concern C-14) and case at the scale of SEVOCAB's test case, the anchor of probe, while the whole is one Contextual AI Evaluation and ISO/IEC 17000's conformity assessment; the record's namespace and file are renamed and the prose keeps walkthrough for the narrative (10-42). Synthetic content is tagged as such in the graph, on the measles evaluation's bundle and every member, and the explorer can include or exclude synthetic data (10-43). A sample report for the synthetic measles evaluation becomes the first appendix: a simple dashboard rendered from the record alone, built with d3, that answers the sponsor's question and does not overwhelm; the appendices are reordered and Records and reporting links to it as the sample report for the synthetic case (10-44). The SEVOCAB absence check behind every NIST and reserve canonical is recorded with its date: tester, session, measurement uncertainty, trajectory, appropriateness, sufficiency, attestation, red teaming, operational envelope and coverage are absent; ontology, repeatability, reproducibility and dialog are present in the specification's sense and take SEVOCAB as canonical by the precedence rule, with Gruber, JCGM 200 and NIST AI 700-2 kept as neighbour cites; guardrail and probe are present in another sense and keep their canonicals (10-45). The source ranks are ordinal, 1 to 8, with no reserve or internal class: ISO 9000, SEVOCAB, NIST, W3C, the ISO-family vocabularies, other bodies, academic works, the authors (10-46). Each chapter keeps one references block, the generated sources cited with locators, and MyST's compiled bibliography renders only in the works cited appendix; the prose sheds the source names the block carries (10-47). The sample report is redesigned first, positive and terse, then the synthetic case is redesigned to make the demo, with every criterion planned and attested; a final report requires full coverage, and only a flagged draft may carry gaps; the report's primary reader is an executive who knows the domain and little about AI, the non-profit director or the head of an administration, and the page carries no technical jargon (10-48).",
    "id": "https://w3id.org/og-caie/rulings#R-51",
    "label": "R-51",
    "ogc": "ogc ruling R-51",
@@ -59487,7 +59428,6 @@
     "cite:sufficiency:canonical:hawkins-2011:section-3-3-asserted-solution-p-10",
     "cite:sufficiency:seeAlso:isa-500:paragraph-5-f-first-sentence-of-the-paragraph",
     "cite:technical-expert:canonical:iso-9000-2026:3-12-9",
-    "cite:technical-expert:seeAlso:iso-9000-2026:3-12-9-note-2-transcribed-from-the-2015-edition-s-3-13-16-awaiting-z-s-tick-against-the-screenshot",
     "cite:test-case:canonical:sevocab:test-case-p-432",
     "cite:test-coverage:canonical:sevocab:test-coverage-p-433",
     "cite:test-item-customer:canonical:iso-9000-2026:3-9-1-customer",
@@ -60458,7 +60398,6 @@
     "cite:sufficiency:canonical:hawkins-2011:section-3-3-asserted-solution-p-10",
     "cite:sufficiency:seeAlso:isa-500:paragraph-5-f-first-sentence-of-the-paragraph",
     "cite:technical-expert:canonical:iso-9000-2026:3-12-9",
-    "cite:technical-expert:seeAlso:iso-9000-2026:3-12-9-note-2-transcribed-from-the-2015-edition-s-3-13-16-awaiting-z-s-tick-against-the-screenshot",
     "cite:test-case:canonical:sevocab:test-case-p-432",
     "cite:test-coverage:canonical:sevocab:test-coverage-p-433",
     "cite:test-item-customer:canonical:iso-9000-2026:3-9-1-customer",

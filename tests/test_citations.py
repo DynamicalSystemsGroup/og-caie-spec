@@ -21,7 +21,7 @@ TERMS = 66  # 62 before the tbox audit (sheet 08): evaluation service provider, 
 COINED = 4
 MACHINE_QUOTES = 91  # sheet 10-45: ontology, repeatability, reproducibility and dialogue take SEVOCAB (four); 10-26: tester (NIST) for the evaluation operator
 COMMITTED_MACHINE_QUOTES = 12  # NIST AI 700-2 (8, with Tester), NIST AI 100-1 (1), NIST TN 1297 (2), W3C EARL (1): always locatable, in CI too
-PENDING_QUOTES = 1  # sheet 10-25: ISO 9000 3.12.9 Note 2 transcribed, awaiting Z's tick
+PENDING_QUOTES = 0  # sheet 10-25: Z dropped the Note 2 quote; the reading lives in the scope note
 HUMAN_QUOTES = 56  # sheet 10-21: the 4.10 access quote leaves C4 (it stays on C2)
 PENDING_ALLOWED_SOURCES = {"iso-9000-2026", "iso-iec-17000-2020", "iec-60050-351"}
 
