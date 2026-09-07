@@ -1,5 +1,5 @@
-# Counterexample for S3-Probe: the consistency check of probe-1 ended after the first turn that used the probe had started (sheet 10-19).
-# Must fail on ogc:S3-Probe and nothing else.
+# Counterexample for S7-Report: the draft report stores the final report's rates, with no cannot-tell, while on its day one criterion was attested cannot tell: a report's numbers are recomputed over the attestations that existed when it was generated (sheet 10-48).
+# Must fail on ogc:S7-Report and nothing else.
 # A copy of track/measles-evaluation.ttl with one change (sheet 10-19; written by scripts/render_counterexamples.py).
 @prefix ev:   <https://w3id.org/og-caie/evaluation/measles#> .
 @prefix epo:  <https://w3id.org/og-caie/epo#> .
@@ -323,7 +323,7 @@ ev:probe-12 a epo:Probe ;
 ev:consistency-check-1 a epo:ConsistencyCheck ;
     earl:subject ev:probe-1 ; earl:test ev:dso-apollo-sv-r1 ; earl:mode earl:automatic ; earl:assertedBy ev:pyshacl ; prov:wasAssociatedWith ev:pyshacl ;
     earl:result [ a earl:TestResult ; earl:outcome earl:passed ; earl:info "scenario conforms to the DSO shapes" ] ;
-    prov:endedAtTime "2026-08-10T14:30:00Z"^^xsd:dateTime .
+    prov:endedAtTime "2026-08-03T10:05:00Z"^^xsd:dateTime .
 ev:consistency-check-2 a epo:ConsistencyCheck ;
     earl:subject ev:probe-2 ; earl:test ev:dso-apollo-sv-r1 ; earl:mode earl:automatic ; earl:assertedBy ev:pyshacl ; prov:wasAssociatedWith ev:pyshacl ;
     earl:result [ a earl:TestResult ; earl:outcome earl:passed ; earl:info "scenario conforms to the DSO shapes" ] ;
@@ -614,7 +614,7 @@ ev:report-draft a epo:Report ;
     epo:draft true ;
     epo:gaps "the enclosed-space criterion could not be told from one reply; the plan's place-by-place session is to be run before the final report" ;
     epo:coverage 1.0 ;
-    epo:passRate 0.6 ; epo:failRate 0.2 ; epo:cantTellRate 0.2 ;
+    epo:passRate 0.8 ; epo:failRate 0.2 ; epo:cantTellRate 0.0 ;
     prov:generatedAtTime "2026-08-11T11:00:00Z"^^xsd:dateTime .
 
 # ---- evaluation step 4, the follow-up: session 4, place by place, on the plan's fourth set of questions
