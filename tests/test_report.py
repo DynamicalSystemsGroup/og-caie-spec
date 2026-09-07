@@ -1,17 +1,19 @@
-"""The sample report (ruling R-51, sheet 10 item 10-44) is a view of the
-measles record and nothing else: the JSON regenerates byte-identically, its
-coverage and rates equal queries/coverage.rq over the record, every
-criterion of the record appears once, the recommendation is the record's,
-the page carries no IRI and no render-time stamp, d3 comes from the
-explorer's vendored copy, the record is read through one function, and the
-appendix that embeds the report is the first appendix in the table of
-contents."""
+"""The sample report (ruling R-51, sheet 10 items 10-44 and 10-48) is a view of
+the record for an executive who knows the domain and little about AI: the JSON
+regenerates byte-identically, the share of criteria tested equals
+queries/coverage.rq over the record, the visible table has one row per
+requirement and every criterion appears once beneath its requirement, the
+recommendation is the record's, no cell runs past 25 words, no technical
+word and no machine's name reaches the page, the page carries no IRI and no
+render-time stamp, d3 comes from the explorer's vendored copy, the record
+is read through one function, and the appendix that embeds the report is
+the first appendix in the table of contents."""
 import json
 import re
 import sys
 
 import yaml
-from rdflib import RDF, Namespace
+from rdflib import RDF, RDFS, Literal, Namespace
 
 from conftest import ROOT, load
 
@@ -25,9 +27,28 @@ JSON = ROOT / "report" / "report.json"
 PAGE = ROOT / "report" / "index.html"
 RECORD = ROOT / rr.RECORD_FILE
 
+# The words the reader does not care about (10-48): none may reach the page or the JSON, as whole words,
+# in any case. The page says "tested" where the record says coverage.
+JARGON = ["ontology", "DSO", "EPO", "SHACL", "pySHACL", "rdflib", "SysML", "requirement set", "attestation",
+          "determination", "probe", "trajectory", "IRI", "namespace", "shape", "conformance", "verdict", "bundle",
+          "graph", "coverage", "sufficiency", "appropriateness", "evidence item", "software agent", "version identifier"]
+RESULT_WORDS = {"met", "not met", "could not tell", "not fully tested"}
+BADGES = {"fit to deploy", "fit with conditions", "not fit", "not complete"}
+
 
 def report() -> dict:
     return json.loads(JSON.read_text())
+
+
+def strings(x) -> list[str]:
+    """Every string value in the JSON, keys excluded: what the page can show."""
+    if isinstance(x, str):
+        return [x]
+    if isinstance(x, dict):
+        return [s for v in x.values() for s in strings(v)]
+    if isinstance(x, list):
+        return [s for v in x for s in strings(v)]
+    return []
 
 
 def test_the_report_regenerates_byte_identically():
@@ -36,52 +57,109 @@ def test_the_report_regenerates_byte_identically():
     assert rr.render() == PAGE.read_text()
 
 
-def test_coverage_and_the_rates_equal_the_coverage_query_over_the_record():
+def test_the_share_tested_and_the_results_equal_the_coverage_query_over_the_record():
     g = load("vocabulary/epo.ttl", rr.RECORD_FILE)
     row = next(iter(g.query((ROOT / "queries" / "coverage.rq").read_text())))
-    c = report()["coverage"]
-    assert c["coverage"] == float(row.coverage)
-    assert c["pass_rate"] == float(row.passRate)
-    assert c["fail_rate"] == float(row.failRate)
-    assert c["cant_tell_rate"] == float(row.cantTellRate)
-    assert c["covered_count"] == int(row.coveredCount)
-    assert 0 < c["coverage"] < 1  # the measles case leaves one criterion unplanned
-    assert abs(c["pass_rate"] + c["fail_rate"] + c["cant_tell_rate"] - 1) < 1e-9
+    r = report()
+    c = r["criteria"]
+    assert c["share"] == float(row.coverage)
+    assert c["tested"] == int(row.coveredCount)
+    assert c["of"] == len([a for a in g.subjects(RDF.type, EPO.AcceptanceCriterion)])
+    assert c["tested"] + len(c["untested"]) == c["of"]
+    outcomes = [k["result"] for req in r["results"] for k in req["criteria"] if k["result"] != "not fully tested"]
+    assert len(outcomes) == c["tested"]
+    for word, rate in (("met", row.passRate), ("not met", row.failRate), ("could not tell", row.cantTellRate)):
+        assert abs(outcomes.count(word) - float(rate) * c["tested"]) < 1e-9, word
+    if c["share"] == 1:
+        assert c["line"] == "Every criterion was tested" and "%" not in c["line"]
+        assert not c["untested"]
+    else:
+        assert c["line"].startswith(f"{c['tested']} of {c['of']} criteria were tested")
+        assert c["untested"] and all(u in c["line"] for u in c["untested"])
+        assert r["answer"]["badge"] == "not complete"
+    assert "%" not in "".join(strings(r)) or c["share"] < 1
 
 
-def test_every_criterion_of_the_record_appears_once_with_its_requirement():
+def test_one_row_per_requirement_and_every_criterion_once_beneath_its_requirement():
     g = load("vocabulary/epo.ttl", rr.RECORD_FILE)
-    ids = [c["id"] for c in report()["criteria"]]
-    assert ids == sorted(str(a).rsplit("#", 1)[-1] for a in g.subjects(RDF.type, EPO.AcceptanceCriterion))
-    assert len(ids) == len(set(ids))
-    planned = {str(a).rsplit("#", 1)[-1] for p in g.subjects(RDF.type, EPO.TestPlan) for a in g.objects(p, EPO.objective)}
-    for c in report()["criteria"]:
-        assert c["requirement"] and c["text"] and c["expected"] and c["weight"] > 0, c["id"]
-        assert c["planned"] == (c["id"] in planned)
-        assert c["outcome"] in {"passed", "failed", "cannot tell", "not planned", "not attested"}
-        if c["outcome"] == "not planned":
-            assert not c["attestations"] and not c["planned"]
-        for a in c["attestations"]:
-            assert a["by"] and a["date"] and a["appropriateness"] and a["sufficiency"], c["id"]
-            for d in a["determinations"]:
-                assert d["by"] and d["outcome"] and d["evidence"], c["id"]
-                for e in d["evidence"]:
-                    assert e["probe"]["text"] and e["response"]["text"], c["id"]
+    r = report()
+    requirements = sorted(str(g.value(q, EPO.text)) for q in g.subjects(RDF.type, EPO.Requirement))
+    assert sorted(row["requirement"] for row in r["results"]) == requirements
+    assert len(r["results"]) == len(requirements)
+    criteria = sorted(str(g.value(a, EPO.text)) for a in g.subjects(RDF.type, EPO.AcceptanceCriterion))
+    shown = sorted(k["text"] for row in r["results"] for k in row["criteria"])
+    assert shown == criteria
+    for row in r["results"]:
+        assert row["result"] in RESULT_WORDS and row["why"], row["requirement"]
+        for k in row["criteria"]:
+            assert k["result"] in RESULT_WORDS and k["why"], k["text"]
+            criterion = next(g.subjects(EPO.text, Literal(k["text"])))
+            assert str(g.value(g.value(criterion, PROV.wasDerivedFrom), EPO.text)) == row["requirement"], k["text"]
+        # the requirement's word is decided by its criteria: not met beats could not tell beats not fully tested beats met
+        words = {k["result"] for k in row["criteria"]}
+        expected = next(w for w in ("not met", "could not tell", "not fully tested", "met") if w in words)
+        assert row["result"] == expected, row["requirement"]
+    # the page builds exactly these rows: one visible row per requirement, the criteria in a fold beneath
+    html = PAGE.read_text()
+    assert 'for (const row of R.results)' in html and 'class", "fold"' in html
 
 
-def test_the_recommendation_and_the_synthetic_note_are_the_records_own():
+def test_the_answer_is_the_records_and_says_when_the_evaluation_is_not_complete():
     g = load("vocabulary/epo.ttl", rr.RECORD_FILE)
     rec = next(g.subjects(RDF.type, EPO.Recommendation))
     r = report()
-    assert r["recommendation"]["text"] == str(g.value(rec, EPO.text))
-    assert r["verdict"] in {"passed", "failed", "cannot tell"}
-    assert "Synthetic case" in r["record"]["note"]
-    assert r["sponsor"]["need"] and r["sponsor"]["mission"] and r["test_item"]["version"]
+    a = r["answer"]
+    assert a["recommendation"] == str(g.value(rec, EPO.text))
+    assert a["badge"] in BADGES
+    assert a["complete"] == (a["badge"] != "not complete")
+    if a["complete"]:
+        assert a["headline"] == a["recommendation"].split(". ")[0].rstrip(".") + "."
+    else:
+        assert a["headline"].startswith("This evaluation is not complete")
+    assert a["approved_by"] and a["recommended_by"] and a["date"]
+    assert r["question"]["text"] and r["question"]["asked_by"]
+    assert r["item"]["name"] and r["item"]["version"] and r["item"]["purpose"] and r["item"]["environment"] and r["item"]["assumptions"]
+    assert r["rests_on"]["tested_by"] and r["rests_on"]["judged_by"] and r["rests_on"]["checked"]["outcome"] and r["rests_on"]["checked"]["date"]
+    assert isinstance(r["next"], list)
+    assert "Synthetic case" in r["note"]
+
+
+def test_no_cell_runs_past_twenty_five_words():
+    for row in report()["results"]:
+        for cell in (row["requirement"], row["why"], *(k["text"] for k in row["criteria"]), *(k["why"] for k in row["criteria"])):
+            assert len(cell.split()) <= 25, cell
+            assert "\n" not in cell
+
+
+def test_no_technical_word_and_no_machines_name_reaches_the_page():
+    """The reader is the executive who knows the domain and little about AI (10-48): the page and the JSON's
+    visible strings carry none of the words the record and the specification use among themselves, and no
+    machine that took part (other than the item tested) is named or versioned on the page."""
+    html = PAGE.read_text()
+    r = report()
+    note = r.pop("note")  # the record's own note, verbatim by the brief; the record words it for the reader
+    assert "Synthetic case" in note
+    visible = "\n".join(strings(r))
+    for word in JARGON:
+        pattern = re.compile(rf"\b{re.escape(word)}\b", re.I)
+        assert not pattern.search(html), word
+        assert not pattern.search(visible), word
+    g = load("vocabulary/epo.ttl", rr.RECORD_FILE)
+    item = r["item"]["name"]
+    for agent in g.subjects(RDF.type, PROV.SoftwareAgent):
+        name = str(g.value(agent, RDFS.label) or "")
+        if name == item:
+            continue
+        assert name and name not in visible and name not in html, name
+        version = g.value(agent, EPO.version)
+        if version is not None:
+            assert re.search(rf"(?<![\w.]){re.escape(str(version))}(?![\w.])", visible) is None, str(version)
 
 
 def test_the_page_carries_no_iri_and_no_render_time_stamp():
     """The page names nothing by IRI, prefix or shape; every date in the JSON
-    is one the record holds; nothing is stamped at render time."""
+    is one the record holds; nothing is stamped at render time; at most the
+    dates the sections name."""
     html = PAGE.read_text()
     text = JSON.read_text()
     for blob in (html, text):
@@ -90,8 +168,10 @@ def test_the_page_carries_no_iri_and_no_render_time_stamp():
         assert not re.search(r"\bS[0-9]\b", blob)
         assert not re.search(r"(?i)(generated|rendered|built) (at|on) \d", blob)
     record = RECORD.read_text()
-    for stamp in set(re.findall(r"\d{4}-\d{2}-\d{2}(?:T[\d:]+Z?)?", text)):
+    stamps = set(re.findall(r"\d{4}-\d{2}-\d{2}(?:T[\d:]+Z?)?", text))
+    for stamp in stamps:
         assert stamp in record, stamp
+    assert len({s[:10] for s in stamps}) <= 3
     assert not re.search(r"\d{4}-\d{2}-\d{2}", html)
     assert "—" not in html and "—" not in text
 
@@ -102,6 +182,7 @@ def test_the_page_loads_d3_from_the_explorers_vendored_copy_and_the_json_by_a_re
     assert (PAGE.parent / rr.D3).resolve() == (ROOT / "explorer" / "vendor" / "d3.v7.min.js").resolve()
     assert 'fetch(new URL("report.json", location.href).href)' in html
     assert html.count("<script") == 2  # the library and the page's own script, nothing else
+    assert 'href="../explorer/index.html"' in html  # the one link to everything the report leaves out
     for word in ("report/", "appendix-report/report", "explorer/vendor/d3.v7.min.js"):
         assert word in (ROOT / "scripts" / "copy_explorer.sh").read_text(), word
     assert "scripts/render_report.py" in (ROOT / "checks" / "regen.sh").read_text()
@@ -114,20 +195,21 @@ def test_the_record_is_read_through_one_function():
     assert re.search(r"^from ogc\.graph import .*\bRECORD_FILE\b", src, re.M)  # the name comes from the tool, not from here
     assert "track/" not in src and "w3id.org" not in src
     assert src.count("g.parse(") == 2  # the EPO and the record, both in record_graph
+    assert "measles" not in src.lower() and "chatbot" not in src.lower()  # the case's words come from the record
 
 
-def test_the_dashboard_shows_every_section_the_brief_names():
+def test_the_page_has_the_six_sections_in_order_and_reads_at_a_phone_width():
     html = PAGE.read_text()
-    for section in ("The criteria, by weight and outcome", "Each criterion, and what it was judged on", "What the judgments assume",
-                    "The chain of custody", "Who was party to it", "A sample report for a synthetic case"):
-        assert section in html, section
-    for word in ("prefers-color-scheme", "viewport", "max-width:640px", "--passed", "--failed", "--canttell", "--notplanned"):
+    sections = ["The answer", "What was tested", "How it did", "What it rests on", "What to do next", "A sample report for a synthetic case"]
+    positions = [html.find(f'"{s}"') if s != sections[-1] else html.find(s) for s in sections]
+    assert all(p >= 0 for p in positions), dict(zip(sections, positions))
+    assert positions == sorted(positions)
+    for word in ("prefers-color-scheme", "viewport", "@media (max-width", "--met", "--notmet", "--canttell", "--untested"):
         assert word in html, word
-    r = report()
-    assert len(r["timeline"]) >= 10 and r["timeline"] == sorted(r["timeline"], key=lambda e: (e["date"], e["what"], e["who"]))
-    assert r["conformance"]["outcome"] and r["approval"]["outcome"] and r["delivery"]["date"] and r["acceptance"]["date"]
-    assert r["assumptions"]["dso"]["label"] and r["assumptions"]["environment"]
-    assert set(r["parties"]) == {"organizations", "people", "populations"}
+    css = html.split("<style>", 1)[1].split("</style>", 1)[0]
+    for m in re.finditer(r"(?<![-\w])(width|min-width)\s*:\s*(\d+)px", css):
+        assert int(m.group(2)) <= 375, m.group(0)  # nothing fixed wider than a phone
+    assert "max-width" in css
 
 
 def test_the_appendix_is_the_first_appendix_and_embeds_the_report():
@@ -142,6 +224,9 @@ def test_the_appendix_is_the_first_appendix_and_embeds_the_report():
     assert text.startswith("# Appendix A: the sample report\n")
     assert "```{iframe} report/index.html" in text and "(../report/index.html)" in text
     assert "synthetic" in text.lower() and "[Appendix B](appendix-explorer.md)" in text
+    assert "executive" in text and "little about AI" in text
     assert "—" not in text
+    prose = re.sub(r"```.*?```", "", text, flags=re.S)
+    assert len(prose.split()) < 320, len(prose.split())
     guarantees = (ROOT / "docs" / "guarantees.md").read_text()
     assert "appendix-report.md" in guarantees  # Records and reporting points at the sample report
