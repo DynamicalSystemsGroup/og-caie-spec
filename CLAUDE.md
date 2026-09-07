@@ -119,8 +119,12 @@ authors' earlier glossary work.
 
 ## Rulings
 
-- Concerns and rulings live in `rulings/adjudications.ttl`; a ruling is Z's
-  words verbatim, attributed and dated. File a concern the moment it
+- Concerns and rulings live in `rulings/adjudications.ttl`; a ruling is
+  attributed and dated and carries two texts, both required (R-47): the
+  decision in a formal register in `ogc:rulingText` (third person or
+  imperative, no addressee, one paragraph per decision, every named item
+  kept) and Z's message as sent, untouched, in `ogc:verbatim`. Appendix C
+  shows the former; `ogc ruling` prints both. File a concern the moment it
   surfaces; never buffer.
 
 ## Gate
@@ -146,7 +150,8 @@ authors' earlier glossary work.
 - Commit on green; push redeploys GitHub Pages.
 - Take credit for the authors' own work: never name a private repository
   in this public one; where a pattern comes from earlier work, say "the
-  authors' earlier work" (Z, 2026-09-06). Z's ruling texts stay verbatim.
+  authors' earlier work" (Z, 2026-09-06). Z's messages as sent stay
+  verbatim in `ogc:verbatim`; only `ogc:rulingText` is edited prose.
 
 ## Model (R-22)
 

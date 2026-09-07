@@ -56,8 +56,9 @@ and filter values are case-insensitive too.
    (hash committed, file not), citeOnly (no quote or a human-verified one).
    `ogc sources` is the register, `ogc source <slug>` one entry.
 5. seeAlso citations are neighbours, never definitions.
-6. Rulings are Z's words verbatim, dated; refined and coined terms derive
-   from one. Concerns are the register of what was in doubt; open ones
+6. Rulings are dated decisions in the register's words (`ogc:rulingText`),
+   each keeping Z's message as sent in `ogc:verbatim` (R-47); refined and
+   coined terms derive from one. Concerns are the register of what was in doubt; open ones
    have no resolving ruling. `ogc rulings`, `ogc concerns --open`.
 7. The essentials SCI-01..13 name the shapes that check them, the terms
    they are stated in, and what they rest on. `ogc sci`.
@@ -106,7 +107,7 @@ go to the notebooks and the pages for now.
 | May I use this word in prose, and how do I mark it up? | `ogc check-word <word> [<word> ...]` (several words at once; quote multi-word ones; registered / alternative / retired; the `{term}` role to write; other terms the word lands on; concerns that mention it; empty words are refused) |
 | Every term a source supports, with the quotes | `ogc source <slug>`; the register: `ogc sources --rank 1`, `--posture heldLocally`, `--uncited` |
 | The terms by class or by source | `ogc list --class refined`, `ogc list --source sevocab` (an unregistered slug exits 1 with the candidates) |
-| Why is it defined this way? | `ogc rulings --term <term>`; a substring over ruling texts and change notes: `ogc rulings --grep conformance`; one ruling verbatim: `ogc ruling R-16` |
+| Why is it defined this way? | `ogc rulings --term <term>`; a substring over ruling texts, messages as sent and change notes: `ogc rulings --grep conformance`; one ruling, the decision and then the message as sent: `ogc ruling R-16` (`--json` carries `text` and `verbatim`) |
 | What was in doubt, and what is still open | `ogc concerns --open`, `ogc concerns --status ruled`, `ogc concerns --severity H`; `ogc concern C-25` |
 | What must a scientific record contain? | `ogc sci`; one essential: `ogc sci SCI-07` |
 | Which canon step does each of the twelve steps match? | `ogc steps` |

@@ -180,8 +180,8 @@ def build_parser() -> argparse.ArgumentParser:
     add("source", "one source and every citation of it", (["slug"], dict(help="a source slug from `ogc sources` (case-insensitive)")))
     add("sources", "the source register", (["--rank"], dict(help=f"one of {', '.join(RANKS)}")), (["--posture"], dict(help=f"one of {', '.join(POSTURES)} (case-insensitive)")),
         (["--uncited"], dict(action="store_true", help="only sources no citation names")))
-    add("ruling", "one ruling, text verbatim", (["id"], dict(help="R-16; " + ID_HINT)))
-    add("rulings", "the rulings log", (["--term"], dict(help="a term: rulings it derives from or that resolve a concern naming it")), (["--grep"], dict(metavar="TEXT", help="substring over text and change note (non-empty)")))
+    add("ruling", "one ruling: the decision in the register's words, then the message as sent", (["id"], dict(help="R-16; " + ID_HINT)))
+    add("rulings", "the rulings log", (["--term"], dict(help="a term: rulings it derives from or that resolve a concern naming it")), (["--grep"], dict(metavar="TEXT", help="substring over the ruling text, the message as sent and the change note (non-empty)")))
     add("concern", "one concern", (["id"], dict(help="C-24; " + ID_HINT)))
     add("concerns", "the concern register", (["--open"], dict(action="store_true", help="only open concerns")), (["--status"], dict(help=f"one of {', '.join(STATUSES)}")),
         (["--severity"], dict(help=f"one of {', '.join(SEVERITIES)} (case-insensitive)")))
@@ -343,7 +343,8 @@ def main(argv=None) -> int:
         if d is None:
             return not_found(args, f"ruling '{args.id}'", f"ids look like R-16 ({ID_HINT}); try `ogc rulings`")
         return emit(args, c, argstr, d, lambda: [f"## {d['id']}  (order {d['order']}, {d['date']}, attributed to {d['attributed']})", "",
-                                                 "resolves: " + "; ".join(f"{i} ({l})" for i, l in zip(d["resolves"], d["resolves_labels"])), "", "text (verbatim):"] + ["  " + l for l in d["text"].splitlines()]
+                                                 "resolves: " + "; ".join(f"{i} ({l})" for i, l in zip(d["resolves"], d["resolves_labels"])), "", "text:"] + ["  " + l for l in d["text"].splitlines()]
+                    + ["", "as sent:"] + ["  " + l for l in d["verbatim"].splitlines()]
                     + ["", "change:"] + text.wrap(d["change"]) + [f"terms deriving from it: {', '.join(d['derived_terms']) or '(none)'}"])
 
     if c == "rulings":
