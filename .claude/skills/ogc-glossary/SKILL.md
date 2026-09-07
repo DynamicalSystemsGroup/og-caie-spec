@@ -84,7 +84,14 @@ the error line (the header keeps it whole).
 what is read: `--model` where the model graph is read (`sparql`, `execute`,
 `view`, `views`), `--record` where the record is read (`sparql`, `record`);
 anywhere else, `ogc views --record` or `ogc record --model` included, they
-are a usage error (exit 2).
+are a usage error (exit 2). One exception by name: `doctor` alone takes
+`--record PATH`, another record file (a counterexample, an executed
+record saved with `ogc execute --turtle`) over which its record checks
+run in place of the measles record: the file must parse, and every digest
+it carries must name the shapes, the ontology and the coverage query as
+committed and the record as it stood at its verdict (`ogc doctor --record
+counterexamples/verdict-without-digests.ttl` fails on them, exit 1; the
+header and the JSON `_ogc.args` carry the path).
 
 ## The mental model (twelve lines)
 
@@ -115,6 +122,12 @@ are a usage error (exit 2).
    crosswalk rows: the authors' own definitions as presented at the
    session, so there is nothing to locate). One vocabulary, used
    everywhere: `ogc quote`, `ogc verify`, `ogc steps`, `ogc define --json`.
+   A quote from SEVOCAB travels with the register's permission line, the
+   IEEE statement the PDF requires (sheet 10-29): `quote`, `define`, `term`
+   and `verify` print it once, as the last line, `permission: Copyright ©
+   2021 IEEE. Used by permission.`, wherever a SEVOCAB quote is printed or
+   verified, and never otherwise; in JSON the `permission` key. The
+   rendered glossary and key-terms tables carry it as a footnote.
    In JSON the kind of a citation is always `citation` (canonical, seeAlso,
    crosswalk) and `holder` is the term, step or crosswalk row that carries
    it. A coined term has no citation: `ogc term` and `ogc define` print
@@ -272,7 +285,7 @@ shape files.
 | The anchor table, one row per term | `ogc crosswalk`, `ogc crosswalk --class refined`, `ogc crosswalk --source iso-9000-2026` |
 | Popper to the standards and back | `ogc crosswalk --popper` (the seven rows; `--class` and `--source` exclude it, exit 2) |
 | Anything else | `ogc sparql '<SELECT ...>'` or `ogc sparql @query.rq` (prefixes injected; read-only; `--model` adds the model graph, `--record` the record; both appear in the printed and hashed args) |
-| Is the graph healthy? | `ogc doctor` (VERDICT line; runs in the gate) |
+| Is the graph healthy? | `ogc doctor` (VERDICT line; runs in the gate); `ogc doctor --record PATH` runs the record checks (parse, digests) over another record file |
 
 The twelve mutations of `execute`, as `ogc execute --help` lists them:
 `skip-assessment`, `skip-approval`, `skip-access`, `unwire-evidence`,
@@ -315,6 +328,9 @@ Naming one twice is a usage error (`mutation named twice`, exit 2).
   `properties`, `sparql`, `counterexamples` (the mutation names).
 - `term`: the whole entry; its `rulings` are `id` and `label`, the label
   being the resolved concerns' labels or the first words of the ruling.
+- `permission`: on `quote`, `define`, `term` and `verify`, the register's
+  permission statement of a quoted source that carries one (SEVOCAB);
+  absent when no such quote is printed.
 
 ## What the tool does not read
 

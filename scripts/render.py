@@ -326,12 +326,13 @@ def render_executor() -> str:
 
 
 def with_permission(text: str) -> str:
-    """SEVOCAB definitions may be copied provided the IEEE statement travels with them: append it, from the register, wherever SEVOCAB is quoted."""
+    """SEVOCAB definitions may be copied provided the IEEE statement travels with them: append it once, from the register
+    (ogc:permissionStatement), as a one-line footnote in italics under any table that quotes SEVOCAB (drift pass 4, professor M2)."""
     if "sevocab" not in text.lower():
         return text
     g = Graph().parse(ROOT / "sources" / "sources.ttl")
     stmt = next((str(g.value(src, OGC.permissionStatement)) for src in g.subjects(RDF.type, OGC.Source) if str(src).endswith("#sevocab")), None)
-    return text.rstrip("\n") + f"\n\nSEVOCAB definitions: {stmt}\n" if stmt else text
+    return text.rstrip("\n") + f"\n\n*SEVOCAB definitions: {stmt}*\n" if stmt else text
 
 
 def render_key_terms() -> str:
@@ -343,50 +344,60 @@ def render_glossary() -> str:
 
 
 def render_quote_status() -> str:
-    """The vocabulary page's honest count of quote statuses, from the graph, with the three tags defined once."""
+    """The vocabulary page's honest count of quote statuses, from the graph, with the tags defined once; the
+    cite-only citations counted the way `ogc verify --all --status cite-only` counts them (drift pass 4,
+    professor M11): every canonical or seeAlso citation of a term or a step that carries no quote."""
     g = Graph()
     for f in ("vocabulary/og-caie.ttl", "vocabulary/epo.ttl", "sources/sources.ttl", "vocabulary/crosswalk.ttl"):  # the bridge's authors quotes count too (sheet 10)
         g.parse(ROOT / f)
     counts = {}
     for st in g.objects(None, OGC.quoteStatus):
         counts[str(st)] = counts.get(str(st), 0) + 1
+    EPO = Namespace("https://w3id.org/og-caie/epo#")
+    holders = set(g.subjects(RDF.type, SKOS.Concept)) | set(g.subjects(RDF.type, EPO.EpoStep)) | set(g.subjects(RDF.type, EPO.ContractingStep)) | {EPO.ContractingStep}
+    cite_only = sum(1 for h in holders for c in [g.value(h, OGC.canonical), *g.objects(h, OGC.seeAlso)] if c is not None and g.value(c, OGC.quote) is None)
     return ("Every quote on this site carries a tag. *Machine*: the tests locate the quote in a content-hashed "
             "snapshot of the source or, where the source is held locally and not redistributed, in its committed digest. "
             "*Human*: a named person verified it against the source on a date, usually an ISO screenshot held locally. "
             "*Pending*: transcribed and awaiting that person's tick, listed on a rulings sheet; a pending quote is cited but "
             "not yet verified. *Authors*: the authors' own words on the public record, as the bridge's definitions presented at "
-            f"the SciPy 2026 session. At this commit: {counts.get('machine', 0)} machine, {counts.get('human', 0)} human, "
-            f"{counts.get('pending', 0)} pending, {counts.get('authors', 0)} authors.\n")
+            "the SciPy 2026 session. *Cite-only*: a locator that carries no quote, a neighbour cited for where it stands, never "
+            f"for its words. At this commit: {counts.get('machine', 0)} machine, {counts.get('human', 0)} human, "
+            f"{counts.get('pending', 0)} pending, {counts.get('authors', 0)} authors, {cite_only} cite-only.\n")
 
 
 def render_criteria() -> str:
     """The measles criteria (sheets 10-10, 10-12, 10-16): what each expects, its weight with the rationale, how many
-    observations (evidence items) bear on it, the sufficiency and appropriateness the attestation judged, the outcome
-    attested, and its status (planned, probed, determined, attested, or the deviation that says why not), with the
-    coverage recomputed by the coverage query."""
+    replies were judged on it (the turns whose responses the evidence bearing on it derives from; drift pass 4,
+    human reader 8 and QA 20: an evidence item may gather several replies, so counting evidence undercounted),
+    the sufficiency and appropriateness the attestation judged, the outcome attested, and its status (planned,
+    probed, determined, attested, or the deviation that says why not), with the coverage recomputed by the
+    coverage query."""
     from rdflib import Namespace as NS
     EPO = NS("https://w3id.org/og-caie/epo#")
     EARL = NS("http://www.w3.org/ns/earl#")
     g = record_graph()
-    lines = ["| Criterion | Expected result | Weight (why) | Observations | Sufficiency | Appropriateness | Attested outcome | Status |", "|---|---|---|---|---|---|---|---|"]
+    lines = ["| Criterion | Expected result | Weight (why) | Replies judged | Sufficiency | Appropriateness | Attested outcome | Status |", "|---|---|---|---|---|---|---|---|"]
     for a in sorted(g.subjects(RDF.type, EPO.AcceptanceCriterion), key=str):
         atts = [att for att in g.subjects(EARL.test, a) if (att, RDF.type, EPO.Attestation) in g]
         outs = sorted({str(g.value(res, EARL.outcome)).rsplit("#", 1)[-1] for att in atts for res in g.objects(att, EARL.result)})
         suff = sorted({str(g.value(att, EPO.sufficiency)).rsplit("#", 1)[-1] for att in atts})
         appr = sorted({str(g.value(att, EPO.appropriateness)).rsplit("#", 1)[-1] for att in atts})
-        observations = sum(1 for e in g.subjects(EPO.bearsOn, a) if (e, RDF.type, EPO.Evidence) in g)
+        evidence = [e for e in g.subjects(EPO.bearsOn, a) if (e, RDF.type, EPO.Evidence) in g]
+        replies = {t for e in evidence for r in g.objects(e, PROV.wasDerivedFrom) if (r, RDF.type, EPO.Response) in g
+                   for t in g.objects(r, PROV.wasGeneratedBy) if (t, RDF.type, EPO.Turn) in g}
         determined = any((d, RDF.type, EPO.Determination) in g for d in g.subjects(EARL.test, a))
         planned = any((p, RDF.type, EPO.TestPlan) in g for p in g.subjects(EPO.objective, a))
         deviations = [str(g.value(d, EPO.reason)) for d in g.subjects(EPO.concerns, a) if (d, RDF.type, EPO.PlanDeviation) in g]
-        status = ("attested" if atts else "determined" if determined else "probed" if observations else "planned" if planned else "not planned")
+        status = ("attested" if atts else "determined" if determined else "probed" if evidence else "planned" if planned else "not planned")
         if deviations:
             status += "; deviation recorded: " + "; ".join(deviations)
         lines.append(f"| `{str(a).rsplit('#', 1)[-1]}`: {cell(g.value(a, EPO.text))} | {cell(g.value(a, EPO.expectedResult))} | {g.value(a, EPO.weight)} ({cell(g.value(a, EPO.weightRationale))}) "
-                     f"| {observations} | {', '.join(suff) or ''} | {', '.join(appr) or ''} | {', '.join(outs) or 'none'} | {status} |")
+                     f"| {len(replies)} | {', '.join(suff) or ''} | {', '.join(appr) or ''} | {', '.join(outs) or 'none'} | {status} |")
     row = next(iter(g.query((ROOT / "queries" / "coverage.rq").read_text())))
     lines += ["", f"Coverage recomputed from the record by `queries/coverage.rq`: {float(row.coverage):.4f} by weight "
                   f"(pass {float(row.passRate):.2f}, fail {float(row.failRate):.2f}, cannot tell {float(row.cantTellRate):.2f}); the final report stores the same numbers, and a criterion attested twice counts once, by its later judgment. "
-                  "Thresholds and replication are out of scope for this version (sheet 10-10): the observation count says how much each judgment rests on."]
+                  "Thresholds and replication are out of scope for this version (sheet 10-10): the count of replies judged says how much each judgment rests on."]
     return "\n".join(lines) + "\n"
 
 
@@ -482,14 +493,14 @@ def main_all() -> int:
     (OUT / "record-contracting.md").write_text(render_record_chapter("contracting"))
     (OUT / "record-evaluation.md").write_text(render_record_chapter("evaluation"))
     (OUT / "more-contracting.md").write_text(render_more("contracting",
-        ["steps-contracting.md", "wiring-contracting.md", "wiring-table-contracting.md", "sci-contracting.md", "record-contracting.md"],
+        ["steps-contracting.md", "wiring-contracting.md", "sci-contracting.md", "record-contracting.md"],  # the wiring table is not on the page (drift pass 4, contracting officer 15): `ogc view` and the files carry it
         ["ogc view contracting", "ogc views", "ogc steps", "ogc sci SCI-10", "ogc term mission", "ogc term customer", "ogc term provider", "ogc term contract", "ogc verify iso-iec-17000-2020", "ogc sparql"],
         ["model/og-caie.sysml", "model/og-caie.model.ttl", "vocabulary/epo.ttl", "shapes/epo.shapes.ttl (S0, S9)", "shapes/model.shapes.ttl (M1, M5)", "ogc/views.py", RECORD_FILE]))
     (OUT / "layers-walkthrough.md").write_text(render_layers_walkthrough())
     (OUT / "quote-status.md").write_text(render_quote_status())
     (OUT / "criteria.md").write_text(render_criteria())
     (OUT / "more-evaluation.md").write_text(render_more("evaluation",
-        ["steps-evaluation.md", "wiring-evaluation.md", "wiring-table-evaluation.md", "sci-evaluation.md", "record-evaluation.md"],
+        ["steps-evaluation.md", "wiring-evaluation.md", "sci-evaluation.md", "record-evaluation.md"],  # the same for the evaluation chapter
         ["ogc record", "ogc record attestation-1", "ogc view evaluation", "ogc steps", "ogc sci SCI-06", "ogc term evidence", "ogc term determination", "ogc term attestation", "ogc term trajectory", "ogc rulings --term evidence", "ogc sparql"],
         ["model/og-caie.sysml", "model/og-caie.model.ttl", "vocabulary/epo.ttl", "shapes/epo.shapes.ttl (S1 to S8)", "shapes/model.shapes.ttl (M2 to M5)", RECORD_FILE, "counterexamples/", "scripts/render_counterexamples.py", "queries/coverage.rq", "queries/traceback.rq"]))
     (OUT / "more-model.md").write_text(render_more("model",

@@ -21,7 +21,7 @@ The standards the compilations carry: every designation a SEVOCAB or SEBoK locat
 | ISO/IEC/IEEE 24641:2023 | sevocab | ontology |
 | ISO/IEC/IEEE 24748-2 on 15288 | sebok-2-14 | Evaluation Process Ontology |
 | ISO/IEC/IEEE 24748-5:2017 | sevocab | authorized representative, C6 accept, sponsor signatory |
-| ISO/IEC/IEEE 24765:2014 | sevocab | C2 propose |
+| ISO/IEC/IEEE 24765:2014 (as SEVOCAB tags the entry) | sevocab | C2 propose |
 | ISO/IEC/IEEE 24765:2017 | sevocab | C2 propose, C4 access, C5 deliver, evaluation record |
 | ISO/IEC/IEEE 24765e:2015 (as SEVOCAB tags the entry) | sevocab | scenario |
 | ISO/IEC/IEEE 29119-1:2022 | sevocab | test suite |

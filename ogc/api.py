@@ -317,6 +317,23 @@ def source_slugs(g: Graph) -> list[str]:
     return sorted(local(s) for s in g.subjects(RDF.type, OGC.Source))
 
 
+def permission(g: Graph, sources) -> str | None:
+    """The permission statement the register attaches to a quoted source
+    (`ogc:permissionStatement`: SEVOCAB's IEEE line, sheet 10-29), printed
+    once after any quote from it by `quote`, `define`, `term` and `verify`
+    (drift pass 4, professor M2); None when no source named carries one.
+    Several sources would be joined with `; `, each after its slug."""
+    stmts = []
+    for slug in sorted(set(sources)):
+        src = resolve_source(g, slug)
+        stmt = one(g, src, OGC.permissionStatement) if src is not None else ""
+        if stmt:
+            stmts.append((slug, stmt))
+    if not stmts:
+        return None
+    return stmts[0][1] if len(stmts) == 1 else "; ".join(f"{slug}: {stmt}" for slug, stmt in stmts)
+
+
 def resolve_source(g: Graph, slug: str):
     """The source IRI for a slug, stripped and case-insensitive; None if unregistered."""
     key = norm(slug).lower()
