@@ -22,7 +22,8 @@ shapes and the record queries assume one default graph: the record, the
 EPO vocabulary and the model graph loaded together, since an item's step
 is derived through the model and every global rule is anchored on the
 record its focus node belongs to. Two records in one graph do not collide.
-A quad store with one named graph per file answers nothing; the explorer
+A quad store with one named graph per file answers nothing: the coverage
+query returns no row and the shapes find nothing to check. The explorer
 ships one merged file, `explorer/data/all.ttl`, for that reason.
 
 ## The layers

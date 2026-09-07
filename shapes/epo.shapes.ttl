@@ -89,6 +89,17 @@ ogc:S0-Member a sh:NodeShape ;
                 UNION { ?item a ?kind . FILTER(STRSTARTS(STR(?kind), "https://w3id.org/og-caie/epo#")) ?item prov:wasAttributedTo ?this }
             }
         """ ] ;
+    sh:property [ sh:path ogc:synthetic ; sh:maxCount 1 ; sh:datatype xsd:boolean ; sh:message "A member's synthetic tag is one boolean (sheet 10-43)." ] ;
+    sh:sparql [
+        sh:message "S0: a member's synthetic tag equals its record's (sheet 10-43; round four, KG 9): a synthetic record has no untagged member, and a member tagged synthetic sits in a record tagged so." ;
+        sh:select """
+            PREFIX ogc: <https://w3id.org/og-caie/>
+            SELECT $this ?value WHERE {
+                $this ogc:inRecord ?rec .
+                { ?rec ogc:synthetic ?value . FILTER NOT EXISTS { $this ogc:synthetic ?value } }
+                UNION { $this ogc:synthetic ?value . FILTER NOT EXISTS { ?rec ogc:synthetic ?value } }
+            }
+        """ ] ;
     sh:sparql [
         sh:message "S0: every entity, activity and agent of a record is a member of exactly one record, a prov:Bundle, through ogc:inRecord (sheet 10-31): an item outside every record would escape the constraints anchored on it." ;
         sh:select """

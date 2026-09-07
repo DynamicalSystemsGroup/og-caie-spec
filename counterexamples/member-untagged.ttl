@@ -1,5 +1,5 @@
-# Counterexample for S0-Independence: both determinations on a3 are Theo's, the operator who ran the sessions the evidence came from; independence at the person level asks for a second determination by another person (sheet 10-15).
-# Must fail on ogc:S0-Independence and nothing else.
+# Counterexample for S0-Member: probe-1 carries no synthetic tag while its record is tagged synthetic: a member's tag equals its record's (sheet 10-43).
+# Must fail on ogc:S0-Member and nothing else.
 # A copy of track/measles-evaluation.ttl with one change (sheet 10-19; written by scripts/render_counterexamples.py).
 @prefix ev:   <https://w3id.org/og-caie/evaluation/measles#> .
 @prefix epo:  <https://w3id.org/og-caie/epo#> .
@@ -522,8 +522,8 @@ ev:determination-3a a epo:Determination ;
 
 ev:determination-3b a epo:Determination ;
     earl:test ev:a3 ; earl:subject ev:chatbot-v1 ;
-    earl:mode earl:manual ; earl:assertedBy ev:theo ;
-    prov:wasAttributedTo ev:theo ;
+    earl:mode earl:manual ; earl:assertedBy ev:annie ;
+    prov:wasAttributedTo ev:annie ;
     prov:wasDerivedFrom ev:evidence-1c ; prov:wasDerivedFrom ev:evidence-3a ;
     earl:result [ a earl:TestResult ; earl:outcome earl:failed ; earl:info "the replies condition the advice on vaccination instead of asking about it; even when the resident said they did not know, no question came" ] ;
     prov:generatedAtTime "2026-08-11T08:55:00Z"^^xsd:dateTime .
@@ -776,7 +776,7 @@ ev:appropriateness-assessment-1 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:requirement-set-approval-1 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:derivation-1 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:test-plan ogc:inRecord ev:record ; ogc:synthetic true .
-ev:probe-1 ogc:inRecord ev:record ; ogc:synthetic true .
+ev:probe-1 ogc:inRecord ev:record .
 ev:probe-2 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:probe-3 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:probe-4 ogc:inRecord ev:record ; ogc:synthetic true .

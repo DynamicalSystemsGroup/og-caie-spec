@@ -132,7 +132,7 @@ def test_role_classes_form_a_tree_under_role_and_the_individuals_keep_their_iris
                    EPO.domainExpertRole: EPO.DomainExpertRole, EPO.evaluationOperatorRole: EPO.EvaluationOperatorRole, EPO.testItemCustomerRole: EPO.TestItemCustomerRole}
     for ind, cls in individuals.items():
         assert (ind, RDF.type, cls) in g, ind
-    assert (EPO.representedBy, RDFS.subPropertyOf, EPO.responsibleParty) in g
+    assert (EPO.representedBy, RDFS.subPropertyOf, EPO.responsibleParty) not in g, "round four, KG 14: the interview branch of S0-Population requires a responsible party of its own"
     assert (EPO.actsOnBehalfOf, RDFS.subPropertyOf, PROV.actedOnBehalfOf) not in g, "sheet 10-34: a plain property; PROV's direction of responsibility runs the other way"
     assert (EPO.SponsorSignatoryRole, RDFS.subClassOf, EPO.Role) in g and (EPO.sponsorSignatoryRole, RDF.type, EPO.SponsorSignatoryRole) in g  # sheet 10-06
 

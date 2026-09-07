@@ -166,6 +166,10 @@ COUNTEREXAMPLES: dict[str, dict] = {
         shapes=["S0-Member"],
         fault="probe-1 is a member of no record: an item outside every bundle escapes the constraints anchored on the record (sheet 10-31).",
         replace=[("ev:probe-1 ogc:inRecord ev:record ; ogc:synthetic true .\n", "")]),
+    "member-untagged": dict(
+        shapes=["S0-Member"],
+        fault="probe-1 carries no synthetic tag while its record is tagged synthetic: a member's tag equals its record's (sheet 10-43).",
+        replace=[("ev:probe-1 ogc:inRecord ev:record ; ogc:synthetic true .\n", "ev:probe-1 ogc:inRecord ev:record .\n")]),
     "record-without-level": dict(
         shapes=["S0-Record"],
         fault="the record states no independence level, so no independence constraint applies to it (sheet 10-15).",
