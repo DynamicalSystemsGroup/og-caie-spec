@@ -4993,7 +4993,7 @@ ev:coverage-computation a epo:CoverageComputation ;
         ev:conformance-verdict-1,
         ev:requirement-set ;
     prov:wasAssociatedWith ev:report-assembler ;
-    epo:ontologyDigest "5aff7757aed847f1ca2ecad24311037564a8bc17b5f007306744f781f978f5a7" ;
+    epo:ontologyDigest "bb12be55c967a950e25f830a4c67329de1eea8e8d29b2d0c49d86c4133c31786" ;
     epo:queryDigest "3ab9dc711479d53340c97c31be23dc071f5c8ed99a19378b4f1899e632325134" ;
     epo:shapesDigest "386c1e1265f2cebf3dadc8445efe4f4677eb7abd420b2c7b33554b7e91686ab8" ;
     ogc:inRecord ev:record ;
@@ -5009,7 +5009,7 @@ ev:coverage-computation-draft a epo:CoverageComputation ;
         ev:attestation-5,
         ev:requirement-set ;
     prov:wasAssociatedWith ev:report-assembler ;
-    epo:ontologyDigest "5aff7757aed847f1ca2ecad24311037564a8bc17b5f007306744f781f978f5a7" ;
+    epo:ontologyDigest "bb12be55c967a950e25f830a4c67329de1eea8e8d29b2d0c49d86c4133c31786" ;
     epo:queryDigest "3ab9dc711479d53340c97c31be23dc071f5c8ed99a19378b4f1899e632325134" ;
     epo:shapesDigest "386c1e1265f2cebf3dadc8445efe4f4677eb7abd420b2c7b33554b7e91686ab8" ;
     ogc:inRecord ev:record ;
@@ -5767,7 +5767,7 @@ rul:C-42 a ogc:Concern ;
 rul:C-44 a ogc:Concern ;
     rdfs:label "ogc has no reader for the record: explorer nodes for record items point at their class, not the item" ;
     prov:wasGeneratedBy rul:model-revision-planning-2026-09-06 ;
-    ogc:problem "The knowledge graph explorer names, on every node, the ogc command that prints it. For record items (track/measles-run.ttl) there is none: the record is not among the files ogc loads, so the node points at a DESCRIBE of the item's class. A --record flag on ogc sparql, or a reader of the record, would close this." ;
+    ogc:problem "The knowledge graph explorer names, on every node, the ogc command that prints it. For record items (track/measles-evaluation.ttl) there is none: the record is not among the files ogc loads, so the node points at a DESCRIBE of the item's class. A --record flag on ogc sparql, or a reader of the record, would close this." ;
     ogc:severity "L" ;
     ogc:status "ruled" ;
     ogc:surfacedHow "building the explorer appendix (R-39)" ;
@@ -11052,7 +11052,7 @@ epo:AppropriatenessValue a owl:Class ;
     ogc:term term:appropriateness .
 
 epo:AuthorizedRepresentativeRole a owl:Class ;
-    rdfs:label "authorized representative: the testing organization's interface with its contractual counterparties (sheet 09; the term's IRI keeps its former local name authorized-representative)" ;
+    rdfs:label "authorized representative: the testing organization's interface with its contractual counterparties (sheet 09)" ;
     rdfs:subClassOf epo:ActorRole ;
     ogc:term term:authorized-representative .
 
@@ -11197,7 +11197,7 @@ ev:conformance-verdict-1 a epo:ConformanceVerdict ;
     prov:endedAtTime "2026-08-12T09:30:00+00:00"^^xsd:dateTime ;
     prov:used ev:record ;
     prov:wasAssociatedWith ev:pyshacl ;
-    epo:ontologyDigest "5aff7757aed847f1ca2ecad24311037564a8bc17b5f007306744f781f978f5a7" ;
+    epo:ontologyDigest "bb12be55c967a950e25f830a4c67329de1eea8e8d29b2d0c49d86c4133c31786" ;
     epo:queryDigest "3ab9dc711479d53340c97c31be23dc071f5c8ed99a19378b4f1899e632325134" ;
     epo:shapesDigest "386c1e1265f2cebf3dadc8445efe4f4677eb7abd420b2c7b33554b7e91686ab8" ;
     ogc:inRecord ev:record ;

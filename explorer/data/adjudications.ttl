@@ -879,7 +879,7 @@ rul:C-43 a ogc:Concern ;
 
 rul:C-44 a ogc:Concern ;
     rdfs:label "ogc has no reader for the record: explorer nodes for record items point at their class, not the item" ;
-    ogc:problem """The knowledge graph explorer names, on every node, the ogc command that prints it. For record items (track/measles-run.ttl) there is none: the record is not among the files ogc loads, so the node points at a DESCRIBE of the item's class. A --record flag on ogc sparql, or a reader of the record, would close this.""" ;
+    ogc:problem """The knowledge graph explorer names, on every node, the ogc command that prints it. For record items (track/measles-evaluation.ttl) there is none: the record is not among the files ogc loads, so the node points at a DESCRIBE of the item's class. A --record flag on ogc sparql, or a reader of the record, would close this.""" ;
     ogc:severity "L" ;
     ogc:status "ruled" ;
     ogc:surfacedOn "2026-09-06"^^xsd:date ;
