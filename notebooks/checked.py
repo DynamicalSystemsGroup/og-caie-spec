@@ -40,13 +40,17 @@ def load(*paths: str) -> Graph:
 
 
 def record() -> Graph:
-    """The measles record with the EPO vocabulary, exactly as tests/test_shacl.py loads it."""
-    return load("vocabulary/epo.ttl", "track/measles-run.ttl")
+    """The measles evaluation (track/measles-evaluation.ttl) with the EPO
+    vocabulary and the model graph, exactly as tests/test_shacl.py loads it:
+    one default graph, since the shapes derive an item's step through the
+    model graph and anchor every global rule on the record (sheets 10-31,
+    10-33)."""
+    return load("vocabulary/epo.ttl", "model/og-caie.model.ttl", "track/measles-evaluation.ttl")
 
 
 def counterexample(name: str) -> Graph:
-    """One RDF counterexample from counterexamples/, with the EPO vocabulary."""
-    return load("vocabulary/epo.ttl", f"counterexamples/{name}")
+    """One RDF counterexample from counterexamples/ (the record with one change), with the EPO vocabulary and the model graph."""
+    return load("vocabulary/epo.ttl", "model/og-caie.model.ttl", f"counterexamples/{name}")
 
 
 def model_graph() -> Graph:
@@ -127,7 +131,10 @@ def run(data: Graph, shapes_graph: Graph) -> tuple[bool, dict[str, list[tuple[st
     conforms, results, _ = validate(data, shacl_graph=shapes_graph, advanced=True)
     fired: dict[str, set[tuple[str, str]]] = {}
     for r in results.subjects(RDF.type, SH.ValidationResult):
-        shape = _name(results.value(r, SH.sourceShape))
+        source = results.value(r, SH.sourceShape)
+        if isinstance(source, BNode):  # a property shape: name the node shape that owns it, as the tests do
+            source = next((ns for ns in shapes_graph.subjects(SH.property, source)), source)
+        shape = _name(source)
         focus = _qname(data, results.value(r, SH.focusNode))
         message = str(results.value(r, SH.resultMessage) or "")
         fired.setdefault(shape, set()).add((focus, message))

@@ -24563,7 +24563,7 @@
     [
      "ogc:binding",
      {
-      "text": "epo:appropriateness on Attestation; sysml enum Appropriateness"
+      "text": "epo:appropriateness on Attestation; sysml enum Appropriateness; judgment rules in shape S6"
      }
     ],
     [
@@ -24576,6 +24576,12 @@
      "ogc:class",
      {
       "text": "adopted"
+     }
+    ],
+    [
+     "ogc:scopeNote",
+     {
+      "text": "Sheet 10-12 (R-50), in Z's words: appropriateness covers the assumptions and the test planning: no amount of evidence helps if the plan, the strategy and their assumptions are not appropriate for what they aim to determine. Shape S6 allows an inappropriate context only a cannot-tell or inapplicable outcome."
      }
     ],
     [
@@ -29010,7 +29016,7 @@
     [
      "ogc:binding",
      {
-      "text": "epo:sufficiency on Attestation; sysml enum Sufficiency; closure rule in shape S6"
+      "text": "epo:sufficiency on Attestation; sysml enum Sufficiency; judgment rules in shape S6"
      }
     ],
     [
@@ -29023,6 +29029,12 @@
      "ogc:class",
      {
       "text": "adopted"
+     }
+    ],
+    [
+     "ogc:scopeNote",
+     {
+      "text": "Sheet 10-12 (R-50), in Z's words: sufficiency relates the evidence to the claim that a requirement is met or not: insufficient evidence implies cannot tell, sufficient evidence can give pass or fail. One failing response can suffice to show a criterion unmet in that instance; shape S6 holds the rule."
      }
     ],
     [
