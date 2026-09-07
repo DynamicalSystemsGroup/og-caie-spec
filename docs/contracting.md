@@ -39,8 +39,8 @@ output port to an input port and carries one item kind. Four parties,
 three actor categories within the testing organization, and the wires
 between them. The sponsor holds an obligation towards the
 affected populations, states its mission and then its need, and receives
-the proposal; the account executive answers, countersigns and, at the end,
-delivers; the accountable organization grants access; every item reaches
+the proposal; the authorized representative answers, countersigns and, at the end,
+delivers; the test item provider grants access; every item reaches
 the recorder, the machine that keeps the record. Input wires are unique,
 output wires fan out. One item sits on the boundary between the contract
 and its fulfilment: the {term}`statement of work`, the sponsor's
@@ -84,7 +84,7 @@ and of the people passing through the county, and must inform the public
 accurately during an outbreak; that mission is the first item in the
 record. It needed to know whether its chatbot could give measles advice to
 the public. Humane Intelligence proposed an OG-CAIE evaluation; Mala, its
-account executive, signed for it on 31 July with the county; the chatbot's
+authorized representative, signed for it on 31 July with the county; the chatbot's
 vendor opened API access to version 1 the same day. Two populations were
 affected: commuters, who were interviewed, and county residents, whom
 Annie, the domain expert, represents. The split was the county's decision in its statement of work, made with

@@ -12612,7 +12612,7 @@
     [
      "ogc:status",
      {
-      "text": "open"
+      "text": "ruled"
      }
     ],
     [
@@ -14199,6 +14199,59 @@
      "rdfs:label",
      {
       "text": "round two of the simulated user test: nine findings needing a judgment, and three broader directions (rulings sheet 07)"
+     }
+    ]
+   ]
+  },
+  "https://w3id.org/og-caie/rulings#C-55": {
+   "in": [],
+   "out": [
+    [
+     "ogc:problem",
+     {
+      "text": "Sheet 05 lists every part kind and wire of the canonical model graph for Z's validation. Walking them block by block raised, besides ticks, three headwords, one missing wire (access to the operator), the population slots, the report step's true shape (assembly, machine verdict, expert approval), and the record's fan-out."
+     }
+    ],
+    [
+     "ogc:severity",
+     {
+      "text": "H"
+     }
+    ],
+    [
+     "ogc:status",
+     {
+      "text": "ruled"
+     }
+    ],
+    [
+     "ogc:surfacedHow",
+     {
+      "text": "the walkthrough popups, sheet 09"
+     }
+    ],
+    [
+     "ogc:surfacedOn",
+     {
+      "text": "2026-09-06 (date)"
+     }
+    ],
+    [
+     "prov:wasGeneratedBy",
+     {
+      "text": "rul:user-test-1-2026-09-06"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "ogc:Concern"
+     }
+    ],
+    [
+     "rdfs:label",
+     {
+      "text": "the block-and-wire walkthrough (the human half of C-30): what each block's ports and wires should be"
      }
     ]
    ]
@@ -16731,6 +16784,65 @@
      "ogc:verbatim",
      {
       "text": "7-1: as recommended. 7-2: context matters belongs in the prose not in the records. it leaked in due to the informal and formal mixing in the chat based data collection and rulings. we're trying to keep the canonical data in a more clinical register now. 7-3: record takes a more abstract definition and the evaluation record is a special case. use subclassing. look more carefully at our definitions and use subclassing more explicitly where terms are specialization of other terms; knowledge graphs are designed for this kind of thing. however we do not need to force all terms into the mouseover. just because we can give a term a mouse over doesn't mean we should. its important that is a tool for clarity for the reader, not a distraction. 7-4: i like the vertical alignment. only caveat is that access to the test item comes from a different actor. 7-5: accept recommendation. 7-6: make sure its clear the accountable organization is must provide access. we can reconsider whether \"accountable organization\" is the right headword. i can see how that may create confusion. 7-7: review and revise as needed to improve cite source traceability. NIST report plus relevant academic citations should make clean traces to the concept. if its a bit weak research how to tighten it up. 7-8: i think we should either identity the explicit already published paper or purge the references. most likely this refers to the paper i gave you that is work in progress for all intents and purposes our new content drafted there can be treated as novel in this website and the paper will site this instead. the executables and ontologies are much richer and more capable of rigor than a pdf ever will be. 7-9: walk me through the open questions in the block and wire are one at a time with popups. while i do still want to validation on the spec, the specific records in sheet 5 may be out of date since we've been refining and tightening our model through tests. additional comments: a lot of our tables have tags like (human) or (machine); these are distacting, this level of detail is reserved for attributes you can inspect in the knowledge graph explorer, it does no need to be in the primary text. this principle holds broadly. just because you can share information from the knowledge graph doesnt mean you should. we're leaning on the appendices and the repo to support readers who want to dig deeper, so the primary material can be an easier read. the ontology tbox needs auditing and potentially some clean up. where appropriate we can use skos match, skos closematch, and other tools for interrelating content. we also can use subclassing and disjointness axioms, also look for disconnected content and make sure we're not missing relationships which will improve navagibility. also add to the explorer the ability to focus on a node (thus highlighting only its local neighborhood; we have that in other graph viewers its useful). make sure we have a bibtex workcited. you can put citations at the bottom of each chapter and make a new appendix which contains the aggregate citations for the whole project. you may need to make a new plan"
+     }
+    ],
+    [
+     "prov:generatedAtTime",
+     {
+      "text": "2026-09-06 (date)"
+     }
+    ],
+    [
+     "prov:wasAttributedTo",
+     {
+      "text": "rul:Z"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "ogc:Ruling"
+     }
+    ]
+   ]
+  },
+  "https://w3id.org/og-caie/rulings#R-49": {
+   "in": [],
+   "out": [
+    [
+     "ogc:changeNote",
+     {
+      "text": "Ticks in rulings/validated.ttl, rendered on sheet 05. Model: accessToOperatorSeam; TestDriver, ReportAssembler; ConformanceVerdict and ReportApproval items, ports and seams; the report step emits both and deliver consumes the approval; the three human recordIn ports and seams removed. Shapes: S7-ConformanceVerdict, S7-ReportApproval, S8-Delivery requires the approval, S7-Report recomputes coverage; the party and population model of the ontology audit (sheet 08). Headwords: authorized representative (closes C-26), test item provider, test driver; identifiers unchanged. The population block returns for validation with its new slots."
+     }
+    ],
+    [
+     "ogc:order",
+     {
+      "text": "49"
+     }
+    ],
+    [
+     "ogc:resolves",
+     {
+      "ref": "https://w3id.org/og-caie/rulings#C-26"
+     }
+    ],
+    [
+     "ogc:resolves",
+     {
+      "ref": "https://w3id.org/og-caie/rulings#C-55"
+     }
+    ],
+    [
+     "ogc:rulingText",
+     {
+      "text": "The block-and-wire walkthrough of the model is adjudicated block by block (sheet 09). The sponsor organization, the domain expert, the evaluation operator and the test item are validated as wired. The account executive's ports and wires are validated and its headword becomes authorized representative: the person is the organization's interface with its contractual counterparties and is not responsible for the determinations in the report. The accountable organization's headword becomes test item provider; it must provide access to the test item, and that access reaches the evaluation operator as well as the recorder; no further involvement of the provider is assumed, and the monitoring narrated in prose stays out of the wiring. Each affected population carries its engagement, interviewed or represented, and a responsible party, a person or an organization; the domain expert's approval of the DSO release is preconditioned on every population's input or representation being available. The report step is opened: a report assembler assembles the report with coverage and performance recomputed; the conformance checker records its verdict that the record and the report are correctly constructed, traceable and covered; a domain expert then approves the report's contents, since correct construction alone risks correctly constructed nonsense; delivery requires that approval; coverage is also checked by a SHACL constraint on the report. The machine that administers the test plan is the test driver. The record is wired to the three machines only; people read it through views tailored to their roles, the record feeding forward through the report to the sponsor and, in prose, potentially to the test item provider."
+     }
+    ],
+    [
+     "ogc:verbatim",
+     {
+      "text": "B10 sponsor: Validated. B1 account executive: i want to change the headword on this record. account executive ~ top management ~ [tbd]. we need a term that is not confusing for this person; authorized representative (Recommended); i am not sure i would say the executive never judges in prose but in terms of our ontology, no they are not responsible for the determinationin the report, they are the interface for the organization with its contractual counterparties. B2 accountable organization: the organization doing the testing does need to get access. otherwise we make no further assumptions of their involvement in the assessment. we don't assume they are bound to the recommendations. we do narrate in prose an example where monitoring is ongoing and they are involved in a process of pre-release review. we keep that extra process in process, do not force it into the wiring; test item provider (Recommended); i do still want to change the headword for that ai system provider organization. B3 affected population: representation by [a] domain expert. for each affective population we need to know represented or interviewed, and we need an actor (and be a person or an organization) responsible. there is also a domain expert who signs off on the DSO which itself requires that the stakeholder input (either represented or interviewed) has been made available to the domain expert who signs off on the DSO as appropriate. what this means in practice is that there are slots that get filled in a concrete evaluation that we have not clearly defined because our example cases are relatively thin in this area. let's clean up the ontology a bit; That covers it. B4, B5 machines: coverage should also be computable as a shacl constraint; your two blocks for the report generation was misconstruing checking the data and assembling the report. you call the report coverage but that not what it is. the report produced has a shacl based conformance check determining its traceable and fully covered. but it still needs a human review from a domain expert to sign off on the results in the report. otherwise we risk getting correctly constructed garbage. the conformance checks correct construction and the human domain expert signs off on the contents of the report; Yes, build it. B6 domain expert: Validated. B7 evaluation operator: Validated. B8 probe deriver, B11 test item: the probe deriver seems like the wrong term. we need something maybe a dispatcher or some other term that does the machine part of adminstering the test plan; test driver (Recommended). B9 recorder: i guess it fans out to anyone who is entitled to or expected to review and sign off (in practice via views tailored to their roles) but practically the record feeds forward via the report generation process and gets distributed to the sponsor and potentially the test item provider. i think we need to do some analysis to make sure we're not over complicating the model here; (b) machines by wire, people by view (Recommended); Validated."
      }
     ],
     [
@@ -44755,6 +44867,16 @@
    "target": "https://w3id.org/og-caie/rulings#C-54"
   },
   {
+   "rel": "resolves",
+   "source": "https://w3id.org/og-caie/rulings#R-49",
+   "target": "https://w3id.org/og-caie/rulings#C-26"
+  },
+  {
+   "rel": "resolves",
+   "source": "https://w3id.org/og-caie/rulings#R-49",
+   "target": "https://w3id.org/og-caie/rulings#C-55"
+  },
+  {
    "rel": "type",
    "source": "https://w3id.org/og-caie/run/measles#R1",
    "target": "https://w3id.org/og-caie/epo#Requirement"
@@ -53485,7 +53607,7 @@
   },
   {
    "cls": "concern",
-   "desc": "account executive: canonical anchor (L, open). No ranked source defines account executive. The entry is anchored, provisionally, as a specialization of ISO 9000:2026 3.1.3 top management (the person top management authorizes to sign for the organization); ISO/IEC 17000 4.3 Note 1 (parties to a contract) and 4.6 conformity assessment body are the alternatives. Z to confirm or redirect.",
+   "desc": "account executive: canonical anchor (L, ruled). No ranked source defines account executive. The entry is anchored, provisionally, as a specialization of ISO 9000:2026 3.1.3 top management (the person top management authorizes to sign for the organization); ISO/IEC 17000 4.3 Note 1 (parties to a contract) and 4.6 conformity assessment body are the alternatives. Z to confirm or redirect.",
    "id": "https://w3id.org/og-caie/rulings#C-26",
    "label": "C-26",
    "ogc": "ogc concern C-26",
@@ -53713,6 +53835,14 @@
    "id": "https://w3id.org/og-caie/rulings#C-54",
    "label": "C-54",
    "ogc": "ogc concern C-54",
+   "page": "../rulings"
+  },
+  {
+   "cls": "concern",
+   "desc": "the block-and-wire walkthrough (the human half of C-30): what each block's ports and wires should be (H, ruled). Sheet 05 lists every part kind and wire of the canonical model graph for Z's validation. Walking them block by block raised, besides ticks, three headwords, one missing wire (access to the operator), the population slots, the report step's true shape (assembly, machine verdict, expert approval), and the record's fan-out.",
+   "id": "https://w3id.org/og-caie/rulings#C-55",
+   "label": "C-55",
+   "ogc": "ogc concern C-55",
    "page": "../rulings"
   },
   {
@@ -54097,6 +54227,14 @@
    "id": "https://w3id.org/og-caie/rulings#R-48",
    "label": "R-48",
    "ogc": "ogc ruling R-48",
+   "page": "../rulings"
+  },
+  {
+   "cls": "ruling",
+   "desc": "The block-and-wire walkthrough of the model is adjudicated block by block (sheet 09). The sponsor organization, the domain expert, the evaluation operator and the test item are validated as wired. The account executive's ports and wires are validated and its headword becomes authorized representative: the person is the organization's interface with its contractual counterparties and is not responsible for the determinations in the report. The accountable organization's headword becomes test item provider; it must provide access to the test item, and that access reaches the evaluation operator as well as the recorder; no further involvement of the provider is assumed, and the monitoring narrated in prose stays out of the wiring. Each affected population carries its engagement, interviewed or represented, and a responsible party, a person or an organization; the domain expert's approval of the DSO release is preconditioned on every population's input or representation being available. The report step is opened: a report assembler assembles the report with coverage and performance recomputed; the conformance checker records its verdict that the record and the report are correctly constructed, traceable and covered; a domain expert then approves the report's contents, since correct construction alone risks correctly constructed nonsense; delivery requires that approval; coverage is also checked by a SHACL constraint on the report. The machine that administers the test plan is the test driver. The record is wired to the three machines only; people read it through views tailored to their roles, the record feeding forward through the report to the sponsor and, in prose, potentially to the test item provider.",
+   "id": "https://w3id.org/og-caie/rulings#R-49",
+   "label": "R-49",
+   "ogc": "ogc ruling R-49",
    "page": "../rulings"
   },
   {
@@ -57564,6 +57702,7 @@
     "https://w3id.org/og-caie/rulings#C-52",
     "https://w3id.org/og-caie/rulings#C-53",
     "https://w3id.org/og-caie/rulings#C-54",
+    "https://w3id.org/og-caie/rulings#C-55",
     "https://w3id.org/og-caie/rulings#R-01",
     "https://w3id.org/og-caie/rulings#R-02",
     "https://w3id.org/og-caie/rulings#R-03",
@@ -57612,6 +57751,7 @@
     "https://w3id.org/og-caie/rulings#R-46",
     "https://w3id.org/og-caie/rulings#R-47",
     "https://w3id.org/og-caie/rulings#R-48",
+    "https://w3id.org/og-caie/rulings#R-49",
     "https://w3id.org/og-caie/terms#acceptance-criteria",
     "https://w3id.org/og-caie/terms#account-executive",
     "https://w3id.org/og-caie/terms#appropriateness",
@@ -58537,6 +58677,7 @@
     "https://w3id.org/og-caie/rulings#C-52",
     "https://w3id.org/og-caie/rulings#C-53",
     "https://w3id.org/og-caie/rulings#C-54",
+    "https://w3id.org/og-caie/rulings#C-55",
     "https://w3id.org/og-caie/rulings#R-01",
     "https://w3id.org/og-caie/rulings#R-02",
     "https://w3id.org/og-caie/rulings#R-03",
@@ -58585,6 +58726,7 @@
     "https://w3id.org/og-caie/rulings#R-46",
     "https://w3id.org/og-caie/rulings#R-47",
     "https://w3id.org/og-caie/rulings#R-48",
+    "https://w3id.org/og-caie/rulings#R-49",
     "https://w3id.org/og-caie/run/measles#R1",
     "https://w3id.org/og-caie/run/measles#a1",
     "https://w3id.org/og-caie/run/measles#a2",

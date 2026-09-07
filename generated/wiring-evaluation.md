@@ -1,12 +1,12 @@
 ```{mermaid}
 flowchart LR
-  accountable_testItem[["testItem : TestItem"]]
-  testingOrg_conformanceChecker[["conformanceChecker : ConformanceChecker"]]
-  testingOrg_recorder[["recorder : Recorder"]]
-  testingOrg_reportAssembler[["reportAssembler : ReportAssembler"]]
-  testingOrg_team_domainExpert(["domainExpert : DomainExpert"])
-  testingOrg_team_operator(["operator : EvaluationOperator"])
-  testingOrg_testDriver[["testDriver : TestDriver"]]
+  accountable_testItem[["testItem : test item"]]
+  testingOrg_conformanceChecker[["conformanceChecker : conformance checker"]]
+  testingOrg_recorder[["recorder : recorder"]]
+  testingOrg_reportAssembler[["reportAssembler : report assembler"]]
+  testingOrg_team_domainExpert(["domainExpert : domain expert"])
+  testingOrg_team_operator(["operator : evaluation operator"])
+  testingOrg_testDriver[["testDriver : test driver"]]
   accountable_testItem -- "Response" --> testingOrg_recorder
   testingOrg_conformanceChecker -- "ConformanceVerdict" --> testingOrg_recorder
   testingOrg_recorder -- "EvaluationRecord" --> testingOrg_conformanceChecker
@@ -27,4 +27,4 @@ flowchart LR
   class accountable_testItem,testingOrg_conformanceChecker,testingOrg_recorder,testingOrg_reportAssembler,testingOrg_testDriver machine;
 ```
 
-**View `evaluation`: the evaluation slice.** In focus: the team, the machines, the test item and the recorder, with the evaluation items braided into one bundle per pair of parts. Left out: the sponsor, the account executive's contracting wires and the accountable organization's access grant; the seam names and the ports. Legend: rounded green, a person; double-boxed pink, a machine; dashed amber, an affected population; a plain box, an organization; a solid arrow bundles the items that flow from one part to another; a dotted arrow is a relation that carries no item.
+**View `evaluation`: the evaluation slice.** In focus: the team, the machines, the test item and the recorder, with the evaluation items braided into one bundle per pair of parts. Left out: the sponsor and the authorized representative's contracting wires; the seam names and the ports. Legend: rounded green, a person; double-boxed pink, a machine; dashed amber, an affected population; a plain box, an organization; a solid arrow bundles the items that flow from one part to another; a dotted arrow is a relation that carries no item.

@@ -29,6 +29,17 @@ INNER_PROCESS = "EvaluationProcess"
 CONTRACT_KINDS = {"Mission", "StatementOfWork", "Need", "Proposal", "ServiceAgreement", "TestItemAccess", "Delivery", "Acceptance", "StakeholderInput"}
 # Strong, distinct fills with an explicit text colour, so the figures read on
 # a light or a dark page (Z, 2026-09-06: pastel fills were hard to read).
+# Headwords for the figures where the identifier and the headword differ (R-49); identifiers stay.
+DISPLAY = {"AccountExecutive": "authorized representative", "AccountableOrganization": "test item provider", "TestDriver": "test driver",
+           "ReportAssembler": "report assembler", "ConformanceChecker": "conformance checker", "SponsorOrganization": "sponsor", "TestingOrganization": "testing organization",
+           "AffectedPopulation": "affected population", "DomainExpert": "domain expert", "EvaluationOperator": "evaluation operator", "EvaluationTeam": "evaluation team",
+           "Recorder": "recorder", "TestItem": "test item"}
+
+
+def display(defname: str) -> str:
+    return DISPLAY.get(defname, re.sub(r'(?<!^)(?=[A-Z])', ' ', defname).lower())
+
+
 CLASSDEFS = ["  classDef person fill:#1b5e20,stroke:#a5d6a7,stroke-width:2px,color:#ffffff;",
              "  classDef machine fill:#880e4f,stroke:#f48fb1,stroke-width:2px,color:#ffffff;",
              "  classDef party fill:#f9a825,stroke:#e65100,stroke-width:2px,stroke-dasharray: 6 3,color:#000000;",
@@ -171,7 +182,7 @@ def wiring(g: Graph, slice_: str | None = None, nest: bool = False) -> str:
 
     def node(indent: str, path, u, d):
         k = kind_of(g, d)
-        lines.append(indent + _shape(ids[path], f"{name(g, u)} : {name(g, d)}", k))
+        lines.append(indent + _shape(ids[path], f"{name(g, u)} : {display(name(g, d))}", k))
         if k in classes:
             classes[k].append(ids[path])
 
@@ -180,11 +191,11 @@ def wiring(g: Graph, slice_: str | None = None, nest: bool = False) -> str:
         for path, u, d in top:
             children = [(p, cu, cd) for p, cu, cd in tree if p.startswith(path + ".")]
             if children:
-                lines.append(f'  subgraph {ids[path]}["{name(g, u)} : {name(g, d)}"]')
+                lines.append(f'  subgraph {ids[path]}["{name(g, u)} : {display(name(g, d))}"]')
                 for cp, cu, cd in children:
                     grand = [(p2, u2, d2) for p2, u2, d2 in tree if p2.startswith(cp + ".")]
                     if grand:
-                        lines.append(f'    subgraph {ids[cp]}["{name(g, cu)} : {name(g, cd)}"]')
+                        lines.append(f'    subgraph {ids[cp]}["{name(g, cu)} : {display(name(g, cd))}"]')
                         for gp, gu, gd in grand:
                             node("      ", gp, gu, gd)
                         lines.append("    end")
@@ -266,7 +277,7 @@ def nesting(g: Graph) -> str:
         if parts:
             supplier[item] = parts[0]
     for (a, b), kinds in sorted(bundles.items()):
-        named = [f"{k} (from the {re.sub(r'(?<!^)(?=[A-Z])', ' ', supplier[k]).lower()})" if k in supplier else k
+        named = [f"{k} (from the {display(supplier[k])})" if k in supplier else k
                  for k in sorted(set(kinds), key=lambda n: (order.get(n, len(order)), n))]
         lines.append(f'  {a} -- "{", ".join(named)}" --> {b}')
     lines.append("  classDef step fill:#37474f,stroke:#cfd8dc,stroke-width:1.5px,color:#ffffff;")
@@ -291,11 +302,11 @@ VIEWS: dict[str, View] = {v.name: v for v in [
          lambda g: wiring(g, None, nest=True)),
     View("contracting", "The contracting slice",
          "the parties to the contract and the two parts of the testing organization they touch, the items pinned at the contract braided into one bundle per pair of parts, and the sponsor's obligation to the affected populations, a relation that carries no item.",
-         "the evaluation team, the machines and the test item; the evaluation items; the seam names and the ports; the recorder's fan-out of the record.",
+         "the evaluation team, the machines and the test item; the evaluation items; the seam names and the ports; the recorder's wires to the machines.",
          lambda g: wiring(g, "contracting")),
     View("evaluation", "The evaluation slice",
          "the team, the machines, the test item and the recorder, with the evaluation items braided into one bundle per pair of parts.",
-         "the sponsor, the account executive's contracting wires and the accountable organization's access grant; the seam names and the ports.",
+         "the sponsor and the authorized representative's contracting wires; the seam names and the ports.",
          lambda g: wiring(g, "evaluation")),
 ]}
 

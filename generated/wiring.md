@@ -4,21 +4,21 @@ Organizations are boxes containing their parts; people are rounded (green), mach
 
 ```{mermaid}
 flowchart LR
-  subgraph accountable["accountable : AccountableOrganization"]
-    accountable_testItem[["testItem : TestItem"]]
+  subgraph accountable["accountable : test item provider"]
+    accountable_testItem[["testItem : test item"]]
   end
-  affected{{"affected : AffectedPopulation"}}
-  sponsor["sponsor : SponsorOrganization"]
-  subgraph testingOrg["testingOrg : TestingOrganization"]
-    testingOrg_accountExecutive(["accountExecutive : AccountExecutive"])
-    testingOrg_conformanceChecker[["conformanceChecker : ConformanceChecker"]]
-    testingOrg_recorder[["recorder : Recorder"]]
-    testingOrg_reportAssembler[["reportAssembler : ReportAssembler"]]
-    subgraph testingOrg_team["team : EvaluationTeam"]
-      testingOrg_team_domainExpert(["domainExpert : DomainExpert"])
-      testingOrg_team_operator(["operator : EvaluationOperator"])
+  affected{{"affected : affected population"}}
+  sponsor["sponsor : sponsor"]
+  subgraph testingOrg["testingOrg : testing organization"]
+    testingOrg_accountExecutive(["accountExecutive : authorized representative"])
+    testingOrg_conformanceChecker[["conformanceChecker : conformance checker"]]
+    testingOrg_recorder[["recorder : recorder"]]
+    testingOrg_reportAssembler[["reportAssembler : report assembler"]]
+    subgraph testingOrg_team["team : evaluation team"]
+      testingOrg_team_domainExpert(["domainExpert : domain expert"])
+      testingOrg_team_operator(["operator : evaluation operator"])
     end
-    testingOrg_testDriver[["testDriver : TestDriver"]]
+    testingOrg_testDriver[["testDriver : test driver"]]
   end
   accountable -- "TestItemAccess" --> testingOrg_recorder
   accountable -- "TestItemAccess" --> testingOrg_team_operator

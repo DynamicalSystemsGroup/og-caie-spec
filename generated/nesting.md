@@ -9,9 +9,9 @@ flowchart TB
     i_scope[scope] --> i_declareRequirements[declareRequirements] --> i_plan[plan] --> i_execute[execute] --> i_determineAndAttest[determineAndAttest] --> i_report[report]
   end
   i_report -- "Recommendation (from the evaluation operator), ReportApproval (from the domain expert), Report (from the report assembler)" --> o_deliver
-  o_access -- "TestItemAccess (from the accountable organization)" --> i_execute
-  o_agree -- "ServiceAgreement (from the account executive)" --> i_declareRequirements
-  o_agree -- "StatementOfWork (from the sponsor organization)" --> i_scope
+  o_access -- "TestItemAccess (from the test item provider)" --> i_execute
+  o_agree -- "ServiceAgreement (from the authorized representative)" --> i_declareRequirements
+  o_agree -- "StatementOfWork (from the sponsor)" --> i_scope
   classDef step fill:#37474f,stroke:#cfd8dc,stroke-width:1.5px,color:#ffffff;
   classDef black fill:#000000,stroke:#ffb300,stroke-width:3px,color:#ffffff;
   class o_need,o_propose,o_agree,o_access,o_deliver,o_acceptDelivery,i_scope,i_declareRequirements,i_plan,i_execute,i_determineAndAttest,i_report step;

@@ -12,7 +12,7 @@ Generated from `model/og-caie.model.ttl` by `scripts/render.py`; do not edit the
 | B4 | ConformanceChecker | recordIn | verdictOut | [x] 2026-09-06 |
 | B5 | DomainExpert | (none) | assessmentOut, attestationOut, determinationOut, dsoOut, planApprovalOut, reportApprovalOut | [x] 2026-09-06 |
 | B6 | EvaluationOperator | accessIn, probesIn | determinationOut, evidenceOut, planOut, probesToItem, recommendationOut, requirementsOut | [x] 2026-09-06 |
-| B7 | Recorder | acceptanceIn, accessIn, agreementIn, assessmentIn, attestationIn, deliveryIn, dsoIn, evidenceIn, expertDeterminationIn, inputIn, missionIn, needIn, operatorDeterminationIn, planApprovalIn, planIn, probeIn, proposalIn, recommendationIn, reportApprovalIn, reportIn, requirementsIn, responseIn, statementOfWorkIn, verdictIn | recordOut | [ ] |
+| B7 | Recorder | acceptanceIn, accessIn, agreementIn, assessmentIn, attestationIn, deliveryIn, dsoIn, evidenceIn, expertDeterminationIn, inputIn, missionIn, needIn, operatorDeterminationIn, planApprovalIn, planIn, probeIn, proposalIn, recommendationIn, reportApprovalIn, reportIn, requirementsIn, responseIn, statementOfWorkIn, verdictIn | recordOut | [x] 2026-09-06 |
 | B8 | ReportAssembler | recordIn | reportOut | [ ] |
 | B9 | SponsorOrganization | deliveryIn, proposalIn | acceptanceOut, agreementOut, missionOut, needOut, statementOfWorkOut | [x] 2026-09-06 |
 | B10 | TestDriver | recordIn | probesOut | [ ] |
@@ -48,9 +48,9 @@ Generated from `model/og-caie.model.ttl` by `scripts/render.py`; do not edit the
 | W24 | proposalSeam | AccountExecutive.proposalOut | Recorder.proposalIn | ProposalWrite | [x] 2026-09-06 |
 | W25 | proposalToSponsorSeam | AccountExecutive.proposalOut | SponsorOrganization.proposalIn | ProposalWrite | [x] 2026-09-06 |
 | W26 | recommendationSeam | EvaluationOperator.recommendationOut | Recorder.recommendationIn | RecommendationWrite | [x] 2026-09-06 |
-| W27 | recordToAssemblerSeam | Recorder.recordOut | ReportAssembler.recordIn | RecordWrite | [ ] |
+| W27 | recordToAssemblerSeam | Recorder.recordOut | ReportAssembler.recordIn | RecordWrite | [x] 2026-09-06 |
 | W28 | recordToCheckerSeam | Recorder.recordOut | ConformanceChecker.recordIn | RecordWrite | [x] 2026-09-06 |
-| W29 | recordToDriverSeam | Recorder.recordOut | TestDriver.recordIn | RecordWrite | [ ] |
+| W29 | recordToDriverSeam | Recorder.recordOut | TestDriver.recordIn | RecordWrite | [x] 2026-09-06 |
 | W30 | reportApprovalSeam | DomainExpert.reportApprovalOut | Recorder.reportApprovalIn | ReportApprovalWrite | [ ] |
 | W31 | reportSeam | ReportAssembler.reportOut | Recorder.reportIn | ReportWrite | [x] 2026-09-06 |
 | W32 | requirementSeam | EvaluationOperator.requirementsOut | Recorder.requirementsIn | RequirementSetWrite | [x] 2026-09-06 |

@@ -33,7 +33,7 @@ ogm:validation-obligation a ogc:Validation ; ogc:validates "obligation" ; ogc:va
 ogm:validation-ConformanceChecker a ogc:Validation ; ogc:validates "ConformanceChecker" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date ; ogc:via "walkthrough popup, blocks 5 and 6 of 11" .
 ogm:validation-recordToCheckerSeam a ogc:Validation ; ogc:validates "recordToCheckerSeam" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .
 ogm:validation-CoverageCalculator a ogc:Validation ; ogc:validates "CoverageCalculator" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date ; ogc:via "walkthrough popup, blocks 5 and 6 of 11: coverage also computable as a SHACL constraint (S7)" .
-ogm:validation-recordToCalculatorSeam a ogc:Validation ; ogc:validates "recordToCalculatorSeam" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .
+ogm:validation-recordToAssemblerSeam a ogc:Validation ; ogc:validates "recordToAssemblerSeam" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .
 ogm:validation-reportSeam a ogc:Validation ; ogc:validates "reportSeam" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .
 ogm:validation-DomainExpert a ogc:Validation ; ogc:validates "DomainExpert" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date ; ogc:via "walkthrough popup, block 7 of 11" .
 ogm:validation-dsoSeam a ogc:Validation ; ogc:validates "dsoSeam" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .
@@ -49,3 +49,7 @@ ogm:validation-probeRunSeam a ogc:Validation ; ogc:validates "probeRunSeam" ; og
 ogm:validation-evidenceSeam a ogc:Validation ; ogc:validates "evidenceSeam" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .
 ogm:validation-operatorDeterminationSeam a ogc:Validation ; ogc:validates "operatorDeterminationSeam" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .
 ogm:validation-recommendationSeam a ogc:Validation ; ogc:validates "recommendationSeam" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .
+ogm:validation-Recorder a ogc:Validation ; ogc:validates "Recorder" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date ; ogc:via "walkthrough popup, block 11 of 11, after option (b): the record wired to the machines only" .
+ogm:validation-recordToDriverSeam a ogc:Validation ; ogc:validates "recordToDriverSeam" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .
+ogm:validation-recordToAssemblerSeam a ogc:Validation ; ogc:validates "recordToAssemblerSeam" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .
+

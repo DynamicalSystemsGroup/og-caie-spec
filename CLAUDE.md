@@ -40,10 +40,9 @@ authors' earlier glossary work.
 - Three actor categories, all roles within the testing organization (R-10,
   R-23): **domain expert** (DSO, appropriateness, plan approval, attestation),
   **evaluation operator** (requirements, plan, probes, evidence,
-  recommendation; never attests) and one **account executive** (signs the
+  recommendation; never attests) and one **authorized representative** (signs the
   contract, delivers the report; never judges). Parties (R-21): sponsor
-  organization (customer), testing organization (provider), accountable
-  organization (first party), affected populations [0..*].
+  organization (customer), testing organization (provider), test item provider (first party; was accountable organization, R-49), affected populations [0..*].
 - The worked example names Mala, Annie and Theo: synthetic case, real
   people's roles recognised, no attestation made by them (R-23).
 - Prose: no em-dashes; short sentences; every glossary term used in docs

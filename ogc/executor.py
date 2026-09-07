@@ -155,9 +155,9 @@ def parties(r: Run, params: Params):
         return n
     a = r.agents
     a["SponsorOrganization"] = agent("sponsor", "sponsor organization", PROV.Organization, role=EPO.sponsorRole, isAccountable=Literal(False))
-    a["AccountableOrganization"] = agent("accountable", "accountable organization", PROV.Organization, role=EPO.accountableOrganizationRole)
+    a["AccountableOrganization"] = agent("accountable", "test item provider", PROV.Organization, role=EPO.accountableOrganizationRole)
     a["TestingOrganization"] = agent("testing-org", "testing organization", PROV.Organization, role=EPO.testingOrganizationRole, independentOfAccountable=Literal(True))
-    a["AccountExecutive"] = agent("executive", "account executive", PROV.Person, role=EPO.accountExecutiveRole, actedOnBehalfOf=a["TestingOrganization"])
+    a["AccountExecutive"] = agent("executive", "authorized representative", PROV.Person, role=EPO.accountExecutiveRole, actedOnBehalfOf=a["TestingOrganization"])
     a["DomainExpert"] = agent("expert", "domain expert", PROV.Person, role=EPO.domainExpertRole, actedOnBehalfOf=a["TestingOrganization"])
     a["EvaluationOperator"] = agent("operator", "evaluation operator", PROV.Person, role=EPO.evaluationOperatorRole, actedOnBehalfOf=a["TestingOrganization"])
     a["TestItem"] = agent("test-item", "test item", PROV.SoftwareAgent, EARL.TestSubject, version=Literal("1"), actedOnBehalfOf=a["AccountableOrganization"])

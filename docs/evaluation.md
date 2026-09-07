@@ -53,7 +53,7 @@ applies the probes to the {term}`test item`, collects the evidence and
 writes the recommendation. Either may determine on evidence. Machines drive the tests (the test driver derives the probes),
 check conformance, assemble the report and keep the record; every item
 reaches the recorder, and the record fans out to whoever reads it. The
-{term}`account executive` appears only to receive the report.
+{term}`authorized representative` appears only to receive the report.
 
 ```{include} ../generated/wiring-evaluation.md
 ```
@@ -119,7 +119,7 @@ evaluation operator, declared the requirement set on 2 August, one
 requirement with three acceptance criteria, and Annie assessed it as
 appropriate the same morning. Theo wrote the plan on 3 August, exercising two
 criteria with one public-transit probe and leaving the third unplanned; the
-probe deriver derived it, pySHACL (the SHACL engine) checked it, Annie
+test driver derived it, pySHACL (the SHACL engine) checked it, Annie
 approved the plan. On 10 August Theo ran one session of one turn against
 chatbot v1, by {term}`red teaming`, and collected two evidence items. On 11
 August Annie and Theo each determined on one, and Annie attested both

@@ -27,4 +27,4 @@ Today the recorder has one output, the record, on six wires: to the authorized r
 
 Recommended: (b), with the distribution of the report to the sponsor (the delivery) and, in prose, potentially to the test item provider (monitoring), as today.
 | B9 Recorder, fan-out | "(b) machines by wire, people by view (Recommended)" | the record wires only to the test driver, the conformance checker and the report assembler; the three human recordIn ports and their seams are removed; people read the record through their role's view; the recorder block returns for validation |
-
+| B9 Recorder, after (b) | Validated | the recorder and its three record wires ticked; recorded as R-49 with the whole walkthrough |
