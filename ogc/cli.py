@@ -237,11 +237,17 @@ def resolve(args, g, t: str, steps: bool = False):
     the not-found report itself; returns (iri, meta, rc)."""
     if need(args, t, "a term (a local name, prefLabel, altLabel, term: CURIE or IRI" + ("; or " + STEP_HINT + ")" if steps else ")")):
         return None, {}, 2
-    rc = foreign(args, t, "term", ("term", "epo") if steps else ("term",))
+    if api.prefix_of(t) == "epo":
+        return resolve_epo_curie(args, g, api.norm(t), api.bare(t), steps)
+    rc = foreign(args, t, "term", ("term",))
     if rc:
         return None, {}, rc
     t = api.bare(t)
     iri, cands, meta = api.resolve_term(g, t)
+    if iri is None and not cands:
+        rn = api.rename_hint(g, t, args.cmd)  # a retired identifier (round four, M8)
+        if rn:
+            return None, meta, not_found(args, f"term '{t}'", rn)
     if iri is None and steps and not cands:
         st = api.resolve_step(g, t)
         if st is not None:
@@ -256,6 +262,27 @@ def resolve(args, g, t: str, steps: bool = False):
             hint += "; open concerns mention the word: " + ", ".join(f"{c['id']} ({c['label']})" for c in open_c)
         return None, meta, not_found(args, f"term '{t}'", hint, found)
     return iri, meta, 0
+
+
+def resolve_epo_curie(args, g, typed: str, local: str, steps: bool):
+    """One rule for `term`, `define` and `quote` on an epo: CURIE (round four,
+    M3): a step is read as a step under `quote` and refused elsewhere; a
+    class or role that names a term (`ogc:term`) resolves to that term with
+    `resolved via epo:X`; anything else is refused with the epo reader."""
+    st = api.resolve_step(g, local)
+    if st is not None:
+        head = api.one(g, st, api.RDFS.label).split(":", 1)[0]
+        if steps:
+            return st, dict(via=f"step:{head}", step=True), 0
+        return None, {}, not_found(args, f"term '{typed}'", f"epo:{api.local(st)} is the step {head}, read by `ogc quote {api.local(st)}`, `ogc verify {api.local(st)}` and `ogc steps`", state="is a step")
+    node, kind, cands = api.resolve_epo(g, local)
+    if node is None:
+        rn = api.rename_hint(g, local, "epo", epo=True)
+        return None, {}, not_found(args, f"term '{typed}'", rn or f"epo:{local} is not an EPO class, role or value; `ogc epo {local}` lists the near misses")
+    terms = sorted(g.objects(node, api.OGC["term"]), key=str)
+    if not terms:
+        return None, {}, not_found(args, f"term '{typed}'", f"epo:{api.local(node)} names no term (no ogc:term); the {kind} is read by `ogc epo {api.local(node)}`")
+    return terms[0], dict(via=f"epo:{api.local(node)}"), 0
 
 
 def pick(value, allowed: list[str]):
@@ -329,8 +356,8 @@ def build_parser() -> argparse.ArgumentParser:
         (["--severity"], dict(help=f"one of {', '.join(SEVERITIES)} (case-insensitive)")))
     add("sci", f"the essentials ({SCI_RANGE}): statement, tag, shapes, terms, sources", (["id"], dict(nargs="?", help=f"one essential, {SCI_RANGE}; " + id_hint("SCI-07") + "; tr: CURIE or IRI accepted; omitted: the table")))
     add("steps", "the twelve steps of the two cycles and the canon step each matches (R-31, R-32)")
-    add("epo", "one EPO class or role (vocabulary/epo.ttl): label, superclasses (a role's types), subclasses and instances, the layer it is pinned at, the term it names with its headword, the disjointness axioms, and the shapes whose targets, paths or SPARQL bodies mention it",
-        (["name"], dict(help="a class or role by local name, case-insensitive (StakeholderRepresentation, AuthorizedRepresentativeRole, authorizedRepresentativeRole; epo: CURIE or IRI accepted); a step is read by `ogc quote`")))
+    add("epo", "one EPO class, role or value (vocabulary/epo.ttl): label, superclasses (a role's or value's types), subclasses and instances, the layer it is pinned at, the term it names with its headword, the disjointness axioms, and the shapes whose targets, paths or SPARQL bodies mention it",
+        (["name"], dict(help="a class, role or value by local name, case-insensitive (StakeholderRepresentation, AuthorizedRepresentativeRole, authorizedRepresentativeRole, fitWithConditions; epo: CURIE or IRI accepted); a step is read by `ogc quote`")))
     add("record", "the worked example's record, the measles evaluation (track/measles-evaluation.ttl): the record's own entity, then its items by step (derived through the model graph as ogc:derivedStep, sheet 10-33), C1..C6 then 1..6, with who and when; then the items without a step and the parties; every row tagged synthetic where the content is (sheet 10-43); with a name, everything the record says about that one item, the derived step among its triples (R-47, closes C-44)",
         (["name"], dict(nargs="?", help="an item's local name, case-insensitive (mission-1, attestation-1, annie; ev: CURIE or IRI accepted); omitted: the listing")))
     add("execute", "execute the process from the model graph and run the checks over the emitted record (C-30); VERDICT: PASS when the record conforms, no item kind is missing and the traceback is non-empty, else FAIL and exit 1; " + CAP_NOTE,
@@ -426,7 +453,10 @@ def main(argv=None) -> int:
         rows = api.find(g, key, quotes=not args.no_quotes)
         concerns = [x for x in api.concerns_mentioning(g, key) if x["status"] == "open"]
         if not rows:
-            hint = "no label, quote or EPO label matches exactly, by prefix, or by substring; try `ogc list`"
+            rn = api.rename_hint(g, key, "term")  # a retired identifier (round four, M8)
+            hint = rn or "no label, quote or EPO label matches exactly, by prefix, or by substring; try `ogc list`"
+            if not rn and re.fullmatch(r"[A-Za-z][A-Za-z0-9]*", key) and re.search(r"[a-z][A-Z]", key):  # camelCase, no spaces: a local name (round four, M10)
+                hint += f"; `{key}` looks like a local name; try `ogc epo {key}`"
             if concerns:
                 hint += "; open concerns mention the word: " + ", ".join(f"{x['id']} ({x['label']})" for x in concerns)
             return not_found(args, f"'{args.text}'", hint)
@@ -461,7 +491,7 @@ def main(argv=None) -> int:
         q = [dict(citation="canonical", **{k: v for k, v in t["canonical"].items() if k != "node"})] if t["canonical"].get("quote") else []
         q += [dict(citation="seeAlso", **{k: v for k, v in x.items() if k != "node"}) for x in t["see_also"] if x["quote"]]
         noq = [f"{x['source']} {x['locator']}" for x in [t["canonical"], *t["see_also"]] if x and not x.get("quote")]
-        return emit(args, c, argstr, dict(quotes=q, without_quote=noq), lambda: quote_lines(t["pref"], q, noq))
+        return emit(args, c, argstr, dict(quotes=q, without_quote=noq, resolved=meta), lambda: quote_lines(t["pref"], q, noq, meta))
 
     if c == "list":
         klass, rc = check_filter(args, "class", args.klass, CLASSES)
@@ -667,8 +697,8 @@ def verify(args, g, argstr: str) -> int:
     return emit(args, "verify", argstr, rows, lambda: text.table(rows, VERIFY_COLS))
 
 
-def quote_lines(name: str, q: list[dict], noq: list[str]) -> list[str]:
-    L = [f"{len(q)} verbatim quotes on {name}; {len(noq)} citations without a quote", ""]
+def quote_lines(name: str, q: list[dict], noq: list[str], meta: dict | None = None) -> list[str]:
+    L = [f"{len(q)} verbatim quotes on {name}; {len(noq)} citations without a quote"] + ([f"resolved via {meta['via']}"] if meta and meta.get("via") else []) + [""]
     for x in q:
         L += [f"[{x['citation']}] {x['source']} {x['locator']}  [{x['status']}]" + (f" verified by {x['verified_by']} on {x['verified_on']}" if x.get("verified_by") else "")] + text.wrap(f'"{x["quote"]}"') + [""]
     if noq:
@@ -677,9 +707,9 @@ def quote_lines(name: str, q: list[dict], noq: list[str]) -> list[str]:
 
 
 def epo(args, g, argstr: str) -> int:
-    if need(args, args.name, "an EPO class or role (a local name, epo: CURIE or IRI)"):
+    if need(args, args.name, "an EPO class, role or value (a local name, epo: CURIE or IRI)"):
         return 2
-    if foreign(args, args.name, "EPO class or role", ("epo",)):
+    if foreign(args, args.name, "EPO class, role or value", ("epo",)):
         return 1
     name = api.bare(args.name)
     node, kind, cands = api.resolve_epo(g, name)
@@ -687,12 +717,15 @@ def epo(args, g, argstr: str) -> int:
         st = api.resolve_step(g, name)
         if st is not None:
             head = api.one(g, st, api.RDFS.label).split(":", 1)[0]
-            return not_found(args, f"EPO class or role '{args.name}'", f"epo:{api.local(st)} is the step {head}, read by `ogc quote {api.local(st)}`, `ogc verify {api.local(st)}` and `ogc steps`", state="is a step")
-        return not_found(args, f"EPO class or role '{args.name}'", "local names are case-insensitive; the candidates are near misses; `ogc find <text>` searches the labels", cands)
+            return not_found(args, f"EPO class, role or value '{args.name}'", f"epo:{api.local(st)} is the step {head}, read by `ogc quote {api.local(st)}`, `ogc verify {api.local(st)}` and `ogc steps`", state="is a step")
+        rn = api.rename_hint(g, name, "epo", epo=True)  # a retired identifier (round four, M8)
+        if rn:
+            return not_found(args, f"EPO class, role or value '{args.name}'", rn)
+        return not_found(args, f"EPO class, role or value '{args.name}'", "local names are case-insensitive; the candidates are near misses; `ogc find <text>` searches the labels", cands)
     d = api.epo_record(g, args.root, node, kind)
 
     def lines():
-        L = [f"## {d['id']}  ({d['kind']})"] + text.wrap(d["label"])
+        L = [f"## {d['id']}  ({d['kind']})"] + (text.wrap(d["label"]) if d["label"] else [f"no label (an {d['types'][0] if d['types'] else 'individual'})"])  # a value may carry no label (round four, M6)
         if d["comment"]:
             L += text.wrap(d["comment"], "  note: ", "    ")
         L.append("")

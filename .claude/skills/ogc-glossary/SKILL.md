@@ -54,13 +54,28 @@ in any case, `TERM:PROBE` is `term:probe`) or the full IRI, with or without
 angle brackets. A CURIE under a prefix the command does not read is a miss
 (exit 1) whose hint names the reader that does: `ogc term rul:R-16` says
 try `ogc ruling R-16`, `ogc define epo:StakeholderRepresentation` says try
-`ogc epo StakeholderRepresentation`, `ogc record term:probe` says try `ogc
-term probe`, `ogc record epo:Attestation` says the class is read by `ogc
-epo Attestation` and its instances are listed by `ogc record`; the shapes
+`ogc epo StakeholderRepresentation` when the class names no term, `ogc
+record term:probe` says try `ogc term probe`, `ogc record epo:Attestation`
+says the class is read by `ogc epo Attestation` and its instances are
+listed by `ogc record`; the shapes
 live under `ogc:`, so `ogc shape epo:S3-PlanApproval` is a miss too. An
 `ex:` id anywhere (`ogc term ex:probe`, `ogc record ex:attestation-1`) is
 a miss that explains the executor's namespace, never loaded. Source slugs, view names, mutation names, shape ids and
-filter values are case-insensitive too. A miss lists up to eight near
+filter values are case-insensitive too. One rule for `term`, `define` and
+`quote` on an `epo:` CURIE: a class or role that names a term by
+`ogc:term` resolves to that term and the answer says `resolved via
+epo:Probe` (`ogc term epo:Probe`, `ogc define epo:Probe`, `ogc quote
+epo:Probe` all read the term probe; in JSON `resolved.via`); a class that
+names no term (`epo:ReportApproval`) is a miss whose hint says so and
+points at `ogc epo`; a step (`epo:scope`) is read as a step by `quote` and
+refused by `term` and `define` with the step readers named. A retired
+identifier (`account-executive`, `accountExecutiveRole`,
+`AccountExecutive`, `accountable-organization`) is a miss whose hint is
+the rename: `renamed authorized representative (R-49, R-51); try ogc term
+authorized-representative` (the rulings are those whose texts name both
+the old label and the headword; `ogc epo` points at the class or the role
+individual), from `term`, `define`, `quote`, `find`, `check-word` and
+`epo`. A miss lists up to eight near
 misses (substring, shared word, edit distance), never the whole list; an
 argument longer than eighty characters is echoed cut, with three dots, in
 the error line (the header keeps it whole).
@@ -189,24 +204,36 @@ shape files.
 
 - `ogc schema`: the counts, the classes and properties in use, the prefixes.
 - `ogc find <text>`: what matches, exact then prefix then substring. It
-  indexes term labels and quotes and EPO class labels (the classes' and
-  roles' `rdfs:label` in `vocabulary/epo.ttl`) and nothing else: not the
-  rulings, the concerns, the sources or the record (`ogc rulings --grep`,
-  `ogc concerns`, `ogc sources` and `ogc record` search those). A quote hit
-  says `via quote:<source>`; an EPO hit says `via epo:<Name>`, its class
-  column reads `epo class` or `epo role`, and it is read with `ogc epo`,
-  not `ogc term`. `--no-quotes` restricts it to labels (and appears in the
-  printed args).
-- `ogc epo <class-or-role>`: one EPO class or role by local name, CURIE or
-  IRI (`ogc epo StakeholderRepresentation`, `ogc epo
-  AuthorizedRepresentativeRole`, `ogc epo authorizedRepresentativeRole`): its
-  label (in the EPO the class's `rdfs:label` is its definition), its
-  superclasses (a role's types), subclasses and instances, the layer it is
-  pinned at (`ogc:pinnedAt`, contract or evaluation), the term it names
-  (`ogc:term`) with that term's headword, the disjointness axioms, and the
-  node shapes whose targets, property paths or SPARQL bodies mention it. A
-  step (`scope`, `need`) is not read here: `ogc quote`, `ogc verify` and
-  `ogc steps` read the steps.
+  indexes term labels and quotes and EPO class labels (the classes', roles'
+  and values' `rdfs:label` in `vocabulary/epo.ttl`) and the EPO local
+  names, whole and split into words (`PlanDeviation`, `plandeviation` and
+  `plan deviation` all hit `epo:PlanDeviation` exactly), and nothing else:
+  not the rulings, the concerns, the sources or the record (`ogc rulings
+  --grep`, `ogc concerns`, `ogc sources` and `ogc record` search those). A
+  quote hit says `via quote:<source>`; an EPO hit says `via epo:<Name>`,
+  its class column reads `epo class`, `epo role` or `epo value`, and it is
+  read with `ogc epo`, not `ogc term`. A miss on camelCase text says it
+  looks like a local name and points at `ogc epo <text>`. `--no-quotes`
+  restricts it to labels (and appears in the printed args).
+- `ogc epo <class-role-or-value>`: one EPO class, role or value by local
+  name, CURIE or IRI (`ogc epo StakeholderRepresentation`, `ogc epo
+  AuthorizedRepresentativeRole`, `ogc epo authorizedRepresentativeRole`,
+  `ogc epo fitWithConditions`): its label (in the EPO the class's
+  `rdfs:label` is its definition), its superclasses (a role's or a value's
+  types), subclasses and instances, the layer it is pinned at
+  (`ogc:pinnedAt`, contract or evaluation), the term it names (`ogc:term`)
+  with that term's headword, the disjointness axioms, and the node shapes
+  whose targets, property paths or SPARQL bodies mention it. The values are
+  the individuals the record's items point at: fitness (`fitToDeploy`,
+  `fitWithConditions`, `notFit`), sufficiency (`sufficient`,
+  `insufficient`), appropriateness (`appropriate`, `inappropriate`),
+  independence level (`person`, `department`, `organization`), engagement
+  (`interview`, `representation`), affectedness and the two layers; `kind`
+  is `value`, and one without a label prints `no label (an
+  epo:SufficiencyValue)`, the miss hint naming a value's class the same
+  way. A step (`scope`) is not read here: `ogc quote`, `ogc verify` and
+  `ogc steps` read the steps (`need` is also the class Need, which is
+  read).
 
 ## Recipes
 

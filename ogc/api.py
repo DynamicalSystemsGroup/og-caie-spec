@@ -77,6 +77,51 @@ def prefix_of(text: str) -> str | None:
     return _split_id(text)[0]
 
 
+def split_words(s: str) -> str:
+    """The words of an identifier, lowercased: hyphens and underscores to
+    spaces, camelCase split (PlanDeviation -> plan deviation,
+    accountExecutiveRole -> account executive role)."""
+    s = re.sub(r"([a-z0-9])([A-Z])", r"\1 \2", s)
+    s = re.sub(r"([A-Z]+)([A-Z][a-z])", r"\1 \2", s)
+    return norm(re.sub(r"[-_]+", " ", s)).lower()
+
+
+RENAMED = ("account executive", "accountable organization")  # the former headwords (R-49): an identifier in their words gets a rename hint (round four, M8)
+
+
+def renamed(g: Graph, text: str) -> dict | None:
+    """The rename behind a retired identifier (round four, M8): its words, a
+    trailing `role` dropped, are one of the former headwords, kept as an
+    alternative label of the term that replaced it. The term, its local
+    name, the EPO class naming it and that class's role individual, and the
+    rulings whose texts name both the old label and the headword."""
+    words = split_words(bare(text))
+    old = next((o for o in RENAMED if words in (o, o + " role")), None)
+    if old is None:
+        return None
+    for s in concepts(g):
+        if any(norm(a).lower() == old for a in many(g, s, SKOS.altLabel)):
+            pref = one(g, s, SKOS.prefLabel)
+            texts = {r: " ".join(one(g, r, p) for p in (OGC.rulingText, OGC.verbatim, OGC.changeNote)).lower() for r in g.subjects(RDF.type, OGC.Ruling)}
+            rulings = sorted((local(r) for r, t in texts.items() if old in t and pref.lower() in t), key=lambda i: int(i.split("-")[1]))
+            classes = sorted((c for c in g.subjects(OGC["term"], s)), key=str)
+            roles = sorted((i for c in classes for i in g.subjects(RDF.type, c) if str(i).startswith(str(EPO))), key=str)
+            return dict(old=old, term=pref, local=local(s), rulings=rulings, epo_class=local(classes[0]) if classes else "", epo_role=local(roles[0]) if roles else "")
+    return None
+
+
+def rename_hint(g: Graph, text: str, cmd: str, epo: bool = False) -> str | None:
+    """`renamed <headword> (<rulings>); try ogc <cmd> <id>` for a retired identifier, None otherwise; under `epo` the id is the role individual when the identifier is a lower-case ...Role, else the class."""
+    d = renamed(g, text)
+    if d is None:
+        return None
+    target = d["local"]
+    if epo:
+        v = bare(text)
+        target = d["epo_role"] if v[:1].islower() and v.lower().endswith("role") and d["epo_role"] else d["epo_class"]
+    return f"renamed {d['term']} ({', '.join(d['rulings'])}); try `ogc {cmd} {target}`"
+
+
 def _tokens(s: str) -> set[str]:
     return {t for t in re.split(r"[^a-z0-9]+", s.lower()) if len(t) >= 3}
 
@@ -232,12 +277,11 @@ def find(g: Graph, text: str, quotes: bool = True) -> list[dict]:
                 q = norm(one(g, c, OGC.quote)).lower()
                 if q and key in q:
                     put(t, 2, 2, f"quote:{local(g.value(c, OGC.cites))}")
-    for c, kind in epo_nodes(g):  # the EPO's labels: exact and prefix on the head before the colon, substring over the whole label
+    for c, kind in epo_nodes(g):  # the EPO's labels and local names: exact and prefix on the head before the colon, on the local name and on its words (PlanDeviation, plan deviation; round four, M10), substring over the whole label
         label = norm(one(g, c, RDFS.label))
-        head = label.split(":", 1)[0].strip().lower()
-        r = rank_of(head)
-        if r is None and key in label.lower():
-            r = 2
+        head = label.split(":", 1)[0].strip().lower() or local(c)
+        ranks = [x for x in (rank_of(n) for n in {head, local(c).lower(), split_words(local(c))}) if x is not None]
+        r = min(ranks) if ranks else (2 if key in label.lower() else None)
         if r is not None:
             put(c, r, 3, f"epo:{local(c)}", pref=head, local=f"epo:{local(c)}", **{"class": f"epo {kind}"}, source="")
     out = sorted(hits.values(), key=lambda d: (d["rank"], d["kpri"], d["pref"].lower()))
@@ -509,7 +553,9 @@ def check_word(g: Graph, word: str) -> dict:
     if retired:
         return dict(word=word, registered=False, retired=retired, also=[], quote_hits=quote_hits, concerns=concerns, advice="do not use in prose; " + retired)
     if not hits:
-        d = dict(word=word, registered=False, retired="", also=[], quote_hits=quote_hits, concerns=concerns, advice="not a registered label; plain English is free to use")
+        d = dict(word=word, registered=False, retired="", also=[], quote_hits=quote_hits, concerns=concerns, advice="not a registered label; plain English is free to use", renamed=rename_hint(g, word, "term"))
+        if d["renamed"]:
+            d["advice"] = d["renamed"]  # a retired identifier (round four, M8)
         if quote_hits:
             d["advice"] = "not a label here, but a cited source uses the word in a quote on " + ", ".join(f"{q['term']}" for q in quote_hits) + ": that term is the glossary's word for it"
         if any(c["status"] == "open" for c in concerns):
@@ -739,15 +785,20 @@ def _is_subclass(g: Graph, c, sup, seen=None) -> bool:
 
 def epo_nodes(g: Graph) -> list[tuple]:
     """(node, kind) for what `ogc epo` reads: every `owl:Class` in the epo:
-    namespace (kind `class`) and every individual typed by a role class
-    (kind `role`, the role handles the record's agents fill). The steps are
-    left out: `ogc quote`, `ogc verify` and `ogc steps` read them."""
+    namespace (kind `class`), every individual typed by a role class (kind
+    `role`, the role handles the record's agents fill) and every other
+    individual typed by an epo: class (kind `value`: the fitness,
+    sufficiency, appropriateness, independence, engagement, affectedness
+    and layer values; round four, M6). The steps are left out: `ogc quote`,
+    `ogc verify` and `ogc steps` read them."""
     classes = {c for c in g.subjects(RDF.type, URIRef(str(OWL) + "Class")) if str(c).startswith(str(EPO))}
     out = [(c, "class") for c in classes]
     for c in classes:
-        if _is_subclass(g, c, EPO.Role):
-            out += [(i, "role") for i in g.subjects(RDF.type, c) if str(i).startswith(str(EPO)) and i not in classes]
-    return sorted(set(out), key=lambda x: str(x[0]))
+        if c in (EPO.EpoStep, EPO.ContractingStep):
+            continue
+        kind = "role" if _is_subclass(g, c, EPO.Role) else "value"
+        out += [(i, kind) for i in g.subjects(RDF.type, c) if isinstance(i, URIRef) and str(i).startswith(str(EPO)) and i not in classes]
+    return sorted(set(out), key=lambda x: (str(x[0]), x[1]))
 
 
 def resolve_epo(g: Graph, name: str):
@@ -762,7 +813,8 @@ def resolve_epo(g: Graph, name: str):
         return hits[0][0], hits[0][1], []
     if hits:  # ambiguous in lower case: name the exact spellings
         return None, None, [f"epo:{local(n)}" for n, _ in hits]
-    return None, None, [f"epo:{c}" for c in near(key, [local(n) for n, _ in nodes])]
+    by_local = {local(n): (n, k) for n, k in nodes}
+    return None, None, [f"epo:{c}" + (f" (an {qname(g, g.value(by_local[c][0], RDF.type))})" if by_local[c][1] == "value" else "") for c in near(key, list(by_local))]  # a value's miss hint names its class (round four, M6)
 
 
 def _mentions(text: str, curie: str, iri: str) -> bool:
@@ -797,7 +849,7 @@ def epo_record(g: Graph, root: Path, node, kind: str) -> dict:
             shapes.append(dict(id=local(s), file=where[s], where=", ".join(found)))
     return dict(id=curie, iri=iri, kind=kind, label=norm(one(g, node, RDFS.label)), comment=norm(one(g, node, RDFS.comment)) or None,
                 superclasses=sorted(qname(g, x) for x in g.objects(node, RDFS.subClassOf)) if kind == "class" else [],
-                types=sorted(qname(g, x) for x in g.objects(node, RDF.type)) if kind == "role" else [],
+                types=sorted(qname(g, x) for x in g.objects(node, RDF.type)) if kind != "class" else [],
                 subclasses=sorted(qname(g, x) for x in g.subjects(RDFS.subClassOf, node)),
                 instances=sorted(qname(g, x) for x in g.subjects(RDF.type, node) if isinstance(x, URIRef)) if kind == "class" else [],
                 pinned_at=dict(id=qname(g, pinned), label=norm(one(g, pinned, RDFS.label))) if pinned is not None else None,

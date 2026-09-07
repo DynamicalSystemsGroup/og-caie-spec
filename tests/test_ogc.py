@@ -626,7 +626,7 @@ def test_r3_finding_m3_r49_derives_the_renamed_headwords_and_ruling_refs_carry_l
 
 
 def test_r3_finding_m4_a_curie_in_the_wrong_namespace_names_the_right_reader():
-    cases = [(["term", "rul:R-16"], "ogc ruling R-16"), (["term", "rul:C-26"], "ogc concern C-26"), (["define", "epo:StakeholderRepresentation"], "ogc epo StakeholderRepresentation"),
+    cases = [(["term", "rul:R-16"], "ogc ruling R-16"), (["term", "rul:C-26"], "ogc concern C-26"), (["define", "epo:ReportApproval"], "ogc epo ReportApproval"),  # a class naming no term; one that does resolves through ogc:term since round four (M3)
              (["record", "term:probe"], "ogc term probe"), (["term", "ev:mission-1"], "ogc record mission-1"), (["ruling", "term:probe"], "ogc term probe"),
              (["sci", "src:sevocab"], "ogc source sevocab"), (["source", "tr:SCI-07"], "ogc sci SCI-07"), (["shape", "epo:S3-PlanApproval"], "under ogc:, not epo:; try `ogc shape S3-PlanApproval`"),
              (["record", "ogc:S0-Layers"], "ogc shape S0-Layers"), (["term", "xw:falsifiability"], "ogc crosswalk --popper"), (["term", "elmt:abc"], "--model sparql"),
@@ -943,7 +943,7 @@ def test_r4_finding_m6_value_individuals_are_read_by_epo_and_indexed_by_find():
     assert d["label"] == "" and d["types"] == ["epo:SufficiencyValue"]
     assert "no label (an epo:SufficiencyValue)" in run("epo", "insufficient").stdout
     assert _json("epo", "authorizedRepresentativeRole")[1]["kind"] == "role"  # the role handles keep their kind
-    assert run("epo", "need").returncode == 1 and "ogc quote need" in run("epo", "need").stdout  # a step is still not read here
+    assert run("epo", "scope").returncode == 1 and "ogc quote scope" in run("epo", "scope").stdout  # a step is still not read here (need is also a class, Need)
     rows = _json("find", "fit with conditions")[1]["rows"]
     assert any(x["via"] == "epo:fitWithConditions" and x["class"] == "epo value" and x["match"] == "exact" for x in rows)
     r, d = _json("epo", "fitWithCondition")
