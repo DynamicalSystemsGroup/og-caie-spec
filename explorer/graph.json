@@ -42719,7 +42719,7 @@
    "id": "cite:first-party-conformity-assessment-activity:canonical:iso-iec-17000-2020:4-3-first-party-conformity-assessment-activity",
    "label": "iso-iec-17000-2020 4.3 first-party conformity a…",
    "ogc": "ogc quote \"first-party conformity assessment activity\"",
-   "page": "../glossary"
+   "page": "../glossary#term-first-party-conformity-assessment-activity"
   },
   {
    "cls": "citation",
@@ -43095,7 +43095,7 @@
    "id": "cite:second-party-conformity-assessment-activity:canonical:iso-iec-17000-2020:4-4-second-party-conformity-assessment-activity",
    "label": "iso-iec-17000-2020 4.4 second-party conformity…",
    "ogc": "ogc quote \"second-party conformity assessment activity\"",
-   "page": "../glossary"
+   "page": "../glossary#term-second-party-conformity-assessment-activity"
   },
   {
    "cls": "citation",
@@ -45687,7 +45687,7 @@
    "id": "https://w3id.org/og-caie/terms#first-party-conformity-assessment-activity",
    "label": "first-party conformity assessment activity",
    "ogc": "ogc term \"first-party conformity assessment activity\"",
-   "page": "../glossary"
+   "page": "../glossary#term-first-party-conformity-assessment-activity"
   },
   {
    "cls": "term",
@@ -45887,7 +45887,7 @@
    "id": "https://w3id.org/og-caie/terms#second-party-conformity-assessment-activity",
    "label": "second-party conformity assessment activity",
    "ogc": "ogc term \"second-party conformity assessment activity\"",
-   "page": "../glossary"
+   "page": "../glossary#term-second-party-conformity-assessment-activity"
   },
   {
    "cls": "term",

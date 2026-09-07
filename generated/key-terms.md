@@ -50,6 +50,9 @@ evaluation record
 expected results
 : What the system under test should observably do if it meets an acceptance criterion under the probe's conditions. Stated on the criterion before testing, so the criterion is defined in terms of evidence a test can collect, and the attestation is a judgment that the actual result did or did not correspond. Source: IEEE Computer Society, expected results, p. 160: "observable predicted behavior of the test item under specified conditions based on its specification or another source" (machine). Also: expected result. Ruling R-12.
 
+first-party conformity assessment activity
+: Evaluation performed by the organization that provides or is accountable for the test item. In OG-CAIE the accountable organization is a party to every evaluation, since it grants access to the test item, but it does not perform the evaluation unless it is also the sponsor and the testing organization, and the record says so. Source: ISO/IEC 17000:2020(en) Conformity assessment — Vocabulary and general principles, 4.3 first-party conformity assessment activity: "conformity assessment activity that is performed by the person or organization that provides or that is the object of conformity assessment" (human). Also: accountable organization, first party. Ruling R-21.
+
 guardrail
 : A requirement on the system stating what may be shared with a user and what must be withheld. Recommendations at the end of an evaluation typically propose changes to guardrails. Source: NIST AI 700-2, Appendix A, Guardrail, p. 17: "An application requirement specifying both 1) permitted information that can be shared with a user, and 2) prohibited information that should be withheld from a user." (machine).
 
@@ -112,6 +115,9 @@ risk-based testing
 
 scenario
 : A step-by-step description of a situation the system is put through: the user, their circumstances, and what they ask. A scenario becomes a probe once it is tied to the criteria it exercises. Source: IEEE Computer Society, scenario, p. 369: "step-by-step description of a series of events that occur concurrently or sequentially" (machine).
+
+second-party conformity assessment activity
+: Evaluation performed by, or on behalf of, an organization with a user interest in the test item: a purchaser, a regulator, a deploying agency. A sponsor that is not the accountable organization commissions the evaluation in this position. Source: ISO/IEC 17000:2020(en) Conformity assessment — Vocabulary and general principles, 4.4 second-party conformity assessment activity: "conformity assessment activity that is performed by a person or organization that has a user interest in the object of conformity assessment" (human). Also: second party. Ruling R-21.
 
 session
 : One pairing of one tester with one system under test, in which a sequence of turns is run. Sessions are stateful: what the system says at a later turn depends on everything said before, so evidence belongs to its session, not only to its probe. Source: NIST AI 700-2, Appendix A, Session, p. 17: "A single unit of ARIA testing, consisting of a pairing of one tester and one application." (machine). Ruling R-13.
