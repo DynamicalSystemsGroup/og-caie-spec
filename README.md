@@ -90,11 +90,11 @@ deployed AI system against the needs of a specific domain, written down as:
 `ogc schema`, `ogc find`, `ogc term`, `ogc define`, `ogc quote`, `ogc
 verify` (terms, sources and steps), `ogc list`, `ogc source`, `ogc sources`, `ogc ruling`, `ogc
 rulings`, `ogc concern`, `ogc concerns`, `ogc sci`, `ogc steps`, `ogc shapes`, `ogc shape` (a node shape's target and constraints), `ogc crosswalk`
-(`--popper` for the Popper rows), `ogc views`, `ogc view` (a model view as mermaid with its perspective), `ogc execute` (the process executed from the model, with its checks and a `VERDICT` line; `--planned`, `--sessions`, `--requirements`, `--criteria` and `--populations` set the executor's parameters), `ogc record` (the worked example's record item by step, with who and when; `ogc record <name>` for one item), `ogc check-word`, `ogc sparql`
-(read-only, sorted, one merged graph; `--model` adds the model graph, `--record` the record), `ogc doctor`. Every output starts with `# ogc <command> <args>
-@ <sha>`; `--json` returns the result as one object carrying the same
-invocation and sha under `_ogc`; exit 0 found, 1 not found, ambiguous, a
-bad filter value or a failed verdict, 2 usage. The skill `.claude/skills/ogc-glossary/SKILL.md`
+(`--popper` for the seven Popper rows), `ogc views`, `ogc view` (a model view as mermaid with its perspective), `ogc execute` (the process executed from the model, with its checks and a `VERDICT` line; `--planned`, `--sessions`, `--requirements`, `--criteria` and `--populations` set the executor's parameters, capped at 100 criteria, 20 sessions and 100 criterion-sessions of work because the checks are quadratic), `ogc record` (the worked example's record item by step, with who and when; `ogc record <name>` for one item), `ogc check-word`, `ogc sparql`
+(read-only, sorted, one merged graph; `--model` adds the model graph, `--record` the record, and a query that names the record without it is refused), `ogc doctor`. Every output starts with `# ogc <command> <args>
+@ <sha>` (for `sparql`, the query as typed with its sha256, re-runnable); `--json` returns the result as one object carrying the same
+invocation and sha under `_ogc`, and every error as one object with `_ogc`, `error`, `hint` and `candidates`; ids may be typed as the tool prints them (a local name, a CURIE such as `term:probe` or `rul:R-16`, or a full IRI); exit 0 found, 1 not found, ambiguous, a
+bad filter value, refused or a failed verdict, 2 usage. The skill `.claude/skills/ogc-glossary/SKILL.md`
 teaches an LLM to use it instead of grepping the Turtle. It follows the
 navigation tool the authors built for their earlier glossaries (ruling
 R-29).

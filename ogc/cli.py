@@ -1,11 +1,15 @@
 """ogc: navigate the OG-CAIE vocabulary graph. Deterministic, ontology-aware
 retrieval; every command is a named query over the vocabulary, the sources,
 the rulings, the essentials, the shapes and the crosswalk. First line of
-every output: `# ogc <command> <args> @ <sha>` (the invocation; for sparql the
-query on one line and its sha256); under --json the same triple is the
-`_ogc` key of the one object printed (a list result sits under `rows`). Exit
-0 success, 1 not found / ambiguous / bad filter value / a failed VERDICT,
-2 usage. Read-only: no update forms, no federation, no named graphs."""
+every output: `# ogc <command> <args> @ <sha>` (the invocation, newlines in an
+argument escaped as \\n; for sparql the query and its sha256, or the @file
+and the sha256 of its content); under --json the same triple is the `_ogc`
+key of the one object printed (a list result sits under `rows`), and every
+error is one object carrying `_ogc`, `error`, `hint` and `candidates`. Exit
+0 success, 1 not found / ambiguous / bad filter value / refused / a failed
+VERDICT, 2 usage. Read-only: no update forms, no federation, no named
+graphs. Ids may be typed as the tool prints them: a local name, a CURIE
+(term:probe, rul:R-16, run:mission-1, ogc:S0-Layers) or a full IRI."""
 from __future__ import annotations
 
 import argparse
@@ -15,25 +19,58 @@ import re
 import sys
 from collections import Counter
 from pathlib import Path
+from types import SimpleNamespace
 
 from . import api, text, views
-from .graph import MODEL_FILE, PREFIXES, SOURCE_FILES, SPARQL_PREFIXES, find_root, git_sha, load
+from .graph import DOCTOR_FILES, PREFIXES, RUN, SPARQL_PREFIXES, find_root, git_sha, load
 
 GLOBAL_FLAGS = ("--json", "--no-cache", "--wide")  # --model and --record change the answer, so they stay in the argstr that is printed and hashed
+LOAD_CMDS = ("sparql", "record", "execute", "view", "views")  # the commands that read the model graph or the record; --model and --record apply only here
+LOAD_HINT = "--model and --record apply only to sparql, record, execute, view and views (the commands that read the model graph or the record)"
 PARAM_FLAGS = ("requirements", "criteria", "planned", "sessions", "populations")  # ogc execute: the executor's parameters, in the order printed
 VERIFY_COLS = ["holder", "citation", "source", "posture", "locator", "status", "state", "where"]
+VERIFY_STATUSES = ["machine", "human", "pending", "cite-only", "authors"]
+VERIFY_STATES = ["verified", "digest", "human", "pending", "cite-only", "authors", "NOT FOUND"]
 CLASSES = ["adopted", "refined", "coined"]
 RANKS = ["1", "2", "3", "4", "reserve", "internal"]
+PRECEDENCE_RANKS = ("1", "2", "3")  # the ranks a term's narrative definition is taken from, so a source there is cited (CLAUDE.md, precedence)
 POSTURES = ["committed", "heldLocally", "citeOnly"]
 STATUSES = ["open", "ruled", "closed"]
 SEVERITIES = ["H", "M", "L"]
 SCI_RANGE = "SCI-01..13"  # tests/test_ogc.py holds this against the graph
+POPPER_ROWS = "seven"  # tests/test_ogc.py holds this against the graph
 QUERY_MAX = 20_000
-ID_HINT = "ids are case-insensitive; padded, unpadded and bare forms work (R-16, R16, r-016, 16)"
 STEP_HINT = "a step by local name or label head (scope, 1 scope, C1 need, need)"
+EXCLUDE = "these filters exclude each other"
+
+
+def id_hint(example: str) -> str:
+    """The id forms accepted, shown on an example of the right kind: R-16 gives (R-16, R16, r-016, 16)."""
+    kind, num = example.split("-")
+    return f"ids are case-insensitive; padded, unpadded and bare forms work ({example}, {kind}{num}, {kind.lower()}-0{num}, {int(num)})"
+
+
+ID_HINT = id_hint("R-16")
+
+
+class UsageError(Exception):
+    """argparse's own usage errors, raised instead of printed so that --json can wrap them."""
+
+    def __init__(self, message: str, usage_text: str = ""):
+        super().__init__(message)
+        self.usage_text = usage_text
+
+
+class Parser(argparse.ArgumentParser):
+    def error(self, message):
+        raise UsageError(message, self.format_usage())
 
 
 def argstr_of(argv: list[str], cmd: str) -> str:
+    """The arguments as printed and hashed: without --root and the global flags,
+    the command word dropped, --model and --record moved to the end in that
+    order, newlines escaped as \\n so the line stays one line, other
+    whitespace collapsed."""
     out, skip, loads = [], False, set()
     for a in argv:
         if skip:
@@ -49,9 +86,21 @@ def argstr_of(argv: list[str], cmd: str) -> str:
             continue
         if a in GLOBAL_FLAGS or (a == cmd and not out):
             continue
-        out.append(a)
+        out.append(a.replace("\r\n", "\n").replace("\n", "\\n"))
     out += sorted(loads)  # --model before --record, wherever they were typed
-    return re.sub(r"\s+", " ", " ".join(out)).strip()
+    return re.sub(r"[ \t\f\v]+", " ", " ".join(out)).strip()
+
+
+def prescan(argv: list[str], names: list[str]) -> SimpleNamespace:
+    """What an error needs before argparse has spoken: --json, --root and the command word (`ogc` when none is known)."""
+    root = None
+    for i, a in enumerate(argv):
+        if a == "--root" and i + 1 < len(argv):
+            root = Path(argv[i + 1])
+        elif a.startswith("--root="):
+            root = Path(a.split("=", 1)[1])
+    cmd = next((a for a in argv if a in names), "ogc")
+    return SimpleNamespace(json="--json" in argv, root=(root or find_root()).resolve(), cmd=cmd, argstr=argstr_of(argv, cmd))
 
 
 def stamp(args, cmd: str, argstr: str) -> dict:
@@ -75,35 +124,57 @@ def emit(args, cmd: str, argstr: str, data, lines_fn, summary=None) -> int:
     return 0
 
 
+def envelope(args, error: str, hint: str, candidates=None) -> dict:
+    """The one error object under --json: the invocation (`_ogc` with the real command), the error, a hint, the candidates."""
+    return {"_ogc": stamp(args, args.cmd, args.argstr), "error": error, "hint": hint, "candidates": candidates or []}
+
+
 def not_found(args, what: str, hint: str, candidates=None, state: str = "not found") -> int:
-    payload = {"_ogc": stamp(args, "error", what), "error": f"{what} {state}", "hint": hint, "candidates": candidates or []}
+    """Exit 1: a name that did not resolve, a bad filter value, or a refused request; candidates are near misses, never the whole list."""
     if args.json:
-        print(json.dumps(payload, indent=2, ensure_ascii=False))
+        print(json.dumps(envelope(args, f"{what} {state}", hint, candidates), indent=2, ensure_ascii=False))
     else:
-        print(text.head("error", what, git_sha(args.root)))
+        print(text.head(args.cmd, args.argstr, git_sha(args.root)))
         print(f"{what}: {state}. {hint}")
         for c in candidates or []:
             print(f"  candidate: {c}")
     return 1
 
 
-def usage(args, msg: str) -> int:
+def usage(args, msg: str, usage_text: str = "") -> int:
+    """Exit 2: a usage error; `ogc: <msg>` on stderr (after argparse's usage line when it has one), or the one JSON object on stdout under --json."""
     if args.json:
-        payload = {"error": "usage", "hint": msg}
-        if isinstance(getattr(args, "root", None), Path):
-            payload = {"_ogc": stamp(args, "usage", ""), **payload}
-        print(json.dumps(payload, indent=2))
+        print(json.dumps(envelope(args, "usage", msg), indent=2, ensure_ascii=False))
     else:
+        if usage_text:
+            print(usage_text.rstrip(), file=sys.stderr)
         print(f"ogc: {msg}", file=sys.stderr)
     return 2
 
 
+def refuse(args, msg: str) -> int:
+    """Exit 1 with a hint on stderr (or the JSON envelope): the request is well formed but cannot be answered as asked."""
+    if args.json:
+        print(json.dumps(envelope(args, "refused", msg), indent=2, ensure_ascii=False))
+    else:
+        print(f"ogc: {msg}", file=sys.stderr)
+    return 1
+
+
+def need(args, value, what: str) -> int:
+    """rc 2 when a required id is missing, empty or blank; 0 otherwise."""
+    if value is None or not value.strip():
+        return usage(args, f"{what} is required and may not be empty or blank")
+    return 0
+
+
 def resolve(args, g, t: str, steps: bool = False):
-    """A term IRI from a label or local name; with steps=True also an EPO step
-    (its local name or label head) when no term matches. Prints the not-found
-    report itself; returns (iri, meta, rc)."""
-    if not t.strip():
-        return None, {}, usage(args, "a term is required (a local name, prefLabel or altLabel)" + ("; or " + STEP_HINT if steps else ""))
+    """A term IRI from a label, local name, CURIE or IRI; with steps=True also
+    an EPO step (its local name or label head) when no term matches. Prints
+    the not-found report itself; returns (iri, meta, rc)."""
+    if need(args, t, "a term (a local name, prefLabel, altLabel, term: CURIE or IRI" + ("; or " + STEP_HINT + ")" if steps else ")")):
+        return None, {}, 2
+    t = api.bare(t)
     iri, cands, meta = api.resolve_term(g, t)
     if iri is None and steps and not cands:
         st = api.resolve_step(g, t)
@@ -140,106 +211,119 @@ def check_filter(args, name: str, value, allowed: list[str]):
 
 
 def check_source(args, g, value):
-    """(slug, rc): the registered slug for a --source value, case-insensitive; rc 1 with candidates otherwise."""
+    """(slug, rc): the registered slug for a --source value (a slug or src: CURIE, case-insensitive); rc 1 otherwise, with the near misses or, failing those, the allowed slugs (a filter value's allowed list, as the other filters print)."""
     if value is None:
         return None, 0
-    src = api.resolve_source(g, value)
+    src = api.resolve_source(g, api.bare(value))
     if src is None:
         slugs = api.source_slugs(g)
-        key = value.strip().lower()
-        cands = [s for s in slugs if key and key in s.lower()] or slugs
-        return None, not_found(args, f"--source value '{value}'", "--source must be a registered slug (case-insensitive); see `ogc sources`", cands)
+        return None, not_found(args, f"--source value '{value}'", "--source must be a registered slug (case-insensitive); see `ogc sources`", api.near(api.bare(value), slugs) or slugs)
     return api.local(src), 0
 
 
 def build_parser() -> argparse.ArgumentParser:
-    from .executor import MUTATIONS, Params
+    from .executor import CAP_NOTE, MUTATIONS, Params
     common = argparse.ArgumentParser(add_help=False)
-    common.add_argument("--json", action="store_true", default=argparse.SUPPRESS, help="machine output: one object carrying the api result plus the `_ogc` key (command, args, sha); list results sit under `rows`")
+    common.add_argument("--json", action="store_true", default=argparse.SUPPRESS, help="machine output: one object carrying the api result plus the `_ogc` key (command, args, sha); list results sit under `rows`; errors are one object with `_ogc`, `error`, `hint`, `candidates`")
     common.add_argument("--root", type=Path, default=argparse.SUPPRESS, help="repository checkout (default: found from cwd or OGC_ROOT)")
     common.add_argument("--no-cache", action="store_true", default=argparse.SUPPRESS, help="parse the Turtle afresh instead of reading the pickle cache under .cache/")
     common.add_argument("--wide", action="store_true", default=argparse.SUPPRESS, help="do not clip table cells at 80 characters")
-    common.add_argument("--model", action="store_true", default=argparse.SUPPRESS, help="also load the canonical model graph model/og-caie.model.ttl (the OMG sysml: rendering of the structure; sparql only, implied by view, views and execute); part of the printed and hashed args")
-    common.add_argument("--record", action="store_true", default=argparse.SUPPRESS, help="also load the worked example's record track/measles-run.ttl (the run: namespace; sparql only, implied by record); part of the printed and hashed args")
-    ap = argparse.ArgumentParser(prog="ogc", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter, parents=[common],
-                                 epilog="global flags may be placed before or after the subcommand; quote multi-word names.")
+    loads = argparse.ArgumentParser(add_help=False)
+    loads.add_argument("--model", action="store_true", default=argparse.SUPPRESS, help="also load the canonical model graph model/og-caie.model.ttl (the OMG sysml: rendering of the structure; implied by view, views and execute); part of the printed and hashed args; " + LOAD_HINT)
+    loads.add_argument("--record", action="store_true", default=argparse.SUPPRESS, help="also load the worked example's record track/measles-run.ttl (the run: namespace; implied by record); part of the printed and hashed args; " + LOAD_HINT)
+    ap = Parser(prog="ogc", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter, parents=[common, loads],
+                epilog="global flags may be placed before or after the subcommand; quote multi-word names.")
     sub = ap.add_subparsers(dest="cmd", required=True)
+    names = []
 
     def add(name, help_, *spec, **kw):
-        p = sub.add_parser(name, help=help_, description=help_, parents=[common], formatter_class=argparse.RawDescriptionHelpFormatter, **kw)
+        names.append(name)
+        p = sub.add_parser(name, help=help_, description=help_, parents=[common, loads] if name in LOAD_CMDS else [common], formatter_class=argparse.RawDescriptionHelpFormatter, **kw)
         for s in spec:
             p.add_argument(*s[0], **s[1])
         return p
-    add("schema", "the map: classes and properties in use with counts, the pinned totals, the prefixes")
+    add("schema", "the map: classes and properties in use with counts, the pinned totals (shapes counted over every shape file, as `ogc shapes` does), the prefixes")
     add("find", "terms whose labels or quotes match: exact, then prefix, then substring", (["text"], dict(help="text to match against labels (and quotes unless --no-quotes)")),
         (["--no-quotes"], dict(action="store_true", help="labels only; part of the printed and hashed args")))
-    add("term", "everything about one term", (["term"], dict(help="a local name, prefLabel or altLabel (case-insensitive)")))
-    add("define", "the narrative definition and the canonical source", (["term"], dict(help="a local name, prefLabel or altLabel (case-insensitive)")))
-    add("quote", "the verbatim quotes on a term or on an EPO step, with status", (["term"], dict(help="a term (label or local name) or " + STEP_HINT)))
-    add("list", "the term table", (["--class"], dict(dest="klass", metavar="CLASS", help=f"one of {', '.join(CLASSES)} (case-insensitive)")),
-        (["--source"], dict(metavar="SLUG", help="a registered source slug from `ogc sources` (case-insensitive)")))
-    add("source", "one source and every citation of it", (["slug"], dict(help="a source slug from `ogc sources` (case-insensitive)")))
+    add("term", "everything about one term", (["term"], dict(help="a local name, prefLabel, altLabel, term: CURIE or IRI (case-insensitive)")))
+    add("define", "the narrative definition and the canonical source (or who coined the term)", (["term"], dict(help="a local name, prefLabel, altLabel, term: CURIE or IRI (case-insensitive)")))
+    add("quote", "the verbatim quotes on a term or on an EPO step, with status", (["term"], dict(help="a term (label, local name, term: CURIE or IRI) or " + STEP_HINT)))
+    add("list", "the term table (a coined term shows `(coined)` for its source)", (["--class"], dict(dest="klass", metavar="CLASS", help=f"one of {', '.join(CLASSES)} (case-insensitive)")),
+        (["--source"], dict(metavar="SLUG", help="a registered source slug from `ogc sources` (case-insensitive; src: CURIE accepted)")))
+    add("source", "one source and every citation of it", (["slug"], dict(help="a source slug from `ogc sources` (case-insensitive; src: CURIE or IRI accepted)")))
     add("sources", "the source register", (["--rank"], dict(help=f"one of {', '.join(RANKS)}")), (["--posture"], dict(help=f"one of {', '.join(POSTURES)} (case-insensitive)")),
-        (["--uncited"], dict(action="store_true", help="only sources no citation names")))
-    add("ruling", "one ruling: the decision in the register's words, then the message as sent", (["id"], dict(help="R-16; " + ID_HINT)))
+        (["--uncited"], dict(action="store_true", help="only sources no citation names (not with --rank 1, 2 or 3: a source at a precedence rank is cited by the terms defined from it)")))
+    add("ruling", "one ruling: the decision in the register's words, then the message as sent", (["id"], dict(help="R-16; " + ID_HINT + "; rul: CURIE or IRI accepted")))
     add("rulings", "the rulings log", (["--term"], dict(help="a term: rulings it derives from or that resolve a concern naming it")), (["--grep"], dict(metavar="TEXT", help="substring over the ruling text, the message as sent and the change note (non-empty)")))
-    add("concern", "one concern", (["id"], dict(help="C-24; " + ID_HINT)))
-    add("concerns", "the concern register", (["--open"], dict(action="store_true", help="only open concerns")), (["--status"], dict(help=f"one of {', '.join(STATUSES)}")),
+    add("concern", "one concern", (["id"], dict(help="C-24; " + id_hint("C-24") + "; rul: CURIE or IRI accepted")))
+    add("concerns", "the concern register", (["--open"], dict(action="store_true", help="only open concerns (the same as --status open; not with another --status)")), (["--status"], dict(help=f"one of {', '.join(STATUSES)}")),
         (["--severity"], dict(help=f"one of {', '.join(SEVERITIES)} (case-insensitive)")))
-    add("sci", f"the essentials ({SCI_RANGE}): statement, tag, shapes, terms, sources", (["id"], dict(nargs="?", help=f"one essential, {SCI_RANGE}; SCI7, sci-07 and 7 are accepted; omitted: the table")))
+    add("sci", f"the essentials ({SCI_RANGE}): statement, tag, shapes, terms, sources", (["id"], dict(nargs="?", help=f"one essential, {SCI_RANGE}; " + id_hint("SCI-07") + "; tr: CURIE or IRI accepted; omitted: the table")))
     add("steps", "the twelve steps of the two cycles and the canon step each matches (R-31, R-32)")
     add("record", "the worked example's record (track/measles-run.ttl): its items by step, C1..C6 then 1..6, with who and when; then the items without a step and the parties; with a name, everything the record says about that one item (R-47, closes C-44)",
-        (["name"], dict(nargs="?", help="an item's local name, case-insensitive (mission-1, attestation-1, annie); omitted: the listing")))
-    add("execute", "execute the process from the model graph and run the checks over the emitted record (C-30); VERDICT: PASS when the record conforms, no item kind is missing and the traceback is non-empty, else FAIL and exit 1",
+        (["name"], dict(nargs="?", help="an item's local name, case-insensitive (mission-1, attestation-1, annie; run: CURIE or IRI accepted); omitted: the listing")))
+    add("execute", "execute the process from the model graph and run the checks over the emitted record (C-30); VERDICT: PASS when the record conforms, no item kind is missing and the traceback is non-empty, else FAIL and exit 1; " + CAP_NOTE,
         (["--mutate"], dict(action="append", metavar="NAME", help="break one thing in the emitted record before the checks; repeatable, applied in order; one of: " + ", ".join(sorted(MUTATIONS)))),
         (["--turtle"], dict(action="store_true", help="print the emitted record instead of the checks")),
         (["--requirements"], dict(type=int, metavar="N", help=f"requirements in the requirement set (positive; default {Params.requirements})")),
-        (["--criteria"], dict(type=int, metavar="N", help=f"acceptance criteria per requirement (positive; default {Params.criteria_per_requirement})")),
+        (["--criteria"], dict(type=int, metavar="N", help=f"acceptance criteria per requirement (positive; requirements times criteria at most 100; default {Params.criteria_per_requirement})")),
         (["--planned"], dict(type=int, metavar="N", help=f"criteria the test plan exercises, the rest stay uncovered (positive, at most requirements times criteria; default {Params.planned})")),
-        (["--sessions"], dict(type=int, metavar="N", help=f"sessions executed against the test item (positive; default {Params.sessions})")),
-        (["--populations"], dict(type=int, metavar="N", help=f"affected populations, the first interviewed and the others represented (positive; default {Params.populations})")),
+        (["--sessions"], dict(type=int, metavar="N", help=f"sessions executed against the test item (positive, sessions at most 20; default {Params.sessions})")),
+        (["--populations"], dict(type=int, metavar="N", help=f"affected populations, the first interviewed and the others represented (positive, at most 20; default {Params.populations})")),
         epilog="mutations:\n" + "\n".join(f"  {n:<32} {MUTATIONS[n][0]}" for n in sorted(MUTATIONS)))
     add("views", "the reusable views of the model graph: what each brings into focus and leaves out (R-38)")
     add("view", "one view of the model graph as mermaid, with the perspective it encodes (R-38)", (["name"], dict(help="one of " + ", ".join(sorted(views.VIEWS)) + " (case-insensitive)")))
-    add("crosswalk", "one row per term: class, anchor relation, canonical source and locator, binding; --popper for the Popper rows",
-        (["--class"], dict(dest="klass", metavar="CLASS", help=f"one of {', '.join(CLASSES)} (case-insensitive)")), (["--source"], dict(metavar="SLUG", help="a registered source slug (case-insensitive)")),
-        (["--popper"], dict(action="store_true", help="the six Popper rows instead of the term table")))
+    add("crosswalk", f"one row per term: class, anchor relation, canonical source and locator, binding; --popper for the {POPPER_ROWS} Popper rows",
+        (["--class"], dict(dest="klass", metavar="CLASS", help=f"one of {', '.join(CLASSES)} (case-insensitive); not with --popper")), (["--source"], dict(metavar="SLUG", help="a registered source slug (case-insensitive); not with --popper")),
+        (["--popper"], dict(action="store_true", help=f"the {POPPER_ROWS} Popper rows instead of the term table (they have no class or source, so --class and --source are refused)")))
     add("check-word", "is this word a registered label, of which term, or retired; what to write", (["words"], dict(nargs="+", help="one or more words or phrases (non-empty); quote multi-word ones")))
-    add("verify", "per citation of a term, a source or a step (or --all): where the quote was found", (["what"], dict(nargs="?", help="a term (label or local name), a source slug, or " + STEP_HINT)),
-        (["--all"], dict(action="store_true", help="every citation in the graph, with a summary line; not together with a term")))
-    add("shapes", "the SHACL node shapes with their targets, from the shape files")
-    add("shape", "one node shape: target, property constraints (path, min, max, class, in, hasValue, datatype) and each SPARQL constraint's message", (["id"], dict(help="a shape's local name, case-insensitive (S3-PlanApproval, m1-parties, RulingShape)")))
-    add("sparql", "raw SPARQL (SELECT, ASK, CONSTRUCT, DESCRIBE) with the prefixes injected; @file.rq reads a file; --model adds the model graph",
+    add("verify", "per citation of a term, a source or a step (or --all): where the quote was found", (["what"], dict(nargs="?", help=STEP_HINT + "; or a term (label, local name, term: CURIE or IRI); or a source slug")),
+        (["--all"], dict(action="store_true", help="every citation in the graph (the terms', the steps' and the crosswalk rows'), with a summary line; not together with a term")),
+        (["--status"], dict(help=f"only citations whose quote status is one of {', '.join(VERIFY_STATUSES)} (`ogc verify --all --status pending`: the quotes awaiting a named verification)")),
+        (["--state"], dict(help=f"only citations located in one of the states {', '.join(VERIFY_STATES)}")))
+    add("shapes", "the SHACL node shapes with their targets, from every shape file")
+    add("shape", "one node shape: target, property constraints (path, min, max, class, in, hasValue, datatype) and each SPARQL constraint's message with its sh:select body", (["id"], dict(help="a shape's local name, case-insensitive (S3-PlanApproval, m1-parties, RulingShape; ogc: CURIE or IRI accepted)")))
+    add("sparql", "raw SPARQL (SELECT, ASK, CONSTRUCT, DESCRIBE) with the prefixes injected; @file.rq reads a file; --model adds the model graph, --record the record (a query naming run: or typing by a record class is refused without it)",
         (["query"], dict(help=f"the query text or @file.rq (at most {QUERY_MAX} characters); rows are sorted unless it has ORDER BY; no SERVICE, GRAPH or FROM")))
-    add("doctor", "files parse, labels unambiguous, pins hold, quotes located; VERDICT line")
+    add("doctor", "every file the tool reads parses, labels unambiguous, pins hold, quotes located; VERDICT line")
+    ap.command_names = names
     return ap
 
 
 def main(argv=None) -> int:
     argv = list(sys.argv[1:] if argv is None else argv)
     ap = build_parser()
+    pre = prescan(argv, ap.command_names)
     try:
         args, extras = ap.parse_known_args(argv)
-    except SystemExit as e:
-        return int(e.code) if isinstance(e.code, int) else 2
+    except UsageError as e:
+        return usage(pre, str(e), e.usage_text)
+    except SystemExit as e:  # --help
+        return int(e.code) if isinstance(e.code, int) else 0
     for k, v in (("json", False), ("root", None), ("no_cache", False), ("wide", False), ("model", False), ("record", False)):
         if not hasattr(args, k):
             setattr(args, k, v)
     text.WIDE = args.wide
+    args.root = (args.root or find_root()).resolve()
+    c = args.cmd
+    args.argv = argv
+    args.argstr = argstr_of(argv, c)
     if extras:
+        if any(x in ("--model", "--record") for x in extras) or ((args.model or args.record) and c not in LOAD_CMDS):
+            return usage(args, LOAD_HINT)
         words = [x for x in extras if not x.startswith("-")]
         flags = [x for x in extras if x.startswith("-")]
         hint = f'unrecognized arguments: {" ".join(extras)}'
         if words and not flags:
-            hint += f'; quote multi-word names: ogc {args.cmd} "{" ".join([getattr(args, "term", None) or getattr(args, "text", None) or ""] + words).strip()}"'
+            hint += f'; quote multi-word names: ogc {c} "{" ".join([getattr(args, "term", None) or getattr(args, "text", None) or ""] + words).strip()}"'
         if flags:
-            hint += f"; see `ogc {args.cmd} --help`"
+            hint += f"; see `ogc {c} --help`"
         return usage(args, hint)
-    args.root = (args.root or find_root()).resolve()
+    if (args.model or args.record) and c not in LOAD_CMDS:
+        return usage(args, LOAD_HINT)
     if not (args.root / "vocabulary" / "og-caie.ttl").exists():
         return usage(args, f"no og-caie-spec checkout at {args.root}; set --root or OGC_ROOT")
-    c = args.cmd
-    argstr = argstr_of(argv, c)
+    argstr = args.argstr
     if c == "doctor":
         return doctor(args)
     if c in ("shapes", "shape"):
@@ -251,14 +335,14 @@ def main(argv=None) -> int:
     g = load(args.root, model=args.model, cache=not args.no_cache, record=args.record)
 
     if c == "schema":
-        d = api.schema(g)
+        d = api.schema(g, args.root)
         return emit(args, c, argstr, d, lambda: ["## counts"] + [f"{k}: {v}" for k, v in d["counts"].items()] + ["", "## classes"] + text.table(d["classes"], ["cls", "count"])
                     + ["", "## properties"] + text.table(d["properties"], ["prop", "uses"]) + ["", "## prefixes", SPARQL_PREFIXES.rstrip(),
                        "", 'note: labels and definitions are language-tagged ("probe"@en); match with STR(?l) = "probe" or LCASE(STR(?l)).'])
 
     if c == "find":
-        if not args.text.strip():
-            return usage(args, "find needs text to match")
+        if need(args, args.text, "text to match"):
+            return 2
         rows = api.find(g, args.text, quotes=not args.no_quotes)
         concerns = [x for x in api.concerns_mentioning(g, args.text) if x["status"] == "open"]
         if not rows:
@@ -269,23 +353,7 @@ def main(argv=None) -> int:
         return emit(args, c, argstr, rows, lambda: text.table(rows, ["pref", "local", "match", "via", "class", "source"]) + [f"open concern mentioning the word: {x['id']} ({x['label']})" for x in concerns])
 
     if c == "verify":
-        if args.all and args.what:
-            return usage(args, "give a term or --all, not both")
-        if args.all:
-            rows = api.verify_all(g, args.root)
-            states = dict(sorted(Counter(r["state"] for r in rows).items()))
-            summary = dict(citations=len(rows), states=states)
-            return emit(args, c, argstr, rows, lambda: text.table(rows, VERIFY_COLS) + [f"({len(rows)} citations; " + ", ".join(f"{n} {s}" for s, n in states.items()) + ")"], summary=summary)
-        if not args.what or not args.what.strip():
-            return usage(args, "verify needs a term, a source slug, a step, or --all")
-        rows = api.verify_source(g, args.root, args.what) if re.fullmatch(r"[\w.-]+", args.what.strip()) else None
-        if rows is not None:
-            return emit(args, c, argstr, rows, lambda: text.table(rows, VERIFY_COLS))
-        iri, meta, rc = resolve(args, g, args.what, steps=True)
-        if iri is None:
-            return rc
-        rows = api.verify_term(g, args.root, iri)
-        return emit(args, c, argstr, rows, lambda: text.table(rows, VERIFY_COLS))
+        return verify(args, g, argstr)
 
     if c in ("term", "define", "quote"):
         iri, meta, rc = resolve(args, g, args.term, steps=(c == "quote"))
@@ -302,11 +370,14 @@ def main(argv=None) -> int:
             return emit(args, c, argstr, t, lambda: text.term(t, meta))
         if c == "define":
             cc = t["canonical"]
-            d = dict(term=t["pref"], definition=t["definition"], **{"class": t["class"]}, canonical=f"{cc.get('source_label', '')}, {cc.get('locator', '')}", status=cc.get("status", ""), resolved=meta)
+            coined = t["coined_by"] if t["class"] == "coined" and not cc else None
+            d = dict(term=t["pref"], definition=t["definition"], **{"class": t["class"]}, canonical=f"{cc.get('source_label', '')}, {cc.get('locator', '')}" if cc else None,
+                     coined_by=coined, status=cc.get("status") or None, resolved=meta)
+            tail = f"coined by: {coined}" if coined else f"canonical: {d['canonical']}" + (f"   status: {d['status']}" if d["status"] else "")
             return emit(args, c, argstr, d, lambda: [f"## {t['pref']}"] + ([f"resolved via {meta['via']}"] if meta.get("via") else []) + [""] + text.wrap(t["definition"])
-                        + ["", f"class: {t['class']}   canonical: {d['canonical']}" + (f"   status: {d['status']}" if d["status"] else "")])
-        q = [dict(holder="canonical", **{k: v for k, v in t["canonical"].items() if k != "node"})] if t["canonical"].get("quote") else []
-        q += [dict(holder="seeAlso", **{k: v for k, v in x.items() if k != "node"}) for x in t["see_also"] if x["quote"]]
+                        + ["", f"class: {t['class']}   {tail}"])
+        q = [dict(citation="canonical", **{k: v for k, v in t["canonical"].items() if k != "node"})] if t["canonical"].get("quote") else []
+        q += [dict(citation="seeAlso", **{k: v for k, v in x.items() if k != "node"}) for x in t["see_also"] if x["quote"]]
         noq = [f"{x['source']} {x['locator']}" for x in [t["canonical"], *t["see_also"]] if x and not x.get("quote")]
         return emit(args, c, argstr, dict(quotes=q, without_quote=noq), lambda: quote_lines(t["pref"], q, noq))
 
@@ -321,10 +392,12 @@ def main(argv=None) -> int:
         return emit(args, c, argstr, rows, lambda: text.table(rows, ["term", "local", "class", "source", "locator", "status"]))
 
     if c == "source":
-        d = api.source_record(g, args.slug)
+        if need(args, args.slug, "a source slug"):
+            return 2
+        slug = api.bare(args.slug)
+        d = api.source_record(g, slug)
         if d is None:
-            key = args.slug.strip().lower()
-            return not_found(args, f"source '{args.slug}'", "slugs are case-insensitive; try `ogc sources`", [s for s in api.source_slugs(g) if key and key in s.lower()][:8])
+            return not_found(args, f"source '{args.slug}'", "slugs are case-insensitive; try `ogc sources`", api.near(slug, api.source_slugs(g)))
 
         def lines():
             L = [f"## {d['slug']}: {d['label']}", ""] + text.kv(d, ["rank", "kind", "posture", "url", "digest", "status", "retrieval", "licence", "permission"])
@@ -332,7 +405,7 @@ def main(argv=None) -> int:
                 L += ["snapshots:"] + [f"  {s['file']} {s['hash']}" for s in d["snapshots"]]
             L += ["", f"citations ({len(d['citations'])}):"]
             for x in d["citations"]:
-                L.append(f"  {x['term']}  [{x['holder']}] {x['locator']}  [{x['status']}]")
+                L.append(f"  {x['term']}  [{x['citation']}] {x['locator']}  [{x['status']}]")
                 if x["quote"]:
                     L += text.wrap(f'"{x["quote"]}"', "      ")
             return L
@@ -345,11 +418,15 @@ def main(argv=None) -> int:
         posture, rc = check_filter(args, "posture", args.posture, POSTURES)
         if rc:
             return rc
+        if args.uncited and rank in PRECEDENCE_RANKS:
+            return usage(args, f"{EXCLUDE}: --uncited and --rank {rank} (a source at rank 1, 2 or 3 is registered for the definitions terms take from it, so it is cited; uncited sources are found at rank 4, reserve or internal)")
         rows = api.sources_table(g, rank, posture, args.uncited)
         return emit(args, c, argstr, rows, lambda: text.table(rows, ["slug", "rank", "posture", "kind", "citations", "snapshots", "label"]))
 
     if c == "ruling":
-        d = api.ruling_record(g, args.id)
+        if need(args, args.id, "a ruling id"):
+            return 2
+        d = api.ruling_record(g, api.bare(args.id))
         if d is None:
             return not_found(args, f"ruling '{args.id}'", f"ids look like R-16 ({ID_HINT}); try `ogc rulings`")
         return emit(args, c, argstr, d, lambda: [f"## {d['id']}  (order {d['order']}, {d['date']}, attributed to {d['attributed']})", "",
@@ -374,9 +451,11 @@ def main(argv=None) -> int:
         return emit(args, c, argstr, rows, lambda: text.table(rows, cols))
 
     if c == "concern":
-        d = api.concern_record(g, args.id)
+        if need(args, args.id, "a concern id"):
+            return 2
+        d = api.concern_record(g, api.bare(args.id))
         if d is None:
-            return not_found(args, f"concern '{args.id}'", f"ids look like C-24 ({ID_HINT}); try `ogc concerns`")
+            return not_found(args, f"concern '{args.id}'", f"ids look like C-24 ({id_hint('C-24')}); try `ogc concerns`")
         return emit(args, c, argstr, d, lambda: [f"## {d['id']}: {d['label']}", "", f"severity: {d['severity']}   status: {d['status']}   surfaced: {d['surfaced']} ({d['how']})",
                                                  f"terms: {', '.join(d['terms']) or '(none)'}", "", "problem:"] + text.wrap(d["problem"]) + ["", f"resolved by: {', '.join(d['resolved_by']) or '(open)'}"])
 
@@ -387,14 +466,19 @@ def main(argv=None) -> int:
         severity, rc = check_filter(args, "severity", args.severity, SEVERITIES)
         if rc:
             return rc
+        if args.open and status and status != "open":
+            return usage(args, f"{EXCLUDE}: --open is --status open, not --status {status}; give one")
         rows = api.concerns_table(g, args.open, status, severity)
         return emit(args, c, argstr, rows, lambda: text.table(rows, ["id", "severity", "status", "terms", "resolved_by", "label"]))
 
     if c == "sci":
-        rows = api.sci_table(g, args.id)
-        if args.id and not rows:
-            return not_found(args, f"essential '{args.id}'", f"ids look like SCI-07, {SCI_RANGE} ({ID_HINT}); try `ogc sci`")
-        if args.id:
+        if args.id is not None and need(args, args.id, "an essential's id (omit it for the table)"):
+            return 2
+        sid = api.bare(args.id) if args.id else None
+        rows = api.sci_table(g, sid)
+        if sid and not rows:
+            return not_found(args, f"essential '{args.id}'", f"ids look like SCI-07, {SCI_RANGE} ({id_hint('SCI-07')}); try `ogc sci`")
+        if sid:
             d = rows[0]
             return emit(args, c, argstr, d, lambda: [f"## {d['id']} {d['name']}  ({d['tag']})", ""] + text.wrap(d["statement"]) + ["", f"checked by: {', '.join(d['shapes'])}", f"terms: {', '.join(d['terms'])}", f"rests on: {', '.join(d['rests_on'])}"])
         return emit(args, c, argstr, rows, lambda: text.table(rows, ["id", "name", "tag", "shapes", "terms"]))
@@ -410,7 +494,9 @@ def main(argv=None) -> int:
         return emit(args, c, argstr, rows, lambda: [l for r in rows for l in ([f"## {r['name']}: {r['title']}"] + text.wrap(f"in focus: {r['focus']}", "  ") + text.wrap(f"leaves out: {r['leaves_out']}", "  ") + [""])])
 
     if c == "view":
-        name = args.name.strip().lower()
+        if need(args, args.name, "a view name"):
+            return 2
+        name = api.bare(args.name).lower()
         if name not in views.VIEWS:
             return not_found(args, f"view '{args.name}'", "names are case-insensitive; try `ogc views`", sorted(views.VIEWS))
         d = views.view_record(g, name)
@@ -421,6 +507,8 @@ def main(argv=None) -> int:
         return emit(args, c, argstr, rows, lambda: [l for r in rows for l in ([f"## {r['label']}", f"  matches: {r['source']} {r['locator']}  [{r['status']}]"] + text.wrap(f'"{r["quote"]}"', "    ") + [f"  also: {a['source']} {a['locator']}  [{a['status']}]" for a in r["also"]] + [""])])
 
     if c == "crosswalk":
+        if args.popper and (args.klass is not None or args.source is not None):
+            return usage(args, f"{EXCLUDE}: --popper prints the {POPPER_ROWS} Popper rows, which have no class or source; drop --popper or the filter")
         if args.popper:
             rows = api.popper(g)
             return emit(args, c, argstr, rows, lambda: [l for r in rows for l in ([f"## {r['order']} {r['concept']}"] + text.wrap(f'"{r["quote"]}"') + [f"  terms: {', '.join(r['terms'])}", f"  realized by: {', '.join(r['realized_by'])}"] + text.wrap(r["where"], "  where: ", "    ") + text.wrap(r["checkable"], "  checkable: ", "    ") + [""])])
@@ -444,10 +532,41 @@ def main(argv=None) -> int:
     return 2
 
 
+def verify(args, g, argstr: str) -> int:
+    if args.all and args.what:
+        return usage(args, "give a term or --all, not both")
+    status, rc = check_filter(args, "status", args.status, VERIFY_STATUSES)
+    if rc:
+        return rc
+    state, rc = check_filter(args, "state", args.state, VERIFY_STATES)
+    if rc:
+        return rc
+
+    def keep(rows):
+        return [r for r in rows if (status is None or r["status"] == status) and (state is None or r["state"] == state)]
+    if args.all:
+        rows = keep(api.verify_all(g, args.root))
+        states = dict(sorted(Counter(r["state"] for r in rows).items()))
+        summary = dict(citations=len(rows), states=states)
+        return emit(args, "verify", argstr, rows, lambda: text.table(rows, VERIFY_COLS) + [f"({len(rows)} citations; " + ", ".join(f"{n} {s}" for s, n in states.items()) + ")"], summary=summary)
+    if need(args, args.what, "a term, a source slug, a step, or --all"):
+        return 2
+    what = api.bare(args.what)
+    rows = api.verify_source(g, args.root, what) if re.fullmatch(r"[\w.-]+", what) else None
+    if rows is not None:
+        rows = keep(rows)
+        return emit(args, "verify", argstr, rows, lambda: text.table(rows, VERIFY_COLS))
+    iri, meta, rc = resolve(args, g, what, steps=True)
+    if iri is None:
+        return rc
+    rows = keep(api.verify_term(g, args.root, iri))
+    return emit(args, "verify", argstr, rows, lambda: text.table(rows, VERIFY_COLS))
+
+
 def quote_lines(name: str, q: list[dict], noq: list[str]) -> list[str]:
     L = [f"{len(q)} verbatim quotes on {name}; {len(noq)} citations without a quote", ""]
     for x in q:
-        L += [f"[{x['holder']}] {x['source']} {x['locator']}  [{x['status']}]" + (f" verified by {x['verified_by']} on {x['verified_on']}" if x.get("verified_by") else "")] + text.wrap(f'"{x["quote"]}"') + [""]
+        L += [f"[{x['citation']}] {x['source']} {x['locator']}  [{x['status']}]" + (f" verified by {x['verified_by']} on {x['verified_on']}" if x.get("verified_by") else "")] + text.wrap(f'"{x["quote"]}"') + [""]
     if noq:
         L.append("citations without a quote (cite-only): " + "; ".join(noq))
     return L
@@ -460,21 +579,21 @@ def record(args, g, argstr: str) -> int:
         return emit(args, "record", argstr, rows, lambda: [f"## items by step ({len(groups['step'])}; C1..C6 then 1..6)"] + text.table(groups["step"], ["step", "item", "class", "who", "when"])
                     + ["", f"## items without a step ({len(groups['no-step'])})"] + text.table(groups["no-step"], ["item", "class", "who", "when"])
                     + ["", f"## parties and machines ({len(groups['party'])})"] + text.table(groups["party"], ["item", "class", "label"]))
-    if not args.name.strip():
-        return usage(args, "record needs an item's local name (mission-1, attestation-1, annie), or nothing for the listing")
-    iri, cands = api.resolve_record_item(g, args.name)
+    if need(args, args.name, "an item's local name (mission-1, attestation-1, annie; omit it for the listing)"):
+        return 2
+    iri, cands = api.resolve_record_item(g, api.bare(args.name))
     if iri is None:
-        return not_found(args, f"record item '{args.name}'", "local names are case-insensitive; try `ogc record` for the listing", cands)
+        return not_found(args, f"record item '{args.name}'", "local names are case-insensitive; the candidates are near misses; try `ogc record` for the listing", cands)
     d = api.record_item(g, iri)
 
     def lines():
         L = [f"## {d['item']}  ({d['class']})" + (f"  step {d['step']}" if d["step"] else "")]
         if d["label"]:
             L += text.wrap(d["label"])
-        L += ["", f"who: {', '.join(d['who']) or '(none)'}   when: {d['when'] or '(none)'}", "", f"triples ({len(d['out'])}):"]
-        for t in d["out"]:
+        L += ["", f"who: {', '.join(d['who'] or []) or '(none)'}   when: {d['when'] or '(none)'}", "", f"triples ({len(d['triples'])}):"]
+        for t in d["triples"]:
             L += text.wrap(f"{t['predicate']} {t['object']}" + (f"  ({t['label']})" if t["label"] else ""), "  ", "      ")
-        L += ["", f"referenced by ({len(d['in'])}):"] + ([f"  {t['subject']} {t['predicate']}" + (f"  ({t['label']})" if t["label"] else "") for t in d["in"]] or ["  (none)"])
+        L += ["", f"referenced by ({len(d['referenced_by'])}):"] + ([f"  {t['subject']} {t['predicate']}" + (f"  ({t['label']})" if t["label"] else "") for t in d["referenced_by"]] or ["  (none)"])
         return L
     return emit(args, "record", argstr, d, lines)
 
@@ -506,12 +625,10 @@ def execute(args, g, argstr: str) -> int:
         return emit(args, "execute", argstr, {"mutations": names, "params": pd, "turtle": rec.serialize(format="turtle")}, lambda: rec.serialize(format="turtle").splitlines())
     d = executor.check(rec, model, shapes, epo)
     d["mutations"] = names
-    d["mutation"] = ", ".join(names) or None
     d["params"] = pd
     ok = bool(d["conforms"]) and not d["missing"] and d["traceback"] > 0
     d["ok"] = ok
-    flags = "".join(f" --{k} {v}" for k, v in given.items()) + ("".join(f" --mutate {n}" for n in names))
-    d["verdict"] = f"VERDICT: {'PASS' if ok else 'FAIL'} (ogc execute{flags})"
+    d["verdict"] = f"VERDICT: {'PASS' if ok else 'FAIL'} (ogc execute{(' ' + argstr) if argstr else ''})"  # the parenthesis is the header's args
     cov = d["coverage"]
     emit(args, "execute", argstr, d, lambda: ["parameters: " + ", ".join(f"{k} {v}" for k, v in pd.items()), f"mutations: {', '.join(names) or 'none'}",
                                               f"conforms: {d['conforms']}" + (f"  (fired: {', '.join(d['fired'])})" if d["fired"] else ""),
@@ -525,11 +642,12 @@ def shapes(args, c: str, argstr: str) -> int:
     if c == "shapes":
         rows = api.shapes_table(args.root)
         return emit(args, c, argstr, rows, lambda: text.table(rows, ["id", "target", "properties", "sparql", "file"]))
-    d = api.shape_record(args.root, args.id)
+    if need(args, args.id, "a shape id"):
+        return 2
+    sid = api.bare(args.id)
+    d = api.shape_record(args.root, sid)
     if d is None:
-        key = args.id.strip().lower()
-        ids = [r["id"] for r in api.shapes_table(args.root)]
-        return not_found(args, f"shape '{args.id}'", "shape ids are case-insensitive local names; try `ogc shapes`", [i for i in ids if key and key in i.lower()][:8] or ids)
+        return not_found(args, f"shape '{args.id}'", "shape ids are case-insensitive local names; the candidates are near misses; try `ogc shapes`", api.near(sid, [r["id"] for r in api.shapes_table(args.root)]))
     pcols = ["path", "min", "max", "class", "in", "hasValue", "datatype", "message"]
 
     def lines():
@@ -539,9 +657,28 @@ def shapes(args, c: str, argstr: str) -> int:
         if d["closed"]:
             L.append(f"closed: {d['closed']}")
         L += ["", f"property constraints ({len(d['properties'])}):"] + text.table(d["properties"], pcols)
-        L += ["", f"sparql constraints ({len(d['sparql'])}):"] + ([l for m in d["sparql"] for l in text.wrap(m, "  - ", "    ")] or ["  (none)"])
+        L += ["", f"sparql constraints ({len(d['sparql'])}):"]
+        for x in d["sparql"]:
+            L += text.wrap(x["message"], "  - ", "    ") + ["      " + l for l in x["select"].splitlines()] + [""]
+        if not d["sparql"]:
+            L.append("  (none)")
         return L
     return emit(args, c, argstr, d, lines)
+
+
+def record_reference(g, q: str) -> str | None:
+    """What in a query names the record: a `run:` name, the run namespace, or a
+    variable typed by an EPO class whose instances live only in the record;
+    None when the query stays within the graphs loaded by default."""
+    m = re.search(r"\brun:[\w-]*", q) or re.search(re.escape(str(RUN)) + r"[\w-]*", q)
+    if m:
+        return m.group(0)
+    kinds = api.record_classes(g)
+    for m in re.finditer(r"(?:\ba|\brdf:type)\s+(?:epo:(\w+)|<" + re.escape(str(PREFIXES["epo"])) + r"(\w+)>)", q):
+        name = m.group(1) or m.group(2)
+        if name in kinds:
+            return f"epo:{name}"
+    return None
 
 
 def sparql(args, g, argstr: str) -> int:
@@ -551,18 +688,31 @@ def sparql(args, g, argstr: str) -> int:
     q = args.query
     if q.startswith("@"):
         p = Path(q[1:])
+        if p.is_dir():
+            return usage(args, f"query file is a directory: {p}")
         if not p.exists():
             return usage(args, f"query file not found: {p}")
-        q = p.read_text()
+        try:
+            q = p.read_text()
+        except (OSError, UnicodeDecodeError) as e:
+            return usage(args, f"query file cannot be read: {p} ({e})")
     if not q.strip():
         return usage(args, "sparql needs a query (or @file.rq)")
     if len(q) > QUERY_MAX:
         return usage(args, f"query too long: {len(q)} characters, the cap is {QUERY_MAX}")
+    # The citation header: the query as typed (newlines escaped as \n by argstr_of, comments intact) and its sha256;
+    # for @file, the path as typed and the sha256 of the file's content.
+    digest = hashlib.sha256(q.encode()).hexdigest()[:12]
+    header = args.argstr = f"{argstr} #sha256:{digest}"
     if re.search(r"\bSERVICE\b", q, re.I):
         return usage(args, "federation is disabled: SERVICE is refused; the tool is a read-only reader of the local graphs")
     for name, iri in re.findall(r"PREFIX\s+([\w-]*):\s*<([^>]*)>", q, re.I):
         if name in PREFIXES and str(PREFIXES[name]) != iri:
             return usage(args, f"PREFIX {name}: <{iri}> would shadow the injected prefix {name}: <{PREFIXES[name]}>; drop it or use a different name")
+    if not args.record:
+        ref = record_reference(g, q)
+        if ref:
+            return refuse(args, f"the query names the record ({ref}), which is not loaded; add --record to load track/measles-run.ttl (the run: namespace and the record's item kinds)")
     injected_lines = injected_chars = 0
     if "PREFIX" not in q.upper():
         injected_lines, injected_chars = SPARQL_PREFIXES.count("\n"), len(SPARQL_PREFIXES)
@@ -606,8 +756,6 @@ def sparql(args, g, argstr: str) -> int:
         if start is None:
             return seq
         return seq[start:] if length is None else seq[start:start + int(length)]
-    digest = hashlib.sha256(args.query.encode()).hexdigest()[:12]
-    header = f"{argstr} #sha256:{digest}"
     res = g.query(pq)
     labels = {}
 
@@ -660,7 +808,7 @@ def doctor(args) -> int:
         checks.append(dict(state=state, what=what))
         if bad:
             ok = False
-    for f in SOURCE_FILES + [MODEL_FILE]:
+    for f in DOCTOR_FILES:
         p = root / f
         if not p.exists():
             add("MISSING", f, True)
@@ -676,9 +824,10 @@ def doctor(args) -> int:
     add("ok" if len(coined) == 4 else "BAD", f"coinage is exactly four ({', '.join(sorted(coined))})", len(coined) != 4)
     noq = [api.one(g, t, SKOS.prefLabel) for t in api.concepts(g) if api.one(g, t, OGC["class"]) in ("adopted", "refined") and not api.one(g, g.value(t, OGC.canonical), OGC.quote)]
     add("ok" if not noq else "BAD", "every adopted or refined term carries a verbatim canonical quote" + (": missing on " + ", ".join(noq) if noq else ""), bool(noq))
-    pending = [r for r in api.verify_all(g, root) if r["state"] == "pending"]
+    located = api.verify_all(g, root)
+    pending = [r for r in located if r["state"] == "pending"]
     add("ok" if not pending else "note", f"pending quotes: {len(pending)}" + (" (" + "; ".join(f"{r['holder']} {r['locator']}" for r in pending) + ")" if pending else ""))
-    missing = [r for r in api.verify_all(g, root) if r["state"] == "NOT FOUND"]
+    missing = [r for r in located if r["state"] == "NOT FOUND"]
     add("ok" if not missing else "BAD", "every machine quote is located in its snapshot or digest" + (": " + "; ".join(f"{r['holder']} {r['source']} {r['locator']} ({r['where']})" for r in missing) if missing else ""), bool(missing))
     bad = sorted(api.local(c) for c in g.subjects(RDF.type, OGC.Concern) if api.one(g, c, OGC.status) == "open" and (None, OGC.resolves, c) in g)
     add("ok" if not bad else "BAD", "no open concern has a resolving ruling" + (f": {', '.join(bad)}" if bad else ""), bool(bad))
@@ -696,9 +845,9 @@ def doctor(args) -> int:
             add("BAD", f"{{term}} roles: {e}", True)
     cache = sorted((root / ".cache").glob("ogc-graph-*.pkl")) if (root / ".cache").exists() else []
     add("cache", cache[0].name if cache else "(none)")
-    verdict = f"VERDICT: {'PASS' if ok else 'FAIL'} (ogc doctor at {root})"
+    verdict = f"VERDICT: {'PASS' if ok else 'FAIL'} (ogc doctor)"  # no path: the line is the same in every checkout
     if args.json:
-        print(json.dumps({"_ogc": stamp(args, "doctor", ""), "sha": git_sha(root), "checks": checks, "ok": ok, "verdict": verdict}, indent=2))
+        print(json.dumps({"_ogc": stamp(args, "doctor", ""), "checks": checks, "ok": ok, "verdict": verdict}, indent=2))
         return 0 if ok else 1
     print(text.head("doctor", "", git_sha(root)))
     for ch in checks:
