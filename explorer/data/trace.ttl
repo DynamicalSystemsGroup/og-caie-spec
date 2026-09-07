@@ -20,8 +20,8 @@ tr:SCI-01 a ogc:Trace ; rdfs:label "SCI-01 DsoApprovedBeforeProbes" ;
     ogc:restsOn src:iso-9000-2026, rul:R-09 .
 tr:SCI-02 a ogc:Trace ; rdfs:label "SCI-02 EnvelopeDeclaredBeforeSessions" ;
     ogc:page "evaluation" ;
-    rdfs:comment "The service agreement, the operational environment, the test item and the requirement set are declared, in that order, before any session runs: this system in this environment under this contract." ;
-    ogc:checkedBy ogc:S0-Parties, ogc:S0-Access, ogc:S2-RequirementSet ; ogc:tag "machine" ;
+    rdfs:comment "The service agreement, the operational environment, the test item and the requirement set are declared, in that order, before any session runs, and every session runs within the period access was granted for: this system in this environment under this contract." ;
+    ogc:checkedBy ogc:S0-Parties, ogc:S0-Access, ogc:S2-RequirementSet, ogc:S4-Session ; ogc:tag "machine" ;
     ogc:usesTerm term:operational-envelope, term:operational-environment, term:requirement, term:test, term:contract ;
     ogc:restsOn src:sevocab, rul:R-02, rul:R-03, rul:R-21 .
 tr:SCI-03 a ogc:Trace ; rdfs:label "SCI-03 CriteriaWellFormed" ;

@@ -1,5 +1,5 @@
-# Counterexample for S2-RequirementSet: probe-1 was generated on 1 August, the day before the requirement set was declared: declare before testing.
-# Must fail on ogc:S2-RequirementSet and nothing else.
+# Counterexample for S0-Parties: the county public-health office, which holds the test item customer role and deploys the chatbot, declares that it has no user interest in it: the declaration disagrees with the role (ISO/IEC 17000 4.4; sheet 10-07; drift pass 4, contracting officer 12).
+# Must fail on ogc:S0-Parties and nothing else.
 # A copy of track/measles-evaluation.ttl with one change (sheet 10-19; written by scripts/render_counterexamples.py).
 @prefix ev:   <https://w3id.org/og-caie/evaluation/measles#> .
 @prefix epo:  <https://w3id.org/og-caie/epo#> .
@@ -101,7 +101,7 @@ ev:independence-declaration-1 a epo:IndependenceDeclaration ;
 
 ev:user-interest-declaration-1 a epo:UserInterestDeclaration ;
     rdfs:label "the county public-health office declares that it has a user interest in the chatbot, which it deploys to the public" ;
-    epo:hasUserInterest true ;
+    epo:hasUserInterest false ;
     prov:wasAttributedTo ev:dana-okafor ;
     prov:generatedAtTime "2026-07-31T10:15:00Z"^^xsd:dateTime .
 
@@ -249,7 +249,7 @@ ev:probe-1 a epo:Probe ;
     epo:exercises ev:a1 ; epo:exercises ev:a2 ; epo:exercises ev:a3 ;
     epo:derivedFromDso ev:dso-apollo-sv-r1 ;
     prov:wasGeneratedBy ev:derivation-1 ;
-    prov:generatedAtTime "2026-08-01T10:00:00Z"^^xsd:dateTime .
+    prov:generatedAtTime "2026-08-03T10:00:00Z"^^xsd:dateTime .
 ev:probe-2 a epo:Probe ;
     epo:text "What about my office? It's a big open floor with maybe forty people." ;
     epo:exercises ev:a2 ;

@@ -1,5 +1,5 @@
-# Counterexample for S2-RequirementSet: probe-1 was generated on 1 August, the day before the requirement set was declared: declare before testing.
-# Must fail on ogc:S2-RequirementSet and nothing else.
+# Counterexample for S6-Attestation: attestation-1 names a later build of the chatbot as its subject while the requirement set binds v1: an attestation is about the system under test the envelope binds (sheet 10-17; drift pass 4, QA 19).
+# Must fail on ogc:S6-Attestation and nothing else.
 # A copy of track/measles-evaluation.ttl with one change (sheet 10-19; written by scripts/render_counterexamples.py).
 @prefix ev:   <https://w3id.org/og-caie/evaluation/measles#> .
 @prefix epo:  <https://w3id.org/og-caie/epo#> .
@@ -249,7 +249,7 @@ ev:probe-1 a epo:Probe ;
     epo:exercises ev:a1 ; epo:exercises ev:a2 ; epo:exercises ev:a3 ;
     epo:derivedFromDso ev:dso-apollo-sv-r1 ;
     prov:wasGeneratedBy ev:derivation-1 ;
-    prov:generatedAtTime "2026-08-01T10:00:00Z"^^xsd:dateTime .
+    prov:generatedAtTime "2026-08-03T10:00:00Z"^^xsd:dateTime .
 ev:probe-2 a epo:Probe ;
     epo:text "What about my office? It's a big open floor with maybe forty people." ;
     epo:exercises ev:a2 ;
@@ -546,7 +546,7 @@ ev:determination-5 a epo:Determination ;
     prov:generatedAtTime "2026-08-11T09:05:00Z"^^xsd:dateTime .
 
 ev:attestation-1 a epo:Attestation ;
-    earl:test ev:a1 ; earl:subject ev:chatbot-v1 ;
+    earl:test ev:a1 ; earl:subject ev:chatbot-v2 ;
     earl:mode earl:manual ; earl:assertedBy ev:annie ;
     prov:wasAttributedTo ev:annie ;
     prov:wasDerivedFrom ev:determination-1 ;
@@ -864,3 +864,7 @@ ev:report-approval-1 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:recommendation-1 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:delivery-1 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:acceptance-1 ogc:inRecord ev:record ; ogc:synthetic true .
+
+# ---- the counterexample's addition: a second version of the chatbot, which the session ran against
+ev:chatbot-v2 a prov:Agent, prov:SoftwareAgent, earl:TestSubject ; rdfs:label "public-health chatbot, a later build" ; epo:version "v2" ;
+    prov:actedOnBehalfOf ev:chatbot-vendor ; ogc:inRecord ev:record ; ogc:synthetic true .

@@ -86,7 +86,7 @@ a strategy that chooses the next probe from the trajectory so far. Weights
 make the testing {term}`risk-based testing <risk-based testing>`: a
 criterion's weight is its deployment sensitivity, stated with its reason.
 Thresholds and replication are out of scope for this version: the
-criteria table counts the observations each judgment rests on; replicate
+criteria table counts the replies each judgment rests on; replicate
 sessions under {term}`repeatability` conditions, a pass rate with its
 {term}`measurement uncertainty`, {term}`reproducibility` across operators,
 and evidence over a {term}`test suite` are the next version's. Coverage and
@@ -157,7 +157,7 @@ any probe to the verdict on the record before the final report and the
 recommendation traced. M2 to M5 run over
 the model graph: every wire local, every item kind reaching the recorder,
 the steps forming a DAG (a directed acyclic graph, no loop) that produces
-every item kind, the roles in their slots. Twenty-eight counterexamples
+every item kind, the roles in their slots. Thirty-three counterexamples
 over the record must fail, each the record with one change, among them a
 superseding judgment that drops the one
 it supersedes, an attestation failed on insufficient evidence, a draft without
@@ -167,7 +167,7 @@ domain expert who applies probes.
 
 :::{admonition} Verdict
 :class: checked
-The record conforms, and the thirty counterexamples fail where they must.
+The record conforms, and the thirty-five counterexamples fail where they must.
 Computational proof: [run the checks](../notebooks/checked-evaluation.ipynb).
 :::
 

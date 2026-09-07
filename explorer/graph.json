@@ -6245,6 +6245,12 @@
    "in": [],
    "out": [
     [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/access-without-period.ttl"
+     }
+    ],
+    [
      "rdf:type",
      {
       "text": "sh:NodeShape"
@@ -6304,6 +6310,18 @@
    "in": [],
    "out": [
     [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/expert-administers-tests.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/operator-determines-alone.ttl"
+     }
+    ],
+    [
      "rdf:type",
      {
       "text": "sh:NodeShape"
@@ -6339,6 +6357,12 @@
    "in": [],
    "out": [
     [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/requirements-before-agreement.ttl"
+     }
+    ],
+    [
      "rdf:type",
      {
       "text": "sh:NodeShape"
@@ -6361,6 +6385,18 @@
   "https://w3id.org/og-caie/S0-Member": {
    "in": [],
    "out": [
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/item-outside-record.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/member-untagged.ttl"
+     }
+    ],
     [
      "rdf:type",
      {
@@ -6461,6 +6497,30 @@
    "in": [],
    "out": [
     [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/independence-undeclared.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/provider-fact-contradicted.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/requirements-before-agreement.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/user-interest-denied.ttl"
+     }
+    ],
+    [
      "rdf:type",
      {
       "text": "sh:NodeShape"
@@ -6527,6 +6587,12 @@
      }
     ],
     [
+     "sh:sparql",
+     {
+      "text": "[sh:message S0: the user-interest declaration agree…; sh:select PREFIX epo: <https://w3id.org/og-caie/e…]"
+     }
+    ],
+    [
      "sh:targetClass",
      {
       "ref": "https://w3id.org/og-caie/epo#ServiceAgreement"
@@ -6537,6 +6603,18 @@
   "https://w3id.org/og-caie/S0-Population": {
    "in": [],
    "out": [
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/engagement-mismatch.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/population-unrepresented.ttl"
+     }
+    ],
     [
      "rdf:type",
      {
@@ -6596,6 +6674,12 @@
    "in": [],
    "out": [
     [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/record-without-level.ttl"
+     }
+    ],
+    [
      "rdf:type",
      {
       "text": "sh:NodeShape"
@@ -6631,6 +6715,12 @@
    "in": [],
    "out": [
     [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/one-person-team.ttl"
+     }
+    ],
+    [
      "rdf:type",
      {
       "text": "sh:NodeShape"
@@ -6653,6 +6743,12 @@
   "https://w3id.org/og-caie/S0-StatementOfWork": {
    "in": [],
    "out": [
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/statement-of-work-after-agreement.ttl"
+     }
+    ],
     [
      "rdf:type",
      {
@@ -6701,6 +6797,18 @@
    "in": [],
    "out": [
     [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/dso-approval-undated.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/dso-before-stakeholder-input.ttl"
+     }
+    ],
+    [
      "rdf:type",
      {
       "text": "sh:NodeShape"
@@ -6710,6 +6818,12 @@
      "sh:property",
      {
       "text": "[sh:class http://www.w3.org/ns/prov#Person; sh:message A DSO release is approved by a named pe…; sh:minCount 1; sh:path https://w3id.org/og-caie/epo#approvedBy]"
+     }
+    ],
+    [
+     "sh:property",
+     {
+      "text": "[sh:datatype http://www.w3.org/2001/XMLSchema#dateTi…; sh:maxCount 1; sh:message A DSO release's approval is dated (drif…; sh:minCount 1; sh:path https://w3id.org/og-caie/epo#approvedAt]"
      }
     ],
     [
@@ -6842,6 +6956,24 @@
    "in": [],
    "out": [
     [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/assessment-after-session.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/probe-before-requirements.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/requirement-set-unapproved.ttl"
+     }
+    ],
+    [
      "rdf:type",
      {
       "text": "sh:NodeShape"
@@ -6880,6 +7012,12 @@
     [
      "sh:sparql",
      {
+      "text": "[sh:message S2 order (drift pass 4, QA 9): the appr…; sh:select PREFIX epo: <https://w3id.org/og-caie/e…]"
+     }
+    ],
+    [
+     "sh:sparql",
+     {
       "text": "[sh:message S2: a domain expert has assessed the re…; sh:select PREFIX epo: <https://w3id.org/og-caie/e…]"
      }
     ],
@@ -6912,6 +7050,12 @@
   "https://w3id.org/og-caie/S3-PlanApproval": {
    "in": [],
    "out": [
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/plan-approved-after-session.ttl"
+     }
+    ],
     [
      "rdf:type",
      {
@@ -6953,6 +7097,12 @@
   "https://w3id.org/og-caie/S3-PlanDeviation": {
    "in": [],
    "out": [
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/deviation-by-expert.ttl"
+     }
+    ],
     [
      "rdf:type",
      {
@@ -7000,6 +7150,12 @@
   "https://w3id.org/og-caie/S3-Probe": {
    "in": [],
    "out": [
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/consistency-check-after-turn.ttl"
+     }
+    ],
     [
      "rdf:type",
      {
@@ -7089,6 +7245,12 @@
    "in": [],
    "out": [
     [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/deviation-unrecorded.ttl"
+     }
+    ],
+    [
      "rdf:type",
      {
       "text": "sh:NodeShape"
@@ -7148,6 +7310,24 @@
    "in": [],
    "out": [
     [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/expert-administers-tests.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/session-on-another-item.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/session-outside-access-period.ttl"
+     }
+    ],
+    [
      "rdf:type",
      {
       "text": "sh:NodeShape"
@@ -7157,6 +7337,12 @@
      "sh:property",
      {
       "text": "[sh:datatype http://www.w3.org/2001/XMLSchema#dateTi…; sh:maxCount 1; sh:minCount 1; sh:path http://www.w3.org/ns/prov#startedAtTime]"
+     }
+    ],
+    [
+     "sh:sparql",
+     {
+      "text": "[sh:message S4 access period (sheet 10-04; drift pa…; sh:select PREFIX epo: <https://w3id.org/og-caie/e…]"
      }
     ],
     [
@@ -7324,6 +7510,18 @@
    "in": [],
    "out": [
     [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/response-from-another-build.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/session-on-another-item.ttl"
+     }
+    ],
+    [
      "rdf:type",
      {
       "text": "sh:NodeShape"
@@ -7348,6 +7546,12 @@
      }
     ],
     [
+     "sh:sparql",
+     {
+      "text": "[sh:message S5 (drift pass 4, QA 10): the software…; sh:select PREFIX epo: <https://w3id.org/og-caie/e…]"
+     }
+    ],
+    [
      "sh:targetClass",
      {
       "ref": "https://w3id.org/og-caie/epo#Response"
@@ -7359,9 +7563,63 @@
    "in": [],
    "out": [
     [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/attestation-before-determination.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/attestation-off-plan.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/attestation-off-turn.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/attestation-on-another-item.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/attestation-without-evidence.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/cherry-picked-determination.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/executive-attests.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/insufficient-yet-failed.ttl"
+     }
+    ],
+    [
      "rdf:type",
      {
       "text": "sh:NodeShape"
+     }
+    ],
+    [
+     "sh:property",
+     {
+      "text": "[sh:class http://www.w3.org/ns/earl#TestSubject; sh:maxCount 1; sh:message An attestation names the one test item…; sh:minCount 1; sh:path http://www.w3.org/ns/earl#subject]"
      }
     ],
     [
@@ -7404,6 +7662,12 @@
      "sh:property",
      {
       "text": "[sh:maxCount 1; sh:minCount 1]"
+     }
+    ],
+    [
+     "sh:sparql",
+     {
+      "text": "[sh:message S6 binding (sheet 10-17; drift pass 4,…; sh:select PREFIX epo: <https://w3id.org/og-caie/e…]"
      }
     ],
     [
@@ -7531,6 +7795,12 @@
    "in": [],
    "out": [
     [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/verdict-without-digests.ttl"
+     }
+    ],
+    [
      "rdf:type",
      {
       "text": "sh:NodeShape"
@@ -7590,6 +7860,12 @@
    "in": [],
    "out": [
     [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/coverage-without-digests.ttl"
+     }
+    ],
+    [
      "rdf:type",
      {
       "text": "sh:NodeShape"
@@ -7642,6 +7918,42 @@
   "https://w3id.org/og-caie/S7-Report": {
    "in": [],
    "out": [
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/deviation-unrecorded.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/draft-rates-from-later.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/draft-without-gaps.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/final-report-without-verdict.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/report-coverage-misstated.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/report-rates-padded.ttl"
+     }
+    ],
     [
      "rdf:type",
      {
@@ -7732,6 +8044,12 @@
    "in": [],
    "out": [
     [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/draft-approved.ttl"
+     }
+    ],
+    [
      "rdf:type",
      {
       "text": "sh:NodeShape"
@@ -7772,6 +8090,12 @@
   "https://w3id.org/og-caie/S8-Delivery": {
    "in": [],
    "out": [
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/delivery-before-approval.ttl"
+     }
+    ],
     [
      "rdf:type",
      {
@@ -7825,6 +8149,30 @@
   "https://w3id.org/og-caie/S8-Recommendation": {
    "in": [],
    "out": [
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/attestation-without-evidence.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/fit-despite-failure.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/recommendation-unapproved.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/recommendation-untraced.ttl"
+     }
+    ],
     [
      "rdf:type",
      {
@@ -7914,6 +8262,24 @@
   "https://w3id.org/og-caie/S9-Acceptance": {
    "in": [],
    "out": [
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/acceptance-by-organization.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/draft-approved.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/final-report-without-verdict.ttl"
+     }
+    ],
     [
      "rdf:type",
      {
@@ -9475,6 +9841,12 @@
   },
   "https://w3id.org/og-caie/epo#DsoRelease": {
    "in": [
+    [
+     "rdfs:domain",
+     {
+      "text": "epo:approvedAt"
+     }
+    ],
     [
      "rdfs:domain",
      {
@@ -13818,19 +14190,19 @@
     [
      "epo:ontologyDigest",
      {
-      "text": "c0141c1cc9668a0240e632b11338ec858ddd5ff5428c65d63def1d6490df5b0f"
+      "text": "c39d39f2ae5fd9c58381ad9a27ed37ddcc7074dd9de9001714a0b4acacd3935f"
      }
     ],
     [
      "epo:recordDigest",
      {
-      "text": "5f7e3bcee62973ea4aecba6053749ec70a356403c0ab52f0d1d967452452adbe"
+      "text": "0bf3f265466f70b4a9dbe4896595f73c3172ae337e3ba639fb015474ea63cc2f"
      }
     ],
     [
      "epo:shapesDigest",
      {
-      "text": "b73720e05518c1e01800bc4f9047d6022f3d8330641240a811b1effa25cd36c5"
+      "text": "3528a5c3e7cafd6a12327426711ae3c8aa35c96dd34d014879212fea6670215a"
      }
     ],
     [
@@ -14859,7 +15231,7 @@
     [
      "epo:ontologyDigest",
      {
-      "text": "c0141c1cc9668a0240e632b11338ec858ddd5ff5428c65d63def1d6490df5b0f"
+      "text": "c39d39f2ae5fd9c58381ad9a27ed37ddcc7074dd9de9001714a0b4acacd3935f"
      }
     ],
     [
@@ -14871,7 +15243,7 @@
     [
      "epo:shapesDigest",
      {
-      "text": "b73720e05518c1e01800bc4f9047d6022f3d8330641240a811b1effa25cd36c5"
+      "text": "3528a5c3e7cafd6a12327426711ae3c8aa35c96dd34d014879212fea6670215a"
      }
     ],
     [
@@ -14972,7 +15344,7 @@
     [
      "epo:ontologyDigest",
      {
-      "text": "c0141c1cc9668a0240e632b11338ec858ddd5ff5428c65d63def1d6490df5b0f"
+      "text": "c39d39f2ae5fd9c58381ad9a27ed37ddcc7074dd9de9001714a0b4acacd3935f"
      }
     ],
     [
@@ -14984,7 +15356,7 @@
     [
      "epo:shapesDigest",
      {
-      "text": "b73720e05518c1e01800bc4f9047d6022f3d8330641240a811b1effa25cd36c5"
+      "text": "3528a5c3e7cafd6a12327426711ae3c8aa35c96dd34d014879212fea6670215a"
      }
     ],
     [
@@ -15804,6 +16176,12 @@
   "https://w3id.org/og-caie/evaluation/measles#dso-apollo-sv-r1": {
    "in": [],
    "out": [
+    [
+     "epo:approvedAt",
+     {
+      "text": "2026-08-01T09:30:00+00:00 (dateTime)"
+     }
+    ],
     [
      "epo:approvedBy",
      {
@@ -28677,7 +29055,7 @@
     [
      "ogc:kind",
      {
-      "text": "web"
+      "text": "book"
      }
     ],
     [
@@ -36662,6 +37040,12 @@
      }
     ],
     [
+     "ogc:checkedBy",
+     {
+      "ref": "https://w3id.org/og-caie/S4-Session"
+     }
+    ],
+    [
      "ogc:page",
      {
       "text": "evaluation"
@@ -36736,7 +37120,7 @@
     [
      "rdfs:comment",
      {
-      "text": "The service agreement, the operational environment, the test item and the requirement set are declared, in that order, before any session runs: this system in this environment under this contract."
+      "text": "The service agreement, the operational environment, the test item and the requirement set are declared, in that order, before any session runs, and every session runs within the period access was granted for: this system in this environment under this contract."
      }
     ],
     [
@@ -61706,6 +62090,11 @@
    "target": "https://w3id.org/og-caie/S2-RequirementSet"
   },
   {
+   "rel": "checkedBy",
+   "source": "https://w3id.org/og-caie/trace#SCI-02",
+   "target": "https://w3id.org/og-caie/S4-Session"
+  },
+  {
    "rel": "restsOn",
    "source": "https://w3id.org/og-caie/trace#SCI-02",
    "target": "https://w3id.org/og-caie/rulings#R-02"
@@ -66271,7 +66660,7 @@
   },
   {
    "cls": "shape",
-   "desc": "Targets epo:ServiceAgreement. S0: exactly one organization of the record holds each of the sponsor (evaluation customer), testing (evaluation service provider) and test item provider roles (R-21). S0: the agreement is an item of the agree step: its class realizes an item kind the model's agree step produces (the step is derived through the model graph, sheet 10-33). S0: the agreement is signed by the authorized representative, a named person acting on behalf of the testing organization, the evaluation service provider (R-23; sheet 09). S0: the agreement is signed by the sponsor's signatory, a named person acting on behalf of the sponsor organization, the evaluation customer (sheet 10-06). S0: the agreement precedes the requirement set: requirements are agreed under the contract, not before it (R-21). S0: the provider fact agrees with the roles (sheet 10-09): the organization that says it provides the test item holds the test item provider's role and the one that holds the role says so; a sponsor that says it does not provide it does not hold the role. S0: the sponsor's user interest is declared, not assumed (sheet 10-07): a user-interest declaration in the record, attributed to the sponsor's signatory and dated, says true or false. S0: the testing organization's independence is declared, not assumed (sheet 10-07): an independence declaration in the record, attributed to the authorized representative and dated, names the test item provider it is independent of; a testing organization that holds the test item provider's role declares no such independence. The agreement accepts the proposal (sheet 10-05).",
+   "desc": "Targets epo:ServiceAgreement. S0: exactly one organization of the record holds each of the sponsor (evaluation customer), testing (evaluation service provider) and test item provider roles (R-21). S0: the agreement is an item of the agree step: its class realizes an item kind the model's agree step produces (the step is derived through the model graph, sheet 10-33). S0: the agreement is signed by the authorized representative, a named person acting on behalf of the testing organization, the evaluation service provider (R-23; sheet 09). S0: the agreement is signed by the sponsor's signatory, a named person acting on behalf of the sponsor organization, the evaluation customer (sheet 10-06). S0: the agreement precedes the requirement set: requirements are agreed under the contract, not before it (R-21). S0: the provider fact agrees with the roles (sheet 10-09): the organization that says it provides the test item holds the test item provider's role and the one that holds the role says so; a sponsor that says it does not provide it does not hold the role. S0: the sponsor's user interest is declared, not assumed (sheet 10-07): a user-interest declaration in the record, attributed to the sponsor's signatory and dated, says true or false. S0: the testing organization's independence is declared, not assumed (sheet 10-07): an independence declaration in the record, attributed to the authorized representative and dated, names the test item provider it is independent of; a testing organization that holds the test item provider's role declares no such independence. S0: the user-interest declaration agrees with the roles (sheet 10-07; drift pass 4, contracting officer 12): a sponsor that holds the test item customer role, receiving the test item it commissions the evaluation of, declares a user interest, not its absence (ISO/IEC 17000 4.4). The agreement accepts the proposal (sheet 10-05).",
    "id": "https://w3id.org/og-caie/S0-Parties",
    "label": "S0-Parties",
    "ogc": "ogc sparql \"DESCRIBE ogc:S0-Parties\"",
@@ -66319,7 +66708,7 @@
   },
   {
    "cls": "shape",
-   "desc": "Targets epo:DsoRelease. S1 precondition (sheet 08, R-49): every affected population's representation is available before the DSO release is approved: the population's stakeholder representation was generated before the release's approval time (a population with no representation at all is S0's finding). S1: a probe derived from this DSO release was generated before the release was approved. S1: the DSO release is approved by a domain expert (R-21, R-23). A DSO release is approved by a named person.",
+   "desc": "Targets epo:DsoRelease. S1 precondition (sheet 08, R-49): every affected population's representation is available before the DSO release is approved: the population's stakeholder representation was generated before the release's approval time, epo:approvedAt (a population with no representation at all is S0's finding). S1: a probe derived from this DSO release was generated before the release was approved (epo:approvedAt). S1: the DSO release is approved by a domain expert (R-21, R-23). A DSO release is approved by a named person. A DSO release's approval is dated (drift pass 4, QA 9): epo:approvedAt is the time the rules on the release order against, not the time the release was generated.",
    "id": "https://w3id.org/og-caie/S1-DsoRelease",
    "label": "S1-DsoRelease",
    "ogc": "ogc sparql \"DESCRIBE ogc:S1-DsoRelease\"",
@@ -66343,7 +66732,7 @@
   },
   {
    "cls": "shape",
-   "desc": "Targets epo:RequirementSet. S2: a domain expert has assessed the requirement set as appropriate for the populations and the environment (R-08, R-21). S2: a probe run started, or a probe was generated, before the requirement set was declared. S2: the sponsor approves the requirement set (sheet 10-01): an approval attributed to the sponsor's signatory, dated after the set was declared and before any session of the record started. S2: the system under test the envelope binds is the one an access grant of the record names (sheet 10-17). The envelope names the one system under test it binds (R-14): this system, in this environment, must meet these requirements. The operational environment is stated. The requirement set is agreed under the service agreement (R-21).",
+   "desc": "Targets epo:RequirementSet. S2 order (drift pass 4, QA 9): the appropriateness assessment of the requirement set is dated before any session of the record started; the envelope is judged appropriate before it is tested, as the plan is approved before its probes are used (S3). S2: a domain expert has assessed the requirement set as appropriate for the populations and the environment (R-08, R-21). S2: a probe run started, or a probe was generated, before the requirement set was declared. S2: the sponsor approves the requirement set (sheet 10-01): an approval attributed to the sponsor's signatory, dated after the set was declared and before any session of the record started. S2: the system under test the envelope binds is the one an access grant of the record names (sheet 10-17). The envelope names the one system under test it binds (R-14): this system, in this environment, must meet these requirements. The operational environment is stated. The requirement set is agreed under the service agreement (R-21).",
    "id": "https://w3id.org/og-caie/S2-RequirementSet",
    "label": "S2-RequirementSet",
    "ogc": "ogc sparql \"DESCRIBE ogc:S2-RequirementSet\"",
@@ -66391,7 +66780,7 @@
   },
   {
    "cls": "shape",
-   "desc": "Targets epo:Session. S4 binding (sheet 10-17): the session's software agent is the system under test the record's requirement set binds, and every determination on evidence from this session names that agent as its subject. S4: a session has at least one turn. S4: a session must be associated with a named person in the evaluation operator role; administering tests is the operator's activity, not the domain expert's (R-10, R-23). S4: a session must be associated with a versioned software agent (the system under test).",
+   "desc": "Targets epo:Session. S4 access period (sheet 10-04; drift pass 4, contracting officer 4): a session runs within the period the record's access grant states for the session's test item: it starts no earlier than epo:accessFrom, and neither starts nor ends after epo:accessUntil. The period the contract fixed binds the sessions. S4 binding (sheet 10-17): the session's software agent is the system under test the record's requirement set binds, and every determination on evidence from this session names that agent as its subject. S4: a session has at least one turn. S4: a session must be associated with a named person in the evaluation operator role; administering tests is the operator's activity, not the domain expert's (R-10, R-23). S4: a session must be associated with a versioned software agent (the system under test).",
    "id": "https://w3id.org/og-caie/S4-Session",
    "label": "S4-Session",
    "ogc": "ogc sparql \"DESCRIBE ogc:S4-Session\"",
@@ -66423,7 +66812,7 @@
   },
   {
    "cls": "shape",
-   "desc": "Targets epo:Response. A response is generated by exactly one turn; a response from nowhere is not a record.",
+   "desc": "Targets epo:Response. S5 (drift pass 4, QA 10): the software agent a response is attributed to is the one its session ran against, the agent the session is associated with, reached through the turn that generated the response; a response from another build is not evidence about this test item. A response is generated by exactly one turn; a response from nowhere is not a record.",
    "id": "https://w3id.org/og-caie/S5-Response",
    "label": "S5-Response",
    "ogc": "ogc sparql \"DESCRIBE ogc:S5-Response\"",
@@ -66431,7 +66820,7 @@
   },
   {
    "cls": "shape",
-   "desc": "Targets epo:Attestation. S6 chain rule (R-12, R-18, R-20): every determination an attestation aggregates tests the attested criterion, and every evidence item it rules on bears on that criterion under a plan that has it as an objective. S6 closure rule: an attestation with outcome passed or failed must aggregate at least one determination that rules on evidence; with none it can only say cantTell. S6 judgment rules (sheet 10-12): passed or failed requires sufficient evidence; insufficient evidence implies cannot tell; an inappropriate context allows only cannot tell or inapplicable. S6 no cherry-picking (sheet 10-14): an attestation uses every determination of the record on its criterion dated no later than it, or names the determination it left out with epo:excludes and gives its epo:reason. S6 order (sheet 10-19): an attestation is dated no earlier than every determination it aggregates. S6: an attestation is an item of the determine-and-attest step (the step is derived through the model graph, sheet 10-33). S6: the attesting person holds the domain expert role; the operator collects and determines, the authorized representative signs and delivers, only the domain expert attests (R-21, R-23). An attestation is made by one named person. Appropriateness of the declared context is judged (R-08).",
+   "desc": "Targets epo:Attestation. S6 binding (sheet 10-17; drift pass 4, QA 19): the subject of an attestation is the system under test the record's requirement set binds; an attestation on another item says nothing about this evaluation, as S4 already asks of every determination. S6 chain rule (R-12, R-18, R-20): every determination an attestation aggregates tests the attested criterion, and every evidence item it rules on bears on that criterion under a plan that has it as an objective. S6 closure rule: an attestation with outcome passed or failed must aggregate at least one determination that rules on evidence; with none it can only say cantTell. S6 judgment rules (sheet 10-12): passed or failed requires sufficient evidence; insufficient evidence implies cannot tell; an inappropriate context allows only cannot tell or inapplicable. S6 no cherry-picking (sheet 10-14): an attestation uses every determination of the record on its criterion dated no later than it, or names the determination it left out with epo:excludes and gives its epo:reason. S6 order (sheet 10-19): an attestation is dated no earlier than every determination it aggregates. S6: an attestation is an item of the determine-and-attest step (the step is derived through the model graph, sheet 10-33). S6: the attesting person holds the domain expert role; the operator collects and determines, the authorized representative signs and delivers, only the domain expert attests (R-21, R-23). An attestation is made by one named person. An attestation names the one test item it is about (drift pass 4, QA 19). Appropriateness of the declared context is judged (R-08).",
    "id": "https://w3id.org/og-caie/S6-Attestation",
    "label": "S6-Attestation",
    "ogc": "ogc sparql \"DESCRIBE ogc:S6-Attestation\"",
@@ -70422,7 +70811,7 @@
   },
   {
    "cls": "sci",
-   "desc": "EnvelopeDeclaredBeforeSessions: The service agreement, the operational environment, the test item and the requirement set are declared, in that order, before any session runs: this system in this environment under this contract. [machine]",
+   "desc": "EnvelopeDeclaredBeforeSessions: The service agreement, the operational environment, the test item and the requirement set are declared, in that order, before any session runs, and every session runs within the period access was granted for: this system in this environment under this contract. [machine]",
    "id": "https://w3id.org/og-caie/trace#SCI-02",
    "label": "SCI-02",
    "ogc": "ogc sci SCI-02",

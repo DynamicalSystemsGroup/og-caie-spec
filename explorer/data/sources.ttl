@@ -181,7 +181,7 @@ src:scipy-2026-bof a prov:Entity, ogc:Source ;
 
 src:popper-1959 a prov:Entity, ogc:Source ;
     rdfs:label "Popper, The Logic of Scientific Discovery, London: Hutchinson, 1959" ;
-    ogc:rank 7 ; ogc:bibkey "popper-1959" ; ogc:kind "web" ; ogc:posture "citeOnly" ;
+    ogc:rank 7 ; ogc:bibkey "popper-1959" ; ogc:kind "book" ; ogc:posture "citeOnly" ;
     ogc:digest "sources/digests/popper-1959.md" ;
     ogc:licenceNote "cited as the canonical source named as the source of the definitions presented at the SciPy 2026 session; not quoted directly" .
 

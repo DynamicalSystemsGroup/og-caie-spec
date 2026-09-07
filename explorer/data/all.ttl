@@ -168,7 +168,7 @@ ogc:SourceShape a sh:NodeShape ;
             sh:minCount 1 ;
             sh:minInclusive 1 ;
             sh:path ogc:rank ],
-        [ sh:in ( "pdf" "html" "web" "git" "event" ) ;
+        [ sh:in ( "pdf" "html" "web" "git" "event" "book" ) ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
             sh:path ogc:kind ],
@@ -263,6 +263,12 @@ ogc:concernsTerm a owl:ObjectProperty ;
 ogc:contentHash a owl:DatatypeProperty ;
     rdfs:label "contentHash" ;
     rdfs:comment "the sha256 of a snapshot file" ;
+    rdfs:range xsd:string .
+
+ogc:counterexample a owl:DatatypeProperty ;
+    rdfs:label "counterexample" ;
+    rdfs:comment "on a record shape, the path of a file under counterexamples/ that must fail on it: the record with one change, written by scripts/render_counterexamples.py from its table and pinned by tests/test_shacl.py, which keeps the annotations equal to the table (sheet 10-40; drift pass 4); the twin scripts/drift_check.py reads, so that the counterexamples answer by query" ;
+    rdfs:domain sh:NodeShape ;
     rdfs:range xsd:string .
 
 ogc:crosswalk a owl:Ontology ;
@@ -1245,10 +1251,11 @@ tr:SCI-01 a ogc:Trace ;
 
 tr:SCI-02 a ogc:Trace ;
     rdfs:label "SCI-02 EnvelopeDeclaredBeforeSessions" ;
-    rdfs:comment "The service agreement, the operational environment, the test item and the requirement set are declared, in that order, before any session runs: this system in this environment under this contract." ;
+    rdfs:comment "The service agreement, the operational environment, the test item and the requirement set are declared, in that order, before any session runs, and every session runs within the period access was granted for: this system in this environment under this contract." ;
     ogc:checkedBy ogc:S0-Access,
         ogc:S0-Parties,
-        ogc:S2-RequirementSet ;
+        ogc:S2-RequirementSet,
+        ogc:S4-Session ;
     ogc:page "evaluation" ;
     ogc:restsOn rul:R-02,
         rul:R-03,
@@ -4649,7 +4656,9 @@ ogc:S0-Independence a sh:NodeShape ;
                 FILTER NOT EXISTS { ?p prov:actedOnBehalfOf ?u1 . ?q prov:actedOnBehalfOf ?u2 . FILTER(?u1 != ?u2) FILTER(?level = epo:department || EXISTS { ?u1 a prov:Organization . ?u2 a prov:Organization }) }
             }
         """ ] ;
-    sh:targetClass prov:Bundle .
+    sh:targetClass prov:Bundle ;
+    ogc:counterexample "counterexamples/expert-administers-tests.ttl",
+        "counterexamples/operator-determines-alone.ttl" .
 
 ogc:S0-Member a sh:NodeShape ;
     sh:property [ sh:datatype xsd:boolean ;
@@ -4686,7 +4695,9 @@ ogc:S0-Member a sh:NodeShape ;
                 UNION { ?this epo:version ?version }
                 UNION { ?item a ?kind . FILTER(STRSTARTS(STR(?kind), "https://w3id.org/og-caie/epo#")) ?item prov:wasAttributedTo ?this }
             }
-        """ ] .
+        """ ] ;
+    ogc:counterexample "counterexamples/item-outside-record.ttl",
+        "counterexamples/member-untagged.ttl" .
 
 ogc:S0-Mission a sh:NodeShape ;
     sh:property [ sh:class epo:Population ;
@@ -4760,7 +4771,8 @@ ogc:S0-Record a sh:NodeShape ;
             sh:maxCount 1 ;
             sh:message "The synthetic tag is a boolean (sheet 10-43)." ;
             sh:path ogc:synthetic ] ;
-    sh:targetClass prov:Bundle .
+    sh:targetClass prov:Bundle ;
+    ogc:counterexample "counterexamples/record-without-level.ttl" .
 
 ogc:S0-Roles a sh:NodeShape ;
     sh:sparql [ sh:message "S0: a person holds at most one of the person roles: domain expert, evaluation operator, authorized representative, sponsor signatory (sheet 10-13; the disjointness axioms are on the role classes and do not reach persons)." ;
@@ -4773,7 +4785,8 @@ ogc:S0-Roles a sh:NodeShape ;
                 FILTER(?value IN (epo:domainExpertRole, epo:evaluationOperatorRole, epo:authorizedRepresentativeRole, epo:sponsorSignatoryRole))
             }
         """ ] ;
-    sh:targetClass prov:Person .
+    sh:targetClass prov:Person ;
+    ogc:counterexample "counterexamples/one-person-team.ttl" .
 
 ogc:S3-PlanApproval a sh:NodeShape ;
     sh:property [ sh:class epo:TestPlan ;
@@ -4802,7 +4815,8 @@ ogc:S3-PlanApproval a sh:NodeShape ;
                 FILTER(?t0 < ?t1)
             }
         """ ] ;
-    sh:targetClass epo:PlanApproval .
+    sh:targetClass epo:PlanApproval ;
+    ogc:counterexample "counterexamples/plan-approved-after-session.ttl" .
 
 ogc:S3-PlanDeviation a sh:NodeShape ;
     sh:property [ sh:class epo:TestPlan ;
@@ -4835,7 +4849,8 @@ ogc:S3-PlanDeviation a sh:NodeShape ;
                 UNION { FILTER NOT EXISTS { $this a ?cls . ?kind ogm:realizes ?cls . ?p sysml:type ?kind ; sysml:direction "out" ; sysml:owner ?act . ?act ogm:realizes ?st . FILTER(?st IN (epo:plan, epo:report)) } }
             }
         """ ] ;
-    sh:targetClass epo:PlanDeviation .
+    sh:targetClass epo:PlanDeviation ;
+    ogc:counterexample "counterexamples/deviation-by-expert.ttl" .
 
 ogc:S3-Strategy a sh:NodeShape ;
     sh:property [ sh:datatype xsd:string ;
@@ -4891,7 +4906,20 @@ ogc:S5-Response a sh:NodeShape ;
         [ sh:class prov:SoftwareAgent ;
             sh:minCount 1 ;
             sh:path prov:wasAttributedTo ] ;
-    sh:targetClass epo:Response .
+    sh:sparql [ sh:message "S5 (drift pass 4, QA 10): the software agent a response is attributed to is the one its session ran against, the agent the session is associated with, reached through the turn that generated the response; a response from another build is not evidence about this test item." ;
+            sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX ogc: <https://w3id.org/og-caie/>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            SELECT $this ?value WHERE {
+                $this ogc:inRecord ?rec ; prov:wasAttributedTo ?value ; prov:wasGeneratedBy ?turn . ?value a prov:SoftwareAgent .
+                ?turn ogc:inRecord ?rec ; epo:inSession ?s . ?s ogc:inRecord ?rec .
+                FILTER NOT EXISTS { ?s prov:wasAssociatedWith ?value }
+            }
+        """ ] ;
+    sh:targetClass epo:Response ;
+    ogc:counterexample "counterexamples/response-from-another-build.ttl",
+        "counterexamples/session-on-another-item.ttl" .
 
 ogc:S8-Delivery a sh:NodeShape ;
     sh:property [ sh:class prov:Organization ;
@@ -4935,7 +4963,8 @@ ogc:S8-Delivery a sh:NodeShape ;
                 FILTER(?t0 > ?t1)
             }
         """ ] ;
-    sh:targetClass epo:Delivery .
+    sh:targetClass epo:Delivery ;
+    ogc:counterexample "counterexamples/delivery-before-approval.ttl" .
 
 ogc:S9-Acceptance a sh:NodeShape ;
     sh:property [ sh:class epo:Delivery ;
@@ -4970,7 +4999,10 @@ ogc:S9-Acceptance a sh:NodeShape ;
                 }
             }
         """ ] ;
-    sh:targetClass epo:Acceptance .
+    sh:targetClass epo:Acceptance ;
+    ogc:counterexample "counterexamples/acceptance-by-organization.ttl",
+        "counterexamples/draft-approved.ttl",
+        "counterexamples/final-report-without-verdict.ttl" .
 
 ogc:binding a owl:DatatypeProperty ;
     rdfs:label "binding" ;
@@ -5118,6 +5150,12 @@ epo:appropriateness a owl:ObjectProperty ;
     rdfs:label "appropriateness" ;
     rdfs:comment "on an attestation (the declared context) or an appropriateness assessment (the requirement set)" ;
     rdfs:range epo:AppropriatenessValue .
+
+epo:approvedAt a owl:DatatypeProperty ;
+    rdfs:label "approved at" ;
+    rdfs:comment "when the domain expert approved the DSO release (drift pass 4, QA 9): the time S1 orders against, the populations' representations before it and the probes after it; apart from prov:generatedAtTime, when the release was generated; required by S1-DsoRelease" ;
+    rdfs:domain epo:DsoRelease ;
+    rdfs:range xsd:dateTime .
 
 epo:approvedBy a owl:ObjectProperty ;
     rdfs:label "approved by" ;
@@ -5555,9 +5593,9 @@ ev:coverage-computation a epo:CoverageComputation ;
         ev:conformance-verdict-1,
         ev:requirement-set ;
     prov:wasAssociatedWith ev:report-assembler ;
-    epo:ontologyDigest "c0141c1cc9668a0240e632b11338ec858ddd5ff5428c65d63def1d6490df5b0f" ;
+    epo:ontologyDigest "c39d39f2ae5fd9c58381ad9a27ed37ddcc7074dd9de9001714a0b4acacd3935f" ;
     epo:queryDigest "ecc9688b862ffd77beae1e94d4cba1ae07701ca7521f2cff63b908da90eb9bb3" ;
-    epo:shapesDigest "b73720e05518c1e01800bc4f9047d6022f3d8330641240a811b1effa25cd36c5" ;
+    epo:shapesDigest "3528a5c3e7cafd6a12327426711ae3c8aa35c96dd34d014879212fea6670215a" ;
     ogc:inRecord ev:record ;
     ogc:synthetic true .
 
@@ -5571,9 +5609,9 @@ ev:coverage-computation-draft a epo:CoverageComputation ;
         ev:attestation-5,
         ev:requirement-set ;
     prov:wasAssociatedWith ev:report-assembler ;
-    epo:ontologyDigest "c0141c1cc9668a0240e632b11338ec858ddd5ff5428c65d63def1d6490df5b0f" ;
+    epo:ontologyDigest "c39d39f2ae5fd9c58381ad9a27ed37ddcc7074dd9de9001714a0b4acacd3935f" ;
     epo:queryDigest "ecc9688b862ffd77beae1e94d4cba1ae07701ca7521f2cff63b908da90eb9bb3" ;
-    epo:shapesDigest "b73720e05518c1e01800bc4f9047d6022f3d8330641240a811b1effa25cd36c5" ;
+    epo:shapesDigest "3528a5c3e7cafd6a12327426711ae3c8aa35c96dd34d014879212fea6670215a" ;
     ogc:inRecord ev:record ;
     ogc:synthetic true .
 
@@ -9870,7 +9908,8 @@ ogc:S0-Access a sh:NodeShape ;
                 UNION { $this epo:accessFrom ?f ; epo:accessUntil ?u . FILTER(?u <= ?f) }
             }
         """ ] ;
-    sh:targetClass epo:TestItemAccess .
+    sh:targetClass epo:TestItemAccess ;
+    ogc:counterexample "counterexamples/access-without-period.ttl" .
 
 ogc:S0-Layers a sh:NodeShape ;
     sh:sparql [ sh:message "S0 two layers (R-32): every item of the record pinned at the contract is generated no later than the requirement set, and every item pinned within the evaluation no earlier than the agreement." ;
@@ -9885,7 +9924,8 @@ ogc:S0-Layers a sh:NodeShape ;
                      || (?layer = epo:evaluation && ?t < ?ta) )
             }
         """ ] ;
-    sh:targetClass epo:ServiceAgreement .
+    sh:targetClass epo:ServiceAgreement ;
+    ogc:counterexample "counterexamples/requirements-before-agreement.ttl" .
 
 ogc:S0-Population a sh:NodeShape ;
     sh:sparql [ sh:message "S0: every affected population is spoken for: a stakeholder representation attributed to the person who speaks for it (epo:representedBy); where the statement of work decided an interview, a stakeholder input attributed to the population exists, the representation derives from it, and the population names who engaged it (epo:responsibleParty, its own property, no longer implied by epo:representedBy; round four, KG 14) (R-21, R-40, R-49 series wiring; sheet 10-13)." ;
@@ -9912,7 +9952,9 @@ ogc:S0-Population a sh:NodeShape ;
                 UNION { $this epo:responsibleParty ?r . FILTER NOT EXISTS { { ?r a prov:Person } UNION { ?r a prov:Organization } } }
             }
         """ ] ;
-    sh:targetClass epo:Population .
+    sh:targetClass epo:Population ;
+    ogc:counterexample "counterexamples/engagement-mismatch.ttl",
+        "counterexamples/population-unrepresented.ttl" .
 
 ogc:S0-StatementOfWork a sh:NodeShape ;
     sh:property [ sh:datatype xsd:dateTime ;
@@ -9950,7 +9992,8 @@ ogc:S0-StatementOfWork a sh:NodeShape ;
                         $this epo:decides ?d1 . $this epo:decides ?d2 . ?d1 epo:population ?value . ?d2 epo:population ?value . FILTER(?d1 != ?d2) }
             }
         """ ] ;
-    sh:targetClass epo:StatementOfWork .
+    sh:targetClass epo:StatementOfWork ;
+    ogc:counterexample "counterexamples/statement-of-work-after-agreement.ttl" .
 
 ogc:S2-AcceptanceCriterion a sh:NodeShape ;
     sh:property [ sh:class epo:Requirement ;
@@ -10049,6 +10092,19 @@ ogc:S2-RequirementSet a sh:NodeShape ;
                   ?value a epo:Session ; ogc:inRecord ?rec ; prov:startedAtTime ?t2 . FILTER(?t2 <= ?t1) }
             }
         """ ],
+        [ sh:message "S2 order (drift pass 4, QA 9): the appropriateness assessment of the requirement set is dated before any session of the record started; the envelope is judged appropriate before it is tested, as the plan is approved before its probes are used (S3)." ;
+            sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX ogc: <https://w3id.org/og-caie/>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            PREFIX earl: <http://www.w3.org/ns/earl#>
+            SELECT $this ?value WHERE {
+                $this ogc:inRecord ?rec .
+                ?a a epo:AppropriatenessAssessment ; ogc:inRecord ?rec ; earl:subject $this ; prov:generatedAtTime ?t1 .
+                ?value a epo:Session ; ogc:inRecord ?rec ; prov:startedAtTime ?t0 .
+                FILTER(?t0 <= ?t1)
+            }
+        """ ],
         [ sh:message "S2: the system under test the envelope binds is the one an access grant of the record names (sheet 10-17)." ;
             sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
@@ -10069,7 +10125,10 @@ ogc:S2-RequirementSet a sh:NodeShape ;
                 FILTER(?t1 <= ?t0)
             }
         """ ] ;
-    sh:targetClass epo:RequirementSet .
+    sh:targetClass epo:RequirementSet ;
+    ogc:counterexample "counterexamples/assessment-after-session.ttl",
+        "counterexamples/probe-before-requirements.ttl",
+        "counterexamples/requirement-set-unapproved.ttl" .
 
 ogc:S3-Probe a sh:NodeShape ;
     sh:property [ sh:class epo:AcceptanceCriterion ;
@@ -10118,7 +10177,8 @@ ogc:S3-Probe a sh:NodeShape ;
                 FILTER NOT EXISTS { ?c a epo:ConsistencyCheck ; ogc:inRecord ?rec ; earl:subject $this ; earl:result ?r ; prov:generatedAtTime ?t1 . ?r earl:outcome earl:passed . FILTER(?t1 <= ?t0) }
             }
         """ ] ;
-    sh:targetClass epo:Probe .
+    sh:targetClass epo:Probe ;
+    ogc:counterexample "counterexamples/consistency-check-after-turn.ttl" .
 
 ogc:S3-TestPlan a sh:NodeShape ;
     sh:property [ sh:class epo:AcceptanceCriterion ;
@@ -10164,47 +10224,8 @@ ogc:S3-TestPlan a sh:NodeShape ;
                 FILTER NOT EXISTS { ?d a epo:PlanDeviation ; epo:deviatesFrom $this ; epo:concerns ?value ; epo:reason ?why }
             }
         """ ] ;
-    sh:targetClass epo:TestPlan .
-
-ogc:S4-Session a sh:NodeShape ;
-    sh:property [ sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path prov:startedAtTime ] ;
-    sh:sparql [ sh:message "S4: a session must be associated with a versioned software agent (the system under test)." ;
-            sh:select """
-            PREFIX epo: <https://w3id.org/og-caie/epo#>
-            PREFIX prov: <http://www.w3.org/ns/prov#>
-            SELECT $this WHERE { FILTER NOT EXISTS { $this prov:wasAssociatedWith ?s . ?s a prov:SoftwareAgent ; epo:version ?v } }
-        """ ],
-        [ sh:message "S4 binding (sheet 10-17): the session's software agent is the system under test the record's requirement set binds, and every determination on evidence from this session names that agent as its subject." ;
-            sh:select """
-            PREFIX epo: <https://w3id.org/og-caie/epo#>
-            PREFIX ogc: <https://w3id.org/og-caie/>
-            PREFIX prov: <http://www.w3.org/ns/prov#>
-            PREFIX earl: <http://www.w3.org/ns/earl#>
-            SELECT $this ?value WHERE {
-                { $this ogc:inRecord ?rec . ?rs a epo:RequirementSet ; ogc:inRecord ?rec ; epo:systemUnderTest ?value .
-                  FILTER NOT EXISTS { $this prov:wasAssociatedWith ?value } }
-                UNION
-                { $this ogc:inRecord ?rec . ?rs a epo:RequirementSet ; ogc:inRecord ?rec ; epo:systemUnderTest ?sut .
-                  ?value a epo:Determination ; ogc:inRecord ?rec ; prov:wasDerivedFrom ?e . ?e a epo:Evidence ; prov:wasDerivedFrom ?x . ?x prov:wasGeneratedBy/(epo:inSession)? $this .
-                  FILTER NOT EXISTS { ?value earl:subject ?sut } }
-            }
-        """ ],
-        [ sh:message "S4: a session must be associated with a named person in the evaluation operator role; administering tests is the operator's activity, not the domain expert's (R-10, R-23)." ;
-            sh:select """
-            PREFIX epo: <https://w3id.org/og-caie/epo#>
-            PREFIX prov: <http://www.w3.org/ns/prov#>
-            SELECT $this WHERE { FILTER NOT EXISTS { $this prov:wasAssociatedWith ?p . ?p a prov:Person ; epo:role epo:evaluationOperatorRole } }
-        """ ],
-        [ sh:message "S4: a session has at least one turn." ;
-            sh:select """
-            PREFIX epo: <https://w3id.org/og-caie/epo#>
-            PREFIX ogc: <https://w3id.org/og-caie/>
-            SELECT $this WHERE { $this ogc:inRecord ?rec . FILTER NOT EXISTS { ?t a epo:Turn ; ogc:inRecord ?rec ; epo:inSession $this } }
-        """ ] ;
-    sh:targetClass epo:Session .
+    sh:targetClass epo:TestPlan ;
+    ogc:counterexample "counterexamples/deviation-unrecorded.ttl" .
 
 ogc:S5-Evidence a sh:NodeShape ;
     sh:property [ sh:class epo:AcceptanceCriterion ;
@@ -10296,7 +10317,8 @@ ogc:S7-ConformanceVerdict a sh:NodeShape ;
                 UNION { FILTER NOT EXISTS { $this ogc:inRecord ?rec ; earl:subject ?rec . ?rec a prov:Bundle } }
             }
         """ ] ;
-    sh:targetClass epo:ConformanceVerdict .
+    sh:targetClass epo:ConformanceVerdict ;
+    ogc:counterexample "counterexamples/verdict-without-digests.ttl" .
 
 ogc:S7-CoverageComputation a sh:NodeShape ;
     sh:property [ sh:hasValue earl:automatic ;
@@ -10329,7 +10351,8 @@ ogc:S7-CoverageComputation a sh:NodeShape ;
             sh:minCount 1 ;
             sh:path epo:queryDigest ;
             sh:pattern "^[0-9a-f]{64}$" ] ;
-    sh:targetClass epo:CoverageComputation .
+    sh:targetClass epo:CoverageComputation ;
+    ogc:counterexample "counterexamples/coverage-without-digests.ttl" .
 
 ogc:S7-ReportApproval a sh:NodeShape ;
     sh:property [ sh:class epo:Report ;
@@ -10356,7 +10379,8 @@ ogc:S7-ReportApproval a sh:NodeShape ;
                         FILTER NOT EXISTS { ?v a epo:ConformanceVerdict ; earl:subject ?rec ; earl:result ?res ; prov:generatedAtTime ?t0 . ?res earl:outcome earl:passed . FILTER(?t0 <= ?t1) } }
             }
         """ ] ;
-    sh:targetClass epo:ReportApproval .
+    sh:targetClass epo:ReportApproval ;
+    ogc:counterexample "counterexamples/draft-approved.ttl" .
 
 ogc:S8-Recommendation a sh:NodeShape ;
     sh:property [ sh:class prov:Person ;
@@ -10436,7 +10460,11 @@ ogc:S8-Recommendation a sh:NodeShape ;
                 FILTER NOT EXISTS { ?a prov:wasDerivedFrom ?d . ?d a epo:Determination ; prov:wasDerivedFrom ?e . ?e a epo:Evidence . $this prov:wasDerivedFrom ?e }
             }
         """ ] ;
-    sh:targetClass epo:Recommendation .
+    sh:targetClass epo:Recommendation ;
+    ogc:counterexample "counterexamples/attestation-without-evidence.ttl",
+        "counterexamples/fit-despite-failure.ttl",
+        "counterexamples/recommendation-unapproved.ttl",
+        "counterexamples/recommendation-untraced.ttl" .
 
 ogc:canonical a owl:ObjectProperty ;
     rdfs:label "canonical" ;
@@ -11579,6 +11607,17 @@ ogc:S0-Parties a sh:NodeShape ;
                                     ?p epo:role epo:sponsorSignatoryRole ; prov:actedOnBehalfOf ?org . ?org epo:role epo:sponsorRole }
             }
         """ ],
+        [ sh:message "S0: the user-interest declaration agrees with the roles (sheet 10-07; drift pass 4, contracting officer 12): a sponsor that holds the test item customer role, receiving the test item it commissions the evaluation of, declares a user interest, not its absence (ISO/IEC 17000 4.4)." ;
+            sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX ogc: <https://w3id.org/og-caie/>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            SELECT $this ?value WHERE {
+                $this ogc:inRecord ?rec .
+                ?value a prov:Organization ; ogc:inRecord ?rec ; epo:role epo:sponsorRole ; epo:role epo:testItemCustomerRole .
+                ?d a epo:UserInterestDeclaration ; ogc:inRecord ?rec ; epo:hasUserInterest false ; prov:wasAttributedTo ?p . ?p prov:actedOnBehalfOf ?value .
+            }
+        """ ],
         [ sh:message "S0: exactly one organization of the record holds each of the sponsor (evaluation customer), testing (evaluation service provider) and test item provider roles (R-21)." ;
             sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
@@ -11602,7 +11641,11 @@ ogc:S0-Parties a sh:NodeShape ;
             PREFIX prov: <http://www.w3.org/ns/prov#>
             SELECT $this WHERE { $this prov:generatedAtTime ?t0 ; ogc:inRecord ?rec . ?r a epo:RequirementSet ; ogc:inRecord ?rec ; prov:generatedAtTime ?t1 . FILTER(?t1 <= ?t0) }
         """ ] ;
-    sh:targetClass epo:ServiceAgreement .
+    sh:targetClass epo:ServiceAgreement ;
+    ogc:counterexample "counterexamples/independence-undeclared.ttl",
+        "counterexamples/provider-fact-contradicted.ttl",
+        "counterexamples/requirements-before-agreement.ttl",
+        "counterexamples/user-interest-denied.ttl" .
 
 ogc:S1-DsoRelease a sh:NodeShape ;
     sh:property [ sh:datatype xsd:string ;
@@ -11615,6 +11658,11 @@ ogc:S1-DsoRelease a sh:NodeShape ;
             sh:path epo:approvedBy ],
         [ sh:datatype xsd:dateTime ;
             sh:maxCount 1 ;
+            sh:message "A DSO release's approval is dated (drift pass 4, QA 9): epo:approvedAt is the time the rules on the release order against, not the time the release was generated." ;
+            sh:minCount 1 ;
+            sh:path epo:approvedAt ],
+        [ sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
             sh:minCount 1 ;
             sh:path prov:generatedAtTime ] ;
     sh:sparql [ sh:message "S1: the DSO release is approved by a domain expert (R-21, R-23)." ;
@@ -11622,30 +11670,91 @@ ogc:S1-DsoRelease a sh:NodeShape ;
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             SELECT $this WHERE { FILTER NOT EXISTS { $this epo:approvedBy ?p . ?p epo:role epo:domainExpertRole } }
         """ ],
-        [ sh:message "S1 precondition (sheet 08, R-49): every affected population's representation is available before the DSO release is approved: the population's stakeholder representation was generated before the release's approval time (a population with no representation at all is S0's finding)." ;
+        [ sh:message "S1 precondition (sheet 08, R-49): every affected population's representation is available before the DSO release is approved: the population's stakeholder representation was generated before the release's approval time, epo:approvedAt (a population with no representation at all is S0's finding)." ;
             sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX ogc: <https://w3id.org/og-caie/>
             PREFIX prov: <http://www.w3.org/ns/prov#>
             SELECT $this ?value WHERE {
-                $this prov:generatedAtTime ?t0 ; ogc:inRecord ?rec .
+                $this epo:approvedAt ?t0 ; ogc:inRecord ?rec .
                 ?value a epo:Population ; ogc:inRecord ?rec .
                 ?rep a epo:StakeholderRepresentation ; ogc:inRecord ?rec ; epo:represents ?value .
                 FILTER NOT EXISTS { ?rep2 a epo:StakeholderRepresentation ; ogc:inRecord ?rec ; epo:represents ?value ; prov:generatedAtTime ?t1 . FILTER(?t1 < ?t0) }
             }
         """ ],
-        [ sh:message "S1: a probe derived from this DSO release was generated before the release was approved." ;
+        [ sh:message "S1: a probe derived from this DSO release was generated before the release was approved (epo:approvedAt)." ;
             sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX ogc: <https://w3id.org/og-caie/>
             PREFIX prov: <http://www.w3.org/ns/prov#>
             SELECT $this WHERE {
-                $this prov:generatedAtTime ?t0 ; ogc:inRecord ?rec .
+                $this epo:approvedAt ?t0 ; ogc:inRecord ?rec .
                 ?p epo:derivedFromDso $this ; ogc:inRecord ?rec ; prov:generatedAtTime ?t1 .
                 FILTER(?t1 <= ?t0)
             }
         """ ] ;
-    sh:targetClass epo:DsoRelease .
+    sh:targetClass epo:DsoRelease ;
+    ogc:counterexample "counterexamples/dso-approval-undated.ttl",
+        "counterexamples/dso-before-stakeholder-input.ttl" .
+
+ogc:S4-Session a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path prov:startedAtTime ] ;
+    sh:sparql [ sh:message "S4: a session has at least one turn." ;
+            sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX ogc: <https://w3id.org/og-caie/>
+            SELECT $this WHERE { $this ogc:inRecord ?rec . FILTER NOT EXISTS { ?t a epo:Turn ; ogc:inRecord ?rec ; epo:inSession $this } }
+        """ ],
+        [ sh:message "S4: a session must be associated with a versioned software agent (the system under test)." ;
+            sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            SELECT $this WHERE { FILTER NOT EXISTS { $this prov:wasAssociatedWith ?s . ?s a prov:SoftwareAgent ; epo:version ?v } }
+        """ ],
+        [ sh:message "S4 binding (sheet 10-17): the session's software agent is the system under test the record's requirement set binds, and every determination on evidence from this session names that agent as its subject." ;
+            sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX ogc: <https://w3id.org/og-caie/>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            PREFIX earl: <http://www.w3.org/ns/earl#>
+            SELECT $this ?value WHERE {
+                { $this ogc:inRecord ?rec . ?rs a epo:RequirementSet ; ogc:inRecord ?rec ; epo:systemUnderTest ?value .
+                  FILTER NOT EXISTS { $this prov:wasAssociatedWith ?value } }
+                UNION
+                { $this ogc:inRecord ?rec . ?rs a epo:RequirementSet ; ogc:inRecord ?rec ; epo:systemUnderTest ?sut .
+                  ?value a epo:Determination ; ogc:inRecord ?rec ; prov:wasDerivedFrom ?e . ?e a epo:Evidence ; prov:wasDerivedFrom ?x . ?x prov:wasGeneratedBy/(epo:inSession)? $this .
+                  FILTER NOT EXISTS { ?value earl:subject ?sut } }
+            }
+        """ ],
+        [ sh:message "S4: a session must be associated with a named person in the evaluation operator role; administering tests is the operator's activity, not the domain expert's (R-10, R-23)." ;
+            sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            SELECT $this WHERE { FILTER NOT EXISTS { $this prov:wasAssociatedWith ?p . ?p a prov:Person ; epo:role epo:evaluationOperatorRole } }
+        """ ],
+        [ sh:message "S4 access period (sheet 10-04; drift pass 4, contracting officer 4): a session runs within the period the record's access grant states for the session's test item: it starts no earlier than epo:accessFrom, and neither starts nor ends after epo:accessUntil. The period the contract fixed binds the sessions." ;
+            sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX ogc: <https://w3id.org/og-caie/>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            SELECT $this ?value WHERE {
+                { $this ogc:inRecord ?rec ; prov:wasAssociatedWith ?sut ; prov:startedAtTime ?t . ?sut a prov:SoftwareAgent .
+                  ?value a epo:TestItemAccess ; ogc:inRecord ?rec ; epo:grantsAccessTo ?sut ; epo:accessFrom ?f . FILTER(?t < ?f) }
+                UNION
+                { $this ogc:inRecord ?rec ; prov:wasAssociatedWith ?sut ; prov:startedAtTime ?t . ?sut a prov:SoftwareAgent .
+                  ?value a epo:TestItemAccess ; ogc:inRecord ?rec ; epo:grantsAccessTo ?sut ; epo:accessUntil ?u . FILTER(?t > ?u) }
+                UNION
+                { $this ogc:inRecord ?rec ; prov:wasAssociatedWith ?sut ; prov:endedAtTime ?t . ?sut a prov:SoftwareAgent .
+                  ?value a epo:TestItemAccess ; ogc:inRecord ?rec ; epo:grantsAccessTo ?sut ; epo:accessUntil ?u . FILTER(?t > ?u) }
+            }
+        """ ] ;
+    sh:targetClass epo:Session ;
+    ogc:counterexample "counterexamples/expert-administers-tests.ttl",
+        "counterexamples/session-on-another-item.ttl",
+        "counterexamples/session-outside-access-period.ttl" .
 
 ogc:S6-Determination a sh:NodeShape ;
     sh:property [ sh:class epo:AcceptanceCriterion ;
@@ -11828,7 +11937,13 @@ ogc:S7-Report a sh:NodeShape ;
                 BIND(CONCAT("recomputed pass ", STR(?ep), ", fail ", STR(?ef), ", cannot tell ", STR(?ec)) AS ?value)
             }
         """ ] ;
-    sh:targetClass epo:Report .
+    sh:targetClass epo:Report ;
+    ogc:counterexample "counterexamples/deviation-unrecorded.ttl",
+        "counterexamples/draft-rates-from-later.ttl",
+        "counterexamples/draft-without-gaps.ttl",
+        "counterexamples/final-report-without-verdict.ttl",
+        "counterexamples/report-coverage-misstated.ttl",
+        "counterexamples/report-rates-padded.ttl" .
 
 epo:Acceptance a owl:Class ;
     rdfs:label "acceptance" ;
@@ -11983,9 +12098,9 @@ ev:conformance-verdict-1 a epo:ConformanceVerdict ;
     prov:generatedAtTime "2026-08-12T09:30:00+00:00"^^xsd:dateTime ;
     prov:wasAttributedTo ev:pyshacl ;
     prov:wasDerivedFrom ev:record ;
-    epo:ontologyDigest "c0141c1cc9668a0240e632b11338ec858ddd5ff5428c65d63def1d6490df5b0f" ;
-    epo:recordDigest "5f7e3bcee62973ea4aecba6053749ec70a356403c0ab52f0d1d967452452adbe" ;
-    epo:shapesDigest "b73720e05518c1e01800bc4f9047d6022f3d8330641240a811b1effa25cd36c5" ;
+    epo:ontologyDigest "c39d39f2ae5fd9c58381ad9a27ed37ddcc7074dd9de9001714a0b4acacd3935f" ;
+    epo:recordDigest "0bf3f265466f70b4a9dbe4896595f73c3172ae337e3ba639fb015474ea63cc2f" ;
+    epo:shapesDigest "3528a5c3e7cafd6a12327426711ae3c8aa35c96dd34d014879212fea6670215a" ;
     ogc:inRecord ev:record ;
     ogc:synthetic true .
 
@@ -12554,6 +12669,11 @@ ogc:S6-Attestation a sh:NodeShape ;
             sh:message "An attestation is made by one named person." ;
             sh:minCount 1 ;
             sh:path earl:assertedBy ],
+        [ sh:class earl:TestSubject ;
+            sh:maxCount 1 ;
+            sh:message "An attestation names the one test item it is about (drift pass 4, QA 19)." ;
+            sh:minCount 1 ;
+            sh:path earl:subject ],
         [ sh:hasValue earl:manual ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
@@ -12574,7 +12694,17 @@ ogc:S6-Attestation a sh:NodeShape ;
         [ sh:datatype xsd:dateTime ;
             sh:minCount 1 ;
             sh:path prov:generatedAtTime ] ;
-    sh:sparql [ sh:message "S6: the attesting person holds the domain expert role; the operator collects and determines, the authorized representative signs and delivers, only the domain expert attests (R-21, R-23)." ;
+    sh:sparql [ sh:message "S6 binding (sheet 10-17; drift pass 4, QA 19): the subject of an attestation is the system under test the record's requirement set binds; an attestation on another item says nothing about this evaluation, as S4 already asks of every determination." ;
+            sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX ogc: <https://w3id.org/og-caie/>
+            PREFIX earl: <http://www.w3.org/ns/earl#>
+            SELECT $this ?value WHERE {
+                $this ogc:inRecord ?rec ; earl:subject ?value .
+                FILTER NOT EXISTS { ?rs a epo:RequirementSet ; ogc:inRecord ?rec ; epo:systemUnderTest ?value }
+            }
+        """ ],
+        [ sh:message "S6: the attesting person holds the domain expert role; the operator collects and determines, the authorized representative signs and delivers, only the domain expert attests (R-21, R-23)." ;
             sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX earl: <http://www.w3.org/ns/earl#>
@@ -12646,7 +12776,15 @@ ogc:S6-Attestation a sh:NodeShape ;
                 FILTER(?t0 > ?t1)
             }
         """ ] ;
-    sh:targetClass epo:Attestation .
+    sh:targetClass epo:Attestation ;
+    ogc:counterexample "counterexamples/attestation-before-determination.ttl",
+        "counterexamples/attestation-off-plan.ttl",
+        "counterexamples/attestation-off-turn.ttl",
+        "counterexamples/attestation-on-another-item.ttl",
+        "counterexamples/attestation-without-evidence.ttl",
+        "counterexamples/cherry-picked-determination.ttl",
+        "counterexamples/executive-attests.ttl",
+        "counterexamples/insufficient-yet-failed.ttl" .
 
 ogc:Validation a owl:Class ;
     rdfs:label "Validation" ;
@@ -14044,7 +14182,7 @@ src:popper-1959 a prov:Entity,
     rdfs:label "Popper, The Logic of Scientific Discovery, London: Hutchinson, 1959" ;
     ogc:bibkey "popper-1959" ;
     ogc:digest "sources/digests/popper-1959.md" ;
-    ogc:kind "web" ;
+    ogc:kind "book" ;
     ogc:licenceNote "cited as the canonical source named as the source of the definitions presented at the SciPy 2026 session; not quoted directly" ;
     ogc:posture "citeOnly" ;
     ogc:rank 7 .
@@ -14583,13 +14721,6 @@ elmt:OGCAIE__TestingOrganization a sysml:PartDefinition ;
     sysml:qualifiedName "OGCAIE::TestingOrganization" ;
     sysml:specializes elmt:OGCAIE__Organization .
 
-epo:DsoRelease a owl:Class ;
-    rdfs:label "DSO release" ;
-    rdfs:comment "a versioned release of the Domain-Specific Ontology, approved by a domain expert before any probe derives from it (SCI-01)" ;
-    rdfs:subClassOf prov:Entity ;
-    ogc:pinnedAt epo:evaluation ;
-    ogc:term term:domain-specific-ontology .
-
 epo:Session a owl:Class ;
     rdfs:label "session" ;
     rdfs:comment "one tester, one system under test, a sequence of turns; the test execution" ;
@@ -14844,6 +14975,13 @@ epo:Attestation a owl:Class ;
     rdfs:subClassOf earl:Assertion,
         prov:Entity ;
     ogc:term term:attestation .
+
+epo:DsoRelease a owl:Class ;
+    rdfs:label "DSO release" ;
+    rdfs:comment "a versioned release of the Domain-Specific Ontology, approved by a domain expert before any probe derives from it (SCI-01)" ;
+    rdfs:subClassOf prov:Entity ;
+    ogc:pinnedAt epo:evaluation ;
+    ogc:term term:domain-specific-ontology .
 
 ev:a3 a epo:AcceptanceCriterion ;
     prov:generatedAtTime "2026-08-02T09:00:00+00:00"^^xsd:dateTime ;
@@ -15456,6 +15594,7 @@ ev:dso-apollo-sv-r1 a epo:DsoRelease ;
     rdfs:label "the standard vocabulary of infectious-disease epidemiology (Apollo-SV) plus the facts of the 2019 Clark County outbreak, release r1" ;
     prov:generatedAtTime "2026-08-01T09:00:00+00:00"^^xsd:dateTime ;
     prov:wasAttributedTo ev:annie ;
+    epo:approvedAt "2026-08-01T09:30:00+00:00"^^xsd:dateTime ;
     epo:approvedBy ev:annie ;
     epo:version "apollo-sv-r1" ;
     ogc:inRecord ev:record ;

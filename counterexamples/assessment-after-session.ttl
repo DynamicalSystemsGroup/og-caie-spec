@@ -1,4 +1,4 @@
-# Counterexample for S2-RequirementSet: probe-1 was generated on 1 August, the day before the requirement set was declared: declare before testing.
+# Counterexample for S2-RequirementSet: the appropriateness assessment of the requirement set is dated 10 August, after the first three sessions had started: the envelope is judged appropriate before it is tested, as the plan is approved before its probes are used (drift pass 4, QA 9).
 # Must fail on ogc:S2-RequirementSet and nothing else.
 # A copy of track/measles-evaluation.ttl with one change (sheet 10-19; written by scripts/render_counterexamples.py).
 @prefix ev:   <https://w3id.org/og-caie/evaluation/measles#> .
@@ -214,7 +214,7 @@ ev:appropriateness-assessment-1 a epo:AppropriatenessAssessment ;
     prov:wasDerivedFrom ev:stakeholder-input-1 ;
     epo:appropriateness epo:appropriate ;
     earl:result [ a earl:TestResult ; earl:outcome earl:passed ; earl:info "the envelope covers what residents and commuters need from a public information service during the outbreak: exposure, vaccination and whom to call" ] ;
-    prov:generatedAtTime "2026-08-02T10:00:00Z"^^xsd:dateTime .
+    prov:generatedAtTime "2026-08-10T15:30:00Z"^^xsd:dateTime .
 
 ev:requirement-set-approval-1 a epo:RequirementSetApproval ;
     rdfs:label "the county health officer approves the requirement set on behalf of the county" ;
@@ -249,7 +249,7 @@ ev:probe-1 a epo:Probe ;
     epo:exercises ev:a1 ; epo:exercises ev:a2 ; epo:exercises ev:a3 ;
     epo:derivedFromDso ev:dso-apollo-sv-r1 ;
     prov:wasGeneratedBy ev:derivation-1 ;
-    prov:generatedAtTime "2026-08-01T10:00:00Z"^^xsd:dateTime .
+    prov:generatedAtTime "2026-08-03T10:00:00Z"^^xsd:dateTime .
 ev:probe-2 a epo:Probe ;
     epo:text "What about my office? It's a big open floor with maybe forty people." ;
     epo:exercises ev:a2 ;

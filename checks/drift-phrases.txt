@@ -34,3 +34,6 @@ twenty-seven counterexamples
 twenty-nine counterexamples
 thirteen S-shapes
 Seven counterexamples, six records
+Eight counterexamples, seven records
+Twenty-eight counterexamples
+the thirty counterexamples fail

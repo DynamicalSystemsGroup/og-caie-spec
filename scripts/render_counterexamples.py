@@ -102,7 +102,7 @@ COUNTEREXAMPLES: dict[str, dict] = {
     "dso-before-stakeholder-input": dict(
         shapes=["S1-DsoRelease"],
         fault="the commuters' representation was generated after the DSO release was approved, so it was not available to the domain expert who approved the release (sheet 08, R-49).",
-        replace=[("    prov:wasAttributedTo ev:theo ;\n    prov:generatedAtTime \"2026-08-01T08:30:00Z\"", "    prov:wasAttributedTo ev:theo ;\n    prov:generatedAtTime \"2026-08-01T09:30:00Z\"")]),
+        replace=[("    prov:wasAttributedTo ev:theo ;\n    prov:generatedAtTime \"2026-08-01T08:30:00Z\"", "    prov:wasAttributedTo ev:theo ;\n    prov:generatedAtTime \"2026-08-01T09:45:00Z\"")]),
     "attestation-before-determination": dict(
         shapes=["S6-Attestation"],
         fault="determination-1 is dated after attestation-1, which aggregates it: an attestation is dated no earlier than its determinations (sheet 10-19).",
@@ -187,8 +187,8 @@ COUNTEREXAMPLES: dict[str, dict] = {
         fault="a plan deviation is attributed to Annie, the domain expert; departing from the plan is the operator's act to record (sheet 10-16).",
         append=DEVIATION_BY_ANNIE),
     "session-on-another-item": dict(
-        shapes=["S4-Session"],
-        fault="session-1 ran against a later build of the chatbot, not the version the requirement set binds and the access grant names (sheet 10-17).",
+        shapes=["S4-Session", "S5-Response"],
+        fault="session-1 ran against a later build of the chatbot, not the version the requirement set binds and the access grant names (sheet 10-17); its three responses, attributed to v1, then come from an agent the session did not run against (S5, drift pass 4).",
         replace=[("    rdfs:label \"session 1: Theo with chatbot v1, the bus to work, three turns\" ;\n    prov:wasAssociatedWith ev:chatbot-v1 ;\n    prov:wasAssociatedWith ev:theo ;",
                   "    rdfs:label \"session 1: Theo with chatbot v1, the bus to work, three turns\" ;\n    prov:wasAssociatedWith ev:chatbot-v2 ;\n    prov:wasAssociatedWith ev:theo ;")],
         append=CHATBOT_V2),
@@ -234,6 +234,36 @@ COUNTEREXAMPLES: dict[str, dict] = {
         shapes=["S8-Recommendation"],
         fault="the recommendation says fit to deploy while the vaccination question was attested failed: fit to deploy rests on no failed attestation (sheet 10-48).",
         replace=[("    epo:fitness epo:fitWithConditions ;", "    epo:fitness epo:fitToDeploy ;")]),
+    # ---- the faults of drift pass 4 (the contracting officer's and the QA reader's findings on the record rules)
+    "dso-approval-undated": dict(
+        shapes=["S1-DsoRelease"],
+        fault="the DSO release names who approved it and not when: an undated approval cannot be ordered against the representations that must precede it or the probes that must follow it (drift pass 4, QA 9).",
+        replace=[("    epo:approvedBy ev:annie ;\n    epo:approvedAt \"2026-08-01T09:30:00Z\"^^xsd:dateTime ;\n", "    epo:approvedBy ev:annie ;\n")]),
+    "assessment-after-session": dict(
+        shapes=["S2-RequirementSet"],
+        fault="the appropriateness assessment of the requirement set is dated 10 August, after the first three sessions had started: the envelope is judged appropriate before it is tested, as the plan is approved before its probes are used (drift pass 4, QA 9).",
+        replace=[("    earl:result [ a earl:TestResult ; earl:outcome earl:passed ; earl:info \"the envelope covers what residents and commuters need from a public information service during the outbreak: exposure, vaccination and whom to call\" ] ;\n    prov:generatedAtTime \"2026-08-02T10:00:00Z\"",
+                  "    earl:result [ a earl:TestResult ; earl:outcome earl:passed ; earl:info \"the envelope covers what residents and commuters need from a public information service during the outbreak: exposure, vaccination and whom to call\" ] ;\n    prov:generatedAtTime \"2026-08-10T15:30:00Z\"")]),
+    "session-outside-access-period": dict(
+        shapes=["S4-Session"],
+        fault="session 4, the follow-up, was run on 1 September, after the access grant's period ended on 31 August: a session runs within the period the provider granted access for (sheet 10-04; drift pass 4, contracting officer 4).",
+        replace=[("    prov:startedAtTime \"2026-08-11T14:00:00Z\"^^xsd:dateTime ;\n    prov:endedAtTime \"2026-08-11T14:10:00Z\"^^xsd:dateTime .",
+                  "    prov:startedAtTime \"2026-09-01T14:00:00Z\"^^xsd:dateTime ;\n    prov:endedAtTime \"2026-09-01T14:10:00Z\"^^xsd:dateTime .")]),
+    "user-interest-denied": dict(
+        shapes=["S0-Parties"],
+        fault="the county public-health office, which holds the test item customer role and deploys the chatbot, declares that it has no user interest in it: the declaration disagrees with the role (ISO/IEC 17000 4.4; sheet 10-07; drift pass 4, contracting officer 12).",
+        replace=[("    epo:hasUserInterest true ;", "    epo:hasUserInterest false ;")]),
+    "response-from-another-build": dict(
+        shapes=["S5-Response"],
+        fault="response 1 is attributed to a later build of the chatbot while its session ran against v1: a response comes from the agent its session ran against (drift pass 4, QA 10).",
+        replace=[("    prov:wasGeneratedBy ev:turn-1 ; prov:wasAttributedTo ev:chatbot-v1 ;", "    prov:wasGeneratedBy ev:turn-1 ; prov:wasAttributedTo ev:chatbot-v2 ;")],
+        append=CHATBOT_V2),
+    "attestation-on-another-item": dict(
+        shapes=["S6-Attestation"],
+        fault="attestation-1 names a later build of the chatbot as its subject while the requirement set binds v1: an attestation is about the system under test the envelope binds (sheet 10-17; drift pass 4, QA 19).",
+        replace=[("    earl:test ev:a1 ; earl:subject ev:chatbot-v1 ;\n    earl:mode earl:manual ; earl:assertedBy ev:annie ;\n    prov:wasAttributedTo ev:annie ;\n    prov:wasDerivedFrom ev:determination-1 ;",
+                  "    earl:test ev:a1 ; earl:subject ev:chatbot-v2 ;\n    earl:mode earl:manual ; earl:assertedBy ev:annie ;\n    prov:wasAttributedTo ev:annie ;\n    prov:wasDerivedFrom ev:determination-1 ;")],
+        append=CHATBOT_V2),
 }
 
 

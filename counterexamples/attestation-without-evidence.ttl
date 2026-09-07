@@ -152,6 +152,7 @@ ev:dso-apollo-sv-r1 a epo:DsoRelease ;
     rdfs:label "the standard vocabulary of infectious-disease epidemiology (Apollo-SV) plus the facts of the 2019 Clark County outbreak, release r1" ;
     epo:version "apollo-sv-r1" ;
     epo:approvedBy ev:annie ;
+    epo:approvedAt "2026-08-01T09:30:00Z"^^xsd:dateTime ;
     prov:wasAttributedTo ev:annie ;
     prov:generatedAtTime "2026-08-01T09:00:00Z"^^xsd:dateTime .
 
@@ -604,7 +605,7 @@ ev:coverage-computation-draft a epo:CoverageComputation ;
     prov:used ev:attestation-1 ; prov:used ev:attestation-2 ; prov:used ev:attestation-3 ; prov:used ev:attestation-4 ; prov:used ev:attestation-5 ;
     prov:wasAssociatedWith ev:report-assembler ;
     earl:mode earl:automatic ;
-    epo:shapesDigest "b73720e05518c1e01800bc4f9047d6022f3d8330641240a811b1effa25cd36c5" ; epo:ontologyDigest "c0141c1cc9668a0240e632b11338ec858ddd5ff5428c65d63def1d6490df5b0f" ; epo:queryDigest "ecc9688b862ffd77beae1e94d4cba1ae07701ca7521f2cff63b908da90eb9bb3" ;
+    epo:shapesDigest "3528a5c3e7cafd6a12327426711ae3c8aa35c96dd34d014879212fea6670215a" ; epo:ontologyDigest "c39d39f2ae5fd9c58381ad9a27ed37ddcc7074dd9de9001714a0b4acacd3935f" ; epo:queryDigest "ecc9688b862ffd77beae1e94d4cba1ae07701ca7521f2cff63b908da90eb9bb3" ;
     prov:endedAtTime "2026-08-11T11:00:00Z"^^xsd:dateTime .
 
 ev:report-draft a epo:Report ;
@@ -676,8 +677,8 @@ ev:conformance-verdict-1 a epo:ConformanceVerdict ;
     earl:mode earl:automatic ; earl:assertedBy ev:pyshacl ;
     prov:wasAttributedTo ev:pyshacl ;
     prov:wasDerivedFrom ev:record ;
-    epo:recordDigest "5f7e3bcee62973ea4aecba6053749ec70a356403c0ab52f0d1d967452452adbe" ;
-    epo:shapesDigest "b73720e05518c1e01800bc4f9047d6022f3d8330641240a811b1effa25cd36c5" ; epo:ontologyDigest "c0141c1cc9668a0240e632b11338ec858ddd5ff5428c65d63def1d6490df5b0f" ;
+    epo:recordDigest "0bf3f265466f70b4a9dbe4896595f73c3172ae337e3ba639fb015474ea63cc2f" ;
+    epo:shapesDigest "3528a5c3e7cafd6a12327426711ae3c8aa35c96dd34d014879212fea6670215a" ; epo:ontologyDigest "c39d39f2ae5fd9c58381ad9a27ed37ddcc7074dd9de9001714a0b4acacd3935f" ;
     earl:result [ a earl:TestResult ; earl:outcome earl:passed ; earl:info "the record conforms to S0 to S9: every criterion planned, tested and attested, the follow-up session and the draft before the final report, traceable in both directions" ] ;
     prov:generatedAtTime "2026-08-12T09:30:00Z"^^xsd:dateTime .
 
@@ -687,7 +688,7 @@ ev:coverage-computation a epo:CoverageComputation ;
     prov:used ev:conformance-verdict-1 ;
     prov:wasAssociatedWith ev:report-assembler ;
     earl:mode earl:automatic ;
-    epo:shapesDigest "b73720e05518c1e01800bc4f9047d6022f3d8330641240a811b1effa25cd36c5" ; epo:ontologyDigest "c0141c1cc9668a0240e632b11338ec858ddd5ff5428c65d63def1d6490df5b0f" ; epo:queryDigest "ecc9688b862ffd77beae1e94d4cba1ae07701ca7521f2cff63b908da90eb9bb3" ;
+    epo:shapesDigest "3528a5c3e7cafd6a12327426711ae3c8aa35c96dd34d014879212fea6670215a" ; epo:ontologyDigest "c39d39f2ae5fd9c58381ad9a27ed37ddcc7074dd9de9001714a0b4acacd3935f" ; epo:queryDigest "ecc9688b862ffd77beae1e94d4cba1ae07701ca7521f2cff63b908da90eb9bb3" ;
     prov:endedAtTime "2026-08-12T10:00:00Z"^^xsd:dateTime .
 
 ev:report a epo:Report ;

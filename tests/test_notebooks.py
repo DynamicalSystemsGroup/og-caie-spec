@@ -30,14 +30,19 @@ CHAPTERS = ["contracting.md", "evaluation.md", "model.md", "guarantees.md"]
 # name, since the prose names the fault and not the file.
 COUNTEREXAMPLES = {
     "contracting.md": ["requirements-before-agreement.ttl", "population-unrepresented.ttl", "engagement-mismatch.ttl", "no-obligation.sysml",
-                       "one-person-team.ttl", "independence-undeclared.ttl", "acceptance-by-organization.ttl", "member-untagged.ttl"],  # sheet 10: 10-13, 10-07, 10-06; round four, KG 9
+                       "one-person-team.ttl", "independence-undeclared.ttl", "acceptance-by-organization.ttl", "member-untagged.ttl",  # sheet 10: 10-13, 10-07, 10-06; round four, KG 9
+                       "operator-determines-alone.ttl", "access-without-period.ttl", "record-without-level.ttl", "provider-fact-contradicted.ttl",
+                       "statement-of-work-after-agreement.ttl", "item-outside-record.ttl",  # sheet 10: 10-15, 10-04, 10-09, 10-05, 10-31; drift pass 4, QA 20: pinned by the tests, run by no notebook until now
+                       "user-interest-denied.ttl"],  # drift pass 4, contracting officer 12
     "evaluation.md": ["attestation-without-evidence.ttl", "attestation-off-plan.ttl", "attestation-off-turn.ttl",
                       "probe-before-requirements.ttl", "recommendation-untraced.ttl", "expert-administers-tests.ttl",
                       "executive-attests.ttl", "unwired-port.sysml", "expert-administers-tests.sysml",
                       "cherry-picked-determination.ttl", "insufficient-yet-failed.ttl", "requirement-set-unapproved.ttl", "deviation-unrecorded.ttl",
                       "deviation-by-expert.ttl", "session-on-another-item.ttl", "final-report-without-verdict.ttl", "verdict-without-digests.ttl", "coverage-without-digests.ttl",
                       "recommendation-unapproved.ttl", "draft-without-gaps.ttl", "draft-rates-from-later.ttl", "draft-approved.ttl",
-                      "fit-despite-failure.ttl"],  # sheet 10: 10-14, 10-12, 10-01, 10-16, 10-17, 10-41, 10-18, 10-11; R-51 (10-48): the draft, the follow-up, the fitness
+                      "fit-despite-failure.ttl",  # sheet 10: 10-14, 10-12, 10-01, 10-16, 10-17, 10-41, 10-18, 10-11; R-51 (10-48): the draft, the follow-up, the fitness
+                      "dso-approval-undated.ttl", "assessment-after-session.ttl", "session-outside-access-period.ttl",
+                      "response-from-another-build.ttl", "attestation-on-another-item.ttl"],  # drift pass 4: QA 9, contracting officer 4, QA 10, QA 19
     "model.md": ["requirements-before-agreement.ttl"],
     "guarantees.md": [],  # its counterexamples are the executor's mutations, built in memory: see CHECKS
 }

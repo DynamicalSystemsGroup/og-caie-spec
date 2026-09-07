@@ -99,7 +99,7 @@ ogc:BindingOnlyShape a sh:NodeShape ;
 ogc:SourceShape a sh:NodeShape ;
     sh:targetClass ogc:Source ;
     sh:property [ sh:path ogc:rank ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:integer ; sh:minInclusive 1 ; sh:maxInclusive 8 ] ;
-    sh:property [ sh:path ogc:kind ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ( "pdf" "html" "web" "git" "event" ) ] ;
+    sh:property [ sh:path ogc:kind ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ( "pdf" "html" "web" "git" "event" "book" ) ] ;
     sh:property [ sh:path ogc:posture ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ( "committed" "heldLocally" "citeOnly" ) ] ;
     sh:property [ sh:path ogc:licenceNote ; sh:minCount 1 ;
                   sh:message "Every source states its licence posture; the work's CC BY-SA does not extend to sources." ] ;

@@ -1,5 +1,5 @@
-# Counterexample for S2-RequirementSet: probe-1 was generated on 1 August, the day before the requirement set was declared: declare before testing.
-# Must fail on ogc:S2-RequirementSet and nothing else.
+# Counterexample for S1-DsoRelease: the DSO release names who approved it and not when: an undated approval cannot be ordered against the representations that must precede it or the probes that must follow it (drift pass 4, QA 9).
+# Must fail on ogc:S1-DsoRelease and nothing else.
 # A copy of track/measles-evaluation.ttl with one change (sheet 10-19; written by scripts/render_counterexamples.py).
 @prefix ev:   <https://w3id.org/og-caie/evaluation/measles#> .
 @prefix epo:  <https://w3id.org/og-caie/epo#> .
@@ -152,7 +152,6 @@ ev:dso-apollo-sv-r1 a epo:DsoRelease ;
     rdfs:label "the standard vocabulary of infectious-disease epidemiology (Apollo-SV) plus the facts of the 2019 Clark County outbreak, release r1" ;
     epo:version "apollo-sv-r1" ;
     epo:approvedBy ev:annie ;
-    epo:approvedAt "2026-08-01T09:30:00Z"^^xsd:dateTime ;
     prov:wasAttributedTo ev:annie ;
     prov:generatedAtTime "2026-08-01T09:00:00Z"^^xsd:dateTime .
 
@@ -249,7 +248,7 @@ ev:probe-1 a epo:Probe ;
     epo:exercises ev:a1 ; epo:exercises ev:a2 ; epo:exercises ev:a3 ;
     epo:derivedFromDso ev:dso-apollo-sv-r1 ;
     prov:wasGeneratedBy ev:derivation-1 ;
-    prov:generatedAtTime "2026-08-01T10:00:00Z"^^xsd:dateTime .
+    prov:generatedAtTime "2026-08-03T10:00:00Z"^^xsd:dateTime .
 ev:probe-2 a epo:Probe ;
     epo:text "What about my office? It's a big open floor with maybe forty people." ;
     epo:exercises ev:a2 ;

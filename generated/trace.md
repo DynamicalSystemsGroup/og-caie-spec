@@ -5,7 +5,7 @@ Each requirement, the shapes that check it (M over the model graph, S over the r
 | SCI | Checked by | Terms | Rests on |
 |---|---|---|---|
 | SCI-01 (machine) | S1-DsoRelease | Domain-Specific Ontology, probe, technical expert | R-09, iso-9000-2026 |
-| SCI-02 (machine) | S0-Access, S0-Parties, S2-RequirementSet | contract, operational envelope, operational environment, requirement, test | R-02, R-03, R-21, sevocab |
+| SCI-02 (machine) | S0-Access, S0-Parties, S2-RequirementSet, S4-Session | contract, operational envelope, operational environment, requirement, test | R-02, R-03, R-21, sevocab |
 | SCI-03 (machine) | S2-AcceptanceCriterion, S2-Requirement | acceptance criteria, deployment sensitivity, expected results, requirement | R-05, incose-gtwr-v4, sevocab |
 | SCI-04 (machine) | S3-PlanApproval, S3-PlanDeviation, S3-Probe, S3-Strategy, S3-TestPlan | Domain-Specific Ontology, conformance, probe, scenario, test case, test plan, test strategy | R-12, R-13, iec-60050-351, sevocab, w3c-shacl |
 | SCI-05 (machine) | S4-Session, S4-TestSuite, S4-Turn, S5-Evidence, S5-Response | dialogue, expected results, non-deterministic system, objective evidence, red teaming, session, test, test item, test suite, trajectory | R-13, iec-60050-351, iso-9000-2026, nist-ai-700-2, w3c-prov-o |

@@ -25,6 +25,16 @@ SKOS = Namespace("http://www.w3.org/2004/02/skos/core#")
 RECORD = "track/measles-evaluation.ttl"
 EV = "https://w3id.org/og-caie/evaluation/measles#"
 NEW_SHAPES = ["S0-Independence", "S0-Member", "S0-Record", "S0-Roles", "S3-PlanDeviation", "S7-CoverageComputation"]  # sheet 10: 10-15, 10-31, 10-13, 10-16; round four, KG 8
+# Drift pass 4: the rules the readers found missing, each pinned to the one shape its counterexample fails on alone
+# (the contracting officer's findings 4 and 12, the QA reader's 9, 10 and 19).
+DRIFT_PASS_4 = {
+    "dso-approval-undated": "S1-DsoRelease",              # QA 9: the DSO approval is dated (epo:approvedAt)
+    "assessment-after-session": "S2-RequirementSet",      # QA 9: the appropriateness assessment precedes the sessions
+    "session-outside-access-period": "S4-Session",        # contracting officer 4: the access period binds the sessions
+    "user-interest-denied": "S0-Parties",                 # contracting officer 12: the user-interest declaration agrees with the customer role
+    "response-from-another-build": "S5-Response",         # QA 10: a response comes from the agent its session ran against
+    "attestation-on-another-item": "S6-Attestation",      # QA 19: an attestation's subject is the test item the envelope binds
+}
 
 
 def shapes():
@@ -75,6 +85,22 @@ def spec_shape(name):
 def test_every_new_shape_has_a_counterexample():
     covered = {s for spec in COUNTEREXAMPLES.values() for s in spec["shapes"]}
     assert set(NEW_SHAPES) <= covered, sorted(set(NEW_SHAPES) - covered)
+
+
+def test_drift_pass_4_counterexamples_fail_on_one_shape_each():
+    for name, shape in DRIFT_PASS_4.items():
+        assert COUNTEREXAMPLES[name]["shapes"] == [shape], name
+
+
+def test_every_shape_names_its_counterexamples_and_only_those():
+    """Sheet 10-40 and drift pass 4 (QA 20): each node shape carries ogc:counterexample for every file of the generator's table
+    whose fault list names it, and for no other, so the counterexamples answer by query and scripts/drift_check.py finds every
+    file the annotations name."""
+    g = shapes()
+    for s in g.subjects(RDF.type, SH.NodeShape):
+        name = str(s).rsplit("/", 1)[-1]
+        expected = {f"counterexamples/{n}.ttl" for n, spec in COUNTEREXAMPLES.items() if name in spec["shapes"]}
+        assert {str(o) for o in g.objects(s, OGC.counterexample)} == expected, name
 
 
 def test_two_records_in_one_graph_both_conform():
