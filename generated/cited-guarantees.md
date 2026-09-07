@@ -1,0 +1,6 @@
+- ISO, ISO 9000:2026 Quality management — Fundamentals and vocabulary (3.11.12; 3.5.11 traceability; 3.5.9; 3.5.9 conformity, Note 1; 3.8.12; essentials SCI-08) {cite:p}`iso-9000-2026`
+- IEEE Computer Society, Software and Systems Engineering Vocabulary (SEVOCAB) (requirements traceability, p. 352; test coverage, p. 433; verification, p. 470; essentials SCI-07, SCI-08, SCI-09) {cite:p}`sevocab`
+- NIST, Assessing Risks and Impacts of AI (ARIA): ARIA 0.1 Pilot Evaluation Report (essentials SCI-09) {cite:p}`nist-ai-700-2`
+- W3C, Shapes Constraint Language (SHACL) (Section 3.5 Conformance Checking; essentials SCI-11) {cite:p}`w3c-shacl`
+- JCGM, JCGM 200:2012 International vocabulary of metrology, basic and general concepts and associated terms (VIM), 3rd edition (2.41 metrological traceability, p. 45; essentials SCI-08) {cite:p}`jcgm-200-2012`
+- NIST, Guidelines for Evaluating and Expressing the Uncertainty of NIST Measurement Results (essentials SCI-08) {cite:p}`nist-tn-1297`

@@ -128,3 +128,8 @@ This work's CC BY-SA licence does not extend to the sources.
 
 ```{include} ../generated/sources.md
 ```
+
+## Sources cited
+
+```{include} ../generated/cited-glossary.md
+```

@@ -1,0 +1,1 @@
+- ISO, ISO 9000:2026 Quality management — Fundamentals and vocabulary (3.1.9; 3.9.1) {cite:p}`iso-9000-2026`

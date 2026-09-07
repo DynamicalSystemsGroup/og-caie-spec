@@ -65,3 +65,8 @@ and cited. The chapters after it use them to state the specification, first
 the contracting of an evaluation and then the evaluation itself, and to
 show its properties. The conclusion returns to Popper's terms and says what
 has been encoded.
+
+## Sources cited
+
+```{include} generated/cited-index.md
+```

@@ -118,3 +118,8 @@ Computational proof: [run the checks](../notebooks/checked-model.ipynb).
 ```{include} ../generated/more-model.md
 ```
 :::
+
+## Sources cited
+
+```{include} ../generated/cited-model.md
+```

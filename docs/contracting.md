@@ -143,3 +143,8 @@ Computational proof: [run the checks](../notebooks/checked-contracting.ipynb).
 ```{include} ../generated/more-contracting.md
 ```
 :::
+
+## Sources cited
+
+```{include} ../generated/cited-contracting.md
+```
