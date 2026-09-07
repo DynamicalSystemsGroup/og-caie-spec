@@ -50,7 +50,8 @@ def test_every_glossary_term_is_used():
 
 
 POPPER_MARKERS = ("popper", "popperian", "falsifiable", "falsifiability", "falsified", "falsifier", "falsifiers")
-POPPER_PAGES = {"index.md", "conclusion.md", "popper.md", "popper-back.md", "rulings.md", "sources.md"}  # rulings quote Z verbatim; the register names Popper 1959
+POPPER_PAGES = {"index.md", "conclusion.md", "popper.md", "popper-back.md", "rulings.md", "sources.md",
+                "cited-index.md", "cited-conclusion.md", "cited-all.md"}  # rulings quote Z verbatim; the register names Popper 1959; the bookends' works cited and the aggregate (R-48) list it
 
 
 def test_popper_argument_only_in_the_bookends():
