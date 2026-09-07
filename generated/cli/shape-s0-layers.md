@@ -2,6 +2,7 @@ $ uv run -q ogc shape S0-Layers
 # ogc shape S0-Layers @ <sha>
 ## S0-Layers  (shapes/epo.shapes.ttl)
 target: epo:ServiceAgreement
+counterexamples (executor mutations): requirements-before-agreement
 
 property constraints (0):
 (none)

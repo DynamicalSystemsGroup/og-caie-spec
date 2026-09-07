@@ -1,5 +1,5 @@
 $ uv run -q ogc check-word 'system under test'
-# ogc check-word system under test @ <sha>
+# ogc check-word 'system under test' @ <sha>
 system under test: registered as alt label 'system under test' of 'test item' (test-item); class
     adopted
   sense: The deployed AI system being evaluated, taken as a black box: only what it is given and
