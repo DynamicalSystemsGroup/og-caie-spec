@@ -364,9 +364,11 @@ def t_report(r, i, p):
             for e in g.objects(det, PROV.used):
                 g.add((rec, PROV.wasDerivedFrom, e))
     g.add((rec, PROV.wasDerivedFrom, r.items["TestPlan"][0])); g.add((rec, PROV.wasDerivedFrom, r.items["DsoRelease"][0])); g.add((rec, PROV.wasDerivedFrom, rep))
+    ok, fired = conformance(g, *_checker_graphs())  # the verdict is the checker's own finding on the record so far, never a constant (sheet 10-19)
     ver = r.new("ConformanceVerdict", "verdict", i, 3, timed="endedAtTime")
     g.add((ver, EARL.subject, rep)); g.add((ver, EARL.mode, EARL.automatic)); g.add((ver, EARL.assertedBy, r.agents["ConformanceChecker"]))
-    g.add((ver, PROV.wasAssociatedWith, r.agents["ConformanceChecker"])); g.add((ver, PROV.used, rep)); g.add((ver, EPO.step, EPO.report)); result(g, ver, "passed")
+    g.add((ver, PROV.wasAssociatedWith, r.agents["ConformanceChecker"])); g.add((ver, PROV.used, rep)); g.add((ver, EPO.step, EPO.report))
+    result(g, ver, "passed" if ok else "failed", info="the record conforms to the EPO shapes" if ok else "the record fails " + ", ".join(fired))
     ap = r.new("ReportApproval", "report-approval", i, 4, timed="endedAtTime")
     g.add((ap, EPO.approvesReport, rep)); g.add((ap, EARL.subject, rep)); g.add((ap, EARL.mode, EARL.manual)); g.add((ap, EARL.assertedBy, r.agents["DomainExpert"]))
     g.add((ap, PROV.wasAssociatedWith, r.agents["DomainExpert"])); g.add((ap, PROV.used, ver)); g.add((ap, EPO.step, EPO.report)); result(g, ap, "passed")
@@ -462,6 +464,14 @@ def m_skip_report_approval(g):
         g.remove((a, None, None)); g.remove((None, None, a))
 
 
+def m_pad_pass_rate(g):
+    """The report's stored rates are padded to a full pass while the attestations stand: the rates are recomputed by S7 (SCI-08, sheet 10-19)."""
+    for rep in list(g.subjects(RDF.type, EPO.Report)):
+        for k in (EPO.passRate, EPO.failRate, EPO.cantTellRate):
+            g.remove((rep, k, None))
+        g.add((rep, EPO.passRate, Literal(1.0))); g.add((rep, EPO.failRate, Literal(0.0))); g.add((rep, EPO.cantTellRate, Literal(0.0)))
+
+
 def m_engagement_mismatch(g):
     """The statement of work is made to decide an interview for a population the record only speaks for: a representation-only decision is flipped to interview, or, with a single population, its interview is struck from the record while the decision stands (series wiring, R-49)."""
     reps = [d for d in g.subjects(RDF.type, EPO.EngagementDecision) if (d, EPO.engagement, EPO.representation) in g]
@@ -482,10 +492,23 @@ MUTATIONS = {
     "requirements-before-agreement": ("the requirement set dated before the agreement", m_requirements_before_agreement),
     "engagement-mismatch": ("the statement of work decides an interview for a population the record only speaks for", m_engagement_mismatch),
     "skip-report-approval": ("the report delivered without a domain expert's approval of its contents", m_skip_report_approval),
+    "pad-pass-rate": ("the report's pass rate padded to one while every attestation stands", m_pad_pass_rate),
 }
 
 
 # --- the checks ---------------------------------------------------------------
+
+_CHECKER: tuple[Graph, Graph] | None = None
+
+
+def _checker_graphs() -> tuple[Graph, Graph]:
+    """The shapes and the ontology the run's own conformance checker reads, loaded once."""
+    global _CHECKER
+    if _CHECKER is None:
+        root = views_root()
+        _CHECKER = (Graph().parse(root / "shapes" / "epo.shapes.ttl"), Graph().parse(root / "vocabulary" / "epo.ttl"))
+    return _CHECKER
+
 
 def conformance(record: Graph, shapes: Graph, epo: Graph) -> tuple[bool, list[str]]:
     from pyshacl import validate

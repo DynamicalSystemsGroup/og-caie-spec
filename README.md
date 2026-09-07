@@ -68,7 +68,7 @@ deployed AI system against the needs of a specific domain, written down as:
 - **The end-state demonstration (C-30) is built; Z's validation is not.**
   `ogc/executor.py` walks the process as the model states it and emits a
   record; the run conforms to S0 to S9, is complete against the model, has
-  a recomputable coverage and traces fully, and nine mutations are each
+  a recomputable coverage and traces fully, and ten mutations are each
   caught by a named check (`ogc execute`, chapter Records and reporting).
   Two findings are open as concern C-43: a record without a plan approval
   or an access grant conforms to the shapes and is caught only by
@@ -79,7 +79,7 @@ deployed AI system against the needs of a specific domain, written down as:
 - **Record and shapes: current.** The measles record names the parties, the
   mission, the agreement, the access, the stakeholder input, the
   appropriateness assessment, the plan approval and the delivery; shapes S0
-  to S9 and nine RDF counterexamples follow the rulings; the traceback query
+  to S9 and seventeen RDF counterexamples follow the rulings; the traceback query
   reaches the parties.
 - **Pending outside the repo.** The w3id redirect
   (perma-id/w3id.org#6652) is open; IRIs resolve nowhere until it merges. The

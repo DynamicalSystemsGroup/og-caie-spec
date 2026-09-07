@@ -48,6 +48,7 @@ EXPECTED = {
     "requirements-before-agreement": {"fired": ["S0-Layers", "S0-Parties"]},
     "engagement-mismatch": {"fired": ["S0-Population"]},
     "skip-report-approval": {"fired": ["S8-Delivery"], "missing": ["ReportApproval"]},
+    "pad-pass-rate": {"fired": ["S7-Report"]},  # sheet 10-19: the rates recomputed
 }
 
 

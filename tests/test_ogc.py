@@ -572,3 +572,14 @@ def test_r2_skill_carries_the_new_recipes_and_keeps_the_file_names_out_of_the_tr
     assert "Never open these; they are what ogc reads" in body
     for needle in ("verify --all --status pending", "sysml:declaredName", "sysml:owner", "sysml:specializes", "elmt:", "no `rdfs:label`", "run:", "\\n"):
         assert needle in body, needle
+
+
+def test_r3_finding_h1_offset_without_limit_returns_rows_from_the_offset():
+    """Round three, machine user H1: OFFSET with no LIMIT and no ORDER BY crashed in the slice helper."""
+    all_rows = run("sparql", "SELECT ?s WHERE { ?s a ogc:Ruling }")
+    assert all_rows.returncode == 0
+    r = run("sparql", "SELECT ?s WHERE { ?s a ogc:Ruling } OFFSET 47")
+    assert r.returncode == 0 and "Traceback" not in r.stderr, r.stderr[-300:]
+    assert "(2 rows)" in r.stdout, r.stdout[-200:]
+    j = run("sparql", "SELECT ?s WHERE { ?s a ogc:Ruling } OFFSET 47", "--json")
+    assert j.returncode == 0 and "Traceback" not in j.stderr

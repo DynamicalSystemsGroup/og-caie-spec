@@ -749,7 +749,10 @@ def sparql(args, g, argstr: str) -> int:
     top = pq.algebra
     if "OrderBy" not in names and isinstance(top.get("p"), CompValue) and top["p"].name == "Slice":
         sl = top["p"]
-        start, length = int(sl.get("start") or 0), sl.get("length")
+        def slice_part(key):  # a missing part comes back as its own name from the algebra (round three, machine H1: OFFSET without LIMIT)
+            v = sl.get(key)
+            return None if v is None or v == key else int(v)
+        start, length = slice_part("start") or 0, slice_part("length")
         top["p"] = sl["p"]
 
     def window(seq):
