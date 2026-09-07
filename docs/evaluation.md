@@ -147,20 +147,21 @@ numbered turn against a versioned test item, every evidence item bearing
 on one criterion under the plan, determinations with an EARL outcome,
 attestations closed over their determinations by a domain expert, and
 coverage recomputed from attestations alone. M2 to M5 run over the model graph: every wire local, every item
-kind reaching the recorder, the steps in order forming a DAG (a directed
-acyclic graph: each step after the ones that produce what it consumes, and
-no loop) that produces every item kind, the three roles in their slots.
-Seven record counterexamples must fail: an attestation without a
-determination behind it, one aggregating a determination for another
-criterion, the same fault across two turns of a strategy-driven session, a
-probe derived before the requirements, a recommendation resting on nothing,
-a session run by the domain expert, and an attestation by the account
-executive. Two model counterexamples must fail theirs: a port no seam
-reaches, and a domain expert who applies probes.
+kind reaching the recorder, the steps forming a DAG (a directed acyclic
+graph, no loop) that produces every item kind, the three roles in their slots.
+Fourteen record counterexamples must fail: an
+attestation without a determination, one for another criterion, one before
+its determination, a probe derived before the requirements or checked after
+its first turn, a plan approved after the session, an untraced
+recommendation, a session run by the domain expert, an attestation by the
+authorized representative, a delivery before its approval, a padded
+coverage, padded rates, and an interview after the DSO release. Two model
+counterexamples: a port no seam reaches, a domain expert who applies
+probes.
 
 :::{admonition} Verdict
 :class: checked
-The record conforms, and the nine counterexamples fail where they must.
+The record conforms, and the sixteen counterexamples fail where they must.
 Computational proof: [run the checks](../notebooks/checked-evaluation.ipynb).
 :::
 

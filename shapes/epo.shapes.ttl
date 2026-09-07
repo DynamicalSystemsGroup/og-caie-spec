@@ -285,6 +285,19 @@ ogc:S3-PlanApproval a sh:NodeShape ;
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX earl: <http://www.w3.org/ns/earl#>
             SELECT $this WHERE { FILTER NOT EXISTS { $this earl:assertedBy ?p . ?p epo:role epo:domainExpertRole } }
+        """ ] ;
+    sh:sparql [
+        sh:message "S3 order (sheet 10-19): the plan is approved before any session whose turns use the plan's probes starts." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            PREFIX earl: <http://www.w3.org/ns/earl#>
+            SELECT $this ?value WHERE {
+                $this epo:approves ?plan ; prov:endedAtTime ?t1 .
+                ?plan epo:means/(^prov:wasDerivedFrom)? ?probe . ?probe a epo:Probe .
+                ?turn a epo:Turn ; prov:used ?probe ; epo:inSession ?value . ?value prov:startedAtTime ?t0 .
+                FILTER(?t0 < ?t1)
+            }
         """ ] .
 
 ogc:S3-Probe a sh:NodeShape ;
@@ -313,6 +326,17 @@ ogc:S3-Probe a sh:NodeShape ;
                     ?c a epo:ConsistencyCheck ; earl:subject $this ; earl:mode earl:automatic ; earl:result ?r .
                     ?r earl:outcome earl:passed .
                 }
+            }
+        """ ] ;
+    sh:sparql [
+        sh:message "S3 order (sheet 10-19): the probe's passed consistency check ended before the first turn that used the probe started." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            PREFIX earl: <http://www.w3.org/ns/earl#>
+            SELECT $this ?value WHERE {
+                ?value a epo:Turn ; prov:used $this ; prov:startedAtTime ?t0 .
+                FILTER NOT EXISTS { ?c a epo:ConsistencyCheck ; earl:subject $this ; earl:result ?r ; prov:endedAtTime ?t1 . ?r earl:outcome earl:passed . FILTER(?t1 <= ?t0) }
             }
         """ ] .
 
@@ -386,6 +410,17 @@ ogc:S5-Evidence a sh:NodeShape ;
         sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             SELECT $this WHERE { $this epo:bearsOn ?a ; epo:underPlan ?plan . FILTER NOT EXISTS { ?plan epo:objective ?a } }
+        """ ] ;
+    sh:sparql [
+        sh:message "S5 order (sheet 10-19): evidence is generated no earlier than the turn its response came from started." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            PREFIX earl: <http://www.w3.org/ns/earl#>
+            SELECT $this ?value WHERE {
+                $this prov:generatedAtTime ?t1 ; prov:wasDerivedFrom ?x . ?x prov:wasGeneratedBy ?value . ?value prov:startedAtTime ?t0 .
+                FILTER(?t0 > ?t1)
+            }
         """ ] .
 
 # S6 <-> SCI-06: a determination rules on one or more evidence items that
@@ -421,6 +456,17 @@ ogc:S6-Determination a sh:NodeShape ;
             PREFIX earl: <http://www.w3.org/ns/earl#>
             PREFIX prov: <http://www.w3.org/ns/prov#>
             SELECT $this WHERE { $this earl:test ?a ; prov:used ?e . ?e a epo:Evidence . FILTER NOT EXISTS { ?e epo:bearsOn ?a } }
+        """ ] ;
+    sh:sparql [
+        sh:message "S6 order (sheet 10-19): a determination ends no earlier than the evidence it rules on was generated." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            PREFIX earl: <http://www.w3.org/ns/earl#>
+            SELECT $this ?value WHERE {
+                $this prov:endedAtTime ?t1 ; prov:used ?value . ?value a epo:Evidence ; prov:generatedAtTime ?t0 .
+                FILTER(?t0 > ?t1)
+            }
         """ ] .
 
 ogc:S4-TestSuite a sh:NodeShape ;
@@ -479,6 +525,17 @@ ogc:S6-Attestation a sh:NodeShape ;
                 $this earl:result ?r . ?r earl:outcome ?o . FILTER(?o IN (earl:passed, earl:failed))
                 FILTER NOT EXISTS { $this prov:used ?d . ?d a epo:Determination ; prov:used ?e . ?e a epo:Evidence }
             }
+        """ ] ;
+    sh:sparql [
+        sh:message "S6 order (sheet 10-19): an attestation ends no earlier than every determination it aggregates." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            PREFIX earl: <http://www.w3.org/ns/earl#>
+            SELECT $this ?value WHERE {
+                $this prov:endedAtTime ?t1 ; prov:used ?value . ?value a epo:Determination ; prov:endedAtTime ?t0 .
+                FILTER(?t0 > ?t1)
+            }
         """ ] .
 
 # S7 <-> SCI-07, SCI-08: the report is computed by an automatic activity of
@@ -529,6 +586,35 @@ ogc:S7-Report a sh:NodeShape ;
             SELECT $this WHERE {
                 $this epo:passRate ?p ; epo:failRate ?f ; epo:cantTellRate ?c .
                 FILTER(ABS(?p + ?f + ?c - 1) > 0.0001)
+            }
+        """ ] ;
+    sh:sparql [
+        sh:message "S7 (SCI-08, sheet 10-19): the stored pass, fail and cannot-tell rates equal the rates recomputed from the attestations over the covered criteria, as queries/coverage.rq computes them (a criterion counts once: failed if any attestation failed, else passed if any passed, else cannot tell)." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            PREFIX earl: <http://www.w3.org/ns/earl#>
+            SELECT $this ?value WHERE {
+                $this epo:passRate ?p ; epo:failRate ?f ; epo:cantTellRate ?c .
+                {
+                    SELECT $this (SUM(?passed) AS ?np) (SUM(?failed) AS ?nf) (SUM(?cant) AS ?nc) (SUM(?covered) AS ?n) WHERE {
+                        {
+                            SELECT $this ?a (IF(?nFailed > 0, 1, 0) AS ?failed) (IF(?nFailed = 0 && ?nPassed > 0, 1, 0) AS ?passed)
+                                   (IF(?nFailed = 0 && ?nPassed = 0 && ?nCantTell > 0, 1, 0) AS ?cant) (IF(?nFailed + ?nPassed + ?nCantTell > 0, 1, 0) AS ?covered) WHERE {
+                                {
+                                    SELECT $this ?a (SUM(IF(BOUND(?o) && ?o = earl:failed, 1, 0)) AS ?nFailed) (SUM(IF(BOUND(?o) && ?o = earl:passed, 1, 0)) AS ?nPassed)
+                                           (SUM(IF(BOUND(?o) && ?o = earl:cantTell, 1, 0)) AS ?nCantTell) WHERE {
+                                        $this a epo:Report . ?a a epo:AcceptanceCriterion .
+                                        OPTIONAL { ?t a epo:Attestation ; earl:test ?a ; earl:result ?r . ?r earl:outcome ?o . }
+                                    } GROUP BY $this ?a
+                                }
+                            }
+                        }
+                    } GROUP BY $this
+                }
+                BIND(IF(?n > 0, ?np / ?n, 0) AS ?ep) BIND(IF(?n > 0, ?nf / ?n, 0) AS ?ef) BIND(IF(?n > 0, ?nc / ?n, 0) AS ?ec)
+                FILTER(ABS(?p - ?ep) > 0.0001 || ABS(?f - ?ef) > 0.0001 || ABS(?c - ?ec) > 0.0001)
+                BIND(CONCAT("recomputed pass ", STR(?ep), ", fail ", STR(?ef), ", cannot tell ", STR(?ec)) AS ?value)
             }
         """ ] .
 
@@ -634,6 +720,17 @@ ogc:S8-Delivery a sh:NodeShape ;
                 UNION { FILTER NOT EXISTS { $this prov:wasDerivedFrom ?r . ?r a epo:Report } }
                 UNION { FILTER NOT EXISTS { $this prov:wasDerivedFrom ?c . ?c a epo:Recommendation } }
                 UNION { FILTER NOT EXISTS { $this prov:wasDerivedFrom ?a . ?a a epo:ReportApproval } }
+            }
+        """ ] ;
+    sh:sparql [
+        sh:message "S8 order (sheet 10-19): the delivery is made no earlier than the report approval it carries ended." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            PREFIX earl: <http://www.w3.org/ns/earl#>
+            SELECT $this ?value WHERE {
+                $this prov:generatedAtTime ?t1 ; prov:wasDerivedFrom ?value . ?value a epo:ReportApproval ; prov:endedAtTime ?t0 .
+                FILTER(?t0 > ?t1)
             }
         """ ] .
 

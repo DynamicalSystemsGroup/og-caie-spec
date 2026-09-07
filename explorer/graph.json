@@ -6489,6 +6489,12 @@
     [
      "sh:sparql",
      {
+      "text": "[sh:message S3 order (sheet 10-19): the plan is app…; sh:select PREFIX epo: <https://w3id.org/og-caie/e…]"
+     }
+    ],
+    [
+     "sh:sparql",
+     {
       "text": "[sh:message S3: a test plan is approved by a domain…; sh:select PREFIX epo: <https://w3id.org/og-caie/e…]"
      }
     ],
@@ -6525,6 +6531,12 @@
      "sh:property",
      {
       "text": "[sh:datatype http://www.w3.org/2001/XMLSchema#dateTi…; sh:minCount 1; sh:path http://www.w3.org/ns/prov#generatedAtTi…]"
+     }
+    ],
+    [
+     "sh:sparql",
+     {
+      "text": "[sh:message S3 order (sheet 10-19): the probe's pas…; sh:select PREFIX epo: <https://w3id.org/og-caie/e…]"
      }
     ],
     [
@@ -6776,6 +6788,12 @@
     [
      "sh:sparql",
      {
+      "text": "[sh:message S5 order (sheet 10-19): evidence is gen…; sh:select PREFIX epo: <https://w3id.org/og-caie/e…]"
+     }
+    ],
+    [
+     "sh:sparql",
+     {
       "text": "[sh:message S5: evidence must derive from at least…; sh:select PREFIX epo: <https://w3id.org/og-caie/e…]"
      }
     ],
@@ -6900,6 +6918,12 @@
     [
      "sh:sparql",
      {
+      "text": "[sh:message S6 order (sheet 10-19): an attestation…; sh:select PREFIX epo: <https://w3id.org/og-caie/e…]"
+     }
+    ],
+    [
+     "sh:sparql",
+     {
       "text": "[sh:message S6: the attesting person holds the doma…; sh:select PREFIX epo: <https://w3id.org/og-caie/e…]"
      }
     ],
@@ -6948,6 +6972,12 @@
      "sh:property",
      {
       "text": "[sh:maxCount 1; sh:minCount 1; sh:path http://www.w3.org/ns/earl#mode]"
+     }
+    ],
+    [
+     "sh:sparql",
+     {
+      "text": "[sh:message S6 order (sheet 10-19): a determination…; sh:select PREFIX epo: <https://w3id.org/og-caie/e…]"
      }
     ],
     [
@@ -7053,6 +7083,12 @@
     [
      "sh:sparql",
      {
+      "text": "[sh:message S7 (SCI-08, sheet 10-19): the stored pa…; sh:select PREFIX epo: <https://w3id.org/og-caie/e…]"
+     }
+    ],
+    [
+     "sh:sparql",
+     {
       "text": "[sh:message S7: the outcome distribution must sum t…; sh:select PREFIX epo: <https://w3id.org/og-caie/e…]"
      }
     ],
@@ -7142,6 +7178,12 @@
      "sh:property",
      {
       "text": "[sh:hasValue https://w3id.org/og-caie/epo#deliver; sh:maxCount 1; sh:minCount 1; sh:path https://w3id.org/og-caie/epo#step]"
+     }
+    ],
+    [
+     "sh:sparql",
+     {
+      "text": "[sh:message S8 order (sheet 10-19): the delivery is…; sh:select PREFIX epo: <https://w3id.org/og-caie/e…]"
      }
     ],
     [
@@ -53508,7 +53550,7 @@
   },
   {
    "cls": "shape",
-   "desc": "Targets epo:PlanApproval. S3: a test plan is approved by a domain expert (R-21).",
+   "desc": "Targets epo:PlanApproval. S3 order (sheet 10-19): the plan is approved before any session whose turns use the plan's probes starts. S3: a test plan is approved by a domain expert (R-21).",
    "id": "https://w3id.org/og-caie/S3-PlanApproval",
    "label": "S3-PlanApproval",
    "ogc": "ogc sparql \"DESCRIBE ogc:S3-PlanApproval\"",
@@ -53516,7 +53558,7 @@
   },
   {
    "cls": "shape",
-   "desc": "Targets epo:Probe. S3: every probe is a means of some test plan, directly or through a strategy that generated it. S3: no passed automatic consistency check exists for this probe. A probe names at least one acceptance criterion it exercises.",
+   "desc": "Targets epo:Probe. S3 order (sheet 10-19): the probe's passed consistency check ended before the first turn that used the probe started. S3: every probe is a means of some test plan, directly or through a strategy that generated it. S3: no passed automatic consistency check exists for this probe. A probe names at least one acceptance criterion it exercises.",
    "id": "https://w3id.org/og-caie/S3-Probe",
    "label": "S3-Probe",
    "ogc": "ogc sparql \"DESCRIBE ogc:S3-Probe\"",
@@ -53564,7 +53606,7 @@
   },
   {
    "cls": "shape",
-   "desc": "Targets epo:Evidence. S5: evidence must derive from at least one response or trajectory. S5: the plan an evidence item is bound to must have the criterion it bears on as an objective. An evidence item bears on exactly one criterion's expected result (R-18, R-20). Evidence derives from a response (probe level), a trajectory (session level) or several of them (suite level). Evidence is attributed to whoever collected it, person or software. Evidence is bound to the test plan it was collected under.",
+   "desc": "Targets epo:Evidence. S5 order (sheet 10-19): evidence is generated no earlier than the turn its response came from started. S5: evidence must derive from at least one response or trajectory. S5: the plan an evidence item is bound to must have the criterion it bears on as an objective. An evidence item bears on exactly one criterion's expected result (R-18, R-20). Evidence derives from a response (probe level), a trajectory (session level) or several of them (suite level). Evidence is attributed to whoever collected it, person or software. Evidence is bound to the test plan it was collected under.",
    "id": "https://w3id.org/og-caie/S5-Evidence",
    "label": "S5-Evidence",
    "ogc": "ogc sparql \"DESCRIBE ogc:S5-Evidence\"",
@@ -53580,7 +53622,7 @@
   },
   {
    "cls": "shape",
-   "desc": "Targets epo:Attestation. S6 chain rule (R-12, R-18, R-20): every determination an attestation aggregates tests the attested criterion, and every evidence item it rules on bears on that criterion under a plan that has it as an objective. S6 closure rule: an attestation with outcome passed or failed must aggregate at least one determination that rules on evidence; with none it can only say cantTell. S6: the attesting person holds the domain expert role; the operator collects and determines, the authorized representative signs and delivers, only the domain expert attests (R-21, R-23). An attestation is made by one named person. Appropriateness of the declared context is judged (R-08).",
+   "desc": "Targets epo:Attestation. S6 chain rule (R-12, R-18, R-20): every determination an attestation aggregates tests the attested criterion, and every evidence item it rules on bears on that criterion under a plan that has it as an objective. S6 closure rule: an attestation with outcome passed or failed must aggregate at least one determination that rules on evidence; with none it can only say cantTell. S6 order (sheet 10-19): an attestation ends no earlier than every determination it aggregates. S6: the attesting person holds the domain expert role; the operator collects and determines, the authorized representative signs and delivers, only the domain expert attests (R-21, R-23). An attestation is made by one named person. Appropriateness of the declared context is judged (R-08).",
    "id": "https://w3id.org/og-caie/S6-Attestation",
    "label": "S6-Attestation",
    "ogc": "ogc sparql \"DESCRIBE ogc:S6-Attestation\"",
@@ -53588,7 +53630,7 @@
   },
   {
    "cls": "shape",
-   "desc": "Targets epo:Determination. S6: a determination is made by a domain expert, an evaluation operator, or a versioned software agent; never by the authorized representative (R-21, R-23). S6: every evidence item a determination uses must bear on the criterion the determination tests. A determination rules on at least one evidence item. A determination's outcome is passed, failed or cantTell (EARL); not a Boolean.",
+   "desc": "Targets epo:Determination. S6 order (sheet 10-19): a determination ends no earlier than the evidence it rules on was generated. S6: a determination is made by a domain expert, an evaluation operator, or a versioned software agent; never by the authorized representative (R-21, R-23). S6: every evidence item a determination uses must bear on the criterion the determination tests. A determination rules on at least one evidence item. A determination's outcome is passed, failed or cantTell (EARL); not a Boolean.",
    "id": "https://w3id.org/og-caie/S6-Determination",
    "label": "S6-Determination",
    "ogc": "ogc sparql \"DESCRIBE ogc:S6-Determination\"",
@@ -53604,7 +53646,7 @@
   },
   {
    "cls": "shape",
-   "desc": "Targets epo:Report. S7: the outcome distribution must sum to one. S7: the report must be computed by an automatic activity of a versioned software agent. S7: the stored coverage equals the coverage recomputed from the record: the weighted share of acceptance criteria that carry at least one attestation with an outcome (walkthrough B5, R-48).",
+   "desc": "Targets epo:Report. S7 (SCI-08, sheet 10-19): the stored pass, fail and cannot-tell rates equal the rates recomputed from the attestations over the covered criteria, as queries/coverage.rq computes them (a criterion counts once: failed if any attestation failed, else passed if any passed, else cannot tell). S7: the outcome distribution must sum to one. S7: the report must be computed by an automatic activity of a versioned software agent. S7: the stored coverage equals the coverage recomputed from the record: the weighted share of acceptance criteria that carry at least one attestation with an outcome (walkthrough B5, R-48).",
    "id": "https://w3id.org/og-caie/S7-Report",
    "label": "S7-Report",
    "ogc": "ogc sparql \"DESCRIBE ogc:S7-Report\"",
@@ -53620,7 +53662,7 @@
   },
   {
    "cls": "shape",
-   "desc": "Targets epo:Delivery. S8: a delivery is made by the authorized representative to the sponsor and carries the report, its approval by a domain expert, and the recommendation (walkthrough, R-49).",
+   "desc": "Targets epo:Delivery. S8 order (sheet 10-19): the delivery is made no earlier than the report approval it carries ended. S8: a delivery is made by the authorized representative to the sponsor and carries the report, its approval by a domain expert, and the recommendation (walkthrough, R-49).",
    "id": "https://w3id.org/og-caie/S8-Delivery",
    "label": "S8-Delivery",
    "ogc": "ogc sparql \"DESCRIBE ogc:S8-Delivery\"",

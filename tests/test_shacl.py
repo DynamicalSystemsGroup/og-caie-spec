@@ -20,6 +20,11 @@ COUNTEREXAMPLES = {
     "counterexamples/population-unrepresented.ttl": "S0-Population",
     "counterexamples/engagement-mismatch.ttl": "S0-Population",
     "counterexamples/report-coverage-padded.ttl": "S7-Report",
+    "counterexamples/report-rates-padded.ttl": "S7-Report",  # sheet 10-19: the three rates recomputed (SCI-08)
+    "counterexamples/plan-approved-after-session.ttl": "S3-PlanApproval",  # sheet 10-19: the four ordering rules
+    "counterexamples/consistency-check-after-turn.ttl": "S3-Probe",
+    "counterexamples/attestation-before-determination.ttl": "S6-Attestation",
+    "counterexamples/delivery-before-approval.ttl": "S8-Delivery",
     "counterexamples/expert-administers-tests.ttl": "S4-Session",
     "counterexamples/executive-attests.ttl": "S6-Attestation",
     "counterexamples/dso-before-stakeholder-input.ttl": "S1-DsoRelease",  # sheet 08: the population's input came after the DSO approval
