@@ -1,0 +1,16 @@
+# Phrases the reviewers found stale (sheet 10; the drift loop). One per line,
+# matched case-insensitively outside the rulings, the sheets and the digests,
+# which quote history. Add a line whenever a stale sentence is fixed.
+appears only to receive the report
+nine mutations
+nine RDF counterexamples
+Seven record counterexamples
+eighteen named shapes
+four appendices
+interviewed or represented by a named domain expert
+the 15288 agreement processes
+technical processes inside the agreement processes
+probe deriver
+reserve source
+sit in reserve
+Zargham and Hollek, Building Scientific

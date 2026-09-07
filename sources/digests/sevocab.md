@@ -78,3 +78,8 @@ every page for an entry starting with the word:
 | ontology | present, p. 280 (ISO/IEC/IEEE 24641:2023, 3.1.23) | canonical moved to SEVOCAB |
 | trajectory | absent (2026-09-07) | IEC 60050-351 stays |
 | appropriateness, sufficiency | absent (2026-09-07) | ISA 500 and Hawkins et al. stay |
+| knowledge graph | absent (2026-09-07) | Hogan et al. stay |
+| authoritative reference | absent (2026-09-07); authoritative absent | the reserve anchor stays |
+| first-party conformity assessment activity | absent (2026-09-07); first party absent | ISO/IEC 17000 4.3 stays |
+| second-party conformity assessment activity | absent (2026-09-07); second party absent | ISO/IEC 17000 4.4 stays |
+| third-party conformity assessment activity | third party present in a neighbouring sense, p. 441 (ISO/IEC 25051:2014: the independent person or body, not the activity); conformity assessment present, p. 88 (ISO/IEC 29110-1-2:2024); independent present, p. 204 (ISO/IEC/IEEE 24765:2017) | ISO/IEC 17000 4.5 stays for the activity; the SEVOCAB entries are neighbours |

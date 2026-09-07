@@ -74,7 +74,7 @@ Appendix A runs in the browser on two libraries committed under `explorer/vendor
 
 ## The gate
 
-`checks/run-checks.sh` runs 9 steps, every one, in this order; a step passes when its exit code is the expected one. The only summary is the `CHECKS: PASS` or `CHECKS: FAIL` line and `checks/out/report.json`; each step's full output is in `checks/out/last.log`. Nothing is optional and nothing fails quietly.
+`checks/run-checks.sh` runs 10 steps, every one, in this order; a step passes when its exit code is the expected one. The only summary is the `CHECKS: PASS` or `CHECKS: FAIL` line and `checks/out/report.json`; each step's full output is in `checks/out/last.log`. Nothing is optional and nothing fails quietly.
 
 | # | Step | Expected exit | Command |
 |---|---|---|---|
@@ -82,11 +82,12 @@ Appendix A runs in the browser on two libraries committed under `explorer/vendor
 | 2 | model: validate -strict (authoring view and model counterexamples) | 0 | `toolchain/bin/sysml model/og-caie.sysml counterexamples/model/unwired-port.sysml counterexamples/model/expert-administers-tests.sysml counterexamples/model/missing-accountable.sysml counterexamples/model/no-obligation.sysml -validate -strict` |
 | 3 | model graph: convert, prune, byte-identical to the committed canonical graph | 0 | `uv run python scripts/prune_model.py && git diff --quiet -- model/og-caie.model.ttl model/model_manifest.json` |
 | 4 | ogc: doctor (labels unambiguous, quotes located, record consistent) | 0 | `uv run -q ogc doctor --no-cache` |
-| 5 | notebooks: executed by nbclient, outputs equal the committed ones, verdict NOTEBOOK: PASS | 0 | `uv run python scripts/execute_notebooks.py --check` |
-| 6 | tests: full suite | 0 | `uv run pytest -q` |
-| 7 | generated/ and explorer/: regenerate byte-identically | 0 | `bash checks/regen.sh (uv run python scripts/render.py && uv run python scripts/render_cli.py && uv run python scripts/render_diagrams.py && uv run python scripts/render_explorer.py && uv run python scripts/render_toolchain.py && uv run python scripts/render_bib.py && uv run python scripts/render_version.py) && git diff --quiet -- generated/ explorer/` |
-| 8 | site: myst build --html | 0 | `uv run myst build --html` |
-| 9 | site: the explorer copied next to the built site | 0 | `bash scripts/copy_explorer.sh` |
+| 5 | drift: the consistency loop, mechanical layer (appendix letters, stale phrases, retired words, file mentions, sheet ticks, twins, absence rows) | 0 | `uv run python scripts/drift_check.py` |
+| 6 | notebooks: executed by nbclient, outputs equal the committed ones, verdict NOTEBOOK: PASS | 0 | `uv run python scripts/execute_notebooks.py --check` |
+| 7 | tests: full suite | 0 | `uv run pytest -q` |
+| 8 | generated/ and explorer/: regenerate byte-identically | 0 | `bash checks/regen.sh (uv run python scripts/render.py && uv run python scripts/render_cli.py && uv run python scripts/render_diagrams.py && uv run python scripts/render_explorer.py && uv run python scripts/render_toolchain.py && uv run python scripts/render_bib.py && uv run python scripts/render_version.py) && git diff --quiet -- generated/ explorer/` |
+| 9 | site: myst build --html | 0 | `uv run myst build --html` |
+| 10 | site: the explorer copied next to the built site | 0 | `bash scripts/copy_explorer.sh` |
 
 ## Continuous integration
 
