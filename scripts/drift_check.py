@@ -90,7 +90,7 @@ def problems() -> list[str]:
     for p in PROSE_SOURCES + sorted((ROOT / "shapes").glob("*.ttl")):
         for m in path_re.finditer(p.read_text()):
             path = m.group(1).rstrip(".")
-            if not (ROOT / path).exists() and path != "generated/version.md":
+            if not (ROOT / path).exists() and path != "generated/version.md" and not path.startswith("checks/out/"):  # render-time and gate outputs are never committed
                 out.append(f"missing file '{path}' named in {p.relative_to(ROOT)}")
     # 5. sheet ticks name rulings the register holds
     rulings = {str(r).rsplit("#", 1)[-1] for r in g.subjects(RDF.type, OGC.Ruling)}
