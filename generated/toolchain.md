@@ -1,6 +1,6 @@
 ## The Python environment
 
-Python `>=3.12` (`pyproject.toml`), pinned to `3.12` by `.python-version` so that `uv sync` installs the same interpreter everywhere. `uv sync` reproduces the environment from `uv.lock` (lockfile version 1, revision 3): 111 packages in all, 10 direct (3 runtime, 7 dev) and 101 transitive, every one pinned to a version and a content hash. The project `og-caie-spec` is installed editable and provides the `ogc` command.
+Python `>=3.12` (`pyproject.toml`), pinned to `3.12` by `.python-version` so that `uv sync` installs the same interpreter everywhere. `uv sync` reproduces the environment from `uv.lock` (lockfile version 1, revision 3): 111 packages in all, 11 direct (3 runtime, 8 dev) and 100 transitive, every one pinned to a version and a content hash. The project `og-caie-spec` is installed editable and provides the `ogc` command.
 
 | Package | Group | Constraint (`pyproject.toml`) | Locked (`uv.lock`) |
 |---|---|---|---|
@@ -14,6 +14,7 @@ Python `>=3.12` (`pyproject.toml`), pinned to `3.12` by `.python-version` so tha
 | `nbformat` | dev | `>=5.10` | `5.11.1` |
 | `jupyter` | dev | `>=1.0` | `1.1.1` |
 | `ipykernel` | dev | `>=6.29` | `7.3.0` |
+| `owlrl` | dev | `>=7.6.2` | `7.6.2` |
 
 ## The pinned converter
 
@@ -48,16 +49,16 @@ What the graphs are written in, counted over the committed Turtle files (`vocabu
 | `skos` | `http://www.w3.org/2004/02/skos/core#` | W3C | SKOS: the glossary's concepts, labels, definitions and notes | 2 | 11 | 0 | <https://www.w3.org/TR/skos-reference/> |
 | `prov` | `http://www.w3.org/ns/prov#` | W3C | PROV-O: who did what and when in the record (agents, activities, entities, derivation, attribution) | 7 | 9 | 0 | <https://www.w3.org/TR/prov-o/> |
 | `earl` | `http://www.w3.org/ns/earl#` | W3C | EARL 1.0: assertions with an assertor, a mode, a subject, a test and an outcome (passed, failed, cantTell) | 2 | 7 | 0 | <https://www.w3.org/TR/EARL10-Schema/> |
-| `sh` | `http://www.w3.org/ns/shacl#` | W3C | SHACL: the shapes that check the record, the model graph and the rulings, including SHACL-SPARQL constraints | 1 | 17 | 0 | <https://www.w3.org/TR/shacl/> |
+| `sh` | `http://www.w3.org/ns/shacl#` | W3C | SHACL: the shapes that check the record, the model graph and the rulings, including SHACL-SPARQL constraints | 2 | 18 | 0 | <https://www.w3.org/TR/shacl/> |
 | `sysml` | `https://www.omg.org/spec/SysML#` | OpenSysML (after the OMG SysML v2 metamodel) | SysML v2 vocabulary as the OpenSysML converter renders the model: definitions, usages, ports, interfaces, actions, successions, flows | 26 | 18 | 0 | <https://www.omg.org/spec/SysML/2.0/> |
 | `sysx` | `urn:opensysml:sysml:` | OpenSysML | the converter's own facts: the ends of a connection, the source text of a statement, a prefix keyword | 0 | 4 | 0 | <https://github.com/OpenMBEE/opensysml> |
 | `elmt` | `urn:sysmlv2:element:` | OpenSysML | the converter's element identifiers, one per model element | 0 | 0 | 647 | <https://github.com/OpenMBEE/opensysml> |
 | `expr` | `urn:opensysml:expr:` | OpenSysML | the converter's expression identifiers (end paths, multiplicity bounds) | 0 | 0 | 491 | <https://github.com/OpenMBEE/opensysml> |
-| `ogc` | `https://w3id.org/og-caie/` | this specification | the register: citation classes and properties, shapes' names, concerns, rulings, crosswalk rows, trace essentials | 6 | 51 | 114 | <https://w3id.org/og-caie/> |
+| `ogc` | `https://w3id.org/og-caie/` | this specification | the register: citation classes and properties, shapes' names, concerns, rulings, crosswalk rows, trace essentials | 6 | 51 | 117 | <https://w3id.org/og-caie/> |
 | `term` | `https://w3id.org/og-caie/terms#` | this specification | the glossary's terms | 0 | 0 | 66 | <https://w3id.org/og-caie/> |
 | `src` | `https://w3id.org/og-caie/sources#` | this specification | the source register | 0 | 0 | 77 | <https://w3id.org/og-caie/> |
 | `rul` | `https://w3id.org/og-caie/rulings#` | this specification | concerns and rulings | 0 | 0 | 114 | <https://w3id.org/og-caie/> |
-| `epo` | `https://w3id.org/og-caie/epo#` | this specification | the Evaluation Process Ontology's handles: item classes, steps, layers, roles and their properties | 54 | 59 | 168 | <https://w3id.org/og-caie/> |
+| `epo` | `https://w3id.org/og-caie/epo#` | this specification | the Evaluation Process Ontology's handles: item classes, steps, layers, roles and their properties | 54 | 60 | 169 | <https://w3id.org/og-caie/> |
 | `xw` | `https://w3id.org/og-caie/crosswalk#` | this specification | the crosswalk rows of the front page's bridge into the standards | 0 | 0 | 7 | <https://w3id.org/og-caie/> |
 | `tr` | `https://w3id.org/og-caie/trace#` | this specification | the essentials SCI-01 to SCI-13 | 0 | 0 | 13 | <https://w3id.org/og-caie/> |
 | `ogm` | `https://w3id.org/og-caie/model#` | this specification | the derived ends of the canonical model graph (resolved ports, flow ends, successions, relations) | 0 | 11 | 11 | <https://w3id.org/og-caie/> |

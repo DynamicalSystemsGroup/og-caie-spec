@@ -16,8 +16,8 @@ sparql constraints (1):
       SELECT $this ?value WHERE {
           $this prov:generatedAtTime ?ta ; ogc:inRecord ?rec . ?rs a epo:RequirementSet ;
               ogc:inRecord ?rec ; prov:generatedAtTime ?tr .
-          ?value a ?cls ; ogc:inRecord ?rec ; (prov:generatedAtTime|prov:endedAtTime) ?t . ?cls
-              ogc:pinnedAt ?layer .
+          ?value a ?cls ; ogc:inRecord ?rec ; prov:generatedAtTime ?t . ?cls ogc:pinnedAt ?layer
+              .
           FILTER( (?layer = epo:contract && ?t > ?tr && NOT EXISTS { ?value a epo:Delivery } &&
               NOT EXISTS { ?value a epo:Acceptance })
                || (?layer = epo:evaluation && ?t < ?ta) )

@@ -4,8 +4,8 @@
 | 2 | IEEE Computer Society, Software and Systems Engineering Vocabulary (SEVOCAB), PDF export (481 pp.) | heldLocally | 1 | Each definition may be copied provided the IEEE statement remains with it, and the ISO/IEC definitions provided their source is cited; the PDF itself is not redistributed |
 | 3 | NIST AI 100-1, Artificial Intelligence Risk Management Framework (AI RMF 1.0), January 2023 | committed | 1 | US Government work, public domain |
 | 3 | NIST AI 700-2, Assessing Risks and Impacts of AI (ARIA): ARIA 0.1 Pilot Evaluation Report (November 2025) | committed | 1 | US Government work, public domain |
-| 4 | W3C, Evaluation and Report Language (EARL) 1.0 Schema, Working Group Note 2 February 2017 | committed | 1 | W3C Document Licence |
-| 4 | W3C, PROV-O: The PROV Ontology, Recommendation 30 April 2013 | committed | 1 | W3C Document Licence |
+| 4 | W3C, Evaluation and Report Language (EARL) 1.0 Schema, Working Group Note 2 February 2017 | committed | 2 | W3C Document Licence |
+| 4 | W3C, PROV-O: The PROV Ontology, Recommendation 30 April 2013 | committed | 2 | W3C Document Licence |
 | 4 | W3C, Shapes Constraint Language (SHACL), Recommendation 20 July 2017 | committed | 1 | W3C Document Licence |
 | 4 | W3C, SKOS Simple Knowledge Organization System Reference, Recommendation 18 August 2009 | committed | 1 | W3C Document Licence |
 | 5 | IEC 60050-351:2013 International Electrotechnical Vocabulary, Part 351: Control technology (Electropedia) | citeOnly | 0 | IEC copyright; Electropedia is publicly browsable; short attributed quotations only; quotes transcribed from the browser and verified by Z on 2026-09-06 (rulings sheet 02) |
