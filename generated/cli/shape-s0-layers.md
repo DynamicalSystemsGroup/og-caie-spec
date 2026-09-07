@@ -14,7 +14,8 @@ sparql constraints (1):
       PREFIX prov: <http://www.w3.org/ns/prov#>
       SELECT $this ?value WHERE {
           $this prov:generatedAtTime ?ta . ?rs a epo:RequirementSet ; prov:generatedAtTime ?tr .
-          ?value a ?cls ; prov:generatedAtTime ?t . ?cls ogc:pinnedAt ?layer .
+          ?value a ?cls ; (prov:generatedAtTime|prov:endedAtTime) ?t . ?cls ogc:pinnedAt ?layer
+              .
           FILTER( (?layer = epo:contract && ?t > ?tr && NOT EXISTS { ?value a epo:Delivery } &&
               NOT EXISTS { ?value a epo:Acceptance })
                || (?layer = epo:evaluation && ?t < ?ta) )

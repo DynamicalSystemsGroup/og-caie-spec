@@ -62,7 +62,7 @@ From a git clone of the repository with git, uv and Node.js 20 or later
 installed. The first run needs the network four times: uv fetches the
 pinned interpreter and the wheels, `get-sysml.sh` fetches the converter's
 release tarball, and the site builder fetches its theme; a second run is
-offline. The gate takes two to three minutes on a laptop, most of it the
+offline. The gate takes three to four minutes on a laptop, most of it the
 test suite; the site build is seconds once the theme is cached.
 
 ```bash
@@ -83,7 +83,7 @@ ends with `CHECKS: PASS` or `CHECKS: FAIL` followed by the commit it
 judged; that line is what the pre-push hook and CI require. `ogc doctor`
 prints its checks, a note per fact that is not a fault (the open concerns;
 the pending quotes when there are any) and a cache line, and ends with
-`VERDICT: PASS` and the path it judged. The notebook step prints one line
+`VERDICT: PASS` with the commit it judged. The notebook step prints one line
 per notebook, `fresh` or `STALE`, then `NOTEBOOK: PASS` or `NOTEBOOK: FAIL`;
 the kernel's warning about an unencrypted local transport is expected. `myst build --html` writes the site under `_build/html`; the gate copies
 Appendix A's explorer next to it, and after a build of your own
