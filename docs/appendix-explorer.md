@@ -37,3 +37,8 @@ links and views, for anyone who wants the graph without the page. The
 SPARQL box loads one merged file, `explorer/data/all.ttl`, every graph in
 one default graph, which is what the shapes and the record's queries
 assume.
+
+The worked example is a synthetic case, and every node of its record and
+its agents says so; the button beside the focus bar includes or excludes
+synthetic data from every view (sheet 10-43), and the deep link keeps the
+choice.

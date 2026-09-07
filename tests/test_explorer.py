@@ -158,3 +158,14 @@ def test_the_page_has_focus_mode_and_the_data_does_not():
     assert not any("focus" in n or "depth" in n for n in m["nodes"])
     assert set(m["views"][0]) == {"id", "label", "focus", "leaves_out", "present"}  # a view's focus is its perspective, not the mode
     assert "focus" in (ROOT / "docs" / "appendix-explorer.md").read_text().lower()
+
+
+def test_the_page_can_include_or_exclude_synthetic_data():
+    """Sheet 10-43 (R-51): a toggle beside the focus bar includes or excludes the synthetic record's nodes from every view,
+    kept in the deep link as synthetic=0; the data only carries the tag."""
+    html = (ROOT / "explorer" / "index.html").read_text()
+    for needle in ('id="synthbar"', 'id="synthetic"', 'synthetic data: shown', 'p.get("synthetic")', 'p.set("synthetic","0")', "showSynthetic"):
+        assert needle in html, needle
+    assert "synthetic" in (ROOT / "docs" / "appendix-explorer.md").read_text().lower()
+    m = model()
+    assert all("synthetic" in n for n in m["nodes"] if n["cls"] in ("record", "agent"))

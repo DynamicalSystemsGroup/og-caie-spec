@@ -17,6 +17,9 @@
   #focusbar.on .lbl{color:#ffd54f}
   #focusbar button[data-depth]{padding:2px 6px}
   #focusbar button:disabled{opacity:.4;cursor:default}
+  #synthbar{margin-left:10px;padding-left:10px;border-left:1px solid #2a2f3a}
+  #synthbar button{background:#2a2f3a;color:#e6e6e6;border:1px solid #3a4150;border-radius:6px;padding:2px 8px;cursor:pointer;font:inherit;font-size:12px}
+  #synthbar button[aria-pressed="false"]{background:#5d403233;border-color:#c78a5b;color:#ffd9b3}
   .node.dim{opacity:.12}
   .link.dim{stroke-opacity:.06}
   .node.focus path{stroke:#ffd54f;stroke-width:3px}
@@ -90,6 +93,9 @@
     <button id="hidemode" aria-pressed="false" title="hide the nodes outside the neighbourhood instead of fading them">hide others</button>
     <button id="unfocus" disabled title="restore the view (Escape)">unfocus</button>
   </span>
+  <span id="synthbar" title="the worked example is a synthetic case (sheet 10-43): include or exclude its record and agents from every view">
+    <button id="synthetic" aria-pressed="true">synthetic data: shown</button>
+  </span>
   <div id="search"><input id="q" type="search" placeholder="find a node" autocomplete="off"><div id="hits"></div></div>
   <a id="full" href="../explorer/index.html" target="_top" title="open the explorer in the whole window">full screen ↗</a>
   <span id="viewdesc"></span>
@@ -116,7 +122,9 @@ const GLYPH = {circle:d3.symbolCircle, diamond:d3.symbolDiamond, square:d3.symbo
 let cur = 0, selectedId = null;
 // focus mode (ruling R-48): the focused node and its neighbourhood at a distance, within the current view; the rest fades or hides
 let focusId = null, depth = 1, hideOthers = false, shownSet = null, trail = [];
-const view = ()=>VIEWS[cur];
+let showSynthetic = true;  // sheet 10-43: the page can include or exclude the synthetic record; the data only carries the tag
+const viewPresent = ()=>VIEWS[cur].present.filter(id=>showSynthetic || !(byId.get(id)&&byId.get(id).synthetic));
+const view = ()=>({...VIEWS[cur], present: viewPresent()});
 const lid = x => typeof x==="string" ? x : x.id;
 const ADJ = new Map(NODES.map(n=>[n.id,new Set()]));
 for(const e of MODEL.links){ ADJ.get(e.source).add(e.target); ADJ.get(e.target).add(e.source); }
@@ -362,6 +370,7 @@ function layout(){
 // deep links: #view=<view id>&node=<node id>[&focus=1&depth=N], read on load and kept current, so a view, a node or a focused neighbourhood can be linked to
 function readHash(){
   const p = new URLSearchParams(location.hash.slice(1)); const v = VIEWS.findIndex(x=>x.id===p.get("view")); if(v>=0) cur=v;
+  if(p.get("synthetic")==="0") showSynthetic = false;
   const d = parseInt(p.get("depth"), 10);
   return {node: p.get("node"), focus: p.get("focus")==="1", depth: d>=1 && d<=3 ? d : 0};
 }
@@ -369,13 +378,17 @@ function writeHash(){
   const p = new URLSearchParams(); p.set("view", view().id);
   if(selectedId || focusId) p.set("node", selectedId || focusId);
   if(focusId){ p.set("focus","1"); p.set("depth", String(depth)); }
+  if(!showSynthetic) p.set("synthetic","0");
   try{ history.replaceState(null,"","#"+p.toString()); }catch(e){}
 }
+function syncSynthbar(){ const b=document.getElementById("synthetic"); b.setAttribute("aria-pressed", String(showSynthetic)); b.textContent = showSynthetic ? "synthetic data: shown" : "synthetic data: hidden"; }
+document.getElementById("synthetic").addEventListener("click", ()=>{ showSynthetic = !showSynthetic; syncSynthbar(); if(selectedId && byId.get(selectedId).synthetic && !showSynthetic){ clearDetail(); } paint(); writeHash(); });
 function openHash(h){
   if(!(h.node && byId.has(h.node))){ if(focusId) unfocus(); return; }
   if(h.focus) focusOn(h.node, h.depth || depth); else { if(focusId){ focusId = null; trail = []; } showDetail(h.node); }
 }
 const start = readHash();
+syncSynthbar();
 paint(); layout();
 openHash(start);
 window.addEventListener("resize",layout);
