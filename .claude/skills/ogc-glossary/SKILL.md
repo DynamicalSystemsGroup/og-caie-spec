@@ -55,8 +55,11 @@ angle brackets. A CURIE under a prefix the command does not read is a miss
 (exit 1) whose hint names the reader that does: `ogc term rul:R-16` says
 try `ogc ruling R-16`, `ogc define epo:StakeholderRepresentation` says try
 `ogc epo StakeholderRepresentation`, `ogc record term:probe` says try `ogc
-term probe`; the shapes live under `ogc:`, so `ogc shape epo:S3-PlanApproval`
-is a miss too. Source slugs, view names, mutation names, shape ids and
+term probe`, `ogc record epo:Attestation` says the class is read by `ogc
+epo Attestation` and its instances are listed by `ogc record`; the shapes
+live under `ogc:`, so `ogc shape epo:S3-PlanApproval` is a miss too. An
+`ex:` id anywhere (`ogc term ex:probe`, `ogc record ex:attestation-1`) is
+a miss that explains the executor's namespace, never loaded. Source slugs, view names, mutation names, shape ids and
 filter values are case-insensitive too. A miss lists up to eight near
 misses (substring, shared word, edit distance), never the whole list; an
 argument longer than eighty characters is echoed cut, with three dots, in
@@ -103,7 +106,10 @@ are a usage error (exit 2).
    `coined by:` and the tables show `(coined)` in the source column.
 4. Sources have a posture: committed (snapshot in the repo), heldLocally
    (hash committed, file not), citeOnly (no quote or a human-verified one).
-   `ogc sources` is the register, `ogc source <slug>` one entry.
+   `ogc sources` is the register, `ogc source <slug>` one entry; each
+   source names its BibTeX key, `bibkey`, the key the works cited use
+   (sheet 10-40): a `bibkey:` line in `ogc source`, a column in `ogc
+   sources`, the same key in both `--json` objects.
 5. seeAlso citations are neighbours, never definitions.
 6. Rulings are dated decisions in the register's words (`ogc:rulingText`),
    each keeping Z's message as sent in `ogc:verbatim` (R-47); refined and
@@ -212,14 +218,15 @@ shape files.
 | Is each quote really where its citation says? | `ogc verify <term>`, `ogc verify <source-slug>`, `ogc verify <step>`, `ogc verify --all` (every citation: the terms', the steps' and the crosswalk rows'; summary line; in JSON a `summary`); the first column is `holder` (a term, a step or a crosswalk row), the second `citation` (canonical, seeAlso or crosswalk) |
 | Which quotes are pending, or in any one status or state? | `ogc verify --all --status pending` (the quote's tag: machine, human, pending, cite-only, authors); `ogc verify --all --state digest` (where it was located: verified, digest, human, pending, cite-only, authors, NOT FOUND); an empty answer prints `(none)` with exit 0 |
 | May I use this word in prose, and how do I mark it up? | `ogc check-word <word> [<word> ...]` (several words at once; quote multi-word ones; registered / alternative / retired; the `{term}` role to write; other terms the word lands on; concerns that mention it; empty words are refused) |
-| Every term a source supports, with the quotes | `ogc source <slug>`; the register: `ogc sources --rank 1`, `--posture heldLocally`, `--uncited` (not with `--rank 1`, `2` or `3`: a precedence-ranked source is cited by the terms defined from it, so the two exclude each other, exit 2) |
+| Every term a source supports, with the quotes | `ogc source <slug>` (rank, kind, posture, `bibkey`, url, digest, status, retrieval and licence notes, snapshots, then the citations); the register: `ogc sources --rank 1`, `--posture heldLocally`, `--uncited` (not with `--rank 1`, `2` or `3`: a precedence-ranked source is cited by the terms defined from it, so the two exclude each other, exit 2) |
 | The terms by class or by source | `ogc list --class refined`, `ogc list --source sevocab` (an unregistered slug exits 1 with the candidates) |
 | Why is it defined this way? | `ogc rulings --term <term>`; a substring over ruling texts, messages as sent and change notes: `ogc rulings --grep conformance`; one ruling, the decision and then the message as sent: `ogc ruling R-16` (`--json` carries `text` and `verbatim`) |
-| What was in doubt, and what is still open | `ogc concerns --open`, `ogc concerns --status ruled`, `ogc concerns --severity H`; `ogc concern C-25` (`--open` is `--status open`; with another `--status` the two exclude each other, exit 2) |
+| What was in doubt, and what is still open | `ogc concerns --open`, `ogc concerns --status ruled`, `ogc concerns --severity H`; `ogc concern C-25` (`--open` is `--status open`; with another `--status` the two exclude each other, exit 2). An id of the other kind is a miss that names the reader: `ogc ruling C-30` says try `ogc concern C-30`, `ogc concern R-16` says try `ogc ruling R-16` |
 | What must a scientific record contain? | `ogc sci`; one essential: `ogc sci SCI-07` |
 | Which canon step does each of the twelve steps match? | `ogc steps` |
 | What is this EPO class or role, what does it name, what checks it? | `ogc epo StakeholderRepresentation`, `ogc epo EngagementDecision`, `ogc epo ReportApproval`, `ogc epo ConformanceVerdict`, `ogc epo AuthorizedRepresentativeRole` (label, superclasses, pinned at, term and headword, disjoint with, shapes mentioning it; `--json` is one object with `id`, `kind`, `label`, `comment`, `superclasses`, `types`, `subclasses`, `instances`, `pinned_at`, `terms`, `disjoint_with`, `shapes`) |
 | What does a shape check, and over what? | `ogc shapes` (every node shape with its target and file, over all four shape files); `ogc shape S3-PlanApproval`, `ogc shape m1-parties`, `ogc shape RulingShape` (target, property constraints, each SPARQL constraint's message and its `sh:select` body, indented; in JSON `sparql` is a list of `message` and `select`, and `message` and `closed` are null when the shape has none) |
+| Which executor mutation makes this shape fire? | `ogc shape S6-Attestation` prints `counterexamples (executor mutations): attest-without-determination, cherry-pick, executive-attests, unwire-evidence` (`(none)` when no mutation reaches it, as for the shapes the model checks); in JSON `counterexamples`. The map is `MUTATION_SHAPES` in `ogc/executor.py`, mutation to the shapes it fires, held equal to the demonstration's own result by a test; run `ogc execute --mutate <name>` to see the shape fire |
 | The views of the model: what each brings into focus and leaves out | `ogc views` |
 | One view as mermaid, with its perspective (nesting, assemblage, contracting, evaluation) | `ogc view contracting` |
 | Execute the process from the model and run the checks over the emitted record; break one or more things | `ogc execute` (ends in `VERDICT: PASS` or `FAIL`, exit 1 on FAIL), `ogc execute --mutate skip-access`, `--mutate` repeated applies them in order, `ogc execute --turtle` |
@@ -260,6 +267,18 @@ Naming one twice is a usage error (`mutation named twice`, exit 2).
   `predicate`, `object`, `label`; `referenced_by` are `subject`,
   `predicate`, `label`).
 - `view`: `name`, `title`, `focus`, `leaves_out`, `mermaid`.
+- `source`: `slug`, `label`, `rank`, `kind`, `posture`, `url`, `bibkey`,
+  `digest`, `status`, `retrieval`, `licence`, `permission`, `snapshots`
+  (`file`, `hash`), `citations` (`term`, `citation`, `locator`, `quote`,
+  `status`); `sources`: rows of `slug`, `rank`, `posture`, `kind`,
+  `bibkey`, `citations`, `snapshots`, `label` (`citations` and `snapshots`
+  are counts).
+- `steps`: rows of `cycle`, `order`, `step`, `label`, `source`, `locator`,
+  `quote`, `status`, `also` (the seeAlso citations, each a citation record
+  with `source`, `locator`, `quote`, `status`); `step` is the local name
+  (`scope`, `acceptDelivery`), `label` the head and the definition.
+- `shape`: `id`, `iri`, `file`, `target`, `message`, `closed`,
+  `properties`, `sparql`, `counterexamples` (the mutation names).
 - `term`: the whole entry; its `rulings` are `id` and `label`, the label
   being the resolved concerns' labels or the first words of the ruling.
 

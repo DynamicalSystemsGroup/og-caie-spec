@@ -322,7 +322,7 @@ def sources_table(g: Graph, rank=None, posture=None, uncited=False) -> list[dict
             continue
         if uncited and counts[s] > 0:
             continue
-        rows.append(dict(slug=local(s), rank=r, posture=p, kind=one(g, s, OGC.kind), citations=counts[s],
+        rows.append(dict(slug=local(s), rank=r, posture=p, kind=one(g, s, OGC.kind), bibkey=one(g, s, OGC.bibkey), citations=counts[s],
                          snapshots=sum(1 for _ in g.objects(s, OGC.snapshot)), label=one(g, s, RDFS.label)))
     return rows
 
@@ -693,9 +693,12 @@ def shapes_table(root: Path) -> list[dict]:
 
 def shape_record(root: Path, sid: str) -> dict | None:
     """One node shape, case-insensitive on its local name: target, property
-    constraints (path, min, max, class, in, hasValue, datatype, message) and
-    each SPARQL constraint's message with its `sh:select` body; the shape's
-    own message and closed flag are None when absent."""
+    constraints (path, min, max, class, in, hasValue, datatype, message),
+    each SPARQL constraint's message with its `sh:select` body, and the
+    executor's mutations that fire it (`counterexamples`, from
+    ogc.executor.MUTATION_SHAPES; round four, M5); the shape's own message
+    and closed flag are None when absent."""
+    from .executor import MUTATION_SHAPES
     g, where = shapes_graph(root)
     key = norm(sid).lower()
     hit = next((s for s in sorted(where, key=str) if local(s).lower() == key), None)
@@ -713,7 +716,8 @@ def shape_record(root: Path, sid: str) -> dict | None:
     props.sort(key=lambda d: (d["path"], d["message"]))
     sparql = sorted((dict(message=one(g, x, SH.message), select=textwrap.dedent(one(g, x, SH.select)).strip()) for x in g.objects(hit, SH.sparql)), key=lambda d: (d["message"], d["select"]))
     return dict(id=local(hit), iri=str(hit), file=where[hit], target=_shape_targets(g, hit), message=one(g, hit, SH.message) or None,
-                closed=one(g, hit, SH.closed) or None, properties=props, sparql=sparql)
+                closed=one(g, hit, SH.closed) or None, properties=props, sparql=sparql,
+                counterexamples=sorted(m for m, fired in MUTATION_SHAPES.items() if local(hit) in fired))
 
 
 # ---------------------------------------------------------------- the EPO's classes and roles (round three, M5)

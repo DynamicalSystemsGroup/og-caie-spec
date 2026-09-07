@@ -201,23 +201,27 @@ def refuse(args, msg: str) -> int:
     return 1
 
 
-def namespace_hint(prefix: str, value: str) -> str:
-    """What the prefix names and which reader takes it (round three, M4)."""
+def namespace_hint(prefix: str, value: str, what: str = "") -> str:
+    """What the prefix names and which reader takes it (round three, M4); `what` is the kind of id the command wanted."""
     local = api.bare(value)
-    what, reader = READERS.get(prefix, ("a vocabulary the tool does not read by id", "ogc sparql 'DESCRIBE {curie}'"))
+    kind, reader = READERS.get(prefix, ("a vocabulary the tool does not read by id", "ogc sparql 'DESCRIBE {curie}'"))
     if prefix == "rul" and local[:1].upper() == "C":
         reader = "ogc concern {local}"
+    if prefix == "epo" and what == "record item":  # round four, L1: the record reader names the class reader, and the listing, not the steps
+        return f"epo:{local} is a class, not a record item; the class is read by `ogc epo {local}`, and its instances in the record are listed by `ogc record` (their names are ev:)"
     if prefix == "epo":
         return f"epo: classes and roles are read by `ogc epo {local}` (steps by `ogc quote {local}`)"
-    return f"{prefix}: is {what}; try `{reader.format(local=local, curie=f'{prefix}:{local}')}`"
+    return f"{prefix}: is {kind}; try `{reader.format(local=local, curie=f'{prefix}:{local}')}`"
 
 
 def foreign(args, value, what: str, accepted: tuple) -> int:
     """rc 1 with the right reader named when `value` is a CURIE or IRI under a prefix this command does not read; 0 otherwise."""
+    if re.match(r"(?i)ex:\S", api.norm(value)) or api.norm(value).startswith("https://w3id.org/og-caie/evaluation/executed#"):  # round four, L4
+        return not_found(args, f"{what} '{api.norm(value)}'", EX_HINT)
     p = api.prefix_of(value)
     if p is None or p in accepted:
         return 0
-    return not_found(args, f"{what} '{api.norm(value)}'", namespace_hint(p, value))
+    return not_found(args, f"{what} '{api.norm(value)}'", namespace_hint(p, value, what))
 
 
 def need(args, value, what: str) -> int:
@@ -349,7 +353,7 @@ def build_parser() -> argparse.ArgumentParser:
         (["--status"], dict(help=f"only citations whose quote status is one of {', '.join(VERIFY_STATUSES)} (`ogc verify --all --status pending`: the quotes awaiting a named verification)")),
         (["--state"], dict(help=f"only citations located in one of the states {', '.join(VERIFY_STATES)}")))
     add("shapes", "the SHACL node shapes with their targets, from every shape file")
-    add("shape", "one node shape: target, property constraints (path, min, max, class, in, hasValue, datatype) and each SPARQL constraint's message with its sh:select body", (["id"], dict(help="a shape's local name, case-insensitive (S3-PlanApproval, m1-parties, RulingShape; ogc: CURIE or IRI accepted)")))
+    add("shape", "one node shape: target, property constraints (path, min, max, class, in, hasValue, datatype), each SPARQL constraint's message with its sh:select body, and the executor mutations that fire it (its counterexamples)", (["id"], dict(help="a shape's local name, case-insensitive (S3-PlanApproval, m1-parties, RulingShape; ogc: CURIE or IRI accepted)")))
     add("sparql", "raw SPARQL (SELECT, ASK, CONSTRUCT, DESCRIBE) with the prefixes injected; @file.rq reads a file; --model adds the model graph, --record the record (a query naming ev: or typing by a record class is refused without it)",
         (["query"], dict(help=f"the query text or @file.rq (at most {QUERY_MAX} characters); rows are sorted unless it has ORDER BY; no SERVICE, GRAPH or FROM")))
     add("doctor", "every file the tool reads parses, labels unambiguous, pins hold, quotes located; VERDICT line")
@@ -480,7 +484,7 @@ def main(argv=None) -> int:
             return not_found(args, f"source '{args.slug}'", "slugs are case-insensitive; try `ogc sources`", api.near(slug, api.source_slugs(g)))
 
         def lines():
-            L = [f"## {d['slug']}: {d['label']}", ""] + text.kv(d, ["rank", "kind", "posture", "url", "digest", "status", "retrieval", "licence", "permission"])
+            L = [f"## {d['slug']}: {d['label']}", ""] + text.kv(d, ["rank", "kind", "posture", "bibkey", "url", "digest", "status", "retrieval", "licence", "permission"])
             if d["snapshots"]:
                 L += ["snapshots:"] + [f"  {s['file']} {s['hash']}" for s in d["snapshots"]]
             L += ["", f"citations ({len(d['citations'])}):"]
@@ -501,7 +505,7 @@ def main(argv=None) -> int:
         if args.uncited and rank in PRECEDENCE_RANKS:
             return usage(args, f"{EXCLUDE}: --uncited and --rank {rank} (a source at rank 1, 2 or 3 is registered for the definitions terms take from it, so it is cited; uncited sources are found at rank 4, reserve or internal)")
         rows = api.sources_table(g, rank, posture, args.uncited)
-        return emit(args, c, argstr, rows, lambda: text.table(rows, ["slug", "rank", "posture", "kind", "citations", "snapshots", "label"]))
+        return emit(args, c, argstr, rows, lambda: text.table(rows, ["slug", "rank", "posture", "kind", "bibkey", "citations", "snapshots", "label"]))
 
     if c == "ruling":
         if need(args, args.id, "a ruling id"):
@@ -510,6 +514,9 @@ def main(argv=None) -> int:
             return 1
         d = api.ruling_record(g, api.bare(args.id))
         if d is None:
+            cid = api.norm_id(api.bare(args.id), "C")  # a concern's id typed to the ruling reader (round four, M7)
+            if cid and api.concern_record(g, cid) is not None:
+                return not_found(args, f"ruling '{args.id}'", f"{cid} is a concern; try `ogc concern {cid}`")
             return not_found(args, f"ruling '{args.id}'", f"ids look like R-16 ({ID_HINT}); try `ogc rulings`")
         return emit(args, c, argstr, d, lambda: [f"## {d['id']}  (order {d['order']}, {d['date']}, attributed to {d['attributed']})", "",
                                                  "resolves: " + "; ".join(f"{i} ({l})" for i, l in zip(d["resolves"], d["resolves_labels"])), "", "text:"] + ["  " + l for l in d["text"].splitlines()]
@@ -539,6 +546,9 @@ def main(argv=None) -> int:
             return 1
         d = api.concern_record(g, api.bare(args.id))
         if d is None:
+            rid = api.norm_id(api.bare(args.id), "R")  # a ruling's id typed to the concern reader (round four, M7)
+            if rid and api.ruling_record(g, rid) is not None:
+                return not_found(args, f"concern '{args.id}'", f"{rid} is a ruling; try `ogc ruling {rid}`")
             return not_found(args, f"concern '{args.id}'", f"ids look like C-24 ({id_hint('C-24')}); try `ogc concerns`")
         return emit(args, c, argstr, d, lambda: [f"## {d['id']}: {d['label']}", "", f"severity: {d['severity']}   status: {d['status']}   surfaced: {d['surfaced']} ({d['how']})",
                                                  f"terms: {', '.join(d['terms']) or '(none)'}", "", "problem:"] + text.wrap(d["problem"]) + ["", f"resolved by: {', '.join(d['resolved_by']) or '(open)'}"])
@@ -796,6 +806,7 @@ def shapes(args, c: str, argstr: str) -> int:
             L += text.wrap(d["message"], "message: ", "  ")
         if d["closed"]:
             L.append(f"closed: {d['closed']}")
+        L.append("counterexamples (executor mutations): " + (", ".join(d["counterexamples"]) or "(none)"))  # what `ogc execute --mutate <name>` breaks so that this shape fires (round four, M5)
         L += ["", f"property constraints ({len(d['properties'])}):"] + text.table(d["properties"], pcols)
         L += ["", f"sparql constraints ({len(d['sparql'])}):"]
         for x in d["sparql"]:
