@@ -61,8 +61,8 @@ the machine-checked, correctly constructed {term}`evaluation record`.
 Hover any highlighted term on any page to see its definition. The entries
 below are exactly those terms: the narrative definition, then the canonical
 source with its locator and verbatim quote, then the alternative labels and
-the ruling the term rests on. Terms the prose does not reach, such as authoritative
-reference, stay in the full register.
+the ruling the term rests on. Terms the prose does not reach, such as
+authoritative reference, stay in the full register.
 
 The vocabulary graph answers directly from the command line: `uv run -q ogc
 term probe` gives one entry with its citations, rulings and the essentials
