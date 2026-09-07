@@ -36,7 +36,8 @@ MODEL_CMDS = ("sparql", "execute", "view", "views")  # where --model changes (or
 RECORD_CMDS = ("sparql", "record")  # where --record changes (or names) what is read
 IMPLIED = {"view": "--model", "views": "--model", "execute": "--model", "record": "--record"}  # the flag a command loads on its own; not echoed in the header (round four, L3)
 LOAD_HINT = ("--model and --record apply only to sparql, record, execute, view and views (the commands that read the model graph or the record): "
-             "--model where the model graph is read (sparql, execute, view, views), --record where the record is read (sparql, record)")
+             "--model where the model graph is read (sparql, execute, view, views), --record where the record is read (sparql, record); "
+             "doctor alone takes --record PATH, another record file to check")
 MODEL_NS = ("sysml", "sysx", "elmt", "ogm")  # the model graph's prefixes; a query naming one is refused without --model (round three, M1)
 READERS = {  # a CURIE's prefix names what it is and the reader for it; the hint when it is typed to another command (round three, M4)
     "term": ("a term", "ogc term {local}"), "rul": ("a ruling or concern", "ogc ruling {local}"), "epo": ("an EPO class, role or step", "ogc epo {local}"),
@@ -108,7 +109,7 @@ def argstr_of(argv: list[str], cmd: str) -> str:
             continue
         if a.startswith("--root="):
             continue
-        if a in ("--model", "--record"):
+        if a in ("--model", "--record") and not (cmd == "doctor" and a == "--record"):  # under doctor --record takes a path and stays where typed
             if a != IMPLIED.get(cmd):
                 loads.add(a)
             continue
@@ -146,7 +147,10 @@ def stamp(args, cmd: str, argstr: str) -> dict:
     return {"command": cmd, "args": argstr, "sha": git_sha(args.root)}
 
 
-def emit(args, cmd: str, argstr: str, data, lines_fn, summary=None) -> int:
+def emit(args, cmd: str, argstr: str, data, lines_fn, summary=None, permission=None) -> int:
+    """Print the answer: under --json one object, else the header and the lines. `permission` is the register's
+    statement for a quoted source that carries one (api.permission), printed once as the last line, `permission:
+    ...`, and under --json as the `permission` key (drift pass 4, professor M2)."""
     if args.json:
         out = {"_ogc": stamp(args, cmd, argstr)}
         if isinstance(data, list):
@@ -155,11 +159,15 @@ def emit(args, cmd: str, argstr: str, data, lines_fn, summary=None) -> int:
             out.update(data)
         if summary is not None:
             out["summary"] = summary
+        if permission is not None:
+            out["permission"] = permission
         print(json.dumps(out, indent=2, ensure_ascii=False, default=str))
         return 0
     print(text.head(cmd, argstr, git_sha(args.root)))
     for line in lines_fn():
         print(line)
+    if permission is not None:
+        print(f"permission: {permission}")
     return 0
 
 
@@ -383,7 +391,8 @@ def build_parser() -> argparse.ArgumentParser:
     add("shape", "one node shape: target, property constraints (path, min, max, class, in, hasValue, datatype), each SPARQL constraint's message with its sh:select body, and the executor mutations that fire it (its counterexamples)", (["id"], dict(help="a shape's local name, case-insensitive (S3-PlanApproval, m1-parties, RulingShape; ogc: CURIE or IRI accepted)")))
     add("sparql", "raw SPARQL (SELECT, ASK, CONSTRUCT, DESCRIBE) with the prefixes injected; @file.rq reads a file; --model adds the model graph, --record the record (a query naming ev: or typing by a record class is refused without it)",
         (["query"], dict(help=f"the query text or @file.rq (at most {QUERY_MAX} characters); rows are sorted unless it has ORDER BY; no SERVICE, GRAPH or FROM")))
-    add("doctor", "every file the tool reads parses, labels unambiguous, pins hold, quotes located; VERDICT line")
+    add("doctor", "every file the tool reads parses, labels unambiguous, pins hold, quotes located, the record's digests current; VERDICT line. With --record PATH the record checks run over that file instead of " + RECORD_FILE,
+        (["--record"], dict(metavar="PATH", default=argparse.SUPPRESS, help="another record file to check in place of " + RECORD_FILE + " (a counterexample, an executed record saved with `ogc execute --turtle`): it must parse, and every digest it carries must name the shapes, the ontology and the coverage query as committed and the record as it stood at its verdict (ogc.graph.verdict_digest); part of the printed and hashed args. Here --record takes a path; under sparql and record it is a flag")))
     ap.command_names = names
     return ap
 
@@ -423,7 +432,7 @@ def main(argv=None) -> int:
         if flags:
             hint += f"; see `ogc {c} --help`"
         return usage(args, hint)
-    if (args.model and c not in MODEL_CMDS) or (args.record and c not in RECORD_CMDS):
+    if (args.model and c not in MODEL_CMDS) or (args.record and c not in RECORD_CMDS and c != "doctor"):  # doctor's --record is a path, its own option
         return usage(args, LOAD_HINT)
     if not (args.root / "vocabulary" / "og-caie.ttl").exists():
         return usage(args, f"no og-caie-spec checkout at {args.root}; set --root or OGC_ROOT")
@@ -475,11 +484,13 @@ def main(argv=None) -> int:
             head = meta["via"].split(":", 1)[1]
             q = api.step_citations(g, iri)
             return emit(args, c, argstr, dict(step=head, quotes=[x for x in q if x["quote"]], without_quote=[f"{x['source']} {x['locator']}" for x in q if not x["quote"]], resolved=meta),
-                        lambda: quote_lines(f"step {head}", [x for x in q if x["quote"]], [f"{x['source']} {x['locator']}" for x in q if not x["quote"]]))
+                        lambda: quote_lines(f"step {head}", [x for x in q if x["quote"]], [f"{x['source']} {x['locator']}" for x in q if not x["quote"]]),
+                        permission=api.permission(g, [x["source"] for x in q if x["quote"]]))
         t = api.term_record(g, iri)
         t["resolved"] = meta
+        quoted = [x["source"] for x in [t["canonical"], *t["see_also"]] if x and x.get("quote")]  # the sources whose words are printed: their permission statement follows (professor M2)
         if c == "term":
-            return emit(args, c, argstr, t, lambda: text.term(t, meta))
+            return emit(args, c, argstr, t, lambda: text.term(t, meta), permission=api.permission(g, quoted))
         if c == "define":
             cc = t["canonical"]
             coined = t["coined_by"] if t["class"] == "coined" and not cc else None
@@ -487,11 +498,11 @@ def main(argv=None) -> int:
                      coined_by=coined, status=cc.get("status") or None, resolved=meta)
             tail = f"coined by: {coined}" if coined else f"canonical: {d['canonical']}" + (f"   status: {d['status']}" if d["status"] else "")
             return emit(args, c, argstr, d, lambda: [f"## {t['pref']}"] + ([f"resolved via {meta['via']}"] if meta.get("via") else []) + [""] + text.wrap(t["definition"])
-                        + ["", f"class: {t['class']}   {tail}"])
+                        + ["", f"class: {t['class']}   {tail}"], permission=api.permission(g, [cc["source"]] if cc and cc.get("quote") else []))
         q = [dict(citation="canonical", **{k: v for k, v in t["canonical"].items() if k != "node"})] if t["canonical"].get("quote") else []
         q += [dict(citation="seeAlso", **{k: v for k, v in x.items() if k != "node"}) for x in t["see_also"] if x["quote"]]
         noq = [f"{x['source']} {x['locator']}" for x in [t["canonical"], *t["see_also"]] if x and not x.get("quote")]
-        return emit(args, c, argstr, dict(quotes=q, without_quote=noq, resolved=meta), lambda: quote_lines(t["pref"], q, noq, meta))
+        return emit(args, c, argstr, dict(quotes=q, without_quote=noq, resolved=meta), lambda: quote_lines(t["pref"], q, noq, meta), permission=api.permission(g, quoted))
 
     if c == "list":
         klass, rc = check_filter(args, "class", args.klass, CLASSES)
@@ -676,11 +687,15 @@ def verify(args, g, argstr: str) -> int:
 
     def keep(rows):
         return [r for r in rows if (status is None or r["status"] == status) and (state is None or r["state"] == state)]
+
+    def permission(rows):  # the sources whose quotes the rows verify (a cite-only row carries none): their statement follows (professor M2)
+        return api.permission(g, [r["source"] for r in rows if r["status"] != "cite-only"])
     if args.all:
         rows = keep(api.verify_all(g, args.root))
         states = dict(sorted(Counter(r["state"] for r in rows).items()))
         summary = dict(citations=len(rows), states=states)
-        return emit(args, "verify", argstr, rows, lambda: text.table(rows, VERIFY_COLS) + [f"({len(rows)} citations" + ("; " + ", ".join(f"{n} {s}" for s, n in states.items()) if states else "") + ")"], summary=summary)
+        return emit(args, "verify", argstr, rows, lambda: text.table(rows, VERIFY_COLS) + [f"({len(rows)} citations" + ("; " + ", ".join(f"{n} {s}" for s, n in states.items()) if states else "") + ")"], summary=summary,
+                    permission=permission(rows))
     if need(args, args.what, "a term, a source slug, a step, or --all"):
         return 2
     if foreign(args, args.what, "term, source or step", ("term", "src", "epo")):
@@ -689,12 +704,12 @@ def verify(args, g, argstr: str) -> int:
     rows = api.verify_source(g, args.root, what) if re.fullmatch(r"[\w.-]+", what) else None
     if rows is not None:
         rows = keep(rows)
-        return emit(args, "verify", argstr, rows, lambda: text.table(rows, VERIFY_COLS))
+        return emit(args, "verify", argstr, rows, lambda: text.table(rows, VERIFY_COLS), permission=permission(rows))
     iri, meta, rc = resolve(args, g, what, steps=True)
     if iri is None:
         return rc
     rows = keep(api.verify_term(g, args.root, iri))
-    return emit(args, "verify", argstr, rows, lambda: text.table(rows, VERIFY_COLS))
+    return emit(args, "verify", argstr, rows, lambda: text.table(rows, VERIFY_COLS), permission=permission(rows))
 
 
 def quote_lines(name: str, q: list[dict], noq: list[str], meta: dict | None = None) -> list[str]:
@@ -1123,6 +1138,16 @@ def doctor(args) -> int:
     root = args.root
     ok = True
     checks = []
+    # --record PATH (drift pass 4, QA 11): the record checks (parse, digests) run over that file in place of the
+    # measles record; typed as given, relative to the working directory, else to the checkout.
+    record_arg = args.record if isinstance(args.record, str) else None
+    if record_arg is not None and not record_arg.strip():
+        return usage(args, "--record needs a path and got none; give a record file, or omit it to check " + RECORD_FILE)
+    record_path = root / RECORD_FILE
+    if record_arg:
+        record_path = Path(record_arg) if (Path(record_arg).is_absolute() or Path(record_arg).exists()) else root / record_arg
+    record_name = record_arg or RECORD_FILE
+    digests_of = f"the digests of {record_arg}" if record_arg else "the record's digests"
 
     def add(state, what, bad=False):
         nonlocal ok
@@ -1130,14 +1155,15 @@ def doctor(args) -> int:
         if bad:
             ok = False
     for f in DOCTOR_FILES:
-        p = root / f
+        p = record_path if f == RECORD_FILE else root / f
+        name = record_name if f == RECORD_FILE else f
         if not p.exists():
-            add("MISSING", f, True)
+            add("MISSING", name, True)
             continue
         try:
-            add("ok", f"{f} ({len(Graph().parse(p))} triples)")
+            add("ok", f"{name} ({len(Graph().parse(p))} triples)")
         except Exception as e:
-            add("BROKEN", f"{f}: {e}", True)
+            add("BROKEN", f"{name}: {e}", True)
     g = load(root, cache=not args.no_cache)
     amb = api.ambiguous_labels(g)
     add("ok" if not amb else "BAD", "every label resolves to one term" + ("" if not amb else ": " + "; ".join(f"'{a['label']}' -> {', '.join(a['terms'])}" for a in amb)), bool(amb))
@@ -1164,24 +1190,27 @@ def doctor(args) -> int:
             add("ok" if render_key_terms() == key.read_text() else "STALE", "generated/key-terms.md is current", render_key_terms() != key.read_text())
         except SystemExit as e:
             add("BAD", f"{{term}} roles: {e}", True)
-    if (root / RECORD_FILE).exists():  # sheet 10-18: the verdict names the shapes, the ontology and the record it judged; the coverage computations the shapes, the ontology and the query (round four, KG 8)
+    if record_path.exists():  # sheet 10-18: the verdict names the shapes, the ontology and the record it judged; the coverage computations the shapes, the ontology and the query (round four, KG 8)
         from .graph import COVERAGE_DIGESTS, VERDICT_DIGESTS, verdict_digest
-        rg = Graph().parse(root / RECORD_FILE)
+        try:
+            rg = Graph().parse(record_path)
+        except Exception:
+            rg = Graph()  # reported BROKEN above; the digest check then finds no verdict
         want = digests(root)
         verdicts = list(rg.subjects(RDF.type, EPO.ConformanceVerdict))
         computations = list(rg.subjects(RDF.type, EPO.CoverageComputation))
         want_verdict = {v: {**{k: want[k] for k in VERDICT_DIGESTS if k in want}, "recordDigest": d} for v, d in verdict_digest(rg).items()}
         drift = sorted(f"{api.local(v)} {k}" for v, w in want_verdict.items() for k in VERDICT_DIGESTS if str(rg.value(v, EPO[k])) != w[k])
         drift += sorted(f"{api.local(c)} {k}" for c in computations for k in COVERAGE_DIGESTS if str(rg.value(c, EPO[k])) != want[k])
-        add("ok" if not drift and verdicts else "BAD", "the record's digests: the verdict names shapes/epo.shapes.ttl and vocabulary/epo.ttl as committed and the record as it stood; the coverage computations name the shapes, the ontology and queries/coverage.rq"
-            + (f": stale on {', '.join(drift)}; run scripts/stamp_digests.py, then scripts/render_counterexamples.py" if drift else "" if verdicts else ": no verdict in the record"), bool(drift) or not verdicts)
+        add("ok" if not drift and verdicts else "BAD", f"{digests_of}: the verdict names shapes/epo.shapes.ttl and vocabulary/epo.ttl as committed and the record as it stood; the coverage computations name the shapes, the ontology and queries/coverage.rq"
+            + (f": stale on {', '.join(drift)}" + ("; run scripts/stamp_digests.py, then scripts/render_counterexamples.py" if not record_arg else "") if drift else "" if verdicts else ": no verdict in the record"), bool(drift) or not verdicts)
     cache = sorted((root / ".cache").glob("ogc-graph-*.pkl")) if (root / ".cache").exists() else []
     add("cache", cache[0].name if cache else "(none)")
     verdict = f"VERDICT: {'PASS' if ok else 'FAIL'} (ogc doctor)"  # no path: the line is the same in every checkout
     if args.json:
-        print(json.dumps({"_ogc": stamp(args, "doctor", ""), "checks": checks, "ok": ok, "verdict": verdict}, indent=2))
+        print(json.dumps({"_ogc": stamp(args, "doctor", args.argstr), "checks": checks, "ok": ok, "verdict": verdict}, indent=2))
         return 0 if ok else 1
-    print(text.head("doctor", "", git_sha(root)))
+    print(text.head("doctor", args.argstr, git_sha(root)))
     for ch in checks:
         print(f"{ch['state']:<8}{ch['what']}")
     print(verdict)

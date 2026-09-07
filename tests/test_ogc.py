@@ -1169,3 +1169,45 @@ def test_d4_cited_through_notes_every_sevocab_tag():
     tagged = [d for d in rows if "(as SEVOCAB tags the entry)" in d]
     assert any(d.startswith("ISO/IEC/IEEE 24765:2014") for d in tagged) and any(d.startswith("ISO/IEC/IEEE 24765e:2015") for d in tagged)
     assert "| ISO/IEC/IEEE 24765:2014 |" not in md
+
+
+def test_d4_doctor_record():
+    """QA 11: `ogc doctor --record PATH` runs the record checks (parse, the
+    digests recomputed by ogc.graph.verdict_digest and the file digests)
+    over another record file: a counterexample without digests fails on
+    them, the record itself passes, a missing path is MISSING; the header
+    and the JSON carry the path; the help says so; --model stays refused."""
+    r = run("doctor", "--record", "counterexamples/verdict-without-digests.ttl")
+    assert r.returncode == 1 and r.stdout.startswith("# ogc doctor --record counterexamples/verdict-without-digests.ttl @ ")
+    bad = [l for l in r.stdout.splitlines() if l.startswith("BAD")]
+    assert len(bad) == 1 and "counterexamples/verdict-without-digests.ttl" in bad[0] and "recordDigest" in bad[0] and "stamp_digests" not in bad[0]
+    assert r.stdout.rstrip().endswith("VERDICT: FAIL (ogc doctor)")
+    r = run("doctor", "--record", "track/measles-evaluation.ttl")
+    assert r.returncode == 0 and r.stdout.rstrip().endswith("VERDICT: PASS (ogc doctor)") and "the digests of track/measles-evaluation.ttl" in r.stdout
+    r = run("doctor", "--record", "no-such-record.ttl")
+    assert r.returncode == 1 and "MISSING no-such-record.ttl" in r.stdout
+    r = run("doctor", "--record", " ")
+    assert r.returncode == 2 and "--record needs a path" in r.stderr and r.stdout == ""
+    r, d = _json("doctor", "--record", "counterexamples/coverage-without-digests.ttl")
+    assert r.returncode == 1 and d["ok"] is False and d["_ogc"]["args"] == "--record counterexamples/coverage-without-digests.ttl"
+    assert any(c["state"] == "BAD" and "queryDigest" in c["what"] for c in d["checks"])
+    assert "--record PATH" in run("doctor", "--help").stdout and "verdict_digest" in run("doctor", "--help").stdout
+    assert run("doctor", "--model").returncode == 2
+    assert run("doctor").stdout.startswith("# ogc doctor @ ")
+
+
+def test_d4_permission_line():
+    """Professor M2: the register's permission statement (the IEEE line
+    SEVOCAB requires) is printed once after any SEVOCAB quote by quote,
+    define, term and verify, in text as the last line and in JSON under
+    `permission`; never where no SEVOCAB quote is printed."""
+    stmt = json.loads(run("source", "sevocab", "--json").stdout)["permission"]
+    assert stmt and "IEEE" in stmt
+    for cmd in (["quote", "test-plan"], ["define", "test-plan"], ["term", "test-plan"], ["verify", "test-plan"], ["verify", "sevocab"], ["quote", "C2 propose"], ["verify", "--all"]):
+        out = run(*cmd).stdout
+        assert out.count(stmt) == 1 and out.rstrip().splitlines()[-1] == f"permission: {stmt}", cmd
+        assert json.loads(run(*cmd, "--json").stdout)["permission"] == stmt, cmd
+    for cmd in (["quote", "conformity"], ["define", "conformity"], ["term", "OG-CAIE"], ["verify", "iso-9000-2026"], ["verify", "--all", "--status", "cite-only"], ["quote", "scope"]):
+        out = run(*cmd).stdout
+        assert stmt not in out, cmd
+        assert "permission" not in json.loads(run(*cmd, "--json").stdout), cmd
