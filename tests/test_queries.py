@@ -34,6 +34,11 @@ def test_coverage_recomputes_to_the_report():
     assert Fraction(str(g.value(draft, EPO.cantTellRate))) == Fraction(1, 5) and g.value(draft, EPO.gaps) is not None  # the draft flagged the cannot-tell of its day
 
 
+def test_coverage_returns_no_row_for_a_graph_without_criteria():
+    """Round four, KG 13: a strict default graph with the vocabulary alone (no record, so no criterion) gets no row, not one empty row."""
+    assert query("coverage.rq", load("vocabulary/epo.ttl")) == []
+
+
 def test_traceback_returns_the_five_facets():
     g = data()
     rows = query("traceback.rq", g)

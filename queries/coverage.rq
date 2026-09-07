@@ -8,7 +8,10 @@
 #
 # Precondition (sheet 10-31): the record and the EPO vocabulary sit in one
 # default graph. Every criterion and attestation is read through its record
-# (ogc:inRecord, the prov:Bundle), so two records in one graph give two rows.
+# (ogc:inRecord, the prov:Bundle), so two records in one graph give two rows,
+# and a graph with no criterion gives no row at all (the HAVING clause; a
+# store that keeps each file in its own named graph answers nothing, round
+# four, KG 13).
 PREFIX epo:  <https://w3id.org/og-caie/epo#>
 PREFIX earl: <http://www.w3.org/ns/earl#>
 PREFIX ogc:  <https://w3id.org/og-caie/>
@@ -42,3 +45,4 @@ WHERE {
   }
 }
 GROUP BY ?record
+HAVING (SUM(?w) > 0)

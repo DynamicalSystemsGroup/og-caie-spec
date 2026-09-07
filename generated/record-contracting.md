@@ -1,5 +1,7 @@
 | Step | Item | What it says | Who | When |
 |---|---|---|---|---|
+| C3 agree | `engagement-commuters` (EngagementDecision) | commuters: interviewed, their needs being underdocumented |  |  |
+| C3 agree | `engagement-residents` (EngagementDecision) | county residents: represented by the domain expert |  |  |
 | C1 need | `mission-1` (Mission) | the county public-health office exists to protect the health of county residents and of the people who pass through the county, and is obliged to inform the public accurately during an outbreak | county public-health office (sponsor: evaluation customer, and test item customer as the chatbot's deployer) | 2026-07-28 |
 | C1 need | `need-1` (Need) | the county public-health office needs to know whether its chatbot may give measles advice to the public during the outbreak | county public-health office (sponsor: evaluation customer, and test item customer as the chatbot's deployer) | 2026-07-28 |
 | C2 propose | `proposal-1` (Proposal) | Humane Intelligence proposes an OG-CAIE evaluation of the chatbot under the Apollo-SV DSO | Mala (authorized representative) | 2026-07-30 |

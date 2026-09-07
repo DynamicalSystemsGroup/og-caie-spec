@@ -61,7 +61,7 @@ COUNTEREXAMPLES: dict[str, dict] = {
     "attestation-without-evidence": dict(
         shapes=["S6-Attestation", "S8-Recommendation"],
         fault="attestation-1 says passed but aggregates no determination, so nothing behind it rules on evidence (the S6 closure rule); the recommendation that rests on it can then reach no evidence through it (S8).",
-        replace=[("    prov:used ev:determination-1 ;\n    earl:result [ a earl:TestResult ; earl:outcome earl:passed ;\n                  earl:info \"Both replies about enclosed spaces",
+        replace=[("    prov:wasDerivedFrom ev:determination-1 ;\n    earl:result [ a earl:TestResult ; earl:outcome earl:passed ;\n                  earl:info \"Both replies about enclosed spaces",
                   "    earl:result [ a earl:TestResult ; earl:outcome earl:passed ;\n                  earl:info \"Both replies about enclosed spaces")]),
     "probe-before-requirements": dict(
         shapes=["S2-RequirementSet"],
@@ -75,13 +75,13 @@ COUNTEREXAMPLES: dict[str, dict] = {
     "attestation-off-plan": dict(
         shapes=["S6-Attestation"],
         fault="attestation-1, about a1, also aggregates determination-4, a ruling on evidence that bears on a4 (the S6 chain rule, R-12, R-18).",
-        replace=[("    prov:used ev:determination-1 ;\n    earl:result [ a earl:TestResult ; earl:outcome earl:passed ;\n                  earl:info \"Both replies about enclosed spaces",
-                  "    prov:used ev:determination-1 ; prov:used ev:determination-4 ;\n    earl:result [ a earl:TestResult ; earl:outcome earl:passed ;\n                  earl:info \"Both replies about enclosed spaces")]),
+        replace=[("    prov:wasDerivedFrom ev:determination-1 ;\n    earl:result [ a earl:TestResult ; earl:outcome earl:passed ;\n                  earl:info \"Both replies about enclosed spaces",
+                  "    prov:wasDerivedFrom ev:determination-1 ; prov:wasDerivedFrom ev:determination-4 ;\n    earl:result [ a earl:TestResult ; earl:outcome earl:passed ;\n                  earl:info \"Both replies about enclosed spaces")]),
     "attestation-off-turn": dict(
         shapes=["S6-Attestation"],
         fault="attestation-2, about a2, aggregates determination-1, the ruling made on the evidence about a1 from the same session: sessions are stateful and evidence answers one criterion; the ruling on a1 says nothing about a2 (the S6 chain rule, R-13).",
-        replace=[("    prov:used ev:determination-2 ;\n    earl:result [ a earl:TestResult ; earl:outcome earl:cantTell ;",
-                  "    prov:used ev:determination-1 ; prov:used ev:determination-2 ;\n    earl:result [ a earl:TestResult ; earl:outcome earl:cantTell ;")]),
+        replace=[("    prov:wasDerivedFrom ev:determination-2 ;\n    earl:result [ a earl:TestResult ; earl:outcome earl:cantTell ;",
+                  "    prov:wasDerivedFrom ev:determination-1 ; prov:wasDerivedFrom ev:determination-2 ;\n    earl:result [ a earl:TestResult ; earl:outcome earl:cantTell ;")]),
     "requirements-before-agreement": dict(
         shapes=["S0-Layers", "S0-Parties"],
         fault="the service agreement was signed on 5 August, after the requirement set of 2 August: requirements are agreed under the contract, not before it (R-21), and the two layers then overlap (R-32).",
@@ -105,21 +105,21 @@ COUNTEREXAMPLES: dict[str, dict] = {
         replace=[("    prov:wasAttributedTo ev:theo ;\n    prov:generatedAtTime \"2026-08-01T08:30:00Z\"", "    prov:wasAttributedTo ev:theo ;\n    prov:generatedAtTime \"2026-08-01T09:30:00Z\"")]),
     "attestation-before-determination": dict(
         shapes=["S6-Attestation"],
-        fault="determination-1 ended after attestation-1, which aggregates it: an attestation ends no earlier than its determinations (sheet 10-19).",
-        replace=[("    prov:endedAtTime \"2026-08-11T08:30:00Z\"", "    prov:endedAtTime \"2026-08-11T09:15:00Z\"")]),
+        fault="determination-1 is dated after attestation-1, which aggregates it: an attestation is dated no earlier than its determinations (sheet 10-19).",
+        replace=[("    prov:generatedAtTime \"2026-08-11T08:30:00Z\"", "    prov:generatedAtTime \"2026-08-11T09:15:00Z\"")]),
     "consistency-check-after-turn": dict(
         shapes=["S3-Probe"],
-        fault="the consistency check of probe-1 ended after the first turn that used the probe had started (sheet 10-19).",
-        replace=[("    earl:subject ev:probe-1 ; earl:test ev:dso-apollo-sv-r1 ; earl:mode earl:automatic ; earl:assertedBy ev:pyshacl ; prov:wasAssociatedWith ev:pyshacl ;\n    earl:result [ a earl:TestResult ; earl:outcome earl:passed ; earl:info \"scenario conforms to the DSO shapes\" ] ;\n    prov:endedAtTime \"2026-08-03T10:05:00Z\"",
-                  "    earl:subject ev:probe-1 ; earl:test ev:dso-apollo-sv-r1 ; earl:mode earl:automatic ; earl:assertedBy ev:pyshacl ; prov:wasAssociatedWith ev:pyshacl ;\n    earl:result [ a earl:TestResult ; earl:outcome earl:passed ; earl:info \"scenario conforms to the DSO shapes\" ] ;\n    prov:endedAtTime \"2026-08-10T14:30:00Z\"")]),
+        fault="the consistency check of probe-1 is dated after the first turn that used the probe had started (sheet 10-19).",
+        replace=[("    earl:subject ev:probe-1 ; earl:test ev:dso-apollo-sv-r1 ; earl:mode earl:automatic ; earl:assertedBy ev:pyshacl ; prov:wasAttributedTo ev:pyshacl ;\n    earl:result [ a earl:TestResult ; earl:outcome earl:passed ; earl:info \"scenario conforms to the DSO shapes\" ] ;\n    prov:generatedAtTime \"2026-08-03T10:05:00Z\"",
+                  "    earl:subject ev:probe-1 ; earl:test ev:dso-apollo-sv-r1 ; earl:mode earl:automatic ; earl:assertedBy ev:pyshacl ; prov:wasAttributedTo ev:pyshacl ;\n    earl:result [ a earl:TestResult ; earl:outcome earl:passed ; earl:info \"scenario conforms to the DSO shapes\" ] ;\n    prov:generatedAtTime \"2026-08-10T14:30:00Z\"")]),
     "delivery-before-approval": dict(
         shapes=["S8-Delivery"],
-        fault="the delivery was made before the report approval it carries had ended (sheet 10-19).",
+        fault="the delivery was made before the report approval it carries was dated (sheet 10-19).",
         replace=[("    epo:deliveredTo ev:county-public-health-office ;\n    prov:generatedAtTime \"2026-08-12T11:00:00Z\"", "    epo:deliveredTo ev:county-public-health-office ;\n    prov:generatedAtTime \"2026-08-12T10:05:00Z\"")]),
     "plan-approved-after-session": dict(
         shapes=["S3-PlanApproval"],
-        fault="the plan approval ended after the sessions using the plan's probes had started (sheet 10-19).",
-        replace=[("    prov:endedAtTime \"2026-08-03T11:00:00Z\"", "    prov:endedAtTime \"2026-08-10T15:00:00Z\"")]),
+        fault="the plan approval is dated after the sessions using the plan's probes had started (sheet 10-19).",
+        replace=[("    prov:generatedAtTime \"2026-08-03T11:00:00Z\"", "    prov:generatedAtTime \"2026-08-10T15:00:00Z\"")]),
     "report-coverage-misstated": dict(
         shapes=["S7-Report"],
         fault="the final report stores a coverage of 0.8 while every criterion carries an attestation: the coverage is recomputed from the record (walkthrough B5, R-48).",
@@ -131,7 +131,7 @@ COUNTEREXAMPLES: dict[str, dict] = {
     "executive-attests": dict(
         shapes=["S6-Attestation"],
         fault="attestation-1 is asserted by Mala, the authorized representative, who signs the agreement and delivers the report and never judges the test item; only the domain expert attests (R-23, R-24).",
-        replace=[("    earl:mode earl:manual ; earl:assertedBy ev:annie ;\n    prov:wasAssociatedWith ev:annie ;\n    prov:used ev:determination-1 ;", "    earl:mode earl:manual ; earl:assertedBy ev:mala ;\n    prov:wasAssociatedWith ev:annie ;\n    prov:used ev:determination-1 ;")]),
+        replace=[("    earl:mode earl:manual ; earl:assertedBy ev:annie ;\n    prov:wasAttributedTo ev:annie ;\n    prov:wasDerivedFrom ev:determination-1 ;", "    earl:mode earl:manual ; earl:assertedBy ev:mala ;\n    prov:wasAttributedTo ev:annie ;\n    prov:wasDerivedFrom ev:determination-1 ;")]),
     # ---- the faults of sheet 10
     "one-person-team": dict(
         shapes=["S0-Roles"],
@@ -140,7 +140,7 @@ COUNTEREXAMPLES: dict[str, dict] = {
     "cherry-picked-determination": dict(
         shapes=["S6-Attestation"],
         fault="attestation-6 uses determination-6 and drops determination-2, the earlier ruling on the same criterion that could not tell, without naming it as excluded with a reason: a judgment that supersedes another names what it supersedes (no cherry-picking, sheet 10-14).",
-        replace=[("    prov:used ev:determination-2 ; prov:used ev:determination-6 ;", "    prov:used ev:determination-6 ;")]),
+        replace=[("    prov:wasDerivedFrom ev:determination-2 ; prov:wasDerivedFrom ev:determination-6 ;", "    prov:wasDerivedFrom ev:determination-6 ;")]),
     "requirement-set-unapproved": dict(
         shapes=["S2-RequirementSet"],
         fault="the sponsor's signatory never approved the requirement set: the record holds no requirement-set approval (sheet 10-01).",
@@ -166,6 +166,10 @@ COUNTEREXAMPLES: dict[str, dict] = {
         shapes=["S0-Member"],
         fault="probe-1 is a member of no record: an item outside every bundle escapes the constraints anchored on the record (sheet 10-31).",
         replace=[("ev:probe-1 ogc:inRecord ev:record ; ogc:synthetic true .\n", "")]),
+    "member-untagged": dict(
+        shapes=["S0-Member"],
+        fault="probe-1 carries no synthetic tag while its record is tagged synthetic: a member's tag equals its record's (sheet 10-43).",
+        replace=[("ev:probe-1 ogc:inRecord ev:record ; ogc:synthetic true .\n", "ev:probe-1 ogc:inRecord ev:record .\n")]),
     "record-without-level": dict(
         shapes=["S0-Record"],
         fault="the record states no independence level, so no independence constraint applies to it (sheet 10-15).",
@@ -173,7 +177,7 @@ COUNTEREXAMPLES: dict[str, dict] = {
     "operator-determines-alone": dict(
         shapes=["S0-Independence"],
         fault="both determinations on a3 are Theo's, the operator who ran the sessions the evidence came from; independence at the person level asks for a second determination by another person (sheet 10-15).",
-        replace=[("    earl:mode earl:manual ; earl:assertedBy ev:annie ;\n    prov:wasAssociatedWith ev:annie ;\n    prov:used ev:evidence-1c ; prov:used ev:evidence-3a ;", "    earl:mode earl:manual ; earl:assertedBy ev:theo ;\n    prov:wasAssociatedWith ev:theo ;\n    prov:used ev:evidence-1c ; prov:used ev:evidence-3a ;")]),
+        replace=[("    earl:mode earl:manual ; earl:assertedBy ev:annie ;\n    prov:wasAttributedTo ev:annie ;\n    prov:wasDerivedFrom ev:evidence-1c ; prov:wasDerivedFrom ev:evidence-3a ;", "    earl:mode earl:manual ; earl:assertedBy ev:theo ;\n    prov:wasAttributedTo ev:theo ;\n    prov:wasDerivedFrom ev:evidence-1c ; prov:wasDerivedFrom ev:evidence-3a ;")]),
     "deviation-unrecorded": dict(
         shapes=["S3-TestPlan", "S7-Report"],
         fault="a sixth criterion, a6, is left out of the plan and no plan deviation says why (sheet 10-16); both reports then store a coverage the record no longer supports (S7).",
@@ -196,11 +200,15 @@ COUNTEREXAMPLES: dict[str, dict] = {
     "final-report-without-verdict": dict(
         shapes=["S7-Report", "S9-Acceptance"],
         fault="the final report used no conformance verdict on the record: conformance is a prerequisite for compiling the final report (sheet 10-41), and the acceptance that rests on that report then rests on nothing (sheet 10-03).",
-        replace=[("    prov:wasGeneratedBy ev:coverage-computation ;\n    prov:used ev:conformance-verdict-1 ;\n", "    prov:wasGeneratedBy ev:coverage-computation ;\n")]),
+        replace=[("    prov:wasGeneratedBy ev:coverage-computation ;\n    prov:wasDerivedFrom ev:conformance-verdict-1 ;\n", "    prov:wasGeneratedBy ev:coverage-computation ;\n")]),
     "verdict-without-digests": dict(
         shapes=["S7-ConformanceVerdict"],
-        fault="the verdict names neither the shapes, the ontology nor the query it ran by their digests (tool qualification, sheet 10-18).",
+        fault="the verdict names neither the shapes nor the ontology it ran, nor the record it judged, by their digests (tool qualification, sheet 10-18).",
         digests=True),
+    "coverage-without-digests": dict(
+        shapes=["S7-CoverageComputation"],
+        fault="the final report's coverage computation names neither the shapes, the ontology nor the coverage query it ran by their digests (sheet 10-18).",
+        coverage_digests=True),
     "recommendation-unapproved": dict(
         shapes=["S8-Recommendation"],
         fault="the recommendation derives from no report approval: nobody but its author owns it (sheet 10-11).",
@@ -249,9 +257,14 @@ def render(name: str, spec: dict, record: str) -> str:
     if "drop" in spec:
         text = drop_block(text, spec["drop"])
     if spec.get("digests"):
-        m = re.search(r'(    epo:shapesDigest ")[0-9a-f]{64}(" ; epo:ontologyDigest ")[0-9a-f]{64}(" ; epo:queryDigest ")[0-9a-f]{64}(" ;\n    earl:result \[ a earl:TestResult ; earl:outcome earl:passed ; earl:info "the record conforms)', text)
+        m = re.search(r'(    epo:recordDigest ")[0-9a-f]{64}(" ;\n    epo:shapesDigest ")[0-9a-f]{64}(" ; epo:ontologyDigest ")[0-9a-f]{64}(" ;\n    earl:result \[ a earl:TestResult ; earl:outcome earl:passed ; earl:info "the record conforms)', text)
         if m is None:
-            raise SystemExit(f"{name}: the verdict's digest line was not found")
+            raise SystemExit(f"{name}: the verdict's digest lines were not found")
+        text = text[:m.start()] + m.group(1) + "not recorded" + m.group(2) + "not recorded" + m.group(3) + "not recorded" + m.group(4) + text[m.end():]
+    if spec.get("coverage_digests"):
+        m = re.search(r'(    epo:shapesDigest ")[0-9a-f]{64}(" ; epo:ontologyDigest ")[0-9a-f]{64}(" ; epo:queryDigest ")[0-9a-f]{64}(" ;\n    prov:endedAtTime "2026-08-12T10:00:00Z")', text)
+        if m is None:
+            raise SystemExit(f"{name}: the final coverage computation's digest line was not found")
         text = text[:m.start()] + m.group(1) + "not recorded" + m.group(2) + "not recorded" + m.group(3) + "not recorded" + m.group(4) + text[m.end():]
     if "append" in spec:
         text = text.rstrip("\n") + "\n" + spec["append"]

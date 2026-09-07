@@ -269,7 +269,7 @@ def test_record_lists_every_stepped_item_by_step():
     assert steps[0] == "C1 need" and steps[-1] == "6 report" and steps.index("C6 accept") < steps.index("1 scope")
     for name in stepped:
         assert re.search(rf"^\S.*\s{re.escape(name)}\s", r.stdout, re.M), name
-    assert "without a step" in r.stdout and any(x["item"] == "trajectory-1" and x["group"] == "no-step" for x in rows)
+    assert "items without a step (0)" in r.stdout and not [x for x in rows if x["group"] == "no-step"]  # the containment rule (round four, KG 6) leaves none
     assert [x["item"] for x in rows if x["group"] == "record"] == ["record"]  # the record's own entity heads the listing in its own section (round three, M7)
     who = next(x for x in rows if x["item"] == "attestation-1")
     assert who["who"] == ["Annie (domain expert)"] and who["when"] == "2026-08-11"
@@ -468,7 +468,7 @@ def test_r2_finding_12_schema_and_shapes_count_the_same_files_and_doctor_parses_
     r = run("doctor")
     for f in ("shapes/glossary.shapes.ttl", "shapes/rulings.shapes.ttl", "track/measles-evaluation.ttl", "model/og-caie.model.ttl"):
         assert re.search(rf"^ok\s+{re.escape(f)} \(\d+ triples\)$", r.stdout, re.M), f
-    assert re.search(r"^ok\s+the record's digests name shapes/epo.shapes.ttl", r.stdout, re.M)  # sheet 10-18
+    assert re.search(r"^ok\s+the record's digests: the verdict names shapes/epo.shapes.ttl and vocabulary/epo.ttl as committed and the record as it stood", r.stdout, re.M)  # sheet 10-18; round four, KG 8
 
 
 def test_r2_finding_13_shape_prints_each_sparql_constraint_with_its_select_body():
@@ -662,7 +662,7 @@ def test_r3_finding_m5_epo_reader_and_find_indexes_the_epo_labels():
     assert d["terms"] == [] and d["comment"] and any(s["id"] == "S7-ReportApproval" for s in d["shapes"]) and any(s["id"] == "S8-Delivery" for s in d["shapes"])
     assert all({"id", "file", "where"} <= set(s) for s in d["shapes"])
     out = run("epo", "ConformanceVerdict").stdout
-    assert "pinned at: epo:evaluation" in out and "term: conformance (conformance)" in out and "superclasses: earl:Assertion, prov:Activity" in out and "shapes mentioning it" in out
+    assert "pinned at: epo:evaluation" in out and "term: conformance (conformance)" in out and "superclasses: earl:Assertion, prov:Entity" in out and "shapes mentioning it" in out
     r = run("epo", "scope")
     assert r.returncode == 1 and "ogc quote scope" in r.stdout
     r, d = _json("epo", "StakeholderRepresentatio")
@@ -1082,3 +1082,25 @@ def test_r4_skill_corrections():
                    "`ogc:derivedStep`", "vocabulary/derived.ttl", "counterexamples (executor mutations)", "`MUTATION_SHAPES`", "`quote` on an `epo:` CURIE",
                    "ORDER BY", "ties", "shell-quoted", "provenance the tool does not read", "`counterexamples`", "renamed"):
         assert needle in body, needle
+
+
+def test_r4_kg6_every_member_has_exactly_one_derived_step():
+    """Round four, KG 6: the containment rule in ogc.graph.infer_steps. Every
+    member of the record that is not an agent carries exactly one derived
+    step, the six kinds with no model element of their own (requirement,
+    trajectory, engagement decision, consistency check, turn, population)
+    taking the step of what contains them; agents carry none."""
+    from rdflib import RDF
+    from ogc.graph import PROV, load as load_all
+    rg = load_all(ROOT, record=True, cache=False)
+    members = set(rg.subjects(OGC.inRecord, None))
+    assert len(members) > 100
+    for m in members:
+        steps = list(rg.objects(m, OGC.derivedStep))
+        if (m, RDF.type, PROV.Agent) in rg:
+            assert steps == [], m
+        else:
+            assert len(steps) == 1, (m, steps)
+    by_name = {str(m).rsplit("#", 1)[-1]: str(next(rg.objects(m, OGC.derivedStep))).rsplit("#", 1)[-1] for m in members if (m, RDF.type, PROV.Agent) not in rg}
+    assert by_name["R1"] == "declareRequirements" and by_name["trajectory-1"] == "execute"
+    assert by_name["engagement-commuters"] == "agree" and by_name["consistency-check-1"] == "plan"

@@ -14,7 +14,7 @@
 
 src:iso-9000-2026 a prov:Entity, ogc:Source ;
     rdfs:label "ISO 9000:2026(en) Quality management — Fundamentals and vocabulary (Online Browsing Platform preview)" ;
-    ogc:rank "1" ; ogc:bibkey "iso-9000-2026" ; ogc:kind "web" ; ogc:posture "heldLocally" ;
+    ogc:rank 1 ; ogc:bibkey "iso-9000-2026" ; ogc:kind "web" ; ogc:posture "heldLocally" ;
     ogc:status "preview; publication pending (Z checked the Online Browsing Platform again on 2026-09-07, sheet 10-28); 2015 clause numbers recorded as fallback where known" ;
     ogc:url <https://www.iso.org/obp/ui/#iso:std:iso:9000:ed-5:v1:en> ;
     ogc:digest "sources/digests/iso-9000-2026.md" ;
@@ -61,7 +61,7 @@ src:iso-9000-2026 a prov:Entity, ogc:Source ;
 
 src:sevocab a prov:Entity, ogc:Source ;
     rdfs:label "IEEE Computer Society, Software and Systems Engineering Vocabulary (SEVOCAB), PDF export created 2026-09-02 (481 pp.)" ;
-    ogc:rank "2" ; ogc:bibkey "sevocab" ; ogc:kind "pdf" ; ogc:posture "heldLocally" ;
+    ogc:rank 2 ; ogc:bibkey "sevocab" ; ogc:kind "pdf" ; ogc:posture "heldLocally" ;
     ogc:url <https://www.computer.org/sevocab> ;
     ogc:digest "sources/digests/sevocab.md" ;
     ogc:snapshot [ ogc:file "sources/local/pdf/sevocab.pdf" ; ogc:contentHash "f6351ba98335af2e9c5c7e70ee09140721dd19da9693bbfef8bd4803cf71f0ee" ] ;
@@ -71,7 +71,7 @@ src:sevocab a prov:Entity, ogc:Source ;
 
 src:nist-ai-700-2 a prov:Entity, ogc:Source ;
     rdfs:label "NIST AI 700-2, Assessing Risks and Impacts of AI (ARIA): ARIA 0.1 Pilot Evaluation Report (November 2025)" ;
-    ogc:rank "3" ; ogc:bibkey "nist-ai-700-2" ; ogc:kind "pdf" ; ogc:posture "committed" ;
+    ogc:rank 3 ; ogc:bibkey "nist-ai-700-2" ; ogc:kind "pdf" ; ogc:posture "committed" ;
     ogc:url <https://doi.org/10.6028/NIST.AI.700-2> ;
     ogc:digest "sources/digests/nist-ai-700-2.md" ;
     ogc:snapshot [ ogc:file "sources/archive/NIST.AI.700-2.pdf" ; ogc:contentHash "5478e8c37a182adaf9449d1d315689beba3db2808db430c54fe3fc8da04ea3b9" ] ;
@@ -79,7 +79,7 @@ src:nist-ai-700-2 a prov:Entity, ogc:Source ;
 
 src:nist-ai-100-1 a prov:Entity, ogc:Source ;
     rdfs:label "NIST AI 100-1, Artificial Intelligence Risk Management Framework (AI RMF 1.0), January 2023" ;
-    ogc:rank "3" ; ogc:bibkey "nist-ai-100-1" ; ogc:kind "pdf" ; ogc:posture "committed" ;
+    ogc:rank 3 ; ogc:bibkey "nist-ai-100-1" ; ogc:kind "pdf" ; ogc:posture "committed" ;
     ogc:url <https://doi.org/10.6028/NIST.AI.100-1> ;
     ogc:digest "sources/digests/nist-ai-100-1.md" ;
     ogc:snapshot [ ogc:file "sources/archive/NIST.AI.100-1.pdf" ; ogc:contentHash "7576edb531d9848825814ee88e28b1795d3a84b435b4b797d3670eafdc4a89f1" ] ;
@@ -87,23 +87,25 @@ src:nist-ai-100-1 a prov:Entity, ogc:Source ;
 
 src:w3c-prov-o a prov:Entity, ogc:Source ;
     rdfs:label "W3C, PROV-O: The PROV Ontology, Recommendation 30 April 2013" ;
-    ogc:rank "4" ; ogc:bibkey "w3c-prov-o" ; ogc:kind "html" ; ogc:posture "committed" ;
+    ogc:rank 4 ; ogc:bibkey "w3c-prov-o" ; ogc:kind "html" ; ogc:posture "committed" ;
     ogc:url <https://www.w3.org/TR/2013/REC-prov-o-20130430/> ;
     ogc:digest "sources/digests/w3c.md" ;
     ogc:snapshot [ ogc:file "sources/archive/prov-o-20130430.html" ; ogc:contentHash "6b96671ab84faf12ce3f041aca12c3f93a6df2ed242348810743179a68e69555" ] ;
+    ogc:snapshot [ ogc:file "sources/archive/prov-o-20130430.ttl" ; ogc:contentHash "7d203989f67b38bca572253942acc5a1bf24ce3ccfece16f072dcb4be2b79a96" ] ;
     ogc:licenceNote "W3C Document Licence" .
 
 src:w3c-earl a prov:Entity, ogc:Source ;
     rdfs:label "W3C, Evaluation and Report Language (EARL) 1.0 Schema, Working Group Note 2 February 2017" ;
-    ogc:rank "4" ; ogc:bibkey "w3c-earl" ; ogc:kind "html" ; ogc:posture "committed" ;
+    ogc:rank 4 ; ogc:bibkey "w3c-earl" ; ogc:kind "html" ; ogc:posture "committed" ;
     ogc:url <https://www.w3.org/TR/2017/NOTE-EARL10-Schema-20170202/> ;
     ogc:digest "sources/digests/w3c.md" ;
     ogc:snapshot [ ogc:file "sources/archive/earl10-schema-20170202.html" ; ogc:contentHash "bd256af93da1fe22459a97a5ab18c1bc492932695e2e428ddd88a774c5338213" ] ;
+    ogc:snapshot [ ogc:file "sources/archive/earl10-schema-20170202.rdf" ; ogc:contentHash "4cde74807d5e31e58cc462ea6c1b1fc8fc0cf5bdbf8ac224ef95525efbeb2879" ] ;
     ogc:licenceNote "W3C Document Licence" .
 
 src:w3c-shacl a prov:Entity, ogc:Source ;
     rdfs:label "W3C, Shapes Constraint Language (SHACL), Recommendation 20 July 2017" ;
-    ogc:rank "4" ; ogc:bibkey "w3c-shacl" ; ogc:kind "html" ; ogc:posture "committed" ;
+    ogc:rank 4 ; ogc:bibkey "w3c-shacl" ; ogc:kind "html" ; ogc:posture "committed" ;
     ogc:url <https://www.w3.org/TR/2017/REC-shacl-20170720/> ;
     ogc:digest "sources/digests/w3c.md" ;
     ogc:snapshot [ ogc:file "sources/archive/shacl-20170720.html" ; ogc:contentHash "ccca77caed771f42ea649c03d190b9c7ea0b82286c22c457b9edc8087c9ad0f8" ] ;
@@ -111,7 +113,7 @@ src:w3c-shacl a prov:Entity, ogc:Source ;
 
 src:w3c-skos a prov:Entity, ogc:Source ;
     rdfs:label "W3C, SKOS Simple Knowledge Organization System Reference, Recommendation 18 August 2009" ;
-    ogc:rank "4" ; ogc:bibkey "w3c-skos" ; ogc:kind "html" ; ogc:posture "committed" ;
+    ogc:rank 4 ; ogc:bibkey "w3c-skos" ; ogc:kind "html" ; ogc:posture "committed" ;
     ogc:url <https://www.w3.org/TR/2009/REC-skos-reference-20090818/> ;
     ogc:digest "sources/digests/w3c.md" ;
     ogc:snapshot [ ogc:file "sources/archive/skos-reference-20090818.html" ; ogc:contentHash "3aa00cd16ee4d86d3a19b75501bb317d0b0c134e1f4029e9f3098c4dd3669e4c" ] ;
@@ -119,21 +121,21 @@ src:w3c-skos a prov:Entity, ogc:Source ;
 
 src:iso-iec-17000-2020 a prov:Entity, ogc:Source ;
     rdfs:label "ISO/IEC 17000:2020(en) Conformity assessment — Vocabulary and general principles (Online Browsing Platform)" ;
-    ogc:rank "5" ; ogc:bibkey "iso-iec-17000-2020" ; ogc:kind "web" ; ogc:posture "citeOnly" ;
+    ogc:rank 5 ; ogc:bibkey "iso-iec-17000-2020" ; ogc:kind "web" ; ogc:posture "citeOnly" ;
     ogc:url <https://www.iso.org/obp/ui/en/#iso:std:73029:en> ;
     ogc:digest "sources/digests/iso-iec-17000-2020.md" ;
     ogc:licenceNote "ISO copyright; the vocabulary is publicly browsable; short attributed quotations only (the party terms, object, access, scheme, specified requirement, testing, review, decision, attestation and its note, surveillance)" .
 
 src:incose-gtwr-v4 a prov:Entity, ogc:Source ;
     rdfs:label "INCOSE Guide to Writing Requirements v4, Summary Sheet (INCOSE-TP-2010-006-04, June 2023)" ;
-    ogc:rank "6" ; ogc:bibkey "incose-gtwr-v4" ; ogc:kind "pdf" ; ogc:posture "heldLocally" ;
+    ogc:rank 6 ; ogc:bibkey "incose-gtwr-v4" ; ogc:kind "pdf" ; ogc:posture "heldLocally" ;
     ogc:digest "sources/digests/incose-gtwr-v4.md" ;
     ogc:snapshot [ ogc:file "sources/local/pdf/incose-gtwr-v4-summary.pdf" ; ogc:contentHash "0bf5918db034757fb63fb81a677263ebe36323eee95e51fbd0197aecdd574176" ] ;
     ogc:licenceNote "INCOSE copyright restrictions; held locally" .
 
 src:hawkins-2011 a prov:Entity, ogc:Source ;
     rdfs:label "Hawkins, Kelly, Knight and Graydon, A New Approach to Creating Clear Safety Arguments, Safety-Critical Systems Symposium 2011 (author copy, University of York)" ;
-    ogc:rank "7" ; ogc:bibkey "hawkins-2011" ; ogc:kind "pdf" ; ogc:posture "heldLocally" ;
+    ogc:rank 7 ; ogc:bibkey "hawkins-2011" ; ogc:kind "pdf" ; ogc:posture "heldLocally" ;
     ogc:url <https://www-users.york.ac.uk/~rdh2/papers/HawkinsSSS11.pdf> ;
     ogc:digest "sources/digests/hawkins-2011.md" ;
     ogc:snapshot [ ogc:file "sources/local/pdf/hawkins-sss-2011.pdf" ; ogc:contentHash "1043bce7b664fa09c2c1f3a3e63a3ba6ba9b4f9ba42d02d2036d258afaf6c77c" ] ;
@@ -142,14 +144,14 @@ src:hawkins-2011 a prov:Entity, ogc:Source ;
 src:isa-500 a prov:Entity, ogc:Source ;
     rdfs:label "IAASB, International Standard on Auditing 500: Audit Evidence (effective 15 December 2009)" ;
     ogc:status "the 2009 text is cited; ISA 500 (Revised 2024), effective for periods beginning on or after 15 December 2026, keeps paragraphs 5(b) and 5(f)" ;
-    ogc:rank "6" ; ogc:bibkey "isa-500" ; ogc:kind "pdf" ; ogc:posture "heldLocally" ;
+    ogc:rank 6 ; ogc:bibkey "isa-500" ; ogc:kind "pdf" ; ogc:posture "heldLocally" ;
     ogc:digest "sources/digests/isa-500.md" ;
     ogc:snapshot [ ogc:file "sources/local/pdf/isa-500.pdf" ; ogc:contentHash "2ecc459ba84ce43199a5badf2807be9102d96aa717301a1d379a676549c231f4" ] ;
     ogc:licenceNote "IFAC copyright; freely downloadable; held locally" .
 
 src:gruber-1993 a prov:Entity, ogc:Source ;
     rdfs:label "Gruber, A Translation Approach to Portable Ontology Specifications, Knowledge Acquisition 5(2), 1993 (author copy)" ;
-    ogc:rank "7" ; ogc:bibkey "gruber-1993" ; ogc:kind "pdf" ; ogc:posture "heldLocally" ;
+    ogc:rank 7 ; ogc:bibkey "gruber-1993" ; ogc:kind "pdf" ; ogc:posture "heldLocally" ;
     ogc:url <https://tomgruber.org/writing/ontolingua-kaj-1993.pdf> ;
     ogc:digest "sources/digests/gruber-1993.md" ;
     ogc:snapshot [ ogc:file "sources/local/pdf/gruber-1993.pdf" ; ogc:contentHash "ffa4b4476a1f95a5572e741c7a7cafb0d7793d2139c5268c8b4071c45906459e" ] ;
@@ -157,7 +159,7 @@ src:gruber-1993 a prov:Entity, ogc:Source ;
 
 src:hogan-2021 a prov:Entity, ogc:Source ;
     rdfs:label "Hogan et al., Knowledge Graphs, ACM Computing Surveys 54(4), 2021 (arXiv:2003.02320v3)" ;
-    ogc:rank "7" ; ogc:bibkey "hogan-2021" ; ogc:kind "pdf" ; ogc:posture "heldLocally" ;
+    ogc:rank 7 ; ogc:bibkey "hogan-2021" ; ogc:kind "pdf" ; ogc:posture "heldLocally" ;
     ogc:url <https://arxiv.org/abs/2003.02320> ;
     ogc:digest "sources/digests/hogan-2021.md" ;
     ogc:snapshot [ ogc:file "sources/local/pdf/hogan-2021.pdf" ; ogc:contentHash "3ff78a3ca650982c76c3d137675f1c6c406863d2f724cffcc10c17102739d6ea" ] ;
@@ -165,7 +167,7 @@ src:hogan-2021 a prov:Entity, ogc:Source ;
 
 src:sebok-2-14 a prov:Entity, ogc:Source ;
     rdfs:label "Guide to the Systems Engineering Body of Knowledge (SEBoK) v2.14, released 18 May 2026" ;
-    ogc:rank "6" ; ogc:bibkey "sebok-2-14" ; ogc:kind "pdf" ; ogc:posture "heldLocally" ;
+    ogc:rank 6 ; ogc:bibkey "sebok-2-14" ; ogc:kind "pdf" ; ogc:posture "heldLocally" ;
     ogc:url <https://sebokwiki.org/> ;
     ogc:digest "sources/digests/sebok-2-14.md" ;
     ogc:snapshot [ ogc:file "sources/local/pdf/sebok-v2.14.pdf" ; ogc:contentHash "251668f0ed4eca5a7c36755c6c56a07d663ef8a2bd66addd41e595eabcf0dce2" ] ;
@@ -173,26 +175,26 @@ src:sebok-2-14 a prov:Entity, ogc:Source ;
 
 src:scipy-2026-bof a prov:Entity, ogc:Source ;
     rdfs:label "Hollek and Zargham, Building Scientific Approaches to Generative AI, Birds-of-a-Feather session, SciPy 2026 (public event)" ;
-    ogc:rank "8" ; ogc:bibkey "scipy-2026-bof" ; ogc:kind "event" ; ogc:posture "citeOnly" ;
+    ogc:rank 8 ; ogc:bibkey "scipy-2026-bof" ; ogc:kind "event" ; ogc:posture "citeOnly" ;
     ogc:digest "sources/digests/scipy-2026-bof.md" ;
     ogc:licenceNote "a public event on the conference record, cited as a fact about what was presented there; the definitions in the digest are the authors' own words as presented; the organization logos shown at the session are reproduced at assets/hi-dsg-collaboration.png with the organizations' agreement (ruling R-47, sheet 06-02)" .
 
 src:popper-1959 a prov:Entity, ogc:Source ;
     rdfs:label "Popper, The Logic of Scientific Discovery, London: Hutchinson, 1959" ;
-    ogc:rank "7" ; ogc:bibkey "popper-1959" ; ogc:kind "web" ; ogc:posture "citeOnly" ;
+    ogc:rank 7 ; ogc:bibkey "popper-1959" ; ogc:kind "web" ; ogc:posture "citeOnly" ;
     ogc:digest "sources/digests/popper-1959.md" ;
     ogc:licenceNote "cited as the canonical source named as the source of the definitions presented at the SciPy 2026 session; not quoted directly" .
 
 src:iec-60050-351 a prov:Entity, ogc:Source ;
     rdfs:label "IEC 60050-351:2013 International Electrotechnical Vocabulary, Part 351: Control technology (Electropedia)" ;
-    ogc:rank "5" ; ogc:bibkey "iec-60050-351" ; ogc:kind "web" ; ogc:posture "citeOnly" ;
+    ogc:rank 5 ; ogc:bibkey "iec-60050-351" ; ogc:kind "web" ; ogc:posture "citeOnly" ;
     ogc:url <https://www.electropedia.org/iev/iev.nsf/index?openform=&part=351> ;
     ogc:digest "sources/digests/iec-60050-351.md" ;
     ogc:licenceNote "IEC copyright; Electropedia is publicly browsable; short attributed quotations only; quotes transcribed from the browser and verified by Z on 2026-09-06 (rulings sheet 02)" .
 
 src:jcgm-200-2012 a prov:Entity, ogc:Source ;
     rdfs:label "JCGM 200:2012 International vocabulary of metrology, basic and general concepts and associated terms (VIM), 3rd edition (BIPM)" ;
-    ogc:rank "5" ; ogc:bibkey "jcgm-200-2012" ; ogc:kind "pdf" ; ogc:posture "heldLocally" ;
+    ogc:rank 5 ; ogc:bibkey "jcgm-200-2012" ; ogc:kind "pdf" ; ogc:posture "heldLocally" ;
     ogc:url <https://www.bipm.org/en/doi/10.59161/jcgm200-2012> ;
     ogc:digest "sources/digests/jcgm-200-2012.md" ;
     ogc:snapshot [ ogc:file "sources/local/pdf/jcgm-200-2012.pdf" ; ogc:contentHash "8a603e99d236a65d771f38b6dcf627953146fe023a5266b3307681ada30f4fe7" ] ;
@@ -200,7 +202,7 @@ src:jcgm-200-2012 a prov:Entity, ogc:Source ;
 
 src:nist-tn-1297 a prov:Entity, ogc:Source ;
     rdfs:label "NIST Technical Note 1297, Guidelines for Evaluating and Expressing the Uncertainty of NIST Measurement Results, 1994 edition" ;
-    ogc:rank "6" ; ogc:bibkey "nist-tn-1297" ; ogc:kind "pdf" ; ogc:posture "committed" ;
+    ogc:rank 6 ; ogc:bibkey "nist-tn-1297" ; ogc:kind "pdf" ; ogc:posture "committed" ;
     ogc:url <https://nvlpubs.nist.gov/nistpubs/legacy/tn/nbstechnicalnote1297.pdf> ;
     ogc:digest "sources/digests/nist-tn-1297.md" ;
     ogc:snapshot [ ogc:file "sources/archive/NIST.TN.1297.pdf" ; ogc:contentHash "f2c8e6026d5589a63d492f192b72cd905f554b477a6049532256170aec477e92" ] ;

@@ -261,7 +261,7 @@ def build(source: Path, out: Path, manifest: Path | None) -> Graph:
 
 def main(argv) -> int:
     if len(argv) == 3:
-        build(Path(argv[0]), Path(argv[1]), Path(argv[2]) if argv[2] != "-" else None)
+        build(Path(argv[0]).resolve(), Path(argv[1]).resolve(), Path(argv[2]).resolve() if argv[2] != "-" else None)  # resolved, so a relative path works where build relates paths to the root (round four, KG 15)
     else:
         build(SOURCE, OUT, MANIFEST)
     return 0

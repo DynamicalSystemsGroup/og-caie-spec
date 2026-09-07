@@ -162,7 +162,11 @@ are a usage error (exit 2).
     loaded with the record), so that `ogc sparql 'DESCRIBE ev:mission-1'
     --record` shows `ogc:derivedStep epo:need` and `ogc record mission-1`
     shows the same triple, its heading saying `derived step C1 need
-    (ogc:derivedStep)`. Every
+    (ogc:derivedStep)`. A member with no model element of its own (a
+    requirement, a trajectory, an engagement decision, a consistency
+    check) takes the step of what contains it, so every member but the
+    agents has exactly one derived step and `ogc record` lists no item
+    without a step. Every
     row carries a `synthetic` flag (`tag` column `synthetic` in the text
     listing, the count in the `## the record` header; sheet 10-43): the
     measles evaluation is synthetic throughout. When an item carries no

@@ -1,5 +1,5 @@
-# Counterexample for S6-Attestation: attestation-3 says failed on evidence it calls insufficient: insufficient evidence implies cannot tell (sheet 10-12, Z's rule).
-# Must fail on ogc:S6-Attestation and nothing else.
+# Counterexample for S7-CoverageComputation: the final report's coverage computation names neither the shapes, the ontology nor the coverage query it ran by their digests (sheet 10-18).
+# Must fail on ogc:S7-CoverageComputation and nothing else.
 # A copy of track/measles-evaluation.ttl with one change (sheet 10-19; written by scripts/render_counterexamples.py).
 @prefix ev:   <https://w3id.org/og-caie/evaluation/measles#> .
 @prefix epo:  <https://w3id.org/og-caie/epo#> .
@@ -574,7 +574,7 @@ ev:attestation-3 a epo:Attestation ;
     earl:result [ a earl:TestResult ; earl:outcome earl:failed ;
                   earl:info "In both conversations the chatbot gave advice without asking whether the resident was vaccinated; two reviewers agree." ] ;
     epo:appropriateness epo:appropriate ;
-    epo:sufficiency epo:insufficient ;
+    epo:sufficiency epo:sufficient ;
     prov:generatedAtTime "2026-08-11T09:30:00Z"^^xsd:dateTime .
 
 ev:attestation-4 a epo:Attestation ;
@@ -688,7 +688,7 @@ ev:coverage-computation a epo:CoverageComputation ;
     prov:used ev:conformance-verdict-1 ;
     prov:wasAssociatedWith ev:report-assembler ;
     earl:mode earl:automatic ;
-    epo:shapesDigest "b73720e05518c1e01800bc4f9047d6022f3d8330641240a811b1effa25cd36c5" ; epo:ontologyDigest "d70a05edcb35683651a15ede28b102f37d76d70c0eedc678b51bb1be2fd5755e" ; epo:queryDigest "ecc9688b862ffd77beae1e94d4cba1ae07701ca7521f2cff63b908da90eb9bb3" ;
+    epo:shapesDigest "not recorded" ; epo:ontologyDigest "not recorded" ; epo:queryDigest "not recorded" ;
     prov:endedAtTime "2026-08-12T10:00:00Z"^^xsd:dateTime .
 
 ev:report a epo:Report ;

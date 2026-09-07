@@ -29,3 +29,8 @@ every covered criterion failed
 thirty-five RDF counterexamples
 Twenty-three record counterexamples
 twenty-five counterexamples fail
+thirty-nine counterexamples in RDF
+twenty-seven counterexamples
+twenty-nine counterexamples
+thirteen S-shapes
+Seven counterexamples, six records

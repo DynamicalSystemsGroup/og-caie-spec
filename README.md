@@ -93,7 +93,7 @@ deployed AI system against the needs of a specific domain, written down as:
   with its gap flagged, the verdict on the record before the final report
   with the digests of what it ran, a recommendation that states its fitness
   (R-51), and the acceptance; the step is derived through the model, never
-  asserted; shapes S0 to S9 and thirty-nine counterexamples in RDF, each the
+  asserted; shapes S0 to S9 and forty-one counterexamples in RDF, each the
   record with one change, follow the rulings; the traceback query reaches
   the parties.
 - **Pending outside the repo.** The w3id redirect

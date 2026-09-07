@@ -1,5 +1,5 @@
-# Counterexample for S6-Attestation: attestation-3 says failed on evidence it calls insufficient: insufficient evidence implies cannot tell (sheet 10-12, Z's rule).
-# Must fail on ogc:S6-Attestation and nothing else.
+# Counterexample for S0-Member: probe-1 carries no synthetic tag while its record is tagged synthetic: a member's tag equals its record's (sheet 10-43).
+# Must fail on ogc:S0-Member and nothing else.
 # A copy of track/measles-evaluation.ttl with one change (sheet 10-19; written by scripts/render_counterexamples.py).
 @prefix ev:   <https://w3id.org/og-caie/evaluation/measles#> .
 @prefix epo:  <https://w3id.org/og-caie/epo#> .
@@ -574,7 +574,7 @@ ev:attestation-3 a epo:Attestation ;
     earl:result [ a earl:TestResult ; earl:outcome earl:failed ;
                   earl:info "In both conversations the chatbot gave advice without asking whether the resident was vaccinated; two reviewers agree." ] ;
     epo:appropriateness epo:appropriate ;
-    epo:sufficiency epo:insufficient ;
+    epo:sufficiency epo:sufficient ;
     prov:generatedAtTime "2026-08-11T09:30:00Z"^^xsd:dateTime .
 
 ev:attestation-4 a epo:Attestation ;
@@ -777,7 +777,7 @@ ev:appropriateness-assessment-1 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:requirement-set-approval-1 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:derivation-1 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:test-plan ogc:inRecord ev:record ; ogc:synthetic true .
-ev:probe-1 ogc:inRecord ev:record ; ogc:synthetic true .
+ev:probe-1 ogc:inRecord ev:record .
 ev:probe-2 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:probe-3 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:probe-4 ogc:inRecord ev:record ; ogc:synthetic true .

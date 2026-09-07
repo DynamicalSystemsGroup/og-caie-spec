@@ -63,10 +63,18 @@ def test_held_locally_files_are_not_tracked():
     assert out.strip() == "", out
 
 
+def test_every_rank_is_an_integer_from_one_to_eight():
+    from rdflib import Literal
+    from rdflib.namespace import XSD
+    g = _graph()
+    ranks = [g.value(s, OGC.rank) for s in g.subjects(RDF.type, OGC.Source)]
+    assert len(ranks) == 20 and all(isinstance(r, Literal) and r.datatype == XSD.integer and 1 <= int(r) <= 8 for r in ranks), ranks
+
+
 def test_every_source_has_a_digest_file_or_is_internal():
     g = _graph()
     for s in g.subjects(RDF.type, OGC.Source):
-        if str(g.value(s, OGC.rank)) == "8":  # the authors' own source (sheet 10-46: ordinal ranks, no reserve)
+        if int(g.value(s, OGC.rank)) == 8:  # the authors' own source (sheet 10-46: ordinal ranks, no reserve); an xsd:integer (round four, KG 11)
             continue
         d = g.value(s, OGC.digest)
         assert d is not None, s

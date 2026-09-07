@@ -6,6 +6,7 @@
 @prefix rul:  <https://w3id.org/og-caie/rulings#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
 
 # The Popper crosswalk (ruling R-29): the coordinate transform from the
 # Popperian conception of science (the session's seven definitions, after
@@ -14,6 +15,11 @@
 # conclusion page; the Popper words appear nowhere else. Each row names the
 # standard terms it lands on (glossary concepts), the EPO classes and shapes
 # that realize it in the record, and what makes it checkable.
+
+<https://w3id.org/og-caie/crosswalk> a owl:Ontology ;
+    rdfs:label "the Popper crosswalk" ;
+    owl:versionInfo "0.3.0 in preparation; the git tag is the version" ;
+    rdfs:comment "The rows (xw:) of the bridge from the Popperian conception of science to the standards' terms (ruling R-29); the class and the properties are declared in vocabulary/register.ttl." .
 
 xw:hypothesis a ogc:Crosswalk ; ogc:order 1 ;
     rdfs:label "hypothesis" ;

@@ -34,6 +34,7 @@ graph, through which the step is derived).
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from decimal import Decimal
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -282,7 +283,7 @@ def t_scope(r, i, p):
         if k == 0:  # the interviewed population: its interview feeds the representation (series wiring, R-49)
             s = r.new("StakeholderInput", "input", i, 2 * k)
             g.add((s, PROV.wasAttributedTo, pop)); g.add((s, RDFS.label, Literal("interview notes")))
-            g.add((rep, PROV.used, s)); g.add((rep, PROV.wasAttributedTo, r.agents["EvaluationOperator"]))
+            g.add((rep, PROV.wasDerivedFrom, s)); g.add((rep, PROV.wasAttributedTo, r.agents["EvaluationOperator"]))
         else:
             g.add((rep, PROV.wasAttributedTo, r.agents["DomainExpert"]))
     d = r.new("DsoRelease", "dso", i, 2 * len(r.agents["AffectedPopulation"]) + 1)
@@ -302,9 +303,9 @@ def t_declare(r, i, p):
             a = r.new("AcceptanceCriterion", "criterion", i)  # dated, with its weight's rationale (sheet 10-10); no threshold
             g.add((a, PROV.wasDerivedFrom, req)); g.add((a, EPO.text, Literal(f"criterion {q + 1}.{c + 1}")))
             g.add((a, EPO.expectedResult, Literal(f"expected result {q + 1}.{c + 1}"))); g.add((a, EPO.weight, Literal(1))); g.add((a, EPO.weightRationale, Literal("every criterion weighs the same in this run")))
-    ass = r.new("AppropriatenessAssessment", "assessment", i, 1, timed="endedAtTime")
+    ass = r.new("AppropriatenessAssessment", "assessment", i, 1)
     g.add((ass, EARL.subject, rs)); g.add((ass, EARL.mode, EARL.manual)); g.add((ass, EARL.assertedBy, r.agents["DomainExpert"]))
-    g.add((ass, PROV.used, r.items["StakeholderInput"][0])); g.add((ass, EPO.appropriateness, EPO.appropriate))
+    g.add((ass, PROV.wasDerivedFrom, r.items["StakeholderInput"][0])); g.add((ass, PROV.wasAttributedTo, r.agents["DomainExpert"])); g.add((ass, EPO.appropriateness, EPO.appropriate))
     result(g, ass, "passed")
     ap = r.new("RequirementSetApproval", "requirement-set-approval", i, 2)  # the sponsor's signatory approves, after the set and before any session (sheet 10-01)
     g.add((ap, EPO.approvesRequirementSet, rs)); g.add((ap, RDFS.label, Literal("the sponsor's signatory approves the requirement set"))); by(r, ap, "RequirementSetApproval")
@@ -327,12 +328,12 @@ def t_plan(r, i, p):
         pr = r.new("Probe", "probe", i, 1)
         g.add((pr, EPO.text, Literal(f"probe for {g.value(a, EPO.text)}"))); g.add((pr, EPO.exercises, a)); g.add((pr, EPO.derivedFromDso, dso))
         g.add((pr, PROV.wasGeneratedBy, der)); g.add((plan, EPO.means, pr))
-        chk = r.new("ConsistencyCheck", "check", i, 2, timed="endedAtTime")
+        chk = r.new("ConsistencyCheck", "check", i, 2)
         g.add((chk, EARL.subject, pr)); g.add((chk, EARL.test, dso)); g.add((chk, EARL.mode, EARL.automatic)); g.add((chk, EARL.assertedBy, r.agents["ConformanceChecker"]))
-        g.add((chk, PROV.wasAssociatedWith, r.agents["ConformanceChecker"])); result(g, chk, "passed")
-    ap = r.new("PlanApproval", "approval", i, 3, timed="endedAtTime")
+        g.add((chk, PROV.wasAttributedTo, r.agents["ConformanceChecker"])); result(g, chk, "passed")
+    ap = r.new("PlanApproval", "approval", i, 3)
     g.add((ap, EPO.approves, plan)); g.add((ap, EARL.subject, plan)); g.add((ap, EARL.mode, EARL.manual)); g.add((ap, EARL.assertedBy, r.agents["DomainExpert"]))
-    g.add((ap, PROV.wasAssociatedWith, r.agents["DomainExpert"])); result(g, ap, "passed")
+    g.add((ap, PROV.wasAttributedTo, r.agents["DomainExpert"])); result(g, ap, "passed")
     return {"TestPlan", "Probe", "PlanApproval", "PlanDeviation"}
 
 
@@ -371,18 +372,18 @@ def t_determine(r, i, p):
         dets = []
         for j, person in enumerate([who] if who is r.agents["DomainExpert"] else [who, r.agents["DomainExpert"]]):
             # the operator ran the session the evidence came from, so the operator's determination is paired with the expert's (independence at the person level, sheet 10-15)
-            det = r.new("Determination", "determination", i, 2 * k + j, timed="endedAtTime")
+            det = r.new("Determination", "determination", i, 2 * k + j)
             g.add((det, EARL.test, a)); g.add((det, EARL.subject, r.agents["TestItem"])); g.add((det, EARL.mode, EARL.manual)); g.add((det, EARL.assertedBy, person))
-            g.add((det, PROV.wasAssociatedWith, person))
+            g.add((det, PROV.wasAttributedTo, person))
             for e in evs:
-                g.add((det, PROV.used, e))
+                g.add((det, PROV.wasDerivedFrom, e))
             result(g, det, determined)
             dets.append(det)
-        att = r.new("Attestation", "attestation", i, 2 * k + 2, timed="endedAtTime")
+        att = r.new("Attestation", "attestation", i, 2 * k + 2)
         g.add((att, EARL.test, a)); g.add((att, EARL.subject, r.agents["TestItem"])); g.add((att, EARL.mode, EARL.manual)); g.add((att, EARL.assertedBy, r.agents["DomainExpert"]))
-        g.add((att, PROV.wasAssociatedWith, r.agents["DomainExpert"])); g.add((att, EPO.appropriateness, EPO[appropriateness])); g.add((att, EPO.sufficiency, EPO[sufficiency]))
+        g.add((att, PROV.wasAttributedTo, r.agents["DomainExpert"])); g.add((att, EPO.appropriateness, EPO[appropriateness])); g.add((att, EPO.sufficiency, EPO[sufficiency]))
         for det in dets:  # every determination on the criterion (no cherry-picking, sheet 10-14)
-            g.add((att, PROV.used, det))
+            g.add((att, PROV.wasDerivedFrom, det))
         result(g, att, outcome)
     return {"Determination", "Attestation"}
 
@@ -391,29 +392,30 @@ def t_report(r, i, p):
     """The report step opened (sheet 10-41): the checker's verdict on the record first, then the coverage computation that used it,
     the final report resting on it, the domain expert's approval, and the recommendation the approval owns (sheet 10-11)."""
     g = r.g
-    from .graph import digests
+    from .graph import COVERAGE_DIGESTS, VERDICT_DIGESTS, digests, record_digest
     dg = digests(views_root())  # what the checker and the assembler ran, by sha256 (sheet 10-18)
     ok, fired = conformance(g, *_checker_graphs())  # the verdict is the checker's own finding on the record so far, never a constant (sheet 10-19)
-    ver = r.new("ConformanceVerdict", "verdict", i, 0, timed="endedAtTime")
+    dg["recordDigest"] = record_digest(g, RECORD, r.at(i, 0))  # the record as it stood when the checker ran, the verdict not yet in it (round four, KG 8)
+    ver = r.new("ConformanceVerdict", "verdict", i, 0)
     g.add((ver, EARL.subject, RECORD)); g.add((ver, EARL.mode, EARL.automatic)); g.add((ver, EARL.assertedBy, r.agents["ConformanceChecker"]))
-    g.add((ver, PROV.wasAssociatedWith, r.agents["ConformanceChecker"])); g.add((ver, PROV.used, RECORD))
-    for k, v in dg.items():
-        g.add((ver, EPO[k], Literal(v)))
+    g.add((ver, PROV.wasAttributedTo, r.agents["ConformanceChecker"])); g.add((ver, PROV.wasDerivedFrom, RECORD))
+    for k in VERDICT_DIGESTS:
+        g.add((ver, EPO[k], Literal(dg[k])))
     result(g, ver, "passed" if ok else "failed", info="the record conforms to the EPO shapes" if ok else "the record fails " + ", ".join(fired))
     comp = r.new("CoverageComputation", "coverage", i, 1, timed="endedAtTime")
     g.add((comp, PROV.used, r.items["RequirementSet"][0])); g.add((comp, PROV.used, ver)); g.add((comp, PROV.wasAssociatedWith, r.agents["ReportAssembler"])); g.add((comp, EARL.mode, EARL.automatic))
-    for k, v in dg.items():
-        g.add((comp, EPO[k], Literal(v)))
+    for k in COVERAGE_DIGESTS:
+        g.add((comp, EPO[k], Literal(dg[k])))
     for att in r.items["Attestation"]:
         g.add((comp, PROV.used, att))
     rep = r.new("Report", "report", i, 1)
-    g.add((rep, PROV.wasGeneratedBy, comp)); g.add((rep, PROV.used, ver)); g.add((rep, EPO.draft, Literal(False)))  # final: it rests on the verdict
+    g.add((rep, PROV.wasGeneratedBy, comp)); g.add((rep, PROV.wasDerivedFrom, ver)); g.add((rep, EPO.draft, Literal(False)))  # final: it rests on the verdict
     row = next(iter(g.query((views_root() / "queries" / "coverage.rq").read_text())))
     for k in ("coverage", "passRate", "failRate", "cantTellRate"):
-        g.add((rep, EPO[k], Literal(round(float(getattr(row, k)), 6))))
-    ap = r.new("ReportApproval", "report-approval", i, 2, timed="endedAtTime")
+        g.add((rep, EPO[k], Literal(Decimal(str(round(float(getattr(row, k)), 6))))))  # xsd:decimal, the range of the four rates
+    ap = r.new("ReportApproval", "report-approval", i, 2)
     g.add((ap, EPO.approvesReport, rep)); g.add((ap, EARL.subject, rep)); g.add((ap, EARL.mode, EARL.manual)); g.add((ap, EARL.assertedBy, r.agents["DomainExpert"]))
-    g.add((ap, PROV.wasAssociatedWith, r.agents["DomainExpert"])); g.add((ap, PROV.used, rep)); g.add((ap, PROV.used, ver)); result(g, ap, "passed")
+    g.add((ap, PROV.wasAttributedTo, r.agents["DomainExpert"])); g.add((ap, PROV.wasDerivedFrom, rep)); g.add((ap, PROV.wasDerivedFrom, ver)); result(g, ap, "passed")
     rec = r.new("Recommendation", "recommendation", i, 3)
     g.add((rec, EPO.text, Literal("the recommendation"))); by(r, rec, "Recommendation")
     g.add((rec, PROV.wasDerivedFrom, ap))  # the approval owns the recommendation (sheet 10-11)
@@ -421,8 +423,8 @@ def t_report(r, i, p):
     g.add((rec, EPO.fitness, EPO.notFit if failed else EPO.fitToDeploy))  # the fitness stated, never parsed from the prose (sheet 10-48, R-51)
     for att in r.items["Attestation"]:
         g.add((rec, PROV.wasDerivedFrom, att))
-        for det in g.objects(att, PROV.used):
-            for e in g.objects(det, PROV.used):
+        for det in g.objects(att, PROV.wasDerivedFrom):
+            for e in g.objects(det, PROV.wasDerivedFrom):
                 g.add((rec, PROV.wasDerivedFrom, e))
     g.add((rec, PROV.wasDerivedFrom, r.items["TestPlan"][0])); g.add((rec, PROV.wasDerivedFrom, r.items["DsoRelease"][0])); g.add((rec, PROV.wasDerivedFrom, rep))
     return {"ConformanceVerdict", "Report", "ReportApproval", "Recommendation", "PlanDeviation"}
@@ -501,7 +503,7 @@ def m_executive_attests(g):
 
 def m_attest_without_determination(g):
     for a in g.subjects(RDF.type, EPO.Attestation):
-        g.remove((a, PROV.used, None))
+        g.remove((a, PROV.wasDerivedFrom, None))
 
 
 def m_requirements_before_agreement(g):
@@ -534,9 +536,9 @@ def m_one_person_team(g):
 def m_cherry_pick(g):
     """Every attestation that aggregates two determinations drops the later one without naming it as excluded (S6-Attestation, sheet 10-14)."""
     for a in g.subjects(RDF.type, EPO.Attestation):
-        dets = sorted(g.objects(a, PROV.used), key=str)
+        dets = sorted(g.objects(a, PROV.wasDerivedFrom), key=str)
         if len(dets) > 1:
-            g.remove((a, PROV.used, dets[-1]))
+            g.remove((a, PROV.wasDerivedFrom, dets[-1]))
 
 
 def m_engagement_mismatch(g):

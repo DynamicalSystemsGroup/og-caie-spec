@@ -72,6 +72,7 @@ OGM = V.OGM
 OUT = ROOT / "explorer"
 TITLE = "OG-CAIE: the knowledge graph explorer"
 MERGED_FILE = "all.ttl"  # every data file in one default graph (sheet 10-31)
+MERGED_FILES = [*SOURCE_FILES, "shapes/glossary.shapes.ttl", "shapes/rulings.shapes.ttl", MODEL_FILE, RECORD_FILE]  # what all.ttl merges: the loaded graphs, the two shape files over the register, the model graph and the record (round four, KG 5)
 QNAMES = dict(PREFIXES)
 QNAMES["owl"] = OWL
 QNAMES["prov"] = PROV
@@ -264,11 +265,11 @@ class Builder:
         for k in sorted(g.subjects(RDF.type, OWL.Class), key=str):
             if not str(k).startswith(str(EPO)) or k in (EPO.EpoStep, EPO.ContractingStep, EPO.Layer, EPO.Role) or k in role_classes:
                 continue
-            self.add(k, "kind", local(k), one(g, k, RDFS.label) or local(k), f"ogc sparql {shell(f'DESCRIBE epo:{local(k)}')}")
+            self.add(k, "kind", one(g, k, RDFS.label) or local(k), one(g, k, RDFS.comment) or one(g, k, RDFS.label) or local(k), f"ogc sparql {shell(f'DESCRIBE epo:{local(k)}')}")  # the short label; the sentence is the comment (round four, KG 7)
         for x in sorted(g.subjects(RDF.type, EPO.Layer), key=str):
             self.add(x, "layer", local(x), one(g, x, RDFS.label), f"ogc sparql {shell(f'DESCRIBE epo:{local(x)}')}")
         for cls in sorted(role_classes, key=str):
-            self.add(cls, "role", local(cls), one(g, cls, RDFS.label) or one(g, cls, RDFS.comment) or local(cls), f"ogc sparql {shell(f'DESCRIBE epo:{local(cls)}')}")
+            self.add(cls, "role", one(g, cls, RDFS.label) or local(cls), one(g, cls, RDFS.comment) or one(g, cls, RDFS.label) or local(cls), f"ogc sparql {shell(f'DESCRIBE epo:{local(cls)}')}")
         for cls in sorted(role_classes, key=str):
             for x in sorted(g.subjects(RDF.type, cls), key=str):
                 self.add(x, "role", local(x), one(g, x, RDFS.label), f"ogc sparql {shell(f'DESCRIBE epo:{local(x)}')}")
@@ -861,14 +862,16 @@ def render(model: dict) -> str:
 def main() -> int:
     OUT.mkdir(exist_ok=True)
     (OUT / "data").mkdir(exist_ok=True)
-    for f in (*SOURCE_FILES, MODEL_FILE, RECORD_FILE):
+    for f in MERGED_FILES:
         shutil.copyfile(ROOT / f, OUT / "data" / Path(f).name)
     merged = Graph()  # every data file in one default graph (sheet 10-31): the copies stay for a reader who wants one file
     for k, v in sorted(QNAMES.items()):
         merged.bind(k, v, replace=True)
-    for f in (*SOURCE_FILES, MODEL_FILE, RECORD_FILE):
+    for f in MERGED_FILES:
         merged.parse(ROOT / f)
-    (OUT / "data" / MERGED_FILE).write_text("# Every Turtle file of the repository in one default graph, the precondition of the shapes and the record queries (sheet 10-31); written by scripts/render_explorer.py.\n" + merged.serialize(format="turtle"))
+    header = ("# The repository's graphs in one default graph, the precondition of the shapes and the record queries (sheet 10-31); written by scripts/render_explorer.py.\n"
+              "# Merged, in this order: " + ", ".join(MERGED_FILES) + ".\n")
+    (OUT / "data" / MERGED_FILE).write_text(header + merged.serialize(format="turtle"))
     model = Builder(graph()).build()
     (OUT / "graph.json").write_text(json.dumps(model, ensure_ascii=False, sort_keys=True, indent=1) + "\n")
     (OUT / "index.html").write_text(render(model))

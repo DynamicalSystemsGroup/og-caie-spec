@@ -35,8 +35,8 @@ WHERE {
   ?recommendation a ?cls . ?kind ogm:realizes ?cls . ?param sysml:type ?kind ; sysml:direction "out" ; sysml:owner ?act . ?act ogm:realizes ?stepNode .
   ?stepNode rdfs:label ?step .
   ?attestation a epo:Attestation ; earl:test ?criterionNode ; earl:assertedBy ?assertorNode ;
-      earl:result ?res ; prov:used ?determination .
-  ?determination a epo:Determination ; earl:test ?criterionNode ; earl:assertedBy ?determinerNode ; prov:used ?evidence ; earl:result ?dres .
+      earl:result ?res ; prov:wasDerivedFrom ?determination .
+  ?determination a epo:Determination ; earl:test ?criterionNode ; earl:assertedBy ?determinerNode ; prov:wasDerivedFrom ?evidence ; earl:result ?dres .
   ?dres earl:outcome ?determinedNode . ?determinerNode rdfs:label ?determiner .
   BIND(STRAFTER(STR(?determinedNode), "#") AS ?determined)
   ?evidence a epo:Evidence ; epo:bearsOn ?criterionNode ; epo:underPlan ?plan .

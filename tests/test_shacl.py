@@ -24,7 +24,7 @@ EARL = Namespace("http://www.w3.org/ns/earl#")
 SKOS = Namespace("http://www.w3.org/2004/02/skos/core#")
 RECORD = "track/measles-evaluation.ttl"
 EV = "https://w3id.org/og-caie/evaluation/measles#"
-NEW_SHAPES = ["S0-Independence", "S0-Member", "S0-Record", "S0-Roles", "S3-PlanDeviation"]  # sheet 10: 10-15, 10-31, 10-13, 10-16
+NEW_SHAPES = ["S0-Independence", "S0-Member", "S0-Record", "S0-Roles", "S3-PlanDeviation", "S7-CoverageComputation"]  # sheet 10: 10-15, 10-31, 10-13, 10-16; round four, KG 8
 
 
 def shapes():
@@ -91,18 +91,75 @@ def test_two_records_in_one_graph_both_conform():
     assert ok, report
     rows = list(g.query((ROOT / "queries" / "coverage.rq").read_text()))
     assert len(rows) == 2 and {float(r.coverage) for r in rows} == {1.0}  # every criterion attested (sheet 10-48, R-51)
+    # Round four, KG H3: a foreign attestation, in the second record, on the first record's criterion a1, failed and dated
+    # before the first record's draft. Every join is anchored on the record, so the first record's reports still recompute to
+    # their own numbers and nothing of the first record fires; what fires is the foreign attestation's own fault (the S6
+    # chain rule: the determination it aggregates tests the second record's a1, not the first's).
+    second = "https://w3id.org/og-caie/evaluation/measles-second#"
+    g.parse(data=f"""
+        @prefix ev: <{EV}> . @prefix ev2: <{second}> . @prefix epo: <https://w3id.org/og-caie/epo#> . @prefix ogc: <https://w3id.org/og-caie/> .
+        @prefix prov: <http://www.w3.org/ns/prov#> . @prefix earl: <http://www.w3.org/ns/earl#> . @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+        ev2:attestation-foreign a epo:Attestation ; earl:test ev:a1 ; earl:subject ev2:chatbot-v1 ; earl:mode earl:manual ; earl:assertedBy ev2:annie ;
+            prov:wasAttributedTo ev2:annie ; prov:wasDerivedFrom ev2:determination-1 ;
+            earl:result [ a earl:TestResult ; earl:outcome earl:failed ] ; epo:appropriateness epo:appropriate ; epo:sufficiency epo:sufficient ;
+            prov:generatedAtTime "2026-08-11T09:11:00Z"^^xsd:dateTime ; ogc:inRecord ev2:record ; ogc:synthetic true .
+    """, format="turtle")
+    ok, results, report = validate(g, shacl_graph=shapes(), advanced=True)
+    assert not ok
+    focus = {str(f) for f in results.objects(None, SH.focusNode)}
+    assert focus == {second + "attestation-foreign"}, report
+    rows = {str(r.record): r for r in g.query((ROOT / "queries" / "coverage.rq").read_text())}
+    first = rows[EV + "record"]
+    assert (float(first.coverage), float(first.passRate), float(first.failRate), float(first.cantTellRate)) == (1.0, 0.8, 0.2, 0.0)
+
+
+def test_every_graph_in_one_default_graph_conforms():
+    """Round four, KG H2: S0-Member targets the record's own members (the nodes typed by an epo: item class, and the agents
+    that hold a role, carry a version or are attributed an item), so the explorer's merged file, every graph of the repository
+    in one default graph (the vocabularies, the sources, the rulings, the essentials, the shapes, the model graph and the record),
+    conforms to the EPO shapes: the sources, the rulings and their adjudicator are entities and agents of no record and are not
+    drawn into the record's constraints."""
+    ok, _, report = validate(load("explorer/data/all.ttl"), shacl_graph=shapes(), advanced=True)
+    assert ok, report
 
 
 def test_record_digests_are_current():
-    """Sheet 10-18: the verdict and the coverage computation name the shapes, the ontology and the query by sha256; the values equal the files'."""
+    """Sheet 10-18: the verdict names the shapes and the ontology by sha256 and the record it judged by the digest of its canonical
+    member triples as they stood at the verdict (round four, KG 8); the two coverage computations name the shapes, the ontology and
+    the query; every value equals what is recomputed from the checkout."""
+    from ogc.graph import verdict_digest
     g = data(RECORD)
     expected = {k: hashlib.sha256((ROOT / f).read_bytes()).hexdigest()
                 for k, f in (("shapesDigest", "shapes/epo.shapes.ttl"), ("ontologyDigest", "vocabulary/epo.ttl"), ("queryDigest", "queries/coverage.rq"))}
-    holders = list(g.subjects(RDF.type, EPO.ConformanceVerdict)) + list(g.subjects(RDF.type, EPO.CoverageComputation))
-    assert len(holders) == 3  # the verdict, the draft's coverage computation and the final's (sheet 10-41)
-    for h in holders:
+    (verdict,) = list(g.subjects(RDF.type, EPO.ConformanceVerdict))
+    computations = list(g.subjects(RDF.type, EPO.CoverageComputation))
+    assert len(computations) == 2  # the draft's coverage computation and the final's (sheet 10-41)
+    for k in ("shapesDigest", "ontologyDigest"):
+        assert str(g.value(verdict, EPO[k])) == expected[k], f"{k} is stale: run scripts/stamp_digests.py"
+    assert g.value(verdict, EPO.queryDigest) is None  # the query is the assembler's tool, not the checker's
+    assert str(g.value(verdict, EPO.recordDigest)) == verdict_digest(g)[verdict], "the record digest is stale: run scripts/stamp_digests.py"
+    raw = Graph().parse(ROOT / RECORD)  # the digest does not depend on the derived steps or the vocabulary being loaded
+    assert verdict_digest(raw)[verdict] == verdict_digest(g)[verdict]
+    for c in computations:
         for k, v in expected.items():
-            assert str(g.value(h, EPO[k])) == v, f"{h} {k} is stale: run scripts/stamp_digests.py"
+            assert str(g.value(c, EPO[k])) == v, f"{c} {k} is stale: run scripts/stamp_digests.py"
+        assert g.value(c, EPO.recordDigest) is None
+
+
+def test_record_digest_covers_the_record_as_it_stood_and_nothing_later():
+    """Round four, KG 8: a change to a member dated before the verdict changes the digest; a change to a member dated after it
+    (the final report), or to the verdict itself, does not; a comment or a prefix in the file does not."""
+    from rdflib import Literal, URIRef
+    from ogc.graph import record_digest
+    g = Graph().parse(ROOT / RECORD)
+    (verdict,) = list(g.subjects(RDF.type, EPO.ConformanceVerdict))
+    rec, when = g.value(verdict, OGC.inRecord), g.value(verdict, PROV.generatedAtTime)
+    before = record_digest(g, rec, when, exclude={verdict})
+    g.add((URIRef(EV + "report"), EPO.gaps, Literal("a later item, after the verdict")))
+    g.add((verdict, EPO.text, Literal("the verdict itself")))
+    assert record_digest(g, rec, when, exclude={verdict}) == before
+    g.add((URIRef(EV + "a1"), EPO.text, Literal("a criterion, dated before the verdict")))
+    assert record_digest(g, rec, when, exclude={verdict}) != before
 
 
 def test_shapes_s0_to_s9():
@@ -112,7 +169,7 @@ def test_shapes_s0_to_s9():
                      "S1-DsoRelease", "S2-AcceptanceCriterion", "S2-Requirement", "S2-RequirementSet",
                      "S3-PlanApproval", "S3-PlanDeviation", "S3-Probe", "S3-Strategy", "S3-TestPlan",
                      "S4-Session", "S4-TestSuite", "S4-Turn", "S5-Evidence", "S5-Response", "S6-Attestation", "S6-Determination",
-                     "S7-ConformanceVerdict", "S7-Report", "S7-ReportApproval", "S8-Delivery", "S8-Recommendation", "S9-Acceptance"]
+                     "S7-ConformanceVerdict", "S7-CoverageComputation", "S7-Report", "S7-ReportApproval", "S8-Delivery", "S8-Recommendation", "S9-Acceptance"]
 
 
 def test_no_record_asserts_a_step():
@@ -133,6 +190,9 @@ def test_epo_handles_subclass_prov_or_earl():
             continue
         supers = set(g.objects(c, RDFS.subClassOf))
         assert supers & {PROV.Entity, PROV.Activity, PROV.Agent, EARL.Assertion}, c
+        assert not ({PROV.Entity, PROV.Activity} <= supers), f"{c}: PROV-O declares prov:Entity and prov:Activity disjoint (round four, KG H1)"
+        if EARL.Assertion in supers:
+            assert PROV.Entity in supers and PROV.Activity not in supers, f"{c}: an assertion is an entity, dated by prov:generatedAtTime"
 
 
 def test_record_names_every_human_judgment():
@@ -147,8 +207,8 @@ def test_record_names_every_human_judgment():
     assert len(list(g.subjects(RDF.type, EPO.Determination))) == 7  # sheet 10-15: Theo's determination on a3 is paired with Annie's; a2 determined twice
     a2 = [t for t in g.subjects(RDF.type, EPO.Attestation) if str(g.value(t, EARL.test)).endswith("#a2")]
     assert sorted(str(g.value(g.value(t, EARL.result), EARL.outcome)).rsplit("#", 1)[-1] for t in a2) == ["cantTell", "passed"]
-    later = max(a2, key=lambda t: str(g.value(t, PROV.endedAtTime)))
-    assert len(list(g.objects(later, PROV.used))) == 2  # the superseding attestation names both determinations (no cherry-picking, sheet 10-14)
+    later = max(a2, key=lambda t: str(g.value(t, PROV.generatedAtTime)))
+    assert len(list(g.objects(later, PROV.wasDerivedFrom))) == 2  # the superseding attestation names both determinations (no cherry-picking, sheet 10-14)
 
 
 def test_record_names_the_parties_and_roles():

@@ -6,6 +6,7 @@
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
 
 # The OG-CAIE glossary. Terms are used, not owned: each term cites exactly one
 # canonical definition from the highest-ranked source that defines it in the
@@ -21,6 +22,12 @@
 # authors (the bridge's own definitions, in crosswalk.ttl),
 # human (verified by a named person on a date), pending (transcribed from a
 # screenshot or a browsing platform; awaiting a named verification).
+
+<https://w3id.org/og-caie/terms> a owl:Ontology ;
+    rdfs:label "the OG-CAIE glossary" ;
+    owl:versionInfo "0.3.0 in preparation; the git tag is the version" ;
+    owl:imports <http://www.w3.org/2004/02/skos/core> ;
+    rdfs:comment "The terms (term:), one SKOS concept scheme; the classes and properties they are written in are declared in vocabulary/register.ttl." .
 
 ogc:Glossary a skos:ConceptScheme ;
     skos:prefLabel "OG-CAIE glossary"@en .
