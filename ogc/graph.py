@@ -30,8 +30,8 @@ PREFIXES = {"ogc": OGC, "term": TERM, "src": SRC, "rul": RUL, "epo": EPO, "xw": 
             "rdf": Namespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#"), "xsd": Namespace("http://www.w3.org/2001/XMLSchema#"),
             "sysml": Namespace("https://www.omg.org/spec/SysML#"), "sysx": Namespace("urn:opensysml:sysml:"), "elmt": Namespace("urn:sysmlv2:element:")}
 SPARQL_PREFIXES = "".join(f"PREFIX {k}: <{v}>\n" for k, v in PREFIXES.items())
-SOURCE_FILES = ["vocabulary/og-caie.ttl", "vocabulary/epo.ttl", "vocabulary/crosswalk.ttl", "sources/sources.ttl",
-                "rulings/adjudications.ttl", "model/trace.ttl", "shapes/epo.shapes.ttl", "shapes/model.shapes.ttl"]
+SOURCE_FILES = ["vocabulary/og-caie.ttl", "vocabulary/epo.ttl", "vocabulary/register.ttl", "vocabulary/ogm.ttl", "vocabulary/crosswalk.ttl", "sources/sources.ttl",
+                "rulings/adjudications.ttl", "model/trace.ttl", "shapes/epo.shapes.ttl", "shapes/model.shapes.ttl"]  # every vocabulary (the register and the model predicates too, round four, KG 5), the sources, the rulings, the essentials, the two shape files over the record and the model
 SHAPE_FILES = ["shapes/epo.shapes.ttl", "shapes/model.shapes.ttl", "shapes/rulings.shapes.ttl", "shapes/glossary.shapes.ttl"]  # every shape file; `ogc shapes`, `ogc shape` and the schema's shape count read them all
 MODEL_FILE = "model/og-caie.model.ttl"
 RECORD_FILE = "track/measles-evaluation.ttl"  # the worked example's record, the measles evaluation; read by `ogc record` and `--record` (C-44, ruling R-47; sheet 10-42)

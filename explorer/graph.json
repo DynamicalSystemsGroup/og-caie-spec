@@ -6269,21 +6269,9 @@
      }
     ],
     [
-     "sh:targetClass",
+     "sh:target",
      {
-      "text": "prov:Activity"
-     }
-    ],
-    [
-     "sh:targetClass",
-     {
-      "text": "prov:Agent"
-     }
-    ],
-    [
-     "sh:targetClass",
-     {
-      "text": "prov:Entity"
+      "text": "[rdf:type http://www.w3.org/ns/shacl#SPARQLTarget; sh:select PREFIX epo: <https://w3id.org/og-caie/e…]"
      }
     ]
    ]
@@ -6822,7 +6810,7 @@
     [
      "sh:property",
      {
-      "text": "[sh:datatype http://www.w3.org/2001/XMLSchema#dateTi…; sh:minCount 1; sh:path http://www.w3.org/ns/prov#endedAtTime]"
+      "text": "[sh:datatype http://www.w3.org/2001/XMLSchema#dateTi…; sh:minCount 1; sh:path http://www.w3.org/ns/prov#generatedAtTi…]"
      }
     ],
     [
@@ -7274,7 +7262,7 @@
     [
      "sh:property",
      {
-      "text": "[sh:datatype http://www.w3.org/2001/XMLSchema#dateTi…; sh:minCount 1; sh:path http://www.w3.org/ns/prov#endedAtTime]"
+      "text": "[sh:datatype http://www.w3.org/2001/XMLSchema#dateTi…; sh:minCount 1; sh:path http://www.w3.org/ns/prov#generatedAtTi…]"
      }
     ],
     [
@@ -7375,7 +7363,7 @@
     [
      "sh:property",
      {
-      "text": "[sh:class https://w3id.org/og-caie/epo#Evidence; sh:message A determination rules on at least one e…; sh:minCount 1; sh:path http://www.w3.org/ns/prov#used]"
+      "text": "[sh:class https://w3id.org/og-caie/epo#Evidence; sh:message A determination rules on at least one e…; sh:minCount 1; sh:path http://www.w3.org/ns/prov#wasDerivedFrom]"
      }
     ],
     [
@@ -7434,7 +7422,7 @@
     [
      "sh:property",
      {
-      "text": "[sh:datatype http://www.w3.org/2001/XMLSchema#dateTi…; sh:minCount 1; sh:path http://www.w3.org/ns/prov#endedAtTime]"
+      "text": "[sh:datatype http://www.w3.org/2001/XMLSchema#dateTi…; sh:minCount 1; sh:path http://www.w3.org/ns/prov#generatedAtTi…]"
      }
     ],
     [
@@ -7588,7 +7576,7 @@
     [
      "sh:property",
      {
-      "text": "[sh:datatype http://www.w3.org/2001/XMLSchema#dateTi…; sh:minCount 1; sh:path http://www.w3.org/ns/prov#endedAtTime]"
+      "text": "[sh:datatype http://www.w3.org/2001/XMLSchema#dateTi…; sh:minCount 1; sh:path http://www.w3.org/ns/prov#generatedAtTi…]"
      }
     ],
     [
@@ -8853,7 +8841,7 @@
     [
      "rdfs:subClassOf",
      {
-      "text": "prov:Activity"
+      "text": "prov:Entity"
      }
     ]
    ]
@@ -8937,7 +8925,7 @@
     [
      "rdfs:subClassOf",
      {
-      "text": "prov:Activity"
+      "text": "prov:Entity"
      }
     ]
    ]
@@ -9007,7 +8995,7 @@
     [
      "rdfs:subClassOf",
      {
-      "text": "prov:Activity"
+      "text": "prov:Entity"
      }
     ]
    ]
@@ -9042,7 +9030,7 @@
     [
      "rdfs:subClassOf",
      {
-      "text": "prov:Activity"
+      "text": "prov:Entity"
      }
     ]
    ]
@@ -9190,7 +9178,7 @@
     [
      "rdfs:subClassOf",
      {
-      "text": "prov:Activity"
+      "text": "prov:Entity"
      }
     ]
    ]
@@ -9508,7 +9496,7 @@
     [
      "sh:class",
      {
-      "text": "[sh:message A determination rules on at least one e…; sh:minCount 1; sh:path http://www.w3.org/ns/prov#used]"
+      "text": "[sh:message A determination rules on at least one e…; sh:minCount 1; sh:path http://www.w3.org/ns/prov#wasDerivedFrom]"
      }
     ]
    ],
@@ -9857,7 +9845,7 @@
     [
      "rdfs:subClassOf",
      {
-      "text": "prov:Activity"
+      "text": "prov:Entity"
      }
     ]
    ]
@@ -10347,7 +10335,7 @@
     [
      "rdfs:subClassOf",
      {
-      "text": "prov:Activity"
+      "text": "prov:Entity"
      }
     ]
    ]
@@ -12617,21 +12605,21 @@
      }
     ],
     [
-     "prov:endedAtTime",
+     "prov:generatedAtTime",
      {
       "text": "2026-08-02T10:00:00+00:00 (dateTime)"
      }
     ],
     [
-     "prov:used",
+     "prov:wasAttributedTo",
      {
-      "ref": "https://w3id.org/og-caie/evaluation/measles#stakeholder-input-1"
+      "ref": "https://w3id.org/og-caie/evaluation/measles#annie"
      }
     ],
     [
-     "prov:wasAssociatedWith",
+     "prov:wasDerivedFrom",
      {
-      "ref": "https://w3id.org/og-caie/evaluation/measles#annie"
+      "ref": "https://w3id.org/og-caie/evaluation/measles#stakeholder-input-1"
      }
     ],
     [
@@ -12706,21 +12694,21 @@
      }
     ],
     [
-     "prov:endedAtTime",
+     "prov:generatedAtTime",
      {
       "text": "2026-08-11T09:10:00+00:00 (dateTime)"
      }
     ],
     [
-     "prov:used",
+     "prov:wasAttributedTo",
      {
-      "ref": "https://w3id.org/og-caie/evaluation/measles#determination-1"
+      "ref": "https://w3id.org/og-caie/evaluation/measles#annie"
      }
     ],
     [
-     "prov:wasAssociatedWith",
+     "prov:wasDerivedFrom",
      {
-      "ref": "https://w3id.org/og-caie/evaluation/measles#annie"
+      "ref": "https://w3id.org/og-caie/evaluation/measles#determination-1"
      }
     ],
     [
@@ -12795,21 +12783,21 @@
      }
     ],
     [
-     "prov:endedAtTime",
+     "prov:generatedAtTime",
      {
       "text": "2026-08-11T09:20:00+00:00 (dateTime)"
      }
     ],
     [
-     "prov:used",
+     "prov:wasAttributedTo",
      {
-      "ref": "https://w3id.org/og-caie/evaluation/measles#determination-2"
+      "ref": "https://w3id.org/og-caie/evaluation/measles#annie"
      }
     ],
     [
-     "prov:wasAssociatedWith",
+     "prov:wasDerivedFrom",
      {
-      "ref": "https://w3id.org/og-caie/evaluation/measles#annie"
+      "ref": "https://w3id.org/og-caie/evaluation/measles#determination-2"
      }
     ],
     [
@@ -12884,27 +12872,27 @@
      }
     ],
     [
-     "prov:endedAtTime",
+     "prov:generatedAtTime",
      {
       "text": "2026-08-11T09:30:00+00:00 (dateTime)"
      }
     ],
     [
-     "prov:used",
+     "prov:wasAttributedTo",
+     {
+      "ref": "https://w3id.org/og-caie/evaluation/measles#annie"
+     }
+    ],
+    [
+     "prov:wasDerivedFrom",
      {
       "ref": "https://w3id.org/og-caie/evaluation/measles#determination-3a"
      }
     ],
     [
-     "prov:used",
+     "prov:wasDerivedFrom",
      {
       "ref": "https://w3id.org/og-caie/evaluation/measles#determination-3b"
-     }
-    ],
-    [
-     "prov:wasAssociatedWith",
-     {
-      "ref": "https://w3id.org/og-caie/evaluation/measles#annie"
      }
     ],
     [
@@ -12979,21 +12967,21 @@
      }
     ],
     [
-     "prov:endedAtTime",
+     "prov:generatedAtTime",
      {
       "text": "2026-08-11T09:40:00+00:00 (dateTime)"
      }
     ],
     [
-     "prov:used",
+     "prov:wasAttributedTo",
      {
-      "ref": "https://w3id.org/og-caie/evaluation/measles#determination-4"
+      "ref": "https://w3id.org/og-caie/evaluation/measles#annie"
      }
     ],
     [
-     "prov:wasAssociatedWith",
+     "prov:wasDerivedFrom",
      {
-      "ref": "https://w3id.org/og-caie/evaluation/measles#annie"
+      "ref": "https://w3id.org/og-caie/evaluation/measles#determination-4"
      }
     ],
     [
@@ -13068,21 +13056,21 @@
      }
     ],
     [
-     "prov:endedAtTime",
+     "prov:generatedAtTime",
      {
       "text": "2026-08-11T09:45:00+00:00 (dateTime)"
      }
     ],
     [
-     "prov:used",
+     "prov:wasAttributedTo",
      {
-      "ref": "https://w3id.org/og-caie/evaluation/measles#determination-5"
+      "ref": "https://w3id.org/og-caie/evaluation/measles#annie"
      }
     ],
     [
-     "prov:wasAssociatedWith",
+     "prov:wasDerivedFrom",
      {
-      "ref": "https://w3id.org/og-caie/evaluation/measles#annie"
+      "ref": "https://w3id.org/og-caie/evaluation/measles#determination-5"
      }
     ],
     [
@@ -13157,27 +13145,27 @@
      }
     ],
     [
-     "prov:endedAtTime",
+     "prov:generatedAtTime",
      {
       "text": "2026-08-12T09:00:00+00:00 (dateTime)"
      }
     ],
     [
-     "prov:used",
+     "prov:wasAttributedTo",
+     {
+      "ref": "https://w3id.org/og-caie/evaluation/measles#annie"
+     }
+    ],
+    [
+     "prov:wasDerivedFrom",
      {
       "ref": "https://w3id.org/og-caie/evaluation/measles#determination-2"
      }
     ],
     [
-     "prov:used",
+     "prov:wasDerivedFrom",
      {
       "ref": "https://w3id.org/og-caie/evaluation/measles#determination-6"
-     }
-    ],
-    [
-     "prov:wasAssociatedWith",
-     {
-      "ref": "https://w3id.org/og-caie/evaluation/measles#annie"
      }
     ],
     [
@@ -13371,7 +13359,7 @@
     [
      "epo:ontologyDigest",
      {
-      "text": "5aff7757aed847f1ca2ecad24311037564a8bc17b5f007306744f781f978f5a7"
+      "text": "ae92b5fa6b8b80a264a821b321f597472b4955e93f301ee4885c5b5eb993e002"
      }
     ],
     [
@@ -13383,7 +13371,7 @@
     [
      "epo:shapesDigest",
      {
-      "text": "386c1e1265f2cebf3dadc8445efe4f4677eb7abd420b2c7b33554b7e91686ab8"
+      "text": "04bc00dd72a98a154338412c1af0bb62673807880e00d38e6708febecba72eb1"
      }
     ],
     [
@@ -13405,21 +13393,21 @@
      }
     ],
     [
-     "prov:endedAtTime",
+     "prov:generatedAtTime",
      {
       "text": "2026-08-12T09:30:00+00:00 (dateTime)"
      }
     ],
     [
-     "prov:used",
+     "prov:wasAttributedTo",
      {
-      "ref": "https://w3id.org/og-caie/evaluation/measles#record"
+      "ref": "https://w3id.org/og-caie/evaluation/measles#pyshacl"
      }
     ],
     [
-     "prov:wasAssociatedWith",
+     "prov:wasDerivedFrom",
      {
-      "ref": "https://w3id.org/og-caie/evaluation/measles#pyshacl"
+      "ref": "https://w3id.org/og-caie/evaluation/measles#record"
      }
     ],
     [
@@ -13476,13 +13464,13 @@
      }
     ],
     [
-     "prov:endedAtTime",
+     "prov:generatedAtTime",
      {
       "text": "2026-08-03T10:05:00+00:00 (dateTime)"
      }
     ],
     [
-     "prov:wasAssociatedWith",
+     "prov:wasAttributedTo",
      {
       "ref": "https://w3id.org/og-caie/evaluation/measles#pyshacl"
      }
@@ -13541,13 +13529,13 @@
      }
     ],
     [
-     "prov:endedAtTime",
+     "prov:generatedAtTime",
      {
       "text": "2026-08-03T10:05:00+00:00 (dateTime)"
      }
     ],
     [
-     "prov:wasAssociatedWith",
+     "prov:wasAttributedTo",
      {
       "ref": "https://w3id.org/og-caie/evaluation/measles#pyshacl"
      }
@@ -13606,13 +13594,13 @@
      }
     ],
     [
-     "prov:endedAtTime",
+     "prov:generatedAtTime",
      {
       "text": "2026-08-03T10:05:00+00:00 (dateTime)"
      }
     ],
     [
-     "prov:wasAssociatedWith",
+     "prov:wasAttributedTo",
      {
       "ref": "https://w3id.org/og-caie/evaluation/measles#pyshacl"
      }
@@ -13671,13 +13659,13 @@
      }
     ],
     [
-     "prov:endedAtTime",
+     "prov:generatedAtTime",
      {
       "text": "2026-08-03T10:05:00+00:00 (dateTime)"
      }
     ],
     [
-     "prov:wasAssociatedWith",
+     "prov:wasAttributedTo",
      {
       "ref": "https://w3id.org/og-caie/evaluation/measles#pyshacl"
      }
@@ -13736,13 +13724,13 @@
      }
     ],
     [
-     "prov:endedAtTime",
+     "prov:generatedAtTime",
      {
       "text": "2026-08-03T10:05:00+00:00 (dateTime)"
      }
     ],
     [
-     "prov:wasAssociatedWith",
+     "prov:wasAttributedTo",
      {
       "ref": "https://w3id.org/og-caie/evaluation/measles#pyshacl"
      }
@@ -13801,13 +13789,13 @@
      }
     ],
     [
-     "prov:endedAtTime",
+     "prov:generatedAtTime",
      {
       "text": "2026-08-03T10:05:00+00:00 (dateTime)"
      }
     ],
     [
-     "prov:wasAssociatedWith",
+     "prov:wasAttributedTo",
      {
       "ref": "https://w3id.org/og-caie/evaluation/measles#pyshacl"
      }
@@ -13866,13 +13854,13 @@
      }
     ],
     [
-     "prov:endedAtTime",
+     "prov:generatedAtTime",
      {
       "text": "2026-08-03T10:05:00+00:00 (dateTime)"
      }
     ],
     [
-     "prov:wasAssociatedWith",
+     "prov:wasAttributedTo",
      {
       "ref": "https://w3id.org/og-caie/evaluation/measles#pyshacl"
      }
@@ -13931,13 +13919,13 @@
      }
     ],
     [
-     "prov:endedAtTime",
+     "prov:generatedAtTime",
      {
       "text": "2026-08-03T10:05:00+00:00 (dateTime)"
      }
     ],
     [
-     "prov:wasAssociatedWith",
+     "prov:wasAttributedTo",
      {
       "ref": "https://w3id.org/og-caie/evaluation/measles#pyshacl"
      }
@@ -13996,13 +13984,13 @@
      }
     ],
     [
-     "prov:endedAtTime",
+     "prov:generatedAtTime",
      {
       "text": "2026-08-03T10:05:00+00:00 (dateTime)"
      }
     ],
     [
-     "prov:wasAssociatedWith",
+     "prov:wasAttributedTo",
      {
       "ref": "https://w3id.org/og-caie/evaluation/measles#pyshacl"
      }
@@ -14061,13 +14049,13 @@
      }
     ],
     [
-     "prov:endedAtTime",
+     "prov:generatedAtTime",
      {
       "text": "2026-08-03T10:05:00+00:00 (dateTime)"
      }
     ],
     [
-     "prov:wasAssociatedWith",
+     "prov:wasAttributedTo",
      {
       "ref": "https://w3id.org/og-caie/evaluation/measles#pyshacl"
      }
@@ -14126,13 +14114,13 @@
      }
     ],
     [
-     "prov:endedAtTime",
+     "prov:generatedAtTime",
      {
       "text": "2026-08-03T10:05:00+00:00 (dateTime)"
      }
     ],
     [
-     "prov:wasAssociatedWith",
+     "prov:wasAttributedTo",
      {
       "ref": "https://w3id.org/og-caie/evaluation/measles#pyshacl"
      }
@@ -14191,13 +14179,13 @@
      }
     ],
     [
-     "prov:endedAtTime",
+     "prov:generatedAtTime",
      {
       "text": "2026-08-03T10:05:00+00:00 (dateTime)"
      }
     ],
     [
-     "prov:wasAssociatedWith",
+     "prov:wasAttributedTo",
      {
       "ref": "https://w3id.org/og-caie/evaluation/measles#pyshacl"
      }
@@ -14340,7 +14328,7 @@
     [
      "epo:ontologyDigest",
      {
-      "text": "5aff7757aed847f1ca2ecad24311037564a8bc17b5f007306744f781f978f5a7"
+      "text": "ae92b5fa6b8b80a264a821b321f597472b4955e93f301ee4885c5b5eb993e002"
      }
     ],
     [
@@ -14352,7 +14340,7 @@
     [
      "epo:shapesDigest",
      {
-      "text": "386c1e1265f2cebf3dadc8445efe4f4677eb7abd420b2c7b33554b7e91686ab8"
+      "text": "04bc00dd72a98a154338412c1af0bb62673807880e00d38e6708febecba72eb1"
      }
     ],
     [
@@ -14453,7 +14441,7 @@
     [
      "epo:ontologyDigest",
      {
-      "text": "5aff7757aed847f1ca2ecad24311037564a8bc17b5f007306744f781f978f5a7"
+      "text": "ae92b5fa6b8b80a264a821b321f597472b4955e93f301ee4885c5b5eb993e002"
      }
     ],
     [
@@ -14465,7 +14453,7 @@
     [
      "epo:shapesDigest",
      {
-      "text": "386c1e1265f2cebf3dadc8445efe4f4677eb7abd420b2c7b33554b7e91686ab8"
+      "text": "04bc00dd72a98a154338412c1af0bb62673807880e00d38e6708febecba72eb1"
      }
     ],
     [
@@ -14777,21 +14765,21 @@
      }
     ],
     [
-     "prov:endedAtTime",
+     "prov:generatedAtTime",
      {
       "text": "2026-08-11T08:30:00+00:00 (dateTime)"
      }
     ],
     [
-     "prov:used",
+     "prov:wasAttributedTo",
      {
-      "ref": "https://w3id.org/og-caie/evaluation/measles#evidence-1a"
+      "ref": "https://w3id.org/og-caie/evaluation/measles#annie"
      }
     ],
     [
-     "prov:wasAssociatedWith",
+     "prov:wasDerivedFrom",
      {
-      "ref": "https://w3id.org/og-caie/evaluation/measles#annie"
+      "ref": "https://w3id.org/og-caie/evaluation/measles#evidence-1a"
      }
     ],
     [
@@ -14854,21 +14842,21 @@
      }
     ],
     [
-     "prov:endedAtTime",
+     "prov:generatedAtTime",
      {
       "text": "2026-08-11T08:40:00+00:00 (dateTime)"
      }
     ],
     [
-     "prov:used",
+     "prov:wasAttributedTo",
      {
-      "ref": "https://w3id.org/og-caie/evaluation/measles#evidence-1b"
+      "ref": "https://w3id.org/og-caie/evaluation/measles#annie"
      }
     ],
     [
-     "prov:wasAssociatedWith",
+     "prov:wasDerivedFrom",
      {
-      "ref": "https://w3id.org/og-caie/evaluation/measles#annie"
+      "ref": "https://w3id.org/og-caie/evaluation/measles#evidence-1b"
      }
     ],
     [
@@ -14931,27 +14919,27 @@
      }
     ],
     [
-     "prov:endedAtTime",
+     "prov:generatedAtTime",
      {
       "text": "2026-08-11T08:50:00+00:00 (dateTime)"
      }
     ],
     [
-     "prov:used",
+     "prov:wasAttributedTo",
+     {
+      "ref": "https://w3id.org/og-caie/evaluation/measles#theo"
+     }
+    ],
+    [
+     "prov:wasDerivedFrom",
      {
       "ref": "https://w3id.org/og-caie/evaluation/measles#evidence-1c"
      }
     ],
     [
-     "prov:used",
+     "prov:wasDerivedFrom",
      {
       "ref": "https://w3id.org/og-caie/evaluation/measles#evidence-3a"
-     }
-    ],
-    [
-     "prov:wasAssociatedWith",
-     {
-      "ref": "https://w3id.org/og-caie/evaluation/measles#theo"
      }
     ],
     [
@@ -15014,27 +15002,27 @@
      }
     ],
     [
-     "prov:endedAtTime",
+     "prov:generatedAtTime",
      {
       "text": "2026-08-11T08:55:00+00:00 (dateTime)"
      }
     ],
     [
-     "prov:used",
+     "prov:wasAttributedTo",
+     {
+      "ref": "https://w3id.org/og-caie/evaluation/measles#annie"
+     }
+    ],
+    [
+     "prov:wasDerivedFrom",
      {
       "ref": "https://w3id.org/og-caie/evaluation/measles#evidence-1c"
      }
     ],
     [
-     "prov:used",
+     "prov:wasDerivedFrom",
      {
       "ref": "https://w3id.org/og-caie/evaluation/measles#evidence-3a"
-     }
-    ],
-    [
-     "prov:wasAssociatedWith",
-     {
-      "ref": "https://w3id.org/og-caie/evaluation/measles#annie"
      }
     ],
     [
@@ -15097,21 +15085,21 @@
      }
     ],
     [
-     "prov:endedAtTime",
+     "prov:generatedAtTime",
      {
       "text": "2026-08-11T09:00:00+00:00 (dateTime)"
      }
     ],
     [
-     "prov:used",
+     "prov:wasAttributedTo",
      {
-      "ref": "https://w3id.org/og-caie/evaluation/measles#evidence-2a"
+      "ref": "https://w3id.org/og-caie/evaluation/measles#annie"
      }
     ],
     [
-     "prov:wasAssociatedWith",
+     "prov:wasDerivedFrom",
      {
-      "ref": "https://w3id.org/og-caie/evaluation/measles#annie"
+      "ref": "https://w3id.org/og-caie/evaluation/measles#evidence-2a"
      }
     ],
     [
@@ -15174,21 +15162,21 @@
      }
     ],
     [
-     "prov:endedAtTime",
+     "prov:generatedAtTime",
      {
       "text": "2026-08-11T09:05:00+00:00 (dateTime)"
      }
     ],
     [
-     "prov:used",
+     "prov:wasAttributedTo",
      {
-      "ref": "https://w3id.org/og-caie/evaluation/measles#evidence-2b"
+      "ref": "https://w3id.org/og-caie/evaluation/measles#annie"
      }
     ],
     [
-     "prov:wasAssociatedWith",
+     "prov:wasDerivedFrom",
      {
-      "ref": "https://w3id.org/og-caie/evaluation/measles#annie"
+      "ref": "https://w3id.org/og-caie/evaluation/measles#evidence-2b"
      }
     ],
     [
@@ -15251,27 +15239,27 @@
      }
     ],
     [
-     "prov:endedAtTime",
+     "prov:generatedAtTime",
      {
       "text": "2026-08-12T08:30:00+00:00 (dateTime)"
      }
     ],
     [
-     "prov:used",
+     "prov:wasAttributedTo",
+     {
+      "ref": "https://w3id.org/og-caie/evaluation/measles#annie"
+     }
+    ],
+    [
+     "prov:wasDerivedFrom",
      {
       "ref": "https://w3id.org/og-caie/evaluation/measles#evidence-1b"
      }
     ],
     [
-     "prov:used",
+     "prov:wasDerivedFrom",
      {
       "ref": "https://w3id.org/og-caie/evaluation/measles#evidence-4a"
-     }
-    ],
-    [
-     "prov:wasAssociatedWith",
-     {
-      "ref": "https://w3id.org/og-caie/evaluation/measles#annie"
      }
     ],
     [
@@ -16231,13 +16219,13 @@
      }
     ],
     [
-     "prov:endedAtTime",
+     "prov:generatedAtTime",
      {
       "text": "2026-08-03T11:00:00+00:00 (dateTime)"
      }
     ],
     [
-     "prov:wasAssociatedWith",
+     "prov:wasAttributedTo",
      {
       "ref": "https://w3id.org/og-caie/evaluation/measles#annie"
      }
@@ -17336,7 +17324,7 @@
      }
     ],
     [
-     "prov:used",
+     "prov:wasDerivedFrom",
      {
       "ref": "https://w3id.org/og-caie/evaluation/measles#conformance-verdict-1"
      }
@@ -17413,27 +17401,27 @@
      }
     ],
     [
-     "prov:endedAtTime",
+     "prov:generatedAtTime",
      {
       "text": "2026-08-12T10:15:00+00:00 (dateTime)"
      }
     ],
     [
-     "prov:used",
+     "prov:wasAttributedTo",
+     {
+      "ref": "https://w3id.org/og-caie/evaluation/measles#annie"
+     }
+    ],
+    [
+     "prov:wasDerivedFrom",
      {
       "ref": "https://w3id.org/og-caie/evaluation/measles#conformance-verdict-1"
      }
     ],
     [
-     "prov:used",
+     "prov:wasDerivedFrom",
      {
       "ref": "https://w3id.org/og-caie/evaluation/measles#report"
-     }
-    ],
-    [
-     "prov:wasAssociatedWith",
-     {
-      "ref": "https://w3id.org/og-caie/evaluation/measles#annie"
      }
     ],
     [
@@ -17608,15 +17596,15 @@
      }
     ],
     [
-     "prov:used",
-     {
-      "ref": "https://w3id.org/og-caie/evaluation/measles#stakeholder-input-1"
-     }
-    ],
-    [
      "prov:wasAttributedTo",
      {
       "ref": "https://w3id.org/og-caie/evaluation/measles#theo"
+     }
+    ],
+    [
+     "prov:wasDerivedFrom",
+     {
+      "ref": "https://w3id.org/og-caie/evaluation/measles#stakeholder-input-1"
      }
     ],
     [
@@ -29079,6 +29067,12 @@
     [
      "ogc:snapshot",
      {
+      "text": "[ogc:contentHash 4cde74807d5e31e58cc462ea6c1b1fc8fc0cf5b…; ogc:file sources/archive/earl10-schema-20170202.…]"
+     }
+    ],
+    [
+     "ogc:snapshot",
+     {
       "text": "[ogc:contentHash bd256af93da1fe22459a97a5ab18c1bc4929326…; ogc:file sources/archive/earl10-schema-20170202.…]"
      }
     ],
@@ -29151,6 +29145,12 @@
      "ogc:snapshot",
      {
       "text": "[ogc:contentHash 6b96671ab84faf12ce3f041aca12c3f93a6df2e…; ogc:file sources/archive/prov-o-20130430.html]"
+     }
+    ],
+    [
+     "ogc:snapshot",
+     {
+      "text": "[ogc:contentHash 7d203989f67b38bca572253942acc5a1bf24ce3…; ogc:file sources/archive/prov-o-20130430.ttl]"
      }
     ],
     [
@@ -53900,7 +53900,7 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#annie"
   },
   {
-   "rel": "wasAssociatedWith",
+   "rel": "wasAttributedTo",
    "source": "https://w3id.org/og-caie/evaluation/measles#appropriateness-assessment-1",
    "target": "https://w3id.org/og-caie/evaluation/measles#annie"
   },
@@ -53915,7 +53915,7 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#requirement-set"
   },
   {
-   "rel": "used",
+   "rel": "wasDerivedFrom",
    "source": "https://w3id.org/og-caie/evaluation/measles#appropriateness-assessment-1",
    "target": "https://w3id.org/og-caie/evaluation/measles#stakeholder-input-1"
   },
@@ -53940,7 +53940,7 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#annie"
   },
   {
-   "rel": "wasAssociatedWith",
+   "rel": "wasAttributedTo",
    "source": "https://w3id.org/og-caie/evaluation/measles#attestation-1",
    "target": "https://w3id.org/og-caie/evaluation/measles#annie"
   },
@@ -53950,7 +53950,7 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#chatbot-v1"
   },
   {
-   "rel": "used",
+   "rel": "wasDerivedFrom",
    "source": "https://w3id.org/og-caie/evaluation/measles#attestation-1",
    "target": "https://w3id.org/og-caie/evaluation/measles#determination-1"
   },
@@ -53980,7 +53980,7 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#annie"
   },
   {
-   "rel": "wasAssociatedWith",
+   "rel": "wasAttributedTo",
    "source": "https://w3id.org/og-caie/evaluation/measles#attestation-2",
    "target": "https://w3id.org/og-caie/evaluation/measles#annie"
   },
@@ -53990,7 +53990,7 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#chatbot-v1"
   },
   {
-   "rel": "used",
+   "rel": "wasDerivedFrom",
    "source": "https://w3id.org/og-caie/evaluation/measles#attestation-2",
    "target": "https://w3id.org/og-caie/evaluation/measles#determination-2"
   },
@@ -54020,7 +54020,7 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#annie"
   },
   {
-   "rel": "wasAssociatedWith",
+   "rel": "wasAttributedTo",
    "source": "https://w3id.org/og-caie/evaluation/measles#attestation-3",
    "target": "https://w3id.org/og-caie/evaluation/measles#annie"
   },
@@ -54030,12 +54030,12 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#chatbot-v1"
   },
   {
-   "rel": "used",
+   "rel": "wasDerivedFrom",
    "source": "https://w3id.org/og-caie/evaluation/measles#attestation-3",
    "target": "https://w3id.org/og-caie/evaluation/measles#determination-3a"
   },
   {
-   "rel": "used",
+   "rel": "wasDerivedFrom",
    "source": "https://w3id.org/og-caie/evaluation/measles#attestation-3",
    "target": "https://w3id.org/og-caie/evaluation/measles#determination-3b"
   },
@@ -54065,7 +54065,7 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#annie"
   },
   {
-   "rel": "wasAssociatedWith",
+   "rel": "wasAttributedTo",
    "source": "https://w3id.org/og-caie/evaluation/measles#attestation-4",
    "target": "https://w3id.org/og-caie/evaluation/measles#annie"
   },
@@ -54075,7 +54075,7 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#chatbot-v1"
   },
   {
-   "rel": "used",
+   "rel": "wasDerivedFrom",
    "source": "https://w3id.org/og-caie/evaluation/measles#attestation-4",
    "target": "https://w3id.org/og-caie/evaluation/measles#determination-4"
   },
@@ -54105,7 +54105,7 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#annie"
   },
   {
-   "rel": "wasAssociatedWith",
+   "rel": "wasAttributedTo",
    "source": "https://w3id.org/og-caie/evaluation/measles#attestation-5",
    "target": "https://w3id.org/og-caie/evaluation/measles#annie"
   },
@@ -54115,7 +54115,7 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#chatbot-v1"
   },
   {
-   "rel": "used",
+   "rel": "wasDerivedFrom",
    "source": "https://w3id.org/og-caie/evaluation/measles#attestation-5",
    "target": "https://w3id.org/og-caie/evaluation/measles#determination-5"
   },
@@ -54145,7 +54145,7 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#annie"
   },
   {
-   "rel": "wasAssociatedWith",
+   "rel": "wasAttributedTo",
    "source": "https://w3id.org/og-caie/evaluation/measles#attestation-6",
    "target": "https://w3id.org/og-caie/evaluation/measles#annie"
   },
@@ -54155,12 +54155,12 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#chatbot-v1"
   },
   {
-   "rel": "used",
+   "rel": "wasDerivedFrom",
    "source": "https://w3id.org/og-caie/evaluation/measles#attestation-6",
    "target": "https://w3id.org/og-caie/evaluation/measles#determination-2"
   },
   {
-   "rel": "used",
+   "rel": "wasDerivedFrom",
    "source": "https://w3id.org/og-caie/evaluation/measles#attestation-6",
    "target": "https://w3id.org/og-caie/evaluation/measles#determination-6"
   },
@@ -54225,7 +54225,7 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#pyshacl"
   },
   {
-   "rel": "wasAssociatedWith",
+   "rel": "wasAttributedTo",
    "source": "https://w3id.org/og-caie/evaluation/measles#conformance-verdict-1",
    "target": "https://w3id.org/og-caie/evaluation/measles#pyshacl"
   },
@@ -54240,7 +54240,7 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#record"
   },
   {
-   "rel": "used",
+   "rel": "wasDerivedFrom",
    "source": "https://w3id.org/og-caie/evaluation/measles#conformance-verdict-1",
    "target": "https://w3id.org/og-caie/evaluation/measles#record"
   },
@@ -54265,7 +54265,7 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#pyshacl"
   },
   {
-   "rel": "wasAssociatedWith",
+   "rel": "wasAttributedTo",
    "source": "https://w3id.org/og-caie/evaluation/measles#consistency-check-1",
    "target": "https://w3id.org/og-caie/evaluation/measles#pyshacl"
   },
@@ -54295,7 +54295,7 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#pyshacl"
   },
   {
-   "rel": "wasAssociatedWith",
+   "rel": "wasAttributedTo",
    "source": "https://w3id.org/og-caie/evaluation/measles#consistency-check-10",
    "target": "https://w3id.org/og-caie/evaluation/measles#pyshacl"
   },
@@ -54325,7 +54325,7 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#pyshacl"
   },
   {
-   "rel": "wasAssociatedWith",
+   "rel": "wasAttributedTo",
    "source": "https://w3id.org/og-caie/evaluation/measles#consistency-check-11",
    "target": "https://w3id.org/og-caie/evaluation/measles#pyshacl"
   },
@@ -54355,7 +54355,7 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#pyshacl"
   },
   {
-   "rel": "wasAssociatedWith",
+   "rel": "wasAttributedTo",
    "source": "https://w3id.org/og-caie/evaluation/measles#consistency-check-12",
    "target": "https://w3id.org/og-caie/evaluation/measles#pyshacl"
   },
@@ -54385,7 +54385,7 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#pyshacl"
   },
   {
-   "rel": "wasAssociatedWith",
+   "rel": "wasAttributedTo",
    "source": "https://w3id.org/og-caie/evaluation/measles#consistency-check-2",
    "target": "https://w3id.org/og-caie/evaluation/measles#pyshacl"
   },
@@ -54415,7 +54415,7 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#pyshacl"
   },
   {
-   "rel": "wasAssociatedWith",
+   "rel": "wasAttributedTo",
    "source": "https://w3id.org/og-caie/evaluation/measles#consistency-check-3",
    "target": "https://w3id.org/og-caie/evaluation/measles#pyshacl"
   },
@@ -54445,7 +54445,7 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#pyshacl"
   },
   {
-   "rel": "wasAssociatedWith",
+   "rel": "wasAttributedTo",
    "source": "https://w3id.org/og-caie/evaluation/measles#consistency-check-4",
    "target": "https://w3id.org/og-caie/evaluation/measles#pyshacl"
   },
@@ -54475,7 +54475,7 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#pyshacl"
   },
   {
-   "rel": "wasAssociatedWith",
+   "rel": "wasAttributedTo",
    "source": "https://w3id.org/og-caie/evaluation/measles#consistency-check-5",
    "target": "https://w3id.org/og-caie/evaluation/measles#pyshacl"
   },
@@ -54505,7 +54505,7 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#pyshacl"
   },
   {
-   "rel": "wasAssociatedWith",
+   "rel": "wasAttributedTo",
    "source": "https://w3id.org/og-caie/evaluation/measles#consistency-check-6",
    "target": "https://w3id.org/og-caie/evaluation/measles#pyshacl"
   },
@@ -54535,7 +54535,7 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#pyshacl"
   },
   {
-   "rel": "wasAssociatedWith",
+   "rel": "wasAttributedTo",
    "source": "https://w3id.org/og-caie/evaluation/measles#consistency-check-7",
    "target": "https://w3id.org/og-caie/evaluation/measles#pyshacl"
   },
@@ -54565,7 +54565,7 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#pyshacl"
   },
   {
-   "rel": "wasAssociatedWith",
+   "rel": "wasAttributedTo",
    "source": "https://w3id.org/og-caie/evaluation/measles#consistency-check-8",
    "target": "https://w3id.org/og-caie/evaluation/measles#pyshacl"
   },
@@ -54595,7 +54595,7 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#pyshacl"
   },
   {
-   "rel": "wasAssociatedWith",
+   "rel": "wasAttributedTo",
    "source": "https://w3id.org/og-caie/evaluation/measles#consistency-check-9",
    "target": "https://w3id.org/og-caie/evaluation/measles#pyshacl"
   },
@@ -54865,7 +54865,7 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#annie"
   },
   {
-   "rel": "wasAssociatedWith",
+   "rel": "wasAttributedTo",
    "source": "https://w3id.org/og-caie/evaluation/measles#determination-1",
    "target": "https://w3id.org/og-caie/evaluation/measles#annie"
   },
@@ -54875,7 +54875,7 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#chatbot-v1"
   },
   {
-   "rel": "used",
+   "rel": "wasDerivedFrom",
    "source": "https://w3id.org/og-caie/evaluation/measles#determination-1",
    "target": "https://w3id.org/og-caie/evaluation/measles#evidence-1a"
   },
@@ -54905,7 +54905,7 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#annie"
   },
   {
-   "rel": "wasAssociatedWith",
+   "rel": "wasAttributedTo",
    "source": "https://w3id.org/og-caie/evaluation/measles#determination-2",
    "target": "https://w3id.org/og-caie/evaluation/measles#annie"
   },
@@ -54915,7 +54915,7 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#chatbot-v1"
   },
   {
-   "rel": "used",
+   "rel": "wasDerivedFrom",
    "source": "https://w3id.org/og-caie/evaluation/measles#determination-2",
    "target": "https://w3id.org/og-caie/evaluation/measles#evidence-1b"
   },
@@ -54945,12 +54945,12 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#chatbot-v1"
   },
   {
-   "rel": "used",
+   "rel": "wasDerivedFrom",
    "source": "https://w3id.org/og-caie/evaluation/measles#determination-3a",
    "target": "https://w3id.org/og-caie/evaluation/measles#evidence-1c"
   },
   {
-   "rel": "used",
+   "rel": "wasDerivedFrom",
    "source": "https://w3id.org/og-caie/evaluation/measles#determination-3a",
    "target": "https://w3id.org/og-caie/evaluation/measles#evidence-3a"
   },
@@ -54965,7 +54965,7 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#theo"
   },
   {
-   "rel": "wasAssociatedWith",
+   "rel": "wasAttributedTo",
    "source": "https://w3id.org/og-caie/evaluation/measles#determination-3a",
    "target": "https://w3id.org/og-caie/evaluation/measles#theo"
   },
@@ -54990,7 +54990,7 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#annie"
   },
   {
-   "rel": "wasAssociatedWith",
+   "rel": "wasAttributedTo",
    "source": "https://w3id.org/og-caie/evaluation/measles#determination-3b",
    "target": "https://w3id.org/og-caie/evaluation/measles#annie"
   },
@@ -55000,12 +55000,12 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#chatbot-v1"
   },
   {
-   "rel": "used",
+   "rel": "wasDerivedFrom",
    "source": "https://w3id.org/og-caie/evaluation/measles#determination-3b",
    "target": "https://w3id.org/og-caie/evaluation/measles#evidence-1c"
   },
   {
-   "rel": "used",
+   "rel": "wasDerivedFrom",
    "source": "https://w3id.org/og-caie/evaluation/measles#determination-3b",
    "target": "https://w3id.org/og-caie/evaluation/measles#evidence-3a"
   },
@@ -55035,7 +55035,7 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#annie"
   },
   {
-   "rel": "wasAssociatedWith",
+   "rel": "wasAttributedTo",
    "source": "https://w3id.org/og-caie/evaluation/measles#determination-4",
    "target": "https://w3id.org/og-caie/evaluation/measles#annie"
   },
@@ -55045,7 +55045,7 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#chatbot-v1"
   },
   {
-   "rel": "used",
+   "rel": "wasDerivedFrom",
    "source": "https://w3id.org/og-caie/evaluation/measles#determination-4",
    "target": "https://w3id.org/og-caie/evaluation/measles#evidence-2a"
   },
@@ -55075,7 +55075,7 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#annie"
   },
   {
-   "rel": "wasAssociatedWith",
+   "rel": "wasAttributedTo",
    "source": "https://w3id.org/og-caie/evaluation/measles#determination-5",
    "target": "https://w3id.org/og-caie/evaluation/measles#annie"
   },
@@ -55085,7 +55085,7 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#chatbot-v1"
   },
   {
-   "rel": "used",
+   "rel": "wasDerivedFrom",
    "source": "https://w3id.org/og-caie/evaluation/measles#determination-5",
    "target": "https://w3id.org/og-caie/evaluation/measles#evidence-2b"
   },
@@ -55115,7 +55115,7 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#annie"
   },
   {
-   "rel": "wasAssociatedWith",
+   "rel": "wasAttributedTo",
    "source": "https://w3id.org/og-caie/evaluation/measles#determination-6",
    "target": "https://w3id.org/og-caie/evaluation/measles#annie"
   },
@@ -55125,12 +55125,12 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#chatbot-v1"
   },
   {
-   "rel": "used",
+   "rel": "wasDerivedFrom",
    "source": "https://w3id.org/og-caie/evaluation/measles#determination-6",
    "target": "https://w3id.org/og-caie/evaluation/measles#evidence-1b"
   },
   {
-   "rel": "used",
+   "rel": "wasDerivedFrom",
    "source": "https://w3id.org/og-caie/evaluation/measles#determination-6",
    "target": "https://w3id.org/og-caie/evaluation/measles#evidence-4a"
   },
@@ -55595,7 +55595,7 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#annie"
   },
   {
-   "rel": "wasAssociatedWith",
+   "rel": "wasAttributedTo",
    "source": "https://w3id.org/og-caie/evaluation/measles#plan-approval-1",
    "target": "https://w3id.org/og-caie/evaluation/measles#annie"
   },
@@ -56140,7 +56140,7 @@
    "target": "https://w3id.org/og-caie/epo#report"
   },
   {
-   "rel": "used",
+   "rel": "wasDerivedFrom",
    "source": "https://w3id.org/og-caie/evaluation/measles#report",
    "target": "https://w3id.org/og-caie/evaluation/measles#conformance-verdict-1"
   },
@@ -56170,12 +56170,12 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#annie"
   },
   {
-   "rel": "wasAssociatedWith",
+   "rel": "wasAttributedTo",
    "source": "https://w3id.org/og-caie/evaluation/measles#report-approval-1",
    "target": "https://w3id.org/og-caie/evaluation/measles#annie"
   },
   {
-   "rel": "used",
+   "rel": "wasDerivedFrom",
    "source": "https://w3id.org/og-caie/evaluation/measles#report-approval-1",
    "target": "https://w3id.org/og-caie/evaluation/measles#conformance-verdict-1"
   },
@@ -56195,7 +56195,7 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#report"
   },
   {
-   "rel": "used",
+   "rel": "wasDerivedFrom",
    "source": "https://w3id.org/og-caie/evaluation/measles#report-approval-1",
    "target": "https://w3id.org/og-caie/evaluation/measles#report"
   },
@@ -56250,7 +56250,7 @@
    "target": "https://w3id.org/og-caie/evaluation/measles#record"
   },
   {
-   "rel": "used",
+   "rel": "wasDerivedFrom",
    "source": "https://w3id.org/og-caie/evaluation/measles#representation-commuters",
    "target": "https://w3id.org/og-caie/evaluation/measles#stakeholder-input-1"
   },
@@ -65032,7 +65032,7 @@
   },
   {
    "cls": "shape",
-   "desc": "Targets prov:Entity. S0: every entity, activity and agent of a record is a member of exactly one record, a prov:Bundle, through ogc:inRecord (sheet 10-31): an item outside every record would escape the constraints anchored on it.",
+   "desc": "S0: every entity, activity and agent of a record is a member of exactly one record, a prov:Bundle, through ogc:inRecord (sheet 10-31): an item outside every record would escape the constraints anchored on it.",
    "id": "https://w3id.org/og-caie/S0-Member",
    "label": "S0-Member",
    "ogc": "ogc sparql \"DESCRIBE ogc:S0-Member\"",
@@ -65064,7 +65064,7 @@
   },
   {
    "cls": "shape",
-   "desc": "Targets epo:Population. S0: every affected population is spoken for: a stakeholder representation attributed to the person who speaks for it (epo:representedBy); where the statement of work decided an interview, a stakeholder input attributed to the population exists, the representation used it, and the population names who engaged it (epo:responsibleParty) (R-21, R-40, R-49 series wiring; sheet 10-13). S0: who speaks for an affected population is a named person on the testing organization's team, any member (sheet 10-13); who engaged it is a person or an organization (sheet 08).",
+   "desc": "Targets epo:Population. S0: every affected population is spoken for: a stakeholder representation attributed to the person who speaks for it (epo:representedBy); where the statement of work decided an interview, a stakeholder input attributed to the population exists, the representation derives from it, and the population names who engaged it (epo:responsibleParty, its own property, no longer implied by epo:representedBy; round four, KG 14) (R-21, R-40, R-49 series wiring; sheet 10-13). S0: who speaks for an affected population is a named person on the testing organization's team, any member (sheet 10-13); who engaged it is a person or an organization (sheet 08).",
    "id": "https://w3id.org/og-caie/S0-Population",
    "label": "S0-Population",
    "ogc": "ogc sparql \"DESCRIBE ogc:S0-Population\"",
@@ -65152,7 +65152,7 @@
   },
   {
    "cls": "shape",
-   "desc": "Targets epo:Probe. S3 order (sheet 10-19): the probe's passed consistency check ended before the first turn that used the probe started. S3: every probe is a means of some test plan, directly or through a strategy that generated it. S3: no passed automatic consistency check exists for this probe. A probe names at least one acceptance criterion it exercises.",
+   "desc": "Targets epo:Probe. S3 order (sheet 10-19): the probe's passed consistency check is dated before the first turn that used the probe started. S3: every probe is a means of some test plan, directly or through a strategy that generated it. S3: no passed automatic consistency check exists for this probe. A probe names at least one acceptance criterion it exercises.",
    "id": "https://w3id.org/og-caie/S3-Probe",
    "label": "S3-Probe",
    "ogc": "ogc sparql \"DESCRIBE ogc:S3-Probe\"",
@@ -65216,7 +65216,7 @@
   },
   {
    "cls": "shape",
-   "desc": "Targets epo:Attestation. S6 chain rule (R-12, R-18, R-20): every determination an attestation aggregates tests the attested criterion, and every evidence item it rules on bears on that criterion under a plan that has it as an objective. S6 closure rule: an attestation with outcome passed or failed must aggregate at least one determination that rules on evidence; with none it can only say cantTell. S6 judgment rules (sheet 10-12): passed or failed requires sufficient evidence; insufficient evidence implies cannot tell; an inappropriate context allows only cannot tell or inapplicable. S6 no cherry-picking (sheet 10-14): an attestation uses every determination of the record on its criterion that ended before it, or names the determination it left out with epo:excludes and gives its epo:reason. S6 order (sheet 10-19): an attestation ends no earlier than every determination it aggregates. S6: an attestation is an item of the determine-and-attest step (the step is derived through the model graph, sheet 10-33). S6: the attesting person holds the domain expert role; the operator collects and determines, the authorized representative signs and delivers, only the domain expert attests (R-21, R-23). An attestation is made by one named person. Appropriateness of the declared context is judged (R-08).",
+   "desc": "Targets epo:Attestation. S6 chain rule (R-12, R-18, R-20): every determination an attestation aggregates tests the attested criterion, and every evidence item it rules on bears on that criterion under a plan that has it as an objective. S6 closure rule: an attestation with outcome passed or failed must aggregate at least one determination that rules on evidence; with none it can only say cantTell. S6 judgment rules (sheet 10-12): passed or failed requires sufficient evidence; insufficient evidence implies cannot tell; an inappropriate context allows only cannot tell or inapplicable. S6 no cherry-picking (sheet 10-14): an attestation uses every determination of the record on its criterion dated no later than it, or names the determination it left out with epo:excludes and gives its epo:reason. S6 order (sheet 10-19): an attestation is dated no earlier than every determination it aggregates. S6: an attestation is an item of the determine-and-attest step (the step is derived through the model graph, sheet 10-33). S6: the attesting person holds the domain expert role; the operator collects and determines, the authorized representative signs and delivers, only the domain expert attests (R-21, R-23). An attestation is made by one named person. Appropriateness of the declared context is judged (R-08).",
    "id": "https://w3id.org/og-caie/S6-Attestation",
    "label": "S6-Attestation",
    "ogc": "ogc sparql \"DESCRIBE ogc:S6-Attestation\"",
@@ -65224,7 +65224,7 @@
   },
   {
    "cls": "shape",
-   "desc": "Targets epo:Determination. S6 no cherry-picking (sheet 10-14): a determination uses every evidence item of the record that bears on its criterion under the plan and was generated before it ended, or names the item it left out with epo:excludes and gives its epo:reason. S6 order (sheet 10-19): a determination ends no earlier than the evidence it rules on was generated. S6: a determination is made by a domain expert, an evaluation operator, or a versioned software agent; never by the authorized representative (R-21, R-23). S6: every evidence item a determination uses must bear on the criterion the determination tests. A determination rules on at least one evidence item. A determination's outcome is passed, failed or cantTell (EARL); not a Boolean.",
+   "desc": "Targets epo:Determination. S6 no cherry-picking (sheet 10-14): a determination uses every evidence item of the record that bears on its criterion under the plan and was generated no later than it was made, or names the item it left out with epo:excludes and gives its epo:reason. S6 order (sheet 10-19): a determination is dated no earlier than the evidence it rules on was generated. S6: a determination is made by a domain expert, an evaluation operator, or a versioned software agent; never by the authorized representative (R-21, R-23). S6: every evidence item a determination uses must bear on the criterion the determination tests. A determination rules on at least one evidence item. A determination's outcome is passed, failed or cantTell (EARL); not a Boolean.",
    "id": "https://w3id.org/og-caie/S6-Determination",
    "label": "S6-Determination",
    "ogc": "ogc sparql \"DESCRIBE ogc:S6-Determination\"",
@@ -65240,7 +65240,7 @@
   },
   {
    "cls": "shape",
-   "desc": "Targets epo:Report. S7 (SCI-08, sheet 10-19): the stored pass, fail and cannot-tell rates equal the rates recomputed from the record's attestations that ended no later than the report was generated, over the covered criteria, as queries/coverage.rq computes them (a criterion counts once: failed if any attestation failed, else passed if any passed, else cannot tell); a final report has every attestation behind it, a draft the ones of its day. S7 draft and final (sheet 10-41, Z: conformance is a prerequisite for compiling the final report; a draft may carry flagged gaps): a draft report flags its gaps; a final report used a passed conformance verdict on its record that ended no later than the report was generated. S7: the outcome distribution must sum to one. S7: the report must be computed by an automatic activity of a versioned software agent. S7: the stored coverage equals the coverage recomputed from the record as it stood when the report was generated: the weighted share of acceptance criteria that carry at least one attestation with an outcome, ended no later than the report (walkthrough B5, R-48; a draft is a snapshot, sheet 10-48). A report says whether it is a draft or final (sheet 10-41).",
+   "desc": "Targets epo:Report. S7 (SCI-08, sheet 10-19): the stored pass, fail and cannot-tell rates equal the rates recomputed from the record's attestations dated no later than the report was generated, over the covered criteria, as queries/coverage.rq computes them (a criterion counts once: failed if any attestation failed, else passed if any passed, else cannot tell); a final report has every attestation behind it, a draft the ones of its day. S7 draft and final (sheet 10-41, Z: conformance is a prerequisite for compiling the final report; a draft may carry flagged gaps): a draft report flags its gaps; a final report derives from a passed conformance verdict on its record dated no later than the report was generated. S7: the outcome distribution must sum to one. S7: the report must be computed by an automatic activity of a versioned software agent. S7: the stored coverage equals the coverage recomputed from the record as it stood when the report was generated: the weighted share of acceptance criteria that carry at least one attestation with an outcome, dated no later than the report (walkthrough B5, R-48; a draft is a snapshot, sheet 10-48). A report says whether it is a draft or final (sheet 10-41).",
    "id": "https://w3id.org/og-caie/S7-Report",
    "label": "S7-Report",
    "ogc": "ogc sparql \"DESCRIBE ogc:S7-Report\"",
@@ -65256,7 +65256,7 @@
   },
   {
    "cls": "shape",
-   "desc": "Targets epo:Delivery. S8 order (sheet 10-19): the delivery is made no earlier than the report approval it carries ended. S8: a delivery is made by the authorized representative to the sponsor and carries a final report (the record's delivered export, sheets 10-02, 10-41), its approval by a domain expert, and the recommendation (walkthrough, R-49). S8: the delivery is an item of the deliver step (the step is derived through the model graph, sheet 10-33). The delivery is made under the service agreement (sheet 10-05).",
+   "desc": "Targets epo:Delivery. S8 order (sheet 10-19): the delivery is made no earlier than the report approval it carries is dated. S8: a delivery is made by the authorized representative to the sponsor and carries a final report (the record's delivered export, sheets 10-02, 10-41), its approval by a domain expert, and the recommendation (walkthrough, R-49). S8: the delivery is an item of the deliver step (the step is derived through the model graph, sheet 10-33). The delivery is made under the service agreement (sheet 10-05).",
    "id": "https://w3id.org/og-caie/S8-Delivery",
    "label": "S8-Delivery",
    "ogc": "ogc sparql \"DESCRIBE ogc:S8-Delivery\"",

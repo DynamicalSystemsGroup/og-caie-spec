@@ -91,6 +91,7 @@ src:w3c-prov-o a prov:Entity, ogc:Source ;
     ogc:url <https://www.w3.org/TR/2013/REC-prov-o-20130430/> ;
     ogc:digest "sources/digests/w3c.md" ;
     ogc:snapshot [ ogc:file "sources/archive/prov-o-20130430.html" ; ogc:contentHash "6b96671ab84faf12ce3f041aca12c3f93a6df2ed242348810743179a68e69555" ] ;
+    ogc:snapshot [ ogc:file "sources/archive/prov-o-20130430.ttl" ; ogc:contentHash "7d203989f67b38bca572253942acc5a1bf24ce3ccfece16f072dcb4be2b79a96" ] ;
     ogc:licenceNote "W3C Document Licence" .
 
 src:w3c-earl a prov:Entity, ogc:Source ;
@@ -99,6 +100,7 @@ src:w3c-earl a prov:Entity, ogc:Source ;
     ogc:url <https://www.w3.org/TR/2017/NOTE-EARL10-Schema-20170202/> ;
     ogc:digest "sources/digests/w3c.md" ;
     ogc:snapshot [ ogc:file "sources/archive/earl10-schema-20170202.html" ; ogc:contentHash "bd256af93da1fe22459a97a5ab18c1bc492932695e2e428ddd88a774c5338213" ] ;
+    ogc:snapshot [ ogc:file "sources/archive/earl10-schema-20170202.rdf" ; ogc:contentHash "4cde74807d5e31e58cc462ea6c1b1fc8fc0cf5bdbf8ac224ef95525efbeb2879" ] ;
     ogc:licenceNote "W3C Document Licence" .
 
 src:w3c-shacl a prov:Entity, ogc:Source ;

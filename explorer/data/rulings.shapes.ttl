@@ -1,0 +1,51 @@
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix ogc:  <https://w3id.org/og-caie/> .
+
+# Shapes over the judgment record. A concern must be characterized; a ruling
+# must be attributed, dated, must carry its decision in the register's words
+# and the message as sent, and must resolve a recorded concern.
+
+# The two texts of a ruling (R-47). No other ogc: property of the register is
+# declared; these two are, because the distinction between them is the rule.
+ogc:rulingText a owl:DatatypeProperty ; rdfs:domain ogc:Ruling ; rdfs:range xsd:string ;
+    rdfs:label "ruling text" ;
+    rdfs:comment "the decision in the register's own words: the same decision, reasons and scope as the message as sent, in a formal register, third person or imperative, no addressee (R-47); rendered on Appendix C and printed first by `ogc ruling`" .
+ogc:verbatim a owl:DatatypeProperty ; rdfs:domain ogc:Ruling ; rdfs:range xsd:string ;
+    rdfs:label "as sent" ;
+    rdfs:comment "the adjudicator's message as sent, untouched, typos included (R-47); kept in the graph, carried by the explorer's panel and printed by `ogc ruling` under the heading as sent; not rendered on Appendix C" .
+
+ogc:ConcernShape a sh:NodeShape ;
+    sh:targetClass ogc:Concern ;
+    sh:property [ sh:path rdfs:label ; sh:minCount 1 ; sh:message "A concern must carry a label." ] ;
+    sh:property [ sh:path ogc:problem ; sh:minCount 1 ; sh:message "A concern must state the problem." ] ;
+    sh:property [ sh:path ogc:severity ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ( "H" "M" "L" ) ] ;
+    sh:property [ sh:path ogc:status ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ( "open" "ruled" "closed" ) ;
+                  sh:message "A concern is open, ruled (a ruling resolves it, not yet applied), or closed (applied or declined)." ] ;
+    sh:property [ sh:path ogc:surfacedOn ; sh:minCount 1 ; sh:datatype xsd:date ] ;
+    sh:property [ sh:path ogc:surfacedHow ; sh:minCount 1 ] .
+
+ogc:RuledConcernShape a sh:NodeShape ;
+    sh:targetClass ogc:Concern ;
+    sh:sparql [
+        sh:message "A concern marked ruled or closed must be resolved by a recorded ruling." ;
+        sh:select """
+            PREFIX ogc: <https://w3id.org/og-caie/>
+            SELECT $this WHERE {
+                $this ogc:status ?s . FILTER(?s IN ("ruled", "closed"))
+                FILTER NOT EXISTS { ?r a ogc:Ruling ; ogc:resolves $this }
+            }
+        """ ] .
+
+ogc:RulingShape a sh:NodeShape ;
+    sh:targetClass ogc:Ruling ;
+    sh:property [ sh:path ogc:rulingText ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ; sh:message "A ruling must carry exactly one decision in the register's own words (R-47)." ] ;
+    sh:property [ sh:path ogc:verbatim ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ; sh:message "A ruling must keep exactly one copy of the message as sent, untouched (R-47)." ] ;
+    sh:property [ sh:path ogc:resolves ; sh:minCount 1 ; sh:class ogc:Concern ; sh:message "A ruling resolves at least one recorded concern." ] ;
+    sh:property [ sh:path prov:wasAttributedTo ; sh:minCount 1 ; sh:class prov:Person ; sh:message "A ruling names its adjudicator; judgment is never anonymous." ] ;
+    sh:property [ sh:path prov:generatedAtTime ; sh:minCount 1 ; sh:datatype xsd:date ; sh:message "A ruling must be dated." ] ;
+    sh:property [ sh:path ogc:changeNote ; sh:minCount 1 ; sh:message "A ruling records what changed as a result." ] ;
+    sh:property [ sh:path ogc:order ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:integer ] .

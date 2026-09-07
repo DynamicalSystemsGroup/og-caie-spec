@@ -91,6 +91,36 @@ def test_two_records_in_one_graph_both_conform():
     assert ok, report
     rows = list(g.query((ROOT / "queries" / "coverage.rq").read_text()))
     assert len(rows) == 2 and {float(r.coverage) for r in rows} == {1.0}  # every criterion attested (sheet 10-48, R-51)
+    # Round four, KG H3: a foreign attestation, in the second record, on the first record's criterion a1, failed and dated
+    # before the first record's draft. Every join is anchored on the record, so the first record's reports still recompute to
+    # their own numbers and nothing of the first record fires; what fires is the foreign attestation's own fault (the S6
+    # chain rule: the determination it aggregates tests the second record's a1, not the first's).
+    second = "https://w3id.org/og-caie/evaluation/measles-second#"
+    g.parse(data=f"""
+        @prefix ev: <{EV}> . @prefix ev2: <{second}> . @prefix epo: <https://w3id.org/og-caie/epo#> . @prefix ogc: <https://w3id.org/og-caie/> .
+        @prefix prov: <http://www.w3.org/ns/prov#> . @prefix earl: <http://www.w3.org/ns/earl#> . @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+        ev2:attestation-foreign a epo:Attestation ; earl:test ev:a1 ; earl:subject ev2:chatbot-v1 ; earl:mode earl:manual ; earl:assertedBy ev2:annie ;
+            prov:wasAttributedTo ev2:annie ; prov:wasDerivedFrom ev2:determination-1 ;
+            earl:result [ a earl:TestResult ; earl:outcome earl:failed ] ; epo:appropriateness epo:appropriate ; epo:sufficiency epo:sufficient ;
+            prov:generatedAtTime "2026-08-11T09:11:00Z"^^xsd:dateTime ; ogc:inRecord ev2:record ; ogc:synthetic true .
+    """, format="turtle")
+    ok, results, report = validate(g, shacl_graph=shapes(), advanced=True)
+    assert not ok
+    focus = {str(f) for f in results.objects(None, SH.focusNode)}
+    assert focus == {second + "attestation-foreign"}, report
+    rows = {str(r.record): r for r in g.query((ROOT / "queries" / "coverage.rq").read_text())}
+    first = rows[EV + "record"]
+    assert (float(first.coverage), float(first.passRate), float(first.failRate), float(first.cantTellRate)) == (1.0, 0.8, 0.2, 0.0)
+
+
+def test_every_graph_in_one_default_graph_conforms():
+    """Round four, KG H2: S0-Member targets the record's own members (the nodes typed by an epo: item class, and the agents
+    that hold a role, carry a version or are attributed an item), so the explorer's merged file, every graph of the repository
+    in one default graph (the vocabularies, the sources, the rulings, the essentials, the shapes, the model graph and the record),
+    conforms to the EPO shapes: the sources, the rulings and their adjudicator are entities and agents of no record and are not
+    drawn into the record's constraints."""
+    ok, _, report = validate(load("explorer/data/all.ttl"), shacl_graph=shapes(), advanced=True)
+    assert ok, report
 
 
 def test_record_digests_are_current():

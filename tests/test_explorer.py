@@ -98,10 +98,13 @@ def test_the_merged_data_file_is_every_graph_in_one():
     it is the one file the SPARQL box loads, and it parses to the sum of the parts."""
     from rdflib import Graph
     parts = Graph()
-    for f in (*rx.SOURCE_FILES, rx.MODEL_FILE, rx.RECORD_FILE):
+    for f in rx.MERGED_FILES:
         parts.parse(ROOT / f)
     merged = Graph().parse(ROOT / "explorer" / "data" / rx.MERGED_FILE)
     assert len(merged) == len(parts) and len(merged) > 10000
+    assert {"vocabulary/register.ttl", "vocabulary/ogm.ttl", "shapes/glossary.shapes.ttl", "shapes/rulings.shapes.ttl"} <= set(rx.MERGED_FILES)  # round four, KG 5
+    header = (ROOT / "explorer" / "data" / rx.MERGED_FILE).read_text().split("\n", 2)[1]
+    assert header == "# Merged, in this order: " + ", ".join(rx.MERGED_FILES) + "."  # the header lists exactly what it merges
     assert rx.data_files() == [rx.MERGED_FILE]
     assert (ROOT / "explorer" / "data" / "measles-evaluation.ttl").exists() and not (ROOT / "explorer" / "data" / "measles-run.ttl").exists()
 
@@ -120,7 +123,7 @@ def test_the_page_carries_no_timestamp_of_its_own():
     d3 = (ROOT / "explorer" / "vendor" / "d3.v7.min.js").read_text()
     assert d3 in html
     ours = html.replace(d3, "")  # the vendored library is a fixed blob, checked apart from what this repository writes
-    sources = "".join((ROOT / f).read_text() for f in (*rx.SOURCE_FILES, rx.MODEL_FILE, rx.RECORD_FILE))
+    sources = "".join((ROOT / f).read_text() for f in rx.MERGED_FILES)
     for stamp in set(re.findall(r"(?<![\d-])\d{4}-\d{2}-\d{2}(?:T[\d:]+Z?)?", ours)):
         assert stamp in sources, stamp
     assert not re.search(r"(?i)(generated|rendered|built) (at|on) \d", ours)
