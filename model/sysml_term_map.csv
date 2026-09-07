@@ -9,7 +9,7 @@ InterfaceUsage,class,omg,the wiring of the assembly
 ConnectionDefinition,class,omg,a relation between parties that carries no item: the sponsor's obligation to an affected population (R-38)
 ConnectionUsage,class,omg,the obligation in the assembly (R-38)
 ActionDefinition,class,omg,the EPO
-ActionUsage,class,omg,the seven steps and the perform usage
+ActionUsage,class,omg,the thirteen steps of the two cycles, the report step's two nested actions (sheet 10-41) and the perform usage
 SuccessionAsUsage,class,omg,the order of the steps
 FlowUsage,class,omg,which step's output feeds which step's input (R-33)
 BindingConnectorAsUsage,class,omg,an action def's own parameter bound to a step's (R-33)
@@ -25,7 +25,6 @@ FeatureReferenceExpression,class,omg,the root of an end path or a succession end
 LiteralInteger,class,omg,multiplicity bounds
 LiteralInfinity,class,omg,the star in a multiplicity
 LiteralString,class,omg,names bound in a run
-LiteralBoolean,class,omg,the two party facts bound in a run
 qualifiedName,predicate,omg,human-readable identity of every element
 declaredName,predicate,omg,the name a chain step resolves against
 owner,predicate,omg,containment (memberships themselves are pruned)
@@ -58,3 +57,4 @@ flowSource,predicate,derived,the parameter a flow starts from (computed)
 flowTarget,predicate,derived,the parameter a flow ends at (computed)
 relatesFrom,predicate,derived,the part usage at the first end of a connection usage: the party that holds the obligation (computed)
 relatesTo,predicate,derived,the part usage at the second end of a connection usage: the party it is held towards (computed)
+realizes,predicate,derived,the EPO class an item definition realizes and the EPO step a step realizes, matched by declared name against vocabulary/epo.ttl: the join between the model and the record's classes, through which an item's step is derived (computed; sheet 10-33)

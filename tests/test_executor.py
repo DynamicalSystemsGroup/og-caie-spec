@@ -27,28 +27,32 @@ def test_the_run_conforms_is_complete_and_traces(demo):
     assert run["conforms"] and not run["fired"] and not run["missing"], run
     assert run["coverage"]["coverage"] == pytest.approx(2 / 3, abs=1e-4)
     assert run["coverage"]["passRate"] + run["coverage"]["failRate"] + run["coverage"]["cantTellRate"] == pytest.approx(1)
-    assert run["traceback"] == 2
+    assert run["traceback"] == 3  # one row per determination: the operator's is paired with the expert's (sheet 10-15)
 
 
 def test_variants(demo):
     v = demo["variants"]
     assert v["planned 3 of 3"]["conforms"] and v["planned 3 of 3"]["coverage"]["coverage"] == pytest.approx(1)
-    assert v["planned 3 of 3"]["traceback"] == 3
+    assert v["planned 3 of 3"]["traceback"] == 4
     big = v["two sessions, two requirements"]
-    assert big["conforms"] and not big["missing"] and big["coverage"]["coverage"] == pytest.approx(1) and big["traceback"] == 8
+    assert big["conforms"] and not big["missing"] and big["coverage"]["coverage"] == pytest.approx(1) and big["traceback"] == 12
+    five = v["the five judgments"]  # sheet 10-12: every combination S6 allows conforms; the inapplicable one is not covered
+    assert five["conforms"] and not five["missing"] and five["coverage"]["coverage"] == pytest.approx(0.8) and five["coverage"]["cantTellRate"] == pytest.approx(0.5)
 
 
 EXPECTED = {
     "skip-assessment": {"fired": ["S2-RequirementSet"], "missing": ["AppropriatenessAssessment"]},
     "skip-approval": {"fired": [], "missing": ["PlanApproval"]},
-    "skip-access": {"fired": [], "missing": ["TestItemAccess"], "traceback": 0},
+    "skip-access": {"fired": ["S2-RequirementSet"], "missing": ["TestItemAccess"], "traceback": 0},  # sheet 10-17: the envelope's test item must be one an access grant names
     "unwire-evidence": {"fired": ["S5-Evidence", "S6-Attestation"], "traceback": 0},
     "executive-attests": {"fired": ["S6-Attestation"]},
     "attest-without-determination": {"fired": ["S6-Attestation", "S8-Recommendation"], "traceback": 0},
     "requirements-before-agreement": {"fired": ["S0-Layers", "S0-Parties"]},
     "engagement-mismatch": {"fired": ["S0-Population"]},
-    "skip-report-approval": {"fired": ["S8-Delivery"], "missing": ["ReportApproval"]},
+    "skip-report-approval": {"fired": ["S8-Delivery", "S8-Recommendation", "S9-Acceptance"], "missing": ["ReportApproval"]},  # sheets 10-11, 10-03: the approval owns the recommendation and stands behind the acceptance
     "pad-pass-rate": {"fired": ["S7-Report"]},  # sheet 10-19: the rates recomputed
+    "one-person-team": {"fired": ["S0-Roles"]},  # sheet 10-13
+    "cherry-pick": {"fired": ["S6-Attestation"], "traceback": 2},  # sheet 10-14
 }
 
 
@@ -81,3 +85,21 @@ def test_executor_refuses_a_model_whose_signature_drifts(graphs):
 def test_the_executed_record_is_complete_against_the_model(graphs):
     model = graphs[0]
     assert executor.completeness(executor.execute(model), model) == []
+
+
+def test_the_executed_record_is_a_bundle_with_the_verdict_before_the_report(graphs):
+    """Sheets 10-31, 10-41, 10-18, 10-33: one bundle every item and agent is a member of; the verdict's subject is the bundle and it
+    ended before the final report was generated; the verdict and the coverage computation carry the current digests; no item asserts a step."""
+    from rdflib import URIRef
+    from ogc.graph import EPO, OGC, PROV, EARL, digests
+    g = executor.execute(graphs[0])
+    (bundle,) = list(g.subjects(RDF.type, PROV.Bundle))
+    for s in {s for s in g.subjects() if isinstance(s, URIRef)} - {bundle}:
+        assert (s, OGC.inRecord, bundle) in g and (s, OGC.synthetic, None) in g, s
+    (ver,) = list(g.subjects(RDF.type, EPO.ConformanceVerdict))
+    (rep,) = list(g.subjects(RDF.type, EPO.Report))
+    assert g.value(ver, EARL.subject) == bundle and (rep, PROV.used, ver) in g and str(g.value(rep, EPO.draft)) == "false"
+    assert str(g.value(ver, PROV.endedAtTime)) <= str(g.value(rep, PROV.generatedAtTime))
+    for k, v in digests(ROOT).items():
+        assert str(g.value(ver, EPO[k])) == v
+    assert not list(g.subject_objects(EPO.step))

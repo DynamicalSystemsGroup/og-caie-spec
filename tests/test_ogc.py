@@ -23,7 +23,7 @@ COMMANDS = [
     ["sparql", 'SELECT ?l WHERE { ?t a skos:Concept ; ogc:class "coined" ; skos:prefLabel ?l }'],
     ["sparql", "SELECT ?s ?p ?o WHERE { ?s ?p ?o } LIMIT 20"],
     ["sparql", "CONSTRUCT { ?s ?p ?o } WHERE { ?s ?p ?o } LIMIT 30"],
-    ["record"], ["record", "mission-1"], ["record", "attestation-1"], ["--record", "sparql", "DESCRIBE run:mission-1"],
+    ["record"], ["record", "mission-1"], ["record", "attestation-1"], ["--record", "sparql", "DESCRIBE ev:mission-1"],
     ["execute", "--planned", "3", "--sessions", "2"],
 ]
 # A mutated run fails its VERDICT on purpose (finding 9): deterministic, exit 1.
@@ -255,8 +255,10 @@ def _rows(*cmd):
 
 
 def test_record_lists_every_stepped_item_by_step():
-    rg = load("track/measles-run.ttl")
-    stepped = {str(s).rsplit("#", 1)[-1] for s in rg.subjects(EPO.step, None)}
+    from ogc.graph import load as load_all
+    rg = load_all(ROOT, record=True, cache=False)  # the step is derived through the model graph (sheet 10-33), never asserted in the file
+    assert not list(load("track/measles-evaluation.ttl").subject_objects(EPO.step))
+    stepped = {str(s).rsplit("#", 1)[-1] for s in rg.subjects(EPO.step, None) if str(s).startswith("https://w3id.org/og-caie/evaluation/measles#")}
     r = run("record")
     assert r.returncode == 0, r.stderr
     rows = _rows("record")
@@ -267,11 +269,13 @@ def test_record_lists_every_stepped_item_by_step():
     assert steps[0] == "C1 need" and steps[-1] == "6 report" and steps.index("C6 accept") < steps.index("1 scope")
     for name in stepped:
         assert re.search(rf"^\S.*\s{re.escape(name)}\s", r.stdout, re.M), name
-    assert "without a step" in r.stdout and any(x["item"] == "turn-1" and x["group"] == "no-step" for x in rows)
+    assert "without a step" in r.stdout and any(x["item"] == "trajectory-1" and x["group"] == "no-step" for x in rows)
     assert [x["item"] for x in rows if x["group"] == "record"] == ["record"]  # the record's own entity heads the listing in its own section (round three, M7)
     who = next(x for x in rows if x["item"] == "attestation-1")
     assert who["who"] == ["Annie (domain expert)"] and who["when"] == "2026-08-11"
     assert any(x["item"] == "annie" and x["group"] == "party" for x in rows)
+    assert all(x["synthetic"] for x in rows) and "59 of 59 rows tagged synthetic" in r.stdout and r.stdout.splitlines()[4].endswith("the measles evaluation") and "synthetic" in r.stdout.splitlines()[4]  # sheet 10-43: the tag in the header and on every row
+    assert rows[0]["class"] == "Bundle, Entity"  # sheet 10-31
 
 
 def test_record_item_prints_its_label_and_step():
@@ -279,8 +283,8 @@ def test_record_item_prints_its_label_and_step():
     assert r.returncode == 0 and "C1 need" in r.stdout and "protect the health of county residents" in r.stdout
     d = json.loads(run("record", "mission-1", "--json").stdout)
     assert d["item"] == "mission-1" and d["step"] == "C1 need" and d["class"] == "Mission"
-    assert any(t["predicate"] == "epo:regards" and t["object"] == "run:commuters" and t["label"].startswith("commuters") for t in d["triples"])
-    assert any(t["predicate"] == "epo:underMission" and t["subject"] == "run:need-1" for t in d["referenced_by"])
+    assert any(t["predicate"] == "epo:regards" and t["object"] == "ev:commuters" and t["label"].startswith("commuters") for t in d["triples"])
+    assert any(t["predicate"] == "epo:underMission" and t["subject"] == "ev:need-1" for t in d["referenced_by"])
     r = run("record", "attestation-1")
     assert "earl:outcome earl:failed" in r.stdout  # a blank node's triples are printed inline
     assert run("record", "MISSION-1").returncode == 0
@@ -296,17 +300,17 @@ def test_record_flag_loads_the_record_for_sparql():
     n = lambda r: int(json.loads(r.stdout)["rows"][0]["n"])
     assert n(run("--record", "sparql", q, "--json")) > n(run("sparql", q, "--json"))
     assert "--record" in json.loads(run("sparql", q, "--record", "--json").stdout)["_ogc"]["args"]
-    assert "run:mission-1" in run("sparql", "DESCRIBE run:mission-1", "--record").stdout
+    assert "ev:mission-1" in run("sparql", "DESCRIBE ev:mission-1", "--record").stdout
 
 
 def test_execute_exposes_the_executor_parameters():
     r = run("execute", "--planned", "3")
     assert r.returncode == 0, r.stdout
-    assert "coverage: 1.0000" in r.stdout and "traceback rows: 3" in r.stdout and r.stdout.rstrip().splitlines()[-1].startswith("VERDICT: PASS")
+    assert "coverage: 1.0000" in r.stdout and "traceback rows: 4" in r.stdout and r.stdout.rstrip().splitlines()[-1].startswith("VERDICT: PASS")  # sheet 10-15: the operator's determination is paired
     assert re.search(r"^parameters: requirements 1, criteria 3, planned 3, sessions 1, populations 2$", r.stdout, re.M)
     d = json.loads(run("execute", "--planned", "3", "--json").stdout)
     assert d["params"] == {"requirements": 1, "criteria": 3, "planned": 3, "sessions": 1, "populations": 2}
-    assert d["coverage"]["coverage"] == 1 and d["traceback"] == 3 and d["_ogc"]["args"] == "--planned 3"
+    assert d["coverage"]["coverage"] == 1 and d["traceback"] == 4 and d["_ogc"]["args"] == "--planned 3"
     r = run("execute", "--planned", "9")
     assert r.returncode == 1 and "at most" in r.stdout and "VERDICT" not in r.stdout
     assert json.loads(run("execute", "--planned", "9", "--json").stdout)["error"]
@@ -314,7 +318,7 @@ def test_execute_exposes_the_executor_parameters():
         assert run("execute", *bad).returncode == 1, bad
     assert run("execute", "--planned", "x").returncode == 2
     d = json.loads(run("execute", "--requirements", "2", "--criteria", "2", "--planned", "4", "--sessions", "2", "--json").stdout)
-    assert d["ok"] and d["traceback"] == 8 and d["params"]["sessions"] == 2
+    assert d["ok"] and d["traceback"] == 12 and d["params"]["sessions"] == 2
 
 
 # ---------------------------------------------------------------- the second review (2026-09-06), one test each
@@ -322,7 +326,7 @@ def test_execute_exposes_the_executor_parameters():
 import hashlib  # noqa: E402
 
 SKILL = ROOT / ".claude" / "skills" / "ogc-glossary" / "SKILL.md"
-NUMBER_WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"]
+NUMBER_WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"]
 
 
 def _json(*cmd):
@@ -354,22 +358,22 @@ def test_r2_finding_02_execute_is_capped():
 
 
 def test_r2_finding_03_query_naming_the_record_without_the_flag_is_refused_with_a_hint():
-    for q in ("DESCRIBE run:mission-1", "SELECT ?a WHERE { ?a a epo:Attestation }", "SELECT ?s WHERE { ?s rdf:type epo:Session }",
-              "SELECT ?e WHERE { ?e a epo:Evidence }", "ASK { <https://w3id.org/og-caie/run/measles#mission-1> ?p ?o }"):
+    for q in ("DESCRIBE ev:mission-1", "SELECT ?a WHERE { ?a a epo:Attestation }", "SELECT ?s WHERE { ?s rdf:type epo:Session }",
+              "SELECT ?e WHERE { ?e a epo:Evidence }", "ASK { <https://w3id.org/og-caie/evaluation/measles#mission-1> ?p ?o }"):
         r = run("sparql", q)
         assert r.returncode == 1 and "add --record" in r.stderr and r.stdout == "", (q, r.stdout, r.stderr)
         assert run("sparql", q, "--record").returncode == 0, q
     assert run("sparql", "DESCRIBE epo:Attestation").returncode == 0  # the class itself lives in the vocabulary
     assert run("sparql", "SELECT ?s WHERE { ?s a epo:EpoStep }").returncode == 0  # steps are instances in the vocabulary
-    r, d = _json("sparql", "DESCRIBE run:mission-1")
+    r, d = _json("sparql", "DESCRIBE ev:mission-1")
     assert r.returncode == 1 and "add --record" in d["hint"] and d["_ogc"]["command"] == "sparql" and d["candidates"] == []
 
 
 def test_r2_finding_04_curie_and_iri_forms_resolve_to_the_local_name():
-    for cmd in (["record", "run:mission-1"], ["term", "term:probe"], ["define", "term:probe"], ["quote", "term:probe"], ["quote", "epo:scope"],
+    for cmd in (["record", "ev:mission-1"], ["term", "term:probe"], ["define", "term:probe"], ["quote", "term:probe"], ["quote", "epo:scope"],
                 ["ruling", "rul:R-16"], ["concern", "rul:C-30"], ["sci", "tr:SCI-07"], ["source", "src:sevocab"], ["shape", "ogc:S0-Population"],
                 ["term", "https://w3id.org/og-caie/terms#probe"], ["ruling", "<https://w3id.org/og-caie/rulings#R-16>"],
-                ["record", "https://w3id.org/og-caie/run/measles#mission-1"], ["verify", "term:probe"], ["verify", "src:sevocab"],
+                ["record", "https://w3id.org/og-caie/evaluation/measles#mission-1"], ["verify", "term:probe"], ["verify", "src:sevocab"],
                 ["rulings", "--term", "term:probe"], ["list", "--source", "src:sevocab"], ["check-word", "term:probe"]):
         r = run(*cmd)
         assert r.returncode == 0, (cmd, r.stdout, r.stderr)
@@ -462,8 +466,9 @@ def test_r2_finding_12_schema_and_shapes_count_the_same_files_and_doctor_parses_
     n = len(_json("shapes")[1]["rows"])
     assert _json("schema")[1]["counts"]["shapes"] == n and n > 45
     r = run("doctor")
-    for f in ("shapes/glossary.shapes.ttl", "shapes/rulings.shapes.ttl", "track/measles-run.ttl", "model/og-caie.model.ttl"):
+    for f in ("shapes/glossary.shapes.ttl", "shapes/rulings.shapes.ttl", "track/measles-evaluation.ttl", "model/og-caie.model.ttl"):
         assert re.search(rf"^ok\s+{re.escape(f)} \(\d+ triples\)$", r.stdout, re.M), f
+    assert re.search(r"^ok\s+the record's digests name shapes/epo.shapes.ttl", r.stdout, re.M)  # sheet 10-18
 
 
 def test_r2_finding_13_shape_prints_each_sparql_constraint_with_its_select_body():
@@ -570,7 +575,7 @@ def test_r2_skill_carries_the_new_recipes_and_keeps_the_file_names_out_of_the_tr
     front, body = skill.split("\n---\n", 1)
     assert ".ttl" not in front
     assert "Never open these; they are what ogc reads" in body
-    for needle in ("verify --all --status pending", "sysml:declaredName", "sysml:owner", "sysml:specializes", "elmt:", "no `rdfs:label`", "run:", "\\n"):
+    for needle in ("verify --all --status pending", "sysml:declaredName", "sysml:owner", "sysml:specializes", "elmt:", "no `rdfs:label`", "ev:", "\\n"):
         assert needle in body, needle
 
 
@@ -600,7 +605,7 @@ def test_r3_finding_m1_model_query_without_the_flag_is_refused_with_a_hint():
 
 
 def test_r3_finding_m2_curie_prefixes_are_case_insensitive():
-    for cmd in (["term", "TERM:PROBE"], ["term", "Term:probe"], ["define", "TERM:probe"], ["record", "RUN:MISSION-1"], ["ruling", "RUL:R-16"], ["concern", "Rul:C-30"],
+    for cmd in (["term", "TERM:PROBE"], ["term", "Term:probe"], ["define", "TERM:probe"], ["record", "EV:MISSION-1"], ["ruling", "RUL:R-16"], ["concern", "Rul:C-30"],
                 ["sci", "TR:SCI-07"], ["source", "SRC:sevocab"], ["shape", "OGC:S0-Population"], ["quote", "EPO:scope"], ["verify", "TERM:probe"], ["check-word", "TERM:probe"]):
         r = run(*cmd)
         assert r.returncode == 0, (cmd, r.stdout, r.stderr)
@@ -622,10 +627,10 @@ def test_r3_finding_m3_r49_derives_the_renamed_headwords_and_ruling_refs_carry_l
 
 def test_r3_finding_m4_a_curie_in_the_wrong_namespace_names_the_right_reader():
     cases = [(["term", "rul:R-16"], "ogc ruling R-16"), (["term", "rul:C-26"], "ogc concern C-26"), (["define", "epo:StakeholderRepresentation"], "ogc epo StakeholderRepresentation"),
-             (["record", "term:probe"], "ogc term probe"), (["term", "run:mission-1"], "ogc record mission-1"), (["ruling", "term:probe"], "ogc term probe"),
+             (["record", "term:probe"], "ogc term probe"), (["term", "ev:mission-1"], "ogc record mission-1"), (["ruling", "term:probe"], "ogc term probe"),
              (["sci", "src:sevocab"], "ogc source sevocab"), (["source", "tr:SCI-07"], "ogc sci SCI-07"), (["shape", "epo:S3-PlanApproval"], "under ogc:, not epo:; try `ogc shape S3-PlanApproval`"),
              (["record", "ogc:S0-Layers"], "ogc shape S0-Layers"), (["term", "xw:falsifiability"], "ogc crosswalk --popper"), (["term", "elmt:abc"], "--model sparql"),
-             (["epo", "term:probe"], "ogc term probe"), (["find", "rul:R-16"], "ogc ruling R-16"), (["check-word", "run:mission-1"], "ogc record mission-1")]
+             (["epo", "term:probe"], "ogc term probe"), (["find", "rul:R-16"], "ogc ruling R-16"), (["check-word", "ev:mission-1"], "ogc record mission-1")]
     for cmd, reader in cases:
         r = run(*cmd)
         assert r.returncode == 1 and reader in r.stdout and "candidate:" not in r.stdout, (cmd, r.stdout, r.stderr)
@@ -675,23 +680,23 @@ def test_r3_finding_m5_epo_reader_and_find_indexes_the_epo_labels():
 
 def test_r3_finding_m7_record_lists_its_own_entity_first():
     rows = _json("record")[1]["rows"]
-    rg = load("track/measles-run.ttl")
-    subjects = {str(s).rsplit("#", 1)[-1] for s in rg.subjects() if str(s).startswith("https://w3id.org/og-caie/run/measles#")}
+    rg = load("track/measles-evaluation.ttl")
+    subjects = {str(s).rsplit("#", 1)[-1] for s in rg.subjects() if str(s).startswith("https://w3id.org/og-caie/evaluation/measles#")}
     assert {x["item"] for x in rows} == subjects
-    assert rows[0]["item"] == "record" and rows[0]["group"] == "record" and rows[0]["label"].startswith("evaluation record")
+    assert rows[0]["item"] == "record" and rows[0]["group"] == "record" and rows[0]["label"] == "the measles evaluation"
     out = run("record").stdout.splitlines()
-    assert out[1] == "## the record (1)" and out.index("## the record (1)") < next(i for i, l in enumerate(out) if l.startswith("## items by step"))
+    assert out[1].startswith("## the record (1;") and 1 < next(i for i, l in enumerate(out) if l.startswith("## items by step"))
     assert run("record", "record").returncode == 0 and "Synthetic case" in run("record", "record").stdout
 
 
 def test_r3_finding_l1_a_record_name_in_a_comment_is_not_a_reference():
-    for q in ("# run: in a comment\nSELECT ?s WHERE { ?s a ogc:Ruling } LIMIT 1", "SELECT ?s WHERE { ?s a ogc:Ruling } # see run:mission-1\nLIMIT 1", "# ?a a epo:Attestation\nSELECT ?s WHERE { ?s a ogc:Ruling } LIMIT 1",
+    for q in ("# ev: in a comment\nSELECT ?s WHERE { ?s a ogc:Ruling } LIMIT 1", "SELECT ?s WHERE { ?s a ogc:Ruling } # see ev:mission-1\nLIMIT 1", "# ?a a epo:Attestation\nSELECT ?s WHERE { ?s a ogc:Ruling } LIMIT 1",
               "# sysml:PartDefinition\nSELECT ?s WHERE { ?s a ogc:Ruling } LIMIT 1"):
         r = run("sparql", q)
         assert r.returncode == 0 and "(1 rows)" in r.stdout, (q, r.stderr)
-    r = run("sparql", 'SELECT ?s WHERE { ?s rdfs:label "#" } # run:\nLIMIT 1')
+    r = run("sparql", 'SELECT ?s WHERE { ?s rdfs:label "#" } # ev:\nLIMIT 1')
     assert r.returncode == 0
-    assert run("sparql", "SELECT ?s WHERE { ?s ?p <https://w3id.org/og-caie/run/measles#mission-1> } # a real reference").returncode == 1
+    assert run("sparql", "SELECT ?s WHERE { ?s ?p <https://w3id.org/og-caie/evaluation/measles#mission-1> } # a real reference").returncode == 1
 
 
 def test_r3_finding_l2_flags_only_where_they_change_the_answer():
@@ -776,8 +781,9 @@ def test_r3_finding_l9_who_and_when_derive_through_the_generating_activity():
     assert rows["attestation-1"]["via"] is None and rows["test-plan"]["via"] is None  # attributed directly
     assert rows["turn-1"]["who"] is None and rows["annie"]["when"] is None  # nothing to derive from
     listing = run("record").stdout
-    assert re.search(r"^probe-1\s+Probe\s+test driver \(via derivation-1\)\s+2026-08-03$", listing, re.M), listing
-    assert re.search(r"^report\s+Report\s+report assembler \(queries/coverage.rq\) \(via coverage-computation\)\s+2026-08-12$", listing, re.M)
+    # the probe and the report now derive their steps through the model graph (sheet 10-33), so they sit in the stepped table
+    assert re.search(r"^3 plan\s+probe-1\s+Probe\s+test driver \(via derivation-1\)\s+2026-08-03\s+synthetic$", listing, re.M), listing
+    assert re.search(r"^6 report\s+report\s+Report\s+report assembler \(queries/coverage.rq\) \(via coverage-computation\)\s+2026-08-12\s+synthetic$", listing, re.M)
 
 
 def test_r3_finding_l10_long_inputs_are_truncated_in_the_error_line():

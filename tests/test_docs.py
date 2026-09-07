@@ -39,7 +39,7 @@ def test_no_em_dashes_in_prose():
 def test_every_glossary_term_is_used():
     g = load("vocabulary/og-caie.ttl")
     haystack = (prose_text() + (ROOT / "model" / "og-caie.sysml").read_text()
-                + (ROOT / "track" / "measles-run.ttl").read_text() + (ROOT / "shapes" / "epo.shapes.ttl").read_text()).lower()
+                + (ROOT / "track" / "measles-evaluation.ttl").read_text() + (ROOT / "shapes" / "epo.shapes.ttl").read_text()).lower()
     unused = []
     for t in g.subjects(RDF.type, SKOS.Concept):
         labels = [str(l).lower() for l in g.objects(t, SKOS.prefLabel)] + [str(l).lower() for l in g.objects(t, SKOS.altLabel)]

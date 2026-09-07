@@ -188,6 +188,35 @@ def _render_key_terms_bare() -> str:
 
 
 CONTRACT_STEPS = ("need", "propose", "agree", "access", "deliver", "acceptDelivery")
+RECORD_FILE = "track/measles-evaluation.ttl"  # the measles evaluation (sheet 10-42)
+
+
+def record_graph() -> Graph:
+    """The record with the EPO vocabulary and the model graph, in one graph, each item's step derived through the model
+    (sheets 10-31, 10-33; ogc.graph.infer_steps): the same graph the shapes, the queries and `ogc record` read."""
+    import sys
+    sys.path.insert(0, str(ROOT))
+    from ogc.graph import infer_steps
+    g = Graph()
+    for f in ("vocabulary/epo.ttl", "model/og-caie.model.ttl", RECORD_FILE):
+        g.parse(ROOT / f)
+    infer_steps(g)
+    return g
+
+
+def item_steps(g: Graph):
+    """(item, step) pairs, one per item: a kind two steps may produce (the plan deviation) is listed at the earlier step."""
+    from rdflib import Namespace as NS
+    EPO = NS("https://w3id.org/og-caie/epo#")
+    by_item: dict = {}
+    for n, st in g.subject_objects(EPO.step):
+        if not str(n).startswith("https://w3id.org/og-caie/evaluation/"):
+            continue
+        order = str(g.value(st, RDFS.label)).split(" ", 1)[0]
+        key = (0 if order.startswith("C") else 1, order)
+        if n not in by_item or key < by_item[n][0]:
+            by_item[n] = (key, st)
+    return sorted(((n, st) for n, (_, st) in by_item.items()), key=lambda x: str(x[0]))
 
 
 def render_record_chapter(chapter: str) -> str:
@@ -196,12 +225,10 @@ def render_record_chapter(chapter: str) -> str:
     EPO = NS("https://w3id.org/og-caie/epo#")
     PROV = NS("http://www.w3.org/ns/prov#")
     EARL = NS("http://www.w3.org/ns/earl#")
-    g = Graph()
-    for f in ("vocabulary/epo.ttl", "track/measles-run.ttl"):
-        g.parse(ROOT / f)
+    g = record_graph()
     want = set(CONTRACT_STEPS) if chapter == "contracting" else None
     rows = []
-    for n, st in g.subject_objects(EPO.step):
+    for n, st in item_steps(g):
         step = str(st).rsplit("#", 1)[-1]
         if want is not None and step not in want:
             continue
@@ -233,9 +260,7 @@ def render_layers_walkthrough() -> str:
     EPO = NS("https://w3id.org/og-caie/epo#")
     PROV = NS("http://www.w3.org/ns/prov#")
     EARL = NS("http://www.w3.org/ns/earl#")
-    g = Graph()
-    for f in ("vocabulary/epo.ttl", "track/measles-run.ttl"):
-        g.parse(ROOT / f)
+    g = record_graph()
     lines = ["| Layer | Item kinds | Items | First | Last | Who |", "|---|---|---|---|---|---|"]
     for layer in sorted(g.subjects(RDF.type, EPO.Layer), key=lambda l: 0 if str(l).endswith("contract") else 1):
         classes = sorted(g.subjects(OGC.pinnedAt, layer), key=str)
@@ -323,20 +348,33 @@ def render_quote_status() -> str:
 
 
 def render_criteria() -> str:
-    """The measles criteria: what each expects, its weight, and the outcome attested, with the coverage recomputed by the coverage query."""
+    """The measles criteria (sheets 10-10, 10-12, 10-16): what each expects, its weight with the rationale, how many
+    observations (evidence items) bear on it, the sufficiency and appropriateness the attestation judged, the outcome
+    attested, and its status (planned, probed, determined, attested, or the deviation that says why not), with the
+    coverage recomputed by the coverage query."""
     from rdflib import Namespace as NS
     EPO = NS("https://w3id.org/og-caie/epo#")
     EARL = NS("http://www.w3.org/ns/earl#")
-    g = Graph()
-    for f in ("vocabulary/epo.ttl", "track/measles-run.ttl"):
-        g.parse(ROOT / f)
-    lines = ["| Criterion | Expected result | Weight | Attested outcome |", "|---|---|---|---|"]
+    g = record_graph()
+    lines = ["| Criterion | Expected result | Weight (why) | Observations | Sufficiency | Appropriateness | Attested outcome | Status |", "|---|---|---|---|---|---|---|---|"]
     for a in sorted(g.subjects(RDF.type, EPO.AcceptanceCriterion), key=str):
-        outs = sorted({str(g.value(res, EARL.outcome)).rsplit("#", 1)[-1] for att in g.subjects(EARL.test, a) if (att, RDF.type, EPO.Attestation) in g for res in g.objects(att, EARL.result)})
-        lines.append(f"| `{str(a).rsplit('#', 1)[-1]}`: {cell(g.value(a, EPO.text))} | {cell(g.value(a, EPO.expectedResult))} | {g.value(a, EPO.weight)} | {', '.join(outs) or 'none: not planned, not covered'} |")
+        atts = [att for att in g.subjects(EARL.test, a) if (att, RDF.type, EPO.Attestation) in g]
+        outs = sorted({str(g.value(res, EARL.outcome)).rsplit("#", 1)[-1] for att in atts for res in g.objects(att, EARL.result)})
+        suff = sorted({str(g.value(att, EPO.sufficiency)).rsplit("#", 1)[-1] for att in atts})
+        appr = sorted({str(g.value(att, EPO.appropriateness)).rsplit("#", 1)[-1] for att in atts})
+        observations = sum(1 for e in g.subjects(EPO.bearsOn, a) if (e, RDF.type, EPO.Evidence) in g)
+        determined = any((d, RDF.type, EPO.Determination) in g for d in g.subjects(EARL.test, a))
+        planned = any((p, RDF.type, EPO.TestPlan) in g for p in g.subjects(EPO.objective, a))
+        deviations = [str(g.value(d, EPO.reason)) for d in g.subjects(EPO.concerns, a) if (d, RDF.type, EPO.PlanDeviation) in g]
+        status = ("attested" if atts else "determined" if determined else "probed" if observations else "planned" if planned else "not planned")
+        if deviations:
+            status += "; deviation recorded: " + "; ".join(deviations)
+        lines.append(f"| `{str(a).rsplit('#', 1)[-1]}`: {cell(g.value(a, EPO.text))} | {cell(g.value(a, EPO.expectedResult))} | {g.value(a, EPO.weight)} ({cell(g.value(a, EPO.weightRationale))}) "
+                     f"| {observations} | {', '.join(suff) or ''} | {', '.join(appr) or ''} | {', '.join(outs) or 'none'} | {status} |")
     row = next(iter(g.query((ROOT / "queries" / "coverage.rq").read_text())))
     lines += ["", f"Coverage recomputed from the record by `queries/coverage.rq`: {float(row.coverage):.4f} by weight "
-                  f"(pass {float(row.passRate):.2f}, fail {float(row.failRate):.2f}, cannot tell {float(row.cantTellRate):.2f}); the report stores the same numbers."]
+                  f"(pass {float(row.passRate):.2f}, fail {float(row.failRate):.2f}, cannot tell {float(row.cantTellRate):.2f}); the report stores the same numbers. "
+                  "Thresholds and replication are out of scope for this version (sheet 10-10): the observation count says how much each judgment rests on."]
     return "\n".join(lines) + "\n"
 
 
@@ -434,14 +472,14 @@ def main_all() -> int:
     (OUT / "more-contracting.md").write_text(render_more("contracting",
         ["steps-contracting.md", "wiring-contracting.md", "wiring-table-contracting.md", "sci-contracting.md", "record-contracting.md"],
         ["ogc view contracting", "ogc views", "ogc steps", "ogc sci SCI-10", "ogc term mission", "ogc term customer", "ogc term provider", "ogc term contract", "ogc verify iso-iec-17000-2020", "ogc sparql"],
-        ["model/og-caie.sysml", "model/og-caie.model.ttl", "vocabulary/epo.ttl", "shapes/epo.shapes.ttl (S0)", "shapes/model.shapes.ttl (M1, M5)", "ogc/views.py", "track/measles-run.ttl"]))
+        ["model/og-caie.sysml", "model/og-caie.model.ttl", "vocabulary/epo.ttl", "shapes/epo.shapes.ttl (S0, S9)", "shapes/model.shapes.ttl (M1, M5)", "ogc/views.py", RECORD_FILE]))
     (OUT / "layers-walkthrough.md").write_text(render_layers_walkthrough())
     (OUT / "quote-status.md").write_text(render_quote_status())
     (OUT / "criteria.md").write_text(render_criteria())
     (OUT / "more-evaluation.md").write_text(render_more("evaluation",
         ["steps-evaluation.md", "wiring-evaluation.md", "wiring-table-evaluation.md", "sci-evaluation.md", "record-evaluation.md"],
         ["ogc record", "ogc record attestation-1", "ogc view evaluation", "ogc steps", "ogc sci SCI-06", "ogc term evidence", "ogc term determination", "ogc term attestation", "ogc term trajectory", "ogc rulings --term evidence", "ogc sparql"],
-        ["model/og-caie.sysml", "model/og-caie.model.ttl", "vocabulary/epo.ttl", "shapes/epo.shapes.ttl (S1 to S8)", "shapes/model.shapes.ttl (M2 to M5)", "track/measles-run.ttl", "counterexamples/", "queries/coverage.rq", "queries/traceback.rq"]))
+        ["model/og-caie.sysml", "model/og-caie.model.ttl", "vocabulary/epo.ttl", "shapes/epo.shapes.ttl (S1 to S8)", "shapes/model.shapes.ttl (M2 to M5)", RECORD_FILE, "counterexamples/", "scripts/render_counterexamples.py", "queries/coverage.rq", "queries/traceback.rq"]))
     (OUT / "more-model.md").write_text(render_more("model",
         ["nesting.md", "layers-walkthrough.md", "receipts.md"],
         ["ogc view nesting", "ogc view assemblage", "ogc steps", "ogc sci SCI-11", "ogc sparql --model"],
@@ -459,25 +497,24 @@ def main_all() -> int:
 def render_record() -> str:
     from pyshacl import validate
     EPO = Namespace("https://w3id.org/og-caie/epo#")
-    g = Graph()
-    for f in ("vocabulary/epo.ttl", "track/measles-run.ttl"):
-        g.parse(ROOT / f)
+    g = record_graph()
+    steps = dict(item_steps(g))
     out = []
     # the chain
     out.append("### The chain\n")
     out.append("| Step | Node | Who | When |\n|---|---|---|---|")
     PROV = Namespace("http://www.w3.org/ns/prov#")
     EARL = Namespace("http://www.w3.org/ns/earl#")
-    order = [EPO.ServiceAgreement, EPO.TestItemAccess, EPO.StakeholderInput, EPO.DsoRelease, EPO.RequirementSet, EPO.Requirement, EPO.AcceptanceCriterion,
-             EPO.AppropriatenessAssessment, EPO.TestPlan, EPO.PlanApproval, EPO.Strategy, EPO.Probe,
+    order = [EPO.ServiceAgreement, EPO.IndependenceDeclaration, EPO.UserInterestDeclaration, EPO.TestItemAccess, EPO.StakeholderInput, EPO.DsoRelease, EPO.RequirementSet, EPO.Requirement, EPO.AcceptanceCriterion,
+             EPO.AppropriatenessAssessment, EPO.RequirementSetApproval, EPO.TestPlan, EPO.PlanApproval, EPO.PlanDeviation, EPO.Strategy, EPO.Probe,
              EPO.ConsistencyCheck, EPO.TestSuite, EPO.Session, EPO.Turn, EPO.Trajectory, EPO.Response, EPO.Evidence, EPO.Determination, EPO.Attestation,
-             EPO.CoverageComputation, EPO.Report, EPO.Recommendation, EPO.Delivery]
+             EPO.ConformanceVerdict, EPO.CoverageComputation, EPO.Report, EPO.ReportApproval, EPO.Recommendation, EPO.Delivery, EPO.Acceptance]
     for cls in order:
         for n in sorted(g.subjects(RDF.type, cls), key=str):
             who = [g.value(a, RDFS.label) or str(a).rsplit("#", 1)[-1] for p in (EARL.assertedBy, EPO.approvedBy, PROV.wasAttributedTo, PROV.wasAssociatedWith) for a in g.objects(n, p)]
             when = g.value(n, PROV.generatedAtTime) or g.value(n, PROV.startedAtTime) or g.value(n, PROV.endedAtTime) or ""
-            step = g.value(n, EPO.step)
-            step = cell(g.value(step, RDFS.label)).split(":")[0] if step else ""
+            step = steps.get(n)
+            step = cell(g.value(step, RDFS.label)).split(":")[0] if step is not None else ""
             out.append(f"| {step} | `{str(n).rsplit('#', 1)[-1]}` ({cell(str(cls).rsplit('#', 1)[-1])}) | {cell('; '.join(dict.fromkeys(str(w) for w in who)))} | {cell(when)} |")
     # coverage
     (row,) = list(g.query((ROOT / "queries" / "coverage.rq").read_text()))
@@ -486,7 +523,9 @@ def render_record() -> str:
     out.append("| Quantity | Stored in the report | Recomputed by queries/coverage.rq |\n|---|---|---|")
     for k, v in (("coverage", row.coverage), ("passRate", row.passRate), ("failRate", row.failRate), ("cantTellRate", row.cantTellRate)):
         out.append(f"| {k} | {cell(g.value(report, EPO[k]))} | {cell(v)} |")
-    out.append(f"\nCovered criteria: {row.coveredCount} of 3; the third criterion is untested and counts for nothing.")
+    total = len(list(g.subjects(RDF.type, EPO.AcceptanceCriterion)))
+    uncovered = total - int(row.coveredCount)
+    out.append(f"\nCovered criteria: {row.coveredCount} of {total}; " + (f"{uncovered} untested, counting for nothing, with a plan deviation each (sheet 10-16)." if uncovered else "every criterion is covered."))
     # traceback
     rows = list(g.query((ROOT / "queries" / "traceback.rq").read_text()))
     out.append("\n### The recommendation, traced back\n")
@@ -499,11 +538,12 @@ def render_record() -> str:
     out.append("\n### Conformity\n")
     out.append("| Graph | Conforms | Shapes violated | Message |\n|---|---|---|---|")
     ok, results, _ = validate(g, shacl_graph=shapes, advanced=True)
-    out.append(f"| `track/measles-run.ttl` | {ok} | | |")
+    out.append(f"| `{RECORD_FILE}` | {ok} | | |")
     for cx in sorted((ROOT / "counterexamples").glob("*.ttl")):
-        d = Graph().parse(ROOT / "vocabulary" / "epo.ttl"); d.parse(cx)
+        d = Graph().parse(ROOT / "vocabulary" / "epo.ttl"); d.parse(ROOT / "model" / "og-caie.model.ttl"); d.parse(cx)
         ok, results, _ = validate(d, shacl_graph=shapes, advanced=True)
-        shapes_hit = sorted({str(s).rsplit("/", 1)[-1] for s in results.objects(None, SH.sourceShape)})
+        shapes_hit = sorted({str(next(shapes.subjects(SH.property, s), s) if not str(s).startswith(str(OGC)) else s).rsplit("/", 1)[-1]
+                             for s in results.objects(None, SH.sourceShape)})  # a property shape named by the node shape that owns it
         msgs = sorted({str(m) for m in results.objects(None, SH.resultMessage)})
         out.append(f"| `counterexamples/{cx.name}` | {ok} | {cell(', '.join(shapes_hit))} | {cell(' / '.join(msgs))} |")
     return "\n".join(out) + "\n"

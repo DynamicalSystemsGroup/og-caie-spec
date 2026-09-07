@@ -31,6 +31,7 @@ SYSML = ROOT / "toolchain" / "bin" / "sysml"
 PINNED = ROOT / "toolchain" / "sysml-binaries.sha256"
 TOOL_VERSION = "v0.4.3"
 TERM_MAP = ROOT / "model" / "sysml_term_map.csv"
+EPO_FILE = ROOT / "vocabulary" / "epo.ttl"  # the EPO handles the model elements realize (sheet 10-33)
 SOURCE = ROOT / "model" / "og-caie.sysml"
 OUT = ROOT / "model" / "og-caie.model.ttl"
 MANIFEST = ROOT / "model" / "model_manifest.json"
@@ -38,7 +39,8 @@ MANIFEST = ROOT / "model" / "model_manifest.json"
 SYS = Namespace("https://www.omg.org/spec/SysML#")
 SYSX = Namespace("urn:opensysml:sysml:")
 OGM = Namespace("https://w3id.org/og-caie/model#")
-PREFIXES = {"sysml": SYS, "sysx": SYSX, "ogm": OGM, "elmt": Namespace("urn:sysmlv2:element:"),
+EPO = Namespace("https://w3id.org/og-caie/epo#")
+PREFIXES = {"sysml": SYS, "sysx": SYSX, "ogm": OGM, "epo": EPO, "elmt": Namespace("urn:sysmlv2:element:"),
             "expr": Namespace("urn:opensysml:expr:"), "xsd": Namespace("http://www.w3.org/2001/XMLSchema#")}
 
 # Parsimony gate. The pruned graph is the canonical structure; it must stay
@@ -60,6 +62,12 @@ PREFIXES = {"sysml": SYS, "sysx": SYSX, "ogm": OGM, "elmt": Namespace("urn:sysml
 #     approval), one more access wire, measured after the build.
 #   2026-09-06 bumped to 6600 (R-49, B3): the representative and the
 #     representation, series wiring after the interview.
+#   2026-09-07 kept at 6600 (R-50, sheet 10): the sponsor's signatory with
+#     four ports, the requirement-set approval, the two declarations, the
+#     plan deviation, the verdict wire to the assembler, the report step
+#     opened into two nested actions, and one ogm:realizes triple per item
+#     kind and step (10-33) measured at 5,712 triples after the build, up
+#     from 5,109; the budget holds with about 900 headroom, so no bump.
 TRIPLE_BUDGET = 6600
 TRIPLE_BUDGET_RATIONALE = ("Parsimony gate on the canonical model graph: the structure-only model "
                            "plus resolved ends; bump with a rationale when a seam or a party is added.")
@@ -148,6 +156,34 @@ def derive(raw: Graph, pruned: Graph) -> int:
             raise SystemExit(f"{succ}: {len(ends)} ends")
         pruned.add((succ, OGM["first"], resolve(raw, ends[0])[0])); n += 1
         pruned.add((succ, OGM["then"], resolve(raw, ends[1])[0])); n += 1
+    n += realize(raw, pruned)
+    return n
+
+
+def realize(raw: Graph, pruned: Graph) -> int:
+    """ogm:realizes (sheet 10-33, R-50): the model's join to the EPO, made
+    explicit instead of left to local-name equality. An item definition
+    realizes the epo: class of the same declared name; a step of either
+    action def realizes the epo: step of the same name. The record's items
+    then derive their step through their class: class, realized by an item
+    kind, produced (an out parameter) by a step, which realizes an epo step.
+    Read from vocabulary/epo.ttl, the one file that declares the handles."""
+    epo = Graph().parse(EPO_FILE)
+    OWL_CLASS = URIRef("http://www.w3.org/2002/07/owl#Class")
+    classes = {str(c).rsplit("#", 1)[-1]: c for c in epo.subjects(RDF.type, OWL_CLASS) if str(c).startswith(str(EPO))}
+    steps = {str(st).rsplit("#", 1)[-1]: st for st in epo.subjects(RDF.type, EPO.EpoStep)} | {str(st).rsplit("#", 1)[-1]: st for st in epo.subjects(RDF.type, EPO.ContractingStep)}
+    n = 0
+    for d in raw.subjects(RDF.type, SYS.ItemDefinition):
+        name = str(raw.value(d, SYS.declaredName))
+        if name in classes:
+            pruned.add((d, OGM.realizes, classes[name])); n += 1
+    for u in raw.subjects(RDF.type, SYS.ActionUsage):
+        owner = raw.value(u, SYS.owner)
+        if (owner, RDF.type, SYS.ActionDefinition) not in raw:
+            continue  # a nested action or the perform usage: no step of its own
+        name = str(raw.value(u, SYS.declaredName))
+        if name in steps:
+            pruned.add((u, OGM.realizes, steps[name])); n += 1
     return n
 
 

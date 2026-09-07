@@ -1,21 +1,35 @@
 # The facets every recommendation must trace to: the evidence, the experiments
 # run (which probe at which turn of which session, under which test plan,
-# against what, by whom), the
-# assessments made (and who made them, against which expected result), the
-# DSO release selected (and who approved it), and the EPO step; and, since
-# ruling R-21, the parties: the agreement, the sponsor, the testing
-# organization, the accountable organization and the delivery. Ruling R-12:
-# the chain requirement, criterion, plan, probe, run, evidence, attestation.
-PREFIX epo:  <https://w3id.org/og-caie/epo#>
-PREFIX earl: <http://www.w3.org/ns/earl#>
-PREFIX prov: <http://www.w3.org/ns/prov#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-SELECT ?recommendation ?author ?step ?attestation ?assertor ?criterion ?expected ?evidence ?determination ?determiner ?determined ?outcome ?run ?turnIndex ?operator ?sut ?probe ?plan ?dso ?dsoApprover ?agreement ?sponsor ?testingOrg ?accountable ?delivery ?deliverer
+# against what, by whom), the assessments made (and who made them, against
+# which expected result), the DSO release selected (and who approved it), and
+# the EPO step; and, since ruling R-21, the parties: the agreement, the
+# proposal it accepts, the sponsor and its signatory, the testing organization
+# and its declaration of independence, the sponsor's declaration of user
+# interest, the test item provider, and the delivery under the agreement
+# (sheet 10-05, 10-06, 10-07). Ruling R-12: the chain requirement, criterion,
+# plan, probe, run, evidence, attestation. One row per determination an
+# attestation aggregates (sheet 10-15: a determination may be paired).
+#
+# Preconditions (sheets 10-31, 10-33): the record, the EPO vocabulary and the
+# model graph sit in one default graph; the record is read through
+# ogc:inRecord; the step is derived, not asserted: the recommendation's class
+# is realized by an item kind of the model, produced by a step that realizes
+# an EPO step.
+PREFIX epo:   <https://w3id.org/og-caie/epo#>
+PREFIX earl:  <http://www.w3.org/ns/earl#>
+PREFIX prov:  <http://www.w3.org/ns/prov#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX ogc:   <https://w3id.org/og-caie/>
+PREFIX ogm:   <https://w3id.org/og-caie/model#>
+PREFIX sysml: <https://www.omg.org/spec/SysML#>
+SELECT ?record ?recommendation ?author ?step ?attestation ?assertor ?criterion ?expected ?evidence ?determination ?determiner ?determined ?outcome ?run ?turnIndex ?operator ?sut ?probe ?plan ?dso ?dsoApprover
+       ?agreement ?proposal ?sponsor ?signatory ?testingOrg ?independentOf ?userInterest ?accountable ?delivery ?deliverer
 WHERE {
-  ?recommendation a epo:Recommendation ;
-      prov:wasAttributedTo ?authorNode ; epo:step ?stepNode ;
+  ?recommendation a epo:Recommendation ; ogc:inRecord ?record ;
+      prov:wasAttributedTo ?authorNode ;
       prov:wasDerivedFrom ?attestation ; prov:wasDerivedFrom ?dso .
   ?authorNode a prov:Person ; rdfs:label ?author .
+  ?recommendation a ?cls . ?kind ogm:realizes ?cls . ?param sysml:type ?kind ; sysml:direction "out" ; sysml:owner ?act . ?act ogm:realizes ?stepNode .
   ?stepNode rdfs:label ?step .
   ?attestation a epo:Attestation ; earl:test ?criterionNode ; earl:assertedBy ?assertorNode ;
       earl:result ?res ; prov:used ?determination .
@@ -37,9 +51,13 @@ WHERE {
   ?dso a epo:DsoRelease ; epo:approvedBy ?approverNode .
   ?approverNode rdfs:label ?dsoApprover .
   ?plan prov:wasDerivedFrom ?reqs . ?reqs a epo:RequirementSet ; epo:underAgreement ?agreement .
-  ?agreement epo:signedBy ?sponsorNode . ?sponsorNode a prov:Organization ; epo:role epo:sponsorRole ; rdfs:label ?sponsor .
+  ?agreement epo:accepts ?proposal .
+  ?agreement epo:signedBy ?signatoryNode . ?signatoryNode epo:role epo:sponsorSignatoryRole ; rdfs:label ?signatory ; prov:actedOnBehalfOf ?sponsorNode .
+  ?sponsorNode a prov:Organization ; epo:role epo:sponsorRole ; rdfs:label ?sponsor .
   ?agreement epo:signedBy ?execNode . ?execNode epo:role epo:accountExecutiveRole ; prov:actedOnBehalfOf ?testingNode . ?testingNode rdfs:label ?testingOrg .
-  ?access a epo:TestItemAccess ; epo:grantsAccessTo ?sutNode ; prov:wasAttributedTo ?accountableNode . ?accountableNode rdfs:label ?accountable .
-  ?delivery a epo:Delivery ; prov:wasDerivedFrom ?recommendation ; prov:wasAttributedTo ?delivererNode . ?delivererNode rdfs:label ?deliverer .
+  ?independence a epo:IndependenceDeclaration ; ogc:inRecord ?record ; epo:independentOf ?independentOfNode . ?independentOfNode rdfs:label ?independentOf .
+  ?interest a epo:UserInterestDeclaration ; ogc:inRecord ?record ; epo:hasUserInterest ?userInterest .
+  ?access a epo:TestItemAccess ; epo:grantsAccessTo ?sutNode ; epo:underAgreement ?agreement ; prov:wasAttributedTo ?accountableNode . ?accountableNode rdfs:label ?accountable .
+  ?delivery a epo:Delivery ; epo:underAgreement ?agreement ; prov:wasDerivedFrom ?recommendation ; prov:wasAttributedTo ?delivererNode . ?delivererNode rdfs:label ?deliverer .
 }
-ORDER BY ?attestation
+ORDER BY ?attestation ?determination

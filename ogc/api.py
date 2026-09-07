@@ -12,7 +12,7 @@ from pathlib import Path
 
 from rdflib import RDF, RDFS, BNode, Graph, URIRef
 
-from .graph import EPO, EARL, EPO, OGC, PROV, RUL, RUN, SH, SHAPE_FILES, SKOS, SRC, TERM, PREFIXES
+from .graph import EPO, EARL, EPO, EV, OGC, PROV, RUL, SH, SHAPE_FILES, SKOS, SRC, TERM, PREFIXES
 
 COINED = "(coined)"  # the source column of a coined term: it cites no source, it was coined (ruling R-29)
 
@@ -64,7 +64,7 @@ def _split_id(text: str) -> tuple[str | None, str]:
 
 def bare(text: str) -> str:
     """The local name behind the id forms the tool itself prints: a CURIE in a
-    known prefix (`term:probe`, `rul:R-16`, `run:mission-1`, `ogc:S0-Layers`;
+    known prefix (`term:probe`, `rul:R-16`, `ev:mission-1`, `ogc:S0-Layers`;
     the prefix in any case) or a full IRI in a known namespace, with or
     without angle brackets. Any other text (a label, even one with a colon
     inside it) comes back normalised and otherwise untouched."""
@@ -827,8 +827,8 @@ WHEN = [PROV.generatedAtTime, PROV.startedAtTime, PROV.endedAtTime]
 
 
 def record_subjects(g: Graph) -> list:
-    """Every named subject of the record (the `run:` namespace), sorted; the graph must have been loaded with the record."""
-    return sorted({s for s in g.subjects() if isinstance(s, URIRef) and str(s).startswith(str(RUN))}, key=str)
+    """Every named subject of the record (the `ev:` namespace, the measles evaluation), sorted; the graph must have been loaded with the record."""
+    return sorted({s for s in g.subjects() if isinstance(s, URIRef) and str(s).startswith(str(EV))}, key=str)
 
 
 def record_classes(g: Graph) -> set[str]:
@@ -892,22 +892,30 @@ def attribution(g: Graph, n) -> dict:
     return dict(who=who, when=when, via=via)
 
 
+def _step(g: Graph, n, heads: dict):
+    """(order, head) of the item's derived step (sheet 10-33: `epo:step` is added in memory by ogc.graph.infer_steps through the
+    model graph); a kind two steps may produce is listed at the earlier; (None, "") when no step derives."""
+    found = sorted(heads[str(st)] for st in g.objects(n, EPO.step) if str(st) in heads)
+    return found[0] if found else (None, "")
+
+
 def record_rows(g: Graph) -> list[dict]:
     """One row per subject of the record: the record's own entity first
-    (group `record`; round three, M7), then the stepped items in step order
-    (`step`), then the items without a step (`no-step`), then the parties and
-    machines (`party`)."""
+    (group `record`, the prov:Bundle; round three, M7; sheet 10-31), then
+    the stepped items in step order (`step`), then the items without a step
+    (`no-step`), then the parties and machines (`party`). Every row says
+    whether it is tagged `synthetic` (sheet 10-43)."""
     heads = step_heads(g)
     entity, stepped, unstepped, parties = [], [], [], []
     for n in record_subjects(g):
-        row = dict(item=local(n), iri=str(n), **{"class": ", ".join(_classes(g, n))}, label=one(g, n, RDFS.label) or one(g, n, EPO.text), **attribution(g, n))
-        st = g.value(n, EPO.step)
-        if set(g.objects(n, RDF.type)) == {PROV.Entity}:
-            entity.append(dict(group="record", step="", order=0, **row))  # run:record, the record's own entity
+        row = dict(item=local(n), iri=str(n), **{"class": ", ".join(_classes(g, n))}, label=one(g, n, RDFS.label) or one(g, n, EPO.text), **attribution(g, n),
+                   synthetic=str(g.value(n, OGC.synthetic)).lower() == "true")
+        order, head = _step(g, n, heads)
+        if (n, RDF.type, PROV.Bundle) in g:
+            entity.append(dict(group="record", step="", order=0, **row))  # ev:record, the record's own entity, the bundle
         elif (n, RDF.type, PROV.Agent) in g:
             parties.append(dict(group="party", step="", order=0, **row))
-        elif st is not None and str(st) in heads:
-            order, head = heads[str(st)]
+        elif order is not None:
             stepped.append(dict(group="step", step=head, order=order, **row))
         else:
             unstepped.append(dict(group="no-step", step="", order=0, **row))
@@ -943,7 +951,6 @@ def record_item(g: Graph, n) -> dict:
     out.sort(key=lambda t: (t["predicate"] != "rdf:type", t["predicate"], t["object"]))
     inn = [dict(subject=qname(g, s), predicate=qname(g, p), label=_label(g, s)) for s, p in g.subject_predicates(n) if isinstance(s, URIRef)]
     inn.sort(key=lambda t: (t["predicate"], t["subject"]))
-    heads = step_heads(g)
-    st = g.value(n, EPO.step)
+    out = [t for t in out if t["predicate"] != "epo:step"]  # derived in memory, not the record's own triple (sheet 10-33); the step is the `step` key
     return dict(item=local(n), iri=str(n), label=one(g, n, RDFS.label) or one(g, n, EPO.text), **{"class": ", ".join(_classes(g, n))},
-                step=heads[str(st)][1] if st is not None and str(st) in heads else "", **attribution(g, n), triples=out, referenced_by=inn)
+                step=_step(g, n, step_heads(g))[1], **attribution(g, n), synthetic=str(g.value(n, OGC.synthetic)).lower() == "true", triples=out, referenced_by=inn)

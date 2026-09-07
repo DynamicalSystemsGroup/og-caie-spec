@@ -29,10 +29,14 @@ CHAPTERS = ["contracting.md", "evaluation.md", "model.md", "guarantees.md"]
 # The counterexamples each chapter's Checked block describes in prose, by file
 # name, since the prose names the fault and not the file.
 COUNTEREXAMPLES = {
-    "contracting.md": ["requirements-before-agreement.ttl", "population-unrepresented.ttl", "engagement-mismatch.ttl", "no-obligation.sysml"],
+    "contracting.md": ["requirements-before-agreement.ttl", "population-unrepresented.ttl", "engagement-mismatch.ttl", "no-obligation.sysml",
+                       "one-person-team.ttl", "independence-undeclared.ttl", "acceptance-by-organization.ttl"],  # sheet 10: 10-13, 10-07, 10-06
     "evaluation.md": ["attestation-without-evidence.ttl", "attestation-off-plan.ttl", "attestation-off-turn.ttl",
                       "probe-before-requirements.ttl", "recommendation-untraced.ttl", "expert-administers-tests.ttl",
-                      "executive-attests.ttl", "unwired-port.sysml", "expert-administers-tests.sysml"],
+                      "executive-attests.ttl", "unwired-port.sysml", "expert-administers-tests.sysml",
+                      "cherry-picked-determination.ttl", "insufficient-yet-failed.ttl", "requirement-set-unapproved.ttl", "deviation-unrecorded.ttl",
+                      "deviation-by-expert.ttl", "session-on-another-item.ttl", "final-report-without-verdict.ttl", "verdict-without-digests.ttl",
+                      "recommendation-unapproved.ttl"],  # sheet 10: 10-14, 10-12, 10-01, 10-16, 10-17, 10-41, 10-18, 10-11
     "model.md": ["requirements-before-agreement.ttl"],
     "guarantees.md": [],  # its counterexamples are the executor's mutations, built in memory: see CHECKS
 }

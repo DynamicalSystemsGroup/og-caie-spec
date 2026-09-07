@@ -16,7 +16,7 @@ from conftest import EPO, OGC, load
 
 PROV = Namespace("http://www.w3.org/ns/prov#")
 SH = Namespace("http://www.w3.org/ns/shacl#")
-RUN = Namespace("https://w3id.org/og-caie/run/measles#")
+EV = Namespace("https://w3id.org/og-caie/evaluation/measles#")  # the measles evaluation (sheet 10-42)
 TERM = Namespace("https://w3id.org/og-caie/terms#")
 OGC_TERM = OGC["term"]  # OGC.term would be rdflib's Namespace.term method
 
@@ -25,7 +25,7 @@ BROADER = 20             # each with its narrower stated on the other term
 RELATED = 180  # sheet 10: three pairs made symmetric            # stated on one or both sides in the Turtle; read in both directions
 CLAUSES = 57  # sheet 10-45 and 10-26: SEVOCAB ontology, repeatability, reproducibility, dialog; NIST tester             # the standards' own concepts (src: nodes) the canonical citations name
 MAPPINGS = {"exactMatch": 43, "broadMatch": 17, "closeMatch": 2, "relatedMatch": 0}  # adopted, specializes, corresponds, synonym; sheet 10-23, 24, 25, 30: attestation, determination, technical expert and mission refined
-EPO_CLASSES = 57  # sheet 10: epo:Step, the range of epo:step over both cycles         # 40 before the audit, plus the twelve role classes and epo:Affectedness, plus the report step opened (R-49: ConformanceVerdict, ReportApproval)
+EPO_CLASSES = 63  # sheet 10: epo:Step, the range of epo:step over both cycles; R-50: RequirementSetApproval, IndependenceDeclaration, UserInterestDeclaration, PlanDeviation, SponsorSignatoryRole, IndependenceLevel         # 40 before the audit, plus the twelve role classes and epo:Affectedness, plus the report step opened (R-49: ConformanceVerdict, ReportApproval)
 DISJOINT = 8             # party/actor, the three actor categories pairwise, the two cycles, evidence/determination, probe/response, the two judgment values
 RELATION_BY_ANCHOR = {("adopted", ""): SKOS.exactMatch, ("refined", "specializes"): SKOS.broadMatch,
                       ("refined", "corresponds"): SKOS.closeMatch, ("refined", "synonym"): SKOS.relatedMatch}
@@ -40,7 +40,7 @@ def epo():
 
 
 def record():
-    return load("vocabulary/epo.ttl", "track/measles-run.ttl")
+    return load("vocabulary/epo.ttl", "model/og-caie.model.ttl", "track/measles-evaluation.ttl")  # the model graph too: the step is derived through it (sheet 10-33)
 
 
 def concepts(g):
@@ -133,7 +133,8 @@ def test_role_classes_form_a_tree_under_role_and_the_individuals_keep_their_iris
     for ind, cls in individuals.items():
         assert (ind, RDF.type, cls) in g, ind
     assert (EPO.representedBy, RDFS.subPropertyOf, EPO.responsibleParty) in g
-    assert (EPO.actsOnBehalfOf, RDFS.subPropertyOf, PROV.actedOnBehalfOf) in g
+    assert (EPO.actsOnBehalfOf, RDFS.subPropertyOf, PROV.actedOnBehalfOf) not in g, "sheet 10-34: a plain property; PROV's direction of responsibility runs the other way"
+    assert (EPO.SponsorSignatoryRole, RDFS.subClassOf, EPO.Role) in g and (EPO.sponsorSignatoryRole, RDF.type, EPO.SponsorSignatoryRole) in g  # sheet 10-06
 
 
 def test_glossary_mirrors_the_party_model():
@@ -164,7 +165,7 @@ def test_disjoint_classes_share_no_instance_in_the_record():
     g = record()
     pairs = list(g.subject_objects(OWL.disjointWith))
     assert len(pairs) == DISJOINT
-    for n in {s for s in g.subjects() if str(s).startswith(str(RUN))}:
+    for n in {s for s in g.subjects() if str(s).startswith(str(EV))}:
         types = _types_with_roles(g, n)
         for a, b in pairs:
             assert not (a in types and b in types), (n, a, b)
@@ -172,18 +173,26 @@ def test_disjoint_classes_share_no_instance_in_the_record():
 
 def test_party_axioms_hold_on_the_measles_record():
     g = record()
-    sponsor = RUN["county-public-health-office"]
-    testing = RUN["humane-intelligence"]
-    vendor = RUN["chatbot-vendor"]
+    sponsor = EV["county-public-health-office"]
+    testing = EV["humane-intelligence"]
+    vendor = EV["chatbot-vendor"]
     assert EPO.EvaluationCustomerRole in _types_with_roles(g, sponsor) and EPO.CustomerRole in _types_with_roles(g, sponsor)
     assert EPO.TestItemCustomerRole in _types_with_roles(g, sponsor), "the sponsor deploys the chatbot: it is also the test item customer"
     assert EPO.EvaluationServiceProviderRole in _types_with_roles(g, testing) and EPO.ProviderRole in _types_with_roles(g, testing)
     assert EPO.TestItemProviderRole in _types_with_roles(g, vendor) and EPO.ProviderRole in _types_with_roles(g, vendor)
-    assert set(g.objects(sponsor, EPO.actsOnBehalfOf)) == set(g.subjects(RDF.type, EPO.Population)) == set(g.objects(RUN["mission-1"], EPO.regards))
-    # independent: the evaluation service provider and the test item provider are different organizations
-    assert (testing, EPO.independentOfAccountable, None) in g and testing != vendor
+    assert set(g.objects(sponsor, EPO.actsOnBehalfOf)) == set(g.subjects(RDF.type, EPO.Population)) == set(g.objects(EV["mission-1"], EPO.regards))
+    # independent: declared, not assumed (sheet 10-07): the testing organization's authorized representative declares it independent of the test item provider, a different organization
+    decl = next(g.subjects(RDF.type, EPO.IndependenceDeclaration))
+    assert g.value(decl, EPO.independentOf) == vendor and testing != vendor
+    assert (g.value(decl, PROV.wasAttributedTo), PROV.actedOnBehalfOf, testing) in g
     assert (testing, EPO.role, EPO.accountableOrganizationRole) not in g
-    assert (sponsor, EPO.role, EPO.accountableOrganizationRole) not in g  # isAccountable false
+    # the provider fact (sheet 10-09): the vendor provides the test item, the sponsor says it does not
+    assert str(g.value(vendor, EPO.providesTestItem)) == "true" and str(g.value(sponsor, EPO.providesTestItem)) == "false"
+    assert (sponsor, EPO.role, EPO.accountableOrganizationRole) not in g
+    # the sponsor's user interest is declared by its signatory (sheet 10-06, 10-07)
+    ui = next(g.subjects(RDF.type, EPO.UserInterestDeclaration))
+    signatory = g.value(ui, PROV.wasAttributedTo)
+    assert str(g.value(ui, EPO.hasUserInterest)) == "true" and (signatory, EPO.role, EPO.sponsorSignatoryRole) in g and (signatory, PROV.actedOnBehalfOf, sponsor) in g
 
 
 def test_every_population_has_an_engagement_a_responsible_party_and_its_representative():
@@ -197,11 +206,11 @@ def test_every_population_has_an_engagement_a_responsible_party_and_its_represen
         assert responsible, p
         for a in responsible:
             assert (a, RDF.type, PROV.Person) in g or (a, RDF.type, PROV.Organization) in g, (p, a)
-        if engagement == EPO.representation:
-            rep = g.value(p, EPO.representedBy)
-            assert rep is not None and (rep, EPO.role, EPO.domainExpertRole) in g, p
-        else:
+        rep = g.value(p, EPO.representedBy)  # sheet 10-13: who speaks is any team member, not necessarily a domain expert
+        assert rep is not None and (rep, RDF.type, PROV.Person) in g and any((rep, PROV.actedOnBehalfOf, t) in g for t in g.subjects(EPO.role, EPO.testingOrganizationRole)), p
+        if engagement == EPO.interview:
             assert any((i, PROV.wasAttributedTo, p) in g for i in g.subjects(RDF.type, EPO.StakeholderInput)), p
+            assert g.value(p, EPO.responsibleParty) is not None, p  # who engaged it
         assert set(g.objects(p, EPO.affectedAs)) <= {EPO.asCustomer, EPO.indirectly} and set(g.objects(p, EPO.affectedAs)), p
 
 
@@ -209,7 +218,7 @@ def test_dso_precondition_holds_on_the_record_and_its_counterexample_fails():
     shapes = load("shapes/epo.shapes.ttl")
     ok, _, report = validate(record(), shacl_graph=shapes, advanced=True)
     assert ok, report
-    ok, results, _ = validate(load("vocabulary/epo.ttl", "counterexamples/dso-before-stakeholder-input.ttl"), shacl_graph=shapes, advanced=True)
+    ok, results, _ = validate(load("vocabulary/epo.ttl", "model/og-caie.model.ttl", "counterexamples/dso-before-stakeholder-input.ttl"), shacl_graph=shapes, advanced=True)
     assert not ok
     fired = {str(s).rsplit("/", 1)[-1] for s in results.objects(None, SH.sourceShape)}
     assert fired == {"S1-DsoRelease"}, fired

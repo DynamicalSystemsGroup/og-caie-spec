@@ -91,6 +91,30 @@ def test_model_graph_conforms_to_wiring_shapes(graph, shapes):
     assert ok, report
 
 
+def test_model_realizes_the_epo(graph):
+    """Sheet 10-33: the model's join to the EPO is explicit. Every EPO class
+    or step whose local name is a model item def or step name carries
+    ogm:realizes from that element; every item definition realizes at most
+    one class; a class realized by no item kind is one the record derives
+    no step for."""
+    epo = load("vocabulary/epo.ttl")
+    OWL_CLASS = Namespace("http://www.w3.org/2002/07/owl#").Class
+    EPO = Namespace("https://w3id.org/og-caie/epo#")
+    classes = {str(c).rsplit("#", 1)[-1]: c for c in epo.subjects(RDF.type, OWL_CLASS) if str(c).startswith(str(EPO))}
+    steps = {str(s).rsplit("#", 1)[-1]: s for t in (EPO.EpoStep, EPO.ContractingStep) for s in epo.subjects(RDF.type, t)}
+    realized = dict(graph.subject_objects(OGM.realizes))
+    for d in graph.subjects(RDF.type, SYS.ItemDefinition):
+        n = str(graph.value(d, SYS.declaredName))
+        if n in classes:
+            assert realized.get(d) == classes[n], n
+        assert len(list(graph.objects(d, OGM.realizes))) <= 1, n
+    for u in graph.subjects(RDF.type, SYS.ActionUsage):
+        n = str(graph.value(u, SYS.declaredName))
+        if n in steps and (graph.value(u, SYS.owner), RDF.type, SYS.ActionDefinition) in graph:
+            assert realized.get(u) == steps[n], n
+    assert len(realized) == 43  # 30 item kinds and 13 steps (the perform usage and the two nested actions realize nothing)
+
+
 @pytest.mark.parametrize("name,shape", sorted(COUNTEREXAMPLES.items()))
 def test_model_counterexample_fails_on_its_shape(name, shape, shapes, tmp_path):
     g = build(ROOT / "counterexamples" / "model" / f"{name}.sysml", tmp_path / f"{name}.ttl", None)

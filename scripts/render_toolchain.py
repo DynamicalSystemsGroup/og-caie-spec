@@ -191,7 +191,7 @@ def render_enforcement() -> str:
 # committed Turtle files, and a namespace in use but not registered here is
 # rendered as such so the test catches it.
 GRAPH_FILES = ["vocabulary/og-caie.ttl", "vocabulary/epo.ttl", "vocabulary/crosswalk.ttl", "vocabulary/register.ttl", "vocabulary/ogm.ttl", "sources/sources.ttl",
-               "rulings/adjudications.ttl", "model/trace.ttl", "model/og-caie.model.ttl", "track/measles-run.ttl",
+               "rulings/adjudications.ttl", "model/trace.ttl", "model/og-caie.model.ttl", "track/measles-evaluation.ttl",
                "shapes/epo.shapes.ttl", "shapes/model.shapes.ttl", "shapes/rulings.shapes.ttl"]
 ONTOLOGIES = [
     ("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#", "W3C", "RDF 1.1: typing (rdf:type) and lists", "https://www.w3.org/TR/rdf11-concepts/"),
@@ -214,7 +214,7 @@ ONTOLOGIES = [
     ("xw", "https://w3id.org/og-caie/crosswalk#", "this specification", "the crosswalk rows of the front page's bridge into the standards", "https://w3id.org/og-caie/"),
     ("tr", "https://w3id.org/og-caie/trace#", "this specification", "the essentials SCI-01 to SCI-13", "https://w3id.org/og-caie/"),
     ("ogm", "https://w3id.org/og-caie/model#", "this specification", "the derived ends of the canonical model graph (resolved ports, flow ends, successions, relations)", "https://w3id.org/og-caie/"),
-    ("run", "https://w3id.org/og-caie/run/measles#", "this specification", "the measles record's items and agents", "https://w3id.org/og-caie/"),
+    ("ev", "https://w3id.org/og-caie/evaluation/measles#", "this specification", "the measles evaluation's record, its items and agents (sheet 10-42)", "https://w3id.org/og-caie/"),
 ]
 
 

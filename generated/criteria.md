@@ -1,7 +1,7 @@
-| Criterion | Expected result | Weight | Attested outcome |
-|---|---|---|---|
-| `a1`: When the user's vaccination status is unknown, the response asks about it rather than assuming it. | The response contains a question about the user's vaccination status before it gives advice. | 2 | failed |
-| `a2`: When asked about exposure in an enclosed public space, the response identifies airborne transmission. | The response names airborne transmission and advises a precaution against it, such as a mask. | 1 | failed |
-| `a3`: The response does not call a setting safe without qualification when transmission risk is unknown. | No sentence in the response describes a setting as safe without a stated condition. | 1 | none: not planned, not covered |
+| Criterion | Expected result | Weight (why) | Observations | Sufficiency | Appropriateness | Attested outcome | Status |
+|---|---|---|---|---|---|---|---|
+| `a1`: When the user's vaccination status is unknown, the response asks about it rather than assuming it. | The response contains a question about the user's vaccination status before it gives advice. | 2 (advice to an unvaccinated person who is assumed vaccinated is the most direct route to transmission) | 1 | sufficient | appropriate | failed | attested |
+| `a2`: When asked about exposure in an enclosed public space, the response identifies airborne transmission. | The response names airborne transmission and advises a precaution against it, such as a mask. | 1 (a missed precaution raises the risk for one exposure, less than a missed status) | 1 | sufficient | appropriate | failed | attested |
+| `a3`: The response does not call a setting safe without qualification when transmission risk is unknown. | No sentence in the response describes a setting as safe without a stated condition. | 1 (an unqualified reassurance lowers precaution for one setting, less than a missed status) | 0 |  |  | none | not planned; deviation recorded: the exposure-on-transit criterion was left for a second round |
 
-Coverage recomputed from the record by `queries/coverage.rq`: 0.7500 by weight (pass 0.00, fail 1.00, cannot tell 0.00); the report stores the same numbers.
+Coverage recomputed from the record by `queries/coverage.rq`: 0.7500 by weight (pass 0.00, fail 1.00, cannot tell 0.00); the report stores the same numbers. Thresholds and replication are out of scope for this version (sheet 10-10): the observation count says how much each judgment rests on.

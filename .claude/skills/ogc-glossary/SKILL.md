@@ -44,7 +44,7 @@ Ids are case-insensitive and one normaliser serves rulings, concerns and
 essentials: `R-16`, `R16`, `r-016` and a bare `16` all name R-16; the same
 for `C-24` and `SCI-07`. Every reader also takes the id forms the tool
 itself prints: a CURIE (`term:probe`, `rul:R-16`, `rul:C-30`, `tr:SCI-07`,
-`src:sevocab`, `ogc:S0-Layers`, `run:mission-1`, `epo:Report`; the prefix
+`src:sevocab`, `ogc:S0-Layers`, `ev:mission-1`, `epo:Report`; the prefix
 in any case, `TERM:PROBE` is `term:probe`) or the full IRI, with or without
 angle brackets. A CURIE under a prefix the command does not read is a miss
 (exit 1) whose hint names the reader that does: `ogc term rul:R-16` says
@@ -119,18 +119,27 @@ are a usage error (exit 2).
     parts into one bundle, and draws relations that carry no item dotted.
     The site's figures come from the same registry. `ogc views`, `ogc view
     <name>`; the shapes that check the model and the record: `ogc shapes`.
-12. The record of the worked example (`track/measles-run.ttl`) is read by
-    `ogc record` (R-47), in four sections: `## the record` (the record's
-    own entity, `run:record`, which carries the synthetic-case note), then
-    `## items by step` (C1..C6 then 1..6, each with who made, signed,
-    approved or asserted it and when), then `## items without a step`
-    (criteria, turns, responses, trajectories, checks, the report), then
-    `## parties and machines`. When an item carries no attribution or date
-    of its own, who and when are derived through `prov:wasGeneratedBy` to
-    the generating activity's agent and end time, and the listing says so:
-    `report assembler (queries/coverage.rq) (via coverage-computation)`.
-    `ogc record <local-name>` prints everything the record says about one
-    item. `--record` adds the record to `sparql` (the `run:` prefix).
+12. The record of the worked example, the measles evaluation
+    (`track/measles-evaluation.ttl`, sheet 10-42), is read by `ogc record`
+    (R-47), in four sections: `## the record` (the record's own entity,
+    `ev:record`, a `prov:Bundle` every item and agent is a member of, which
+    carries the synthetic-case note), then `## items by step` (C1..C6 then
+    1..6, each with who made, signed, approved or asserted it and when),
+    then `## items without a step` (the requirement, the engagement
+    decisions, the trajectory, the consistency check), then `## parties and
+    machines`. The step is derived, never asserted (sheet 10-33): no record
+    file carries `epo:step`; the tool derives it through the model graph
+    (the item's class is realized by an item kind, `ogm:realizes`, produced
+    by a step) and loads the model graph with the record for that. Every
+    row carries a `synthetic` flag (`tag` column `synthetic` in the text
+    listing, the count in the `## the record` header; sheet 10-43): the
+    measles evaluation is synthetic throughout. When an item carries no
+    attribution or date of its own, who and when are derived through
+    `prov:wasGeneratedBy` to the generating activity's agent and end time,
+    and the listing says so: `report assembler (queries/coverage.rq) (via
+    coverage-computation)`. `ogc record <local-name>` prints everything the
+    record says about one item, its derived step in the heading. `--record`
+    adds the record to `sparql` (the `ev:` prefix).
 
 ## What is loaded
 
@@ -141,15 +150,17 @@ refused). `--model` adds the canonical model graph, the OMG `sysml:`
 rendering of the structure (part, port, interface and action definitions,
 the assembly and its wiring), not EPO instances; `view`, `views` and
 `execute` load it on their own. `--record` adds the worked example's record
-(`track/measles-run.ttl`, the `run:` namespace); `record` loads it on its
-own. The record is read by `ogc record` and `--record` (ruling R-47, which
-closes concern C-44). Both flags are part of the printed and hashed args,
-so a `sparql` answer says which graphs it was asked over.
+(`track/measles-evaluation.ttl`, the `ev:` namespace) together with the
+model graph, through which each item's step is derived (sheet 10-33);
+`record` loads both on its own. The record is read by `ogc record` and
+`--record` (ruling R-47, which closes concern C-44). Both flags are part of
+the printed and hashed args, so a `sparql` answer says which graphs it was
+asked over.
 
 The files behind the tool are `vocabulary/og-caie.ttl`, `vocabulary/epo.ttl`,
 `vocabulary/crosswalk.ttl`, `sources/sources.ttl`,
 `rulings/adjudications.ttl`, `model/trace.ttl`, the four shape files under
-`shapes/`, `model/og-caie.model.ttl` and `track/measles-run.ttl`.
+`shapes/`, `model/og-caie.model.ttl` and `track/measles-evaluation.ttl`.
 Never open these; they are what ogc reads. `ogc doctor` parses every one
 of them; `ogc shapes` and `ogc schema` count the shapes over all four
 shape files.
@@ -199,20 +210,21 @@ shape files.
 | One view as mermaid, with its perspective (nesting, assemblage, contracting, evaluation) | `ogc view contracting` |
 | Execute the process from the model and run the checks over the emitted record; break one or more things | `ogc execute` (ends in `VERDICT: PASS` or `FAIL`, exit 1 on FAIL), `ogc execute --mutate skip-access`, `--mutate` repeated applies them in order, `ogc execute --turtle` |
 | Execute with other parameters: how many requirements, criteria per requirement, planned criteria, sessions, populations | `ogc execute --planned 3` (coverage 1.0), `ogc execute --requirements 2 --criteria 2 --planned 4 --sessions 2`; the `parameters:` line and the `params` key say what ran; positive integers, `planned` at most requirements times criteria; capped, because every criterion is probed in every session and the checks are quadratic in that work: requirements times criteria at most 100, sessions at most 20, requirements times criteria times sessions at most 100 (about a minute), populations at most 20; over a cap, exit 1 with the reason and no run. The `VERDICT` line repeats the header's args in its parenthesis |
-| What is in the measles record, step by step: who made, signed, approved or asserted each item, and when | `ogc record` (`## the record`, then `## items by step` C1..C6 then 1..6, then `## items without a step`, then `## parties and machines`; who and when derived through the generating activity say `(via <activity>)`) |
+| What is in the measles record, step by step: who made, signed, approved or asserted each item, and when; which content is synthetic | `ogc record` (`## the record`, then `## items by step` C1..C6 then 1..6, the step derived through the model graph, then `## items without a step`, then `## parties and machines`; who and when derived through the generating activity say `(via <activity>)`; the `tag` column says `synthetic`) |
 | Everything the record says about one item, with the objects' labels and what points at it | `ogc record mission-1`, `ogc record attestation-1`, `ogc record annie`, `ogc record record` (local names, case-insensitive; a miss lists candidates) |
-| A query over the record | `ogc sparql 'DESCRIBE run:mission-1' --record`, `ogc --record sparql 'SELECT ?a WHERE { ?a a epo:Attestation }'`; without `--record` a query that names `run:` or types a variable by a record class (Attestation, Evidence, Session, Report, Determination, Turn and the other item kinds) is refused, exit 1, with the hint on stderr: the record is not loaded by default, so the empty answer would be a lie |
+| A query over the record | `ogc sparql 'DESCRIBE ev:mission-1' --record`, `ogc --record sparql 'SELECT ?a WHERE { ?a a epo:Attestation }'`; without `--record` a query that names `ev:` or types a variable by a record class (Attestation, Evidence, Session, Report, Determination, Turn and the other item kinds) is refused, exit 1, with the hint on stderr: the record is not loaded by default, so the empty answer would be a lie |
 | The model's own vocabulary | `ogc --model sparql 'SELECT ?n WHERE { ?p a sysml:PartDefinition ; sysml:declaredName ?n }'`: without `--model` a query that names `sysml:`, `sysx:`, `elmt:` or `ogm:` (or types a variable by a model class) is refused, exit 1, with the hint on stderr, as the record refusal does; the model graph speaks the OMG `sysml:` vocabulary, names are `sysml:declaredName` (model nodes have no `rdfs:label`), containment is `sysml:owner`, typing is `sysml:specializes` and `sysml:definition`, the nodes are `elmt:` IRIs (`urn:sysmlv2:element:`), tool-specific facts are `sysx:`; `ogc schema --json` does not list them, `ogc --model sparql 'SELECT DISTINCT ?c WHERE { ?x a ?c FILTER(STRSTARTS(STR(?c), "https://www.omg.org/spec/SysML#")) }'` does |
 | The anchor table, one row per term | `ogc crosswalk`, `ogc crosswalk --class refined`, `ogc crosswalk --source iso-9000-2026` |
 | Popper to the standards and back | `ogc crosswalk --popper` (the seven rows; `--class` and `--source` exclude it, exit 2) |
 | Anything else | `ogc sparql '<SELECT ...>'` or `ogc sparql @query.rq` (prefixes injected; read-only; `--model` adds the model graph, `--record` the record; both appear in the printed and hashed args) |
 | Is the graph healthy? | `ogc doctor` (VERDICT line; runs in the gate) |
 
-The ten mutations of `execute`, as `ogc execute --help` lists them:
+The twelve mutations of `execute`, as `ogc execute --help` lists them:
 `skip-assessment`, `skip-approval`, `skip-access`, `unwire-evidence`,
 `executive-attests`, `attest-without-determination`,
 `requirements-before-agreement`, `engagement-mismatch`,
-`skip-report-approval`, `pad-pass-rate`; the help says what each breaks.
+`skip-report-approval`, `pad-pass-rate`, `one-person-team` (sheet 10-13),
+`cherry-pick` (sheet 10-14); the help says what each breaks.
 Naming one twice is a usage error (`mutation named twice`, exit 2).
 
 ## The `--json` keys
@@ -225,10 +237,12 @@ Naming one twice is a usage error (`mutation named twice`, exit 2).
   `status`, `resolved`.
 - `record`: the listing is `rows`, each with `group` (record, step,
   no-step, party), `step`, `order`, `item`, `iri`, `class`, `label`, `who`,
-  `when`, `via` (`who` and `when` are null when the record carries none and
-  nothing can be derived; `via` names the generating activity they were
-  derived through, else null); one item is `item`, `iri`, `label`, `class`,
-  `step`, `who`, `when`, `via`, `triples`, `referenced_by` (`triples` are
+  `when`, `via`, `synthetic` (`who` and `when` are null when the record
+  carries none and nothing can be derived; `via` names the generating
+  activity they were derived through, else null; `synthetic` is true where
+  the graph tags the item, sheet 10-43); one item is `item`, `iri`,
+  `label`, `class`, `step`, `who`, `when`, `via`, `synthetic`, `triples`,
+  `referenced_by` (`triples` are
   `predicate`, `object`, `label`; `referenced_by` are `subject`,
   `predicate`, `label`).
 - `view`: `name`, `title`, `focus`, `leaves_out`, `mermaid`.
@@ -250,17 +264,17 @@ Naming one twice is a usage error (`mutation named twice`, exit 2).
   `ogc sparql 'DESCRIBE term:probe'` prints one term's triples; sources
   are `src:`, rulings and concerns `rul:`, steps `epo:`, essentials `tr:`,
   crosswalk rows `xw:`, the model `ogm:` with the OMG `sysml:` vocabulary,
-  the record's items `run:` (`https://w3id.org/og-caie/run/measles#`,
+  the record's items `ev:` (`https://w3id.org/og-caie/evaluation/measles#`,
   present only under `--record`; the executor's own emitted record uses
-  `run/executed#` and is never loaded). `ogc schema` prints the whole
-  prefix list.
+  `ex:` for `evaluation/executed#` and is never loaded). `ogc schema`
+  prints the whole prefix list.
 - The citation header is re-runnable: `# ogc sparql <query> #sha256:<12
   hex> @ <sha>` carries the query as typed, with newlines escaped as `\n`
   and comments intact (unescape `\n` to run it again), and the sha256 of
   the query text; for `@file` it carries the path as typed and the sha256
   of the file's content. `@` with a directory, or a bare `@`, is a usage
-  error. Comments are stripped before the record and model checks, so a
-  `run:` or a `sysml:` inside a comment does not trigger a refusal.
+  error. Comments are stripped before the record and model checks, so an
+  `ev:` or a `sysml:` inside a comment does not trigger a refusal.
 - Labels and definitions are language-tagged (`"probe"@en`): match with
   `STR(?l) = "probe"` or `LCASE(STR(?l))`.
 - The determinism promise: rows are sorted when the query has no ORDER BY,

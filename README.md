@@ -13,8 +13,9 @@ deployed AI system against the needs of a specific domain, written down as:
   machine assemblage that runs it: structure only, rendered to RDF as the
   canonical graph; thirteen essentials, each tagged machine-verified or
   human-validated, live beside it in `model/trace.ttl`;
-- one **evaluation record** (PROV-O + EARL) of the measles chatbot example,
-  checked by SHACL shapes, with counterexamples that must fail;
+- one **evaluation record** (PROV-O + EARL), the measles evaluation of the
+  chatbot example, a bundle checked by SHACL shapes, with counterexamples
+  that must fail, each the record with one change;
 - a **rulings register** holding every interpretive choice verbatim.
 
 ## Status (2026-09-07)
@@ -65,26 +66,32 @@ deployed AI system against the needs of a specific domain, written down as:
   (R-22), checked by wiring shapes M1 to M5 over kinds of parts and ports:
   four parties, three actor categories within the testing organization, the
   six-step EPO nested as the fulfil step of the contracting lifecycle (one
-  model, R-33), both process DAGs, 67 ports and 39 seams, every input wired
-  once and every output somewhere, and the sponsor's obligation to the
-  affected populations as a relation. Four model counterexamples fail their
+  model, R-33), both process DAGs, 76 ports and 44 seams, every input wired
+  once and every output somewhere, the sponsor's signatory as the person who
+  signs, approves and accepts for it (R-50), and the sponsor's obligation to
+  the affected populations as a relation. Four model counterexamples fail their
   shape. The essentials SCI-01 to SCI-13 live in `model/trace.ttl`.
 - **The end-state demonstration (C-30) is built; one block awaits its rebuild.**
   `ogc/executor.py` walks the process as the model states it and emits a
   record; the run conforms to S0 to S9, is complete against the model, has
-  a recomputable coverage and traces fully, and ten mutations are each
+  a recomputable coverage and traces fully, and twelve mutations are each
   caught by a named check (`ogc execute`, chapter Records and reporting).
-  Two findings are open as concern C-43: a record without a plan approval
-  or an access grant conforms to the shapes and is caught only by
-  completeness or the traceback. Z validated every block and wire on rulings sheet 05 but the report
-  assembler (B8), which is rebuilt so that the conformance check on the
-  record precedes the final report (sheet 10-41, R-50); C-30 closes with
-  its tick.
-- **Record and shapes: current.** The measles record names the parties, the
-  mission, the agreement, the access, the stakeholder input, the
-  appropriateness assessment, the plan approval and the delivery; shapes S0
-  to S9 and seventeen RDF counterexamples follow the rulings; the traceback query
-  reaches the parties.
+  One finding is open as concern C-43: a record without a plan approval
+  conforms to the shapes and is caught only by completeness. Z validated
+  every block and wire on rulings sheet 05 but the report assembler (B8),
+  rebuilt so that the conformance check on the record precedes the final
+  report (sheet 10-41), and the sponsor signatory's block and wires, new
+  with R-50; C-30 closes with their ticks.
+- **Record and shapes: current (R-50, sheet 10).** The measles evaluation
+  (`track/measles-evaluation.ttl`) is a bundle every item is a member of,
+  tagged synthetic; it names the parties and the sponsor's signatory, the
+  two declarations, the agreement that accepts the proposal, the access
+  with its period and instrument, the sponsor's approval of the requirement
+  set, the plan deviation, paired determinations, the verdict on the record
+  before the final report with the digests of what it ran, and the
+  acceptance; the step is derived through the model, never asserted; shapes
+  S0 to S9 and thirty-five RDF counterexamples, each the record with one
+  change, follow the rulings; the traceback query reaches the parties.
 - **Pending outside the repo.** The w3id redirect
   (perma-id/w3id.org#6652) is open; IRIs resolve nowhere until it merges. The
   paper draft and the term contract will be aligned to this glossary once the
@@ -96,7 +103,7 @@ deployed AI system against the needs of a specific domain, written down as:
 `ogc schema`, `ogc find`, `ogc term`, `ogc define`, `ogc quote`, `ogc
 verify` (terms, sources and steps), `ogc list`, `ogc source`, `ogc sources`, `ogc ruling`, `ogc
 rulings`, `ogc concern`, `ogc concerns`, `ogc sci`, `ogc steps`, `ogc epo` (an EPO class or role: its label, superclasses, the layer it is pinned at, the term it names, the disjointness axioms and the shapes that mention it), `ogc shapes`, `ogc shape` (a node shape's target and constraints), `ogc crosswalk`
-(`--popper` for the seven Popper rows), `ogc views`, `ogc view` (a model view as mermaid with its perspective), `ogc execute` (the process executed from the model, with its checks and a `VERDICT` line; `--planned`, `--sessions`, `--requirements`, `--criteria` and `--populations` set the executor's parameters, capped at 100 criteria, 20 sessions and 100 criterion-sessions of work because the checks are quadratic), `ogc record` (the worked example's record item by step, with who and when; `ogc record <name>` for one item), `ogc check-word`, `ogc sparql`
+(`--popper` for the seven Popper rows), `ogc views`, `ogc view` (a model view as mermaid with its perspective), `ogc execute` (the process executed from the model, with its checks and a `VERDICT` line; `--planned`, `--sessions`, `--requirements`, `--criteria` and `--populations` set the executor's parameters, capped at 100 criteria, 20 sessions and 100 criterion-sessions of work because the checks are quadratic), `ogc record` (the measles evaluation item by derived step, with who and when and the synthetic tag; `ogc record <name>` for one item), `ogc check-word`, `ogc sparql`
 (read-only, sorted, one merged graph; `--model` adds the model graph, `--record` the record, and a query that names the record or the model graph without its flag is refused), `ogc doctor`. Every output starts with `# ogc <command> <args>
 @ <sha>` (for `sparql`, the query as typed with its sha256, re-runnable); `--json` returns the result as one object carrying the same
 invocation and sha under `_ogc`, and every error as one object with `_ogc`, `error`, `hint` and `candidates`; ids may be typed as the tool prints them (a local name, a CURIE such as `term:probe` or `rul:R-16`, or a full IRI); exit 0 found, 1 not found, ambiguous, a

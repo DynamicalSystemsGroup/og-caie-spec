@@ -11,10 +11,10 @@ error is one object carrying `_ogc`, `error`, `hint` and `candidates`. Exit
 0 success, 1 not found / ambiguous / bad filter value / refused / a failed
 VERDICT, 2 usage. Read-only: no update forms, no federation, no named
 graphs. Ids may be typed as the tool prints them: a local name, a CURIE
-(term:probe, rul:R-16, run:mission-1, ogc:S0-Layers; the prefix in any case)
+(term:probe, rul:R-16, ev:mission-1, ogc:S0-Layers; the prefix in any case)
 or a full IRI; a CURIE under a prefix the command does not read is refused
 with the reader that does (rul: is read by ruling and concern, epo: by epo,
-run: by record)."""
+ev: by record)."""
 from __future__ import annotations
 
 import argparse
@@ -27,7 +27,7 @@ from pathlib import Path
 from types import SimpleNamespace
 
 from . import api, text, views
-from .graph import DOCTOR_FILES, PREFIXES, RUN, SPARQL_PREFIXES, find_root, git_sha, load
+from .graph import DOCTOR_FILES, EV, MODEL_FILE, PREFIXES, RECORD_FILE, SPARQL_PREFIXES, digests, find_root, git_sha, load
 
 GLOBAL_FLAGS = ("--json", "--no-cache", "--wide")  # --model and --record change the answer, so they stay in the argstr that is printed and hashed
 LOAD_CMDS = ("sparql", "record", "execute", "view", "views")  # the commands that read the model graph or the record; --model and --record apply only here
@@ -38,7 +38,7 @@ LOAD_HINT = ("--model and --record apply only to sparql, record, execute, view a
 MODEL_NS = ("sysml", "sysx", "elmt", "ogm")  # the model graph's prefixes; a query naming one is refused without --model (round three, M1)
 READERS = {  # a CURIE's prefix names what it is and the reader for it; the hint when it is typed to another command (round three, M4)
     "term": ("a term", "ogc term {local}"), "rul": ("a ruling or concern", "ogc ruling {local}"), "epo": ("an EPO class, role or step", "ogc epo {local}"),
-    "run": ("a record item", "ogc record {local}"), "src": ("a source", "ogc source {local}"), "tr": ("an essential", "ogc sci {local}"),
+    "ev": ("a record item", "ogc record {local}"), "src": ("a source", "ogc source {local}"), "tr": ("an essential", "ogc sci {local}"),
     "ogc": ("a shape (or the vocabulary itself)", "ogc shape {local}"), "xw": ("a Popper crosswalk row", "ogc crosswalk --popper"),
     **{k: ("the model graph, loaded by --model", "ogc --model sparql 'DESCRIBE {curie}'") for k in MODEL_NS}}
 ECHO = 80  # an error line echoes at most this much of the argument, with three dots; the header keeps it whole (round three, L10)
@@ -271,7 +271,7 @@ def build_parser() -> argparse.ArgumentParser:
     common.add_argument("--wide", action="store_true", default=argparse.SUPPRESS, help="do not clip table cells at 80 characters")
     loads = argparse.ArgumentParser(add_help=False)
     loads.add_argument("--model", action="store_true", default=argparse.SUPPRESS, help="also load the canonical model graph model/og-caie.model.ttl (the OMG sysml: rendering of the structure; implied by view, views and execute); part of the printed and hashed args; " + LOAD_HINT)
-    loads.add_argument("--record", action="store_true", default=argparse.SUPPRESS, help="also load the worked example's record track/measles-run.ttl (the run: namespace; implied by record); part of the printed and hashed args; " + LOAD_HINT)
+    loads.add_argument("--record", action="store_true", default=argparse.SUPPRESS, help="also load the worked example's record track/measles-evaluation.ttl, the measles evaluation (the ev: namespace, with the model graph the step is derived through; implied by record); part of the printed and hashed args; " + LOAD_HINT)
     ap = Parser(prog="ogc", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter, parents=[common, loads],
                 epilog="global flags may be placed before or after the subcommand; quote multi-word names.")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -303,8 +303,8 @@ def build_parser() -> argparse.ArgumentParser:
     add("steps", "the twelve steps of the two cycles and the canon step each matches (R-31, R-32)")
     add("epo", "one EPO class or role (vocabulary/epo.ttl): label, superclasses (a role's types), subclasses and instances, the layer it is pinned at, the term it names with its headword, the disjointness axioms, and the shapes whose targets, paths or SPARQL bodies mention it",
         (["name"], dict(help="a class or role by local name, case-insensitive (StakeholderRepresentation, AuthorizedRepresentativeRole, accountExecutiveRole; epo: CURIE or IRI accepted); a step is read by `ogc quote`")))
-    add("record", "the worked example's record (track/measles-run.ttl): its items by step, C1..C6 then 1..6, with who and when; then the items without a step and the parties; with a name, everything the record says about that one item (R-47, closes C-44)",
-        (["name"], dict(nargs="?", help="an item's local name, case-insensitive (mission-1, attestation-1, annie; run: CURIE or IRI accepted); omitted: the listing")))
+    add("record", "the worked example's record, the measles evaluation (track/measles-evaluation.ttl): the record's own entity, then its items by step (derived through the model graph, sheet 10-33), C1..C6 then 1..6, with who and when; then the items without a step and the parties; every row tagged synthetic where the content is (sheet 10-43); with a name, everything the record says about that one item (R-47, closes C-44)",
+        (["name"], dict(nargs="?", help="an item's local name, case-insensitive (mission-1, attestation-1, annie; ev: CURIE or IRI accepted); omitted: the listing")))
     add("execute", "execute the process from the model graph and run the checks over the emitted record (C-30); VERDICT: PASS when the record conforms, no item kind is missing and the traceback is non-empty, else FAIL and exit 1; " + CAP_NOTE,
         (["--mutate"], dict(action="append", metavar="NAME", help="break one thing in the emitted record before the checks; repeatable, applied in order; one of: " + ", ".join(sorted(MUTATIONS)))),
         (["--turtle"], dict(action="store_true", help="print the emitted record instead of the checks")),
@@ -326,7 +326,7 @@ def build_parser() -> argparse.ArgumentParser:
         (["--state"], dict(help=f"only citations located in one of the states {', '.join(VERIFY_STATES)}")))
     add("shapes", "the SHACL node shapes with their targets, from every shape file")
     add("shape", "one node shape: target, property constraints (path, min, max, class, in, hasValue, datatype) and each SPARQL constraint's message with its sh:select body", (["id"], dict(help="a shape's local name, case-insensitive (S3-PlanApproval, m1-parties, RulingShape; ogc: CURIE or IRI accepted)")))
-    add("sparql", "raw SPARQL (SELECT, ASK, CONSTRUCT, DESCRIBE) with the prefixes injected; @file.rq reads a file; --model adds the model graph, --record the record (a query naming run: or typing by a record class is refused without it)",
+    add("sparql", "raw SPARQL (SELECT, ASK, CONSTRUCT, DESCRIBE) with the prefixes injected; @file.rq reads a file; --model adds the model graph, --record the record (a query naming ev: or typing by a record class is refused without it)",
         (["query"], dict(help=f"the query text or @file.rq (at most {QUERY_MAX} characters); rows are sorted unless it has ORDER BY; no SERVICE, GRAPH or FROM")))
     add("doctor", "every file the tool reads parses, labels unambiguous, pins hold, quotes located; VERDICT line")
     ap.command_names = names
@@ -683,14 +683,15 @@ def who_cell(r: dict) -> str:
 def record(args, g, argstr: str) -> int:
     if args.name is None:
         rows = api.record_rows(g)
-        groups = {k: [dict(r, who=who_cell(r)) for r in rows if r["group"] == k] for k in ("record", "step", "no-step", "party")}
-        return emit(args, "record", argstr, rows, lambda: [f"## the record ({len(groups['record'])})"] + text.table(groups["record"], ["item", "class", "label"])
-                    + ["", f"## items by step ({len(groups['step'])}; C1..C6 then 1..6)"] + text.table(groups["step"], ["step", "item", "class", "who", "when"])
-                    + ["", f"## items without a step ({len(groups['no-step'])})"] + text.table(groups["no-step"], ["item", "class", "who", "when"])
-                    + ["", f"## parties and machines ({len(groups['party'])})"] + text.table(groups["party"], ["item", "class", "label"]))
+        groups = {k: [dict(r, who=who_cell(r), tag="synthetic" if r["synthetic"] else "") for r in rows if r["group"] == k] for k in ("record", "step", "no-step", "party")}
+        tagged = sum(1 for r in rows if r["synthetic"])  # sheet 10-43: the tag printed in the header and on every row that carries it
+        return emit(args, "record", argstr, rows, lambda: [f"## the record ({len(groups['record'])}; {tagged} of {len(rows)} rows tagged synthetic)"] + text.table(groups["record"], ["item", "class", "tag", "label"])
+                    + ["", f"## items by step ({len(groups['step'])}; C1..C6 then 1..6; the step derived through the model graph)"] + text.table(groups["step"], ["step", "item", "class", "who", "when", "tag"])
+                    + ["", f"## items without a step ({len(groups['no-step'])})"] + text.table(groups["no-step"], ["item", "class", "who", "when", "tag"])
+                    + ["", f"## parties and machines ({len(groups['party'])})"] + text.table(groups["party"], ["item", "class", "tag", "label"]))
     if need(args, args.name, "an item's local name (mission-1, attestation-1, annie; omit it for the listing)"):
         return 2
-    if foreign(args, args.name, "record item", ("run",)):
+    if foreign(args, args.name, "record item", ("ev",)):
         return 1
     iri, cands = api.resolve_record_item(g, api.bare(args.name))
     if iri is None:
@@ -698,7 +699,7 @@ def record(args, g, argstr: str) -> int:
     d = api.record_item(g, iri)
 
     def lines():
-        L = [f"## {d['item']}  ({d['class']})" + (f"  step {d['step']}" if d["step"] else "")]
+        L = [f"## {d['item']}  ({d['class']})" + (f"  step {d['step']}" if d["step"] else "") + ("  synthetic" if d["synthetic"] else "")]
         if d["label"]:
             L += text.wrap(d["label"])
         L += ["", f"who: {', '.join(d['who'] or []) or '(none)'}   when: {d['when'] or '(none)'}" + (f"   (via {d['via']})" if d["via"] else ""), "", f"triples ({len(d['triples'])}):"]
@@ -725,9 +726,7 @@ def execute(args, g, argstr: str) -> int:
     reason = executor.validate(params)
     if reason:
         return not_found(args, "execute parameters " + ", ".join(f"{k} {v}" for k, v in given.items()), reason, state="refused")
-    model = Graph()
-    for t in g.triples((None, None, None)):
-        model.add(t)
+    model = Graph(); model.parse(args.root / MODEL_FILE)  # the model graph alone: the checks join the emitted record with it and the ontology in one default graph (sheet 10-31), nothing else
     shapes = Graph(); shapes.parse(args.root / "shapes" / "epo.shapes.ttl")
     epo = Graph(); epo.parse(args.root / "vocabulary" / "epo.ttl")
     rec = executor.execute(model, params)
@@ -785,7 +784,7 @@ def shapes(args, c: str, argstr: str) -> int:
 
 def strip_comments(q: str) -> str:
     """The query without its comments (`#` to the end of the line, outside
-    IRIs and string literals), so that a `run:` or a `sysml:` in a comment is
+    IRIs and string literals), so that an `ev:` or a `sysml:` in a comment is
     not taken for a reference (round three, L1)."""
     out, i, n = [], 0, len(q)
     while i < n:
@@ -835,10 +834,10 @@ def model_reference(q: str) -> str | None:
 
 
 def record_reference(g, q: str) -> str | None:
-    """What in a query names the record: a `run:` name, the run namespace, or a
-    variable typed by an EPO class whose instances live only in the record;
-    None when the query stays within the graphs loaded by default."""
-    m = re.search(r"\brun:[\w-]*", q) or re.search(re.escape(str(RUN)) + r"[\w-]*", q)
+    """What in a query names the record: an `ev:` name, the record's namespace,
+    or a variable typed by an EPO class whose instances live only in the
+    record; None when the query stays within the graphs loaded by default."""
+    m = re.search(r"\bev:[\w-]*", q) or re.search(re.escape(str(EV)) + r"[\w-]*", q)
     if m:
         return m.group(0)
     kinds = api.record_classes(g)
@@ -883,7 +882,7 @@ def sparql(args, g, argstr: str) -> int:
     if not args.record:
         ref = record_reference(g, bare_q)
         if ref:
-            return refuse(args, f"the query names the record ({ref}), which is not loaded; add --record to load track/measles-run.ttl (the run: namespace and the record's item kinds)")
+            return refuse(args, f"the query names the record ({ref}), which is not loaded; add --record to load track/measles-evaluation.ttl (the ev: namespace and the record's item kinds)")
     if not args.model:
         ref = model_reference(bare_q)
         if ref:
@@ -976,7 +975,7 @@ def sparql(args, g, argstr: str) -> int:
 
 def doctor(args) -> int:
     from rdflib import Graph, RDF
-    from .graph import OGC, SKOS
+    from .graph import EPO, OGC, SKOS
     root = args.root
     ok = True
     checks = []
@@ -1021,6 +1020,13 @@ def doctor(args) -> int:
             add("ok" if render_key_terms() == key.read_text() else "STALE", "generated/key-terms.md is current", render_key_terms() != key.read_text())
         except SystemExit as e:
             add("BAD", f"{{term}} roles: {e}", True)
+    if (root / RECORD_FILE).exists():  # sheet 10-18: the record's verdict and coverage computation name the shapes, the ontology and the query by sha256
+        rg = Graph().parse(root / RECORD_FILE)
+        want = digests(root)
+        holders = list(rg.subjects(RDF.type, EPO.ConformanceVerdict)) + list(rg.subjects(RDF.type, EPO.CoverageComputation))
+        drift = sorted(f"{api.local(h)} {k}" for h in holders for k in want if str(rg.value(h, EPO[k])) != want[k])
+        add("ok" if not drift and holders else "BAD", f"the record's digests name shapes/epo.shapes.ttl, vocabulary/epo.ttl and queries/coverage.rq as committed"
+            + (f": stale on {', '.join(drift)}; run scripts/stamp_digests.py, then scripts/render_counterexamples.py" if drift else "" if holders else ": no verdict in the record"), bool(drift) or not holders)
     cache = sorted((root / ".cache").glob("ogc-graph-*.pkl")) if (root / ".cache").exists() else []
     add("cache", cache[0].name if cache else "(none)")
     verdict = f"VERDICT: {'PASS' if ok else 'FAIL'} (ogc doctor)"  # no path: the line is the same in every checkout
