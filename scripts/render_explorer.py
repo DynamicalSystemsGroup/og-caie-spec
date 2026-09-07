@@ -313,7 +313,7 @@ class Builder:
             desc = f"{label} Types: {', '.join(types)}." + (f" {one(g, n, SKOS.note)}" if one(g, n, SKOS.note) else "")
             step = g.value(n, EPO.step)
             page = self.page("contracting") if step is not None and str(step) in contracting else self.page("record")
-            cmd = f"ogc sparql {shell(f'DESCRIBE epo:{kind}')}" if kind else "ogc steps"
+            cmd = f"ogc record {shell(local(n))}"  # the reader of the record (ruling R-47, closing C-44): everything the record says about this item
             self.add(n, "agent" if is_agent else "record", local(n), desc, cmd, page)
 
     # -- links and detail
