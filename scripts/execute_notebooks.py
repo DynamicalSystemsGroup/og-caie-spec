@@ -81,7 +81,10 @@ def check() -> int:
         print("  " + r)
     if not NOTEBOOKS:
         print("no notebooks/checked-*.ipynb found")
+        print("NOTEBOOK: FAIL (no notebooks)")
         return 1
+    print(f"NOTEBOOK: {'FAIL' if problems else 'PASS'} ({len(NOTEBOOKS)} notebooks fresh and ending with the verdict)" if not problems
+          else f"NOTEBOOK: FAIL ({len(problems)} problems)")
     return 1 if problems else 0
 
 

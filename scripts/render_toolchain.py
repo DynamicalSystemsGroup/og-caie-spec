@@ -57,7 +57,7 @@ def render_environment() -> str:
     direct = [(g, dep_name(s), s[len(dep_name(s)):].strip() or "(any)") for g, specs in groups for s in specs]
     total = len(locked) - 1  # the project itself is in the lock but is not a dependency
     lines = ["## The Python environment\n",
-             f"Python `{project['project']['requires-python']}` (`{rel(PYPROJECT)}`). `uv sync` reproduces the environment "
+             f"Python `{project['project']['requires-python']}` (`{rel(PYPROJECT)}`), pinned to `{(ROOT / '.python-version').read_text().strip()}` by `.python-version` so that `uv sync` installs the same interpreter everywhere. `uv sync` reproduces the environment "
              f"from `{rel(LOCK)}` (lockfile version {lock['version']}, revision {lock['revision']}): "
              f"{total} packages in all, {len(direct)} direct ({sum(1 for g, _, _ in direct if g == 'runtime')} runtime, "
              f"{sum(1 for g, _, _ in direct if g == 'dev')} dev) and {total - len(direct)} transitive, every one pinned to a version "

@@ -58,7 +58,12 @@ and the measles record. The table below counts what each is used for.
 
 ## The reviewer recipe
 
-From a clone of the repository with uv and Node.js installed:
+From a git clone of the repository with git, uv and Node.js 20 or later
+installed. The first run needs the network four times: uv fetches the
+pinned interpreter and the wheels, `get-sysml.sh` fetches the converter's
+release tarball, and the site builder fetches its theme; a second run is
+offline. The gate takes two to three minutes on a laptop, most of it the
+site build.
 
 ```bash
 uv sync
@@ -70,12 +75,16 @@ bash scripts/copy_explorer.sh
 ```
 
 `uv sync` creates `.venv` from the lockfile and reports the packages it
-installed. `get-sysml.sh` prints `sysml installed+verified` on a first
-fetch and nothing when the verified binary is already in place; a digest
-mismatch exits 1. The gate prints one line per step, `pass` or `FAIL`, and
+installed. `get-sysml.sh` prints `sysml installed+verified: sysml v0.4.3`
+on a first fetch and nothing when the verified binary is already in place;
+a digest mismatch exits 1. The gate prints one line per step, `pass` or `FAIL`, and
 ends with `CHECKS: PASS` or `CHECKS: FAIL` followed by the commit it
 judged; that line is what the pre-push hook and CI require. `ogc doctor`
-prints its checks and ends with `VERDICT: PASS`. `myst start` builds the
+prints its checks, two notes (the pending quotes and the open concerns,
+which are facts, not faults) and the cache file it wrote, and ends with
+`VERDICT: PASS` and the path it judged. The notebook step prints one line
+per notebook, `fresh` or `STALE`, then `NOTEBOOK: PASS` or `NOTEBOOK: FAIL`;
+the kernel's warning about an unencrypted local transport is expected. `myst start` builds the
 site and prints the local address to open it at. The gate copies Appendix
 A's explorer next to the built site; after a build of your own, run
 `copy_explorer.sh` so the appendix's frame finds it.

@@ -8,10 +8,11 @@ deployed AI system against the needs of a specific domain, written down as:
 
 - a **glossary** whose every term cites one canonical definition (ISO 9000:2026,
   SEVOCAB, NIST AI 700-2, W3C), with exactly four coined terms;
-- a **SysML v2 model** (OpenSysML v0.4.3) of the Evaluation Process Ontology
-  as a standard operating procedure and of the human and machine assemblage
-  that runs it, with thirteen requirements each tagged machine-verified or
-  human-validated;
+- a **SysML v2 model** (OpenSysML v0.4.3) of the contracting lifecycle with
+  the Evaluation Process Ontology nested inside it, and of the human and
+  machine assemblage that runs it: structure only, rendered to RDF as the
+  canonical graph; thirteen essentials, each tagged machine-verified or
+  human-validated, live beside it in `model/trace.ttl`;
 - one **evaluation record** (PROV-O + EARL) of the measles chatbot example,
   checked by SHACL shapes, with counterexamples that must fail;
 - a **rulings register** holding every interpretive choice verbatim.

@@ -90,7 +90,7 @@ def test_the_page_exists_closes_the_toc_and_keeps_the_house_rules():
             assert not re.search(rf"\b{w}\b", p.read_text(), re.I), (p.name, w)
     prose = re.sub(r"```.*?```", "", text, flags=re.S)  # the include and the recipe are not prose
     prose = re.sub(r"^#.*$", "", prose, flags=re.M)  # nor are the headings
-    assert 350 <= len(prose.split()) <= 800, len(prose.split())  # raised for the ontologies section (R-45)
+    assert 350 <= len(prose.split()) <= 900, len(prose.split())  # raised for the ontologies section (R-45) and the reviewer notes
     recipe = re.search(r"```bash\n(.*?)```", text, re.S)
     assert recipe and recipe.group(1).splitlines() == RECIPE, recipe and recipe.group(1)
     assert "CHECKS: PASS" in text and "VERDICT: PASS" in text

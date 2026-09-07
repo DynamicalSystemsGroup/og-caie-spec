@@ -1,6 +1,6 @@
 ## The Python environment
 
-Python `>=3.12` (`pyproject.toml`). `uv sync` reproduces the environment from `uv.lock` (lockfile version 1, revision 3): 111 packages in all, 10 direct (3 runtime, 7 dev) and 101 transitive, every one pinned to a version and a content hash. The project `og-caie-spec` is installed editable and provides the `ogc` command.
+Python `>=3.12` (`pyproject.toml`), pinned to `3.12` by `.python-version` so that `uv sync` installs the same interpreter everywhere. `uv sync` reproduces the environment from `uv.lock` (lockfile version 1, revision 3): 111 packages in all, 10 direct (3 runtime, 7 dev) and 101 transitive, every one pinned to a version and a content hash. The project `og-caie-spec` is installed editable and provides the `ogc` command.
 
 | Package | Group | Constraint (`pyproject.toml`) | Locked (`uv.lock`) |
 |---|---|---|---|
