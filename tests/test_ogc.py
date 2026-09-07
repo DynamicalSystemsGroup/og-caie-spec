@@ -1211,3 +1211,6 @@ def test_d4_permission_line():
         out = run(*cmd).stdout
         assert stmt not in out, cmd
         assert "permission" not in json.loads(run(*cmd, "--json").stdout), cmd
+    for f in ("glossary.md", "key-terms.md"):  # the rendered tables carry it once, as a one-line footnote in italics
+        md = (ROOT / "generated" / f).read_text()
+        assert md.count(stmt) == 1 and f"\n*SEVOCAB definitions: {stmt}*\n" in md, f

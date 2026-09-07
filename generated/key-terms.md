@@ -163,4 +163,4 @@ verification
 
 ```
 
-SEVOCAB definitions: Copyright © 2021 IEEE. Used by permission.
+*SEVOCAB definitions: Copyright © 2021 IEEE. Used by permission.*

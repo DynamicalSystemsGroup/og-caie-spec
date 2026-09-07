@@ -326,12 +326,13 @@ def render_executor() -> str:
 
 
 def with_permission(text: str) -> str:
-    """SEVOCAB definitions may be copied provided the IEEE statement travels with them: append it, from the register, wherever SEVOCAB is quoted."""
+    """SEVOCAB definitions may be copied provided the IEEE statement travels with them: append it once, from the register
+    (ogc:permissionStatement), as a one-line footnote in italics under any table that quotes SEVOCAB (drift pass 4, professor M2)."""
     if "sevocab" not in text.lower():
         return text
     g = Graph().parse(ROOT / "sources" / "sources.ttl")
     stmt = next((str(g.value(src, OGC.permissionStatement)) for src in g.subjects(RDF.type, OGC.Source) if str(src).endswith("#sevocab")), None)
-    return text.rstrip("\n") + f"\n\nSEVOCAB definitions: {stmt}\n" if stmt else text
+    return text.rstrip("\n") + f"\n\n*SEVOCAB definitions: {stmt}*\n" if stmt else text
 
 
 def render_key_terms() -> str:

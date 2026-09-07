@@ -72,4 +72,4 @@
 
 69 terms: 44 adopted, 21 refined, 4 coined.
 
-SEVOCAB definitions: Copyright © 2021 IEEE. Used by permission.
+*SEVOCAB definitions: Copyright © 2021 IEEE. Used by permission.*

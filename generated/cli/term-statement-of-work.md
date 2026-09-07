@@ -32,4 +32,5 @@ concerns naming it: C-46 (ruled) the sponsor's decision to interview or represen
     population had no item of its own
 essentials stated in it: SCI-10
 Popper crosswalk: auxiliary assumption, first layer (pinned at the contract)
+permission: Copyright © 2021 IEEE. Used by permission.
 (exit 0)
