@@ -12,8 +12,12 @@ what it brings into focus and what it leaves out: the vocabulary, the
 rulings, the process, the wiring, the record, the essentials, and the
 crosswalk from the front page. Click a node to read everything the graph
 says about it, follow a reference, and jump to the page where it is
-rendered. The `ogc` tool is the machine interface to the model; this page is
-the human one, and every node names the `ogc` command that prints it.
+rendered. Double-click a node to focus on it: only its neighbourhood at a
+chosen distance (1, 2 or 3) stays in view, the rest fades or hides, the
+legend counts what is shown, Escape restores the view, and the address bar
+carries the focus so a neighbourhood can be shared as a link. The `ogc`
+tool is the machine interface to the model; this page is the human one,
+and every node names the `ogc` command that prints it.
 
 ```{iframe} explorer/index.html
 :width: 100%
