@@ -87,12 +87,13 @@ deployed AI system against the needs of a specific domain, written down as:
 
 `uv run -q ogc <command>` navigates the vocabulary graph deterministically:
 `ogc schema`, `ogc find`, `ogc term`, `ogc define`, `ogc quote`, `ogc
-verify`, `ogc list`, `ogc source`, `ogc sources`, `ogc ruling`, `ogc
-rulings`, `ogc concern`, `ogc concerns`, `ogc sci`, `ogc crosswalk`
-(`--popper` for the Popper rows), `ogc views`, `ogc view` (a model view as mermaid with its perspective), `ogc execute` (the process executed from the model, with its checks), `ogc check-word`, `ogc sparql`
-(read-only), `ogc doctor`. Every output starts with `# ogc <command> <args>
-@ <sha>`; `--json` returns the result unchanged; exit 0 found, 1 not found
-or ambiguous, 2 usage. The skill `.claude/skills/ogc-glossary/SKILL.md`
+verify` (terms, sources and steps), `ogc list`, `ogc source`, `ogc sources`, `ogc ruling`, `ogc
+rulings`, `ogc concern`, `ogc concerns`, `ogc sci`, `ogc steps`, `ogc shapes`, `ogc shape` (a node shape's target and constraints), `ogc crosswalk`
+(`--popper` for the Popper rows), `ogc views`, `ogc view` (a model view as mermaid with its perspective), `ogc execute` (the process executed from the model, with its checks and a `VERDICT` line), `ogc check-word`, `ogc sparql`
+(read-only, sorted, one merged graph), `ogc doctor`. Every output starts with `# ogc <command> <args>
+@ <sha>`; `--json` returns the result as one object carrying the same
+invocation and sha under `_ogc`; exit 0 found, 1 not found, ambiguous, a
+bad filter value or a failed verdict, 2 usage. The skill `.claude/skills/ogc-glossary/SKILL.md`
 teaches an LLM to use it instead of grepping the Turtle. It follows the
 navigation tool the authors built for their earlier glossaries (ruling
 R-29).
