@@ -5,7 +5,7 @@ An evaluation is work done under a contract. Before any test runs, a
 two have signed, and the organization accountable for the {term}`test item`
 has opened it up. After the last attestation, the provider delivers and the
 customer accepts. This chapter is that outer cycle: the parties, the steps,
-what the contract pins, and how the measles case walked through it.
+what the contract pins, and the measles case.
 
 ## What the standards say
 
@@ -49,13 +49,12 @@ Every item reaches the recorder, the machine that keeps the record; input
 wires are unique, output wires fan out. One item sits on the boundary
 between the contract and its fulfilment: the {term}`statement of work`,
 the sponsor's decision that says, for each affected population, whether
-it is interviewed before it is spoken for. A representative on the team
-speaks for every population; the interview, when decided, feeds that
-representation, and the record must realize the decision either way. In
+it is interviewed before it is spoken for. A team member speaks for every
+population; the interview, when decided, feeds that representation, and
+the record must realize the decision. In
 the model this cycle is the outer `action def`, SysML's definition of a
 process as steps in succession, and its `fulfil` step is the whole
-evaluation as a black box; the figure's caption says what it brings into
-focus and leaves out.
+evaluation as a black box.
 
 ```{include} ../generated/wiring-contracting.md
 ```
@@ -67,12 +66,12 @@ record states the level at which independence between roles is required;
 the measles evaluation is at the person level: nobody determines alone on
 evidence from a session they ran, and nobody assesses a requirement set
 they wrote. The report is the record's delivered export; the record itself
-is not delivered, but it is independently auditable and its methods
-reproducible, and access to it is a special case, publication not assumed.
+is not delivered but is independently auditable, access to it a special
+case, publication not assumed.
 Acceptance is the sponsor's act on receipt of the deliverables,
 recognizing completion of the contract's obligations; a correctly
 constructed record is necessary and not sufficient for it, and it is not
-the {term}`acceptance criteria` (of the test item) the evaluation tests. The
+the {term}`acceptance criteria` the evaluation tests. The
 essentials are the statements the specification must keep, SCI-01 to
 SCI-13, each naming the shapes that check it, a shape being one
 machine-checked rule written in SHACL, the W3C Shapes Constraint Language.
@@ -103,7 +102,8 @@ commuters, interviewed and then spoken for by Theo, and county residents,
 spoken for by Annie, the domain expert, without an interview, as the
 county's statement of work decided. After the
 evaluation, Mala delivered the final report, its approval and the
-recommendation on 12 August, and Dana Okafor accepted for the county on 14
+recommendation, fit to deploy once the vaccination question is asked before
+any advice, on 12 August, and Dana Okafor accepted for the county on 14
 August. The case is synthetic: the names are borrowed from real colleagues
 whose roles they recognise, the health officer is invented, and no
 signature or attestation here was made by them.
@@ -117,9 +117,9 @@ the ruling that made it an item of its own:
 ```{literalinclude} ../generated/cli/term-statement-of-work.md
 ```
 
-Two further steps are observed in practice and are deliberately not part
-of the contracting lifecycle: the county tells the vendor to change the
-chatbot's behaviour, and may then require new testing. The standards call
+Two further steps are observed in practice and are not part of the
+contracting lifecycle: the county tells the vendor to change the chatbot,
+and may then require new testing. The standards call
 the repeat {term}`monitoring`, the status of the system determined again
 at a later stage; a new version of the test item opens a new record linked
 to the old one, and a record that traces every finding to its evidence is

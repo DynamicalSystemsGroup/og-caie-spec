@@ -87,11 +87,15 @@ deployed AI system against the needs of a specific domain, written down as:
   tagged synthetic; it names the parties and the sponsor's signatory, the
   two declarations, the agreement that accepts the proposal, the access
   with its period and instrument, the sponsor's approval of the requirement
-  set, the plan deviation, paired determinations, the verdict on the record
-  before the final report with the digests of what it ran, and the
-  acceptance; the step is derived through the model, never asserted; shapes
-  S0 to S9 and thirty-five RDF counterexamples, each the record with one
-  change, follow the rulings; the traceback query reaches the parties.
+  set, three requirements in the county's words with five criteria, four
+  sessions of three turns, a paired determination, a cannot-tell resolved by
+  a follow-up session and the attestation that supersedes it, a draft report
+  with its gap flagged, the verdict on the record before the final report
+  with the digests of what it ran, a recommendation that states its fitness
+  (R-51), and the acceptance; the step is derived through the model, never
+  asserted; shapes S0 to S9 and thirty-nine counterexamples in RDF, each the
+  record with one change, follow the rulings; the traceback query reaches
+  the parties.
 - **Pending outside the repo.** The w3id redirect
   (perma-id/w3id.org#6652) is open; IRIs resolve nowhere until it merges. The
   paper draft and the term contract will be aligned to this glossary once the

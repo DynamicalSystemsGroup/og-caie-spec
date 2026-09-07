@@ -3,18 +3,17 @@
 The front page ends at the bridge from a plain account of science to the
 engineering standards for evaluation. This chapter gives the terms on the
 far side of that bridge their definitions: rigorous, cited verbatim, and not
-exhaustive. It lists exactly the terms this site uses; the full register is
-in the repository and the explorer.
+exhaustive: exactly the terms this site uses; the full register is in the
+repository and the explorer.
 
 ## The map of the site
 
 Seven pages, each a view of the model in the repository, and six
 appendices: [A](appendix-report.md) is the sample report,
 [B](appendix-explorer.md) opens the same model as a knowledge
-graph, C runs each chapter's checks, D records the judgments the model
-is grounded in, as [Rulings](rulings.md), [E](appendix-toolchain.md)
-reviews the toolchain and the reproduction, and
-[F](appendix-works-cited.md) collects the works cited. The
+graph, C runs each chapter's checks, D is the [Rulings](rulings.md) the
+model is grounded in, [E](appendix-toolchain.md) reviews the toolchain
+and the reproduction, and [F](appendix-works-cited.md) the works cited. The
 [front page](../index.md) sets the bar for science in plain terms and
 crosses the bridge into the standards; this page gives the terms and the
 two cycles; [Stakeholders and contracting](contracting.md) is the outer cycle, from
@@ -40,7 +39,7 @@ only, never for a narrative definition: PROV-O for who did what and when,
 EARL for what was asserted and with what outcome, SHACL (the Shapes
 Constraint Language, in which every machine check on this site is written)
 and SKOS for the glossary itself. The other sources follow in ordinal
-ranks, a heuristic for which definition wins when several define a term.
+ranks, which say whose definition wins when several define a term.
 
 Exactly four terms are coined, with their shorthands:
 {term}`Contextual AI Evaluation` (CAIE), {term}`OG-CAIE`,
@@ -67,17 +66,17 @@ authoritative reference, stay in the full register.
 
 The vocabulary graph answers directly from the command line: `uv run -q ogc
 term probe` gives one entry with its citations, rulings and the essentials
-it is stated in (the essentials being the thirteen statements the
-specification must keep, SCI-01 to SCI-13); `ogc define`, `ogc quote` and
-`ogc verify` give the definition, the verbatim quotes and where each quote
-was found; `ogc find` searches labels and quotes; `ogc check-word` says
-whether a word is a headword, an alternative label or retired, and what to
-write; `ogc sci`, `ogc rulings`, `ogc concerns` and `ogc sources` read the
-rest of the record, and `ogc crosswalk` prints the anchor table or, with a
-flag, the bridge rows of the front page; `ogc sparql` takes a read-only
-query. Every answer starts with the command and the commit it was read at, so it
-can be cited; on this site the commit is shown as `<sha>`. The tool follows the one the
-authors built for their earlier glossaries (ruling R-29). One answer, for
+it is stated in (the thirteen statements the specification must keep,
+SCI-01 to SCI-13); `ogc define`, `ogc quote` and `ogc verify` give the
+definition, the verbatim quotes and where each was found; `ogc find`
+searches labels and quotes; `ogc check-word` says whether a word is a
+headword, an alternative label or retired, and what to write; `ogc sci`,
+`ogc rulings`, `ogc concerns` and `ogc sources` read the rest of the
+record, `ogc crosswalk` prints the anchor table or, with a flag, the bridge
+rows of the front page, and `ogc sparql` takes a read-only query. Every
+answer starts with the command and the commit it was read at, shown on
+this site as `<sha>`. The tool follows the one the authors built for their
+earlier glossaries (ruling R-29). One answer, for
 the word this site's prose is allowed to use for the test item:
 
 ```{literalinclude} ../generated/cli/check-word-system-under-test.md

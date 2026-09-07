@@ -36,7 +36,8 @@ COUNTEREXAMPLES = {
                       "executive-attests.ttl", "unwired-port.sysml", "expert-administers-tests.sysml",
                       "cherry-picked-determination.ttl", "insufficient-yet-failed.ttl", "requirement-set-unapproved.ttl", "deviation-unrecorded.ttl",
                       "deviation-by-expert.ttl", "session-on-another-item.ttl", "final-report-without-verdict.ttl", "verdict-without-digests.ttl",
-                      "recommendation-unapproved.ttl"],  # sheet 10: 10-14, 10-12, 10-01, 10-16, 10-17, 10-41, 10-18, 10-11
+                      "recommendation-unapproved.ttl", "draft-without-gaps.ttl", "draft-rates-from-later.ttl", "draft-approved.ttl",
+                      "fit-despite-failure.ttl"],  # sheet 10: 10-14, 10-12, 10-01, 10-16, 10-17, 10-41, 10-18, 10-11; R-51 (10-48): the draft, the follow-up, the fitness
     "model.md": ["requirements-before-agreement.ttl"],
     "guarantees.md": [],  # its counterexamples are the executor's mutations, built in memory: see CHECKS
 }

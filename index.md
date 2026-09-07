@@ -48,8 +48,8 @@ quality: ISO 9000 for {term}`requirement`, {term}`objective evidence` and
 Software and Systems Engineering Vocabulary for {term}`acceptance criteria`,
 {term}`expected results`, {term}`test plan`, {term}`test coverage` and the
 test case a {term}`probe` refines; NIST's evaluation reports for
-{term}`session`. Using those names rather than coining our own is what lets
-someone else check the record against the same definitions we used. At
+{term}`session`. Using those names rather than coining our own lets someone
+else check the record against the same definitions. At
 SciPy 2026 the authors led a birds-of-a-feather session, Building
 Scientific Approaches to Generative AI, and put Popper's elements to the
 room in the words the table's first column keeps. The table is the bridge:
