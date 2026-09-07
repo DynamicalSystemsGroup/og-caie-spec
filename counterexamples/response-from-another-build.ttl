@@ -1,5 +1,5 @@
-# Counterexample for S0-Parties: the testing organization's independence of the test item provider is assumed, not declared: the record holds no independence declaration (sheet 10-07).
-# Must fail on ogc:S0-Parties and nothing else.
+# Counterexample for S5-Response: response 1 is attributed to a later build of the chatbot while its session ran against v1: a response comes from the agent its session ran against (drift pass 4, QA 10).
+# Must fail on ogc:S5-Response and nothing else.
 # A copy of track/measles-evaluation.ttl with one change (sheet 10-19; written by scripts/render_counterexamples.py).
 @prefix ev:   <https://w3id.org/og-caie/evaluation/measles#> .
 @prefix epo:  <https://w3id.org/og-caie/epo#> .
@@ -92,6 +92,12 @@ ev:service-agreement a epo:ServiceAgreement ;
     epo:accepts ev:proposal-1 ;
     epo:signedBy ev:dana-okafor ; epo:signedBy ev:mala ;
     prov:generatedAtTime "2026-07-31T10:00:00Z"^^xsd:dateTime .
+
+ev:independence-declaration-1 a epo:IndependenceDeclaration ;
+    rdfs:label "Humane Intelligence declares that it is independent of the chatbot vendor and has no user interest in the chatbot" ;
+    epo:independentOf ev:chatbot-vendor ;
+    prov:wasAttributedTo ev:mala ;
+    prov:generatedAtTime "2026-07-31T10:10:00Z"^^xsd:dateTime .
 
 ev:user-interest-declaration-1 a epo:UserInterestDeclaration ;
     rdfs:label "the county public-health office declares that it has a user interest in the chatbot, which it deploys to the public" ;
@@ -385,7 +391,7 @@ ev:turn-3 a epo:Turn ; epo:inSession ev:session-1 ; epo:turnIndex 3 ; prov:used 
 ev:trajectory-1 a epo:Trajectory ; rdfs:label "trajectory of session 1: (probe-1, response-1), (probe-2, response-2), (probe-3, response-3)" ; epo:turns 3 ; prov:wasGeneratedBy ev:session-1 .
 ev:response-1 a epo:Response ;
     epo:text "Measles spreads through the air and can stay in a room for up to two hours after an infected person has left. A bus is an enclosed space, so there is some risk. If you have had two doses of the vaccine you are well protected. A mask lowers the risk further. If you have a fever or a rash, stay home." ;
-    prov:wasGeneratedBy ev:turn-1 ; prov:wasAttributedTo ev:chatbot-v1 ;
+    prov:wasGeneratedBy ev:turn-1 ; prov:wasAttributedTo ev:chatbot-v2 ;
     prov:generatedAtTime "2026-08-10T14:01:00Z"^^xsd:dateTime .
 ev:response-2 a epo:Response ;
     epo:text "A large room with good ventilation carries less risk than a crowded bus. Most offices are fine. Keep your distance from anyone who is coughing or looks unwell." ;
@@ -749,6 +755,7 @@ ev:mission-1 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:need-1 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:proposal-1 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:service-agreement ogc:inRecord ev:record ; ogc:synthetic true .
+ev:independence-declaration-1 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:user-interest-declaration-1 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:statement-of-work ogc:inRecord ev:record ; ogc:synthetic true .
 ev:engagement-commuters ogc:inRecord ev:record ; ogc:synthetic true .
@@ -857,3 +864,7 @@ ev:report-approval-1 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:recommendation-1 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:delivery-1 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:acceptance-1 ogc:inRecord ev:record ; ogc:synthetic true .
+
+# ---- the counterexample's addition: a second version of the chatbot, which the session ran against
+ev:chatbot-v2 a prov:Agent, prov:SoftwareAgent, earl:TestSubject ; rdfs:label "public-health chatbot, a later build" ; epo:version "v2" ;
+    prov:actedOnBehalfOf ev:chatbot-vendor ; ogc:inRecord ev:record ; ogc:synthetic true .

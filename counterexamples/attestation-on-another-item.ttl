@@ -1,5 +1,5 @@
-# Counterexample for S0-Parties: the testing organization's independence of the test item provider is assumed, not declared: the record holds no independence declaration (sheet 10-07).
-# Must fail on ogc:S0-Parties and nothing else.
+# Counterexample for S6-Attestation: attestation-1 names a later build of the chatbot as its subject while the requirement set binds v1: an attestation is about the system under test the envelope binds (sheet 10-17; drift pass 4, QA 19).
+# Must fail on ogc:S6-Attestation and nothing else.
 # A copy of track/measles-evaluation.ttl with one change (sheet 10-19; written by scripts/render_counterexamples.py).
 @prefix ev:   <https://w3id.org/og-caie/evaluation/measles#> .
 @prefix epo:  <https://w3id.org/og-caie/epo#> .
@@ -92,6 +92,12 @@ ev:service-agreement a epo:ServiceAgreement ;
     epo:accepts ev:proposal-1 ;
     epo:signedBy ev:dana-okafor ; epo:signedBy ev:mala ;
     prov:generatedAtTime "2026-07-31T10:00:00Z"^^xsd:dateTime .
+
+ev:independence-declaration-1 a epo:IndependenceDeclaration ;
+    rdfs:label "Humane Intelligence declares that it is independent of the chatbot vendor and has no user interest in the chatbot" ;
+    epo:independentOf ev:chatbot-vendor ;
+    prov:wasAttributedTo ev:mala ;
+    prov:generatedAtTime "2026-07-31T10:10:00Z"^^xsd:dateTime .
 
 ev:user-interest-declaration-1 a epo:UserInterestDeclaration ;
     rdfs:label "the county public-health office declares that it has a user interest in the chatbot, which it deploys to the public" ;
@@ -540,7 +546,7 @@ ev:determination-5 a epo:Determination ;
     prov:generatedAtTime "2026-08-11T09:05:00Z"^^xsd:dateTime .
 
 ev:attestation-1 a epo:Attestation ;
-    earl:test ev:a1 ; earl:subject ev:chatbot-v1 ;
+    earl:test ev:a1 ; earl:subject ev:chatbot-v2 ;
     earl:mode earl:manual ; earl:assertedBy ev:annie ;
     prov:wasAttributedTo ev:annie ;
     prov:wasDerivedFrom ev:determination-1 ;
@@ -749,6 +755,7 @@ ev:mission-1 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:need-1 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:proposal-1 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:service-agreement ogc:inRecord ev:record ; ogc:synthetic true .
+ev:independence-declaration-1 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:user-interest-declaration-1 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:statement-of-work ogc:inRecord ev:record ; ogc:synthetic true .
 ev:engagement-commuters ogc:inRecord ev:record ; ogc:synthetic true .
@@ -857,3 +864,7 @@ ev:report-approval-1 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:recommendation-1 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:delivery-1 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:acceptance-1 ogc:inRecord ev:record ; ogc:synthetic true .
+
+# ---- the counterexample's addition: a second version of the chatbot, which the session ran against
+ev:chatbot-v2 a prov:Agent, prov:SoftwareAgent, earl:TestSubject ; rdfs:label "public-health chatbot, a later build" ; epo:version "v2" ;
+    prov:actedOnBehalfOf ev:chatbot-vendor ; ogc:inRecord ev:record ; ogc:synthetic true .

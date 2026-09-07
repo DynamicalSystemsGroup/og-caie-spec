@@ -4910,7 +4910,20 @@ ogc:S5-Response a sh:NodeShape ;
         [ sh:class prov:SoftwareAgent ;
             sh:minCount 1 ;
             sh:path prov:wasAttributedTo ] ;
-    sh:targetClass epo:Response .
+    sh:sparql [ sh:message "S5 (drift pass 4, QA 10): the software agent a response is attributed to is the one its session ran against, the agent the session is associated with, reached through the turn that generated the response; a response from another build is not evidence about this test item." ;
+            sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX ogc: <https://w3id.org/og-caie/>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            SELECT $this ?value WHERE {
+                $this ogc:inRecord ?rec ; prov:wasAttributedTo ?value ; prov:wasGeneratedBy ?turn . ?value a prov:SoftwareAgent .
+                ?turn ogc:inRecord ?rec ; epo:inSession ?s . ?s ogc:inRecord ?rec .
+                FILTER NOT EXISTS { ?s prov:wasAssociatedWith ?value }
+            }
+        """ ] ;
+    sh:targetClass epo:Response ;
+    ogc:counterexample "counterexamples/response-from-another-build.ttl",
+        "counterexamples/session-on-another-item.ttl" .
 
 ogc:S8-Delivery a sh:NodeShape ;
     sh:property [ sh:class prov:Organization ;
@@ -5586,7 +5599,7 @@ ev:coverage-computation a epo:CoverageComputation ;
     prov:wasAssociatedWith ev:report-assembler ;
     epo:ontologyDigest "0a7cacfca8a29515a4349e93dd514a77eae575154831f60efa49ed40639533be" ;
     epo:queryDigest "ecc9688b862ffd77beae1e94d4cba1ae07701ca7521f2cff63b908da90eb9bb3" ;
-    epo:shapesDigest "ea74f869046a3d427092f7a6d456819168428fb51d307fee6016fc46f60db8c5" ;
+    epo:shapesDigest "3528a5c3e7cafd6a12327426711ae3c8aa35c96dd34d014879212fea6670215a" ;
     ogc:inRecord ev:record ;
     ogc:synthetic true .
 
@@ -5602,7 +5615,7 @@ ev:coverage-computation-draft a epo:CoverageComputation ;
     prov:wasAssociatedWith ev:report-assembler ;
     epo:ontologyDigest "0a7cacfca8a29515a4349e93dd514a77eae575154831f60efa49ed40639533be" ;
     epo:queryDigest "ecc9688b862ffd77beae1e94d4cba1ae07701ca7521f2cff63b908da90eb9bb3" ;
-    epo:shapesDigest "ea74f869046a3d427092f7a6d456819168428fb51d307fee6016fc46f60db8c5" ;
+    epo:shapesDigest "3528a5c3e7cafd6a12327426711ae3c8aa35c96dd34d014879212fea6670215a" ;
     ogc:inRecord ev:record ;
     ogc:synthetic true .
 
@@ -12090,8 +12103,8 @@ ev:conformance-verdict-1 a epo:ConformanceVerdict ;
     prov:wasAttributedTo ev:pyshacl ;
     prov:wasDerivedFrom ev:record ;
     epo:ontologyDigest "0a7cacfca8a29515a4349e93dd514a77eae575154831f60efa49ed40639533be" ;
-    epo:recordDigest "6443d24357a94b386f828e3fc6d3fa27ab9dba3ffa7c2535a94d45124f46ad59" ;
-    epo:shapesDigest "ea74f869046a3d427092f7a6d456819168428fb51d307fee6016fc46f60db8c5" ;
+    epo:recordDigest "9a07a4462bd9321b5d844131a676984ac3358572d664c807b12607b0fa01039e" ;
+    epo:shapesDigest "3528a5c3e7cafd6a12327426711ae3c8aa35c96dd34d014879212fea6670215a" ;
     ogc:inRecord ev:record ;
     ogc:synthetic true .
 
@@ -12660,6 +12673,11 @@ ogc:S6-Attestation a sh:NodeShape ;
             sh:message "An attestation is made by one named person." ;
             sh:minCount 1 ;
             sh:path earl:assertedBy ],
+        [ sh:class earl:TestSubject ;
+            sh:maxCount 1 ;
+            sh:message "An attestation names the one test item it is about (drift pass 4, QA 19)." ;
+            sh:minCount 1 ;
+            sh:path earl:subject ],
         [ sh:hasValue earl:manual ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
@@ -12680,7 +12698,17 @@ ogc:S6-Attestation a sh:NodeShape ;
         [ sh:datatype xsd:dateTime ;
             sh:minCount 1 ;
             sh:path prov:generatedAtTime ] ;
-    sh:sparql [ sh:message "S6: the attesting person holds the domain expert role; the operator collects and determines, the authorized representative signs and delivers, only the domain expert attests (R-21, R-23)." ;
+    sh:sparql [ sh:message "S6 binding (sheet 10-17; drift pass 4, QA 19): the subject of an attestation is the system under test the record's requirement set binds; an attestation on another item says nothing about this evaluation, as S4 already asks of every determination." ;
+            sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX ogc: <https://w3id.org/og-caie/>
+            PREFIX earl: <http://www.w3.org/ns/earl#>
+            SELECT $this ?value WHERE {
+                $this ogc:inRecord ?rec ; earl:subject ?value .
+                FILTER NOT EXISTS { ?rs a epo:RequirementSet ; ogc:inRecord ?rec ; epo:systemUnderTest ?value }
+            }
+        """ ],
+        [ sh:message "S6: the attesting person holds the domain expert role; the operator collects and determines, the authorized representative signs and delivers, only the domain expert attests (R-21, R-23)." ;
             sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX earl: <http://www.w3.org/ns/earl#>
@@ -12756,6 +12784,7 @@ ogc:S6-Attestation a sh:NodeShape ;
     ogc:counterexample "counterexamples/attestation-before-determination.ttl",
         "counterexamples/attestation-off-plan.ttl",
         "counterexamples/attestation-off-turn.ttl",
+        "counterexamples/attestation-on-another-item.ttl",
         "counterexamples/attestation-without-evidence.ttl",
         "counterexamples/cherry-picked-determination.ttl",
         "counterexamples/executive-attests.ttl",

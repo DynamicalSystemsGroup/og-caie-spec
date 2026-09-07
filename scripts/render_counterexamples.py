@@ -187,8 +187,8 @@ COUNTEREXAMPLES: dict[str, dict] = {
         fault="a plan deviation is attributed to Annie, the domain expert; departing from the plan is the operator's act to record (sheet 10-16).",
         append=DEVIATION_BY_ANNIE),
     "session-on-another-item": dict(
-        shapes=["S4-Session"],
-        fault="session-1 ran against a later build of the chatbot, not the version the requirement set binds and the access grant names (sheet 10-17).",
+        shapes=["S4-Session", "S5-Response"],
+        fault="session-1 ran against a later build of the chatbot, not the version the requirement set binds and the access grant names (sheet 10-17); its three responses, attributed to v1, then come from an agent the session did not run against (S5, drift pass 4).",
         replace=[("    rdfs:label \"session 1: Theo with chatbot v1, the bus to work, three turns\" ;\n    prov:wasAssociatedWith ev:chatbot-v1 ;\n    prov:wasAssociatedWith ev:theo ;",
                   "    rdfs:label \"session 1: Theo with chatbot v1, the bus to work, three turns\" ;\n    prov:wasAssociatedWith ev:chatbot-v2 ;\n    prov:wasAssociatedWith ev:theo ;")],
         append=CHATBOT_V2),
@@ -253,6 +253,17 @@ COUNTEREXAMPLES: dict[str, dict] = {
         shapes=["S0-Parties"],
         fault="the county public-health office, which holds the test item customer role and deploys the chatbot, declares that it has no user interest in it: the declaration disagrees with the role (ISO/IEC 17000 4.4; sheet 10-07; drift pass 4, contracting officer 12).",
         replace=[("    epo:hasUserInterest true ;", "    epo:hasUserInterest false ;")]),
+    "response-from-another-build": dict(
+        shapes=["S5-Response"],
+        fault="response 1 is attributed to a later build of the chatbot while its session ran against v1: a response comes from the agent its session ran against (drift pass 4, QA 10).",
+        replace=[("    prov:wasGeneratedBy ev:turn-1 ; prov:wasAttributedTo ev:chatbot-v1 ;", "    prov:wasGeneratedBy ev:turn-1 ; prov:wasAttributedTo ev:chatbot-v2 ;")],
+        append=CHATBOT_V2),
+    "attestation-on-another-item": dict(
+        shapes=["S6-Attestation"],
+        fault="attestation-1 names a later build of the chatbot as its subject while the requirement set binds v1: an attestation is about the system under test the envelope binds (sheet 10-17; drift pass 4, QA 19).",
+        replace=[("    earl:test ev:a1 ; earl:subject ev:chatbot-v1 ;\n    earl:mode earl:manual ; earl:assertedBy ev:annie ;\n    prov:wasAttributedTo ev:annie ;\n    prov:wasDerivedFrom ev:determination-1 ;",
+                  "    earl:test ev:a1 ; earl:subject ev:chatbot-v2 ;\n    earl:mode earl:manual ; earl:assertedBy ev:annie ;\n    prov:wasAttributedTo ev:annie ;\n    prov:wasDerivedFrom ev:determination-1 ;")],
+        append=CHATBOT_V2),
 }
 
 

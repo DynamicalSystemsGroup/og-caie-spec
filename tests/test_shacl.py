@@ -32,6 +32,8 @@ DRIFT_PASS_4 = {
     "assessment-after-session": "S2-RequirementSet",      # QA 9: the appropriateness assessment precedes the sessions
     "session-outside-access-period": "S4-Session",        # contracting officer 4: the access period binds the sessions
     "user-interest-denied": "S0-Parties",                 # contracting officer 12: the user-interest declaration agrees with the customer role
+    "response-from-another-build": "S5-Response",         # QA 10: a response comes from the agent its session ran against
+    "attestation-on-another-item": "S6-Attestation",      # QA 19: an attestation's subject is the test item the envelope binds
 }
 
 

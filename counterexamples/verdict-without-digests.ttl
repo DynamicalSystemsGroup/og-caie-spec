@@ -606,7 +606,7 @@ ev:coverage-computation-draft a epo:CoverageComputation ;
     prov:used ev:attestation-1 ; prov:used ev:attestation-2 ; prov:used ev:attestation-3 ; prov:used ev:attestation-4 ; prov:used ev:attestation-5 ;
     prov:wasAssociatedWith ev:report-assembler ;
     earl:mode earl:automatic ;
-    epo:shapesDigest "ea74f869046a3d427092f7a6d456819168428fb51d307fee6016fc46f60db8c5" ; epo:ontologyDigest "0a7cacfca8a29515a4349e93dd514a77eae575154831f60efa49ed40639533be" ; epo:queryDigest "ecc9688b862ffd77beae1e94d4cba1ae07701ca7521f2cff63b908da90eb9bb3" ;
+    epo:shapesDigest "3528a5c3e7cafd6a12327426711ae3c8aa35c96dd34d014879212fea6670215a" ; epo:ontologyDigest "0a7cacfca8a29515a4349e93dd514a77eae575154831f60efa49ed40639533be" ; epo:queryDigest "ecc9688b862ffd77beae1e94d4cba1ae07701ca7521f2cff63b908da90eb9bb3" ;
     prov:endedAtTime "2026-08-11T11:00:00Z"^^xsd:dateTime .
 
 ev:report-draft a epo:Report ;
@@ -689,7 +689,7 @@ ev:coverage-computation a epo:CoverageComputation ;
     prov:used ev:conformance-verdict-1 ;
     prov:wasAssociatedWith ev:report-assembler ;
     earl:mode earl:automatic ;
-    epo:shapesDigest "ea74f869046a3d427092f7a6d456819168428fb51d307fee6016fc46f60db8c5" ; epo:ontologyDigest "0a7cacfca8a29515a4349e93dd514a77eae575154831f60efa49ed40639533be" ; epo:queryDigest "ecc9688b862ffd77beae1e94d4cba1ae07701ca7521f2cff63b908da90eb9bb3" ;
+    epo:shapesDigest "3528a5c3e7cafd6a12327426711ae3c8aa35c96dd34d014879212fea6670215a" ; epo:ontologyDigest "0a7cacfca8a29515a4349e93dd514a77eae575154831f60efa49ed40639533be" ; epo:queryDigest "ecc9688b862ffd77beae1e94d4cba1ae07701ca7521f2cff63b908da90eb9bb3" ;
     prov:endedAtTime "2026-08-12T10:00:00Z"^^xsd:dateTime .
 
 ev:report a epo:Report ;
