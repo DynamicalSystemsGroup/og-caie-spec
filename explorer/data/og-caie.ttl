@@ -806,8 +806,8 @@ term:test-item-provider a skos:Concept ; skos:inScheme ogc:Glossary ;
                   ogc:quote "conformity assessment activity that is performed by the person or organization that provides or that is the object of conformity assessment" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "4.2 object of conformity assessment" ;
                   ogc:quote "entity to which specified requirements apply" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
-    ogc:scopeNote "Sheet 09 (block B4) and the tbox audit (sheet 08): the headword accountable organization becomes test item provider, kept as the alternative label; it specializes ISO 9000's provider, with ISO/IEC 17000's first party as the neighbour. Ruling R-48 (07-06) asked whether accountable organization was the right headword." ;
-    prov:wasDerivedFrom rul:R-21 ; prov:wasDerivedFrom rul:R-48 ;
+    ogc:scopeNote "Sheet 09 (block B4) and the tbox audit (sheet 08): the headword accountable organization becomes test item provider, kept as the alternative label; it specializes ISO 9000's provider, with ISO/IEC 17000's first party as the neighbour. Ruling R-48 (07-06) asked whether accountable organization was the right headword; ruling R-49 (block B2) records the renaming." ;
+    prov:wasDerivedFrom rul:R-21 ; prov:wasDerivedFrom rul:R-48 ; prov:wasDerivedFrom rul:R-49 ;
     skos:broader term:provider ;
     skos:related term:test-item ; skos:related term:first-party-conformity-assessment-activity ; skos:related term:test-item-customer ; skos:related term:evaluation-service-provider ;
     ogc:binding "epo:TestItemProviderRole; epo:accountableOrganizationRole on the test-item access; sysml part def AccountableOrganization" .
@@ -946,8 +946,8 @@ term:account-executive a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "acceptance, p. 4 (ISO/IEC/IEEE 24748-5:2017, 3.1) (fragment of the entry)" ; ogc:pdfPage 4 ;
                     ogc:quote "authorized representative of the acquirer" ; ogc:quoteStatus "machine" ] ;
     ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "4.3 first-party conformity assessment activity, Note 1 (the descriptors are not the legal identification of the parties to a contract)" ] ;
-    ogc:scopeNote "Sheet 09 (block B1) and the tbox audit (sheet 08): the headword account executive becomes authorized representative, kept as the alternative label; SEVOCAB's acceptance entry names the authorized representative of the acquirer, and here the phrase is read for the provider's side, the person authorized to sign and deliver for the testing organization. The earlier anchor, ISO 9000:2026 3.1.3 top management, leaves. Concern C-26 (the anchor was provisional) is answered by this entry and closes when Z records the ruling. Z on the role: not responsible for the determination in the report; the interface for the organization with its contractual counterparties. The term's IRI keeps its former local name." ;
-    prov:wasDerivedFrom rul:R-23 ; prov:wasDerivedFrom rul:R-48 ;
+    ogc:scopeNote "Sheet 09 (block B1) and the tbox audit (sheet 08): the headword account executive becomes authorized representative, kept as the alternative label; SEVOCAB's acceptance entry names the authorized representative of the acquirer, and here the phrase is read for the provider's side, the person authorized to sign and deliver for the testing organization. The earlier anchor, ISO 9000:2026 3.1.3 top management, leaves. Concern C-26 (the anchor was provisional) is answered by this entry and closed by ruling R-49, which records the renaming. Z on the role: not responsible for the determination in the report; the interface for the organization with its contractual counterparties. The term's IRI keeps its former local name." ;
+    prov:wasDerivedFrom rul:R-23 ; prov:wasDerivedFrom rul:R-48 ; prov:wasDerivedFrom rul:R-49 ;
     skos:related term:contract ; skos:related term:evaluation-service-provider ; skos:related term:evaluation-team ;
     ogc:binding "epo:AuthorizedRepresentativeRole; epo:accountExecutiveRole on the service agreement and the delivery; sysml part def AccountExecutive" .
 
