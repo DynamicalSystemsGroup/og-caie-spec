@@ -151,8 +151,9 @@ are a usage error (exit 2).
     `ev:record`, a `prov:Bundle` every item and agent is a member of, which
     carries the synthetic-case note), then `## items by step` (C1..C6 then
     1..6, each with who made, signed, approved or asserted it and when),
-    then `## items without a step` (the requirement, the engagement
-    decisions, the trajectory, the consistency check), then `## parties and
+    then `## items without a step`, empty for the measles record (`(0)`)
+    since the containment rule, kept for a record whose member no rule
+    reaches, then `## parties and
     machines`. The step is derived, never asserted (sheet 10-33): no record
     file carries `epo:step`, and no item carries a step of its own; the
     tool derives it through the model graph (the item's class is realized
@@ -180,8 +181,9 @@ are a usage error (exit 2).
 
 ## What is loaded
 
-By default: the vocabulary, the EPO steps, the crosswalk, the sources, the
-rulings and concerns, the essentials, and the EPO and model shapes, merged
+By default: the vocabulary, the EPO steps, the register and the model
+vocabulary, the crosswalk, the sources, the rulings and concerns, the
+essentials, and the EPO and model shapes, merged
 into one graph (named graphs are not exposed; GRAPH, FROM and FROM NAMED are
 refused). `--model` adds the canonical model graph, the OMG `sysml:`
 rendering of the structure (part, port, interface and action definitions,
@@ -195,6 +197,7 @@ the printed and hashed args, so a `sparql` answer says which graphs it was
 asked over.
 
 The files behind the tool are `vocabulary/og-caie.ttl`, `vocabulary/epo.ttl`,
+`vocabulary/register.ttl`, `vocabulary/ogm.ttl`,
 `vocabulary/crosswalk.ttl`, `sources/sources.ttl`,
 `rulings/adjudications.ttl`, `model/trace.ttl`, the four shape files under
 `shapes/`, `model/og-caie.model.ttl`, `vocabulary/derived.ttl` (the
@@ -288,7 +291,7 @@ Naming one twice is a usage error (`mutation named twice`, exit 2).
 - `define`: `term`, `definition`, `class`, `canonical`, `coined_by`,
   `status`, `resolved`.
 - `record`: the listing is `rows`, each with `group` (record, step,
-  no-step, party), `step`, `order`, `item`, `iri`, `class`, `label`, `who`,
+  party; `no-step` only when a member has no step), `step`, `order`, `item`, `iri`, `class`, `label`, `who`,
   `when`, `via`, `synthetic` (`who` and `when` are null when the record
   carries none and nothing can be derived; `via` names the generating
   activity they were derived through, else null; `synthetic` is true where

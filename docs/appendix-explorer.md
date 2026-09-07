@@ -23,6 +23,7 @@ and every node names the `ogc` command that prints it.
 
 ```{iframe} explorer/index.html
 :width: 100%
+:height: 720px
 
 The knowledge graph explorer. Open it [full screen](../explorer/index.html)
 for a larger canvas and the SPARQL box.

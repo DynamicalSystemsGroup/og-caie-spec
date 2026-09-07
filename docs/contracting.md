@@ -38,23 +38,24 @@ output port to an input port and carries one item kind. The sponsor holds
 an obligation towards the affected populations, states its mission and
 then its need, and receives the proposal. Where the sponsor signs, a
 named person signs for it: its signatory signs the agreement, declares the
-user interest, approves the requirement set and accepts the delivery. The
+user interest, approves the requirement set and accepts delivery. The
 authorized representative answers, countersigns, declares the testing
-organization's independence and, at the end, delivers. The agreement
+organization's independence and delivers. The agreement
 accepts the proposal; the statement of work, the access and the delivery
 are performed under it. The test item provider grants access for a stated
-version and period in a named environment; its duty to give that access
-comes from an instrument outside this agreement, and the record names it.
-Every item reaches the recorder, the machine that keeps the record; input
-wires are unique, output wires fan out. One item sits on the boundary
+version and period in a named environment, under an instrument outside
+this agreement that the record names.
+Every item reaches the recorder, the machine keeping the record; three
+more machines act: the test driver derives probes, the conformance
+checker checks them and the record, the report assembler assembles the
+report. Input wires are unique, output wires fan out. One item sits on the boundary
 between the contract and its fulfilment: the {term}`statement of work`,
-the sponsor's decision that says, for each affected population, whether
+the sponsor's decision, for each affected population, whether
 it is interviewed before it is spoken for. A team member speaks for every
-population; the interview, when decided, feeds that representation, and
-the record must realize the decision. In
+population; an interview, when decided, feeds that representation. In
 the model this cycle is the outer `action def`, SysML's definition of a
-process as steps in succession, and its `fulfil` step is the whole
-evaluation as a black box.
+process as steps in succession; its `fulfil` step is the evaluation as a
+black box.
 
 ```{include} ../generated/wiring-contracting.md
 ```
@@ -135,8 +136,7 @@ records and a model broken on purpose, must fail: among them a requirement
 set declared before the agreement, a population nobody speaks for, an
 untagged member, a person holding two roles, an independence nobody declared, an acceptance
 by the organization instead of its signatory, and a model with no
-obligation between the sponsor and the populations. Five rows await their ticks on
-rulings sheet 05 (C-30).
+obligation between the sponsor and the populations.
 
 :::{admonition} Verdict
 :class: checked

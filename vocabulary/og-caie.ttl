@@ -113,7 +113,7 @@ term:determination a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:related term:outcome ;
     skos:related term:attestation ;
     skos:related term:test ;
-    ogc:binding "epo:Determination, an earl:Assertion and prov:Activity; earl:outcome passed, failed or cantTell; sysml item def Determination" .
+    ogc:binding "epo:Determination, an earl:Assertion and a prov:Entity; earl:outcome passed, failed or cantTell; sysml item def Determination" .
 
 term:test-suite a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "test suite"@en ;
@@ -556,7 +556,7 @@ term:attestation a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:related term:validation ;
     skos:related term:conformity ;
     skos:related term:outcome ;
-    ogc:binding "epo:Attestation, an earl:Assertion and a prov:Activity; aggregates the determinations for a criterion, each bound to its evidence and through it to the test plan" .
+    ogc:binding "epo:Attestation, an earl:Assertion and a prov:Entity; aggregates the determinations for a criterion, each bound to its evidence and through it to the test plan" .
 
 term:appropriateness a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "appropriateness"@en ;
@@ -843,7 +843,7 @@ term:test-item-provider a skos:Concept ; skos:inScheme ogc:Glossary ;
     prov:wasDerivedFrom rul:R-21 ; prov:wasDerivedFrom rul:R-48 ; prov:wasDerivedFrom rul:R-49 ;
     skos:broader term:provider ;
     skos:related term:test-item ; skos:related term:first-party-conformity-assessment-activity ; skos:related term:test-item-customer ; skos:related term:evaluation-service-provider ;
-    ogc:binding "epo:TestItemProviderRole; epo:accountableOrganizationRole on the test-item access; sysml part def AccountableOrganization" .
+    ogc:binding "epo:TestItemProviderRole; epo:accountableOrganizationRole held by the organization whose epo:providesTestItem is true (S0-Parties); sysml part def AccountableOrganization" .
 
 term:evaluation-customer a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "evaluation customer"@en ;
@@ -891,7 +891,7 @@ term:first-party-conformity-assessment-activity a skos:Concept ; skos:inScheme o
     skos:related term:test-item-provider ;
     skos:related term:second-party-conformity-assessment-activity ;
     skos:related term:third-party-conformity-assessment-activity ;
-    ogc:binding "epo:accountableOrganizationRole on the test-item access (the first party is the test item provider); sysml part def AccountableOrganization" .
+    ogc:binding "epo:accountableOrganizationRole held by the organization whose epo:providesTestItem is true (the first party is the test item provider, S0-Parties); sysml part def AccountableOrganization" .
 
 term:second-party-conformity-assessment-activity a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "second-party conformity assessment activity"@en ;
@@ -917,7 +917,7 @@ term:third-party-conformity-assessment-activity a skos:Concept ; skos:inScheme o
     skos:related term:evaluation-service-provider ;
     skos:related term:first-party-conformity-assessment-activity ;
     skos:related term:second-party-conformity-assessment-activity ;
-    ogc:binding "epo:independentOfAccountable on the testing organization (record fact, S0)" .
+    ogc:binding "an epo:IndependenceDeclaration naming the test item provider by epo:independentOf, attributed to the authorized representative (S0-Parties, sheet 10-07)" .
 
 term:contract a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "contract"@en ;

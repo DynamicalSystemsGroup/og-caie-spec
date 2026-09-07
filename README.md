@@ -20,9 +20,9 @@ deployed AI system against the needs of a specific domain, written down as:
 
 ## Status (2026-09-07)
 
-- **Glossary: ratified.** 66 terms, 4 coined (DSO, EPO, CAIE, OG-CAIE),
+- **Glossary: ratified.** 69 terms, 4 coined (DSO, EPO, CAIE, OG-CAIE),
   settled through 51 rulings (R-01 to R-51) recorded verbatim in
-  `rulings/adjudications.ttl`. 91 quotes are machine-located in
+  `rulings/adjudications.ttl`. 94 quotes are machine-located in
   content-hashed snapshots or, where the source is held locally, in its
   committed digest, 56 verified by Z against the ISO screenshots or
   the browsing platforms; none pending. Concerns C-25, C-30, C-43, C-45 and C-57 are open.
@@ -91,7 +91,7 @@ deployed AI system against the needs of a specific domain, written down as:
   sessions of three turns, a paired determination, a cannot-tell resolved by
   a follow-up session and the attestation that supersedes it, a draft report
   with its gap flagged, the verdict on the record before the final report
-  with the digests of what it ran, a recommendation that states its fitness
+  with the digests of what it ran and of the record it judged, a recommendation that states its fitness
   (R-51), and the acceptance; the step is derived through the model, never
   asserted; shapes S0 to S9 and forty-one counterexamples in RDF, each the
   record with one change, follow the rulings; the traceback query reaches
@@ -106,7 +106,7 @@ deployed AI system against the needs of a specific domain, written down as:
 `uv run -q ogc <command>` navigates the vocabulary graph deterministically:
 `ogc schema`, `ogc find`, `ogc term`, `ogc define`, `ogc quote`, `ogc
 verify` (terms, sources and steps), `ogc list`, `ogc source`, `ogc sources`, `ogc ruling`, `ogc
-rulings`, `ogc concern`, `ogc concerns`, `ogc sci`, `ogc steps`, `ogc epo` (an EPO class or role: its label, superclasses, the layer it is pinned at, the term it names, the disjointness axioms and the shapes that mention it), `ogc shapes`, `ogc shape` (a node shape's target and constraints), `ogc crosswalk`
+rulings`, `ogc concern`, `ogc concerns`, `ogc sci`, `ogc steps`, `ogc epo` (an EPO class, role or value: its label, superclasses, the layer it is pinned at, the term it names, the disjointness axioms and the shapes that mention it), `ogc shapes`, `ogc shape` (a node shape's target and constraints), `ogc crosswalk`
 (`--popper` for the seven Popper rows), `ogc views`, `ogc view` (a model view as mermaid with its perspective), `ogc execute` (the process executed from the model, with its checks and a `VERDICT` line; `--planned`, `--sessions`, `--requirements`, `--criteria` and `--populations` set the executor's parameters, capped at 100 criteria, 20 sessions and 100 criterion-sessions of work because the checks are quadratic), `ogc record` (the measles evaluation item by derived step, with who and when and the synthetic tag; `ogc record <name>` for one item), `ogc check-word`, `ogc sparql`
 (read-only, sorted, one merged graph; `--model` adds the model graph, `--record` the record, and a query that names the record or the model graph without its flag is refused), `ogc doctor`. Every output starts with `# ogc <command> <args>
 @ <sha>` (for `sparql`, the query as typed with its sha256, re-runnable); `--json` returns the result as one object carrying the same

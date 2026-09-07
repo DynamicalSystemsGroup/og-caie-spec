@@ -1,4 +1,5 @@
 @prefix ogc: <https://w3id.org/og-caie/> .
+@prefix epo: <https://w3id.org/og-caie/epo#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
@@ -18,5 +19,5 @@
     rdfs:comment "One predicate, added in memory by ogc.graph.infer_steps and asserted by no file; loaded with the record so that the loaded graph declares what it holds." .
 
 ogc:derivedStep a owl:ObjectProperty ;
-    rdfs:label "derived step" ;
+    rdfs:label "derived step" ; rdfs:range epo:Step ;
     rdfs:comment "the EPO step a record item belongs to, derived in memory through the model graph when the record is loaded (sheet 10-33); no record file carries it, so a record never claims its own step" .

@@ -88,7 +88,8 @@ traceback all refuse it:
 :::{admonition} Verdict
 :class: checked
 The first run conforms, is complete, recomputes its coverage and traces
-fully; every mutation is caught by a named check.
+fully; every mutation is caught by a named check. Each mutation is applied
+to the finished run, whose verdict it keeps; the checks rerun.
 Computational proof: [run the checks](../notebooks/checked-guarantees.ipynb).
 :::
 

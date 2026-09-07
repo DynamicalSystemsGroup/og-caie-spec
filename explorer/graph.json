@@ -345,7 +345,7 @@
     ]
    ]
   },
-  "cite:agree:canonical:sebok-2-14:acquisition-and-supply-p-353-incose-2012-the-acquisition-process": {
+  "cite:agree:canonical:sebok-2-14:stakeholder-responsibilities-acquirer-supplier-agreements-p-353-incose-2012-the-acquisition-process": {
    "in": [],
    "out": [
     [
@@ -357,7 +357,7 @@
     [
      "ogc:locator",
      {
-      "text": "Acquisition and Supply, p. 353 (INCOSE 2012, the acquisition process)"
+      "text": "Stakeholder Responsibilities, Acquirer/Supplier Agreements, p. 353 (INCOSE 2012, the acquisition process)"
      }
     ],
     [
@@ -11228,7 +11228,7 @@
     [
      "rdfs:range",
      {
-      "text": "epo:step"
+      "text": "ogc:derivedStep"
      }
     ],
     [
@@ -11254,7 +11254,7 @@
     [
      "rdfs:comment",
      {
-      "text": "no term: a structural superclass so that epo:step ranges over both cycles' steps without contradicting their disjointness (sheet 10)"
+      "text": "no term: a structural superclass so that ogc:derivedStep ranges over both cycles' steps without contradicting their disjointness (sheet 10)"
      }
     ],
     [
@@ -11949,7 +11949,7 @@
     [
      "ogc:canonical",
      {
-      "ref": "cite:agree:canonical:sebok-2-14:acquisition-and-supply-p-353-incose-2012-the-acquisition-process"
+      "ref": "cite:agree:canonical:sebok-2-14:stakeholder-responsibilities-acquirer-supplier-agreements-p-353-incose-2012-the-acquisition-process"
      }
     ],
     [
@@ -13818,13 +13818,13 @@
     [
      "epo:ontologyDigest",
      {
-      "text": "d70a05edcb35683651a15ede28b102f37d76d70c0eedc678b51bb1be2fd5755e"
+      "text": "c0141c1cc9668a0240e632b11338ec858ddd5ff5428c65d63def1d6490df5b0f"
      }
     ],
     [
      "epo:recordDigest",
      {
-      "text": "68377d985d60969e0b0f091550556dd9ef864011a40b4084093f72579caea2ea"
+      "text": "5f7e3bcee62973ea4aecba6053749ec70a356403c0ab52f0d1d967452452adbe"
      }
     ],
     [
@@ -14859,7 +14859,7 @@
     [
      "epo:ontologyDigest",
      {
-      "text": "d70a05edcb35683651a15ede28b102f37d76d70c0eedc678b51bb1be2fd5755e"
+      "text": "c0141c1cc9668a0240e632b11338ec858ddd5ff5428c65d63def1d6490df5b0f"
      }
     ],
     [
@@ -14972,7 +14972,7 @@
     [
      "epo:ontologyDigest",
      {
-      "text": "d70a05edcb35683651a15ede28b102f37d76d70c0eedc678b51bb1be2fd5755e"
+      "text": "c0141c1cc9668a0240e632b11338ec858ddd5ff5428c65d63def1d6490df5b0f"
      }
     ],
     [
@@ -30148,7 +30148,7 @@
     [
      "ogc:binding",
      {
-      "text": "epo:Attestation, an earl:Assertion and a prov:Activity; aggregates the determinations for a criterion, each bound to its evidence and through it to the test plan"
+      "text": "epo:Attestation, an earl:Assertion and a prov:Entity; aggregates the determinations for a criterion, each bound to its evidence and through it to the test plan"
      }
     ],
     [
@@ -31016,7 +31016,7 @@
     [
      "ogc:binding",
      {
-      "text": "epo:Determination, an earl:Assertion and prov:Activity; earl:outcome passed, failed or cantTell; sysml item def Determination"
+      "text": "epo:Determination, an earl:Assertion and a prov:Entity; earl:outcome passed, failed or cantTell; sysml item def Determination"
      }
     ],
     [
@@ -32242,7 +32242,7 @@
     [
      "ogc:binding",
      {
-      "text": "epo:accountableOrganizationRole on the test-item access (the first party is the test item provider); sysml part def AccountableOrganization"
+      "text": "epo:accountableOrganizationRole held by the organization whose epo:providesTestItem is true (the first party is the test item provider, S0-Parties); sysml part def AccountableOrganization"
      }
     ],
     [
@@ -35803,7 +35803,7 @@
     [
      "ogc:binding",
      {
-      "text": "epo:TestItemProviderRole; epo:accountableOrganizationRole on the test-item access; sysml part def AccountableOrganization"
+      "text": "epo:TestItemProviderRole; epo:accountableOrganizationRole held by the organization whose epo:providesTestItem is true (S0-Parties); sysml part def AccountableOrganization"
      }
     ],
     [
@@ -36225,7 +36225,7 @@
     [
      "ogc:binding",
      {
-      "text": "epo:independentOfAccountable on the testing organization (record fact, S0)"
+      "text": "an epo:IndependenceDeclaration naming the test item provider by epo:independentOf, attributed to the authorized representative (S0-Parties, sheet 10-07)"
      }
     ],
     [
@@ -52737,7 +52737,7 @@
   },
   {
    "rel": "cites",
-   "source": "cite:agree:canonical:sebok-2-14:acquisition-and-supply-p-353-incose-2012-the-acquisition-process",
+   "source": "cite:agree:canonical:sebok-2-14:stakeholder-responsibilities-acquirer-supplier-agreements-p-353-incose-2012-the-acquisition-process",
    "target": "https://w3id.org/og-caie/sources#sebok-2-14"
   },
   {
@@ -54488,7 +54488,7 @@
   {
    "rel": "canonical",
    "source": "https://w3id.org/og-caie/epo#agree",
-   "target": "cite:agree:canonical:sebok-2-14:acquisition-and-supply-p-353-incose-2012-the-acquisition-process"
+   "target": "cite:agree:canonical:sebok-2-14:stakeholder-responsibilities-acquirer-supplier-agreements-p-353-incose-2012-the-acquisition-process"
   },
   {
    "rel": "seeAlso",
@@ -64960,8 +64960,8 @@
   {
    "cls": "citation",
    "desc": "“The acquisition process includes activities to identify, select, and reach commercial agreements with a product or service supplier.” [machine]",
-   "id": "cite:agree:canonical:sebok-2-14:acquisition-and-supply-p-353-incose-2012-the-acquisition-process",
-   "label": "sebok-2-14 Acquisition and Supply, p. 353 (INCO…",
+   "id": "cite:agree:canonical:sebok-2-14:stakeholder-responsibilities-acquirer-supplier-agreements-p-353-incose-2012-the-acquisition-process",
+   "label": "sebok-2-14 Stakeholder Responsibilities, Acquir…",
    "ogc": "ogc steps",
    "page": ""
   },
@@ -66951,7 +66951,7 @@
   },
   {
    "cls": "kind",
-   "desc": "no term: a structural superclass so that epo:step ranges over both cycles' steps without contradicting their disjointness (sheet 10)",
+   "desc": "no term: a structural superclass so that ogc:derivedStep ranges over both cycles' steps without contradicting their disjointness (sheet 10)",
    "id": "https://w3id.org/og-caie/epo#Step",
    "label": "step (of either cycle)",
    "ogc": "ogc sparql \"DESCRIBE epo:Step\"",
@@ -72311,7 +72311,7 @@
     "cite:access:seeAlso:iso-iec-17000-2020:annex-a-a-2-selection-the-functional-approach-planning-and-preparation-to-obtain-the-inputs-for-determination",
     "cite:access:seeAlso:sevocab:test-environment-p-434-iso-iec-ieee-29119-2-2021-3-34",
     "cite:access:seeAlso:sevocab:test-item-transmittal-report-p-435-iso-iec-ieee-24765-2017",
-    "cite:agree:canonical:sebok-2-14:acquisition-and-supply-p-353-incose-2012-the-acquisition-process",
+    "cite:agree:canonical:sebok-2-14:stakeholder-responsibilities-acquirer-supplier-agreements-p-353-incose-2012-the-acquisition-process",
     "cite:agree:seeAlso:iso-9000-2026:3-3-13",
     "cite:agree:seeAlso:iso-iec-17000-2020:4-9-conformity-assessment-scheme",
     "cite:appropriateness:canonical:hawkins-2011:section-3-2-asserted-context-p-7",
@@ -73402,7 +73402,7 @@
     "cite:access:seeAlso:iso-iec-17000-2020:annex-a-a-2-selection-the-functional-approach-planning-and-preparation-to-obtain-the-inputs-for-determination",
     "cite:access:seeAlso:sevocab:test-environment-p-434-iso-iec-ieee-29119-2-2021-3-34",
     "cite:access:seeAlso:sevocab:test-item-transmittal-report-p-435-iso-iec-ieee-24765-2017",
-    "cite:agree:canonical:sebok-2-14:acquisition-and-supply-p-353-incose-2012-the-acquisition-process",
+    "cite:agree:canonical:sebok-2-14:stakeholder-responsibilities-acquirer-supplier-agreements-p-353-incose-2012-the-acquisition-process",
     "cite:agree:seeAlso:iso-9000-2026:3-3-13",
     "cite:agree:seeAlso:iso-iec-17000-2020:4-9-conformity-assessment-scheme",
     "cite:appropriateness:canonical:hawkins-2011:section-3-2-asserted-context-p-7",

@@ -18,6 +18,7 @@ evaluation.
 
 ```{iframe} report/index.html
 :width: 100%
+:height: 720px
 
 The sample report for the synthetic case. Open it
 [full screen](../report/index.html) for a larger canvas.

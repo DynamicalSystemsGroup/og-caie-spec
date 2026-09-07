@@ -7,10 +7,13 @@ authors' earlier glossary work.
 
 ## Vocabulary: use terms, don't own them
 
-- One canonical citation per term, chosen by precedence: (1) ISO 9000:2026,
-  (2) SEVOCAB, (3) NIST AI 700-2 (NIST AI RMF for TEVV only), (4) W3C / OMG
-  for technical binding only, never for a narrative definition. Lower-ranked
-  sources may appear only as `ogc:seeAlso`.
+- One canonical citation per term, chosen by rank, an integer 1 to 8,
+  ordinal (sheet 10-46, R-51): 1 ISO 9000:2026, 2 SEVOCAB, 3 NIST AI 700-2
+  (NIST AI RMF for TEVV only), 4 W3C / OMG for technical binding only,
+  never for a narrative definition, 5 ISO-family vocabularies, 6 other
+  bodies, 7 academic works, 8 the authors. The canonical is the
+  highest-ranked source that defines the term in the sense used; every
+  other source cited on the term is `ogc:seeAlso`.
 - Coinage is exactly four, with shorthands (R-29): Domain-Specific Ontology
   (DSO), Evaluation Process Ontology (EPO), Contextual AI Evaluation (CAIE),
   OG-CAIE (CAIE performed with the EPO and DSO method). A fifth needs a

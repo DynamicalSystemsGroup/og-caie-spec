@@ -5,9 +5,9 @@
 @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
 
 # The source register as a graph: one node per source the glossary, model or
-# docs cite. Rank is the citation precedence (Z, 2026-09-05): "1" ISO 9000:2026;
-# "2" SEVOCAB; "3" NIST; "4" W3C/OMG, technical binding only; "reserve"
-# single-purpose sources; "internal" our own working documents.
+# docs cite. Rank is an integer 1 to 8, ordinal (sheet 10-46, R-51): 1 ISO
+# 9000:2026, 2 SEVOCAB, 3 NIST, 4 W3C/OMG for technical binding only, 5
+# ISO-family vocabularies, 6 other bodies, 7 academic works, 8 the authors.
 # Posture (ruling R-04): committed (file under sources/archive/), heldLocally
 # (file under sources/local/, gitignored, hash committed), citeOnly.
 # Digests under sources/digests/ carry the verbatim excerpts relied on.

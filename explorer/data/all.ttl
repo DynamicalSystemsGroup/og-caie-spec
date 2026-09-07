@@ -516,11 +516,6 @@ epo:signedBy a owl:ObjectProperty ;
     rdfs:range prov:Person ;
     rdfs:subPropertyOf prov:wasAttributedTo .
 
-epo:step a owl:ObjectProperty ;
-    rdfs:label "step" ;
-    rdfs:comment "the step an item was produced at: derived from the item's class through the model graph (ogm:realizes), never asserted in a record (sheet 10-33, R-50); see the note under epo:Step" ;
-    rdfs:range epo:Step .
-
 epo:targetsGuardrail a owl:DatatypeProperty ;
     rdfs:label "targets guardrail" ;
     rdfs:domain epo:Recommendation ;
@@ -5101,7 +5096,7 @@ epo:accountableOrganizationRole a epo:TestItemProviderRole ;
 epo:agree a epo:ContractingStep ;
     rdfs:label "C3 agree: the service agreement fixes the counterparties, the test item, the requirements' frame and the method" ;
     ogc:canonical [ ogc:cites src:sebok-2-14 ;
-            ogc:locator "Acquisition and Supply, p. 353 (INCOSE 2012, the acquisition process)" ;
+            ogc:locator "Stakeholder Responsibilities, Acquirer/Supplier Agreements, p. 353 (INCOSE 2012, the acquisition process)" ;
             ogc:pdfPage 353 ;
             ogc:quote "The acquisition process includes activities to identify, select, and reach commercial agreements with a product or service supplier." ;
             ogc:quoteStatus "machine" ] ;
@@ -5560,7 +5555,7 @@ ev:coverage-computation a epo:CoverageComputation ;
         ev:conformance-verdict-1,
         ev:requirement-set ;
     prov:wasAssociatedWith ev:report-assembler ;
-    epo:ontologyDigest "d70a05edcb35683651a15ede28b102f37d76d70c0eedc678b51bb1be2fd5755e" ;
+    epo:ontologyDigest "c0141c1cc9668a0240e632b11338ec858ddd5ff5428c65d63def1d6490df5b0f" ;
     epo:queryDigest "ecc9688b862ffd77beae1e94d4cba1ae07701ca7521f2cff63b908da90eb9bb3" ;
     epo:shapesDigest "b73720e05518c1e01800bc4f9047d6022f3d8330641240a811b1effa25cd36c5" ;
     ogc:inRecord ev:record ;
@@ -5576,7 +5571,7 @@ ev:coverage-computation-draft a epo:CoverageComputation ;
         ev:attestation-5,
         ev:requirement-set ;
     prov:wasAssociatedWith ev:report-assembler ;
-    epo:ontologyDigest "d70a05edcb35683651a15ede28b102f37d76d70c0eedc678b51bb1be2fd5755e" ;
+    epo:ontologyDigest "c0141c1cc9668a0240e632b11338ec858ddd5ff5428c65d63def1d6490df5b0f" ;
     epo:queryDigest "ecc9688b862ffd77beae1e94d4cba1ae07701ca7521f2cff63b908da90eb9bb3" ;
     epo:shapesDigest "b73720e05518c1e01800bc4f9047d6022f3d8330641240a811b1effa25cd36c5" ;
     ogc:inRecord ev:record ;
@@ -10487,6 +10482,10 @@ epo:StakeholderInput a owl:Class ;
     ogc:pinnedAt epo:evaluation ;
     ogc:term term:stakeholder .
 
+epo:Step a owl:Class ;
+    rdfs:label "step (of either cycle)" ;
+    rdfs:comment "no term: a structural superclass so that ogc:derivedStep ranges over both cycles' steps without contradicting their disjointness (sheet 10)" .
+
 epo:TechnicalExpertRole a owl:Class ;
     rdfs:label "technical expert role" ;
     rdfs:comment "a person who provides specific knowledge to the evaluation team; the genus of the domain expert and the evaluation operator (R-10, R-23)" ;
@@ -11879,10 +11878,6 @@ epo:RequirementSetApproval a owl:Class ;
     ogc:pinnedAt epo:evaluation ;
     ogc:term term:operational-envelope .
 
-epo:Step a owl:Class ;
-    rdfs:label "step (of either cycle)" ;
-    rdfs:comment "no term: a structural superclass so that epo:step ranges over both cycles' steps without contradicting their disjointness (sheet 10)" .
-
 epo:UserInterestDeclaration a owl:Class ;
     rdfs:label "user-interest declaration" ;
     rdfs:comment "the sponsor's dated statement, made by its signatory, of whether it has a user interest in the test item (ISO/IEC 17000 4.4; sheet 10-07). No term: the declaration records the party fact that makes the sponsor's own activity second-party (term second-party conformity assessment activity); it is the fact's record, not a headword" ;
@@ -11988,8 +11983,8 @@ ev:conformance-verdict-1 a epo:ConformanceVerdict ;
     prov:generatedAtTime "2026-08-12T09:30:00+00:00"^^xsd:dateTime ;
     prov:wasAttributedTo ev:pyshacl ;
     prov:wasDerivedFrom ev:record ;
-    epo:ontologyDigest "d70a05edcb35683651a15ede28b102f37d76d70c0eedc678b51bb1be2fd5755e" ;
-    epo:recordDigest "68377d985d60969e0b0f091550556dd9ef864011a40b4084093f72579caea2ea" ;
+    epo:ontologyDigest "c0141c1cc9668a0240e632b11338ec858ddd5ff5428c65d63def1d6490df5b0f" ;
+    epo:recordDigest "5f7e3bcee62973ea4aecba6053749ec70a356403c0ab52f0d1d967452452adbe" ;
     epo:shapesDigest "b73720e05518c1e01800bc4f9047d6022f3d8330641240a811b1effa25cd36c5" ;
     ogc:inRecord ev:record ;
     ogc:synthetic true .
@@ -12956,7 +12951,7 @@ term:third-party-conformity-assessment-activity a skos:Concept ;
         term:first-party-conformity-assessment-activity,
         term:second-party-conformity-assessment-activity ;
     prov:wasDerivedFrom rul:R-21 ;
-    ogc:binding "epo:independentOfAccountable on the testing organization (record fact, S0)" ;
+    ogc:binding "an epo:IndependenceDeclaration naming the test item provider by epo:independentOf, attributed to the authorized representative (S0-Parties, sheet 10-07)" ;
     ogc:canonical [ ogc:cites src:iso-iec-17000-2020 ;
             ogc:locator "4.5 third-party conformity assessment activity" ;
             ogc:quote "conformity assessment activity that is performed by a person or organization that is independent of the provider of the object of conformity assessment and has no user interest in the object" ;
@@ -13377,7 +13372,7 @@ term:first-party-conformity-assessment-activity a skos:Concept ;
         term:test-item-provider,
         term:third-party-conformity-assessment-activity ;
     prov:wasDerivedFrom rul:R-21 ;
-    ogc:binding "epo:accountableOrganizationRole on the test-item access (the first party is the test item provider); sysml part def AccountableOrganization" ;
+    ogc:binding "epo:accountableOrganizationRole held by the organization whose epo:providesTestItem is true (the first party is the test item provider, S0-Parties); sysml part def AccountableOrganization" ;
     ogc:canonical [ ogc:cites src:iso-iec-17000-2020 ;
             ogc:locator "4.3 first-party conformity assessment activity" ;
             ogc:quote "conformity assessment activity that is performed by the person or organization that provides or that is the object of conformity assessment" ;
@@ -14029,7 +14024,7 @@ elmt:OGCAIE__TestItemAccess a sysml:ItemDefinition ;
 
 epo:EpoStep a owl:Class ;
     rdfs:label "EPO step" ;
-    rdfs:comment "one of the six steps of the evaluation (the inner cycle, rulings R-21, R-32); the range of epo:step with epo:ContractingStep" ;
+    rdfs:comment "one of the six steps of the evaluation (the inner cycle, rulings R-21, R-32); the range of ogc:derivedStep with epo:ContractingStep" ;
     rdfs:subClassOf epo:Step ;
     ogc:term term:evaluation-process-ontology .
 
@@ -14132,7 +14127,7 @@ term:test-item-provider a skos:Concept ;
         rul:R-48,
         rul:R-49 ;
     ogc:anchorRelation "specializes" ;
-    ogc:binding "epo:TestItemProviderRole; epo:accountableOrganizationRole on the test-item access; sysml part def AccountableOrganization" ;
+    ogc:binding "epo:TestItemProviderRole; epo:accountableOrganizationRole held by the organization whose epo:providesTestItem is true (S0-Parties); sysml part def AccountableOrganization" ;
     ogc:canonical [ ogc:cites src:iso-9000-2026 ;
             ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-03.png" ;
             ogc:locator "3.1.9 provider" ;
@@ -14379,7 +14374,7 @@ term:determination a skos:Concept ;
     prov:wasDerivedFrom rul:R-20,
         rul:R-50 ;
     ogc:anchorRelation "specializes" ;
-    ogc:binding "epo:Determination, an earl:Assertion and prov:Activity; earl:outcome passed, failed or cantTell; sysml item def Determination" ;
+    ogc:binding "epo:Determination, an earl:Assertion and a prov:Entity; earl:outcome passed, failed or cantTell; sysml item def Determination" ;
     ogc:canonical [ ogc:cites src:iso-9000-2026 ;
             ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-29.png" ;
             ogc:locator "3.11.1" ;
@@ -15074,7 +15069,7 @@ term:attestation a skos:Concept ;
         term:validation ;
     prov:wasDerivedFrom rul:R-50 ;
     ogc:anchorRelation "specializes" ;
-    ogc:binding "epo:Attestation, an earl:Assertion and a prov:Activity; aggregates the determinations for a criterion, each bound to its evidence and through it to the test plan" ;
+    ogc:binding "epo:Attestation, an earl:Assertion and a prov:Entity; aggregates the determinations for a criterion, each bound to its evidence and through it to the test plan" ;
     ogc:canonical [ ogc:cites src:iso-iec-17000-2020 ;
             ogc:locator "7.3" ;
             ogc:quote "issue of a statement, based on a decision, that fulfilment of specified requirements has been demonstrated" ;

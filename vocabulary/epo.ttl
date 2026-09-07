@@ -27,23 +27,23 @@ epo: a owl:Ontology ;
 # describes them, the ISO/IEC/IEEE 29119-2 test processes as SEVOCAB defines
 # them, and ISO/IEC 17000's functions (selection, determination, review,
 # decision and attestation). The steps are operationalized, not invented.
-epo:Step a owl:Class ; rdfs:label "step (of either cycle)" ; rdfs:comment "no term: a structural superclass so that epo:step ranges over both cycles' steps without contradicting their disjointness (sheet 10)" .
+epo:Step a owl:Class ; rdfs:label "step (of either cycle)" ; rdfs:comment "no term: a structural superclass so that ogc:derivedStep ranges over both cycles' steps without contradicting their disjointness (sheet 10)" .
 # The step of a record item is derived, never asserted (sheet 10-33, R-50):
 # the item's class is realized by an item kind of the model
 # (model/og-caie.model.ttl, ogm:realizes), the item kind is an out
 # parameter of a step of the model, and that step realizes one of the
-# epo: steps below. ogc/graph.py adds the derived epo:step triples in
-# memory when the record and the model graph are loaded together; the
+# epo: steps below. ogc/graph.py adds the derived ogc:derivedStep triples
+# (vocabulary/derived.ttl) in memory when the record and the model graph are loaded together; the
 # shapes read the derivation as a SPARQL join with the model graph, which
 # must therefore be loaded alongside the record (shapes/epo.shapes.ttl,
-# header). The record files carry no epo:step triple. A member with no
+# header). No file carries a step triple. A member with no
 # model element of its own takes the step of what contains it, to a
 # fixpoint (the containment rule, round four, KG 6): a requirement that
 # of its requirement set, a trajectory that of the session that generated
 # it, an engagement decision that of the statement of work that decides
 # it, a consistency check that of the probe it checks; agents carry none.
 epo:EpoStep a owl:Class ; rdfs:subClassOf epo:Step ; rdfs:label "EPO step" ;
-    rdfs:comment "one of the six steps of the evaluation (the inner cycle, rulings R-21, R-32); the range of epo:step with epo:ContractingStep" .
+    rdfs:comment "one of the six steps of the evaluation (the inner cycle, rulings R-21, R-32); the range of ogc:derivedStep with epo:ContractingStep" .
 epo:scope a epo:EpoStep ; rdfs:label "1 scope: every affected population represented, with its interview when the statement of work decided one; build or select the DSO release; declare the operational environment" ;
     ogc:canonical [ ogc:cites src:sebok-2-14 ; ogc:locator "Stakeholder Needs and Requirements, p. 549 (Stakeholder Needs Definition, Concept Definition)" ; ogc:pdfPage 549 ; ogc:quote "Stakeholder Needs Definition, the second process in Concept Definition, explores what capabilities are needed by various stakeholders for the system-of-interest (SoI) to accomplish the mission." ; ogc:quoteStatus "machine" ] ;
     ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "Annex A, A.2 Selection (the functional approach)" ] .
@@ -93,7 +93,7 @@ epo:propose a epo:ContractingStep ; rdfs:label "C2 propose: the sponsor seeks th
     ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "4.10 access" ; ogc:quote "opportunity for an applicant to obtain a conformity assessment service from a body under a conformity assessment scheme" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:scopeNote "Ruling R-47 (sheet 06-09): the customer specifies, the supplier responds with a proposal; the supplier's definition (SEBoK p. 352) backs the testing organization's role, not this step." .
 epo:agree a epo:ContractingStep ; rdfs:label "C3 agree: the service agreement fixes the counterparties, the test item, the requirements' frame and the method" ;
-    ogc:canonical [ ogc:cites src:sebok-2-14 ; ogc:locator "Acquisition and Supply, p. 353 (INCOSE 2012, the acquisition process)" ; ogc:pdfPage 353 ; ogc:quote "The acquisition process includes activities to identify, select, and reach commercial agreements with a product or service supplier." ; ogc:quoteStatus "machine" ] ;
+    ogc:canonical [ ogc:cites src:sebok-2-14 ; ogc:locator "Stakeholder Responsibilities, Acquirer/Supplier Agreements, p. 353 (INCOSE 2012, the acquisition process)" ; ogc:pdfPage 353 ; ogc:quote "The acquisition process includes activities to identify, select, and reach commercial agreements with a product or service supplier." ; ogc:quoteStatus "machine" ] ;
     ogc:seeAlso [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.3.13" ; ogc:quote "binding agreement" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-38.png" ] ;
     ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "4.9 conformity assessment scheme" ; ogc:quote "set of rules and procedures that describes the objects of conformity assessment, identifies the specified requirements and provides the methodology for performing conformity assessment" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] .
 epo:access a epo:ContractingStep ; rdfs:label "C4 access: the test item provider (ISO/IEC 17000 first party) provides the test item and the test environment" ;
@@ -335,7 +335,6 @@ epo:exercises a owl:ObjectProperty ; rdfs:label "exercises" ; rdfs:domain epo:Pr
 epo:derivedFromDso a owl:ObjectProperty ; rdfs:label "derived from DSO" ; rdfs:subPropertyOf prov:wasDerivedFrom ; rdfs:domain epo:Probe ; rdfs:range epo:DsoRelease .
 epo:appropriateness a owl:ObjectProperty ; rdfs:label "appropriateness" ; rdfs:range epo:AppropriatenessValue ; rdfs:comment "on an attestation (the declared context) or an appropriateness assessment (the requirement set)" .
 epo:sufficiency a owl:ObjectProperty ; rdfs:label "sufficiency" ; rdfs:domain epo:Attestation ; rdfs:range epo:SufficiencyValue .
-epo:step a owl:ObjectProperty ; rdfs:label "step" ; rdfs:range epo:Step ; rdfs:comment "the step an item was produced at: derived from the item's class through the model graph (ogm:realizes), never asserted in a record (sheet 10-33, R-50); see the note under epo:Step" .
 epo:coverage a owl:DatatypeProperty ; rdfs:label "coverage" ; rdfs:domain epo:Report ; rdfs:range xsd:decimal ; rdfs:comment "by weight: the sum of the weights of the acceptance criteria that carry at least one attestation with an outcome, over the sum of every criterion's weight, as queries/coverage.rq computes it (ruling R-01, R-05); recomputed by S7-Report over the attestations dated no later than the report" .
 epo:passRate a owl:DatatypeProperty ; rdfs:label "pass rate" ; rdfs:domain epo:Report ; rdfs:range xsd:decimal ; rdfs:comment "by count of the covered criteria, not by weight: the share of covered criteria whose outcome is passed (a criterion counts once: failed if any attestation failed, else passed if any passed, else cannot tell), as queries/coverage.rq computes it; recomputed by S7-Report" .
 epo:failRate a owl:DatatypeProperty ; rdfs:label "fail rate" ; rdfs:domain epo:Report ; rdfs:range xsd:decimal ; rdfs:comment "by count of the covered criteria: the share whose outcome is failed, as queries/coverage.rq computes it; recomputed by S7-Report" .

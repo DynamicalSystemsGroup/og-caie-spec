@@ -36,9 +36,9 @@ The fifth step as the command line prints it, each quote with its tag,
 ## The specification
 
 The evaluation slice of the wiring, in the parts, ports and wires the
-previous chapter defined. Two actor categories do the work: the
-a named team member (the {term}`domain expert <technical expert>` unless the
-statement of work says otherwise) speaks for each population, supplies or approves the DSO release, assesses the
+previous chapter defined. Two actor categories do the work. A
+named team member (the {term}`domain expert <technical expert>` unless the
+statement of work says otherwise) speaks for each population; the domain expert supplies or approves the DSO release, assesses the
 appropriateness of the requirement set, approves the plan, and attests;
 the {term}`evaluation operator` declares the requirements, writes the
 plan, applies the probes to the {term}`test item`, collects the evidence,
