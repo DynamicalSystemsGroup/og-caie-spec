@@ -5,7 +5,9 @@ flowchart LR
   sponsor["sponsor : SponsorOrganization"]
   testingOrg_accountExecutive(["accountExecutive : AccountExecutive"])
   testingOrg_recorder[["recorder : Recorder"]]
+  testingOrg_team_operator(["operator : EvaluationOperator"])
   accountable -- "TestItemAccess" --> testingOrg_recorder
+  accountable -- "TestItemAccess" --> testingOrg_team_operator
   affected -- "StakeholderInput" --> testingOrg_recorder
   sponsor -- "Mission, Need, ServiceAgreement, StatementOfWork, Acceptance" --> testingOrg_accountExecutive
   sponsor -- "Mission, Need, StatementOfWork, Acceptance" --> testingOrg_recorder
@@ -17,7 +19,7 @@ flowchart LR
   classDef party fill:#f9a825,stroke:#e65100,stroke-width:2px,stroke-dasharray: 6 3,color:#000000;
   classDef organization fill:#37474f,stroke:#cfd8dc,stroke-width:2px,color:#ffffff;
   linkStyle default stroke:#90a4ae,stroke-width:1.5px;
-  class testingOrg_accountExecutive person;
+  class testingOrg_accountExecutive,testingOrg_team_operator person;
   class testingOrg_recorder machine;
   class affected party;
   class accountable,sponsor organization;

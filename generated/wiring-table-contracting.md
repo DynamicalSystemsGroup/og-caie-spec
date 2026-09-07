@@ -11,7 +11,9 @@
 | AccountExecutive | proposalOut | out | ProposalWrite | proposalSeam | to Recorder.proposalIn |
 | AccountExecutive | proposalOut | out | ProposalWrite | proposalToSponsorSeam | to SponsorOrganization.proposalIn |
 | AccountableOrganization | accessOut | out | AccessWrite | accessSeam | to Recorder.accessIn |
+| AccountableOrganization | accessOut | out | AccessWrite | accessToOperatorSeam | to EvaluationOperator.accessIn |
 | AffectedPopulation | inputOut | out | StakeholderInputWrite | stakeholderInputSeam | to Recorder.inputIn |
+| EvaluationOperator | accessIn | in | AccessWrite | accessToOperatorSeam | from AccountableOrganization.accessOut |
 | Recorder | acceptanceIn | in | AcceptanceWrite | acceptanceSeam | from SponsorOrganization.acceptanceOut |
 | Recorder | accessIn | in | AccessWrite | accessSeam | from AccountableOrganization.accessOut |
 | Recorder | agreementIn | in | AgreementWrite | countersignSeam | from AccountExecutive.agreementOut |

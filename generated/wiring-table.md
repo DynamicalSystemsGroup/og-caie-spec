@@ -16,6 +16,7 @@ For each kind of part, each port: its direction, the item kind it carries, and t
 | AccountExecutive | proposalOut | out | ProposalWrite | proposalSeam | to Recorder.proposalIn |
 | AccountExecutive | proposalOut | out | ProposalWrite | proposalToSponsorSeam | to SponsorOrganization.proposalIn |
 | AccountableOrganization | accessOut | out | AccessWrite | accessSeam | to Recorder.accessIn |
+| AccountableOrganization | accessOut | out | AccessWrite | accessToOperatorSeam | to EvaluationOperator.accessIn |
 | AffectedPopulation | inputOut | out | StakeholderInputWrite | stakeholderInputSeam | to Recorder.inputIn |
 | ConformanceChecker | recordIn | in | RecordWrite | recordToCheckerSeam | from Recorder.recordOut |
 | CoverageCalculator | recordIn | in | RecordWrite | recordToCalculatorSeam | from Recorder.recordOut |
@@ -26,6 +27,7 @@ For each kind of part, each port: its direction, the item kind it carries, and t
 | DomainExpert | determinationOut | out | DeterminationWrite | expertDeterminationSeam | to Recorder.expertDeterminationIn |
 | DomainExpert | dsoOut | out | DsoWrite | dsoSeam | to Recorder.dsoIn |
 | DomainExpert | planApprovalOut | out | PlanApprovalWrite | planApprovalSeam | to Recorder.planApprovalIn |
+| EvaluationOperator | accessIn | in | AccessWrite | accessToOperatorSeam | from AccountableOrganization.accessOut |
 | EvaluationOperator | probesIn | in | ProbeWrite | derivedProbeSeam | from ProbeDeriver.probesOut |
 | EvaluationOperator | recordIn | in | RecordWrite | recordToOperatorSeam | from Recorder.recordOut |
 | EvaluationOperator | determinationOut | out | DeterminationWrite | operatorDeterminationSeam | to Recorder.operatorDeterminationIn |

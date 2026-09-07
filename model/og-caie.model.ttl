@@ -1222,6 +1222,14 @@ elmt:OGCAIE__EvaluationOperator___400
     sysml:owner elmt:OGCAIE__EvaluationOperator ;
     sysml:qualifiedName "OGCAIE::EvaluationOperator::@0" .
 
+elmt:OGCAIE__EvaluationOperator__accessIn
+    a sysml:PortUsage ;
+    sysml:declaredName "accessIn" ;
+    sysml:isConjugated "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__EvaluationOperator ;
+    sysml:qualifiedName "OGCAIE::EvaluationOperator::accessIn" ;
+    sysml:type elmt:OGCAIE__AccessWrite .
+
 elmt:OGCAIE__EvaluationOperator__determinationOut
     a sysml:PortUsage ;
     sysml:declaredName "determinationOut" ;
@@ -2265,6 +2273,17 @@ elmt:OGCAIE__OgCaieEvaluation__accessSeam
     sysml:type elmt:OGCAIE__AccessSeam ;
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__accessSeam_pend0, expr:OGCAIE__OgCaieEvaluation__accessSeam_pend1 ;
     sysx:sourceText "interface accessSeam : AccessSeam connect accountable.accessOut to testingOrg.recorder.accessIn;" .
+
+elmt:OGCAIE__OgCaieEvaluation__accessToOperatorSeam
+    a sysml:InterfaceUsage ;
+    ogm:consumerPort elmt:OGCAIE__EvaluationOperator__accessIn ;
+    ogm:supplierPort elmt:OGCAIE__AccountableOrganization__accessOut ;
+    sysml:declaredName "accessToOperatorSeam" ;
+    sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
+    sysml:qualifiedName "OGCAIE::OgCaieEvaluation::accessToOperatorSeam" ;
+    sysml:type elmt:OGCAIE__AccessSeam ;
+    sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__accessToOperatorSeam_pend0, expr:OGCAIE__OgCaieEvaluation__accessToOperatorSeam_pend1 ;
+    sysx:sourceText "interface accessToOperatorSeam : AccessSeam connect accountable.accessOut to testingOrg.team.operator.accessIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__accountable
     a sysml:PartUsage ;
@@ -5209,6 +5228,46 @@ expr:OGCAIE__OgCaieEvaluation__accessSeam_pend1_pa0
     sysx:sourceText "testingOrg.recorder" .
 
 expr:OGCAIE__OgCaieEvaluation__accessSeam_pend1_pa0_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
+    sysx:sourceText "testingOrg" .
+
+expr:OGCAIE__OgCaieEvaluation__accessToOperatorSeam_pend0
+    a sysml:FeatureChainExpression ;
+    ogm:endPart elmt:OGCAIE__OgCaieEvaluation__accountable ;
+    ogm:resolvesTo elmt:OGCAIE__AccountableOrganization__accessOut ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__accessToOperatorSeam_pend0_pa0 ;
+    sysml:targetFeature "accessOut" ;
+    sysx:endIndex "0"^^xsd:integer ;
+    sysx:sourceText "accountable.accessOut" .
+
+expr:OGCAIE__OgCaieEvaluation__accessToOperatorSeam_pend0_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__OgCaieEvaluation__accountable ;
+    sysx:sourceText "accountable" .
+
+expr:OGCAIE__OgCaieEvaluation__accessToOperatorSeam_pend1
+    a sysml:FeatureChainExpression ;
+    ogm:endPart elmt:OGCAIE__EvaluationTeam__operator ;
+    ogm:resolvesTo elmt:OGCAIE__EvaluationOperator__accessIn ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__accessToOperatorSeam_pend1_pa0 ;
+    sysml:targetFeature "accessIn" ;
+    sysx:endIndex "1"^^xsd:integer ;
+    sysx:sourceText "testingOrg.team.operator.accessIn" .
+
+expr:OGCAIE__OgCaieEvaluation__accessToOperatorSeam_pend1_pa0
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__accessToOperatorSeam_pend1_pa0_pa0 ;
+    sysml:targetFeature "operator" ;
+    sysx:sourceText "testingOrg.team.operator" .
+
+expr:OGCAIE__OgCaieEvaluation__accessToOperatorSeam_pend1_pa0_pa0
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__accessToOperatorSeam_pend1_pa0_pa0_pa0 ;
+    sysml:targetFeature "team" ;
+    sysx:sourceText "testingOrg.team" .
+
+expr:OGCAIE__OgCaieEvaluation__accessToOperatorSeam_pend1_pa0_pa0_pa0
     a sysml:FeatureReferenceExpression ;
     sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
     sysx:sourceText "testingOrg" .

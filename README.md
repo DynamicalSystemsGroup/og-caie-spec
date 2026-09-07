@@ -59,7 +59,7 @@ deployed AI system against the needs of a specific domain, written down as:
   (R-22), checked by wiring shapes M1 to M5 over kinds of parts and ports:
   four parties, three actor categories within the testing organization, the
   six-step EPO nested as the fulfil step of the contracting lifecycle (one
-  model, R-33), both process DAGs, 62 ports and 37 seams, every input wired
+  model, R-33), both process DAGs, 63 ports and 38 seams, every input wired
   once and every output somewhere, and the sponsor's obligation to the
   affected populations as a relation. Four model counterexamples fail their
   shape. The essentials SCI-01 to SCI-13 live in `model/trace.ttl`.

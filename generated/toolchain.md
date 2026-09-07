@@ -23,9 +23,9 @@ Python `>=3.12` (`pyproject.toml`), pinned to `3.12` by `.python-version` so tha
 | Fetched from | `https://github.com/Open-MBEE/OpenSysML/releases/download/v0.4.3` | `toolchain/get-sysml.sh` (`VER=v0.4.3`) |
 | Invocation | `-convert ttl` | `model/model_manifest.json` |
 | Digest file | `toolchain/sysml-binaries.sha256`, sha256 `8efae36144923a29a21aa57d59286442db5ffaaa9a3773fafcc57616ade6f961` | `model/model_manifest.json` |
-| Authoring source | `model/og-caie.sysml`, sha256 `422d772eee9462fee81232c1e652a0a74e89256a119795a761bb1d278a26adfb` | `model/model_manifest.json` |
+| Authoring source | `model/og-caie.sysml`, sha256 `01795eb723ab83347e628c973d883d3ff38af9c30fe9e657591235b98029d35e` | `model/model_manifest.json` |
 | Term map | `model/sysml_term_map.csv`, 59 terms, sha256 `76069cb93b389619ffe4a8836a6e015a72620c9f1d56316c6dcee18a40364ba9` | `model/model_manifest.json` |
-| Canonical graph | `model/og-caie.model.ttl`, 4754 triples of 15898 converted (budget 5800, headroom 1046), sha256 `d8846769d629be308a0ab573e988f6d581f9ae160ecef0e2c00bfbee80ede444` | `model/model_manifest.json` |
+| Canonical graph | `model/og-caie.model.ttl`, 4798 triples of 15989 converted (budget 5800, headroom 1002), sha256 `1b7116abe2555b60d81c94e685046f296c07507c17feddbc70d71b49db28e78c` | `model/model_manifest.json` |
 
 Per platform, the digest the installed binary must hash to (`toolchain/sysml-binaries.sha256`) and the digest the release tarball must hash to before it is unpacked (`toolchain/SHA256SUMS.pinned`); `toolchain/get-sysml.sh` checks both on every run.
 
@@ -51,8 +51,8 @@ What the graphs are written in, counted over the committed Turtle files (`vocabu
 | `sh` | `http://www.w3.org/ns/shacl#` | W3C | SHACL: the shapes that check the record, the model graph and the rulings, including SHACL-SPARQL constraints | 1 | 16 | 0 | <https://www.w3.org/TR/shacl/> |
 | `sysml` | `https://www.omg.org/spec/SysML#` | OMG | SysML v2 vocabulary as the OpenSysML converter renders the model: definitions, usages, ports, interfaces, actions, successions, flows | 27 | 18 | 0 | <https://www.omg.org/spec/SysML/2.0/> |
 | `sysx` | `urn:opensysml:sysml:` | OpenSysML | the converter's own facts: the ends of a connection, the source text of a statement, a prefix keyword | 0 | 4 | 0 | <https://github.com/OpenMBEE/opensysml> |
-| `elmt` | `urn:sysmlv2:element:` | OpenSysML | the converter's element identifiers, one per model element | 0 | 0 | 542 | <https://github.com/OpenMBEE/opensysml> |
-| `expr` | `urn:opensysml:expr:` | OpenSysML | the converter's expression identifiers (end paths, multiplicity bounds) | 0 | 0 | 415 | <https://github.com/OpenMBEE/opensysml> |
+| `elmt` | `urn:sysmlv2:element:` | OpenSysML | the converter's element identifiers, one per model element | 0 | 0 | 544 | <https://github.com/OpenMBEE/opensysml> |
+| `expr` | `urn:opensysml:expr:` | OpenSysML | the converter's expression identifiers (end paths, multiplicity bounds) | 0 | 0 | 421 | <https://github.com/OpenMBEE/opensysml> |
 | `ogc` | `https://w3id.org/og-caie/` | this specification | the register: citation classes and properties, shapes' names, concerns, rulings, crosswalk rows, trace essentials | 5 | 47 | 46 | <https://w3id.org/og-caie/> |
 | `term` | `https://w3id.org/og-caie/terms#` | this specification | the glossary's terms | 0 | 0 | 62 | <https://w3id.org/og-caie/> |
 | `src` | `https://w3id.org/og-caie/sources#` | this specification | the source register | 0 | 0 | 20 | <https://w3id.org/og-caie/> |

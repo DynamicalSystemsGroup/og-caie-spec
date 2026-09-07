@@ -27,3 +27,7 @@ ogm:validation-countersignSeam a ogc:Validation ; ogc:validates "countersignSeam
 ogm:validation-deliveryRecordSeam a ogc:Validation ; ogc:validates "deliveryRecordSeam" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .
 ogm:validation-proposalSeam a ogc:Validation ; ogc:validates "proposalSeam" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .
 ogm:validation-recordToExecutiveSeam a ogc:Validation ; ogc:validates "recordToExecutiveSeam" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .
+ogm:validation-AccountableOrganization a ogc:Validation ; ogc:validates "AccountableOrganization" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date ; ogc:via "walkthrough popup, block 3 of 11: the access grant also reaches the operator; no further involvement assumed" .
+ogm:validation-accessSeam a ogc:Validation ; ogc:validates "accessSeam" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .
+ogm:validation-accessToOperatorSeam a ogc:Validation ; ogc:validates "accessToOperatorSeam" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .
+ogm:validation-obligation a ogc:Validation ; ogc:validates "obligation" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .

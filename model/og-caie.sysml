@@ -464,6 +464,7 @@ package OGCAIE {
         port requirementsOut : RequirementSetWrite;
         port planOut : PlanWrite;
         port probesIn : ~ProbeWrite;
+        port accessIn : ~AccessWrite;
         port probesToItem : ProbeWrite;
         port evidenceOut : EvidenceWrite;
         port determinationOut : DeterminationWrite;
@@ -604,6 +605,7 @@ package OGCAIE {
         interface agreementSeam : AgreementSeam connect sponsor.agreementOut to testingOrg.accountExecutive.agreementIn;
         interface countersignSeam : AgreementSeam connect testingOrg.accountExecutive.agreementOut to testingOrg.recorder.agreementIn;
         interface accessSeam : AccessSeam connect accountable.accessOut to testingOrg.recorder.accessIn;
+        interface accessToOperatorSeam : AccessSeam connect accountable.accessOut to testingOrg.team.operator.accessIn;
         interface stakeholderInputSeam : StakeholderInputSeam connect affected.inputOut to testingOrg.recorder.inputIn;
         interface dsoSeam : DsoSeam connect testingOrg.team.domainExpert.dsoOut to testingOrg.recorder.dsoIn;
         interface requirementSeam : RequirementSeam connect testingOrg.team.operator.requirementsOut to testingOrg.recorder.requirementsIn;

@@ -25230,6 +25230,12 @@
      {
       "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__accessSeam_pend0"
      }
+    ],
+    [
+     "ogm:resolvesTo",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__accessToOperatorSeam_pend0"
+     }
     ]
    ],
    "out": [
@@ -27197,6 +27203,54 @@
     ]
    ]
   },
+  "urn:sysmlv2:element:OGCAIE__EvaluationOperator__accessIn": {
+   "in": [
+    [
+     "ogm:resolvesTo",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__accessToOperatorSeam_pend1"
+     }
+    ]
+   ],
+   "out": [
+    [
+     "rdf:type",
+     {
+      "text": "sysml:PortUsage"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "accessIn"
+     }
+    ],
+    [
+     "sysml:isConjugated",
+     {
+      "text": "true"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__EvaluationOperator"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::EvaluationOperator::accessIn"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__AccessWrite"
+     }
+    ]
+   ]
+  },
   "urn:sysmlv2:element:OGCAIE__EvaluationOperator__determinationOut": {
    "in": [
     [
@@ -28840,6 +28894,12 @@
     [
      "ogm:endPart",
      {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__accessToOperatorSeam_pend1"
+     }
+    ],
+    [
+     "ogm:endPart",
+     {
       "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__derivedProbeSeam_pend1"
      }
     ],
@@ -29485,6 +29545,77 @@
     ]
    ]
   },
+  "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__accessToOperatorSeam": {
+   "in": [],
+   "out": [
+    [
+     "carries (derived)",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__TestItemAccess"
+     }
+    ],
+    [
+     "ogm:consumerPort",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__EvaluationOperator__accessIn"
+     }
+    ],
+    [
+     "ogm:supplierPort",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__AccountableOrganization__accessOut"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "sysml:InterfaceUsage"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "accessToOperatorSeam"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::OgCaieEvaluation::accessToOperatorSeam"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__AccessSeam"
+     }
+    ],
+    [
+     "sysx:relatedFeature",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__accessToOperatorSeam_pend0"
+     }
+    ],
+    [
+     "sysx:relatedFeature",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__accessToOperatorSeam_pend1"
+     }
+    ],
+    [
+     "sysx:sourceText",
+     {
+      "text": "interface accessToOperatorSeam : AccessSeam connect accountable.accessOut to testingOrg.team.operator.accessIn;"
+     }
+    ]
+   ]
+  },
   "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__accountable": {
    "in": [
     [
@@ -29494,9 +29625,21 @@
      }
     ],
     [
+     "ogm:endPart",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__accessToOperatorSeam_pend0"
+     }
+    ],
+    [
      "sysml:referent",
      {
       "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__accessSeam_pend0_pa0"
+     }
+    ],
+    [
+     "sysml:referent",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__accessToOperatorSeam_pend0_pa0"
      }
     ],
     [
@@ -32282,6 +32425,12 @@
      "sysml:referent",
      {
       "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__accessSeam_pend1_pa0_pa0"
+     }
+    ],
+    [
+     "sysml:referent",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__accessToOperatorSeam_pend1_pa0_pa0_pa0"
      }
     ],
     [
@@ -41724,6 +41873,11 @@
   },
   {
    "rel": "owner",
+   "source": "urn:sysmlv2:element:OGCAIE__EvaluationOperator__accessIn",
+   "target": "urn:sysmlv2:element:OGCAIE__EvaluationOperator"
+  },
+  {
+   "rel": "owner",
    "source": "urn:sysmlv2:element:OGCAIE__EvaluationOperator__determinationOut",
    "target": "urn:sysmlv2:element:OGCAIE__EvaluationOperator"
   },
@@ -42115,6 +42269,26 @@
   {
    "rel": "carries",
    "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__accessSeam",
+   "target": "urn:sysmlv2:element:OGCAIE__TestItemAccess"
+  },
+  {
+   "rel": "supplierPort",
+   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__accessToOperatorSeam",
+   "target": "urn:sysmlv2:element:OGCAIE__AccountableOrganization__accessOut"
+  },
+  {
+   "rel": "consumerPort",
+   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__accessToOperatorSeam",
+   "target": "urn:sysmlv2:element:OGCAIE__EvaluationOperator__accessIn"
+  },
+  {
+   "rel": "owner",
+   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__accessToOperatorSeam",
+   "target": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation"
+  },
+  {
+   "rel": "carries",
+   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__accessToOperatorSeam",
    "target": "urn:sysmlv2:element:OGCAIE__TestItemAccess"
   },
   {
@@ -47497,6 +47671,14 @@
   },
   {
    "cls": "port",
+   "desc": "in port typed AccessWrite, carrying TestItemAccess.",
+   "id": "urn:sysmlv2:element:OGCAIE__EvaluationOperator__accessIn",
+   "label": "EvaluationOperator::accessIn",
+   "ogc": "ogc view assemblage",
+   "page": ""
+  },
+  {
+   "cls": "port",
    "desc": "out port typed DeterminationWrite, carrying Determination.",
    "id": "urn:sysmlv2:element:OGCAIE__EvaluationOperator__determinationOut",
    "label": "EvaluationOperator::determinationOut",
@@ -47716,6 +47898,14 @@
    "desc": "interface accessSeam : AccessSeam connect accountable.accessOut to testingOrg.recorder.accessIn;",
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__accessSeam",
    "label": "OgCaieEvaluation::accessSeam",
+   "ogc": "ogc view contracting",
+   "page": "../contracting"
+  },
+  {
+   "cls": "seam",
+   "desc": "interface accessToOperatorSeam : AccessSeam connect accountable.accessOut to testingOrg.team.operator.accessIn;",
+   "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__accessToOperatorSeam",
+   "label": "OgCaieEvaluation::accessToOperatorSeam",
    "ogc": "ogc view contracting",
    "page": "../contracting"
   },
@@ -49189,6 +49379,7 @@
     "urn:sysmlv2:element:OGCAIE__DomainExpert__recordIn",
     "urn:sysmlv2:element:OGCAIE__DsoRelease",
     "urn:sysmlv2:element:OGCAIE__EvaluationOperator",
+    "urn:sysmlv2:element:OGCAIE__EvaluationOperator__accessIn",
     "urn:sysmlv2:element:OGCAIE__EvaluationOperator__determinationOut",
     "urn:sysmlv2:element:OGCAIE__EvaluationOperator__evidenceOut",
     "urn:sysmlv2:element:OGCAIE__EvaluationOperator__planOut",
@@ -49210,6 +49401,7 @@
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__acceptanceSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__accessSeam",
+    "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__accessToOperatorSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__accountable",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__affected",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__agreementSeam",
@@ -50105,6 +50297,7 @@
     "urn:sysmlv2:element:OGCAIE__DomainExpert__recordIn",
     "urn:sysmlv2:element:OGCAIE__DsoRelease",
     "urn:sysmlv2:element:OGCAIE__EvaluationOperator",
+    "urn:sysmlv2:element:OGCAIE__EvaluationOperator__accessIn",
     "urn:sysmlv2:element:OGCAIE__EvaluationOperator__determinationOut",
     "urn:sysmlv2:element:OGCAIE__EvaluationOperator__evidenceOut",
     "urn:sysmlv2:element:OGCAIE__EvaluationOperator__planOut",
@@ -50133,6 +50326,7 @@
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__acceptanceSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__accessSeam",
+    "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__accessToOperatorSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__accountable",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__affected",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__agreementSeam",

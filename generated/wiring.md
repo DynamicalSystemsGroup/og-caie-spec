@@ -21,6 +21,7 @@ flowchart LR
     end
   end
   accountable -- "TestItemAccess" --> testingOrg_recorder
+  accountable -- "TestItemAccess" --> testingOrg_team_operator
   accountable_testItem -- "Response" --> testingOrg_recorder
   affected -- "StakeholderInput" --> testingOrg_recorder
   sponsor -- "Mission, Need, ServiceAgreement, StatementOfWork, Acceptance" --> testingOrg_accountExecutive
