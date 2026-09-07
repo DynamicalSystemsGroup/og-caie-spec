@@ -1,5 +1,5 @@
-# Counterexample for S3-PlanApproval: the plan approval ended after the session using the plan's probes had started (sheet 10-19).
-# Must fail on ogc:S3-PlanApproval and nothing else.
+# Counterexample for S0-Member: probe-1 is a member of no record: an item outside every bundle escapes the constraints anchored on the record (sheet 10-31).
+# Must fail on ogc:S0-Member and nothing else.
 # A copy of track/measles-evaluation.ttl with one change (sheet 10-19; written by scripts/render_counterexamples.py).
 @prefix ev:   <https://w3id.org/og-caie/evaluation/measles#> .
 @prefix epo:  <https://w3id.org/og-caie/epo#> .
@@ -239,7 +239,7 @@ ev:plan-approval-1 a epo:PlanApproval ;
     earl:subject ev:test-plan ; earl:mode earl:manual ; earl:assertedBy ev:annie ;
     prov:wasAssociatedWith ev:annie ;
     earl:result [ a earl:TestResult ; earl:outcome earl:passed ; earl:info "the transit probe is the question commuters actually ask" ] ;
-    prov:endedAtTime "2026-08-10T15:00:00Z"^^xsd:dateTime .
+    prov:endedAtTime "2026-08-03T11:00:00Z"^^xsd:dateTime .
 
 # ---- evaluation step 4: execute (the session, its turn, the response, the evidence)
 ev:session-1 a epo:Session ;
@@ -434,7 +434,6 @@ ev:appropriateness-assessment-1 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:requirement-set-approval-1 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:derivation-1 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:test-plan ogc:inRecord ev:record ; ogc:synthetic true .
-ev:probe-1 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:consistency-check-1 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:plan-deviation-1 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:plan-approval-1 ogc:inRecord ev:record ; ogc:synthetic true .

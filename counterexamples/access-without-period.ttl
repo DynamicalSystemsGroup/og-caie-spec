@@ -1,5 +1,5 @@
-# Counterexample for S3-PlanApproval: the plan approval ended after the session using the plan's probes had started (sheet 10-19).
-# Must fail on ogc:S3-PlanApproval and nothing else.
+# Counterexample for S0-Access: the access grant states no period: a contract needs to know from when until when the provider owes access (sheet 10-04).
+# Must fail on ogc:S0-Access and nothing else.
 # A copy of track/measles-evaluation.ttl with one change (sheet 10-19; written by scripts/render_counterexamples.py).
 @prefix ev:   <https://w3id.org/og-caie/evaluation/measles#> .
 @prefix epo:  <https://w3id.org/og-caie/epo#> .
@@ -117,7 +117,6 @@ ev:test-item-access a epo:TestItemAccess ;
     epo:grantsAccessTo ev:chatbot-v1 ;
     epo:underAgreement ev:service-agreement ;
     epo:versionIdentity "measles-chatbot v1, build 2026-07-30" ;
-    epo:accessFrom "2026-08-01T00:00:00Z"^^xsd:dateTime ; epo:accessUntil "2026-08-31T23:59:59Z"^^xsd:dateTime ;
     epo:underInstrument "the vendor's deployment contract with the county public-health office, clause on evaluation access" ;
     epo:environment "the vendor's staging endpoint, configured as the county's production deployment" ;
     prov:wasAttributedTo ev:chatbot-vendor ;
@@ -239,7 +238,7 @@ ev:plan-approval-1 a epo:PlanApproval ;
     earl:subject ev:test-plan ; earl:mode earl:manual ; earl:assertedBy ev:annie ;
     prov:wasAssociatedWith ev:annie ;
     earl:result [ a earl:TestResult ; earl:outcome earl:passed ; earl:info "the transit probe is the question commuters actually ask" ] ;
-    prov:endedAtTime "2026-08-10T15:00:00Z"^^xsd:dateTime .
+    prov:endedAtTime "2026-08-03T11:00:00Z"^^xsd:dateTime .
 
 # ---- evaluation step 4: execute (the session, its turn, the response, the evidence)
 ev:session-1 a epo:Session ;

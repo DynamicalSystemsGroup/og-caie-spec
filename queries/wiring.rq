@@ -1,5 +1,5 @@
 # Explain every wiring locally (ruling R-26), over the canonical model graph
-# model/og-caie.model.ttl: for each port of each kind of part, its direction,
+# model/og-caie.model.ttl, loaded as the default graph (sheet 10-31): for each port of each kind of part, its direction,
 # the item kind it carries, and the wire(s) with the part and port at the
 # other end. An input has exactly one row; an output has one row per reader.
 PREFIX sysml: <https://www.omg.org/spec/SysML#>

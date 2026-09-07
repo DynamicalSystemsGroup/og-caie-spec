@@ -1,13 +1,18 @@
-# Coverage and the outcome distribution, recomputed from the record.
-# Coverage: the weighted share of acceptance criteria that carry at least one
-# attestation with an outcome of passed, failed or cantTell (ruling R-01: the
-# criterion is the coverage item). The distribution is over the covered
-# criteria and uses each criterion's outcome; a criterion with several
+# Coverage and the outcome distribution, recomputed from the record, one row
+# per record. Coverage: the weighted share of acceptance criteria that carry at
+# least one attestation with an outcome of passed, failed or cantTell (ruling
+# R-01: the criterion is the coverage item). The distribution is over the
+# covered criteria and uses each criterion's outcome; a criterion with several
 # attestations counts once, as failed if any failed (one bad turn fails the
 # probe, per the paper), else passed if any passed, else cantTell.
+#
+# Precondition (sheet 10-31): the record and the EPO vocabulary sit in one
+# default graph. Every criterion and attestation is read through its record
+# (ogc:inRecord, the prov:Bundle), so two records in one graph give two rows.
 PREFIX epo:  <https://w3id.org/og-caie/epo#>
 PREFIX earl: <http://www.w3.org/ns/earl#>
-SELECT
+PREFIX ogc:  <https://w3id.org/og-caie/>
+SELECT ?record
   (SUM(?coveredWeight) / SUM(?w) AS ?coverage)
   (SUM(?covered) AS ?coveredCount)
   (SUM(?passed) / SUM(?covered) AS ?passRate)
@@ -15,7 +20,7 @@ SELECT
   (SUM(?cantTell) / SUM(?covered) AS ?cantTellRate)
 WHERE {
   {
-    SELECT ?a ?w
+    SELECT ?record ?a ?w
       (IF(?nFailed > 0, 1, 0) AS ?failed)
       (IF(?nFailed = 0 && ?nPassed > 0, 1, 0) AS ?passed)
       (IF(?nFailed = 0 && ?nPassed = 0 && ?nCantTell > 0, 1, 0) AS ?cantTell)
@@ -23,16 +28,17 @@ WHERE {
       (IF(?nFailed + ?nPassed + ?nCantTell > 0, ?w, 0) AS ?coveredWeight)
     WHERE {
       {
-        SELECT ?a ?w
+        SELECT ?record ?a ?w
           (SUM(IF(BOUND(?o) && ?o = earl:failed, 1, 0)) AS ?nFailed)
           (SUM(IF(BOUND(?o) && ?o = earl:passed, 1, 0)) AS ?nPassed)
           (SUM(IF(BOUND(?o) && ?o = earl:cantTell, 1, 0)) AS ?nCantTell)
         WHERE {
-          ?a a epo:AcceptanceCriterion ; epo:weight ?w .
-          OPTIONAL { ?t a epo:Attestation ; earl:test ?a ; earl:result ?r . ?r earl:outcome ?o . }
+          ?a a epo:AcceptanceCriterion ; ogc:inRecord ?record ; epo:weight ?w .
+          OPTIONAL { ?t a epo:Attestation ; ogc:inRecord ?record ; earl:test ?a ; earl:result ?r . ?r earl:outcome ?o . }
         }
-        GROUP BY ?a ?w
+        GROUP BY ?record ?a ?w
       }
     }
   }
 }
+GROUP BY ?record

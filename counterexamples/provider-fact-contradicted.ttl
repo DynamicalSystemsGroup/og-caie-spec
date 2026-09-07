@@ -1,5 +1,5 @@
-# Counterexample for S3-PlanApproval: the plan approval ended after the session using the plan's probes had started (sheet 10-19).
-# Must fail on ogc:S3-PlanApproval and nothing else.
+# Counterexample for S0-Parties: the chatbot vendor holds the test item provider's role and says it does not provide the test item: the provider fact disagrees with the role (sheet 10-09).
+# Must fail on ogc:S0-Parties and nothing else.
 # A copy of track/measles-evaluation.ttl with one change (sheet 10-19; written by scripts/render_counterexamples.py).
 @prefix ev:   <https://w3id.org/og-caie/evaluation/measles#> .
 @prefix epo:  <https://w3id.org/og-caie/epo#> .
@@ -35,7 +35,7 @@ ev:county-public-health-office a prov:Agent, prov:Organization ; rdfs:label "cou
     epo:role epo:sponsorRole ; epo:role epo:testItemCustomerRole ; epo:providesTestItem false ;
     epo:actsOnBehalfOf ev:county-residents ; epo:actsOnBehalfOf ev:commuters .
 ev:chatbot-vendor a prov:Agent, prov:Organization ; rdfs:label "chatbot vendor (test item provider)" ;
-    epo:role epo:accountableOrganizationRole ; epo:providesTestItem true .
+    epo:role epo:accountableOrganizationRole ; epo:providesTestItem false .
 ev:humane-intelligence a prov:Agent, prov:Organization ; rdfs:label "Humane Intelligence (testing organization: evaluation service provider)" ;
     epo:role epo:testingOrganizationRole .
 ev:dana-okafor a prov:Agent, prov:Person ; rdfs:label "Dana Okafor (county health officer, sponsor signatory)" ;
@@ -239,7 +239,7 @@ ev:plan-approval-1 a epo:PlanApproval ;
     earl:subject ev:test-plan ; earl:mode earl:manual ; earl:assertedBy ev:annie ;
     prov:wasAssociatedWith ev:annie ;
     earl:result [ a earl:TestResult ; earl:outcome earl:passed ; earl:info "the transit probe is the question commuters actually ask" ] ;
-    prov:endedAtTime "2026-08-10T15:00:00Z"^^xsd:dateTime .
+    prov:endedAtTime "2026-08-03T11:00:00Z"^^xsd:dateTime .
 
 # ---- evaluation step 4: execute (the session, its turn, the response, the evidence)
 ev:session-1 a epo:Session ;

@@ -1,5 +1,5 @@
-# Counterexample for S3-PlanApproval: the plan approval ended after the session using the plan's probes had started (sheet 10-19).
-# Must fail on ogc:S3-PlanApproval and nothing else.
+# Counterexample for S7-ConformanceVerdict: the verdict names neither the shapes, the ontology nor the query it ran by their digests (tool qualification, sheet 10-18).
+# Must fail on ogc:S7-ConformanceVerdict and nothing else.
 # A copy of track/measles-evaluation.ttl with one change (sheet 10-19; written by scripts/render_counterexamples.py).
 @prefix ev:   <https://w3id.org/og-caie/evaluation/measles#> .
 @prefix epo:  <https://w3id.org/og-caie/epo#> .
@@ -239,7 +239,7 @@ ev:plan-approval-1 a epo:PlanApproval ;
     earl:subject ev:test-plan ; earl:mode earl:manual ; earl:assertedBy ev:annie ;
     prov:wasAssociatedWith ev:annie ;
     earl:result [ a earl:TestResult ; earl:outcome earl:passed ; earl:info "the transit probe is the question commuters actually ask" ] ;
-    prov:endedAtTime "2026-08-10T15:00:00Z"^^xsd:dateTime .
+    prov:endedAtTime "2026-08-03T11:00:00Z"^^xsd:dateTime .
 
 # ---- evaluation step 4: execute (the session, its turn, the response, the evidence)
 ev:session-1 a epo:Session ;
@@ -342,7 +342,7 @@ ev:conformance-verdict-1 a epo:ConformanceVerdict ;
     earl:mode earl:automatic ; earl:assertedBy ev:pyshacl ;
     prov:wasAssociatedWith ev:pyshacl ;
     prov:used ev:record ;
-    epo:shapesDigest "463d2baec4320206b2cf1b42e1350d944d24bfbc37d3b60669fed78ae5d2d9c9" ; epo:ontologyDigest "fc31279d9787b768a7278ad82445ceff27f0c24f3f8e182ab890aea70ef5e586" ; epo:queryDigest "3ab9dc711479d53340c97c31be23dc071f5c8ed99a19378b4f1899e632325134" ;
+    epo:shapesDigest "not recorded" ; epo:ontologyDigest "not recorded" ; epo:queryDigest "not recorded" ;
     earl:result [ a earl:TestResult ; earl:outcome earl:passed ; earl:info "the record conforms to S0 to S9: traceable in both directions, covered as far as the plan reached, the deviation recorded" ] ;
     prov:endedAtTime "2026-08-12T09:00:00Z"^^xsd:dateTime .
 

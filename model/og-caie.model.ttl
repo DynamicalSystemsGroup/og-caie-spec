@@ -1,6 +1,7 @@
 @prefix sysml: <https://www.omg.org/spec/SysML#> .
 @prefix sysx: <urn:opensysml:sysml:> .
 @prefix ogm: <https://w3id.org/og-caie/model#> .
+@prefix epo: <https://w3id.org/og-caie/epo#> .
 @prefix elmt: <urn:sysmlv2:element:> .
 @prefix expr: <urn:opensysml:expr:> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -15,12 +16,14 @@ elmt:OGCAIE
 
 elmt:OGCAIE__Acceptance
     a sysml:ItemDefinition ;
+    ogm:realizes epo:Acceptance ;
     sysml:declaredName "Acceptance" ;
     sysml:owner elmt:OGCAIE ;
     sysml:qualifiedName "OGCAIE::Acceptance" .
 
 elmt:OGCAIE__AcceptanceCriterion
     a sysml:ItemDefinition ;
+    ogm:realizes epo:AcceptanceCriterion ;
     sysml:declaredName "AcceptanceCriterion" ;
     sysml:owner elmt:OGCAIE ;
     sysml:qualifiedName "OGCAIE::AcceptanceCriterion" .
@@ -79,9 +82,11 @@ elmt:OGCAIE__AcceptanceWrite__i
 
 elmt:OGCAIE__Acceptance___400
     a sysml:Documentation ;
-    sysml:body """ The sponsor's acceptance of the delivery as performance of the
-           agreement (ISO/IEC/IEEE 24748-5 acceptance; ISO/IEC 17000 9.6).
-           Pinned at the contract. """ ;
+    sysml:body """ The sponsor's act on receipt of the deliverables, recognizing
+           completion of the contract's obligations (ISO/IEC/IEEE 24748-5
+           acceptance): the signatory's act on behalf of the sponsor. A
+           correctly constructed record is necessary and not sufficient for
+           it (sheet 10-03, R-50). Pinned at the contract. """ ;
     sysml:owner elmt:OGCAIE__Acceptance ;
     sysml:qualifiedName "OGCAIE::Acceptance::@0" .
 
@@ -145,8 +150,11 @@ elmt:OGCAIE__AccountExecutive___400
            report and the recommendation to the sponsor as one delivery
            (an activity of its own, R-24); answers the sponsor's need with
            the proposal and receives the acceptance (R-32). No evidence, determination or
-           attestation port: the account executive never judges the test
-           item. The worked example's Mala. """ ;
+           attestation port: the authorized representative is not
+           responsible for the determinations in the report; it is the
+           organization's interface with its contractual counterparties
+           (sheet 09), and declares its independence of the test item
+           provider (sheet 10-07). The worked example's Mala. """ ;
     sysml:owner elmt:OGCAIE__AccountExecutive ;
     sysml:qualifiedName "OGCAIE::AccountExecutive::@0" .
 
@@ -179,6 +187,13 @@ elmt:OGCAIE__AccountExecutive__deliveryOut
     sysml:owner elmt:OGCAIE__AccountExecutive ;
     sysml:qualifiedName "OGCAIE::AccountExecutive::deliveryOut" ;
     sysml:type elmt:OGCAIE__DeliveryWrite .
+
+elmt:OGCAIE__AccountExecutive__independenceDeclarationOut
+    a sysml:PortUsage ;
+    sysml:declaredName "independenceDeclarationOut" ;
+    sysml:owner elmt:OGCAIE__AccountExecutive ;
+    sysml:qualifiedName "OGCAIE::AccountExecutive::independenceDeclarationOut" ;
+    sysml:type elmt:OGCAIE__IndependenceDeclarationWrite .
 
 elmt:OGCAIE__AccountExecutive__missionIn
     a sysml:PortUsage ;
@@ -309,6 +324,7 @@ elmt:OGCAIE__Appropriateness
 
 elmt:OGCAIE__AppropriatenessAssessment
     a sysml:ItemDefinition ;
+    ogm:realizes epo:AppropriatenessAssessment ;
     sysml:declaredName "AppropriatenessAssessment" ;
     sysml:owner elmt:OGCAIE ;
     sysml:qualifiedName "OGCAIE::AppropriatenessAssessment" .
@@ -387,6 +403,7 @@ elmt:OGCAIE__AssessmentWrite__i
 
 elmt:OGCAIE__Attestation
     a sysml:ItemDefinition ;
+    ogm:realizes epo:Attestation ;
     sysml:declaredName "Attestation" ;
     sysml:owner elmt:OGCAIE ;
     sysml:qualifiedName "OGCAIE::Attestation" .
@@ -453,9 +470,10 @@ elmt:OGCAIE__ConformanceChecker
 elmt:OGCAIE__ConformanceChecker___400
     a sysml:Documentation ;
     sysml:body """ Machine verification, called conformance (ruling R-16): the
-           record and the report are correctly constructed to the EPO
-           shapes, traceable and covered; its verdict is recorded
-           (walkthrough, R-49). """ ;
+           record is correctly constructed to the EPO shapes, traceable in
+           both directions and covered; its verdict on the record is
+           recorded and read by the assembler (walkthrough, R-49; sheet
+           10-41, R-50). One output, read by two (R-25). """ ;
     sysml:owner elmt:OGCAIE__ConformanceChecker ;
     sysml:qualifiedName "OGCAIE::ConformanceChecker::@0" .
 
@@ -476,6 +494,7 @@ elmt:OGCAIE__ConformanceChecker__verdictOut
 
 elmt:OGCAIE__ConformanceVerdict
     a sysml:ItemDefinition ;
+    ogm:realizes epo:ConformanceVerdict ;
     sysml:declaredName "ConformanceVerdict" ;
     sysml:owner elmt:OGCAIE ;
     sysml:qualifiedName "OGCAIE::ConformanceVerdict" .
@@ -519,9 +538,11 @@ elmt:OGCAIE__ConformanceVerdictWrite__i
 
 elmt:OGCAIE__ConformanceVerdict___400
     a sysml:Documentation ;
-    sysml:body """ The conformance checker's verdict on the record and the
-           report: correctly constructed to the shapes, traceable and
-           covered (walkthrough, R-49). Pinned within the evaluation. """ ;
+    sysml:body """ The conformance checker's verdict on the record: correctly
+           constructed to the shapes, traceable in both directions and
+           covered (walkthrough, R-49; sheet 10-41, R-50). Conformance is a
+           prerequisite for compiling the final report. Pinned within the
+           evaluation. """ ;
     sysml:owner elmt:OGCAIE__ConformanceVerdict ;
     sysml:qualifiedName "OGCAIE::ConformanceVerdict::@0" .
 
@@ -715,6 +736,7 @@ elmt:OGCAIE__ContractingProcess___409
 
 elmt:OGCAIE__ContractingProcess__acceptDelivery
     a sysml:ActionUsage ;
+    ogm:realizes epo:acceptDelivery ;
     sysml:declaredName "acceptDelivery" ;
     sysml:owner elmt:OGCAIE__ContractingProcess ;
     sysml:qualifiedName "OGCAIE::ContractingProcess::acceptDelivery" .
@@ -737,6 +759,7 @@ elmt:OGCAIE__ContractingProcess__acceptDelivery__delivery
 
 elmt:OGCAIE__ContractingProcess__access
     a sysml:ActionUsage ;
+    ogm:realizes epo:access ;
     sysml:declaredName "access" ;
     sysml:owner elmt:OGCAIE__ContractingProcess ;
     sysml:qualifiedName "OGCAIE::ContractingProcess::access" .
@@ -759,6 +782,7 @@ elmt:OGCAIE__ContractingProcess__access__testItemAccess
 
 elmt:OGCAIE__ContractingProcess__agree
     a sysml:ActionUsage ;
+    ogm:realizes epo:agree ;
     sysml:declaredName "agree" ;
     sysml:owner elmt:OGCAIE__ContractingProcess ;
     sysml:qualifiedName "OGCAIE::ContractingProcess::agree" .
@@ -770,6 +794,14 @@ elmt:OGCAIE__ContractingProcess__agree__agreement
     sysml:owner elmt:OGCAIE__ContractingProcess__agree ;
     sysml:qualifiedName "OGCAIE::ContractingProcess::agree::agreement" ;
     sysml:type elmt:OGCAIE__ServiceAgreement .
+
+elmt:OGCAIE__ContractingProcess__agree__independenceDeclaration
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "independenceDeclaration" ;
+    sysml:direction "out" ;
+    sysml:owner elmt:OGCAIE__ContractingProcess__agree ;
+    sysml:qualifiedName "OGCAIE::ContractingProcess::agree::independenceDeclaration" ;
+    sysml:type elmt:OGCAIE__IndependenceDeclaration .
 
 elmt:OGCAIE__ContractingProcess__agree__mission
     a sysml:ReferenceUsage ;
@@ -795,8 +827,17 @@ elmt:OGCAIE__ContractingProcess__agree__statementOfWork
     sysml:qualifiedName "OGCAIE::ContractingProcess::agree::statementOfWork" ;
     sysml:type elmt:OGCAIE__StatementOfWork .
 
+elmt:OGCAIE__ContractingProcess__agree__userInterestDeclaration
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "userInterestDeclaration" ;
+    sysml:direction "out" ;
+    sysml:owner elmt:OGCAIE__ContractingProcess__agree ;
+    sysml:qualifiedName "OGCAIE::ContractingProcess::agree::userInterestDeclaration" ;
+    sysml:type elmt:OGCAIE__UserInterestDeclaration .
+
 elmt:OGCAIE__ContractingProcess__deliver
     a sysml:ActionUsage ;
+    ogm:realizes epo:deliver ;
     sysml:declaredName "deliver" ;
     sysml:owner elmt:OGCAIE__ContractingProcess ;
     sysml:qualifiedName "OGCAIE::ContractingProcess::deliver" .
@@ -842,6 +883,7 @@ elmt:OGCAIE__ContractingProcess__fulfil
 
 elmt:OGCAIE__ContractingProcess__need
     a sysml:ActionUsage ;
+    ogm:realizes epo:need ;
     sysml:declaredName "need" ;
     sysml:owner elmt:OGCAIE__ContractingProcess ;
     sysml:qualifiedName "OGCAIE::ContractingProcess::need" .
@@ -864,6 +906,7 @@ elmt:OGCAIE__ContractingProcess__need__statedNeed
 
 elmt:OGCAIE__ContractingProcess__propose
     a sysml:ActionUsage ;
+    ogm:realizes epo:propose ;
     sysml:declaredName "propose" ;
     sysml:owner elmt:OGCAIE__ContractingProcess ;
     sysml:qualifiedName "OGCAIE::ContractingProcess::propose" .
@@ -943,6 +986,7 @@ elmt:OGCAIE__ContractingStep__propose
 
 elmt:OGCAIE__Delivery
     a sysml:ItemDefinition ;
+    ogm:realizes epo:Delivery ;
     sysml:declaredName "Delivery" ;
     sysml:owner elmt:OGCAIE ;
     sysml:qualifiedName "OGCAIE::Delivery" .
@@ -1001,6 +1045,7 @@ elmt:OGCAIE__Delivery__id
 
 elmt:OGCAIE__Determination
     a sysml:ItemDefinition ;
+    ogm:realizes epo:Determination ;
     sysml:declaredName "Determination" ;
     sysml:owner elmt:OGCAIE ;
     sysml:qualifiedName "OGCAIE::Determination" .
@@ -1120,6 +1165,7 @@ elmt:OGCAIE__DomainExpert__reportApprovalOut
 
 elmt:OGCAIE__DsoRelease
     a sysml:ItemDefinition ;
+    ogm:realizes epo:DsoRelease ;
     sysml:declaredName "DsoRelease" ;
     sysml:owner elmt:OGCAIE ;
     sysml:qualifiedName "OGCAIE::DsoRelease" .
@@ -1264,8 +1310,11 @@ elmt:OGCAIE__EvaluationOperator___400
            operator, refined; rulings R-10, R-23): declares the
            requirement set, writes the test plan, applies the probes to
            the test item, collects the evidence, makes determinations,
-           and writes the recommendation. No attestation port: attestation
-           belongs to the domain expert. The worked example's Theo. """ ;
+           records the deviations from the plan, and writes the
+           recommendation. Responsible for the human roles in the test plan,
+           the test driver for the machine work (sheet 10-20). No
+           attestation port: attestation belongs to the domain expert. The
+           worked example's Theo. """ ;
     sysml:owner elmt:OGCAIE__EvaluationOperator ;
     sysml:qualifiedName "OGCAIE::EvaluationOperator::@0" .
 
@@ -1290,6 +1339,13 @@ elmt:OGCAIE__EvaluationOperator__evidenceOut
     sysml:owner elmt:OGCAIE__EvaluationOperator ;
     sysml:qualifiedName "OGCAIE::EvaluationOperator::evidenceOut" ;
     sysml:type elmt:OGCAIE__EvidenceWrite .
+
+elmt:OGCAIE__EvaluationOperator__planDeviationOut
+    a sysml:PortUsage ;
+    sysml:declaredName "planDeviationOut" ;
+    sysml:owner elmt:OGCAIE__EvaluationOperator ;
+    sysml:qualifiedName "OGCAIE::EvaluationOperator::planDeviationOut" ;
+    sysml:type elmt:OGCAIE__PlanDeviationWrite .
 
 elmt:OGCAIE__EvaluationOperator__planOut
     a sysml:PortUsage ;
@@ -1570,6 +1626,7 @@ elmt:OGCAIE__EvaluationProcess__agreement
 
 elmt:OGCAIE__EvaluationProcess__declareRequirements
     a sysml:ActionUsage ;
+    ogm:realizes epo:declareRequirements ;
     sysml:declaredName "declareRequirements" ;
     sysml:owner elmt:OGCAIE__EvaluationProcess ;
     sysml:qualifiedName "OGCAIE::EvaluationProcess::declareRequirements" .
@@ -1628,6 +1685,14 @@ elmt:OGCAIE__EvaluationProcess__declareRequirements__representations
     sysml:type elmt:OGCAIE__StakeholderRepresentation ;
     sysml:upperBound expr:OGCAIE__EvaluationProcess__declareRequirements__representations_pupperBound .
 
+elmt:OGCAIE__EvaluationProcess__declareRequirements__requirementSetApproval
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "requirementSetApproval" ;
+    sysml:direction "out" ;
+    sysml:owner elmt:OGCAIE__EvaluationProcess__declareRequirements ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::declareRequirements::requirementSetApproval" ;
+    sysml:type elmt:OGCAIE__RequirementSetApproval .
+
 elmt:OGCAIE__EvaluationProcess__declareRequirements__requirements
     a sysml:ReferenceUsage ;
     sysml:declaredName "requirements" ;
@@ -1638,6 +1703,7 @@ elmt:OGCAIE__EvaluationProcess__declareRequirements__requirements
 
 elmt:OGCAIE__EvaluationProcess__determineAndAttest
     a sysml:ActionUsage ;
+    ogm:realizes epo:determineAndAttest ;
     sysml:declaredName "determineAndAttest" ;
     sysml:owner elmt:OGCAIE__EvaluationProcess ;
     sysml:qualifiedName "OGCAIE::EvaluationProcess::determineAndAttest" .
@@ -1684,6 +1750,7 @@ elmt:OGCAIE__EvaluationProcess__determineAndAttest__evidence
 
 elmt:OGCAIE__EvaluationProcess__execute
     a sysml:ActionUsage ;
+    ogm:realizes epo:execute ;
     sysml:declaredName "execute" ;
     sysml:owner elmt:OGCAIE__EvaluationProcess ;
     sysml:qualifiedName "OGCAIE::EvaluationProcess::execute" .
@@ -1746,6 +1813,7 @@ elmt:OGCAIE__EvaluationProcess__execute__testPlan
 
 elmt:OGCAIE__EvaluationProcess__plan
     a sysml:ActionUsage ;
+    ogm:realizes epo:plan ;
     sysml:declaredName "plan" ;
     sysml:owner elmt:OGCAIE__EvaluationProcess ;
     sysml:qualifiedName "OGCAIE::EvaluationProcess::plan" .
@@ -1767,6 +1835,16 @@ elmt:OGCAIE__EvaluationProcess__plan__criteria
     sysml:qualifiedName "OGCAIE::EvaluationProcess::plan::criteria" ;
     sysml:type elmt:OGCAIE__AcceptanceCriterion ;
     sysml:upperBound expr:OGCAIE__EvaluationProcess__plan__criteria_pupperBound .
+
+elmt:OGCAIE__EvaluationProcess__plan__deviations
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "deviations" ;
+    sysml:direction "out" ;
+    sysml:lowerBound expr:OGCAIE__EvaluationProcess__plan__deviations_plowerBound ;
+    sysml:owner elmt:OGCAIE__EvaluationProcess__plan ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::plan::deviations" ;
+    sysml:type elmt:OGCAIE__PlanDeviation ;
+    sysml:upperBound expr:OGCAIE__EvaluationProcess__plan__deviations_pupperBound .
 
 elmt:OGCAIE__EvaluationProcess__plan__dso
     a sysml:ReferenceUsage ;
@@ -1830,6 +1908,7 @@ elmt:OGCAIE__EvaluationProcess__record
 
 elmt:OGCAIE__EvaluationProcess__report
     a sysml:ActionUsage ;
+    ogm:realizes epo:report ;
     sysml:declaredName "report" ;
     sysml:owner elmt:OGCAIE__EvaluationProcess ;
     sysml:qualifiedName "OGCAIE::EvaluationProcess::report" .
@@ -1850,6 +1929,72 @@ elmt:OGCAIE__EvaluationProcess__reportOut
     sysml:qualifiedName "OGCAIE::EvaluationProcess::reportOut" ;
     sysml:type elmt:OGCAIE__Report .
 
+elmt:OGCAIE__EvaluationProcess__report___4011
+    a sysml:SuccessionAsUsage ;
+    ogm:first elmt:OGCAIE__EvaluationProcess__report__checkConformance ;
+    ogm:then elmt:OGCAIE__EvaluationProcess__report__assemble ;
+    sysml:owner elmt:OGCAIE__EvaluationProcess__report ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::report::@11" ;
+    sysx:relatedFeature expr:OGCAIE__EvaluationProcess__report___4011_pend0, expr:OGCAIE__EvaluationProcess__report___4011_pend1 ;
+    sysx:sourceText "succession first checkConformance then assemble;" .
+
+elmt:OGCAIE__EvaluationProcess__report___4012
+    a sysml:FlowUsage ;
+    ogm:flowSource elmt:OGCAIE__EvaluationProcess__report__checkConformance__verdict ;
+    ogm:flowTarget elmt:OGCAIE__EvaluationProcess__report__assemble__verdict ;
+    sysml:owner elmt:OGCAIE__EvaluationProcess__report ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::report::@12" ;
+    sysx:relatedFeature expr:OGCAIE__EvaluationProcess__report___4012_pflowSource, expr:OGCAIE__EvaluationProcess__report___4012_pflowTarget ;
+    sysx:sourceText "flow checkConformance.verdict to assemble.verdict;" .
+
+elmt:OGCAIE__EvaluationProcess__report___4013
+    a sysml:BindingConnectorAsUsage ;
+    sysml:owner elmt:OGCAIE__EvaluationProcess__report ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::report::@13" ;
+    sysml:references elmt:OGCAIE__EvaluationProcess__report__verdict ;
+    sysml:value expr:OGCAIE__EvaluationProcess__report___4013_pvalue ;
+    sysx:sourceText "bind verdict = checkConformance.verdict;" .
+
+elmt:OGCAIE__EvaluationProcess__report___4014
+    a sysml:BindingConnectorAsUsage ;
+    sysml:owner elmt:OGCAIE__EvaluationProcess__report ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::report::@14" ;
+    sysml:references elmt:OGCAIE__EvaluationProcess__report__reportOut ;
+    sysml:value expr:OGCAIE__EvaluationProcess__report___4014_pvalue ;
+    sysx:sourceText "bind reportOut = assemble.reportOut;" .
+
+elmt:OGCAIE__EvaluationProcess__report___408
+    a sysml:Documentation ;
+    sysml:body """ The report step opened (sheet 10-41, R-50): the checker
+               judges the record and its verdict precedes the report; the
+               assembler reads the record and the verdict; a final report
+               rests on a passed verdict, and the approval and the delivery
+               take the final report only. """ ;
+    sysml:owner elmt:OGCAIE__EvaluationProcess__report ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::report::@8" .
+
+elmt:OGCAIE__EvaluationProcess__report__assemble
+    a sysml:ActionUsage ;
+    sysml:declaredName "assemble" ;
+    sysml:owner elmt:OGCAIE__EvaluationProcess__report ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::report::assemble" .
+
+elmt:OGCAIE__EvaluationProcess__report__assemble__reportOut
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "reportOut" ;
+    sysml:direction "out" ;
+    sysml:owner elmt:OGCAIE__EvaluationProcess__report__assemble ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::report::assemble::reportOut" ;
+    sysml:type elmt:OGCAIE__Report .
+
+elmt:OGCAIE__EvaluationProcess__report__assemble__verdict
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "verdict" ;
+    sysml:direction "in" ;
+    sysml:owner elmt:OGCAIE__EvaluationProcess__report__assemble ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::report::assemble::verdict" ;
+    sysml:type elmt:OGCAIE__ConformanceVerdict .
+
 elmt:OGCAIE__EvaluationProcess__report__attestations
     a sysml:ReferenceUsage ;
     sysml:declaredName "attestations" ;
@@ -1859,6 +2004,20 @@ elmt:OGCAIE__EvaluationProcess__report__attestations
     sysml:qualifiedName "OGCAIE::EvaluationProcess::report::attestations" ;
     sysml:type elmt:OGCAIE__Attestation ;
     sysml:upperBound expr:OGCAIE__EvaluationProcess__report__attestations_pupperBound .
+
+elmt:OGCAIE__EvaluationProcess__report__checkConformance
+    a sysml:ActionUsage ;
+    sysml:declaredName "checkConformance" ;
+    sysml:owner elmt:OGCAIE__EvaluationProcess__report ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::report::checkConformance" .
+
+elmt:OGCAIE__EvaluationProcess__report__checkConformance__verdict
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "verdict" ;
+    sysml:direction "out" ;
+    sysml:owner elmt:OGCAIE__EvaluationProcess__report__checkConformance ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::report::checkConformance::verdict" ;
+    sysml:type elmt:OGCAIE__ConformanceVerdict .
 
 elmt:OGCAIE__EvaluationProcess__report__criteria
     a sysml:ReferenceUsage ;
@@ -1879,6 +2038,16 @@ elmt:OGCAIE__EvaluationProcess__report__determinations
     sysml:qualifiedName "OGCAIE::EvaluationProcess::report::determinations" ;
     sysml:type elmt:OGCAIE__Determination ;
     sysml:upperBound expr:OGCAIE__EvaluationProcess__report__determinations_pupperBound .
+
+elmt:OGCAIE__EvaluationProcess__report__deviations
+    a sysml:ReferenceUsage ;
+    sysml:declaredName "deviations" ;
+    sysml:direction "out" ;
+    sysml:lowerBound expr:OGCAIE__EvaluationProcess__report__deviations_plowerBound ;
+    sysml:owner elmt:OGCAIE__EvaluationProcess__report ;
+    sysml:qualifiedName "OGCAIE::EvaluationProcess::report::deviations" ;
+    sysml:type elmt:OGCAIE__PlanDeviation ;
+    sysml:upperBound expr:OGCAIE__EvaluationProcess__report__deviations_pupperBound .
 
 elmt:OGCAIE__EvaluationProcess__report__recommendation
     a sysml:ReferenceUsage ;
@@ -1914,6 +2083,7 @@ elmt:OGCAIE__EvaluationProcess__report__verdict
 
 elmt:OGCAIE__EvaluationProcess__scope
     a sysml:ActionUsage ;
+    ogm:realizes epo:scope ;
     sysml:declaredName "scope" ;
     sysml:owner elmt:OGCAIE__EvaluationProcess ;
     sysml:qualifiedName "OGCAIE::EvaluationProcess::scope" .
@@ -1986,9 +2156,11 @@ elmt:OGCAIE__EvaluationRecord
 
 elmt:OGCAIE__EvaluationRecord___400
     a sysml:Documentation ;
-    sysml:body """ The record itself (ISO 9000:2026 3.8.12, refined): the hub
-           every fact passes through, read by every machine and every
-           member of the testing organization. """ ;
+    sysml:body """ The record itself (ISO 9000:2026 3.8.12, refined): a bundle
+           (prov:Bundle) every item and agent is a member of, the hub every
+           fact passes through, read by every machine and every member of
+           the testing organization; auditable and reproducible, not
+           delivered except as a special case (sheets 10-02, 10-31). """ ;
     sysml:owner elmt:OGCAIE__EvaluationRecord ;
     sysml:qualifiedName "OGCAIE::EvaluationRecord::@0" .
 
@@ -2042,6 +2214,7 @@ elmt:OGCAIE__EvaluationTeam__representative
 
 elmt:OGCAIE__Evidence
     a sysml:ItemDefinition ;
+    ogm:realizes epo:Evidence ;
     sysml:declaredName "Evidence" ;
     sysml:owner elmt:OGCAIE ;
     sysml:qualifiedName "OGCAIE::Evidence" .
@@ -2127,6 +2300,319 @@ elmt:OGCAIE__Evidence__id
     sysml:qualifiedName "OGCAIE::Evidence::id" ;
     sysml:type "ScalarValues::String" .
 
+elmt:OGCAIE__Examples
+    a sysml:Package ;
+    sysml:declaredName "Examples" ;
+    sysml:owner elmt:OGCAIE ;
+    sysml:qualifiedName "OGCAIE::Examples" .
+
+elmt:OGCAIE__Examples__MeaslesEvaluation
+    a sysml:PartDefinition ;
+    sysml:declaredName "MeaslesEvaluation" ;
+    sysml:owner elmt:OGCAIE__Examples ;
+    sysml:qualifiedName "OGCAIE::Examples::MeaslesEvaluation" ;
+    sysml:specializes elmt:OGCAIE__OgCaieEvaluation .
+
+elmt:OGCAIE__Examples__MeaslesEvaluation___400
+    a sysml:Documentation ;
+    sysml:body """ A public-health chatbot during a measles outbreak: a
+               county public-health office sponsors the evaluation and its
+               health officer signs, the chatbot's vendor provides the test
+               item, Humane Intelligence performs it with Mala, Annie and
+               Theo, and two populations are affected. """ ;
+    sysml:owner elmt:OGCAIE__Examples__MeaslesEvaluation ;
+    sysml:qualifiedName "OGCAIE::Examples::MeaslesEvaluation::@0" .
+
+elmt:OGCAIE__Examples__MeaslesEvaluation___401
+    a sysml:PartUsage ;
+    sysml:owner elmt:OGCAIE__Examples__MeaslesEvaluation ;
+    sysml:qualifiedName "OGCAIE::Examples::MeaslesEvaluation::@1" ;
+    sysml:redefines "sponsor" .
+
+elmt:OGCAIE__Examples__MeaslesEvaluation___401___400
+    a sysml:AttributeUsage ;
+    sysml:owner elmt:OGCAIE__Examples__MeaslesEvaluation___401 ;
+    sysml:qualifiedName "OGCAIE::Examples::MeaslesEvaluation::@1::@0" ;
+    sysml:redefines "name" ;
+    sysml:value expr:OGCAIE__Examples__MeaslesEvaluation___401___400_pvalue .
+
+elmt:OGCAIE__Examples__MeaslesEvaluation___401___401
+    a sysml:PartUsage ;
+    sysml:owner elmt:OGCAIE__Examples__MeaslesEvaluation___401 ;
+    sysml:qualifiedName "OGCAIE::Examples::MeaslesEvaluation::@1::@1" ;
+    sysml:redefines "signatory" .
+
+elmt:OGCAIE__Examples__MeaslesEvaluation___401___401___400
+    a sysml:AttributeUsage ;
+    sysml:owner elmt:OGCAIE__Examples__MeaslesEvaluation___401___401 ;
+    sysml:qualifiedName "OGCAIE::Examples::MeaslesEvaluation::@1::@1::@0" ;
+    sysml:redefines "name" ;
+    sysml:value expr:OGCAIE__Examples__MeaslesEvaluation___401___401___400_pvalue .
+
+elmt:OGCAIE__Examples__MeaslesEvaluation___402
+    a sysml:PartUsage ;
+    sysml:owner elmt:OGCAIE__Examples__MeaslesEvaluation ;
+    sysml:qualifiedName "OGCAIE::Examples::MeaslesEvaluation::@2" ;
+    sysml:redefines "accountable" .
+
+elmt:OGCAIE__Examples__MeaslesEvaluation___402___400
+    a sysml:AttributeUsage ;
+    sysml:owner elmt:OGCAIE__Examples__MeaslesEvaluation___402 ;
+    sysml:qualifiedName "OGCAIE::Examples::MeaslesEvaluation::@2::@0" ;
+    sysml:redefines "name" ;
+    sysml:value expr:OGCAIE__Examples__MeaslesEvaluation___402___400_pvalue .
+
+elmt:OGCAIE__Examples__MeaslesEvaluation___402___401
+    a sysml:PartUsage ;
+    sysml:owner elmt:OGCAIE__Examples__MeaslesEvaluation___402 ;
+    sysml:qualifiedName "OGCAIE::Examples::MeaslesEvaluation::@2::@1" ;
+    sysml:redefines "testItem" .
+
+elmt:OGCAIE__Examples__MeaslesEvaluation___402___401___400
+    a sysml:AttributeUsage ;
+    sysml:owner elmt:OGCAIE__Examples__MeaslesEvaluation___402___401 ;
+    sysml:qualifiedName "OGCAIE::Examples::MeaslesEvaluation::@2::@1::@0" ;
+    sysml:redefines "name" ;
+    sysml:value expr:OGCAIE__Examples__MeaslesEvaluation___402___401___400_pvalue .
+
+elmt:OGCAIE__Examples__MeaslesEvaluation___402___401___401
+    a sysml:AttributeUsage ;
+    sysml:owner elmt:OGCAIE__Examples__MeaslesEvaluation___402___401 ;
+    sysml:qualifiedName "OGCAIE::Examples::MeaslesEvaluation::@2::@1::@1" ;
+    sysml:redefines "version" ;
+    sysml:value expr:OGCAIE__Examples__MeaslesEvaluation___402___401___401_pvalue .
+
+elmt:OGCAIE__Examples__MeaslesEvaluation___403
+    a sysml:PartUsage ;
+    sysml:owner elmt:OGCAIE__Examples__MeaslesEvaluation ;
+    sysml:qualifiedName "OGCAIE::Examples::MeaslesEvaluation::@3" ;
+    sysml:redefines "testingOrg" .
+
+elmt:OGCAIE__Examples__MeaslesEvaluation___403___400
+    a sysml:AttributeUsage ;
+    sysml:owner elmt:OGCAIE__Examples__MeaslesEvaluation___403 ;
+    sysml:qualifiedName "OGCAIE::Examples::MeaslesEvaluation::@3::@0" ;
+    sysml:redefines "name" ;
+    sysml:value expr:OGCAIE__Examples__MeaslesEvaluation___403___400_pvalue .
+
+elmt:OGCAIE__Examples__MeaslesEvaluation___403___401
+    a sysml:PartUsage ;
+    sysml:owner elmt:OGCAIE__Examples__MeaslesEvaluation___403 ;
+    sysml:qualifiedName "OGCAIE::Examples::MeaslesEvaluation::@3::@1" ;
+    sysml:redefines "accountExecutive" .
+
+elmt:OGCAIE__Examples__MeaslesEvaluation___403___401___400
+    a sysml:AttributeUsage ;
+    sysml:owner elmt:OGCAIE__Examples__MeaslesEvaluation___403___401 ;
+    sysml:qualifiedName "OGCAIE::Examples::MeaslesEvaluation::@3::@1::@0" ;
+    sysml:redefines "name" ;
+    sysml:value expr:OGCAIE__Examples__MeaslesEvaluation___403___401___400_pvalue .
+
+elmt:OGCAIE__Examples__MeaslesEvaluation___403___402
+    a sysml:PartUsage ;
+    sysml:owner elmt:OGCAIE__Examples__MeaslesEvaluation___403 ;
+    sysml:qualifiedName "OGCAIE::Examples::MeaslesEvaluation::@3::@2" ;
+    sysml:redefines "team" .
+
+elmt:OGCAIE__Examples__MeaslesEvaluation___403___402__annie
+    a sysml:PartUsage ;
+    sysml:declaredName "annie" ;
+    sysml:owner elmt:OGCAIE__Examples__MeaslesEvaluation___403___402 ;
+    sysml:qualifiedName "OGCAIE::Examples::MeaslesEvaluation::@3::@2::annie" .
+
+elmt:OGCAIE__Examples__MeaslesEvaluation___403___402__annie___400
+    a sysml:AttributeUsage ;
+    sysml:owner elmt:OGCAIE__Examples__MeaslesEvaluation___403___402__annie ;
+    sysml:qualifiedName "OGCAIE::Examples::MeaslesEvaluation::@3::@2::annie::@0" ;
+    sysml:redefines "name" ;
+    sysml:value expr:OGCAIE__Examples__MeaslesEvaluation___403___402__annie___400_pvalue .
+
+elmt:OGCAIE__Examples__MeaslesEvaluation___403___402__theo
+    a sysml:PartUsage ;
+    sysml:declaredName "theo" ;
+    sysml:owner elmt:OGCAIE__Examples__MeaslesEvaluation___403___402 ;
+    sysml:qualifiedName "OGCAIE::Examples::MeaslesEvaluation::@3::@2::theo" .
+
+elmt:OGCAIE__Examples__MeaslesEvaluation___403___402__theo___400
+    a sysml:AttributeUsage ;
+    sysml:owner elmt:OGCAIE__Examples__MeaslesEvaluation___403___402__theo ;
+    sysml:qualifiedName "OGCAIE::Examples::MeaslesEvaluation::@3::@2::theo::@0" ;
+    sysml:redefines "name" ;
+    sysml:value expr:OGCAIE__Examples__MeaslesEvaluation___403___402__theo___400_pvalue .
+
+elmt:OGCAIE__Examples__MeaslesEvaluation___403___403
+    a sysml:PartUsage ;
+    sysml:owner elmt:OGCAIE__Examples__MeaslesEvaluation___403 ;
+    sysml:qualifiedName "OGCAIE::Examples::MeaslesEvaluation::@3::@3" ;
+    sysml:redefines "testDriver" .
+
+elmt:OGCAIE__Examples__MeaslesEvaluation___403___403___400
+    a sysml:AttributeUsage ;
+    sysml:owner elmt:OGCAIE__Examples__MeaslesEvaluation___403___403 ;
+    sysml:qualifiedName "OGCAIE::Examples::MeaslesEvaluation::@3::@3::@0" ;
+    sysml:redefines "name" ;
+    sysml:value expr:OGCAIE__Examples__MeaslesEvaluation___403___403___400_pvalue .
+
+elmt:OGCAIE__Examples__MeaslesEvaluation___403___403___401
+    a sysml:AttributeUsage ;
+    sysml:owner elmt:OGCAIE__Examples__MeaslesEvaluation___403___403 ;
+    sysml:qualifiedName "OGCAIE::Examples::MeaslesEvaluation::@3::@3::@1" ;
+    sysml:redefines "version" ;
+    sysml:value expr:OGCAIE__Examples__MeaslesEvaluation___403___403___401_pvalue .
+
+elmt:OGCAIE__Examples__MeaslesEvaluation___403___404
+    a sysml:PartUsage ;
+    sysml:owner elmt:OGCAIE__Examples__MeaslesEvaluation___403 ;
+    sysml:qualifiedName "OGCAIE::Examples::MeaslesEvaluation::@3::@4" ;
+    sysml:redefines "conformanceChecker" .
+
+elmt:OGCAIE__Examples__MeaslesEvaluation___403___404___400
+    a sysml:AttributeUsage ;
+    sysml:owner elmt:OGCAIE__Examples__MeaslesEvaluation___403___404 ;
+    sysml:qualifiedName "OGCAIE::Examples::MeaslesEvaluation::@3::@4::@0" ;
+    sysml:redefines "name" ;
+    sysml:value expr:OGCAIE__Examples__MeaslesEvaluation___403___404___400_pvalue .
+
+elmt:OGCAIE__Examples__MeaslesEvaluation___403___404___401
+    a sysml:AttributeUsage ;
+    sysml:owner elmt:OGCAIE__Examples__MeaslesEvaluation___403___404 ;
+    sysml:qualifiedName "OGCAIE::Examples::MeaslesEvaluation::@3::@4::@1" ;
+    sysml:redefines "version" ;
+    sysml:value expr:OGCAIE__Examples__MeaslesEvaluation___403___404___401_pvalue .
+
+elmt:OGCAIE__Examples__MeaslesEvaluation___403___405
+    a sysml:PartUsage ;
+    sysml:owner elmt:OGCAIE__Examples__MeaslesEvaluation___403 ;
+    sysml:qualifiedName "OGCAIE::Examples::MeaslesEvaluation::@3::@5" ;
+    sysml:redefines "reportAssembler" .
+
+elmt:OGCAIE__Examples__MeaslesEvaluation___403___405___400
+    a sysml:AttributeUsage ;
+    sysml:owner elmt:OGCAIE__Examples__MeaslesEvaluation___403___405 ;
+    sysml:qualifiedName "OGCAIE::Examples::MeaslesEvaluation::@3::@5::@0" ;
+    sysml:redefines "name" ;
+    sysml:value expr:OGCAIE__Examples__MeaslesEvaluation___403___405___400_pvalue .
+
+elmt:OGCAIE__Examples__MeaslesEvaluation___403___405___401
+    a sysml:AttributeUsage ;
+    sysml:owner elmt:OGCAIE__Examples__MeaslesEvaluation___403___405 ;
+    sysml:qualifiedName "OGCAIE::Examples::MeaslesEvaluation::@3::@5::@1" ;
+    sysml:redefines "version" ;
+    sysml:value expr:OGCAIE__Examples__MeaslesEvaluation___403___405___401_pvalue .
+
+elmt:OGCAIE__Examples__MeaslesEvaluation___403___406
+    a sysml:PartUsage ;
+    sysml:owner elmt:OGCAIE__Examples__MeaslesEvaluation___403 ;
+    sysml:qualifiedName "OGCAIE::Examples::MeaslesEvaluation::@3::@6" ;
+    sysml:redefines "recorder" .
+
+elmt:OGCAIE__Examples__MeaslesEvaluation___403___406___400
+    a sysml:AttributeUsage ;
+    sysml:owner elmt:OGCAIE__Examples__MeaslesEvaluation___403___406 ;
+    sysml:qualifiedName "OGCAIE::Examples::MeaslesEvaluation::@3::@6::@0" ;
+    sysml:redefines "name" ;
+    sysml:value expr:OGCAIE__Examples__MeaslesEvaluation___403___406___400_pvalue .
+
+elmt:OGCAIE__Examples__MeaslesEvaluation___403___406___401
+    a sysml:AttributeUsage ;
+    sysml:owner elmt:OGCAIE__Examples__MeaslesEvaluation___403___406 ;
+    sysml:qualifiedName "OGCAIE::Examples::MeaslesEvaluation::@3::@6::@1" ;
+    sysml:redefines "version" ;
+    sysml:value expr:OGCAIE__Examples__MeaslesEvaluation___403___406___401_pvalue .
+
+elmt:OGCAIE__Examples__MeaslesEvaluation__commuters
+    a sysml:PartUsage ;
+    sysml:declaredName "commuters" ;
+    sysml:owner elmt:OGCAIE__Examples__MeaslesEvaluation ;
+    sysml:qualifiedName "OGCAIE::Examples::MeaslesEvaluation::commuters" .
+
+elmt:OGCAIE__Examples__MeaslesEvaluation__commuters___400
+    a sysml:AttributeUsage ;
+    sysml:owner elmt:OGCAIE__Examples__MeaslesEvaluation__commuters ;
+    sysml:qualifiedName "OGCAIE::Examples::MeaslesEvaluation::commuters::@0" ;
+    sysml:redefines "name" ;
+    sysml:value expr:OGCAIE__Examples__MeaslesEvaluation__commuters___400_pvalue .
+
+elmt:OGCAIE__Examples__MeaslesEvaluation__residents
+    a sysml:PartUsage ;
+    sysml:declaredName "residents" ;
+    sysml:owner elmt:OGCAIE__Examples__MeaslesEvaluation ;
+    sysml:qualifiedName "OGCAIE::Examples::MeaslesEvaluation::residents" .
+
+elmt:OGCAIE__Examples__MeaslesEvaluation__residents___400
+    a sysml:AttributeUsage ;
+    sysml:owner elmt:OGCAIE__Examples__MeaslesEvaluation__residents ;
+    sysml:qualifiedName "OGCAIE::Examples::MeaslesEvaluation::residents::@0" ;
+    sysml:redefines "name" ;
+    sysml:value expr:OGCAIE__Examples__MeaslesEvaluation__residents___400_pvalue .
+
+elmt:OGCAIE__Examples__measlesEvaluation
+    a sysml:PartUsage ;
+    sysml:declaredName "measlesEvaluation" ;
+    sysml:owner elmt:OGCAIE__Examples ;
+    sysml:qualifiedName "OGCAIE::Examples::measlesEvaluation" ;
+    sysml:type elmt:OGCAIE__Examples__MeaslesEvaluation .
+
+elmt:OGCAIE__IndependenceDeclaration
+    a sysml:ItemDefinition ;
+    ogm:realizes epo:IndependenceDeclaration ;
+    sysml:declaredName "IndependenceDeclaration" ;
+    sysml:owner elmt:OGCAIE ;
+    sysml:qualifiedName "OGCAIE::IndependenceDeclaration" .
+
+elmt:OGCAIE__IndependenceDeclarationSeam
+    a sysml:InterfaceDefinition ;
+    sysml:declaredName "IndependenceDeclarationSeam" ;
+    sysml:owner elmt:OGCAIE ;
+    sysml:qualifiedName "OGCAIE::IndependenceDeclarationSeam" .
+
+elmt:OGCAIE__IndependenceDeclarationSeam__consumer
+    a sysml:PortUsage ;
+    sysml:declaredName "consumer" ;
+    sysml:isConjugated "true"^^xsd:boolean ;
+    sysml:isEnd "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__IndependenceDeclarationSeam ;
+    sysml:qualifiedName "OGCAIE::IndependenceDeclarationSeam::consumer" ;
+    sysml:type elmt:OGCAIE__IndependenceDeclarationWrite .
+
+elmt:OGCAIE__IndependenceDeclarationSeam__supplier
+    a sysml:PortUsage ;
+    sysml:declaredName "supplier" ;
+    sysml:isEnd "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__IndependenceDeclarationSeam ;
+    sysml:qualifiedName "OGCAIE::IndependenceDeclarationSeam::supplier" ;
+    sysml:type elmt:OGCAIE__IndependenceDeclarationWrite .
+
+elmt:OGCAIE__IndependenceDeclarationWrite
+    a sysml:PortDefinition ;
+    sysml:declaredName "IndependenceDeclarationWrite" ;
+    sysml:owner elmt:OGCAIE ;
+    sysml:qualifiedName "OGCAIE::IndependenceDeclarationWrite" .
+
+elmt:OGCAIE__IndependenceDeclarationWrite__i
+    a sysml:ItemUsage ;
+    sysml:declaredName "i" ;
+    sysml:direction "out" ;
+    sysml:owner elmt:OGCAIE__IndependenceDeclarationWrite ;
+    sysml:qualifiedName "OGCAIE::IndependenceDeclarationWrite::i" ;
+    sysml:type elmt:OGCAIE__IndependenceDeclaration .
+
+elmt:OGCAIE__IndependenceDeclaration___400
+    a sysml:Documentation ;
+    sysml:body """ The testing organization's declaration, made by its authorized
+           representative and dated, that it is independent of the test item
+           provider (ISO/IEC 17000 4.5, 5.4). Replaces a bare boolean on the
+           organization (sheet 10-07, R-50). Pinned at the contract. """ ;
+    sysml:owner elmt:OGCAIE__IndependenceDeclaration ;
+    sysml:qualifiedName "OGCAIE::IndependenceDeclaration::@0" .
+
+elmt:OGCAIE__IndependenceDeclaration__id
+    a sysml:AttributeUsage ;
+    sysml:declaredName "id" ;
+    sysml:owner elmt:OGCAIE__IndependenceDeclaration ;
+    sysml:qualifiedName "OGCAIE::IndependenceDeclaration::id" ;
+    sysml:type "ScalarValues::String" .
+
 elmt:OGCAIE__Machine
     a sysml:PartDefinition ;
     sysml:declaredName "Machine" ;
@@ -2150,6 +2636,7 @@ elmt:OGCAIE__Machine__version
 
 elmt:OGCAIE__Mission
     a sysml:ItemDefinition ;
+    ogm:realizes epo:Mission ;
     sysml:declaredName "Mission" ;
     sysml:owner elmt:OGCAIE ;
     sysml:qualifiedName "OGCAIE::Mission" .
@@ -2249,6 +2736,7 @@ elmt:OGCAIE__Mode__semiAuto
 
 elmt:OGCAIE__Need
     a sysml:ItemDefinition ;
+    ogm:realizes epo:Need ;
     sysml:declaredName "Need" ;
     sysml:owner elmt:OGCAIE ;
     sysml:qualifiedName "OGCAIE::Need" .
@@ -2353,24 +2841,24 @@ elmt:OGCAIE__OgCaieEvaluation___400
 elmt:OGCAIE__OgCaieEvaluation__acceptanceSeam
     a sysml:InterfaceUsage ;
     ogm:consumerPort elmt:OGCAIE__Recorder__acceptanceIn ;
-    ogm:supplierPort elmt:OGCAIE__SponsorOrganization__acceptanceOut ;
+    ogm:supplierPort elmt:OGCAIE__SponsorSignatory__acceptanceOut ;
     sysml:declaredName "acceptanceSeam" ;
     sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
     sysml:qualifiedName "OGCAIE::OgCaieEvaluation::acceptanceSeam" ;
     sysml:type elmt:OGCAIE__AcceptanceSeam ;
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__acceptanceSeam_pend0, expr:OGCAIE__OgCaieEvaluation__acceptanceSeam_pend1 ;
-    sysx:sourceText "interface acceptanceSeam : AcceptanceSeam connect sponsor.acceptanceOut to testingOrg.recorder.acceptanceIn;" .
+    sysx:sourceText "interface acceptanceSeam : AcceptanceSeam connect sponsor.signatory.acceptanceOut to testingOrg.recorder.acceptanceIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam
     a sysml:InterfaceUsage ;
     ogm:consumerPort elmt:OGCAIE__AccountExecutive__acceptanceIn ;
-    ogm:supplierPort elmt:OGCAIE__SponsorOrganization__acceptanceOut ;
+    ogm:supplierPort elmt:OGCAIE__SponsorSignatory__acceptanceOut ;
     sysml:declaredName "acceptanceToExecutiveSeam" ;
     sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
     sysml:qualifiedName "OGCAIE::OgCaieEvaluation::acceptanceToExecutiveSeam" ;
     sysml:type elmt:OGCAIE__AcceptanceSeam ;
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam_pend0, expr:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam_pend1 ;
-    sysx:sourceText "interface acceptanceToExecutiveSeam : AcceptanceSeam connect sponsor.acceptanceOut to testingOrg.accountExecutive.acceptanceIn;" .
+    sysx:sourceText "interface acceptanceToExecutiveSeam : AcceptanceSeam connect sponsor.signatory.acceptanceOut to testingOrg.accountExecutive.acceptanceIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__accessSeam
     a sysml:InterfaceUsage ;
@@ -2413,13 +2901,13 @@ elmt:OGCAIE__OgCaieEvaluation__affected
 elmt:OGCAIE__OgCaieEvaluation__agreementSeam
     a sysml:InterfaceUsage ;
     ogm:consumerPort elmt:OGCAIE__AccountExecutive__agreementIn ;
-    ogm:supplierPort elmt:OGCAIE__SponsorOrganization__agreementOut ;
+    ogm:supplierPort elmt:OGCAIE__SponsorSignatory__agreementOut ;
     sysml:declaredName "agreementSeam" ;
     sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
     sysml:qualifiedName "OGCAIE::OgCaieEvaluation::agreementSeam" ;
     sysml:type elmt:OGCAIE__AgreementSeam ;
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__agreementSeam_pend0, expr:OGCAIE__OgCaieEvaluation__agreementSeam_pend1 ;
-    sysx:sourceText "interface agreementSeam : AgreementSeam connect sponsor.agreementOut to testingOrg.accountExecutive.agreementIn;" .
+    sysx:sourceText "interface agreementSeam : AgreementSeam connect sponsor.signatory.agreementOut to testingOrg.accountExecutive.agreementIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__assessmentSeam
     a sysml:InterfaceUsage ;
@@ -2528,6 +3016,17 @@ elmt:OGCAIE__OgCaieEvaluation__expertDeterminationSeam
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__expertDeterminationSeam_pend0, expr:OGCAIE__OgCaieEvaluation__expertDeterminationSeam_pend1 ;
     sysx:sourceText "interface expertDeterminationSeam : DeterminationSeam connect testingOrg.team.domainExpert.determinationOut to testingOrg.recorder.expertDeterminationIn;" .
 
+elmt:OGCAIE__OgCaieEvaluation__independenceDeclarationSeam
+    a sysml:InterfaceUsage ;
+    ogm:consumerPort elmt:OGCAIE__Recorder__independenceDeclarationIn ;
+    ogm:supplierPort elmt:OGCAIE__AccountExecutive__independenceDeclarationOut ;
+    sysml:declaredName "independenceDeclarationSeam" ;
+    sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
+    sysml:qualifiedName "OGCAIE::OgCaieEvaluation::independenceDeclarationSeam" ;
+    sysml:type elmt:OGCAIE__IndependenceDeclarationSeam ;
+    sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__independenceDeclarationSeam_pend0, expr:OGCAIE__OgCaieEvaluation__independenceDeclarationSeam_pend1 ;
+    sysx:sourceText "interface independenceDeclarationSeam : IndependenceDeclarationSeam connect testingOrg.accountExecutive.independenceDeclarationOut to testingOrg.recorder.independenceDeclarationIn;" .
+
 elmt:OGCAIE__OgCaieEvaluation__missionSeam
     a sysml:InterfaceUsage ;
     ogm:consumerPort elmt:OGCAIE__Recorder__missionIn ;
@@ -2604,6 +3103,17 @@ elmt:OGCAIE__OgCaieEvaluation__planApprovalSeam
     sysml:type elmt:OGCAIE__PlanApprovalSeam ;
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__planApprovalSeam_pend0, expr:OGCAIE__OgCaieEvaluation__planApprovalSeam_pend1 ;
     sysx:sourceText "interface planApprovalSeam : PlanApprovalSeam connect testingOrg.team.domainExpert.planApprovalOut to testingOrg.recorder.planApprovalIn;" .
+
+elmt:OGCAIE__OgCaieEvaluation__planDeviationSeam
+    a sysml:InterfaceUsage ;
+    ogm:consumerPort elmt:OGCAIE__Recorder__planDeviationIn ;
+    ogm:supplierPort elmt:OGCAIE__EvaluationOperator__planDeviationOut ;
+    sysml:declaredName "planDeviationSeam" ;
+    sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
+    sysml:qualifiedName "OGCAIE::OgCaieEvaluation::planDeviationSeam" ;
+    sysml:type elmt:OGCAIE__PlanDeviationSeam ;
+    sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__planDeviationSeam_pend0, expr:OGCAIE__OgCaieEvaluation__planDeviationSeam_pend1 ;
+    sysx:sourceText "interface planDeviationSeam : PlanDeviationSeam connect testingOrg.team.operator.planDeviationOut to testingOrg.recorder.planDeviationIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__planSeam
     a sysml:InterfaceUsage ;
@@ -2748,6 +3258,17 @@ elmt:OGCAIE__OgCaieEvaluation__requirementSeam
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__requirementSeam_pend0, expr:OGCAIE__OgCaieEvaluation__requirementSeam_pend1 ;
     sysx:sourceText "interface requirementSeam : RequirementSeam connect testingOrg.team.operator.requirementsOut to testingOrg.recorder.requirementsIn;" .
 
+elmt:OGCAIE__OgCaieEvaluation__requirementSetApprovalSeam
+    a sysml:InterfaceUsage ;
+    ogm:consumerPort elmt:OGCAIE__Recorder__requirementSetApprovalIn ;
+    ogm:supplierPort elmt:OGCAIE__SponsorSignatory__requirementSetApprovalOut ;
+    sysml:declaredName "requirementSetApprovalSeam" ;
+    sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
+    sysml:qualifiedName "OGCAIE::OgCaieEvaluation::requirementSetApprovalSeam" ;
+    sysml:type elmt:OGCAIE__RequirementSetApprovalSeam ;
+    sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__requirementSetApprovalSeam_pend0, expr:OGCAIE__OgCaieEvaluation__requirementSetApprovalSeam_pend1 ;
+    sysx:sourceText "interface requirementSetApprovalSeam : RequirementSetApprovalSeam connect sponsor.signatory.requirementSetApprovalOut to testingOrg.recorder.requirementSetApprovalIn;" .
+
 elmt:OGCAIE__OgCaieEvaluation__responseSeam
     a sysml:InterfaceUsage ;
     ogm:consumerPort elmt:OGCAIE__Recorder__responseIn ;
@@ -2817,6 +3338,17 @@ elmt:OGCAIE__OgCaieEvaluation__testingOrg
     sysml:qualifiedName "OGCAIE::OgCaieEvaluation::testingOrg" ;
     sysml:type elmt:OGCAIE__TestingOrganization .
 
+elmt:OGCAIE__OgCaieEvaluation__userInterestDeclarationSeam
+    a sysml:InterfaceUsage ;
+    ogm:consumerPort elmt:OGCAIE__Recorder__userInterestDeclarationIn ;
+    ogm:supplierPort elmt:OGCAIE__SponsorSignatory__userInterestDeclarationOut ;
+    sysml:declaredName "userInterestDeclarationSeam" ;
+    sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
+    sysml:qualifiedName "OGCAIE::OgCaieEvaluation::userInterestDeclarationSeam" ;
+    sysml:type elmt:OGCAIE__UserInterestDeclarationSeam ;
+    sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__userInterestDeclarationSeam_pend0, expr:OGCAIE__OgCaieEvaluation__userInterestDeclarationSeam_pend1 ;
+    sysx:sourceText "interface userInterestDeclarationSeam : UserInterestDeclarationSeam connect sponsor.signatory.userInterestDeclarationOut to testingOrg.recorder.userInterestDeclarationIn;" .
+
 elmt:OGCAIE__OgCaieEvaluation__verdictSeam
     a sysml:InterfaceUsage ;
     ogm:consumerPort elmt:OGCAIE__Recorder__verdictIn ;
@@ -2827,6 +3359,17 @@ elmt:OGCAIE__OgCaieEvaluation__verdictSeam
     sysml:type elmt:OGCAIE__ConformanceVerdictSeam ;
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__verdictSeam_pend0, expr:OGCAIE__OgCaieEvaluation__verdictSeam_pend1 ;
     sysx:sourceText "interface verdictSeam : ConformanceVerdictSeam connect testingOrg.conformanceChecker.verdictOut to testingOrg.recorder.verdictIn;" .
+
+elmt:OGCAIE__OgCaieEvaluation__verdictToAssemblerSeam
+    a sysml:InterfaceUsage ;
+    ogm:consumerPort elmt:OGCAIE__ReportAssembler__verdictIn ;
+    ogm:supplierPort elmt:OGCAIE__ConformanceChecker__verdictOut ;
+    sysml:declaredName "verdictToAssemblerSeam" ;
+    sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
+    sysml:qualifiedName "OGCAIE::OgCaieEvaluation::verdictToAssemblerSeam" ;
+    sysml:type elmt:OGCAIE__ConformanceVerdictSeam ;
+    sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__verdictToAssemblerSeam_pend0, expr:OGCAIE__OgCaieEvaluation__verdictToAssemblerSeam_pend1 ;
+    sysx:sourceText "interface verdictToAssemblerSeam : ConformanceVerdictSeam connect testingOrg.conformanceChecker.verdictOut to testingOrg.reportAssembler.verdictIn;" .
 
 elmt:OGCAIE__Organization
     a sysml:PartDefinition ;
@@ -2922,6 +3465,7 @@ elmt:OGCAIE__Person___400
 
 elmt:OGCAIE__PlanApproval
     a sysml:ItemDefinition ;
+    ogm:realizes epo:PlanApproval ;
     sysml:declaredName "PlanApproval" ;
     sysml:owner elmt:OGCAIE ;
     sysml:qualifiedName "OGCAIE::PlanApproval" .
@@ -2976,6 +3520,66 @@ elmt:OGCAIE__PlanApproval__id
     sysml:qualifiedName "OGCAIE::PlanApproval::id" ;
     sysml:type "ScalarValues::String" .
 
+elmt:OGCAIE__PlanDeviation
+    a sysml:ItemDefinition ;
+    ogm:realizes epo:PlanDeviation ;
+    sysml:declaredName "PlanDeviation" ;
+    sysml:owner elmt:OGCAIE ;
+    sysml:qualifiedName "OGCAIE::PlanDeviation" .
+
+elmt:OGCAIE__PlanDeviationSeam
+    a sysml:InterfaceDefinition ;
+    sysml:declaredName "PlanDeviationSeam" ;
+    sysml:owner elmt:OGCAIE ;
+    sysml:qualifiedName "OGCAIE::PlanDeviationSeam" .
+
+elmt:OGCAIE__PlanDeviationSeam__consumer
+    a sysml:PortUsage ;
+    sysml:declaredName "consumer" ;
+    sysml:isConjugated "true"^^xsd:boolean ;
+    sysml:isEnd "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__PlanDeviationSeam ;
+    sysml:qualifiedName "OGCAIE::PlanDeviationSeam::consumer" ;
+    sysml:type elmt:OGCAIE__PlanDeviationWrite .
+
+elmt:OGCAIE__PlanDeviationSeam__supplier
+    a sysml:PortUsage ;
+    sysml:declaredName "supplier" ;
+    sysml:isEnd "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__PlanDeviationSeam ;
+    sysml:qualifiedName "OGCAIE::PlanDeviationSeam::supplier" ;
+    sysml:type elmt:OGCAIE__PlanDeviationWrite .
+
+elmt:OGCAIE__PlanDeviationWrite
+    a sysml:PortDefinition ;
+    sysml:declaredName "PlanDeviationWrite" ;
+    sysml:owner elmt:OGCAIE ;
+    sysml:qualifiedName "OGCAIE::PlanDeviationWrite" .
+
+elmt:OGCAIE__PlanDeviationWrite__i
+    a sysml:ItemUsage ;
+    sysml:declaredName "i" ;
+    sysml:direction "out" ;
+    sysml:owner elmt:OGCAIE__PlanDeviationWrite ;
+    sysml:qualifiedName "OGCAIE::PlanDeviationWrite::i" ;
+    sysml:type elmt:OGCAIE__PlanDeviation .
+
+elmt:OGCAIE__PlanDeviation___400
+    a sysml:Documentation ;
+    sysml:body """ A recorded departure from the plan, with its reason: a
+           criterion left unplanned, or a plan objective left without an
+           attestation (sheet 10-16, R-50). The operator's, dated, at the
+           plan step or the report step. Pinned within the evaluation. """ ;
+    sysml:owner elmt:OGCAIE__PlanDeviation ;
+    sysml:qualifiedName "OGCAIE::PlanDeviation::@0" .
+
+elmt:OGCAIE__PlanDeviation__id
+    a sysml:AttributeUsage ;
+    sysml:declaredName "id" ;
+    sysml:owner elmt:OGCAIE__PlanDeviation ;
+    sysml:qualifiedName "OGCAIE::PlanDeviation::id" ;
+    sysml:type "ScalarValues::String" .
+
 elmt:OGCAIE__PlanSeam
     a sysml:InterfaceDefinition ;
     sysml:declaredName "PlanSeam" ;
@@ -3015,6 +3619,7 @@ elmt:OGCAIE__PlanWrite__i
 
 elmt:OGCAIE__Probe
     a sysml:ItemDefinition ;
+    ogm:realizes epo:Probe ;
     sysml:declaredName "Probe" ;
     sysml:owner elmt:OGCAIE ;
     sysml:qualifiedName "OGCAIE::Probe" .
@@ -3072,6 +3677,7 @@ elmt:OGCAIE__Probe__id
 
 elmt:OGCAIE__Proposal
     a sysml:ItemDefinition ;
+    ogm:realizes epo:Proposal ;
     sysml:declaredName "Proposal" ;
     sysml:owner elmt:OGCAIE ;
     sysml:qualifiedName "OGCAIE::Proposal" .
@@ -3130,6 +3736,7 @@ elmt:OGCAIE__Proposal__id
 
 elmt:OGCAIE__Recommendation
     a sysml:ItemDefinition ;
+    ogm:realizes epo:Recommendation ;
     sysml:declaredName "Recommendation" ;
     sysml:owner elmt:OGCAIE ;
     sysml:qualifiedName "OGCAIE::Recommendation" .
@@ -3234,8 +3841,9 @@ elmt:OGCAIE__Recorder___400
     sysml:body """ Keeps the evaluation record: the hub every item kind passes
            through (M3), with who did what and when. One conjugate port
            per item kind in, each wired once (input wires are unique);
-           one record port out, read by six (output wires are shared when
-           what flows is information, R-25). """ ;
+           one record port out, read by the three machines (output wires
+           are shared when what flows is information, R-25); people read
+           the record through their role's view (R-49). """ ;
     sysml:owner elmt:OGCAIE__Recorder ;
     sysml:qualifiedName "OGCAIE::Recorder::@0" .
 
@@ -3311,6 +3919,14 @@ elmt:OGCAIE__Recorder__expertDeterminationIn
     sysml:qualifiedName "OGCAIE::Recorder::expertDeterminationIn" ;
     sysml:type elmt:OGCAIE__DeterminationWrite .
 
+elmt:OGCAIE__Recorder__independenceDeclarationIn
+    a sysml:PortUsage ;
+    sysml:declaredName "independenceDeclarationIn" ;
+    sysml:isConjugated "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__Recorder ;
+    sysml:qualifiedName "OGCAIE::Recorder::independenceDeclarationIn" ;
+    sysml:type elmt:OGCAIE__IndependenceDeclarationWrite .
+
 elmt:OGCAIE__Recorder__inputIn
     a sysml:PortUsage ;
     sysml:declaredName "inputIn" ;
@@ -3350,6 +3966,14 @@ elmt:OGCAIE__Recorder__planApprovalIn
     sysml:owner elmt:OGCAIE__Recorder ;
     sysml:qualifiedName "OGCAIE::Recorder::planApprovalIn" ;
     sysml:type elmt:OGCAIE__PlanApprovalWrite .
+
+elmt:OGCAIE__Recorder__planDeviationIn
+    a sysml:PortUsage ;
+    sysml:declaredName "planDeviationIn" ;
+    sysml:isConjugated "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__Recorder ;
+    sysml:qualifiedName "OGCAIE::Recorder::planDeviationIn" ;
+    sysml:type elmt:OGCAIE__PlanDeviationWrite .
 
 elmt:OGCAIE__Recorder__planIn
     a sysml:PortUsage ;
@@ -3414,6 +4038,14 @@ elmt:OGCAIE__Recorder__representationIn
     sysml:qualifiedName "OGCAIE::Recorder::representationIn" ;
     sysml:type elmt:OGCAIE__RepresentationWrite .
 
+elmt:OGCAIE__Recorder__requirementSetApprovalIn
+    a sysml:PortUsage ;
+    sysml:declaredName "requirementSetApprovalIn" ;
+    sysml:isConjugated "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__Recorder ;
+    sysml:qualifiedName "OGCAIE::Recorder::requirementSetApprovalIn" ;
+    sysml:type elmt:OGCAIE__RequirementSetApprovalWrite .
+
 elmt:OGCAIE__Recorder__requirementsIn
     a sysml:PortUsage ;
     sysml:declaredName "requirementsIn" ;
@@ -3438,6 +4070,14 @@ elmt:OGCAIE__Recorder__statementOfWorkIn
     sysml:qualifiedName "OGCAIE::Recorder::statementOfWorkIn" ;
     sysml:type elmt:OGCAIE__StatementOfWorkWrite .
 
+elmt:OGCAIE__Recorder__userInterestDeclarationIn
+    a sysml:PortUsage ;
+    sysml:declaredName "userInterestDeclarationIn" ;
+    sysml:isConjugated "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__Recorder ;
+    sysml:qualifiedName "OGCAIE::Recorder::userInterestDeclarationIn" ;
+    sysml:type elmt:OGCAIE__UserInterestDeclarationWrite .
+
 elmt:OGCAIE__Recorder__verdictIn
     a sysml:PortUsage ;
     sysml:declaredName "verdictIn" ;
@@ -3448,12 +4088,14 @@ elmt:OGCAIE__Recorder__verdictIn
 
 elmt:OGCAIE__Report
     a sysml:ItemDefinition ;
+    ogm:realizes epo:Report ;
     sysml:declaredName "Report" ;
     sysml:owner elmt:OGCAIE ;
     sysml:qualifiedName "OGCAIE::Report" .
 
 elmt:OGCAIE__ReportApproval
     a sysml:ItemDefinition ;
+    ogm:realizes epo:ReportApproval ;
     sysml:declaredName "ReportApproval" ;
     sysml:owner elmt:OGCAIE ;
     sysml:qualifiedName "OGCAIE::ReportApproval" .
@@ -3497,8 +4139,8 @@ elmt:OGCAIE__ReportApprovalWrite__i
 
 elmt:OGCAIE__ReportApproval___400
     a sysml:Documentation ;
-    sysml:body """ A domain expert's approval of the report's contents after
-           the machine verdict: correct construction is not enough
+    sysml:body """ A domain expert's approval of the final report's contents
+           after the machine verdict: correct construction is not enough
            (walkthrough, R-49). Pinned within the evaluation. """ ;
     sysml:owner elmt:OGCAIE__ReportApproval ;
     sysml:qualifiedName "OGCAIE::ReportApproval::@0" .
@@ -3519,11 +4161,12 @@ elmt:OGCAIE__ReportAssembler
 
 elmt:OGCAIE__ReportAssembler___400
     a sysml:Documentation ;
-    sysml:body """ Assembles the report from the record, coverage and the
-           outcome distribution recomputed inside it; anyone holding the
-           record recomputes the same numbers (queries/coverage.rq). The
-           report is then checked by machine and approved by a domain expert
-           (walkthrough, R-49). """ ;
+    sysml:body """ Assembles the report from the record and the verdict on it,
+           coverage and the outcome distribution recomputed inside it;
+           anyone holding the record recomputes the same numbers
+           (queries/coverage.rq). A draft may carry flagged gaps; a final
+           report rests on a passed verdict and is then approved by a domain
+           expert (walkthrough, R-49; sheet 10-41, R-50). """ ;
     sysml:owner elmt:OGCAIE__ReportAssembler ;
     sysml:qualifiedName "OGCAIE::ReportAssembler::@0" .
 
@@ -3541,6 +4184,14 @@ elmt:OGCAIE__ReportAssembler__reportOut
     sysml:owner elmt:OGCAIE__ReportAssembler ;
     sysml:qualifiedName "OGCAIE::ReportAssembler::reportOut" ;
     sysml:type elmt:OGCAIE__ReportWrite .
+
+elmt:OGCAIE__ReportAssembler__verdictIn
+    a sysml:PortUsage ;
+    sysml:declaredName "verdictIn" ;
+    sysml:isConjugated "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__ReportAssembler ;
+    sysml:qualifiedName "OGCAIE::ReportAssembler::verdictIn" ;
+    sysml:type elmt:OGCAIE__ConformanceVerdictWrite .
 
 elmt:OGCAIE__ReportSeam
     a sysml:InterfaceDefinition ;
@@ -3581,8 +4232,11 @@ elmt:OGCAIE__ReportWrite__i
 
 elmt:OGCAIE__Report___400
     a sysml:Documentation ;
-    sysml:body """ Coverage and performance, computed by machine over a
-           conformant record and reported together, never merged. """ ;
+    sysml:body """ Coverage and performance, computed by machine over the record
+           and reported together, never merged: the record's delivered
+           export (sheet 10-02). A draft may carry flagged gaps in
+           traceability or coverage; a final report rests on a passed
+           verdict on the record (sheet 10-41, R-50). """ ;
     sysml:owner elmt:OGCAIE__Report ;
     sysml:qualifiedName "OGCAIE::Report::@0" .
 
@@ -3640,9 +4294,10 @@ elmt:OGCAIE__Representative
 elmt:OGCAIE__Representative___400
     a sysml:Documentation ;
     sysml:body """ Speaks on behalf of an affected population, as the statement
-           of work decided: every named population has one; a domain expert
-           may be one; the population's interview, when it had one, feeds
-           the representation (walkthrough B3, R-49). """ ;
+           of work decided: every named population has one; any team member
+           may be one, since speaking for a population is not a judgment on
+           the test item (sheet 10-13); the population's interview, when it
+           had one, feeds the representation (walkthrough B3, R-49). """ ;
     sysml:owner elmt:OGCAIE__Representative ;
     sysml:qualifiedName "OGCAIE::Representative::@0" .
 
@@ -3686,9 +4341,70 @@ elmt:OGCAIE__RequirementSeam__supplier
 
 elmt:OGCAIE__RequirementSet
     a sysml:ItemDefinition ;
+    ogm:realizes epo:RequirementSet ;
     sysml:declaredName "RequirementSet" ;
     sysml:owner elmt:OGCAIE ;
     sysml:qualifiedName "OGCAIE::RequirementSet" .
+
+elmt:OGCAIE__RequirementSetApproval
+    a sysml:ItemDefinition ;
+    ogm:realizes epo:RequirementSetApproval ;
+    sysml:declaredName "RequirementSetApproval" ;
+    sysml:owner elmt:OGCAIE ;
+    sysml:qualifiedName "OGCAIE::RequirementSetApproval" .
+
+elmt:OGCAIE__RequirementSetApprovalSeam
+    a sysml:InterfaceDefinition ;
+    sysml:declaredName "RequirementSetApprovalSeam" ;
+    sysml:owner elmt:OGCAIE ;
+    sysml:qualifiedName "OGCAIE::RequirementSetApprovalSeam" .
+
+elmt:OGCAIE__RequirementSetApprovalSeam__consumer
+    a sysml:PortUsage ;
+    sysml:declaredName "consumer" ;
+    sysml:isConjugated "true"^^xsd:boolean ;
+    sysml:isEnd "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__RequirementSetApprovalSeam ;
+    sysml:qualifiedName "OGCAIE::RequirementSetApprovalSeam::consumer" ;
+    sysml:type elmt:OGCAIE__RequirementSetApprovalWrite .
+
+elmt:OGCAIE__RequirementSetApprovalSeam__supplier
+    a sysml:PortUsage ;
+    sysml:declaredName "supplier" ;
+    sysml:isEnd "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__RequirementSetApprovalSeam ;
+    sysml:qualifiedName "OGCAIE::RequirementSetApprovalSeam::supplier" ;
+    sysml:type elmt:OGCAIE__RequirementSetApprovalWrite .
+
+elmt:OGCAIE__RequirementSetApprovalWrite
+    a sysml:PortDefinition ;
+    sysml:declaredName "RequirementSetApprovalWrite" ;
+    sysml:owner elmt:OGCAIE ;
+    sysml:qualifiedName "OGCAIE::RequirementSetApprovalWrite" .
+
+elmt:OGCAIE__RequirementSetApprovalWrite__i
+    a sysml:ItemUsage ;
+    sysml:declaredName "i" ;
+    sysml:direction "out" ;
+    sysml:owner elmt:OGCAIE__RequirementSetApprovalWrite ;
+    sysml:qualifiedName "OGCAIE::RequirementSetApprovalWrite::i" ;
+    sysml:type elmt:OGCAIE__RequirementSetApproval .
+
+elmt:OGCAIE__RequirementSetApproval___400
+    a sysml:Documentation ;
+    sysml:body """ The sponsor's approval of the requirement set, made by its
+           signatory, dated after the set and before any session (sheet
+           10-01, R-50): the sponsor sees and approves what its test item is
+           held to. Pinned within the evaluation. """ ;
+    sysml:owner elmt:OGCAIE__RequirementSetApproval ;
+    sysml:qualifiedName "OGCAIE::RequirementSetApproval::@0" .
+
+elmt:OGCAIE__RequirementSetApproval__id
+    a sysml:AttributeUsage ;
+    sysml:declaredName "id" ;
+    sysml:owner elmt:OGCAIE__RequirementSetApproval ;
+    sysml:qualifiedName "OGCAIE::RequirementSetApproval::id" ;
+    sysml:type "ScalarValues::String" .
 
 elmt:OGCAIE__RequirementSetWrite
     a sysml:PortDefinition ;
@@ -3721,6 +4437,7 @@ elmt:OGCAIE__RequirementSet__id
 
 elmt:OGCAIE__Response
     a sysml:ItemDefinition ;
+    ogm:realizes epo:Response ;
     sysml:declaredName "Response" ;
     sysml:owner elmt:OGCAIE ;
     sysml:qualifiedName "OGCAIE::Response" .
@@ -3775,262 +4492,9 @@ elmt:OGCAIE__Response__id
     sysml:qualifiedName "OGCAIE::Response::id" ;
     sysml:type "ScalarValues::String" .
 
-elmt:OGCAIE__Runs
-    a sysml:Package ;
-    sysml:declaredName "Runs" ;
-    sysml:owner elmt:OGCAIE ;
-    sysml:qualifiedName "OGCAIE::Runs" .
-
-elmt:OGCAIE__Runs__MeaslesRun
-    a sysml:PartDefinition ;
-    sysml:declaredName "MeaslesRun" ;
-    sysml:owner elmt:OGCAIE__Runs ;
-    sysml:qualifiedName "OGCAIE::Runs::MeaslesRun" ;
-    sysml:specializes elmt:OGCAIE__OgCaieEvaluation .
-
-elmt:OGCAIE__Runs__MeaslesRun___400
-    a sysml:Documentation ;
-    sysml:body """ A public-health chatbot during a measles outbreak: a
-               county public-health office sponsors the evaluation, the
-               chatbot's vendor is accountable for it, Humane Intelligence
-               performs it with Mala, Annie and Theo, and two populations
-               are affected. """ ;
-    sysml:owner elmt:OGCAIE__Runs__MeaslesRun ;
-    sysml:qualifiedName "OGCAIE::Runs::MeaslesRun::@0" .
-
-elmt:OGCAIE__Runs__MeaslesRun___401
-    a sysml:PartUsage ;
-    sysml:owner elmt:OGCAIE__Runs__MeaslesRun ;
-    sysml:qualifiedName "OGCAIE::Runs::MeaslesRun::@1" ;
-    sysml:redefines "sponsor" .
-
-elmt:OGCAIE__Runs__MeaslesRun___401___400
-    a sysml:AttributeUsage ;
-    sysml:owner elmt:OGCAIE__Runs__MeaslesRun___401 ;
-    sysml:qualifiedName "OGCAIE::Runs::MeaslesRun::@1::@0" ;
-    sysml:redefines "name" ;
-    sysml:value expr:OGCAIE__Runs__MeaslesRun___401___400_pvalue .
-
-elmt:OGCAIE__Runs__MeaslesRun___401___401
-    a sysml:AttributeUsage ;
-    sysml:owner elmt:OGCAIE__Runs__MeaslesRun___401 ;
-    sysml:qualifiedName "OGCAIE::Runs::MeaslesRun::@1::@1" ;
-    sysml:redefines "isAccountable" ;
-    sysml:value expr:OGCAIE__Runs__MeaslesRun___401___401_pvalue .
-
-elmt:OGCAIE__Runs__MeaslesRun___402
-    a sysml:PartUsage ;
-    sysml:owner elmt:OGCAIE__Runs__MeaslesRun ;
-    sysml:qualifiedName "OGCAIE::Runs::MeaslesRun::@2" ;
-    sysml:redefines "accountable" .
-
-elmt:OGCAIE__Runs__MeaslesRun___402___400
-    a sysml:AttributeUsage ;
-    sysml:owner elmt:OGCAIE__Runs__MeaslesRun___402 ;
-    sysml:qualifiedName "OGCAIE::Runs::MeaslesRun::@2::@0" ;
-    sysml:redefines "name" ;
-    sysml:value expr:OGCAIE__Runs__MeaslesRun___402___400_pvalue .
-
-elmt:OGCAIE__Runs__MeaslesRun___402___401
-    a sysml:PartUsage ;
-    sysml:owner elmt:OGCAIE__Runs__MeaslesRun___402 ;
-    sysml:qualifiedName "OGCAIE::Runs::MeaslesRun::@2::@1" ;
-    sysml:redefines "testItem" .
-
-elmt:OGCAIE__Runs__MeaslesRun___402___401___400
-    a sysml:AttributeUsage ;
-    sysml:owner elmt:OGCAIE__Runs__MeaslesRun___402___401 ;
-    sysml:qualifiedName "OGCAIE::Runs::MeaslesRun::@2::@1::@0" ;
-    sysml:redefines "name" ;
-    sysml:value expr:OGCAIE__Runs__MeaslesRun___402___401___400_pvalue .
-
-elmt:OGCAIE__Runs__MeaslesRun___402___401___401
-    a sysml:AttributeUsage ;
-    sysml:owner elmt:OGCAIE__Runs__MeaslesRun___402___401 ;
-    sysml:qualifiedName "OGCAIE::Runs::MeaslesRun::@2::@1::@1" ;
-    sysml:redefines "version" ;
-    sysml:value expr:OGCAIE__Runs__MeaslesRun___402___401___401_pvalue .
-
-elmt:OGCAIE__Runs__MeaslesRun___403
-    a sysml:PartUsage ;
-    sysml:owner elmt:OGCAIE__Runs__MeaslesRun ;
-    sysml:qualifiedName "OGCAIE::Runs::MeaslesRun::@3" ;
-    sysml:redefines "testingOrg" .
-
-elmt:OGCAIE__Runs__MeaslesRun___403___400
-    a sysml:AttributeUsage ;
-    sysml:owner elmt:OGCAIE__Runs__MeaslesRun___403 ;
-    sysml:qualifiedName "OGCAIE::Runs::MeaslesRun::@3::@0" ;
-    sysml:redefines "name" ;
-    sysml:value expr:OGCAIE__Runs__MeaslesRun___403___400_pvalue .
-
-elmt:OGCAIE__Runs__MeaslesRun___403___401
-    a sysml:AttributeUsage ;
-    sysml:owner elmt:OGCAIE__Runs__MeaslesRun___403 ;
-    sysml:qualifiedName "OGCAIE::Runs::MeaslesRun::@3::@1" ;
-    sysml:redefines "independentOfAccountable" ;
-    sysml:value expr:OGCAIE__Runs__MeaslesRun___403___401_pvalue .
-
-elmt:OGCAIE__Runs__MeaslesRun___403___402
-    a sysml:PartUsage ;
-    sysml:owner elmt:OGCAIE__Runs__MeaslesRun___403 ;
-    sysml:qualifiedName "OGCAIE::Runs::MeaslesRun::@3::@2" ;
-    sysml:redefines "accountExecutive" .
-
-elmt:OGCAIE__Runs__MeaslesRun___403___402___400
-    a sysml:AttributeUsage ;
-    sysml:owner elmt:OGCAIE__Runs__MeaslesRun___403___402 ;
-    sysml:qualifiedName "OGCAIE::Runs::MeaslesRun::@3::@2::@0" ;
-    sysml:redefines "name" ;
-    sysml:value expr:OGCAIE__Runs__MeaslesRun___403___402___400_pvalue .
-
-elmt:OGCAIE__Runs__MeaslesRun___403___403
-    a sysml:PartUsage ;
-    sysml:owner elmt:OGCAIE__Runs__MeaslesRun___403 ;
-    sysml:qualifiedName "OGCAIE::Runs::MeaslesRun::@3::@3" ;
-    sysml:redefines "team" .
-
-elmt:OGCAIE__Runs__MeaslesRun___403___403__annie
-    a sysml:PartUsage ;
-    sysml:declaredName "annie" ;
-    sysml:owner elmt:OGCAIE__Runs__MeaslesRun___403___403 ;
-    sysml:qualifiedName "OGCAIE::Runs::MeaslesRun::@3::@3::annie" .
-
-elmt:OGCAIE__Runs__MeaslesRun___403___403__annie___400
-    a sysml:AttributeUsage ;
-    sysml:owner elmt:OGCAIE__Runs__MeaslesRun___403___403__annie ;
-    sysml:qualifiedName "OGCAIE::Runs::MeaslesRun::@3::@3::annie::@0" ;
-    sysml:redefines "name" ;
-    sysml:value expr:OGCAIE__Runs__MeaslesRun___403___403__annie___400_pvalue .
-
-elmt:OGCAIE__Runs__MeaslesRun___403___403__theo
-    a sysml:PartUsage ;
-    sysml:declaredName "theo" ;
-    sysml:owner elmt:OGCAIE__Runs__MeaslesRun___403___403 ;
-    sysml:qualifiedName "OGCAIE::Runs::MeaslesRun::@3::@3::theo" .
-
-elmt:OGCAIE__Runs__MeaslesRun___403___403__theo___400
-    a sysml:AttributeUsage ;
-    sysml:owner elmt:OGCAIE__Runs__MeaslesRun___403___403__theo ;
-    sysml:qualifiedName "OGCAIE::Runs::MeaslesRun::@3::@3::theo::@0" ;
-    sysml:redefines "name" ;
-    sysml:value expr:OGCAIE__Runs__MeaslesRun___403___403__theo___400_pvalue .
-
-elmt:OGCAIE__Runs__MeaslesRun___403___404
-    a sysml:PartUsage ;
-    sysml:owner elmt:OGCAIE__Runs__MeaslesRun___403 ;
-    sysml:qualifiedName "OGCAIE::Runs::MeaslesRun::@3::@4" ;
-    sysml:redefines "testDriver" .
-
-elmt:OGCAIE__Runs__MeaslesRun___403___404___400
-    a sysml:AttributeUsage ;
-    sysml:owner elmt:OGCAIE__Runs__MeaslesRun___403___404 ;
-    sysml:qualifiedName "OGCAIE::Runs::MeaslesRun::@3::@4::@0" ;
-    sysml:redefines "name" ;
-    sysml:value expr:OGCAIE__Runs__MeaslesRun___403___404___400_pvalue .
-
-elmt:OGCAIE__Runs__MeaslesRun___403___404___401
-    a sysml:AttributeUsage ;
-    sysml:owner elmt:OGCAIE__Runs__MeaslesRun___403___404 ;
-    sysml:qualifiedName "OGCAIE::Runs::MeaslesRun::@3::@4::@1" ;
-    sysml:redefines "version" ;
-    sysml:value expr:OGCAIE__Runs__MeaslesRun___403___404___401_pvalue .
-
-elmt:OGCAIE__Runs__MeaslesRun___403___405
-    a sysml:PartUsage ;
-    sysml:owner elmt:OGCAIE__Runs__MeaslesRun___403 ;
-    sysml:qualifiedName "OGCAIE::Runs::MeaslesRun::@3::@5" ;
-    sysml:redefines "conformanceChecker" .
-
-elmt:OGCAIE__Runs__MeaslesRun___403___405___400
-    a sysml:AttributeUsage ;
-    sysml:owner elmt:OGCAIE__Runs__MeaslesRun___403___405 ;
-    sysml:qualifiedName "OGCAIE::Runs::MeaslesRun::@3::@5::@0" ;
-    sysml:redefines "name" ;
-    sysml:value expr:OGCAIE__Runs__MeaslesRun___403___405___400_pvalue .
-
-elmt:OGCAIE__Runs__MeaslesRun___403___405___401
-    a sysml:AttributeUsage ;
-    sysml:owner elmt:OGCAIE__Runs__MeaslesRun___403___405 ;
-    sysml:qualifiedName "OGCAIE::Runs::MeaslesRun::@3::@5::@1" ;
-    sysml:redefines "version" ;
-    sysml:value expr:OGCAIE__Runs__MeaslesRun___403___405___401_pvalue .
-
-elmt:OGCAIE__Runs__MeaslesRun___403___406
-    a sysml:PartUsage ;
-    sysml:owner elmt:OGCAIE__Runs__MeaslesRun___403 ;
-    sysml:qualifiedName "OGCAIE::Runs::MeaslesRun::@3::@6" ;
-    sysml:redefines "reportAssembler" .
-
-elmt:OGCAIE__Runs__MeaslesRun___403___406___400
-    a sysml:AttributeUsage ;
-    sysml:owner elmt:OGCAIE__Runs__MeaslesRun___403___406 ;
-    sysml:qualifiedName "OGCAIE::Runs::MeaslesRun::@3::@6::@0" ;
-    sysml:redefines "name" ;
-    sysml:value expr:OGCAIE__Runs__MeaslesRun___403___406___400_pvalue .
-
-elmt:OGCAIE__Runs__MeaslesRun___403___406___401
-    a sysml:AttributeUsage ;
-    sysml:owner elmt:OGCAIE__Runs__MeaslesRun___403___406 ;
-    sysml:qualifiedName "OGCAIE::Runs::MeaslesRun::@3::@6::@1" ;
-    sysml:redefines "version" ;
-    sysml:value expr:OGCAIE__Runs__MeaslesRun___403___406___401_pvalue .
-
-elmt:OGCAIE__Runs__MeaslesRun___403___407
-    a sysml:PartUsage ;
-    sysml:owner elmt:OGCAIE__Runs__MeaslesRun___403 ;
-    sysml:qualifiedName "OGCAIE::Runs::MeaslesRun::@3::@7" ;
-    sysml:redefines "recorder" .
-
-elmt:OGCAIE__Runs__MeaslesRun___403___407___400
-    a sysml:AttributeUsage ;
-    sysml:owner elmt:OGCAIE__Runs__MeaslesRun___403___407 ;
-    sysml:qualifiedName "OGCAIE::Runs::MeaslesRun::@3::@7::@0" ;
-    sysml:redefines "name" ;
-    sysml:value expr:OGCAIE__Runs__MeaslesRun___403___407___400_pvalue .
-
-elmt:OGCAIE__Runs__MeaslesRun___403___407___401
-    a sysml:AttributeUsage ;
-    sysml:owner elmt:OGCAIE__Runs__MeaslesRun___403___407 ;
-    sysml:qualifiedName "OGCAIE::Runs::MeaslesRun::@3::@7::@1" ;
-    sysml:redefines "version" ;
-    sysml:value expr:OGCAIE__Runs__MeaslesRun___403___407___401_pvalue .
-
-elmt:OGCAIE__Runs__MeaslesRun__commuters
-    a sysml:PartUsage ;
-    sysml:declaredName "commuters" ;
-    sysml:owner elmt:OGCAIE__Runs__MeaslesRun ;
-    sysml:qualifiedName "OGCAIE::Runs::MeaslesRun::commuters" .
-
-elmt:OGCAIE__Runs__MeaslesRun__commuters___400
-    a sysml:AttributeUsage ;
-    sysml:owner elmt:OGCAIE__Runs__MeaslesRun__commuters ;
-    sysml:qualifiedName "OGCAIE::Runs::MeaslesRun::commuters::@0" ;
-    sysml:redefines "name" ;
-    sysml:value expr:OGCAIE__Runs__MeaslesRun__commuters___400_pvalue .
-
-elmt:OGCAIE__Runs__MeaslesRun__residents
-    a sysml:PartUsage ;
-    sysml:declaredName "residents" ;
-    sysml:owner elmt:OGCAIE__Runs__MeaslesRun ;
-    sysml:qualifiedName "OGCAIE::Runs::MeaslesRun::residents" .
-
-elmt:OGCAIE__Runs__MeaslesRun__residents___400
-    a sysml:AttributeUsage ;
-    sysml:owner elmt:OGCAIE__Runs__MeaslesRun__residents ;
-    sysml:qualifiedName "OGCAIE::Runs::MeaslesRun::residents::@0" ;
-    sysml:redefines "name" ;
-    sysml:value expr:OGCAIE__Runs__MeaslesRun__residents___400_pvalue .
-
-elmt:OGCAIE__Runs__measlesRun
-    a sysml:PartUsage ;
-    sysml:declaredName "measlesRun" ;
-    sysml:owner elmt:OGCAIE__Runs ;
-    sysml:qualifiedName "OGCAIE::Runs::measlesRun" ;
-    sysml:type elmt:OGCAIE__Runs__MeaslesRun .
-
 elmt:OGCAIE__ServiceAgreement
     a sysml:ItemDefinition ;
+    ogm:realizes epo:ServiceAgreement ;
     sysml:declaredName "ServiceAgreement" ;
     sysml:owner elmt:OGCAIE ;
     sysml:qualifiedName "OGCAIE::ServiceAgreement" .
@@ -4039,8 +4503,11 @@ elmt:OGCAIE__ServiceAgreement___400
     a sysml:Documentation ;
     sysml:body """ The contract (ISO 9000:2026 3.3.13) between the sponsor
            organization and the testing organization to perform OG-CAIE
-           as a service, signed by the sponsor and by the testing
-           organization's account executive (rulings R-21, R-23). """ ;
+           as a service, signed by the sponsor's signatory and by the testing
+           organization's authorized representative, each acting on behalf
+           of their organization (rulings R-21, R-23, R-50). It accepts the
+           proposal; the statement of work, the access and the delivery are
+           under it (sheet 10-05). """ ;
     sysml:owner elmt:OGCAIE__ServiceAgreement ;
     sysml:qualifiedName "OGCAIE::ServiceAgreement::@0" .
 
@@ -4053,6 +4520,7 @@ elmt:OGCAIE__ServiceAgreement__id
 
 elmt:OGCAIE__Session
     a sysml:ItemDefinition ;
+    ogm:realizes epo:Session ;
     sysml:declaredName "Session" ;
     sysml:owner elmt:OGCAIE ;
     sysml:qualifiedName "OGCAIE::Session" .
@@ -4083,25 +4551,14 @@ elmt:OGCAIE__SponsorOrganization___400
     sysml:body """ The customer (ISO 9000:2026 3.9.1): states its mission and
            obligations towards the affected populations (R-37), states the need,
            receives the proposal, commissions the evaluation under the
-           service agreement, receives the delivery through the account
-           executive and accepts it (R-32). May or may not be the
-           accountable organization; the record says. """ ;
+           service agreement, receives the delivery through the authorized
+           representative (R-32). Where a person signs, the port is the
+           signatory's (sheet 10-06, R-50): the agreement, the acceptance,
+           the requirement-set approval and the user-interest declaration.
+           Whether it is also the test item provider, and whether it has a
+           user interest in the test item, the record says by declaration. """ ;
     sysml:owner elmt:OGCAIE__SponsorOrganization ;
     sysml:qualifiedName "OGCAIE::SponsorOrganization::@0" .
-
-elmt:OGCAIE__SponsorOrganization__acceptanceOut
-    a sysml:PortUsage ;
-    sysml:declaredName "acceptanceOut" ;
-    sysml:owner elmt:OGCAIE__SponsorOrganization ;
-    sysml:qualifiedName "OGCAIE::SponsorOrganization::acceptanceOut" ;
-    sysml:type elmt:OGCAIE__AcceptanceWrite .
-
-elmt:OGCAIE__SponsorOrganization__agreementOut
-    a sysml:PortUsage ;
-    sysml:declaredName "agreementOut" ;
-    sysml:owner elmt:OGCAIE__SponsorOrganization ;
-    sysml:qualifiedName "OGCAIE::SponsorOrganization::agreementOut" ;
-    sysml:type elmt:OGCAIE__AgreementWrite .
 
 elmt:OGCAIE__SponsorOrganization__deliveryIn
     a sysml:PortUsage ;
@@ -4110,13 +4567,6 @@ elmt:OGCAIE__SponsorOrganization__deliveryIn
     sysml:owner elmt:OGCAIE__SponsorOrganization ;
     sysml:qualifiedName "OGCAIE::SponsorOrganization::deliveryIn" ;
     sysml:type elmt:OGCAIE__DeliveryWrite .
-
-elmt:OGCAIE__SponsorOrganization__isAccountable
-    a sysml:AttributeUsage ;
-    sysml:declaredName "isAccountable" ;
-    sysml:owner elmt:OGCAIE__SponsorOrganization ;
-    sysml:qualifiedName "OGCAIE::SponsorOrganization::isAccountable" ;
-    sysml:type "ScalarValues::Boolean" .
 
 elmt:OGCAIE__SponsorOrganization__missionOut
     a sysml:PortUsage ;
@@ -4140,6 +4590,14 @@ elmt:OGCAIE__SponsorOrganization__proposalIn
     sysml:qualifiedName "OGCAIE::SponsorOrganization::proposalIn" ;
     sysml:type elmt:OGCAIE__ProposalWrite .
 
+elmt:OGCAIE__SponsorOrganization__signatory
+    a sysml:PartUsage ;
+    sysml:declaredName "signatory" ;
+    sysml:owner elmt:OGCAIE__SponsorOrganization ;
+    sysml:qualifiedName "OGCAIE::SponsorOrganization::signatory" ;
+    sysml:type elmt:OGCAIE__SponsorSignatory ;
+    sysml:upperBound expr:OGCAIE__SponsorOrganization__signatory_pupperBound .
+
 elmt:OGCAIE__SponsorOrganization__statementOfWorkOut
     a sysml:PortUsage ;
     sysml:declaredName "statementOfWorkOut" ;
@@ -4147,8 +4605,55 @@ elmt:OGCAIE__SponsorOrganization__statementOfWorkOut
     sysml:qualifiedName "OGCAIE::SponsorOrganization::statementOfWorkOut" ;
     sysml:type elmt:OGCAIE__StatementOfWorkWrite .
 
+elmt:OGCAIE__SponsorSignatory
+    a sysml:PartDefinition ;
+    sysml:declaredName "SponsorSignatory" ;
+    sysml:owner elmt:OGCAIE ;
+    sysml:qualifiedName "OGCAIE::SponsorSignatory" ;
+    sysml:specializes elmt:OGCAIE__Person .
+
+elmt:OGCAIE__SponsorSignatory___400
+    a sysml:Documentation ;
+    sysml:body """ The sponsor's signatory: a named person acting on behalf of the
+           sponsor organization, the acquirer's authorized representative in
+           SEVOCAB's acceptance (sheet 10-06, R-50). Signs the agreement,
+           declares the sponsor's user interest, approves the requirement
+           set, and accepts the delivery. The worked example's county health
+           officer. """ ;
+    sysml:owner elmt:OGCAIE__SponsorSignatory ;
+    sysml:qualifiedName "OGCAIE::SponsorSignatory::@0" .
+
+elmt:OGCAIE__SponsorSignatory__acceptanceOut
+    a sysml:PortUsage ;
+    sysml:declaredName "acceptanceOut" ;
+    sysml:owner elmt:OGCAIE__SponsorSignatory ;
+    sysml:qualifiedName "OGCAIE::SponsorSignatory::acceptanceOut" ;
+    sysml:type elmt:OGCAIE__AcceptanceWrite .
+
+elmt:OGCAIE__SponsorSignatory__agreementOut
+    a sysml:PortUsage ;
+    sysml:declaredName "agreementOut" ;
+    sysml:owner elmt:OGCAIE__SponsorSignatory ;
+    sysml:qualifiedName "OGCAIE::SponsorSignatory::agreementOut" ;
+    sysml:type elmt:OGCAIE__AgreementWrite .
+
+elmt:OGCAIE__SponsorSignatory__requirementSetApprovalOut
+    a sysml:PortUsage ;
+    sysml:declaredName "requirementSetApprovalOut" ;
+    sysml:owner elmt:OGCAIE__SponsorSignatory ;
+    sysml:qualifiedName "OGCAIE::SponsorSignatory::requirementSetApprovalOut" ;
+    sysml:type elmt:OGCAIE__RequirementSetApprovalWrite .
+
+elmt:OGCAIE__SponsorSignatory__userInterestDeclarationOut
+    a sysml:PortUsage ;
+    sysml:declaredName "userInterestDeclarationOut" ;
+    sysml:owner elmt:OGCAIE__SponsorSignatory ;
+    sysml:qualifiedName "OGCAIE::SponsorSignatory::userInterestDeclarationOut" ;
+    sysml:type elmt:OGCAIE__UserInterestDeclarationWrite .
+
 elmt:OGCAIE__StakeholderInput
     a sysml:ItemDefinition ;
+    ogm:realizes epo:StakeholderInput ;
     sysml:declaredName "StakeholderInput" ;
     sysml:owner elmt:OGCAIE ;
     sysml:qualifiedName "OGCAIE::StakeholderInput" .
@@ -4207,6 +4712,7 @@ elmt:OGCAIE__StakeholderInput__id
 
 elmt:OGCAIE__StakeholderRepresentation
     a sysml:ItemDefinition ;
+    ogm:realizes epo:StakeholderRepresentation ;
     sysml:declaredName "StakeholderRepresentation" ;
     sysml:owner elmt:OGCAIE ;
     sysml:qualifiedName "OGCAIE::StakeholderRepresentation" .
@@ -4230,6 +4736,7 @@ elmt:OGCAIE__StakeholderRepresentation__id
 
 elmt:OGCAIE__StatementOfWork
     a sysml:ItemDefinition ;
+    ogm:realizes epo:StatementOfWork ;
     sysml:declaredName "StatementOfWork" ;
     sysml:owner elmt:OGCAIE ;
     sysml:qualifiedName "OGCAIE::StatementOfWork" .
@@ -4308,6 +4815,7 @@ elmt:OGCAIE__StatementOfWork__regards
 
 elmt:OGCAIE__Strategy
     a sysml:ItemDefinition ;
+    ogm:realizes epo:Strategy ;
     sysml:declaredName "Strategy" ;
     sysml:owner elmt:OGCAIE ;
     sysml:qualifiedName "OGCAIE::Strategy" .
@@ -4392,14 +4900,17 @@ elmt:OGCAIE__TestItem
 
 elmt:OGCAIE__TestItemAccess
     a sysml:ItemDefinition ;
+    ogm:realizes epo:TestItemAccess ;
     sysml:declaredName "TestItemAccess" ;
     sysml:owner elmt:OGCAIE ;
     sysml:qualifiedName "OGCAIE::TestItemAccess" .
 
 elmt:OGCAIE__TestItemAccess___400
     a sysml:Documentation ;
-    sysml:body """ The accountable organization's grant of access to the test
-           item, with the version to be tested. """ ;
+    sysml:body """ The test item provider's grant of access to the test item under
+           the agreement: the version identity, the access period, the
+           instrument outside this agreement under which the provider owes
+           the access, and the environment (sheet 10-04, R-50). """ ;
     sysml:owner elmt:OGCAIE__TestItemAccess ;
     sysml:qualifiedName "OGCAIE::TestItemAccess::@0" .
 
@@ -4436,6 +4947,7 @@ elmt:OGCAIE__TestItem__responseOut
 
 elmt:OGCAIE__TestPlan
     a sysml:ItemDefinition ;
+    ogm:realizes epo:TestPlan ;
     sysml:declaredName "TestPlan" ;
     sysml:owner elmt:OGCAIE ;
     sysml:qualifiedName "OGCAIE::TestPlan" .
@@ -4464,11 +4976,13 @@ elmt:OGCAIE__TestingOrganization
 elmt:OGCAIE__TestingOrganization___400
     a sysml:Documentation ;
     sysml:body """ The provider (ISO 9000:2026 3.1.9): performs the evaluation
-           as a service. Holds exactly one account executive, one team of
-           one or more domain experts and one or more operators (all three
-           are roles within it, ruling R-23), and the four machines. Independent of the accountable
-           organization, with no user interest in the test item, it is a
-           third party (ISO/IEC 17000 4.5); the record states which. """ ;
+           as a service. Holds exactly one authorized representative, one
+           team of one or more domain experts and one or more operators (all
+           three are roles within it, ruling R-23), and the four machines.
+           Independent of the test item provider, with no user interest in
+           the test item, its activity is third-party (ISO/IEC 17000 4.5);
+           its independence declaration in the record says so (sheet
+           10-07). """ ;
     sysml:owner elmt:OGCAIE__TestingOrganization ;
     sysml:qualifiedName "OGCAIE::TestingOrganization::@0" .
 
@@ -4486,13 +5000,6 @@ elmt:OGCAIE__TestingOrganization__conformanceChecker
     sysml:owner elmt:OGCAIE__TestingOrganization ;
     sysml:qualifiedName "OGCAIE::TestingOrganization::conformanceChecker" ;
     sysml:type elmt:OGCAIE__ConformanceChecker .
-
-elmt:OGCAIE__TestingOrganization__independentOfAccountable
-    a sysml:AttributeUsage ;
-    sysml:declaredName "independentOfAccountable" ;
-    sysml:owner elmt:OGCAIE__TestingOrganization ;
-    sysml:qualifiedName "OGCAIE::TestingOrganization::independentOfAccountable" ;
-    sysml:type "ScalarValues::Boolean" .
 
 elmt:OGCAIE__TestingOrganization__recorder
     a sysml:PartUsage ;
@@ -4523,6 +5030,66 @@ elmt:OGCAIE__TestingOrganization__testDriver
     sysml:qualifiedName "OGCAIE::TestingOrganization::testDriver" ;
     sysml:type elmt:OGCAIE__TestDriver .
 
+elmt:OGCAIE__UserInterestDeclaration
+    a sysml:ItemDefinition ;
+    ogm:realizes epo:UserInterestDeclaration ;
+    sysml:declaredName "UserInterestDeclaration" ;
+    sysml:owner elmt:OGCAIE ;
+    sysml:qualifiedName "OGCAIE::UserInterestDeclaration" .
+
+elmt:OGCAIE__UserInterestDeclarationSeam
+    a sysml:InterfaceDefinition ;
+    sysml:declaredName "UserInterestDeclarationSeam" ;
+    sysml:owner elmt:OGCAIE ;
+    sysml:qualifiedName "OGCAIE::UserInterestDeclarationSeam" .
+
+elmt:OGCAIE__UserInterestDeclarationSeam__consumer
+    a sysml:PortUsage ;
+    sysml:declaredName "consumer" ;
+    sysml:isConjugated "true"^^xsd:boolean ;
+    sysml:isEnd "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__UserInterestDeclarationSeam ;
+    sysml:qualifiedName "OGCAIE::UserInterestDeclarationSeam::consumer" ;
+    sysml:type elmt:OGCAIE__UserInterestDeclarationWrite .
+
+elmt:OGCAIE__UserInterestDeclarationSeam__supplier
+    a sysml:PortUsage ;
+    sysml:declaredName "supplier" ;
+    sysml:isEnd "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__UserInterestDeclarationSeam ;
+    sysml:qualifiedName "OGCAIE::UserInterestDeclarationSeam::supplier" ;
+    sysml:type elmt:OGCAIE__UserInterestDeclarationWrite .
+
+elmt:OGCAIE__UserInterestDeclarationWrite
+    a sysml:PortDefinition ;
+    sysml:declaredName "UserInterestDeclarationWrite" ;
+    sysml:owner elmt:OGCAIE ;
+    sysml:qualifiedName "OGCAIE::UserInterestDeclarationWrite" .
+
+elmt:OGCAIE__UserInterestDeclarationWrite__i
+    a sysml:ItemUsage ;
+    sysml:declaredName "i" ;
+    sysml:direction "out" ;
+    sysml:owner elmt:OGCAIE__UserInterestDeclarationWrite ;
+    sysml:qualifiedName "OGCAIE::UserInterestDeclarationWrite::i" ;
+    sysml:type elmt:OGCAIE__UserInterestDeclaration .
+
+elmt:OGCAIE__UserInterestDeclaration___400
+    a sysml:Documentation ;
+    sysml:body """ The sponsor's declaration, made by its signatory and dated, of
+           whether it has a user interest in the test item (ISO/IEC 17000
+           4.4, 4.5). Replaces a bare boolean on the organization (sheet
+           10-07, R-50). Pinned at the contract. """ ;
+    sysml:owner elmt:OGCAIE__UserInterestDeclaration ;
+    sysml:qualifiedName "OGCAIE::UserInterestDeclaration::@0" .
+
+elmt:OGCAIE__UserInterestDeclaration__id
+    a sysml:AttributeUsage ;
+    sysml:declaredName "id" ;
+    sysml:owner elmt:OGCAIE__UserInterestDeclaration ;
+    sysml:qualifiedName "OGCAIE::UserInterestDeclaration::id" ;
+    sysml:type "ScalarValues::String" .
+
 elmt:OGCAIE___400
     a sysml:Documentation ;
     sysml:body """ Ontology-Grounded Contextual AI Evaluation (OG-CAIE) as an
@@ -4539,8 +5106,8 @@ elmt:OGCAIE___400
        the pinned OpenSysML converter (designed for Flexo MMS) and checked
        by SHACL wiring shapes (shapes/model.shapes.ttl, M1 to M5). Value
        and provenance rules live in shapes over the evaluation record
-       (shapes/epo.shapes.ttl, S0 to S8). The twelve essentials SCI-01 to
-       SCI-12 and the shapes that check each are in model/trace.ttl.
+       (shapes/epo.shapes.ttl, S0 to S9). The thirteen essentials SCI-01 to
+       SCI-13 and the shapes that check each are in model/trace.ttl.
 
        Vocabulary: terms are used, not owned. Canonical definitions are
        cited in vocabulary/og-caie.ttl in this precedence: ISO 9000:2026,
@@ -5443,6 +6010,15 @@ expr:OGCAIE__EvaluationProcess__plan__criteria_pupperBound
     a sysml:LiteralInfinity ;
     sysx:sourceText "*" .
 
+expr:OGCAIE__EvaluationProcess__plan__deviations_plowerBound
+    a sysml:LiteralInteger ;
+    sysml:value "0"^^xsd:integer ;
+    sysx:sourceText "0" .
+
+expr:OGCAIE__EvaluationProcess__plan__deviations_pupperBound
+    a sysml:LiteralInfinity ;
+    sysx:sourceText "*" .
+
 expr:OGCAIE__EvaluationProcess__plan__probes_plowerBound
     a sysml:LiteralInteger ;
     sysml:value "1"^^xsd:integer ;
@@ -5461,6 +6037,64 @@ expr:OGCAIE__EvaluationProcess__plan__strategy_pupperBound
     a sysml:LiteralInteger ;
     sysml:value "1"^^xsd:integer ;
     sysx:sourceText "1" .
+
+expr:OGCAIE__EvaluationProcess__report___4011_pend0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__EvaluationProcess__report__checkConformance ;
+    sysx:endIndex "0"^^xsd:integer ;
+    sysx:sourceText "checkConformance" .
+
+expr:OGCAIE__EvaluationProcess__report___4011_pend1
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__EvaluationProcess__report__assemble ;
+    sysx:endIndex "1"^^xsd:integer ;
+    sysx:sourceText "assemble" .
+
+expr:OGCAIE__EvaluationProcess__report___4012_pflowSource
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__EvaluationProcess__report___4012_pflowSource_pa0 ;
+    sysml:targetFeature elmt:OGCAIE__EvaluationProcess__report__verdict ;
+    sysx:endIndex "0"^^xsd:integer ;
+    sysx:sourceText "checkConformance.verdict" .
+
+expr:OGCAIE__EvaluationProcess__report___4012_pflowSource_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__EvaluationProcess__report__checkConformance ;
+    sysx:sourceText "checkConformance" .
+
+expr:OGCAIE__EvaluationProcess__report___4012_pflowTarget
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__EvaluationProcess__report___4012_pflowTarget_pa0 ;
+    sysml:targetFeature elmt:OGCAIE__EvaluationProcess__report__verdict ;
+    sysx:endIndex "1"^^xsd:integer ;
+    sysx:sourceText "assemble.verdict" .
+
+expr:OGCAIE__EvaluationProcess__report___4012_pflowTarget_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__EvaluationProcess__report__assemble ;
+    sysx:sourceText "assemble" .
+
+expr:OGCAIE__EvaluationProcess__report___4013_pvalue
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__EvaluationProcess__report___4013_pvalue_pa0 ;
+    sysml:targetFeature elmt:OGCAIE__EvaluationProcess__report__verdict ;
+    sysx:sourceText "checkConformance.verdict" .
+
+expr:OGCAIE__EvaluationProcess__report___4013_pvalue_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__EvaluationProcess__report__checkConformance ;
+    sysx:sourceText "checkConformance" .
+
+expr:OGCAIE__EvaluationProcess__report___4014_pvalue
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__EvaluationProcess__report___4014_pvalue_pa0 ;
+    sysml:targetFeature elmt:OGCAIE__EvaluationProcess__report__reportOut ;
+    sysx:sourceText "assemble.reportOut" .
+
+expr:OGCAIE__EvaluationProcess__report___4014_pvalue_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__EvaluationProcess__report__assemble ;
+    sysx:sourceText "assemble" .
 
 expr:OGCAIE__EvaluationProcess__report__attestations_plowerBound
     a sysml:LiteralInteger ;
@@ -5486,6 +6120,15 @@ expr:OGCAIE__EvaluationProcess__report__determinations_plowerBound
     sysx:sourceText "1" .
 
 expr:OGCAIE__EvaluationProcess__report__determinations_pupperBound
+    a sysml:LiteralInfinity ;
+    sysx:sourceText "*" .
+
+expr:OGCAIE__EvaluationProcess__report__deviations_plowerBound
+    a sysml:LiteralInteger ;
+    sysml:value "0"^^xsd:integer ;
+    sysx:sourceText "0" .
+
+expr:OGCAIE__EvaluationProcess__report__deviations_pupperBound
     a sysml:LiteralInfinity ;
     sysx:sourceText "*" .
 
@@ -5534,6 +6177,101 @@ expr:OGCAIE__EvaluationTeam__representative_pupperBound
     a sysml:LiteralInfinity ;
     sysx:sourceText "*" .
 
+expr:OGCAIE__Examples__MeaslesEvaluation___401___400_pvalue
+    a sysml:LiteralString ;
+    sysml:value "county public-health office" ;
+    sysx:sourceText "\"county public-health office\"" .
+
+expr:OGCAIE__Examples__MeaslesEvaluation___401___401___400_pvalue
+    a sysml:LiteralString ;
+    sysml:value "Dana Okafor" ;
+    sysx:sourceText "\"Dana Okafor\"" .
+
+expr:OGCAIE__Examples__MeaslesEvaluation___402___400_pvalue
+    a sysml:LiteralString ;
+    sysml:value "chatbot vendor" ;
+    sysx:sourceText "\"chatbot vendor\"" .
+
+expr:OGCAIE__Examples__MeaslesEvaluation___402___401___400_pvalue
+    a sysml:LiteralString ;
+    sysml:value "measles-chatbot" ;
+    sysx:sourceText "\"measles-chatbot\"" .
+
+expr:OGCAIE__Examples__MeaslesEvaluation___402___401___401_pvalue
+    a sysml:LiteralString ;
+    sysml:value "v1" ;
+    sysx:sourceText "\"v1\"" .
+
+expr:OGCAIE__Examples__MeaslesEvaluation___403___400_pvalue
+    a sysml:LiteralString ;
+    sysml:value "Humane Intelligence" ;
+    sysx:sourceText "\"Humane Intelligence\"" .
+
+expr:OGCAIE__Examples__MeaslesEvaluation___403___401___400_pvalue
+    a sysml:LiteralString ;
+    sysml:value "Mala" ;
+    sysx:sourceText "\"Mala\"" .
+
+expr:OGCAIE__Examples__MeaslesEvaluation___403___402__annie___400_pvalue
+    a sysml:LiteralString ;
+    sysml:value "Annie" ;
+    sysx:sourceText "\"Annie\"" .
+
+expr:OGCAIE__Examples__MeaslesEvaluation___403___402__theo___400_pvalue
+    a sysml:LiteralString ;
+    sysml:value "Theo" ;
+    sysx:sourceText "\"Theo\"" .
+
+expr:OGCAIE__Examples__MeaslesEvaluation___403___403___400_pvalue
+    a sysml:LiteralString ;
+    sysml:value "test-driver" ;
+    sysx:sourceText "\"test-driver\"" .
+
+expr:OGCAIE__Examples__MeaslesEvaluation___403___403___401_pvalue
+    a sysml:LiteralString ;
+    sysml:value "0.1" ;
+    sysx:sourceText "\"0.1\"" .
+
+expr:OGCAIE__Examples__MeaslesEvaluation___403___404___400_pvalue
+    a sysml:LiteralString ;
+    sysml:value "pyshacl" ;
+    sysx:sourceText "\"pyshacl\"" .
+
+expr:OGCAIE__Examples__MeaslesEvaluation___403___404___401_pvalue
+    a sysml:LiteralString ;
+    sysml:value "0.27" ;
+    sysx:sourceText "\"0.27\"" .
+
+expr:OGCAIE__Examples__MeaslesEvaluation___403___405___400_pvalue
+    a sysml:LiteralString ;
+    sysml:value "report-assembler" ;
+    sysx:sourceText "\"report-assembler\"" .
+
+expr:OGCAIE__Examples__MeaslesEvaluation___403___405___401_pvalue
+    a sysml:LiteralString ;
+    sysml:value "0.1" ;
+    sysx:sourceText "\"0.1\"" .
+
+expr:OGCAIE__Examples__MeaslesEvaluation___403___406___400_pvalue
+    a sysml:LiteralString ;
+    sysml:value "recorder" ;
+    sysx:sourceText "\"recorder\"" .
+
+expr:OGCAIE__Examples__MeaslesEvaluation___403___406___401_pvalue
+    a sysml:LiteralString ;
+    sysml:value "0.1" ;
+    sysx:sourceText "\"0.1\"" .
+
+expr:OGCAIE__Examples__MeaslesEvaluation__commuters___400_pvalue
+    a sysml:LiteralString ;
+    sysml:value "commuters through the county" ;
+    sysx:sourceText "\"commuters through the county\"" .
+
+expr:OGCAIE__Examples__MeaslesEvaluation__residents___400_pvalue
+    a sysml:LiteralString ;
+    sysml:value "county residents" ;
+    sysx:sourceText "\"county residents\"" .
+
 expr:OGCAIE__Mission__regards_plowerBound
     a sysml:LiteralInteger ;
     sysml:value "1"^^xsd:integer ;
@@ -5545,14 +6283,20 @@ expr:OGCAIE__Mission__regards_pupperBound
 
 expr:OGCAIE__OgCaieEvaluation__acceptanceSeam_pend0
     a sysml:FeatureChainExpression ;
-    ogm:endPart elmt:OGCAIE__OgCaieEvaluation__sponsor ;
-    ogm:resolvesTo elmt:OGCAIE__SponsorOrganization__acceptanceOut ;
+    ogm:endPart elmt:OGCAIE__SponsorOrganization__signatory ;
+    ogm:resolvesTo elmt:OGCAIE__SponsorSignatory__acceptanceOut ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__acceptanceSeam_pend0_pa0 ;
     sysml:targetFeature "acceptanceOut" ;
     sysx:endIndex "0"^^xsd:integer ;
-    sysx:sourceText "sponsor.acceptanceOut" .
+    sysx:sourceText "sponsor.signatory.acceptanceOut" .
 
 expr:OGCAIE__OgCaieEvaluation__acceptanceSeam_pend0_pa0
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__acceptanceSeam_pend0_pa0_pa0 ;
+    sysml:targetFeature "signatory" ;
+    sysx:sourceText "sponsor.signatory" .
+
+expr:OGCAIE__OgCaieEvaluation__acceptanceSeam_pend0_pa0_pa0
     a sysml:FeatureReferenceExpression ;
     sysml:referent elmt:OGCAIE__OgCaieEvaluation__sponsor ;
     sysx:sourceText "sponsor" .
@@ -5579,14 +6323,20 @@ expr:OGCAIE__OgCaieEvaluation__acceptanceSeam_pend1_pa0_pa0
 
 expr:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam_pend0
     a sysml:FeatureChainExpression ;
-    ogm:endPart elmt:OGCAIE__OgCaieEvaluation__sponsor ;
-    ogm:resolvesTo elmt:OGCAIE__SponsorOrganization__acceptanceOut ;
+    ogm:endPart elmt:OGCAIE__SponsorOrganization__signatory ;
+    ogm:resolvesTo elmt:OGCAIE__SponsorSignatory__acceptanceOut ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam_pend0_pa0 ;
     sysml:targetFeature "acceptanceOut" ;
     sysx:endIndex "0"^^xsd:integer ;
-    sysx:sourceText "sponsor.acceptanceOut" .
+    sysx:sourceText "sponsor.signatory.acceptanceOut" .
 
 expr:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam_pend0_pa0
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam_pend0_pa0_pa0 ;
+    sysml:targetFeature "signatory" ;
+    sysx:sourceText "sponsor.signatory" .
+
+expr:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam_pend0_pa0_pa0
     a sysml:FeatureReferenceExpression ;
     sysml:referent elmt:OGCAIE__OgCaieEvaluation__sponsor ;
     sysx:sourceText "sponsor" .
@@ -5696,14 +6446,20 @@ expr:OGCAIE__OgCaieEvaluation__affected_pupperBound
 
 expr:OGCAIE__OgCaieEvaluation__agreementSeam_pend0
     a sysml:FeatureChainExpression ;
-    ogm:endPart elmt:OGCAIE__OgCaieEvaluation__sponsor ;
-    ogm:resolvesTo elmt:OGCAIE__SponsorOrganization__agreementOut ;
+    ogm:endPart elmt:OGCAIE__SponsorOrganization__signatory ;
+    ogm:resolvesTo elmt:OGCAIE__SponsorSignatory__agreementOut ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__agreementSeam_pend0_pa0 ;
     sysml:targetFeature "agreementOut" ;
     sysx:endIndex "0"^^xsd:integer ;
-    sysx:sourceText "sponsor.agreementOut" .
+    sysx:sourceText "sponsor.signatory.agreementOut" .
 
 expr:OGCAIE__OgCaieEvaluation__agreementSeam_pend0_pa0
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__agreementSeam_pend0_pa0_pa0 ;
+    sysml:targetFeature "signatory" ;
+    sysx:sourceText "sponsor.signatory" .
+
+expr:OGCAIE__OgCaieEvaluation__agreementSeam_pend0_pa0_pa0
     a sysml:FeatureReferenceExpression ;
     sysml:referent elmt:OGCAIE__OgCaieEvaluation__sponsor ;
     sysx:sourceText "sponsor" .
@@ -6118,6 +6874,46 @@ expr:OGCAIE__OgCaieEvaluation__expertDeterminationSeam_pend1_pa0_pa0
     sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
     sysx:sourceText "testingOrg" .
 
+expr:OGCAIE__OgCaieEvaluation__independenceDeclarationSeam_pend0
+    a sysml:FeatureChainExpression ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__accountExecutive ;
+    ogm:resolvesTo elmt:OGCAIE__AccountExecutive__independenceDeclarationOut ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__independenceDeclarationSeam_pend0_pa0 ;
+    sysml:targetFeature "independenceDeclarationOut" ;
+    sysx:endIndex "0"^^xsd:integer ;
+    sysx:sourceText "testingOrg.accountExecutive.independenceDeclarationOut" .
+
+expr:OGCAIE__OgCaieEvaluation__independenceDeclarationSeam_pend0_pa0
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__independenceDeclarationSeam_pend0_pa0_pa0 ;
+    sysml:targetFeature "accountExecutive" ;
+    sysx:sourceText "testingOrg.accountExecutive" .
+
+expr:OGCAIE__OgCaieEvaluation__independenceDeclarationSeam_pend0_pa0_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
+    sysx:sourceText "testingOrg" .
+
+expr:OGCAIE__OgCaieEvaluation__independenceDeclarationSeam_pend1
+    a sysml:FeatureChainExpression ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__recorder ;
+    ogm:resolvesTo elmt:OGCAIE__Recorder__independenceDeclarationIn ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__independenceDeclarationSeam_pend1_pa0 ;
+    sysml:targetFeature "independenceDeclarationIn" ;
+    sysx:endIndex "1"^^xsd:integer ;
+    sysx:sourceText "testingOrg.recorder.independenceDeclarationIn" .
+
+expr:OGCAIE__OgCaieEvaluation__independenceDeclarationSeam_pend1_pa0
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__independenceDeclarationSeam_pend1_pa0_pa0 ;
+    sysml:targetFeature "recorder" ;
+    sysx:sourceText "testingOrg.recorder" .
+
+expr:OGCAIE__OgCaieEvaluation__independenceDeclarationSeam_pend1_pa0_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
+    sysx:sourceText "testingOrg" .
+
 expr:OGCAIE__OgCaieEvaluation__missionSeam_pend0
     a sysml:FeatureChainExpression ;
     ogm:endPart elmt:OGCAIE__OgCaieEvaluation__sponsor ;
@@ -6354,6 +7150,52 @@ expr:OGCAIE__OgCaieEvaluation__planApprovalSeam_pend1_pa0
     sysx:sourceText "testingOrg.recorder" .
 
 expr:OGCAIE__OgCaieEvaluation__planApprovalSeam_pend1_pa0_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
+    sysx:sourceText "testingOrg" .
+
+expr:OGCAIE__OgCaieEvaluation__planDeviationSeam_pend0
+    a sysml:FeatureChainExpression ;
+    ogm:endPart elmt:OGCAIE__EvaluationTeam__operator ;
+    ogm:resolvesTo elmt:OGCAIE__EvaluationOperator__planDeviationOut ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__planDeviationSeam_pend0_pa0 ;
+    sysml:targetFeature "planDeviationOut" ;
+    sysx:endIndex "0"^^xsd:integer ;
+    sysx:sourceText "testingOrg.team.operator.planDeviationOut" .
+
+expr:OGCAIE__OgCaieEvaluation__planDeviationSeam_pend0_pa0
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__planDeviationSeam_pend0_pa0_pa0 ;
+    sysml:targetFeature "operator" ;
+    sysx:sourceText "testingOrg.team.operator" .
+
+expr:OGCAIE__OgCaieEvaluation__planDeviationSeam_pend0_pa0_pa0
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__planDeviationSeam_pend0_pa0_pa0_pa0 ;
+    sysml:targetFeature "team" ;
+    sysx:sourceText "testingOrg.team" .
+
+expr:OGCAIE__OgCaieEvaluation__planDeviationSeam_pend0_pa0_pa0_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
+    sysx:sourceText "testingOrg" .
+
+expr:OGCAIE__OgCaieEvaluation__planDeviationSeam_pend1
+    a sysml:FeatureChainExpression ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__recorder ;
+    ogm:resolvesTo elmt:OGCAIE__Recorder__planDeviationIn ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__planDeviationSeam_pend1_pa0 ;
+    sysml:targetFeature "planDeviationIn" ;
+    sysx:endIndex "1"^^xsd:integer ;
+    sysx:sourceText "testingOrg.recorder.planDeviationIn" .
+
+expr:OGCAIE__OgCaieEvaluation__planDeviationSeam_pend1_pa0
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__planDeviationSeam_pend1_pa0_pa0 ;
+    sysml:targetFeature "recorder" ;
+    sysx:sourceText "testingOrg.recorder" .
+
+expr:OGCAIE__OgCaieEvaluation__planDeviationSeam_pend1_pa0_pa0
     a sysml:FeatureReferenceExpression ;
     sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
     sysx:sourceText "testingOrg" .
@@ -6908,6 +7750,46 @@ expr:OGCAIE__OgCaieEvaluation__requirementSeam_pend1_pa0_pa0
     sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
     sysx:sourceText "testingOrg" .
 
+expr:OGCAIE__OgCaieEvaluation__requirementSetApprovalSeam_pend0
+    a sysml:FeatureChainExpression ;
+    ogm:endPart elmt:OGCAIE__SponsorOrganization__signatory ;
+    ogm:resolvesTo elmt:OGCAIE__SponsorSignatory__requirementSetApprovalOut ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__requirementSetApprovalSeam_pend0_pa0 ;
+    sysml:targetFeature "requirementSetApprovalOut" ;
+    sysx:endIndex "0"^^xsd:integer ;
+    sysx:sourceText "sponsor.signatory.requirementSetApprovalOut" .
+
+expr:OGCAIE__OgCaieEvaluation__requirementSetApprovalSeam_pend0_pa0
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__requirementSetApprovalSeam_pend0_pa0_pa0 ;
+    sysml:targetFeature "signatory" ;
+    sysx:sourceText "sponsor.signatory" .
+
+expr:OGCAIE__OgCaieEvaluation__requirementSetApprovalSeam_pend0_pa0_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__OgCaieEvaluation__sponsor ;
+    sysx:sourceText "sponsor" .
+
+expr:OGCAIE__OgCaieEvaluation__requirementSetApprovalSeam_pend1
+    a sysml:FeatureChainExpression ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__recorder ;
+    ogm:resolvesTo elmt:OGCAIE__Recorder__requirementSetApprovalIn ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__requirementSetApprovalSeam_pend1_pa0 ;
+    sysml:targetFeature "requirementSetApprovalIn" ;
+    sysx:endIndex "1"^^xsd:integer ;
+    sysx:sourceText "testingOrg.recorder.requirementSetApprovalIn" .
+
+expr:OGCAIE__OgCaieEvaluation__requirementSetApprovalSeam_pend1_pa0
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__requirementSetApprovalSeam_pend1_pa0_pa0 ;
+    sysml:targetFeature "recorder" ;
+    sysx:sourceText "testingOrg.recorder" .
+
+expr:OGCAIE__OgCaieEvaluation__requirementSetApprovalSeam_pend1_pa0_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
+    sysx:sourceText "testingOrg" .
+
 expr:OGCAIE__OgCaieEvaluation__responseSeam_pend0
     a sysml:FeatureChainExpression ;
     ogm:endPart elmt:OGCAIE__AccountableOrganization__testItem ;
@@ -7090,6 +7972,46 @@ expr:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam_pend1_pa0_pa0
     sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
     sysx:sourceText "testingOrg" .
 
+expr:OGCAIE__OgCaieEvaluation__userInterestDeclarationSeam_pend0
+    a sysml:FeatureChainExpression ;
+    ogm:endPart elmt:OGCAIE__SponsorOrganization__signatory ;
+    ogm:resolvesTo elmt:OGCAIE__SponsorSignatory__userInterestDeclarationOut ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__userInterestDeclarationSeam_pend0_pa0 ;
+    sysml:targetFeature "userInterestDeclarationOut" ;
+    sysx:endIndex "0"^^xsd:integer ;
+    sysx:sourceText "sponsor.signatory.userInterestDeclarationOut" .
+
+expr:OGCAIE__OgCaieEvaluation__userInterestDeclarationSeam_pend0_pa0
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__userInterestDeclarationSeam_pend0_pa0_pa0 ;
+    sysml:targetFeature "signatory" ;
+    sysx:sourceText "sponsor.signatory" .
+
+expr:OGCAIE__OgCaieEvaluation__userInterestDeclarationSeam_pend0_pa0_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__OgCaieEvaluation__sponsor ;
+    sysx:sourceText "sponsor" .
+
+expr:OGCAIE__OgCaieEvaluation__userInterestDeclarationSeam_pend1
+    a sysml:FeatureChainExpression ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__recorder ;
+    ogm:resolvesTo elmt:OGCAIE__Recorder__userInterestDeclarationIn ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__userInterestDeclarationSeam_pend1_pa0 ;
+    sysml:targetFeature "userInterestDeclarationIn" ;
+    sysx:endIndex "1"^^xsd:integer ;
+    sysx:sourceText "testingOrg.recorder.userInterestDeclarationIn" .
+
+expr:OGCAIE__OgCaieEvaluation__userInterestDeclarationSeam_pend1_pa0
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__userInterestDeclarationSeam_pend1_pa0_pa0 ;
+    sysml:targetFeature "recorder" ;
+    sysx:sourceText "testingOrg.recorder" .
+
+expr:OGCAIE__OgCaieEvaluation__userInterestDeclarationSeam_pend1_pa0_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
+    sysx:sourceText "testingOrg" .
+
 expr:OGCAIE__OgCaieEvaluation__verdictSeam_pend0
     a sysml:FeatureChainExpression ;
     ogm:endPart elmt:OGCAIE__TestingOrganization__conformanceChecker ;
@@ -7130,105 +8052,50 @@ expr:OGCAIE__OgCaieEvaluation__verdictSeam_pend1_pa0_pa0
     sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
     sysx:sourceText "testingOrg" .
 
-expr:OGCAIE__Runs__MeaslesRun___401___400_pvalue
-    a sysml:LiteralString ;
-    sysml:value "county public-health office" ;
-    sysx:sourceText "\"county public-health office\"" .
+expr:OGCAIE__OgCaieEvaluation__verdictToAssemblerSeam_pend0
+    a sysml:FeatureChainExpression ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__conformanceChecker ;
+    ogm:resolvesTo elmt:OGCAIE__ConformanceChecker__verdictOut ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__verdictToAssemblerSeam_pend0_pa0 ;
+    sysml:targetFeature "verdictOut" ;
+    sysx:endIndex "0"^^xsd:integer ;
+    sysx:sourceText "testingOrg.conformanceChecker.verdictOut" .
 
-expr:OGCAIE__Runs__MeaslesRun___401___401_pvalue
-    a sysml:LiteralBoolean ;
-    sysml:value "false"^^xsd:boolean ;
-    sysx:sourceText "false" .
+expr:OGCAIE__OgCaieEvaluation__verdictToAssemblerSeam_pend0_pa0
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__verdictToAssemblerSeam_pend0_pa0_pa0 ;
+    sysml:targetFeature "conformanceChecker" ;
+    sysx:sourceText "testingOrg.conformanceChecker" .
 
-expr:OGCAIE__Runs__MeaslesRun___402___400_pvalue
-    a sysml:LiteralString ;
-    sysml:value "chatbot vendor" ;
-    sysx:sourceText "\"chatbot vendor\"" .
+expr:OGCAIE__OgCaieEvaluation__verdictToAssemblerSeam_pend0_pa0_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
+    sysx:sourceText "testingOrg" .
 
-expr:OGCAIE__Runs__MeaslesRun___402___401___400_pvalue
-    a sysml:LiteralString ;
-    sysml:value "measles-chatbot" ;
-    sysx:sourceText "\"measles-chatbot\"" .
+expr:OGCAIE__OgCaieEvaluation__verdictToAssemblerSeam_pend1
+    a sysml:FeatureChainExpression ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__reportAssembler ;
+    ogm:resolvesTo elmt:OGCAIE__ReportAssembler__verdictIn ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__verdictToAssemblerSeam_pend1_pa0 ;
+    sysml:targetFeature "verdictIn" ;
+    sysx:endIndex "1"^^xsd:integer ;
+    sysx:sourceText "testingOrg.reportAssembler.verdictIn" .
 
-expr:OGCAIE__Runs__MeaslesRun___402___401___401_pvalue
-    a sysml:LiteralString ;
-    sysml:value "v1" ;
-    sysx:sourceText "\"v1\"" .
+expr:OGCAIE__OgCaieEvaluation__verdictToAssemblerSeam_pend1_pa0
+    a sysml:FeatureChainExpression ;
+    sysml:argument expr:OGCAIE__OgCaieEvaluation__verdictToAssemblerSeam_pend1_pa0_pa0 ;
+    sysml:targetFeature "reportAssembler" ;
+    sysx:sourceText "testingOrg.reportAssembler" .
 
-expr:OGCAIE__Runs__MeaslesRun___403___400_pvalue
-    a sysml:LiteralString ;
-    sysml:value "Humane Intelligence" ;
-    sysx:sourceText "\"Humane Intelligence\"" .
+expr:OGCAIE__OgCaieEvaluation__verdictToAssemblerSeam_pend1_pa0_pa0
+    a sysml:FeatureReferenceExpression ;
+    sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
+    sysx:sourceText "testingOrg" .
 
-expr:OGCAIE__Runs__MeaslesRun___403___401_pvalue
-    a sysml:LiteralBoolean ;
-    sysml:value "true"^^xsd:boolean ;
-    sysx:sourceText "true" .
-
-expr:OGCAIE__Runs__MeaslesRun___403___402___400_pvalue
-    a sysml:LiteralString ;
-    sysml:value "Mala" ;
-    sysx:sourceText "\"Mala\"" .
-
-expr:OGCAIE__Runs__MeaslesRun___403___403__annie___400_pvalue
-    a sysml:LiteralString ;
-    sysml:value "Annie" ;
-    sysx:sourceText "\"Annie\"" .
-
-expr:OGCAIE__Runs__MeaslesRun___403___403__theo___400_pvalue
-    a sysml:LiteralString ;
-    sysml:value "Theo" ;
-    sysx:sourceText "\"Theo\"" .
-
-expr:OGCAIE__Runs__MeaslesRun___403___404___400_pvalue
-    a sysml:LiteralString ;
-    sysml:value "test-driver" ;
-    sysx:sourceText "\"test-driver\"" .
-
-expr:OGCAIE__Runs__MeaslesRun___403___404___401_pvalue
-    a sysml:LiteralString ;
-    sysml:value "0.1" ;
-    sysx:sourceText "\"0.1\"" .
-
-expr:OGCAIE__Runs__MeaslesRun___403___405___400_pvalue
-    a sysml:LiteralString ;
-    sysml:value "pyshacl" ;
-    sysx:sourceText "\"pyshacl\"" .
-
-expr:OGCAIE__Runs__MeaslesRun___403___405___401_pvalue
-    a sysml:LiteralString ;
-    sysml:value "0.27" ;
-    sysx:sourceText "\"0.27\"" .
-
-expr:OGCAIE__Runs__MeaslesRun___403___406___400_pvalue
-    a sysml:LiteralString ;
-    sysml:value "report-assembler" ;
-    sysx:sourceText "\"report-assembler\"" .
-
-expr:OGCAIE__Runs__MeaslesRun___403___406___401_pvalue
-    a sysml:LiteralString ;
-    sysml:value "0.1" ;
-    sysx:sourceText "\"0.1\"" .
-
-expr:OGCAIE__Runs__MeaslesRun___403___407___400_pvalue
-    a sysml:LiteralString ;
-    sysml:value "recorder" ;
-    sysx:sourceText "\"recorder\"" .
-
-expr:OGCAIE__Runs__MeaslesRun___403___407___401_pvalue
-    a sysml:LiteralString ;
-    sysml:value "0.1" ;
-    sysx:sourceText "\"0.1\"" .
-
-expr:OGCAIE__Runs__MeaslesRun__commuters___400_pvalue
-    a sysml:LiteralString ;
-    sysml:value "commuters through the county" ;
-    sysx:sourceText "\"commuters through the county\"" .
-
-expr:OGCAIE__Runs__MeaslesRun__residents___400_pvalue
-    a sysml:LiteralString ;
-    sysml:value "county residents" ;
-    sysx:sourceText "\"county residents\"" .
+expr:OGCAIE__SponsorOrganization__signatory_pupperBound
+    a sysml:LiteralInteger ;
+    sysml:value "1"^^xsd:integer ;
+    sysx:sourceText "1" .
 
 expr:OGCAIE__StatementOfWork__engagement_plowerBound
     a sysml:LiteralInteger ;

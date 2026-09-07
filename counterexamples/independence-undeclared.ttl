@@ -1,5 +1,5 @@
-# Counterexample for S3-PlanApproval: the plan approval ended after the session using the plan's probes had started (sheet 10-19).
-# Must fail on ogc:S3-PlanApproval and nothing else.
+# Counterexample for S0-Parties: the testing organization's independence of the test item provider is assumed, not declared: the record holds no independence declaration (sheet 10-07).
+# Must fail on ogc:S0-Parties and nothing else.
 # A copy of track/measles-evaluation.ttl with one change (sheet 10-19; written by scripts/render_counterexamples.py).
 @prefix ev:   <https://w3id.org/og-caie/evaluation/measles#> .
 @prefix epo:  <https://w3id.org/og-caie/epo#> .
@@ -86,12 +86,6 @@ ev:service-agreement a epo:ServiceAgreement ;
     epo:accepts ev:proposal-1 ;
     epo:signedBy ev:dana-okafor ; epo:signedBy ev:mala ;
     prov:generatedAtTime "2026-07-31T10:00:00Z"^^xsd:dateTime .
-
-ev:independence-declaration-1 a epo:IndependenceDeclaration ;
-    rdfs:label "Humane Intelligence declares that it is independent of the chatbot vendor and has no user interest in the chatbot" ;
-    epo:independentOf ev:chatbot-vendor ;
-    prov:wasAttributedTo ev:mala ;
-    prov:generatedAtTime "2026-07-31T10:10:00Z"^^xsd:dateTime .
 
 ev:user-interest-declaration-1 a epo:UserInterestDeclaration ;
     rdfs:label "the county public-health office declares that it has a user interest in the chatbot, which it deploys to the public" ;
@@ -239,7 +233,7 @@ ev:plan-approval-1 a epo:PlanApproval ;
     earl:subject ev:test-plan ; earl:mode earl:manual ; earl:assertedBy ev:annie ;
     prov:wasAssociatedWith ev:annie ;
     earl:result [ a earl:TestResult ; earl:outcome earl:passed ; earl:info "the transit probe is the question commuters actually ask" ] ;
-    prov:endedAtTime "2026-08-10T15:00:00Z"^^xsd:dateTime .
+    prov:endedAtTime "2026-08-03T11:00:00Z"^^xsd:dateTime .
 
 # ---- evaluation step 4: execute (the session, its turn, the response, the evidence)
 ev:session-1 a epo:Session ;
@@ -415,7 +409,6 @@ ev:mission-1 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:need-1 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:proposal-1 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:service-agreement ogc:inRecord ev:record ; ogc:synthetic true .
-ev:independence-declaration-1 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:user-interest-declaration-1 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:statement-of-work ogc:inRecord ev:record ; ogc:synthetic true .
 ev:engagement-commuters ogc:inRecord ev:record ; ogc:synthetic true .

@@ -1,5 +1,5 @@
-# Counterexample for S3-PlanApproval: the plan approval ended after the session using the plan's probes had started (sheet 10-19).
-# Must fail on ogc:S3-PlanApproval and nothing else.
+# Counterexample for S2-RequirementSet: the sponsor's signatory never approved the requirement set: the record holds no requirement-set approval (sheet 10-01).
+# Must fail on ogc:S2-RequirementSet and nothing else.
 # A copy of track/measles-evaluation.ttl with one change (sheet 10-19; written by scripts/render_counterexamples.py).
 @prefix ev:   <https://w3id.org/og-caie/evaluation/measles#> .
 @prefix epo:  <https://w3id.org/og-caie/epo#> .
@@ -190,12 +190,6 @@ ev:appropriateness-assessment-1 a epo:AppropriatenessAssessment ;
     earl:result [ a earl:TestResult ; earl:outcome earl:passed ; earl:info "the envelope covers what residents and commuters need from a public information service during the outbreak" ] ;
     prov:endedAtTime "2026-08-02T10:00:00Z"^^xsd:dateTime .
 
-ev:requirement-set-approval-1 a epo:RequirementSetApproval ;
-    rdfs:label "the county health officer approves the requirement set on behalf of the county" ;
-    epo:approvesRequirementSet ev:requirement-set ;
-    prov:wasAttributedTo ev:dana-okafor ;
-    prov:generatedAtTime "2026-08-02T11:00:00Z"^^xsd:dateTime .
-
 # ---- evaluation step 3: plan (probe derivation, the automatic consistency check, approval, the deviation)
 ev:derivation-1 a epo:ProbeDerivation ;
     prov:used ev:dso-apollo-sv-r1 ; prov:used ev:requirement-set ;
@@ -239,7 +233,7 @@ ev:plan-approval-1 a epo:PlanApproval ;
     earl:subject ev:test-plan ; earl:mode earl:manual ; earl:assertedBy ev:annie ;
     prov:wasAssociatedWith ev:annie ;
     earl:result [ a earl:TestResult ; earl:outcome earl:passed ; earl:info "the transit probe is the question commuters actually ask" ] ;
-    prov:endedAtTime "2026-08-10T15:00:00Z"^^xsd:dateTime .
+    prov:endedAtTime "2026-08-03T11:00:00Z"^^xsd:dateTime .
 
 # ---- evaluation step 4: execute (the session, its turn, the response, the evidence)
 ev:session-1 a epo:Session ;
@@ -431,7 +425,6 @@ ev:a1 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:a2 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:a3 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:appropriateness-assessment-1 ogc:inRecord ev:record ; ogc:synthetic true .
-ev:requirement-set-approval-1 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:derivation-1 ogc:inRecord ev:record ; ogc:synthetic true .
 ev:test-plan ogc:inRecord ev:record ; ogc:synthetic true .
 ev:probe-1 ogc:inRecord ev:record ; ogc:synthetic true .

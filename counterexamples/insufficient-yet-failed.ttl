@@ -1,5 +1,5 @@
-# Counterexample for S3-PlanApproval: the plan approval ended after the session using the plan's probes had started (sheet 10-19).
-# Must fail on ogc:S3-PlanApproval and nothing else.
+# Counterexample for S6-Attestation: attestation-1 says failed on evidence it calls insufficient: insufficient evidence implies cannot tell (sheet 10-12, Z's rule).
+# Must fail on ogc:S6-Attestation and nothing else.
 # A copy of track/measles-evaluation.ttl with one change (sheet 10-19; written by scripts/render_counterexamples.py).
 @prefix ev:   <https://w3id.org/og-caie/evaluation/measles#> .
 @prefix epo:  <https://w3id.org/og-caie/epo#> .
@@ -239,7 +239,7 @@ ev:plan-approval-1 a epo:PlanApproval ;
     earl:subject ev:test-plan ; earl:mode earl:manual ; earl:assertedBy ev:annie ;
     prov:wasAssociatedWith ev:annie ;
     earl:result [ a earl:TestResult ; earl:outcome earl:passed ; earl:info "the transit probe is the question commuters actually ask" ] ;
-    prov:endedAtTime "2026-08-10T15:00:00Z"^^xsd:dateTime .
+    prov:endedAtTime "2026-08-03T11:00:00Z"^^xsd:dateTime .
 
 # ---- evaluation step 4: execute (the session, its turn, the response, the evidence)
 ev:session-1 a epo:Session ;
@@ -319,7 +319,7 @@ ev:attestation-1 a epo:Attestation ;
     earl:result [ a earl:TestResult ; earl:outcome earl:failed ;
                   earl:info "The response ignored the user's vaccination status instead of asking; one such response shows the criterion unmet in that instance." ] ;
     epo:appropriateness epo:appropriate ;
-    epo:sufficiency epo:sufficient ;
+    epo:sufficiency epo:insufficient ;
     prov:endedAtTime "2026-08-11T09:00:00Z"^^xsd:dateTime .
 
 ev:attestation-2 a epo:Attestation ;

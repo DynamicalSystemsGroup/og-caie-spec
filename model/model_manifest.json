@@ -1,8 +1,8 @@
 {
  "artifact": {
-  "derived_triples": 308,
+  "derived_triples": 385,
   "path": "model/og-caie.model.ttl",
-  "sha256": "79663f2c525a32d660049b0ab68b0901031001e0bf5202c6ede4f5c37ccf8a6e",
+  "sha256": "11bb8d307ee3b91e0e54caf8bdafeaa737b9d188c9aa8145e4d1426e2657b90c",
   "terms_used": [
    "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>",
    "ogm:consumerPort",
@@ -10,6 +10,7 @@
    "ogm:first",
    "ogm:flowSource",
    "ogm:flowTarget",
+   "ogm:realizes",
    "ogm:relatesFrom",
    "ogm:relatesTo",
    "ogm:resolvesTo",
@@ -31,7 +32,6 @@
    "sysml:InterfaceUsage",
    "sysml:ItemDefinition",
    "sysml:ItemUsage",
-   "sysml:LiteralBoolean",
    "sysml:LiteralInfinity",
    "sysml:LiteralInteger",
    "sysml:LiteralString",
@@ -65,7 +65,7 @@
    "sysx:relatedFeature",
    "sysx:sourceText"
   ],
-  "triples": 5109
+  "triples": 5712
  },
  "converter": {
   "invocation": "-convert ttl",
@@ -74,19 +74,19 @@
   "release": "OpenSysML v0.4.3"
  },
  "raw": {
-  "triples": 17132
+  "triples": 18976
  },
  "source": {
   "path": "model/og-caie.sysml",
-  "sha256": "2bf54c02f0126154bae3cf14c56b4c8c15d434d3e6768e1970eed5538daab927"
+  "sha256": "c786e9f4338506bbd37bd748c2a3a54f09d5cd36586af4e259a2379a0db280e8"
  },
  "term_map": {
   "path": "model/sysml_term_map.csv",
-  "sha256": "76069cb93b389619ffe4a8836a6e015a72620c9f1d56316c6dcee18a40364ba9",
+  "sha256": "6a58361b86b4a4a0a94c077efdb23a9541da988fca8735f74a4b02c6e4dd270f",
   "terms": 59
  },
  "triple_budget": {
-  "headroom": 1491,
+  "headroom": 888,
   "rationale": "Parsimony gate on the canonical model graph: the structure-only model plus resolved ends; bump with a rationale when a seam or a party is added.",
   "value": 6600
  }

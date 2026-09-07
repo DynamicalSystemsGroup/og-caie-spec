@@ -11,8 +11,8 @@ from conftest import load
 from ogc import views
 from test_model_graph import OGM, SYS
 
-SEAMS = 39
-PORTS = 67
+SEAMS = 44  # R-49 B3: 39; R-50 (sheet 10): the two declarations, the requirement-set approval, the plan deviation, the verdict to the assembler
+PORTS = 76  # R-50: the signatory's four (three moved off the sponsor organization), the executive's declaration, the operator's deviation, the assembler's verdict, the recorder's four
 
 
 def graph():
@@ -53,7 +53,10 @@ def test_inputs_unique_outputs_shared():
                 shared.append((label, used[p]))
     assert sum(used.values()) == 2 * SEAMS
     assert sorted(shared) == [("AccountExecutive.deliveryOut", 2), ("AccountExecutive.proposalOut", 2), ("AccountableOrganization.accessOut", 2), ("AffectedPopulation.inputOut", 2),
-                              ("Recorder.recordOut", 3), ("SponsorOrganization.acceptanceOut", 2), ("SponsorOrganization.missionOut", 2), ("SponsorOrganization.needOut", 2), ("SponsorOrganization.statementOfWorkOut", 2), ("TestDriver.probesOut", 2)]
+                              ("ConformanceChecker.verdictOut", 2),  # sheet 10-41: the recorder and the assembler read the verdict
+                              ("Recorder.recordOut", 3), ("SponsorOrganization.missionOut", 2), ("SponsorOrganization.needOut", 2), ("SponsorOrganization.statementOfWorkOut", 2),
+                              ("SponsorSignatory.acceptanceOut", 2),  # sheet 10-06: the acceptance is the signatory's
+                              ("TestDriver.probesOut", 2)]
 
 
 def test_every_item_kind_reaches_the_recorder():
@@ -76,14 +79,19 @@ def test_actor_categories_share_no_supplier_port_definition():
     shared_by_design = {d for d in g.subjects(RDF.type, SYS.PortDefinition) if name(g, d) == "DeterminationWrite"}
     supplied = {}
     for d in g.subjects(RDF.type, SYS.PartDefinition):
-        if name(g, d) in roles:
+        if name(g, d) in roles | {"SponsorSignatory"}:
             supplied[name(g, d)] = {g.value(p, SYS.type) for p in g.subjects(SYS.owner, d)
                                     if (p, RDF.type, SYS.PortUsage) in g and g.value(p, SYS.isConjugated) is None}
-    assert set(supplied) == roles
+    assert set(supplied) == roles | {"SponsorSignatory"}
     for a in roles:
         for b in roles:
             if a < b:
                 assert (supplied[a] & supplied[b]) <= shared_by_design, (a, b, supplied[a] & supplied[b])
+    # sheet 10-06: the sponsor's signatory, a person on the other side of the contract, shares one supplier port
+    # definition with the authorized representative, the agreement both sign, and nothing with the two experts
+    agreement = {d for d in g.subjects(RDF.type, SYS.PortDefinition) if name(g, d) == "AgreementWrite"}
+    assert supplied["SponsorSignatory"] & supplied["AccountExecutive"] == agreement
+    assert not (supplied["SponsorSignatory"] & (supplied["DomainExpert"] | supplied["EvaluationOperator"]))
 
 
 def test_parties_and_roles_present():
@@ -95,6 +103,9 @@ def test_parties_and_roles_present():
     org = defs["TestingOrganization"]
     held = {name(g, g.value(u, SYS.type)) for u in g.subjects(SYS.owner, org) if (u, RDF.type, SYS.PartUsage) in g}
     assert {"AccountExecutive", "EvaluationTeam", "Recorder", "TestDriver", "ConformanceChecker", "ReportAssembler"} <= held
+    sponsor = defs["SponsorOrganization"]  # sheet 10-06: the sponsor holds its signatory, a person
+    assert {name(g, g.value(u, SYS.type)) for u in g.subjects(SYS.owner, sponsor) if (u, RDF.type, SYS.PartUsage) in g} == {"SponsorSignatory"}
+    assert name(g, g.value(defs["SponsorSignatory"], SYS.specializes)) == "Person"
 
 
 def test_obligation_relates_sponsor_to_populations():
@@ -120,5 +131,6 @@ def test_views_have_perspectives_and_cover_every_seam():
     drawn = {name(g, s) for sl in ("contracting", "evaluation") for s in views.seams(g, sl)}
     assert drawn == {name(g, s) for s in views.seams(g)}
     contracting = views.wiring(g, "contracting")
-    assert 'sponsor -- "Mission, Need, ServiceAgreement, StatementOfWork, Acceptance" --> testingOrg_accountExecutive' in contracting
+    assert 'sponsor -- "Mission, Need, StatementOfWork" --> testingOrg_accountExecutive' in contracting  # sheet 10-06: what the organization sends
+    assert 'sponsor_signatory -- "ServiceAgreement, Acceptance" --> testingOrg_accountExecutive' in contracting  # and what its signatory signs
     assert 'sponsor -. "obligation" .-> affected' in contracting

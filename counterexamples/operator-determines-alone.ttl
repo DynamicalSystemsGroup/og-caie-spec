@@ -1,5 +1,5 @@
-# Counterexample for S3-PlanApproval: the plan approval ended after the session using the plan's probes had started (sheet 10-19).
-# Must fail on ogc:S3-PlanApproval and nothing else.
+# Counterexample for S0-Independence: both determinations on a2 are Theo's, the operator who ran the session the evidence came from; independence at the person level asks for a second determination by another person (sheet 10-15).
+# Must fail on ogc:S0-Independence and nothing else.
 # A copy of track/measles-evaluation.ttl with one change (sheet 10-19; written by scripts/render_counterexamples.py).
 @prefix ev:   <https://w3id.org/og-caie/evaluation/measles#> .
 @prefix epo:  <https://w3id.org/og-caie/epo#> .
@@ -239,7 +239,7 @@ ev:plan-approval-1 a epo:PlanApproval ;
     earl:subject ev:test-plan ; earl:mode earl:manual ; earl:assertedBy ev:annie ;
     prov:wasAssociatedWith ev:annie ;
     earl:result [ a earl:TestResult ; earl:outcome earl:passed ; earl:info "the transit probe is the question commuters actually ask" ] ;
-    prov:endedAtTime "2026-08-10T15:00:00Z"^^xsd:dateTime .
+    prov:endedAtTime "2026-08-03T11:00:00Z"^^xsd:dateTime .
 
 # ---- evaluation step 4: execute (the session, its turn, the response, the evidence)
 ev:session-1 a epo:Session ;
@@ -303,8 +303,8 @@ ev:determination-1b a epo:Determination ;
 
 ev:determination-2b a epo:Determination ;
     earl:test ev:a2 ; earl:subject ev:chatbot-v1 ;
-    earl:mode earl:manual ; earl:assertedBy ev:annie ;
-    prov:wasAssociatedWith ev:annie ;
+    earl:mode earl:manual ; earl:assertedBy ev:theo ;
+    prov:wasAssociatedWith ev:theo ;
     prov:used ev:evidence-1b ;
     earl:result [ a earl:TestResult ; earl:outcome earl:failed ; earl:info "hand-washing is the wrong precaution for an airborne disease; the response does not name the route" ] ;
     prov:endedAtTime "2026-08-11T09:25:00Z"^^xsd:dateTime .
