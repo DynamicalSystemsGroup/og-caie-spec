@@ -22,17 +22,15 @@ functions of ISO/IEC 17000, none coined here. A {term}`requirement` is ISO
 ```
 
 Three observations from ISO/IEC 17000 shape the fifth step. Its *decision*
-(7.2), the conclusion that fulfilment of specified requirements has or has
-not been demonstrated, is the glossary's determination (ruling R-50), which
-an attestation aggregates. Its
-*review* (7.1) names, for the fitness of what was done, the word this
-specification retired for the context judgment, which is why we say {term}`appropriateness`
-instead. And the measles case is a
+(7.2) is the glossary's determination (ruling R-50), which an attestation
+aggregates. Its *review* (7.1) uses the word this specification retired,
+which is why we say {term}`appropriateness`. And the measles case is a
 {term}`third-party conformity assessment activity`: Humane Intelligence is
-independent of the vendor and has no user interest; the county, which
-commissions and accepts it, acts as the
-{term}`second party <second-party conformity assessment activity>`. The command line prints
-the fifth step with each match and its quote's tag, [defined on the vocabulary page](glossary.md#quote-tags):
+independent of the vendor with no user interest; the county, which
+commissions and accepts it, is the
+{term}`second party <second-party conformity assessment activity>`. The
+fifth step as the command line prints it, each quote with its tag,
+[defined on the vocabulary page](glossary.md#quote-tags):
 
 ```{literalinclude} ../generated/cli/steps-determine-and-attest.md
 ```

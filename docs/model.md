@@ -23,8 +23,8 @@ One view, read from the model graph, shows the nesting and nothing else:
 the outer chain with `fulfil` as a black box, the inner chain it opens
 into, and the only wires that cross the boundary. The contract hands in the
 agreement, the statement of work and the access; the evaluation hands back
-the report, its approval and the recommendation. Everything inside each chain is left
-out on purpose; the two chapters before this one draw it.
+the report, its approval and the recommendation; the two chapters before
+this one draw the inside of each chain.
 
 ```{include} ../generated/nesting.md
 ```

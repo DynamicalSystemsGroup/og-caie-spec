@@ -552,7 +552,7 @@ MUTATIONS = {
     "skip-approval": ("skip the plan approval", m_skip_approval),
     "skip-access": ("skip the access grant (a contracting step missing)", m_skip_access),
     "unwire-evidence": ("cut the wire binding evidence to its plan", m_unwire_evidence),
-    "executive-attests": ("the account executive attests instead of the domain expert", m_executive_attests),
+    "executive-attests": ("the authorized representative attests instead of the domain expert", m_executive_attests),
     "attest-without-determination": ("attestations aggregate no determination", m_attest_without_determination),
     "requirements-before-agreement": ("the requirement set dated before the agreement", m_requirements_before_agreement),
     "engagement-mismatch": ("the statement of work decides an interview for a population the record only speaks for", m_engagement_mismatch),

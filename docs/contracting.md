@@ -18,10 +18,7 @@ contract does not transfer it. A sponsor with a user interest in the test
 item performs a {term}`second-party <second-party conformity assessment activity>`
 activity when it commissions and accepts the evaluation; the independent
 testing organization performs a third-party activity whoever commissions
-it. Both facts are declared in the record, not assumed: the sponsor's
-signatory declares its user interest and the testing organization's
-authorized representative declares its independence of the provider, each
-dated. Affected stakeholders are
+it. Affected stakeholders are
 populations, spoken for, sometimes interviewed, who sign nothing. The
 six steps are the standards' own; each quote carries its tag,
 [defined on the vocabulary page](glossary.md#quote-tags):

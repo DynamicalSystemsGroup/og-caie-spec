@@ -16,7 +16,7 @@ Generated from `model/og-caie.model.ttl` by `scripts/render.py`; do not edit the
 | B8 | ReportAssembler | recordIn, verdictIn | reportOut | [ ] |
 | B9 | Representative | inputIn | representationOut | [x] 2026-09-07 |
 | B10 | SponsorOrganization | deliveryIn, proposalIn | missionOut, needOut, statementOfWorkOut | [x] 2026-09-06 |
-| B11 | SponsorSignatory | (none) | acceptanceOut, agreementOut, requirementSetApprovalOut, userInterestDeclarationOut | [ ] |
+| B11 | SponsorSignatory | (none) | acceptanceOut, agreementOut, requirementSetApprovalOut, userInterestDeclarationOut | [x] 2026-09-07 |
 | B12 | TestDriver | recordIn | probesOut | [x] 2026-09-07 |
 | B13 | TestItem | probesIn | responseOut | [x] 2026-09-07 |
 
@@ -65,7 +65,7 @@ Generated from `model/og-caie.model.ttl` by `scripts/render.py`; do not edit the
 | W39 | stakeholderInputToRepresentativeSeam | AffectedPopulation.inputOut | Representative.inputIn | StakeholderInputWrite | [x] 2026-09-07 |
 | W40 | statementOfWorkSeam | SponsorOrganization.statementOfWorkOut | Recorder.statementOfWorkIn | StatementOfWorkWrite | [x] 2026-09-06 |
 | W41 | statementOfWorkToExecutiveSeam | SponsorOrganization.statementOfWorkOut | AccountExecutive.statementOfWorkIn | StatementOfWorkWrite | [x] 2026-09-06 |
-| W42 | userInterestDeclarationSeam | SponsorSignatory.userInterestDeclarationOut | Recorder.userInterestDeclarationIn | UserInterestDeclarationWrite | [ ] |
+| W42 | userInterestDeclarationSeam | SponsorSignatory.userInterestDeclarationOut | Recorder.userInterestDeclarationIn | UserInterestDeclarationWrite | [x] 2026-09-07 |
 | W43 | verdictSeam | ConformanceChecker.verdictOut | Recorder.verdictIn | ConformanceVerdictWrite | [x] 2026-09-07 |
 | W44 | verdictToAssemblerSeam | ConformanceChecker.verdictOut | ReportAssembler.verdictIn | ConformanceVerdictWrite | [ ] |
 

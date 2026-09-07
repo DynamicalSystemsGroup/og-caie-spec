@@ -129,7 +129,7 @@ def problems() -> list[str]:
         for s in g.objects(t, OGC.checkedBy):
             if str(s) not in shapes:
                 out.append(f"essential {str(t).rsplit('#', 1)[-1]} names a shape that does not exist: {s}")
-    tests_text = "".join(p.read_text() for p in sorted((ROOT / "tests").glob("test_*.py")))  # any test may pin a counterexample
+    tests_text = "".join(p.read_text() for p in sorted((ROOT / "tests").glob("test_*.py"))) + (ROOT / "scripts" / "render_counterexamples.py").read_text()  # a test, or the generator's table the tests read, pins a counterexample
     for cx in sorted((ROOT / "counterexamples").rglob("*")):
         if cx.is_file() and cx.suffix in (".ttl", ".sysml") and cx.name not in tests_text and f'"{cx.stem}"' not in tests_text:  # pinned by file name or by stem
             out.append(f"counterexample {cx.relative_to(ROOT)} is not pinned by a test")

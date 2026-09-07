@@ -276,7 +276,7 @@ package OGCAIE {
     }
     item def Delivery {
         doc /* The report and the recommendation handed to the sponsor by
-           the account executive: the output of the delivery activity,
+           the authorized representative: the output of the delivery activity,
            distinct from recommending (ruling R-24). */
         attribute id : ScalarValues::String;
     }
@@ -607,7 +607,7 @@ package OGCAIE {
     part def TestItem :> Machine {
         doc /* The test item (SEVOCAB; the prose says system under test,
            ruling R-19): a black box that is given probes and produces
-           responses. Provided by the accountable organization, inside
+           responses. Provided by the test item provider, inside
            the record, outside the testing organization's responsibility. */
         port probesIn : ~ProbeWrite;
         port responseOut : ResponseWrite;
@@ -632,7 +632,7 @@ package OGCAIE {
 
     part def TestDriver :> Machine {
         doc /* The machine part of administering the test plan (SEVOCAB test
-           driver, walkthrough B8, R-49): derives the probes from the DSO
+           driver, sheet 09 B8, R-49): derives the probes from the DSO
            release and the requirement set in the record; one output read
            by the operator and the recorder (an output wire may be shared,
            R-25). */

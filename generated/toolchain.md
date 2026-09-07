@@ -23,9 +23,9 @@ Python `>=3.12` (`pyproject.toml`), pinned to `3.12` by `.python-version` so tha
 | Fetched from | `https://github.com/Open-MBEE/OpenSysML/releases/download/v0.4.3` | `toolchain/get-sysml.sh` (`VER=v0.4.3`) |
 | Invocation | `-convert ttl` | `model/model_manifest.json` |
 | Digest file | `toolchain/sysml-binaries.sha256`, sha256 `8efae36144923a29a21aa57d59286442db5ffaaa9a3773fafcc57616ade6f961` | `model/model_manifest.json` |
-| Authoring source | `model/og-caie.sysml`, sha256 `c786e9f4338506bbd37bd748c2a3a54f09d5cd36586af4e259a2379a0db280e8` | `model/model_manifest.json` |
+| Authoring source | `model/og-caie.sysml`, sha256 `5012d8ac55d687290b2d28d527b4ea137296c5fadb5776f968de80afe1a3a5a9` | `model/model_manifest.json` |
 | Term map | `model/sysml_term_map.csv`, 59 terms, sha256 `6a58361b86b4a4a0a94c077efdb23a9541da988fca8735f74a4b02c6e4dd270f` | `model/model_manifest.json` |
-| Canonical graph | `model/og-caie.model.ttl`, 5712 triples of 18976 converted (budget 6600, headroom 888), sha256 `11bb8d307ee3b91e0e54caf8bdafeaa737b9d188c9aa8145e4d1426e2657b90c` | `model/model_manifest.json` |
+| Canonical graph | `model/og-caie.model.ttl`, 5712 triples of 18976 converted (budget 6600, headroom 888), sha256 `ee482d88f2328e128537b75552e8d38b8c6d5dba830d92f4a1885f2834f986f2` | `model/model_manifest.json` |
 
 Per platform, the digest the installed binary must hash to (`toolchain/sysml-binaries.sha256`) and the digest the release tarball must hash to before it is unpacked (`toolchain/SHA256SUMS.pinned`); `toolchain/get-sysml.sh` checks both on every run.
 
@@ -38,13 +38,13 @@ Per platform, the digest the installed binary must hash to (`toolchain/sysml-bin
 
 ## The ontologies and vocabularies
 
-What the graphs are written in, counted over the committed Turtle files (`vocabulary/og-caie.ttl`, `vocabulary/epo.ttl`, `vocabulary/crosswalk.ttl`, `sources/sources.ttl`, `rulings/adjudications.ttl`, `model/trace.ttl`, `model/og-caie.model.ttl`, `track/measles-evaluation.ttl`, `shapes/epo.shapes.ttl`, `shapes/model.shapes.ttl`, `shapes/rulings.shapes.ttl`): the classes and properties of each vocabulary that the graphs actually use, and the subjects each names. The W3C vocabularies are adopted as published; the SysML namespace is OpenSysML's rendering of the OMG SysML v2 metamodel, not a vocabulary OMG publishes at that IRI; the specification's own namespaces resolve under w3id.org.
+What the graphs are written in, counted over the committed Turtle files (`vocabulary/og-caie.ttl`, `vocabulary/epo.ttl`, `vocabulary/crosswalk.ttl`, `vocabulary/register.ttl`, `vocabulary/ogm.ttl`, `sources/sources.ttl`, `rulings/adjudications.ttl`, `model/trace.ttl`, `model/og-caie.model.ttl`, `track/measles-evaluation.ttl`, `shapes/epo.shapes.ttl`, `shapes/model.shapes.ttl`, `shapes/rulings.shapes.ttl`): the classes and properties of each vocabulary that the graphs actually use, and the subjects each names. The W3C vocabularies are adopted as published; the SysML namespace is OpenSysML's rendering of the OMG SysML v2 metamodel, not a vocabulary OMG publishes at that IRI; the specification's own namespaces resolve under w3id.org.
 
 | Prefix | Namespace | Whose | What it does here | Classes used | Properties used | Subjects | Reference |
 |---|---|---|---|---|---|---|---|
 | `rdf` | `http://www.w3.org/1999/02/22-rdf-syntax-ns#` | W3C | RDF 1.1: typing (rdf:type) and lists | 0 | 3 | 0 | <https://www.w3.org/TR/rdf11-concepts/> |
 | `rdfs` | `http://www.w3.org/2000/01/rdf-schema#` | W3C | RDF Schema: labels, comments, subclassing | 0 | 6 | 0 | <https://www.w3.org/TR/rdf-schema/> |
-| `owl` | `http://www.w3.org/2002/07/owl#` | W3C | OWL 2: the EPO's classes and properties | 4 | 1 | 0 | <https://www.w3.org/TR/owl2-overview/> |
+| `owl` | `http://www.w3.org/2002/07/owl#` | W3C | OWL 2: the EPO's classes and properties | 4 | 3 | 0 | <https://www.w3.org/TR/owl2-overview/> |
 | `skos` | `http://www.w3.org/2004/02/skos/core#` | W3C | SKOS: the glossary's concepts, labels, definitions and notes | 2 | 11 | 0 | <https://www.w3.org/TR/skos-reference/> |
 | `prov` | `http://www.w3.org/ns/prov#` | W3C | PROV-O: who did what and when in the record (agents, activities, entities, derivation, attribution) | 7 | 9 | 0 | <https://www.w3.org/TR/prov-o/> |
 | `earl` | `http://www.w3.org/ns/earl#` | W3C | EARL 1.0: assertions with an assertor, a mode, a subject, a test and an outcome (passed, failed, cantTell) | 2 | 7 | 0 | <https://www.w3.org/TR/EARL10-Schema/> |
@@ -53,19 +53,19 @@ What the graphs are written in, counted over the committed Turtle files (`vocabu
 | `sysx` | `urn:opensysml:sysml:` | OpenSysML | the converter's own facts: the ends of a connection, the source text of a statement, a prefix keyword | 0 | 4 | 0 | <https://github.com/OpenMBEE/opensysml> |
 | `elmt` | `urn:sysmlv2:element:` | OpenSysML | the converter's element identifiers, one per model element | 0 | 0 | 647 | <https://github.com/OpenMBEE/opensysml> |
 | `expr` | `urn:opensysml:expr:` | OpenSysML | the converter's expression identifiers (end paths, multiplicity bounds) | 0 | 0 | 491 | <https://github.com/OpenMBEE/opensysml> |
-| `ogc` | `https://w3id.org/og-caie/` | this specification | the register: citation classes and properties, shapes' names, concerns, rulings, crosswalk rows, trace essentials | 6 | 50 | 56 | <https://w3id.org/og-caie/> |
+| `ogc` | `https://w3id.org/og-caie/` | this specification | the register: citation classes and properties, shapes' names, concerns, rulings, crosswalk rows, trace essentials | 6 | 50 | 113 | <https://w3id.org/og-caie/> |
 | `term` | `https://w3id.org/og-caie/terms#` | this specification | the glossary's terms | 0 | 0 | 66 | <https://w3id.org/og-caie/> |
-| `src` | `https://w3id.org/og-caie/sources#` | this specification | the source register | 0 | 0 | 72 | <https://w3id.org/og-caie/> |
-| `rul` | `https://w3id.org/og-caie/rulings#` | this specification | concerns and rulings | 0 | 0 | 112 | <https://w3id.org/og-caie/> |
+| `src` | `https://w3id.org/og-caie/sources#` | this specification | the source register | 0 | 0 | 77 | <https://w3id.org/og-caie/> |
+| `rul` | `https://w3id.org/og-caie/rulings#` | this specification | concerns and rulings | 0 | 0 | 113 | <https://w3id.org/og-caie/> |
 | `epo` | `https://w3id.org/og-caie/epo#` | this specification | the Evaluation Process Ontology's handles: item classes, steps, layers, roles and their properties | 54 | 60 | 163 | <https://w3id.org/og-caie/> |
 | `xw` | `https://w3id.org/og-caie/crosswalk#` | this specification | the crosswalk rows of the front page's bridge into the standards | 0 | 0 | 7 | <https://w3id.org/og-caie/> |
 | `tr` | `https://w3id.org/og-caie/trace#` | this specification | the essentials SCI-01 to SCI-13 | 0 | 0 | 13 | <https://w3id.org/og-caie/> |
-| `ogm` | `https://w3id.org/og-caie/model#` | this specification | the derived ends of the canonical model graph (resolved ports, flow ends, successions, relations) | 0 | 11 | 0 | <https://w3id.org/og-caie/> |
+| `ogm` | `https://w3id.org/og-caie/model#` | this specification | the derived ends of the canonical model graph (resolved ports, flow ends, successions, relations) | 0 | 11 | 11 | <https://w3id.org/og-caie/> |
 | `ev` | `https://w3id.org/og-caie/evaluation/measles#` | this specification | the measles evaluation's record, its items and agents (sheet 10-42) | 0 | 0 | 59 | <https://w3id.org/og-caie/> |
 
 ## The vendored browser libraries
 
-Appendix A runs in the browser on two libraries committed under `explorer/vendor/`, so the explorer loads nothing from the network. Versions and licences are as the files state them.
+Appendix B runs in the browser on two libraries committed under `explorer/vendor/`, so the explorer loads nothing from the network; Appendix A's report draws with the same d3 file, loaded by the relative path `../explorer/vendor/d3.v7.min.js`, so there is one copy. Versions and licences are as the files state them.
 
 | Library | Version | Licence | Source or copyright | Stated in |
 |---|---|---|---|---|
@@ -74,7 +74,7 @@ Appendix A runs in the browser on two libraries committed under `explorer/vendor
 
 ## The gate
 
-`checks/run-checks.sh` runs 9 steps, every one, in this order; a step passes when its exit code is the expected one. The only summary is the `CHECKS: PASS` or `CHECKS: FAIL` line and `checks/out/report.json`; each step's full output is in `checks/out/last.log`. Nothing is optional and nothing fails quietly.
+`checks/run-checks.sh` runs 10 steps, every one, in this order; a step passes when its exit code is the expected one. The only summary is the `CHECKS: PASS` or `CHECKS: FAIL` line and `checks/out/report.json`; each step's full output is in `checks/out/last.log`. Nothing is optional and nothing fails quietly.
 
 | # | Step | Expected exit | Command |
 |---|---|---|---|
@@ -82,11 +82,12 @@ Appendix A runs in the browser on two libraries committed under `explorer/vendor
 | 2 | model: validate -strict (authoring view and model counterexamples) | 0 | `toolchain/bin/sysml model/og-caie.sysml counterexamples/model/unwired-port.sysml counterexamples/model/expert-administers-tests.sysml counterexamples/model/missing-accountable.sysml counterexamples/model/no-obligation.sysml -validate -strict` |
 | 3 | model graph: convert, prune, byte-identical to the committed canonical graph | 0 | `uv run python scripts/prune_model.py && git diff --quiet -- model/og-caie.model.ttl model/model_manifest.json` |
 | 4 | ogc: doctor (labels unambiguous, quotes located, record consistent) | 0 | `uv run -q ogc doctor --no-cache` |
-| 5 | notebooks: executed by nbclient, outputs equal the committed ones, verdict NOTEBOOK: PASS | 0 | `uv run python scripts/execute_notebooks.py --check` |
-| 6 | tests: full suite | 0 | `uv run pytest -q` |
-| 7 | generated/ and explorer/: regenerate byte-identically | 0 | `bash checks/regen.sh (uv run python scripts/render.py && uv run python scripts/render_cli.py && uv run python scripts/render_diagrams.py && uv run python scripts/render_explorer.py && uv run python scripts/render_toolchain.py && uv run python scripts/render_bib.py) && git diff --quiet -- generated/ explorer/` |
-| 8 | site: myst build --html | 0 | `uv run myst build --html` |
-| 9 | site: the explorer copied next to the built site | 0 | `bash scripts/copy_explorer.sh` |
+| 5 | drift: the consistency loop, mechanical layer (appendix letters, stale phrases, retired words, file mentions, sheet ticks, twins, absence rows) | 0 | `uv run python scripts/drift_check.py` |
+| 6 | notebooks: executed by nbclient, outputs equal the committed ones, verdict NOTEBOOK: PASS | 0 | `uv run python scripts/execute_notebooks.py --check` |
+| 7 | tests: full suite | 0 | `uv run pytest -q` |
+| 8 | generated/, explorer/ and report/: regenerate byte-identically | 0 | `bash checks/regen.sh (uv run python scripts/render.py && uv run python scripts/render_cli.py && uv run python scripts/render_diagrams.py && uv run python scripts/render_explorer.py && uv run python scripts/render_report.py && uv run python scripts/render_toolchain.py && uv run python scripts/render_bib.py && uv run python scripts/render_version.py) && git diff --quiet -- generated/ explorer/ report/` |
+| 9 | site: myst build --html | 0 | `uv run myst build --html` |
+| 10 | site: the explorer and the sample report copied next to the built site | 0 | `bash scripts/copy_explorer.sh` |
 
 ## Continuous integration
 
