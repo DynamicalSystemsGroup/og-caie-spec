@@ -39,3 +39,8 @@ the whole chain across two chapters. Or have your own AI evaluation practice aud
 against it: every requirement here is checkable, so an existing practice can
 be walked through the thirteen essentials and shown where its record would
 and would not conform.
+
+## Sources cited
+
+```{include} ../generated/cited-conclusion.md
+```

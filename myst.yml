@@ -58,5 +58,6 @@ project:
         - file: notebooks/checked-guarantees.ipynb
     - file: docs/rulings.md
     - file: docs/appendix-toolchain.md
+    - file: docs/appendix-works-cited.md
 site:
   template: book-theme

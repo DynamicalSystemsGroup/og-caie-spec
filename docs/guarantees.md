@@ -100,3 +100,8 @@ Computational proof: [run the checks](../notebooks/checked-guarantees.ipynb).
 ```{include} ../generated/more-guarantees.md
 ```
 :::
+
+## Sources cited
+
+```{include} ../generated/cited-guarantees.md
+```

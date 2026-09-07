@@ -174,3 +174,8 @@ Computational proof: [run the checks](../notebooks/checked-evaluation.ipynb).
 ```{include} ../generated/more-evaluation.md
 ```
 :::
+
+## Sources cited
+
+```{include} ../generated/cited-evaluation.md
+```
