@@ -8,7 +8,7 @@ flowchart TB
     direction LR
     i_scope[scope] --> i_declareRequirements[declareRequirements] --> i_plan[plan] --> i_execute[execute] --> i_determineAndAttest[determineAndAttest] --> i_report[report]
   end
-  i_report -- "Recommendation (from the evaluation operator), Report (from the coverage calculator)" --> o_deliver
+  i_report -- "Recommendation (from the evaluation operator), ReportApproval (from the domain expert), Report (from the report assembler)" --> o_deliver
   o_access -- "TestItemAccess (from the accountable organization)" --> i_execute
   o_agree -- "ServiceAgreement (from the account executive)" --> i_declareRequirements
   o_agree -- "StatementOfWork (from the sponsor organization)" --> i_scope

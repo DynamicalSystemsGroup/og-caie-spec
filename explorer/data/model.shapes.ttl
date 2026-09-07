@@ -300,7 +300,7 @@ ogc:M5-Cardinality a sh:NodeShape ;
 ogc:M5-PortsBelongToRoles a sh:NodeShape ;
     sh:targetClass sysml:PortUsage ;
     sh:sparql [
-        sh:message "DSO, appropriateness assessment, plan approval and attestation are supplied only by the domain expert (R-10, R-21)." ;
+        sh:message "DSO, appropriateness assessment, plan approval, report approval and attestation are supplied only by the domain expert (R-10, R-21, R-49)." ;
         sh:select """
             PREFIX sysml: <https://www.omg.org/spec/SysML#>
             SELECT $this ?value WHERE {

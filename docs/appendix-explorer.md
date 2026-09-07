@@ -28,7 +28,7 @@ for a larger canvas and the SPARQL box.
 
 The graph view works from a file on disk; the SPARQL box needs the page
 served over http, because it fetches the Turtle files and the WebAssembly
-engine (from a clone: `uv run python -m http.server 8765` in `explorer/`).
+engine (from a clone, serve the repository root, not the `explorer/` folder, since the page loads its data and engine from `../explorer/`: `uv run python -m http.server 8765` at the root, then open `http://localhost:8765/explorer/index.html`).
 The explorer is served as static files next to the site, under
 `explorer/`; the data it draws is `explorer/graph.json`, the same nodes,
 links and views, for anyone who wants the graph without the page.

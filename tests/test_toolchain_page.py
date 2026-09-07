@@ -18,7 +18,7 @@ import render_toolchain as rt  # noqa: E402
 PAGE = ROOT / "docs" / "appendix-toolchain.md"
 FRAGMENT = ROOT / "generated" / "toolchain.md"
 RETIRED = {"adequacy", "adequate", "inadequate"}
-RECIPE = ["uv sync", "bash toolchain/get-sysml.sh", "bash checks/run-checks.sh", "uv run -q ogc doctor", "uv run myst start", "bash scripts/copy_explorer.sh"]
+RECIPE = ["uv sync", "bash toolchain/get-sysml.sh", "bash checks/run-checks.sh", "uv run -q ogc doctor", "uv run myst build --html", "bash scripts/copy_explorer.sh", "uv run python -m http.server -d _build/html 8000"]
 
 
 def fragment() -> str:

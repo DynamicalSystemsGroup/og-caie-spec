@@ -57,7 +57,7 @@ def test_shapes_s0_to_s8():
                      "S1-DsoRelease", "S2-AcceptanceCriterion", "S2-Requirement", "S2-RequirementSet",
                      "S3-PlanApproval", "S3-Probe", "S3-Strategy", "S3-TestPlan",
                      "S4-Session", "S4-TestSuite", "S4-Turn", "S5-Evidence", "S5-Response", "S6-Attestation", "S6-Determination",
-                     "S7-Report", "S8-Delivery", "S8-Recommendation", "S9-Acceptance"]
+                     "S7-ConformanceVerdict", "S7-Report", "S7-ReportApproval", "S8-Delivery", "S8-Recommendation", "S9-Acceptance"]
 
 
 def test_epo_handles_subclass_prov_or_earl():

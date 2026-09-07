@@ -11,8 +11,8 @@ from conftest import load
 from ogc import views
 from test_model_graph import OGM, SYS
 
-SEAMS = 38
-PORTS = 63
+SEAMS = 37
+PORTS = 64
 
 
 def graph():
@@ -52,8 +52,8 @@ def test_inputs_unique_outputs_shared():
             if used[p] > 1:
                 shared.append((label, used[p]))
     assert sum(used.values()) == 2 * SEAMS
-    assert sorted(shared) == [("AccountExecutive.deliveryOut", 2), ("AccountExecutive.proposalOut", 2), ("AccountableOrganization.accessOut", 2), ("ProbeDeriver.probesOut", 2),
-                              ("Recorder.recordOut", 6), ("SponsorOrganization.acceptanceOut", 2), ("SponsorOrganization.missionOut", 2), ("SponsorOrganization.needOut", 2), ("SponsorOrganization.statementOfWorkOut", 2)]
+    assert sorted(shared) == [("AccountExecutive.deliveryOut", 2), ("AccountExecutive.proposalOut", 2), ("AccountableOrganization.accessOut", 2),
+                              ("Recorder.recordOut", 3), ("SponsorOrganization.acceptanceOut", 2), ("SponsorOrganization.missionOut", 2), ("SponsorOrganization.needOut", 2), ("SponsorOrganization.statementOfWorkOut", 2), ("TestDriver.probesOut", 2)]
 
 
 def test_every_item_kind_reaches_the_recorder():
@@ -94,7 +94,7 @@ def test_parties_and_roles_present():
     assert typed == {"SponsorOrganization", "TestingOrganization", "AccountableOrganization", "AffectedPopulation"}
     org = defs["TestingOrganization"]
     held = {name(g, g.value(u, SYS.type)) for u in g.subjects(SYS.owner, org) if (u, RDF.type, SYS.PartUsage) in g}
-    assert {"AccountExecutive", "EvaluationTeam", "Recorder", "ProbeDeriver", "ConformanceChecker", "CoverageCalculator"} <= held
+    assert {"AccountExecutive", "EvaluationTeam", "Recorder", "TestDriver", "ConformanceChecker", "ReportAssembler"} <= held
 
 
 def test_obligation_relates_sponsor_to_populations():

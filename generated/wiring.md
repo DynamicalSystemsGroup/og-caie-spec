@@ -12,13 +12,13 @@ flowchart LR
   subgraph testingOrg["testingOrg : TestingOrganization"]
     testingOrg_accountExecutive(["accountExecutive : AccountExecutive"])
     testingOrg_conformanceChecker[["conformanceChecker : ConformanceChecker"]]
-    testingOrg_coverageCalculator[["coverageCalculator : CoverageCalculator"]]
-    testingOrg_probeDeriver[["probeDeriver : ProbeDeriver"]]
     testingOrg_recorder[["recorder : Recorder"]]
+    testingOrg_reportAssembler[["reportAssembler : ReportAssembler"]]
     subgraph testingOrg_team["team : EvaluationTeam"]
       testingOrg_team_domainExpert(["domainExpert : DomainExpert"])
       testingOrg_team_operator(["operator : EvaluationOperator"])
     end
+    testingOrg_testDriver[["testDriver : TestDriver"]]
   end
   accountable -- "TestItemAccess" --> testingOrg_recorder
   accountable -- "TestItemAccess" --> testingOrg_team_operator
@@ -28,18 +28,16 @@ flowchart LR
   sponsor -- "Mission, Need, StatementOfWork, Acceptance" --> testingOrg_recorder
   testingOrg_accountExecutive -- "Proposal, Delivery" --> sponsor
   testingOrg_accountExecutive -- "Proposal, ServiceAgreement, Delivery" --> testingOrg_recorder
-  testingOrg_coverageCalculator -- "Report" --> testingOrg_recorder
-  testingOrg_probeDeriver -- "Probe" --> testingOrg_recorder
-  testingOrg_probeDeriver -- "Probe" --> testingOrg_team_operator
-  testingOrg_recorder -- "EvaluationRecord" --> testingOrg_accountExecutive
+  testingOrg_conformanceChecker -- "ConformanceVerdict" --> testingOrg_recorder
   testingOrg_recorder -- "EvaluationRecord" --> testingOrg_conformanceChecker
-  testingOrg_recorder -- "EvaluationRecord" --> testingOrg_coverageCalculator
-  testingOrg_recorder -- "EvaluationRecord" --> testingOrg_probeDeriver
-  testingOrg_recorder -- "EvaluationRecord" --> testingOrg_team_domainExpert
-  testingOrg_recorder -- "EvaluationRecord" --> testingOrg_team_operator
-  testingOrg_team_domainExpert -- "DsoRelease, AppropriatenessAssessment, PlanApproval, Attestation, Determination" --> testingOrg_recorder
+  testingOrg_recorder -- "EvaluationRecord" --> testingOrg_reportAssembler
+  testingOrg_recorder -- "EvaluationRecord" --> testingOrg_testDriver
+  testingOrg_reportAssembler -- "Report" --> testingOrg_recorder
+  testingOrg_team_domainExpert -- "DsoRelease, AppropriatenessAssessment, PlanApproval, Attestation, Determination, ReportApproval" --> testingOrg_recorder
   testingOrg_team_operator -- "Probe" --> accountable_testItem
   testingOrg_team_operator -- "RequirementSet, TestPlan, Evidence, Determination, Recommendation" --> testingOrg_recorder
+  testingOrg_testDriver -- "Probe" --> testingOrg_recorder
+  testingOrg_testDriver -- "Probe" --> testingOrg_team_operator
   sponsor -. "obligation" .-> affected
   classDef person fill:#1b5e20,stroke:#a5d6a7,stroke-width:2px,color:#ffffff;
   classDef machine fill:#880e4f,stroke:#f48fb1,stroke-width:2px,color:#ffffff;
@@ -47,7 +45,7 @@ flowchart LR
   classDef organization fill:#37474f,stroke:#cfd8dc,stroke-width:2px,color:#ffffff;
   linkStyle default stroke:#90a4ae,stroke-width:1.5px;
   class testingOrg_accountExecutive,testingOrg_team_domainExpert,testingOrg_team_operator person;
-  class accountable_testItem,testingOrg_conformanceChecker,testingOrg_coverageCalculator,testingOrg_probeDeriver,testingOrg_recorder machine;
+  class accountable_testItem,testingOrg_conformanceChecker,testingOrg_recorder,testingOrg_reportAssembler,testingOrg_testDriver machine;
   class affected party;
   class sponsor organization;
 ```

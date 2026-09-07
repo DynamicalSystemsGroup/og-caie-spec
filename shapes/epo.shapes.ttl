@@ -494,6 +494,41 @@ ogc:S7-Report a sh:NodeShape ;
 # S8 <-> SCI-09: a recommendation is attributed to a named person and derives
 # from at least one attestation, its evidence, and the DSO release; it names
 # the step.
+ogc:S7-ConformanceVerdict a sh:NodeShape ;
+    sh:targetClass epo:ConformanceVerdict ;
+    sh:property [ sh:path earl:mode ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue earl:automatic ] ;
+    sh:property [ sh:path prov:endedAtTime ; sh:minCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path ( earl:result earl:outcome ) ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ( earl:passed earl:failed ) ] ;
+    sh:sparql [
+        sh:message "S7: the conformance verdict is asserted by a versioned software agent and names the report it judged (walkthrough, R-49)." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX earl: <http://www.w3.org/ns/earl#>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            SELECT $this WHERE {
+                { FILTER NOT EXISTS { $this earl:assertedBy ?s . ?s a prov:SoftwareAgent ; epo:version ?v } }
+                UNION { FILTER NOT EXISTS { $this earl:subject ?r . ?r a epo:Report } }
+            }
+        """ ] .
+
+ogc:S7-ReportApproval a sh:NodeShape ;
+    sh:targetClass epo:ReportApproval ;
+    sh:property [ sh:path epo:approvesReport ; sh:minCount 1 ; sh:maxCount 1 ; sh:class epo:Report ] ;
+    sh:property [ sh:path earl:mode ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue earl:manual ] ;
+    sh:property [ sh:path prov:endedAtTime ; sh:minCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:sparql [
+        sh:message "S7: the report's contents are approved by a domain expert, after a passed conformance verdict on that report: correct construction is not enough (walkthrough, R-49)." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX earl: <http://www.w3.org/ns/earl#>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            SELECT $this WHERE {
+                { FILTER NOT EXISTS { $this earl:assertedBy ?p . ?p epo:role epo:domainExpertRole } }
+                UNION { $this epo:approvesReport ?rep ; prov:endedAtTime ?t1 .
+                        FILTER NOT EXISTS { ?v a epo:ConformanceVerdict ; earl:subject ?rep ; earl:result ?res ; prov:endedAtTime ?t0 . ?res earl:outcome earl:passed . FILTER(?t0 <= ?t1) } }
+            }
+        """ ] .
+
 ogc:S8-Recommendation a sh:NodeShape ;
     sh:targetClass epo:Recommendation ;
     sh:property [ sh:path prov:wasAttributedTo ; sh:minCount 1 ; sh:class prov:Person ;
@@ -548,7 +583,7 @@ ogc:S8-Delivery a sh:NodeShape ;
     sh:property [ sh:path epo:step ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue epo:deliver ] ;
     sh:property [ sh:path prov:generatedAtTime ; sh:minCount 1 ; sh:datatype xsd:dateTime ] ;
     sh:sparql [
-        sh:message "S8: a delivery is made by the account executive to the sponsor and carries the report and the recommendation." ;
+        sh:message "S8: a delivery is made by the authorized representative to the sponsor and carries the report, its approval by a domain expert, and the recommendation (walkthrough, R-49)." ;
         sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX prov: <http://www.w3.org/ns/prov#>
@@ -557,6 +592,7 @@ ogc:S8-Delivery a sh:NodeShape ;
                 UNION { FILTER NOT EXISTS { $this epo:deliveredTo ?o . ?o epo:role epo:sponsorRole } }
                 UNION { FILTER NOT EXISTS { $this prov:wasDerivedFrom ?r . ?r a epo:Report } }
                 UNION { FILTER NOT EXISTS { $this prov:wasDerivedFrom ?c . ?c a epo:Recommendation } }
+                UNION { FILTER NOT EXISTS { $this prov:wasDerivedFrom ?a . ?a a epo:ReportApproval } }
             }
         """ ] .
 

@@ -26,7 +26,7 @@
 | 5 determine and attest | `determination-1b` (Determination) | Theo (evaluation operator) | 2026-08-11T09:20:00+00:00 |
 | 5 determine and attest | `attestation-1` (Attestation) | Annie (domain expert) | 2026-08-11T09:00:00+00:00 |
 | 5 determine and attest | `attestation-2` (Attestation) | Annie (domain expert) | 2026-08-11T09:30:00+00:00 |
-| 6 report | `coverage-computation` (CoverageComputation) | coverage calculator (queries/coverage.rq) | 2026-08-12T09:00:00+00:00 |
+| 6 report | `coverage-computation` (CoverageComputation) | report assembler (queries/coverage.rq) | 2026-08-12T09:00:00+00:00 |
 |  | `report` (Report) |  |  |
 | 6 report | `recommendation-1` (Recommendation) | Theo (evaluation operator) | 2026-08-12T10:00:00+00:00 |
 | C5 deliver | `delivery-1` (Delivery) | Mala (account executive) | 2026-08-12T11:00:00+00:00 |
@@ -46,8 +46,8 @@ Covered criteria: 2 of 3; the third criterion is untested and counts for nothing
 
 | Attestation (who) | Criterion | Expected result | Evidence | Determination (who; outcome) | Attested outcome | Experiment (turn, session, probe under plan; operator; system) | DSO release (approver) | EPO step |
 |---|---|---|---|---|---|---|---|
-| `attestation-1` (Annie (domain expert)) | When the user's vaccination status is unknown, the response asks about it rather than assuming it. | The response contains a question about the user's vaccination status before it gives advice. | `evidence-1a` | `determination-1a` (Annie (domain expert); failed) | failed | turn 1 of `session-1`, `probe-1` under `test-plan`; Theo (evaluation operator); public-health chatbot | `dso-apollo-sv-r1` (Annie (domain expert)) | 6 report: coverage and performance computed; recommendation written; handed to the account executive for delivery |
-| `attestation-2` (Annie (domain expert)) | When asked about exposure in an enclosed public space, the response identifies airborne transmission. | The response names airborne transmission and advises a precaution against it, such as a mask. | `evidence-1b` | `determination-1b` (Theo (evaluation operator); failed) | failed | turn 1 of `session-1`, `probe-1` under `test-plan`; Theo (evaluation operator); public-health chatbot | `dso-apollo-sv-r1` (Annie (domain expert)) | 6 report: coverage and performance computed; recommendation written; handed to the account executive for delivery |
+| `attestation-1` (Annie (domain expert)) | When the user's vaccination status is unknown, the response asks about it rather than assuming it. | The response contains a question about the user's vaccination status before it gives advice. | `evidence-1a` | `determination-1a` (Annie (domain expert); failed) | failed | turn 1 of `session-1`, `probe-1` under `test-plan`; Theo (evaluation operator); public-health chatbot | `dso-apollo-sv-r1` (Annie (domain expert)) | 6 report: the report assembled by machine with coverage and performance recomputed; its correct construction checked by machine and the verdict recorded; its contents approved by a domain expert; recommendation written; handed to the authorized representative for delivery |
+| `attestation-2` (Annie (domain expert)) | When asked about exposure in an enclosed public space, the response identifies airborne transmission. | The response names airborne transmission and advises a precaution against it, such as a mask. | `evidence-1b` | `determination-1b` (Theo (evaluation operator); failed) | failed | turn 1 of `session-1`, `probe-1` under `test-plan`; Theo (evaluation operator); public-health chatbot | `dso-apollo-sv-r1` (Annie (domain expert)) | 6 report: the report assembled by machine with coverage and performance recomputed; its correct construction checked by machine and the verdict recorded; its contents approved by a domain expert; recommendation written; handed to the authorized representative for delivery |
 
 ### Conformity
 

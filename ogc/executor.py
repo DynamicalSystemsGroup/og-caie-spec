@@ -161,9 +161,9 @@ def parties(r: Run, params: Params):
     a["DomainExpert"] = agent("expert", "domain expert", PROV.Person, role=EPO.domainExpertRole, actedOnBehalfOf=a["TestingOrganization"])
     a["EvaluationOperator"] = agent("operator", "evaluation operator", PROV.Person, role=EPO.evaluationOperatorRole, actedOnBehalfOf=a["TestingOrganization"])
     a["TestItem"] = agent("test-item", "test item", PROV.SoftwareAgent, EARL.TestSubject, version=Literal("1"), actedOnBehalfOf=a["AccountableOrganization"])
-    a["ProbeDeriver"] = agent("probe-deriver", "probe deriver", PROV.SoftwareAgent, version=Literal("1"), actedOnBehalfOf=a["TestingOrganization"])
+    a["TestDriver"] = agent("test-driver", "test driver", PROV.SoftwareAgent, version=Literal("1"), actedOnBehalfOf=a["TestingOrganization"])
     a["ConformanceChecker"] = agent("checker", "conformance checker", PROV.SoftwareAgent, version=Literal("1"), actedOnBehalfOf=a["TestingOrganization"])
-    a["CoverageCalculator"] = agent("calculator", "coverage calculator", PROV.SoftwareAgent, version=Literal("1"), actedOnBehalfOf=a["TestingOrganization"])
+    a["ReportAssembler"] = agent("assembler", "report assembler", PROV.SoftwareAgent, version=Literal("1"), actedOnBehalfOf=a["TestingOrganization"])
     a["AffectedPopulation"] = []
     for i in range(params.populations):
         p = agent(f"population-{i + 1}", f"affected population {i + 1}", EPO.Population)
@@ -256,7 +256,7 @@ def t_plan(r, i, p):
     g = r.g
     dso, rs = r.items["DsoRelease"][0], r.items["RequirementSet"][0]
     der = r.new("ProbeDerivation", "derivation", i, 0, timed="endedAtTime")
-    g.add((der, PROV.used, dso)); g.add((der, PROV.used, rs)); g.add((der, PROV.wasAssociatedWith, r.agents["ProbeDeriver"])); g.add((der, EPO.step, EPO.plan))
+    g.add((der, PROV.used, dso)); g.add((der, PROV.used, rs)); g.add((der, PROV.wasAssociatedWith, r.agents["TestDriver"])); g.add((der, EPO.step, EPO.plan))
     plan = r.new("TestPlan", "plan", i, 1)
     g.add((plan, PROV.wasDerivedFrom, rs)); g.add((plan, PROV.wasDerivedFrom, dso)); g.add((plan, PROV.wasGeneratedBy, der)); g.add((plan, EPO.step, EPO.plan)); by(r, plan, "TestPlan")
     covered = r.items["AcceptanceCriterion"][:p.planned]
@@ -321,7 +321,7 @@ def t_determine(r, i, p):
 def t_report(r, i, p):
     g = r.g
     comp = r.new("CoverageComputation", "coverage", i, 0, timed="endedAtTime")
-    g.add((comp, PROV.used, r.items["RequirementSet"][0])); g.add((comp, PROV.wasAssociatedWith, r.agents["CoverageCalculator"])); g.add((comp, EARL.mode, EARL.automatic)); g.add((comp, EPO.step, EPO.report))
+    g.add((comp, PROV.used, r.items["RequirementSet"][0])); g.add((comp, PROV.wasAssociatedWith, r.agents["ReportAssembler"])); g.add((comp, EARL.mode, EARL.automatic)); g.add((comp, EPO.step, EPO.report))
     for att in r.items["Attestation"]:
         g.add((comp, PROV.used, att))
     rep = r.new("Report", "report", i, 1, timed="")
@@ -337,13 +337,19 @@ def t_report(r, i, p):
             for e in g.objects(det, PROV.used):
                 g.add((rec, PROV.wasDerivedFrom, e))
     g.add((rec, PROV.wasDerivedFrom, r.items["TestPlan"][0])); g.add((rec, PROV.wasDerivedFrom, r.items["DsoRelease"][0])); g.add((rec, PROV.wasDerivedFrom, rep))
-    return {"Report", "Recommendation"}
+    ver = r.new("ConformanceVerdict", "verdict", i, 3, timed="endedAtTime")
+    g.add((ver, EARL.subject, rep)); g.add((ver, EARL.mode, EARL.automatic)); g.add((ver, EARL.assertedBy, r.agents["ConformanceChecker"]))
+    g.add((ver, PROV.wasAssociatedWith, r.agents["ConformanceChecker"])); g.add((ver, PROV.used, rep)); g.add((ver, EPO.step, EPO.report)); result(g, ver, "passed")
+    ap = r.new("ReportApproval", "report-approval", i, 4, timed="endedAtTime")
+    g.add((ap, EPO.approvesReport, rep)); g.add((ap, EARL.subject, rep)); g.add((ap, EARL.mode, EARL.manual)); g.add((ap, EARL.assertedBy, r.agents["DomainExpert"]))
+    g.add((ap, PROV.wasAssociatedWith, r.agents["DomainExpert"])); g.add((ap, PROV.used, ver)); g.add((ap, EPO.step, EPO.report)); result(g, ap, "passed")
+    return {"Report", "ConformanceVerdict", "ReportApproval", "Recommendation"}
 
 
 def t_deliver(r, i, p):
     d = r.new("Delivery", "delivery", i)
     g = r.g
-    g.add((d, PROV.wasDerivedFrom, r.items["Report"][0])); g.add((d, PROV.wasDerivedFrom, r.items["Recommendation"][0]))
+    g.add((d, PROV.wasDerivedFrom, r.items["Report"][0])); g.add((d, PROV.wasDerivedFrom, r.items["Recommendation"][0])); g.add((d, PROV.wasDerivedFrom, r.items["ReportApproval"][0]))
     g.add((d, EPO.deliveredTo, r.agents["SponsorOrganization"])); g.add((d, EPO.step, EPO.deliver)); by(r, d, "Delivery")
     return {"Delivery"}
 
@@ -423,6 +429,12 @@ def m_requirements_before_agreement(g):
     g.remove((rs, PROV.generatedAtTime, None)); g.add((rs, PROV.generatedAtTime, Literal(str(t).replace("2026-09-03", "2026-08-30"), datatype=XSD.dateTime)))
 
 
+def m_skip_report_approval(g):
+    """The report is delivered without a domain expert's approval of its contents: correctly constructed, unsigned."""
+    for a in list(g.subjects(RDF.type, EPO.ReportApproval)):
+        g.remove((a, None, None)); g.remove((None, None, a))
+
+
 def m_engagement_mismatch(g):
     """The statement of work said the first population would be interviewed; the decision is flipped to representation, which the record does not realize."""
     d = next(d for d in g.subjects(RDF.type, EPO.EngagementDecision) if (d, EPO.engagement, EPO.interview) in g)
@@ -438,6 +450,7 @@ MUTATIONS = {
     "attest-without-determination": ("attestations aggregate no determination", m_attest_without_determination),
     "requirements-before-agreement": ("the requirement set dated before the agreement", m_requirements_before_agreement),
     "engagement-mismatch": ("the statement of work decides representation for a population the record only interviewed", m_engagement_mismatch),
+    "skip-report-approval": ("the report delivered without a domain expert's approval of its contents", m_skip_report_approval),
 }
 
 

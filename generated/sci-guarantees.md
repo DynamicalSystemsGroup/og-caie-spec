@@ -1,6 +1,6 @@
 | ID | Statement | Checked by |
 |---|---|---|
-| SCI-07 | Coverage is recomputable from a conformant record: a criterion counts as covered only with an attestation behind it. | S7-Report |
-| SCI-08 | Coverage and performance are reported together and never merged. | S7-Report |
+| SCI-07 | Coverage is recomputable from a conformant record: a criterion counts as covered only with an attestation behind it. | S7-ConformanceVerdict, S7-Report, S7-ReportApproval |
+| SCI-08 | Coverage and performance are reported together and never merged. | S7-ConformanceVerdict, S7-Report, S7-ReportApproval |
 | SCI-09 | Every recommendation traces to the attestations it rests on, their evidence, the DSO release and the EPO step. | S8-Recommendation |
 | SCI-11 | The wiring guarantees the end state, checked locally over kinds of parts and ports: every wire runs from an output port on a part to an input port on a part carrying one item kind; at every part every input is present once and every output goes somewhere; every item kind reaches the recorder; the seven contracting steps (C1 to C6 with fulfil between access and delivery) and the six evaluation steps form process DAGs that produce every item kind; a conformant record then yields traceability in both directions and coverage, and answers why. | M2-Part, M2-Wire, M3-RecordHub, M4-EveryItemProduced, M4-Nesting, M4-ProcessDag, M4-Steps |

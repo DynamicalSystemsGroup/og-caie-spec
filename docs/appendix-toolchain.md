@@ -3,7 +3,7 @@
 Appendix A opens the model, Appendix B runs its proofs and Appendix C
 records the judgments it rests on. This appendix says what all of it runs
 on, so that a reader can rebuild every page and verdict on their own
-machine: the environment is a lockfile and the reviewer recipe is five
+machine: the environment is a lockfile and the reviewer recipe is six
 lines.
 
 ## What executable specification means here
@@ -63,31 +63,35 @@ installed. The first run needs the network four times: uv fetches the
 pinned interpreter and the wheels, `get-sysml.sh` fetches the converter's
 release tarball, and the site builder fetches its theme; a second run is
 offline. The gate takes two to three minutes on a laptop, most of it the
-site build.
+test suite; the site build is seconds once the theme is cached.
 
 ```bash
 uv sync
 bash toolchain/get-sysml.sh
 bash checks/run-checks.sh
 uv run -q ogc doctor
-uv run myst start
+uv run myst build --html
 bash scripts/copy_explorer.sh
+uv run python -m http.server -d _build/html 8000
 ```
 
 `uv sync` creates `.venv` from the lockfile and reports the packages it
 installed. `get-sysml.sh` prints `sysml installed+verified: sysml v0.4.3`
 on a first fetch and nothing when the verified binary is already in place;
-a digest mismatch exits 1. The gate prints one line per step, `pass` or `FAIL`, and
+a digest mismatch exits 1. The gate prints each step's name and then `pass` or `FAIL`, and
 ends with `CHECKS: PASS` or `CHECKS: FAIL` followed by the commit it
 judged; that line is what the pre-push hook and CI require. `ogc doctor`
-prints its checks, two notes (the pending quotes and the open concerns,
-which are facts, not faults) and the cache file it wrote, and ends with
+prints its checks, a note per fact that is not a fault (the open concerns;
+the pending quotes when there are any) and a cache line, and ends with
 `VERDICT: PASS` and the path it judged. The notebook step prints one line
 per notebook, `fresh` or `STALE`, then `NOTEBOOK: PASS` or `NOTEBOOK: FAIL`;
-the kernel's warning about an unencrypted local transport is expected. `myst start` builds the
-site and prints the local address to open it at. The gate copies Appendix
-A's explorer next to the built site; after a build of your own, run
-`copy_explorer.sh` so the appendix's frame finds it.
+the kernel's warning about an unencrypted local transport is expected. `myst build --html` writes the site under `_build/html`; the gate copies
+Appendix A's explorer next to it, and after a build of your own
+`copy_explorer.sh` does the same; serving that folder over http is what
+makes Appendix A's frame and its SPARQL box work (`myst start` serves the
+pages live but not the explorer). The converter's fetch script supports
+macOS and Linux on x86-64 and arm64 and needs curl, tar and a sha256 tool;
+the site build and the notebooks need free local ports.
 
 ## The first rung
 

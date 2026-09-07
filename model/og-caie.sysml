@@ -204,6 +204,18 @@ package OGCAIE {
            appropriateness and sufficiency (R-08, R-20, R-21). */
         attribute id : ScalarValues::String;
     }
+    item def ConformanceVerdict {
+        doc /* The conformance checker's verdict on the record and the
+           report: correctly constructed to the shapes, traceable and
+           covered (walkthrough, R-49). Pinned within the evaluation. */
+        attribute id : ScalarValues::String;
+    }
+    item def ReportApproval {
+        doc /* A domain expert's approval of the report's contents after
+           the machine verdict: correct construction is not enough
+           (walkthrough, R-49). Pinned within the evaluation. */
+        attribute id : ScalarValues::String;
+    }
     item def Report {
         doc /* Coverage and performance, computed by machine over a
            conformant record and reported together, never merged. */
@@ -251,6 +263,8 @@ package OGCAIE {
     port def DeterminationWrite { out item i : Determination; }
     port def AttestationWrite { out item i : Attestation; }
     port def ReportWrite { out item i : Report; }
+    port def ConformanceVerdictWrite { out item i : ConformanceVerdict; }
+    port def ReportApprovalWrite { out item i : ReportApproval; }
     port def RecommendationWrite { out item i : Recommendation; }
     port def DeliveryWrite { out item i : Delivery; }
     port def RecordWrite { out item i : EvaluationRecord; }
@@ -279,6 +293,8 @@ package OGCAIE {
     interface def DeterminationSeam { end supplier : DeterminationWrite; end consumer : ~DeterminationWrite; }
     interface def AttestationSeam { end supplier : AttestationWrite; end consumer : ~AttestationWrite; }
     interface def ReportSeam { end supplier : ReportWrite; end consumer : ~ReportWrite; }
+    interface def ConformanceVerdictSeam { end supplier : ConformanceVerdictWrite; end consumer : ~ConformanceVerdictWrite; }
+    interface def ReportApprovalSeam { end supplier : ReportApprovalWrite; end consumer : ~ReportApprovalWrite; }
     interface def RecommendationSeam { end supplier : RecommendationWrite; end consumer : ~RecommendationWrite; }
     interface def DeliverySeam { end supplier : DeliveryWrite; end consumer : ~DeliveryWrite; }
     interface def RecordSeam { end supplier : RecordWrite; end consumer : ~RecordWrite; }
@@ -308,7 +324,7 @@ package OGCAIE {
         action agree { in mission : Mission; in proposal : Proposal; out agreement : ServiceAgreement; out statementOfWork : StatementOfWork; }
         action access { in agreement : ServiceAgreement; out testItemAccess : TestItemAccess; }
         action fulfil : EvaluationProcess;
-        action deliver { in reportIn : Report; in recommendation : Recommendation; out delivery : Delivery; }
+        action deliver { in reportIn : Report; in reportApproval : ReportApproval; in recommendation : Recommendation; out delivery : Delivery; }
         action acceptDelivery { in delivery : Delivery; out acceptance : Acceptance; }
         succession first need then propose;
         succession first propose then agree;
@@ -325,6 +341,7 @@ package OGCAIE {
         flow agree.statementOfWork to fulfil.statementOfWork;
         flow access.testItemAccess to fulfil.testItemAccess;
         flow fulfil.reportOut to deliver.reportIn;
+        flow fulfil.reportApproval to deliver.reportApproval;
         flow fulfil.recommendation to deliver.recommendation;
         flow deliver.delivery to acceptDelivery.delivery;
     }
@@ -338,6 +355,7 @@ package OGCAIE {
         in statementOfWork : StatementOfWork;
         in testItemAccess : TestItemAccess;
         out reportOut : Report;
+        out reportApproval : ReportApproval;
         out recommendation : Recommendation;
         out record : EvaluationRecord;
         action scope { in agreement : ServiceAgreement; in statementOfWork : StatementOfWork; out input : StakeholderInput[0..*]; out dso : DsoRelease; }
@@ -350,7 +368,7 @@ package OGCAIE {
         action determineAndAttest { in evidence : Evidence[1..*]; in criteria : AcceptanceCriterion[1..*];
             out determinations : Determination[1..*]; out attestations : Attestation[1..*]; }
         action report { in attestations : Attestation[1..*]; in determinations : Determination[1..*]; in criteria : AcceptanceCriterion[1..*];
-            out reportOut : Report; out recommendation : Recommendation; }
+            out reportOut : Report; out verdict : ConformanceVerdict; out reportApproval : ReportApproval; out recommendation : Recommendation; }
         succession first scope then declareRequirements;
         succession first declareRequirements then plan;
         succession first plan then execute;
@@ -361,6 +379,7 @@ package OGCAIE {
         bind declareRequirements.agreement = agreement;
         bind execute.testItemAccess = testItemAccess;
         bind reportOut = report.reportOut;
+        bind reportApproval = report.reportApproval;
         bind recommendation = report.recommendation;
         flow scope.dso to declareRequirements.dso;
         flow scope.input to declareRequirements.input;
@@ -431,7 +450,6 @@ package OGCAIE {
         port proposalOut : ProposalWrite;
         port agreementIn : ~AgreementWrite;
         port agreementOut : AgreementWrite;
-        port recordIn : ~RecordWrite;
         port deliveryOut : DeliveryWrite;
         port acceptanceIn : ~AcceptanceWrite;
     }
@@ -445,12 +463,12 @@ package OGCAIE {
            perform, R-24), and attests. Represents the
            populations that are not interviewed. The worked example's
            Annie. */
-        port recordIn : ~RecordWrite;
         port dsoOut : DsoWrite;
         port assessmentOut : AssessmentWrite;
         port planApprovalOut : PlanApprovalWrite;
         port determinationOut : DeterminationWrite;
         port attestationOut : AttestationWrite;
+        port reportApprovalOut : ReportApprovalWrite;
     }
 
     part def EvaluationOperator :> Person {
@@ -460,7 +478,6 @@ package OGCAIE {
            the test item, collects the evidence, makes determinations,
            and writes the recommendation. No attestation port: attestation
            belongs to the domain expert. The worked example's Theo. */
-        port recordIn : ~RecordWrite;
         port requirementsOut : RequirementSetWrite;
         port planOut : PlanWrite;
         port probesIn : ~ProbeWrite;
@@ -504,24 +521,31 @@ package OGCAIE {
         port inputOut : StakeholderInputWrite;
     }
 
-    part def ProbeDeriver :> Machine {
-        doc /* Derives probes from the DSO release and the requirement set
-           in the record; one output read by the operator and the recorder
-           (an output wire may be shared, R-25). */
+    part def TestDriver :> Machine {
+        doc /* The machine part of administering the test plan (SEVOCAB test
+           driver, walkthrough B8, R-49): derives the probes from the DSO
+           release and the requirement set in the record; one output read
+           by the operator and the recorder (an output wire may be shared,
+           R-25). */
         port recordIn : ~RecordWrite;
         port probesOut : ProbeWrite;
     }
 
     part def ConformanceChecker :> Machine {
         doc /* Machine verification, called conformance (ruling R-16): the
-           record is correctly constructed to the EPO shapes. */
+           record and the report are correctly constructed to the EPO
+           shapes, traceable and covered; its verdict is recorded
+           (walkthrough, R-49). */
         port recordIn : ~RecordWrite;
+        port verdictOut : ConformanceVerdictWrite;
     }
 
-    part def CoverageCalculator :> Machine {
-        doc /* Computes coverage and the outcome distribution over the
-           record; anyone holding the record recomputes the same numbers
-           (queries/coverage.rq). */
+    part def ReportAssembler :> Machine {
+        doc /* Assembles the report from the record, coverage and the
+           outcome distribution recomputed inside it; anyone holding the
+           record recomputes the same numbers (queries/coverage.rq). The
+           report is then checked by machine and approved by a domain expert
+           (walkthrough, R-49). */
         port recordIn : ~RecordWrite;
         port reportOut : ReportWrite;
     }
@@ -547,6 +571,8 @@ package OGCAIE {
         port planApprovalIn : ~PlanApprovalWrite;
         port probeIn : ~ProbeWrite;
         port responseIn : ~ResponseWrite;
+        port verdictIn : ~ConformanceVerdictWrite;
+        port reportApprovalIn : ~ReportApprovalWrite;
         port evidenceIn : ~EvidenceWrite;
         port operatorDeterminationIn : ~DeterminationWrite;
         port expertDeterminationIn : ~DeterminationWrite;
@@ -567,9 +593,9 @@ package OGCAIE {
         attribute independentOfAccountable : ScalarValues::Boolean;
         part accountExecutive : AccountExecutive[1];
         part team : EvaluationTeam[1];
-        part probeDeriver : ProbeDeriver;
+        part testDriver : TestDriver;
         part conformanceChecker : ConformanceChecker;
-        part coverageCalculator : CoverageCalculator;
+        part reportAssembler : ReportAssembler;
         part recorder : Recorder;
     }
 
@@ -612,22 +638,21 @@ package OGCAIE {
         interface assessmentSeam : AssessmentSeam connect testingOrg.team.domainExpert.assessmentOut to testingOrg.recorder.assessmentIn;
         interface planSeam : PlanSeam connect testingOrg.team.operator.planOut to testingOrg.recorder.planIn;
         interface planApprovalSeam : PlanApprovalSeam connect testingOrg.team.domainExpert.planApprovalOut to testingOrg.recorder.planApprovalIn;
-        interface derivedProbeSeam : ProbeSeam connect testingOrg.probeDeriver.probesOut to testingOrg.team.operator.probesIn;
-        interface probeRecordSeam : ProbeSeam connect testingOrg.probeDeriver.probesOut to testingOrg.recorder.probeIn;
+        interface derivedProbeSeam : ProbeSeam connect testingOrg.testDriver.probesOut to testingOrg.team.operator.probesIn;
+        interface probeRecordSeam : ProbeSeam connect testingOrg.testDriver.probesOut to testingOrg.recorder.probeIn;
         interface probeRunSeam : ProbeSeam connect testingOrg.team.operator.probesToItem to accountable.testItem.probesIn;
         interface responseSeam : ResponseSeam connect accountable.testItem.responseOut to testingOrg.recorder.responseIn;
         interface evidenceSeam : EvidenceSeam connect testingOrg.team.operator.evidenceOut to testingOrg.recorder.evidenceIn;
         interface operatorDeterminationSeam : DeterminationSeam connect testingOrg.team.operator.determinationOut to testingOrg.recorder.operatorDeterminationIn;
         interface expertDeterminationSeam : DeterminationSeam connect testingOrg.team.domainExpert.determinationOut to testingOrg.recorder.expertDeterminationIn;
         interface attestationSeam : AttestationSeam connect testingOrg.team.domainExpert.attestationOut to testingOrg.recorder.attestationIn;
-        interface reportSeam : ReportSeam connect testingOrg.coverageCalculator.reportOut to testingOrg.recorder.reportIn;
+        interface reportSeam : ReportSeam connect testingOrg.reportAssembler.reportOut to testingOrg.recorder.reportIn;
+        interface verdictSeam : ConformanceVerdictSeam connect testingOrg.conformanceChecker.verdictOut to testingOrg.recorder.verdictIn;
+        interface reportApprovalSeam : ReportApprovalSeam connect testingOrg.team.domainExpert.reportApprovalOut to testingOrg.recorder.reportApprovalIn;
         interface recommendationSeam : RecommendationSeam connect testingOrg.team.operator.recommendationOut to testingOrg.recorder.recommendationIn;
-        interface recordToDeriverSeam : RecordSeam connect testingOrg.recorder.recordOut to testingOrg.probeDeriver.recordIn;
+        interface recordToDriverSeam : RecordSeam connect testingOrg.recorder.recordOut to testingOrg.testDriver.recordIn;
         interface recordToCheckerSeam : RecordSeam connect testingOrg.recorder.recordOut to testingOrg.conformanceChecker.recordIn;
-        interface recordToCalculatorSeam : RecordSeam connect testingOrg.recorder.recordOut to testingOrg.coverageCalculator.recordIn;
-        interface recordToOperatorSeam : RecordSeam connect testingOrg.recorder.recordOut to testingOrg.team.operator.recordIn;
-        interface recordToExpertSeam : RecordSeam connect testingOrg.recorder.recordOut to testingOrg.team.domainExpert.recordIn;
-        interface recordToExecutiveSeam : RecordSeam connect testingOrg.recorder.recordOut to testingOrg.accountExecutive.recordIn;
+        interface recordToAssemblerSeam : RecordSeam connect testingOrg.recorder.recordOut to testingOrg.reportAssembler.recordIn;
         interface deliverySeam : DeliverySeam connect testingOrg.accountExecutive.deliveryOut to sponsor.deliveryIn;
         interface deliveryRecordSeam : DeliverySeam connect testingOrg.accountExecutive.deliveryOut to testingOrg.recorder.deliveryIn;
         interface acceptanceSeam : AcceptanceSeam connect sponsor.acceptanceOut to testingOrg.recorder.acceptanceIn;
@@ -667,9 +692,9 @@ package OGCAIE {
                     part annie :> domainExpert { attribute :>> name = "Annie"; }
                     part theo :> operator { attribute :>> name = "Theo"; }
                 }
-                part :>> probeDeriver { attribute :>> name = "probe-deriver"; attribute :>> version = "0.1"; }
+                part :>> testDriver { attribute :>> name = "test-driver"; attribute :>> version = "0.1"; }
                 part :>> conformanceChecker { attribute :>> name = "pyshacl"; attribute :>> version = "0.27"; }
-                part :>> coverageCalculator { attribute :>> name = "coverage-calculator"; attribute :>> version = "0.1"; }
+                part :>> reportAssembler { attribute :>> name = "report-assembler"; attribute :>> version = "0.1"; }
                 part :>> recorder { attribute :>> name = "recorder"; attribute :>> version = "0.1"; }
             }
             part residents :> affected { attribute :>> name = "county residents"; }

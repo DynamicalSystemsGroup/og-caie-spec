@@ -50,8 +50,8 @@ supplies or approves the DSO release, assesses the appropriateness of the
 requirement set, approves the plan, and attests; the
 {term}`evaluation operator` declares the requirements, writes the plan,
 applies the probes to the {term}`test item`, collects the evidence and
-writes the recommendation. Either may determine on evidence. Machines derive
-probes, check conformance, compute coverage and keep the record; every item
+writes the recommendation. Either may determine on evidence. Machines drive the tests (the test driver derives the probes),
+check conformance, assemble the report and keep the record; every item
 reaches the recorder, and the record fans out to whoever reads it. The
 {term}`account executive` appears only to receive the report.
 

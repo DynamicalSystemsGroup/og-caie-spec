@@ -6490,6 +6490,47 @@
     ]
    ]
   },
+  "https://w3id.org/og-caie/S7-ConformanceVerdict": {
+   "in": [],
+   "out": [
+    [
+     "rdf:type",
+     {
+      "text": "sh:NodeShape"
+     }
+    ],
+    [
+     "sh:property",
+     {
+      "text": "[sh:datatype http://www.w3.org/2001/XMLSchema#dateTi…; sh:minCount 1; sh:path http://www.w3.org/ns/prov#endedAtTime]"
+     }
+    ],
+    [
+     "sh:property",
+     {
+      "text": "[sh:hasValue http://www.w3.org/ns/earl#automatic; sh:maxCount 1; sh:minCount 1; sh:path http://www.w3.org/ns/earl#mode]"
+     }
+    ],
+    [
+     "sh:property",
+     {
+      "text": "[sh:maxCount 1; sh:minCount 1]"
+     }
+    ],
+    [
+     "sh:sparql",
+     {
+      "text": "[sh:message S7: the conformance verdict is asserted…; sh:select PREFIX epo: <https://w3id.org/og-caie/e…]"
+     }
+    ],
+    [
+     "sh:targetClass",
+     {
+      "ref": "https://w3id.org/og-caie/epo#ConformanceVerdict"
+     }
+    ]
+   ]
+  },
   "https://w3id.org/og-caie/S7-Report": {
    "in": [],
    "out": [
@@ -6555,6 +6596,47 @@
     ]
    ]
   },
+  "https://w3id.org/og-caie/S7-ReportApproval": {
+   "in": [],
+   "out": [
+    [
+     "rdf:type",
+     {
+      "text": "sh:NodeShape"
+     }
+    ],
+    [
+     "sh:property",
+     {
+      "text": "[sh:class https://w3id.org/og-caie/epo#Report; sh:maxCount 1; sh:minCount 1; sh:path https://w3id.org/og-caie/epo#approvesRe…]"
+     }
+    ],
+    [
+     "sh:property",
+     {
+      "text": "[sh:datatype http://www.w3.org/2001/XMLSchema#dateTi…; sh:minCount 1; sh:path http://www.w3.org/ns/prov#endedAtTime]"
+     }
+    ],
+    [
+     "sh:property",
+     {
+      "text": "[sh:hasValue http://www.w3.org/ns/earl#manual; sh:maxCount 1; sh:minCount 1; sh:path http://www.w3.org/ns/earl#mode]"
+     }
+    ],
+    [
+     "sh:sparql",
+     {
+      "text": "[sh:message S7: the report's contents are approved…; sh:select PREFIX epo: <https://w3id.org/og-caie/e…]"
+     }
+    ],
+    [
+     "sh:targetClass",
+     {
+      "ref": "https://w3id.org/og-caie/epo#ReportApproval"
+     }
+    ]
+   ]
+  },
   "https://w3id.org/og-caie/S8-Delivery": {
    "in": [],
    "out": [
@@ -6585,7 +6667,7 @@
     [
      "sh:sparql",
      {
-      "text": "[sh:message S8: a delivery is made by the account e…; sh:select PREFIX epo: <https://w3id.org/og-caie/e…]"
+      "text": "[sh:message S8: a delivery is made by the authorize…; sh:select PREFIX epo: <https://w3id.org/og-caie/e…]"
      }
     ],
     [
@@ -7732,6 +7814,41 @@
     ]
    ]
   },
+  "https://w3id.org/og-caie/epo#ConformanceVerdict": {
+   "in": [],
+   "out": [
+    [
+     "ogc:pinnedAt",
+     {
+      "ref": "https://w3id.org/og-caie/epo#evaluation"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "owl:Class"
+     }
+    ],
+    [
+     "rdfs:label",
+     {
+      "text": "conformance verdict: the checker's automatic assertion that the record and the report are correctly constructed to the shapes, traceable and covered (walkthrough, R-49)"
+     }
+    ],
+    [
+     "rdfs:subClassOf",
+     {
+      "text": "earl:Assertion"
+     }
+    ],
+    [
+     "rdfs:subClassOf",
+     {
+      "text": "prov:Activity"
+     }
+    ]
+   ]
+  },
   "https://w3id.org/og-caie/epo#ConsistencyCheck": {
    "in": [],
    "out": [
@@ -8420,6 +8537,18 @@
      {
       "text": "epo:passRate"
      }
+    ],
+    [
+     "rdfs:range",
+     {
+      "text": "epo:approvesReport"
+     }
+    ],
+    [
+     "sh:class",
+     {
+      "text": "[sh:maxCount 1; sh:minCount 1; sh:path https://w3id.org/og-caie/epo#approvesRe…]"
+     }
     ]
    ],
    "out": [
@@ -8445,6 +8574,48 @@
      "rdfs:subClassOf",
      {
       "text": "prov:Entity"
+     }
+    ]
+   ]
+  },
+  "https://w3id.org/og-caie/epo#ReportApproval": {
+   "in": [
+    [
+     "rdfs:domain",
+     {
+      "text": "epo:approvesReport"
+     }
+    ]
+   ],
+   "out": [
+    [
+     "ogc:pinnedAt",
+     {
+      "ref": "https://w3id.org/og-caie/epo#evaluation"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "owl:Class"
+     }
+    ],
+    [
+     "rdfs:label",
+     {
+      "text": "report approval: a domain expert's approval of the report's contents after the machine verdict (walkthrough, R-49)"
+     }
+    ],
+    [
+     "rdfs:subClassOf",
+     {
+      "text": "earl:Assertion"
+     }
+    ],
+    [
+     "rdfs:subClassOf",
+     {
+      "text": "prov:Activity"
      }
     ]
    ]
@@ -9621,7 +9792,7 @@
     [
      "rdfs:label",
      {
-      "text": "6 report: coverage and performance computed; recommendation written; handed to the account executive for delivery"
+      "text": "6 report: the report assembled by machine with coverage and performance recomputed; its correct construction checked by machine and the verdict recorded; its contents approved by a domain expert; recommendation written; handed to the authorized representative for delivery"
      }
     ]
    ]
@@ -16046,7 +16217,7 @@
     [
      "rdfs:label",
      {
-      "text": "coverage calculator (queries/coverage.rq)"
+      "text": "report assembler (queries/coverage.rq)"
      }
     ]
    ]
@@ -16141,6 +16312,12 @@
      "prov:wasDerivedFrom",
      {
       "ref": "https://w3id.org/og-caie/run/measles#report"
+     }
+    ],
+    [
+     "prov:wasDerivedFrom",
+     {
+      "ref": "https://w3id.org/og-caie/run/measles#report-approval-1"
      }
     ],
     [
@@ -16827,7 +17004,7 @@
     [
      "rdfs:label",
      {
-      "text": "probe deriver"
+      "text": "test driver"
      }
     ]
    ]
@@ -17051,6 +17228,136 @@
      "rdf:type",
      {
       "ref": "https://w3id.org/og-caie/epo#Report"
+     }
+    ]
+   ]
+  },
+  "https://w3id.org/og-caie/run/measles#report-approval-1": {
+   "in": [],
+   "out": [
+    [
+     "earl:assertedBy",
+     {
+      "ref": "https://w3id.org/og-caie/run/measles#annie"
+     }
+    ],
+    [
+     "earl:mode",
+     {
+      "text": "earl:manual"
+     }
+    ],
+    [
+     "earl:result",
+     {
+      "text": "[earl:info the report says what the evidence and t…; earl:outcome http://www.w3.org/ns/earl#passed; rdf:type http://www.w3.org/ns/earl#TestResult]"
+     }
+    ],
+    [
+     "earl:subject",
+     {
+      "ref": "https://w3id.org/og-caie/run/measles#report"
+     }
+    ],
+    [
+     "epo:approvesReport",
+     {
+      "ref": "https://w3id.org/og-caie/run/measles#report"
+     }
+    ],
+    [
+     "epo:step",
+     {
+      "ref": "https://w3id.org/og-caie/epo#report"
+     }
+    ],
+    [
+     "prov:endedAtTime",
+     {
+      "text": "2026-08-12T09:45:00+00:00 (dateTime)"
+     }
+    ],
+    [
+     "prov:used",
+     {
+      "ref": "https://w3id.org/og-caie/run/measles#report-verdict-1"
+     }
+    ],
+    [
+     "prov:wasAssociatedWith",
+     {
+      "ref": "https://w3id.org/og-caie/run/measles#annie"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "ref": "https://w3id.org/og-caie/epo#ReportApproval"
+     }
+    ]
+   ]
+  },
+  "https://w3id.org/og-caie/run/measles#report-verdict-1": {
+   "in": [],
+   "out": [
+    [
+     "earl:assertedBy",
+     {
+      "ref": "https://w3id.org/og-caie/run/measles#pyshacl"
+     }
+    ],
+    [
+     "earl:mode",
+     {
+      "text": "earl:automatic"
+     }
+    ],
+    [
+     "earl:result",
+     {
+      "text": "[earl:info the record and the report conform to S0…; earl:outcome http://www.w3.org/ns/earl#passed; rdf:type http://www.w3.org/ns/earl#TestResult]"
+     }
+    ],
+    [
+     "earl:subject",
+     {
+      "ref": "https://w3id.org/og-caie/run/measles#record"
+     }
+    ],
+    [
+     "earl:subject",
+     {
+      "ref": "https://w3id.org/og-caie/run/measles#report"
+     }
+    ],
+    [
+     "epo:step",
+     {
+      "ref": "https://w3id.org/og-caie/epo#report"
+     }
+    ],
+    [
+     "prov:endedAtTime",
+     {
+      "text": "2026-08-12T09:30:00+00:00 (dateTime)"
+     }
+    ],
+    [
+     "prov:used",
+     {
+      "ref": "https://w3id.org/og-caie/run/measles#report"
+     }
+    ],
+    [
+     "prov:wasAssociatedWith",
+     {
+      "ref": "https://w3id.org/og-caie/run/measles#pyshacl"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "ref": "https://w3id.org/og-caie/epo#ConformanceVerdict"
      }
     ]
    ]
@@ -23754,7 +24061,19 @@
     [
      "ogc:checkedBy",
      {
+      "ref": "https://w3id.org/og-caie/S7-ConformanceVerdict"
+     }
+    ],
+    [
+     "ogc:checkedBy",
+     {
       "ref": "https://w3id.org/og-caie/S7-Report"
+     }
+    ],
+    [
+     "ogc:checkedBy",
+     {
+      "ref": "https://w3id.org/og-caie/S7-ReportApproval"
      }
     ],
     [
@@ -23843,7 +24162,19 @@
     [
      "ogc:checkedBy",
      {
+      "ref": "https://w3id.org/og-caie/S7-ConformanceVerdict"
+     }
+    ],
+    [
+     "ogc:checkedBy",
+     {
       "ref": "https://w3id.org/og-caie/S7-Report"
+     }
+    ],
+    [
+     "ogc:checkedBy",
+     {
+      "ref": "https://w3id.org/og-caie/S7-ReportApproval"
      }
     ],
     [
@@ -25091,54 +25422,6 @@
     ]
    ]
   },
-  "urn:sysmlv2:element:OGCAIE__AccountExecutive__recordIn": {
-   "in": [
-    [
-     "ogm:resolvesTo",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToExecutiveSeam_pend1"
-     }
-    ]
-   ],
-   "out": [
-    [
-     "rdf:type",
-     {
-      "text": "sysml:PortUsage"
-     }
-    ],
-    [
-     "sysml:declaredName",
-     {
-      "text": "recordIn"
-     }
-    ],
-    [
-     "sysml:isConjugated",
-     {
-      "text": "true"
-     }
-    ],
-    [
-     "sysml:owner",
-     {
-      "ref": "urn:sysmlv2:element:OGCAIE__AccountExecutive"
-     }
-    ],
-    [
-     "sysml:qualifiedName",
-     {
-      "text": "OGCAIE::AccountExecutive::recordIn"
-     }
-    ],
-    [
-     "sysml:type",
-     {
-      "text": "elmt:OGCAIE__RecordWrite"
-     }
-    ]
-   ]
-  },
   "urn:sysmlv2:element:OGCAIE__AccountExecutive__statementOfWorkIn": {
    "in": [
     [
@@ -25631,6 +25914,108 @@
     ]
    ]
   },
+  "urn:sysmlv2:element:OGCAIE__ConformanceChecker__verdictOut": {
+   "in": [
+    [
+     "ogm:resolvesTo",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__verdictSeam_pend0"
+     }
+    ]
+   ],
+   "out": [
+    [
+     "rdf:type",
+     {
+      "text": "sysml:PortUsage"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "verdictOut"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__ConformanceChecker"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::ConformanceChecker::verdictOut"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__ConformanceVerdictWrite"
+     }
+    ]
+   ]
+  },
+  "urn:sysmlv2:element:OGCAIE__ConformanceVerdict": {
+   "in": [
+    [
+     "sysml:owner",
+     {
+      "text": "elmt:OGCAIE__ConformanceVerdict___400"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "text": "elmt:OGCAIE__ConformanceVerdict__id"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__ConformanceVerdictWrite__i"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__EvaluationProcess__report__verdict"
+     }
+    ]
+   ],
+   "out": [
+    [
+     "corresponds (derived)",
+     {
+      "ref": "https://w3id.org/og-caie/epo#ConformanceVerdict"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "sysml:ItemDefinition"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "ConformanceVerdict"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "text": "elmt:OGCAIE"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::ConformanceVerdict"
+     }
+    ]
+   ]
+  },
   "urn:sysmlv2:element:OGCAIE__ContractingProcess": {
    "in": [
     [
@@ -25732,6 +26117,12 @@
     [
      "sysml:owner",
      {
+      "text": "elmt:OGCAIE__ContractingProcess___4025"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
       "text": "elmt:OGCAIE__ContractingProcess___408"
      }
     ],
@@ -25804,7 +26195,7 @@
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__ContractingProcess___4024_pflowTarget_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__ContractingProcess___4025_pflowTarget_pa0"
      }
     ]
    ],
@@ -26128,6 +26519,12 @@
     [
      "sysml:owner",
      {
+      "text": "elmt:OGCAIE__ContractingProcess__deliver__reportApproval"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
       "text": "elmt:OGCAIE__ContractingProcess__deliver__reportIn"
      }
     ],
@@ -26158,7 +26555,13 @@
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__ContractingProcess___4024_pflowSource_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__ContractingProcess___4024_pflowTarget_pa0"
+     }
+    ],
+    [
+     "sysml:referent",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__ContractingProcess___4025_pflowSource_pa0"
      }
     ]
    ],
@@ -26179,6 +26582,12 @@
      "in (derived)",
      {
       "ref": "urn:sysmlv2:element:OGCAIE__Report"
+     }
+    ],
+    [
+     "in (derived)",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__ReportApproval"
      }
     ],
     [
@@ -26273,6 +26682,12 @@
      "sysml:referent",
      {
       "text": "urn:opensysml:expr:OGCAIE__ContractingProcess___4023_pflowSource_pa0"
+     }
+    ],
+    [
+     "sysml:referent",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__ContractingProcess___4024_pflowSource_pa0"
      }
     ]
    ],
@@ -26527,138 +26942,6 @@
      "then (derived)",
      {
       "ref": "urn:sysmlv2:element:OGCAIE__ContractingProcess__agree"
-     }
-    ]
-   ]
-  },
-  "urn:sysmlv2:element:OGCAIE__CoverageCalculator": {
-   "in": [
-    [
-     "sysml:owner",
-     {
-      "text": "elmt:OGCAIE__CoverageCalculator___400"
-     }
-    ]
-   ],
-   "out": [
-    [
-     "rdf:type",
-     {
-      "text": "sysml:PartDefinition"
-     }
-    ],
-    [
-     "sysml:declaredName",
-     {
-      "text": "CoverageCalculator"
-     }
-    ],
-    [
-     "sysml:owner",
-     {
-      "text": "elmt:OGCAIE"
-     }
-    ],
-    [
-     "sysml:qualifiedName",
-     {
-      "text": "OGCAIE::CoverageCalculator"
-     }
-    ],
-    [
-     "sysml:specializes",
-     {
-      "ref": "urn:sysmlv2:element:OGCAIE__Machine"
-     }
-    ]
-   ]
-  },
-  "urn:sysmlv2:element:OGCAIE__CoverageCalculator__recordIn": {
-   "in": [
-    [
-     "ogm:resolvesTo",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToCalculatorSeam_pend1"
-     }
-    ]
-   ],
-   "out": [
-    [
-     "rdf:type",
-     {
-      "text": "sysml:PortUsage"
-     }
-    ],
-    [
-     "sysml:declaredName",
-     {
-      "text": "recordIn"
-     }
-    ],
-    [
-     "sysml:isConjugated",
-     {
-      "text": "true"
-     }
-    ],
-    [
-     "sysml:owner",
-     {
-      "ref": "urn:sysmlv2:element:OGCAIE__CoverageCalculator"
-     }
-    ],
-    [
-     "sysml:qualifiedName",
-     {
-      "text": "OGCAIE::CoverageCalculator::recordIn"
-     }
-    ],
-    [
-     "sysml:type",
-     {
-      "text": "elmt:OGCAIE__RecordWrite"
-     }
-    ]
-   ]
-  },
-  "urn:sysmlv2:element:OGCAIE__CoverageCalculator__reportOut": {
-   "in": [
-    [
-     "ogm:resolvesTo",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__reportSeam_pend0"
-     }
-    ]
-   ],
-   "out": [
-    [
-     "rdf:type",
-     {
-      "text": "sysml:PortUsage"
-     }
-    ],
-    [
-     "sysml:declaredName",
-     {
-      "text": "reportOut"
-     }
-    ],
-    [
-     "sysml:owner",
-     {
-      "ref": "urn:sysmlv2:element:OGCAIE__CoverageCalculator"
-     }
-    ],
-    [
-     "sysml:qualifiedName",
-     {
-      "text": "OGCAIE::CoverageCalculator::reportOut"
-     }
-    ],
-    [
-     "sysml:type",
-     {
-      "text": "elmt:OGCAIE__ReportWrite"
      }
     ]
    ]
@@ -27047,12 +27330,12 @@
     ]
    ]
   },
-  "urn:sysmlv2:element:OGCAIE__DomainExpert__recordIn": {
+  "urn:sysmlv2:element:OGCAIE__DomainExpert__reportApprovalOut": {
    "in": [
     [
      "ogm:resolvesTo",
      {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToExpertSeam_pend1"
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__reportApprovalSeam_pend0"
      }
     ]
    ],
@@ -27066,13 +27349,7 @@
     [
      "sysml:declaredName",
      {
-      "text": "recordIn"
-     }
-    ],
-    [
-     "sysml:isConjugated",
-     {
-      "text": "true"
+      "text": "reportApprovalOut"
      }
     ],
     [
@@ -27084,13 +27361,13 @@
     [
      "sysml:qualifiedName",
      {
-      "text": "OGCAIE::DomainExpert::recordIn"
+      "text": "OGCAIE::DomainExpert::reportApprovalOut"
      }
     ],
     [
      "sysml:type",
      {
-      "text": "elmt:OGCAIE__RecordWrite"
+      "text": "elmt:OGCAIE__ReportApprovalWrite"
      }
     ]
    ]
@@ -27515,54 +27792,6 @@
     ]
    ]
   },
-  "urn:sysmlv2:element:OGCAIE__EvaluationOperator__recordIn": {
-   "in": [
-    [
-     "ogm:resolvesTo",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToOperatorSeam_pend1"
-     }
-    ]
-   ],
-   "out": [
-    [
-     "rdf:type",
-     {
-      "text": "sysml:PortUsage"
-     }
-    ],
-    [
-     "sysml:declaredName",
-     {
-      "text": "recordIn"
-     }
-    ],
-    [
-     "sysml:isConjugated",
-     {
-      "text": "true"
-     }
-    ],
-    [
-     "sysml:owner",
-     {
-      "ref": "urn:sysmlv2:element:OGCAIE__EvaluationOperator"
-     }
-    ],
-    [
-     "sysml:qualifiedName",
-     {
-      "text": "OGCAIE::EvaluationOperator::recordIn"
-     }
-    ],
-    [
-     "sysml:type",
-     {
-      "text": "elmt:OGCAIE__RecordWrite"
-     }
-    ]
-   ]
-  },
   "urn:sysmlv2:element:OGCAIE__EvaluationOperator__requirementsOut": {
    "in": [
     [
@@ -27611,12 +27840,6 @@
      "sysml:owner",
      {
       "text": "elmt:OGCAIE__EvaluationProcess___400"
-     }
-    ],
-    [
-     "sysml:owner",
-     {
-      "text": "elmt:OGCAIE__EvaluationProcess___4013"
      }
     ],
     [
@@ -27754,6 +27977,18 @@
     [
      "sysml:owner",
      {
+      "text": "elmt:OGCAIE__EvaluationProcess___4036"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "text": "elmt:OGCAIE__EvaluationProcess___4037"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
       "text": "elmt:OGCAIE__EvaluationProcess__agreement"
      }
     ],
@@ -27767,6 +28002,12 @@
      "sysml:owner",
      {
       "text": "elmt:OGCAIE__EvaluationProcess__record"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "text": "elmt:OGCAIE__EvaluationProcess__reportApproval"
      }
     ],
     [
@@ -27820,13 +28061,13 @@
     [
      "ogm:first",
      {
-      "text": "elmt:OGCAIE__EvaluationProcess___4014"
+      "text": "elmt:OGCAIE__EvaluationProcess___4015"
      }
     ],
     [
      "ogm:then",
      {
-      "text": "elmt:OGCAIE__EvaluationProcess___4013"
+      "text": "elmt:OGCAIE__EvaluationProcess___4014"
      }
     ],
     [
@@ -27868,49 +28109,49 @@
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4013_pend1"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4014_pend1"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4014_pend0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4015_pend0"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4024_pflowTarget_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4026_pflowTarget_pa0"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4025_pflowTarget_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4027_pflowTarget_pa0"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4027_pflowSource_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4029_pflowSource_pa0"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4028_pflowSource_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4030_pflowSource_pa0"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4032_pflowSource_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4034_pflowSource_pa0"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4035_pflowSource_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4037_pflowSource_pa0"
      }
     ]
    ],
@@ -27994,13 +28235,13 @@
     [
      "ogm:first",
      {
-      "text": "elmt:OGCAIE__EvaluationProcess___4017"
+      "text": "elmt:OGCAIE__EvaluationProcess___4018"
      }
     ],
     [
      "ogm:then",
      {
-      "text": "elmt:OGCAIE__EvaluationProcess___4016"
+      "text": "elmt:OGCAIE__EvaluationProcess___4017"
      }
     ],
     [
@@ -28030,37 +28271,37 @@
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4016_pend1"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4017_pend1"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4017_pend0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4018_pend0"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4031_pflowTarget_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4033_pflowTarget_pa0"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4032_pflowTarget_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4034_pflowTarget_pa0"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4033_pflowSource_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4035_pflowSource_pa0"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4034_pflowSource_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4036_pflowSource_pa0"
      }
     ]
    ],
@@ -28132,13 +28373,13 @@
     [
      "ogm:first",
      {
-      "text": "elmt:OGCAIE__EvaluationProcess___4016"
+      "text": "elmt:OGCAIE__EvaluationProcess___4017"
      }
     ],
     [
      "ogm:then",
      {
-      "text": "elmt:OGCAIE__EvaluationProcess___4015"
+      "text": "elmt:OGCAIE__EvaluationProcess___4016"
      }
     ],
     [
@@ -28180,31 +28421,31 @@
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4015_pend1"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4016_pend1"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4016_pend0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4017_pend0"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4029_pflowTarget_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4031_pflowTarget_pa0"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4030_pflowTarget_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4032_pflowTarget_pa0"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4031_pflowSource_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4033_pflowSource_pa0"
      }
     ]
    ],
@@ -28288,13 +28529,13 @@
     [
      "ogm:first",
      {
-      "text": "elmt:OGCAIE__EvaluationProcess___4015"
+      "text": "elmt:OGCAIE__EvaluationProcess___4016"
      }
     ],
     [
      "ogm:then",
      {
-      "text": "elmt:OGCAIE__EvaluationProcess___4014"
+      "text": "elmt:OGCAIE__EvaluationProcess___4015"
      }
     ],
     [
@@ -28342,25 +28583,13 @@
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4014_pend1"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4015_pend1"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4015_pend0"
-     }
-    ],
-    [
-     "sysml:referent",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4026_pflowTarget_pa0"
-     }
-    ],
-    [
-     "sysml:referent",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4027_pflowTarget_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4016_pend0"
      }
     ],
     [
@@ -28372,13 +28601,25 @@
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4029_pflowSource_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4029_pflowTarget_pa0"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4030_pflowSource_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4030_pflowTarget_pa0"
+     }
+    ],
+    [
+     "sysml:referent",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4031_pflowSource_pa0"
+     }
+    ],
+    [
+     "sysml:referent",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4032_pflowSource_pa0"
      }
     ]
    ],
@@ -28468,7 +28709,7 @@
     [
      "ogm:then",
      {
-      "text": "elmt:OGCAIE__EvaluationProcess___4017"
+      "text": "elmt:OGCAIE__EvaluationProcess___4018"
      }
     ],
     [
@@ -28498,19 +28739,25 @@
     [
      "sysml:owner",
      {
+      "text": "elmt:OGCAIE__EvaluationProcess__report__reportApproval"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
       "text": "elmt:OGCAIE__EvaluationProcess__report__reportOut"
      }
     ],
     [
-     "sysml:referent",
+     "sysml:owner",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4017_pend1"
+      "text": "elmt:OGCAIE__EvaluationProcess__report__verdict"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4022_pvalue_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4018_pend1"
      }
     ],
     [
@@ -28522,19 +28769,31 @@
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4033_pflowTarget_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4024_pvalue_pa0"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4034_pflowTarget_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4025_pvalue_pa0"
      }
     ],
     [
      "sysml:referent",
      {
       "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4035_pflowTarget_pa0"
+     }
+    ],
+    [
+     "sysml:referent",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4036_pflowTarget_pa0"
+     }
+    ],
+    [
+     "sysml:referent",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4037_pflowTarget_pa0"
      }
     ]
    ],
@@ -28566,6 +28825,12 @@
     [
      "out (derived)",
      {
+      "ref": "urn:sysmlv2:element:OGCAIE__ConformanceVerdict"
+     }
+    ],
+    [
+     "out (derived)",
+     {
       "ref": "urn:sysmlv2:element:OGCAIE__Recommendation"
      }
     ],
@@ -28573,6 +28838,12 @@
      "out (derived)",
      {
       "ref": "urn:sysmlv2:element:OGCAIE__Report"
+     }
+    ],
+    [
+     "out (derived)",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__ReportApproval"
      }
     ],
     [
@@ -28606,7 +28877,7 @@
     [
      "ogm:first",
      {
-      "text": "elmt:OGCAIE__EvaluationProcess___4013"
+      "text": "elmt:OGCAIE__EvaluationProcess___4014"
      }
     ],
     [
@@ -28636,25 +28907,25 @@
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4013_pend0"
-     }
-    ],
-    [
-     "sysml:referent",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4024_pflowSource_pa0"
-     }
-    ],
-    [
-     "sysml:referent",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4025_pflowSource_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4014_pend0"
      }
     ],
     [
      "sysml:referent",
      {
       "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4026_pflowSource_pa0"
+     }
+    ],
+    [
+     "sysml:referent",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4027_pflowSource_pa0"
+     }
+    ],
+    [
+     "sysml:referent",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__EvaluationProcess___4028_pflowSource_pa0"
      }
     ]
    ],
@@ -28846,7 +29117,7 @@
     [
      "ogm:endPart",
      {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToExpertSeam_pend1"
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__reportApprovalSeam_pend0"
      }
     ]
    ],
@@ -28937,12 +29208,6 @@
      "ogm:endPart",
      {
       "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recommendationSeam_pend0"
-     }
-    ],
-    [
-     "ogm:endPart",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToOperatorSeam_pend1"
      }
     ],
     [
@@ -30204,7 +30469,7 @@
     [
      "ogm:supplierPort",
      {
-      "ref": "urn:sysmlv2:element:OGCAIE__ProbeDeriver__probesOut"
+      "ref": "urn:sysmlv2:element:OGCAIE__TestDriver__probesOut"
      }
     ],
     [
@@ -30252,7 +30517,7 @@
     [
      "sysx:sourceText",
      {
-      "text": "interface derivedProbeSeam : ProbeSeam connect testingOrg.probeDeriver.probesOut to testingOrg.team.operator.probesIn;"
+      "text": "interface derivedProbeSeam : ProbeSeam connect testingOrg.testDriver.probesOut to testingOrg.team.operator.probesIn;"
      }
     ]
    ]
@@ -31050,7 +31315,7 @@
     [
      "ogm:supplierPort",
      {
-      "ref": "urn:sysmlv2:element:OGCAIE__ProbeDeriver__probesOut"
+      "ref": "urn:sysmlv2:element:OGCAIE__TestDriver__probesOut"
      }
     ],
     [
@@ -31098,7 +31363,7 @@
     [
      "sysx:sourceText",
      {
-      "text": "interface probeRecordSeam : ProbeSeam connect testingOrg.probeDeriver.probesOut to testingOrg.recorder.probeIn;"
+      "text": "interface probeRecordSeam : ProbeSeam connect testingOrg.testDriver.probesOut to testingOrg.recorder.probeIn;"
      }
     ]
    ]
@@ -31387,7 +31652,7 @@
     ]
    ]
   },
-  "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToCalculatorSeam": {
+  "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToAssemblerSeam": {
    "in": [],
    "out": [
     [
@@ -31399,7 +31664,7 @@
     [
      "ogm:consumerPort",
      {
-      "ref": "urn:sysmlv2:element:OGCAIE__CoverageCalculator__recordIn"
+      "ref": "urn:sysmlv2:element:OGCAIE__ReportAssembler__recordIn"
      }
     ],
     [
@@ -31417,7 +31682,7 @@
     [
      "sysml:declaredName",
      {
-      "text": "recordToCalculatorSeam"
+      "text": "recordToAssemblerSeam"
      }
     ],
     [
@@ -31429,7 +31694,7 @@
     [
      "sysml:qualifiedName",
      {
-      "text": "OGCAIE::OgCaieEvaluation::recordToCalculatorSeam"
+      "text": "OGCAIE::OgCaieEvaluation::recordToAssemblerSeam"
      }
     ],
     [
@@ -31441,19 +31706,19 @@
     [
      "sysx:relatedFeature",
      {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToCalculatorSeam_pend0"
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToAssemblerSeam_pend0"
      }
     ],
     [
      "sysx:relatedFeature",
      {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToCalculatorSeam_pend1"
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToAssemblerSeam_pend1"
      }
     ],
     [
      "sysx:sourceText",
      {
-      "text": "interface recordToCalculatorSeam : RecordSeam connect testingOrg.recorder.recordOut to testingOrg.coverageCalculator.recordIn;"
+      "text": "interface recordToAssemblerSeam : RecordSeam connect testingOrg.recorder.recordOut to testingOrg.reportAssembler.recordIn;"
      }
     ]
    ]
@@ -31529,7 +31794,7 @@
     ]
    ]
   },
-  "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToDeriverSeam": {
+  "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToDriverSeam": {
    "in": [],
    "out": [
     [
@@ -31541,7 +31806,7 @@
     [
      "ogm:consumerPort",
      {
-      "ref": "urn:sysmlv2:element:OGCAIE__ProbeDeriver__recordIn"
+      "ref": "urn:sysmlv2:element:OGCAIE__TestDriver__recordIn"
      }
     ],
     [
@@ -31559,7 +31824,7 @@
     [
      "sysml:declaredName",
      {
-      "text": "recordToDeriverSeam"
+      "text": "recordToDriverSeam"
      }
     ],
     [
@@ -31571,7 +31836,7 @@
     [
      "sysml:qualifiedName",
      {
-      "text": "OGCAIE::OgCaieEvaluation::recordToDeriverSeam"
+      "text": "OGCAIE::OgCaieEvaluation::recordToDriverSeam"
      }
     ],
     [
@@ -31583,42 +31848,42 @@
     [
      "sysx:relatedFeature",
      {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToDeriverSeam_pend0"
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToDriverSeam_pend0"
      }
     ],
     [
      "sysx:relatedFeature",
      {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToDeriverSeam_pend1"
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToDriverSeam_pend1"
      }
     ],
     [
      "sysx:sourceText",
      {
-      "text": "interface recordToDeriverSeam : RecordSeam connect testingOrg.recorder.recordOut to testingOrg.probeDeriver.recordIn;"
+      "text": "interface recordToDriverSeam : RecordSeam connect testingOrg.recorder.recordOut to testingOrg.testDriver.recordIn;"
      }
     ]
    ]
   },
-  "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToExecutiveSeam": {
+  "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__reportApprovalSeam": {
    "in": [],
    "out": [
     [
      "carries (derived)",
      {
-      "ref": "urn:sysmlv2:element:OGCAIE__EvaluationRecord"
+      "ref": "urn:sysmlv2:element:OGCAIE__ReportApproval"
      }
     ],
     [
      "ogm:consumerPort",
      {
-      "ref": "urn:sysmlv2:element:OGCAIE__AccountExecutive__recordIn"
+      "ref": "urn:sysmlv2:element:OGCAIE__Recorder__reportApprovalIn"
      }
     ],
     [
      "ogm:supplierPort",
      {
-      "ref": "urn:sysmlv2:element:OGCAIE__Recorder__recordOut"
+      "ref": "urn:sysmlv2:element:OGCAIE__DomainExpert__reportApprovalOut"
      }
     ],
     [
@@ -31630,7 +31895,7 @@
     [
      "sysml:declaredName",
      {
-      "text": "recordToExecutiveSeam"
+      "text": "reportApprovalSeam"
      }
     ],
     [
@@ -31642,173 +31907,31 @@
     [
      "sysml:qualifiedName",
      {
-      "text": "OGCAIE::OgCaieEvaluation::recordToExecutiveSeam"
+      "text": "OGCAIE::OgCaieEvaluation::reportApprovalSeam"
      }
     ],
     [
      "sysml:type",
      {
-      "text": "elmt:OGCAIE__RecordSeam"
+      "text": "elmt:OGCAIE__ReportApprovalSeam"
      }
     ],
     [
      "sysx:relatedFeature",
      {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToExecutiveSeam_pend0"
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__reportApprovalSeam_pend0"
      }
     ],
     [
      "sysx:relatedFeature",
      {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToExecutiveSeam_pend1"
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__reportApprovalSeam_pend1"
      }
     ],
     [
      "sysx:sourceText",
      {
-      "text": "interface recordToExecutiveSeam : RecordSeam connect testingOrg.recorder.recordOut to testingOrg.accountExecutive.recordIn;"
-     }
-    ]
-   ]
-  },
-  "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToExpertSeam": {
-   "in": [],
-   "out": [
-    [
-     "carries (derived)",
-     {
-      "ref": "urn:sysmlv2:element:OGCAIE__EvaluationRecord"
-     }
-    ],
-    [
-     "ogm:consumerPort",
-     {
-      "ref": "urn:sysmlv2:element:OGCAIE__DomainExpert__recordIn"
-     }
-    ],
-    [
-     "ogm:supplierPort",
-     {
-      "ref": "urn:sysmlv2:element:OGCAIE__Recorder__recordOut"
-     }
-    ],
-    [
-     "rdf:type",
-     {
-      "text": "sysml:InterfaceUsage"
-     }
-    ],
-    [
-     "sysml:declaredName",
-     {
-      "text": "recordToExpertSeam"
-     }
-    ],
-    [
-     "sysml:owner",
-     {
-      "ref": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation"
-     }
-    ],
-    [
-     "sysml:qualifiedName",
-     {
-      "text": "OGCAIE::OgCaieEvaluation::recordToExpertSeam"
-     }
-    ],
-    [
-     "sysml:type",
-     {
-      "text": "elmt:OGCAIE__RecordSeam"
-     }
-    ],
-    [
-     "sysx:relatedFeature",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToExpertSeam_pend0"
-     }
-    ],
-    [
-     "sysx:relatedFeature",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToExpertSeam_pend1"
-     }
-    ],
-    [
-     "sysx:sourceText",
-     {
-      "text": "interface recordToExpertSeam : RecordSeam connect testingOrg.recorder.recordOut to testingOrg.team.domainExpert.recordIn;"
-     }
-    ]
-   ]
-  },
-  "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToOperatorSeam": {
-   "in": [],
-   "out": [
-    [
-     "carries (derived)",
-     {
-      "ref": "urn:sysmlv2:element:OGCAIE__EvaluationRecord"
-     }
-    ],
-    [
-     "ogm:consumerPort",
-     {
-      "ref": "urn:sysmlv2:element:OGCAIE__EvaluationOperator__recordIn"
-     }
-    ],
-    [
-     "ogm:supplierPort",
-     {
-      "ref": "urn:sysmlv2:element:OGCAIE__Recorder__recordOut"
-     }
-    ],
-    [
-     "rdf:type",
-     {
-      "text": "sysml:InterfaceUsage"
-     }
-    ],
-    [
-     "sysml:declaredName",
-     {
-      "text": "recordToOperatorSeam"
-     }
-    ],
-    [
-     "sysml:owner",
-     {
-      "ref": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation"
-     }
-    ],
-    [
-     "sysml:qualifiedName",
-     {
-      "text": "OGCAIE::OgCaieEvaluation::recordToOperatorSeam"
-     }
-    ],
-    [
-     "sysml:type",
-     {
-      "text": "elmt:OGCAIE__RecordSeam"
-     }
-    ],
-    [
-     "sysx:relatedFeature",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToOperatorSeam_pend0"
-     }
-    ],
-    [
-     "sysx:relatedFeature",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToOperatorSeam_pend1"
-     }
-    ],
-    [
-     "sysx:sourceText",
-     {
-      "text": "interface recordToOperatorSeam : RecordSeam connect testingOrg.recorder.recordOut to testingOrg.team.operator.recordIn;"
+      "text": "interface reportApprovalSeam : ReportApprovalSeam connect testingOrg.team.domainExpert.reportApprovalOut to testingOrg.recorder.reportApprovalIn;"
      }
     ]
    ]
@@ -31831,7 +31954,7 @@
     [
      "ogm:supplierPort",
      {
-      "ref": "urn:sysmlv2:element:OGCAIE__CoverageCalculator__reportOut"
+      "ref": "urn:sysmlv2:element:OGCAIE__ReportAssembler__reportOut"
      }
     ],
     [
@@ -31879,7 +32002,7 @@
     [
      "sysx:sourceText",
      {
-      "text": "interface reportSeam : ReportSeam connect testingOrg.coverageCalculator.reportOut to testingOrg.recorder.reportIn;"
+      "text": "interface reportSeam : ReportSeam connect testingOrg.reportAssembler.reportOut to testingOrg.recorder.reportIn;"
      }
     ]
    ]
@@ -32658,13 +32781,13 @@
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToCalculatorSeam_pend0_pa0_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToAssemblerSeam_pend0_pa0_pa0"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToCalculatorSeam_pend1_pa0_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToAssemblerSeam_pend1_pa0_pa0"
      }
     ],
     [
@@ -32682,49 +32805,25 @@
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToDeriverSeam_pend0_pa0_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToDriverSeam_pend0_pa0_pa0"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToDeriverSeam_pend1_pa0_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToDriverSeam_pend1_pa0_pa0"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToExecutiveSeam_pend0_pa0_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__reportApprovalSeam_pend0_pa0_pa0_pa0"
      }
     ],
     [
      "sysml:referent",
      {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToExecutiveSeam_pend1_pa0_pa0"
-     }
-    ],
-    [
-     "sysml:referent",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToExpertSeam_pend0_pa0_pa0"
-     }
-    ],
-    [
-     "sysml:referent",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToExpertSeam_pend1_pa0_pa0_pa0"
-     }
-    ],
-    [
-     "sysml:referent",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToOperatorSeam_pend0_pa0_pa0"
-     }
-    ],
-    [
-     "sysml:referent",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToOperatorSeam_pend1_pa0_pa0_pa0"
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__reportApprovalSeam_pend1_pa0_pa0"
      }
     ],
     [
@@ -32774,6 +32873,18 @@
      {
       "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam_pend1_pa0_pa0"
      }
+    ],
+    [
+     "sysml:referent",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__verdictSeam_pend0_pa0_pa0"
+     }
+    ],
+    [
+     "sysml:referent",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__verdictSeam_pend1_pa0_pa0"
+     }
     ]
    ],
    "out": [
@@ -32805,6 +32916,77 @@
      "sysml:type",
      {
       "ref": "urn:sysmlv2:element:OGCAIE__TestingOrganization"
+     }
+    ]
+   ]
+  },
+  "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__verdictSeam": {
+   "in": [],
+   "out": [
+    [
+     "carries (derived)",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__ConformanceVerdict"
+     }
+    ],
+    [
+     "ogm:consumerPort",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__Recorder__verdictIn"
+     }
+    ],
+    [
+     "ogm:supplierPort",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__ConformanceChecker__verdictOut"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "sysml:InterfaceUsage"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "verdictSeam"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::OgCaieEvaluation::verdictSeam"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__ConformanceVerdictSeam"
+     }
+    ],
+    [
+     "sysx:relatedFeature",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__verdictSeam_pend0"
+     }
+    ],
+    [
+     "sysx:relatedFeature",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__verdictSeam_pend1"
+     }
+    ],
+    [
+     "sysx:sourceText",
+     {
+      "text": "interface verdictSeam : ConformanceVerdictSeam connect testingOrg.conformanceChecker.verdictOut to testingOrg.recorder.verdictIn;"
      }
     ]
    ]
@@ -33063,144 +33245,6 @@
      "sysml:qualifiedName",
      {
       "text": "OGCAIE::Probe"
-     }
-    ]
-   ]
-  },
-  "urn:sysmlv2:element:OGCAIE__ProbeDeriver": {
-   "in": [
-    [
-     "sysml:owner",
-     {
-      "text": "elmt:OGCAIE__ProbeDeriver___400"
-     }
-    ]
-   ],
-   "out": [
-    [
-     "rdf:type",
-     {
-      "text": "sysml:PartDefinition"
-     }
-    ],
-    [
-     "sysml:declaredName",
-     {
-      "text": "ProbeDeriver"
-     }
-    ],
-    [
-     "sysml:owner",
-     {
-      "text": "elmt:OGCAIE"
-     }
-    ],
-    [
-     "sysml:qualifiedName",
-     {
-      "text": "OGCAIE::ProbeDeriver"
-     }
-    ],
-    [
-     "sysml:specializes",
-     {
-      "ref": "urn:sysmlv2:element:OGCAIE__Machine"
-     }
-    ]
-   ]
-  },
-  "urn:sysmlv2:element:OGCAIE__ProbeDeriver__probesOut": {
-   "in": [
-    [
-     "ogm:resolvesTo",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__derivedProbeSeam_pend0"
-     }
-    ],
-    [
-     "ogm:resolvesTo",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__probeRecordSeam_pend0"
-     }
-    ]
-   ],
-   "out": [
-    [
-     "rdf:type",
-     {
-      "text": "sysml:PortUsage"
-     }
-    ],
-    [
-     "sysml:declaredName",
-     {
-      "text": "probesOut"
-     }
-    ],
-    [
-     "sysml:owner",
-     {
-      "ref": "urn:sysmlv2:element:OGCAIE__ProbeDeriver"
-     }
-    ],
-    [
-     "sysml:qualifiedName",
-     {
-      "text": "OGCAIE::ProbeDeriver::probesOut"
-     }
-    ],
-    [
-     "sysml:type",
-     {
-      "text": "elmt:OGCAIE__ProbeWrite"
-     }
-    ]
-   ]
-  },
-  "urn:sysmlv2:element:OGCAIE__ProbeDeriver__recordIn": {
-   "in": [
-    [
-     "ogm:resolvesTo",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToDeriverSeam_pend1"
-     }
-    ]
-   ],
-   "out": [
-    [
-     "rdf:type",
-     {
-      "text": "sysml:PortUsage"
-     }
-    ],
-    [
-     "sysml:declaredName",
-     {
-      "text": "recordIn"
-     }
-    ],
-    [
-     "sysml:isConjugated",
-     {
-      "text": "true"
-     }
-    ],
-    [
-     "sysml:owner",
-     {
-      "ref": "urn:sysmlv2:element:OGCAIE__ProbeDeriver"
-     }
-    ],
-    [
-     "sysml:qualifiedName",
-     {
-      "text": "OGCAIE::ProbeDeriver::recordIn"
-     }
-    ],
-    [
-     "sysml:type",
-     {
-      "text": "elmt:OGCAIE__RecordWrite"
      }
     ]
    ]
@@ -34254,7 +34298,7 @@
     [
      "ogm:resolvesTo",
      {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToCalculatorSeam_pend0"
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToAssemblerSeam_pend0"
      }
     ],
     [
@@ -34266,25 +34310,7 @@
     [
      "ogm:resolvesTo",
      {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToDeriverSeam_pend0"
-     }
-    ],
-    [
-     "ogm:resolvesTo",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToExecutiveSeam_pend0"
-     }
-    ],
-    [
-     "ogm:resolvesTo",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToExpertSeam_pend0"
-     }
-    ],
-    [
-     "ogm:resolvesTo",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToOperatorSeam_pend0"
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToDriverSeam_pend0"
      }
     ]
    ],
@@ -34317,6 +34343,54 @@
      "sysml:type",
      {
       "text": "elmt:OGCAIE__RecordWrite"
+     }
+    ]
+   ]
+  },
+  "urn:sysmlv2:element:OGCAIE__Recorder__reportApprovalIn": {
+   "in": [
+    [
+     "ogm:resolvesTo",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__reportApprovalSeam_pend1"
+     }
+    ]
+   ],
+   "out": [
+    [
+     "rdf:type",
+     {
+      "text": "sysml:PortUsage"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "reportApprovalIn"
+     }
+    ],
+    [
+     "sysml:isConjugated",
+     {
+      "text": "true"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__Recorder"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::Recorder::reportApprovalIn"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__ReportApprovalWrite"
      }
     ]
    ]
@@ -34513,6 +34587,54 @@
     ]
    ]
   },
+  "urn:sysmlv2:element:OGCAIE__Recorder__verdictIn": {
+   "in": [
+    [
+     "ogm:resolvesTo",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__verdictSeam_pend1"
+     }
+    ]
+   ],
+   "out": [
+    [
+     "rdf:type",
+     {
+      "text": "sysml:PortUsage"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "verdictIn"
+     }
+    ],
+    [
+     "sysml:isConjugated",
+     {
+      "text": "true"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__Recorder"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::Recorder::verdictIn"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__ConformanceVerdictWrite"
+     }
+    ]
+   ]
+  },
   "urn:sysmlv2:element:OGCAIE__Report": {
    "in": [
     [
@@ -34581,6 +34703,210 @@
      "sysml:qualifiedName",
      {
       "text": "OGCAIE::Report"
+     }
+    ]
+   ]
+  },
+  "urn:sysmlv2:element:OGCAIE__ReportApproval": {
+   "in": [
+    [
+     "sysml:owner",
+     {
+      "text": "elmt:OGCAIE__ReportApproval___400"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "text": "elmt:OGCAIE__ReportApproval__id"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__ContractingProcess__deliver__reportApproval"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__EvaluationProcess__reportApproval"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__EvaluationProcess__report__reportApproval"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__ReportApprovalWrite__i"
+     }
+    ]
+   ],
+   "out": [
+    [
+     "corresponds (derived)",
+     {
+      "ref": "https://w3id.org/og-caie/epo#ReportApproval"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "sysml:ItemDefinition"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "ReportApproval"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "text": "elmt:OGCAIE"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::ReportApproval"
+     }
+    ]
+   ]
+  },
+  "urn:sysmlv2:element:OGCAIE__ReportAssembler": {
+   "in": [
+    [
+     "sysml:owner",
+     {
+      "text": "elmt:OGCAIE__ReportAssembler___400"
+     }
+    ]
+   ],
+   "out": [
+    [
+     "rdf:type",
+     {
+      "text": "sysml:PartDefinition"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "ReportAssembler"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "text": "elmt:OGCAIE"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::ReportAssembler"
+     }
+    ],
+    [
+     "sysml:specializes",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__Machine"
+     }
+    ]
+   ]
+  },
+  "urn:sysmlv2:element:OGCAIE__ReportAssembler__recordIn": {
+   "in": [
+    [
+     "ogm:resolvesTo",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToAssemblerSeam_pend1"
+     }
+    ]
+   ],
+   "out": [
+    [
+     "rdf:type",
+     {
+      "text": "sysml:PortUsage"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "recordIn"
+     }
+    ],
+    [
+     "sysml:isConjugated",
+     {
+      "text": "true"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__ReportAssembler"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::ReportAssembler::recordIn"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__RecordWrite"
+     }
+    ]
+   ]
+  },
+  "urn:sysmlv2:element:OGCAIE__ReportAssembler__reportOut": {
+   "in": [
+    [
+     "ogm:resolvesTo",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__reportSeam_pend0"
+     }
+    ]
+   ],
+   "out": [
+    [
+     "rdf:type",
+     {
+      "text": "sysml:PortUsage"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "reportOut"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__ReportAssembler"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::ReportAssembler::reportOut"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__ReportWrite"
      }
     ]
    ]
@@ -35089,7 +35415,7 @@
     [
      "sysml:redefines",
      {
-      "text": "probeDeriver"
+      "text": "testDriver"
      }
     ]
    ]
@@ -35173,7 +35499,7 @@
     [
      "sysml:redefines",
      {
-      "text": "coverageCalculator"
+      "text": "reportAssembler"
      }
     ]
    ]
@@ -36094,6 +36420,144 @@
     ]
    ]
   },
+  "urn:sysmlv2:element:OGCAIE__TestDriver": {
+   "in": [
+    [
+     "sysml:owner",
+     {
+      "text": "elmt:OGCAIE__TestDriver___400"
+     }
+    ]
+   ],
+   "out": [
+    [
+     "rdf:type",
+     {
+      "text": "sysml:PartDefinition"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "TestDriver"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "text": "elmt:OGCAIE"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::TestDriver"
+     }
+    ],
+    [
+     "sysml:specializes",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__Machine"
+     }
+    ]
+   ]
+  },
+  "urn:sysmlv2:element:OGCAIE__TestDriver__probesOut": {
+   "in": [
+    [
+     "ogm:resolvesTo",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__derivedProbeSeam_pend0"
+     }
+    ],
+    [
+     "ogm:resolvesTo",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__probeRecordSeam_pend0"
+     }
+    ]
+   ],
+   "out": [
+    [
+     "rdf:type",
+     {
+      "text": "sysml:PortUsage"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "probesOut"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__TestDriver"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::TestDriver::probesOut"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__ProbeWrite"
+     }
+    ]
+   ]
+  },
+  "urn:sysmlv2:element:OGCAIE__TestDriver__recordIn": {
+   "in": [
+    [
+     "ogm:resolvesTo",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToDriverSeam_pend1"
+     }
+    ]
+   ],
+   "out": [
+    [
+     "rdf:type",
+     {
+      "text": "sysml:PortUsage"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "recordIn"
+     }
+    ],
+    [
+     "sysml:isConjugated",
+     {
+      "text": "true"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__TestDriver"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::TestDriver::recordIn"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__RecordWrite"
+     }
+    ]
+   ]
+  },
   "urn:sysmlv2:element:OGCAIE__TestItem": {
    "in": [
     [
@@ -36471,12 +36935,6 @@
     [
      "ogm:endPart",
      {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToExecutiveSeam_pend1"
-     }
-    ],
-    [
-     "ogm:endPart",
-     {
       "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam_pend1"
      }
     ]
@@ -36527,6 +36985,12 @@
      {
       "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToCheckerSeam_pend1"
      }
+    ],
+    [
+     "ogm:endPart",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__verdictSeam_pend0"
+     }
     ]
    ],
    "out": [
@@ -36558,108 +37022,6 @@
      "sysml:type",
      {
       "ref": "urn:sysmlv2:element:OGCAIE__ConformanceChecker"
-     }
-    ]
-   ]
-  },
-  "urn:sysmlv2:element:OGCAIE__TestingOrganization__coverageCalculator": {
-   "in": [
-    [
-     "ogm:endPart",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToCalculatorSeam_pend1"
-     }
-    ],
-    [
-     "ogm:endPart",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__reportSeam_pend0"
-     }
-    ]
-   ],
-   "out": [
-    [
-     "rdf:type",
-     {
-      "text": "sysml:PartUsage"
-     }
-    ],
-    [
-     "sysml:declaredName",
-     {
-      "text": "coverageCalculator"
-     }
-    ],
-    [
-     "sysml:owner",
-     {
-      "ref": "urn:sysmlv2:element:OGCAIE__TestingOrganization"
-     }
-    ],
-    [
-     "sysml:qualifiedName",
-     {
-      "text": "OGCAIE::TestingOrganization::coverageCalculator"
-     }
-    ],
-    [
-     "sysml:type",
-     {
-      "ref": "urn:sysmlv2:element:OGCAIE__CoverageCalculator"
-     }
-    ]
-   ]
-  },
-  "urn:sysmlv2:element:OGCAIE__TestingOrganization__probeDeriver": {
-   "in": [
-    [
-     "ogm:endPart",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__derivedProbeSeam_pend0"
-     }
-    ],
-    [
-     "ogm:endPart",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__probeRecordSeam_pend0"
-     }
-    ],
-    [
-     "ogm:endPart",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToDeriverSeam_pend1"
-     }
-    ]
-   ],
-   "out": [
-    [
-     "rdf:type",
-     {
-      "text": "sysml:PartUsage"
-     }
-    ],
-    [
-     "sysml:declaredName",
-     {
-      "text": "probeDeriver"
-     }
-    ],
-    [
-     "sysml:owner",
-     {
-      "ref": "urn:sysmlv2:element:OGCAIE__TestingOrganization"
-     }
-    ],
-    [
-     "sysml:qualifiedName",
-     {
-      "text": "OGCAIE::TestingOrganization::probeDeriver"
-     }
-    ],
-    [
-     "sysml:type",
-     {
-      "ref": "urn:sysmlv2:element:OGCAIE__ProbeDeriver"
      }
     ]
    ]
@@ -36771,7 +37133,7 @@
     [
      "ogm:endPart",
      {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToCalculatorSeam_pend0"
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToAssemblerSeam_pend0"
      }
     ],
     [
@@ -36783,25 +37145,13 @@
     [
      "ogm:endPart",
      {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToDeriverSeam_pend0"
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToDriverSeam_pend0"
      }
     ],
     [
      "ogm:endPart",
      {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToExecutiveSeam_pend0"
-     }
-    ],
-    [
-     "ogm:endPart",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToExpertSeam_pend0"
-     }
-    ],
-    [
-     "ogm:endPart",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToOperatorSeam_pend0"
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__reportApprovalSeam_pend1"
      }
     ],
     [
@@ -36832,6 +37182,12 @@
      "ogm:endPart",
      {
       "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__statementOfWorkSeam_pend1"
+     }
+    ],
+    [
+     "ogm:endPart",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__verdictSeam_pend1"
      }
     ]
    ],
@@ -36864,6 +37220,54 @@
      "sysml:type",
      {
       "ref": "urn:sysmlv2:element:OGCAIE__Recorder"
+     }
+    ]
+   ]
+  },
+  "urn:sysmlv2:element:OGCAIE__TestingOrganization__reportAssembler": {
+   "in": [
+    [
+     "ogm:endPart",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToAssemblerSeam_pend1"
+     }
+    ],
+    [
+     "ogm:endPart",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__reportSeam_pend0"
+     }
+    ]
+   ],
+   "out": [
+    [
+     "rdf:type",
+     {
+      "text": "sysml:PartUsage"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "reportAssembler"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__TestingOrganization"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::TestingOrganization::reportAssembler"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__ReportAssembler"
      }
     ]
    ]
@@ -36905,6 +37309,60 @@
      "sysml:upperBound",
      {
       "text": "urn:opensysml:expr:OGCAIE__TestingOrganization__team_pupperBound"
+     }
+    ]
+   ]
+  },
+  "urn:sysmlv2:element:OGCAIE__TestingOrganization__testDriver": {
+   "in": [
+    [
+     "ogm:endPart",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__derivedProbeSeam_pend0"
+     }
+    ],
+    [
+     "ogm:endPart",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__probeRecordSeam_pend0"
+     }
+    ],
+    [
+     "ogm:endPart",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__recordToDriverSeam_pend1"
+     }
+    ]
+   ],
+   "out": [
+    [
+     "rdf:type",
+     {
+      "text": "sysml:PartUsage"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "testDriver"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__TestingOrganization"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::TestingOrganization::testDriver"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__TestDriver"
      }
     ]
    ]
@@ -37864,8 +38322,18 @@
   },
   {
    "rel": "targetClass",
+   "source": "https://w3id.org/og-caie/S7-ConformanceVerdict",
+   "target": "https://w3id.org/og-caie/epo#ConformanceVerdict"
+  },
+  {
+   "rel": "targetClass",
    "source": "https://w3id.org/og-caie/S7-Report",
    "target": "https://w3id.org/og-caie/epo#Report"
+  },
+  {
+   "rel": "targetClass",
+   "source": "https://w3id.org/og-caie/S7-ReportApproval",
+   "target": "https://w3id.org/og-caie/epo#ReportApproval"
   },
   {
    "rel": "targetClass",
@@ -38254,6 +38722,11 @@
   },
   {
    "rel": "pinnedAt",
+   "source": "https://w3id.org/og-caie/epo#ConformanceVerdict",
+   "target": "https://w3id.org/og-caie/epo#evaluation"
+  },
+  {
+   "rel": "pinnedAt",
    "source": "https://w3id.org/og-caie/epo#Delivery",
    "target": "https://w3id.org/og-caie/epo#contract"
   },
@@ -38305,6 +38778,11 @@
   {
    "rel": "pinnedAt",
    "source": "https://w3id.org/og-caie/epo#Report",
+   "target": "https://w3id.org/og-caie/epo#evaluation"
+  },
+  {
+   "rel": "pinnedAt",
+   "source": "https://w3id.org/og-caie/epo#ReportApproval",
    "target": "https://w3id.org/og-caie/epo#evaluation"
   },
   {
@@ -39293,6 +39771,11 @@
    "target": "https://w3id.org/og-caie/run/measles#report"
   },
   {
+   "rel": "wasDerivedFrom",
+   "source": "https://w3id.org/og-caie/run/measles#delivery-1",
+   "target": "https://w3id.org/og-caie/run/measles#report-approval-1"
+  },
+  {
    "rel": "type",
    "source": "https://w3id.org/og-caie/run/measles#derivation-1",
    "target": "https://w3id.org/og-caie/epo#ProbeDerivation"
@@ -39681,6 +40164,76 @@
    "rel": "wasGeneratedBy",
    "source": "https://w3id.org/og-caie/run/measles#report",
    "target": "https://w3id.org/og-caie/run/measles#coverage-computation"
+  },
+  {
+   "rel": "type",
+   "source": "https://w3id.org/og-caie/run/measles#report-approval-1",
+   "target": "https://w3id.org/og-caie/epo#ReportApproval"
+  },
+  {
+   "rel": "step",
+   "source": "https://w3id.org/og-caie/run/measles#report-approval-1",
+   "target": "https://w3id.org/og-caie/epo#report"
+  },
+  {
+   "rel": "assertedBy",
+   "source": "https://w3id.org/og-caie/run/measles#report-approval-1",
+   "target": "https://w3id.org/og-caie/run/measles#annie"
+  },
+  {
+   "rel": "wasAssociatedWith",
+   "source": "https://w3id.org/og-caie/run/measles#report-approval-1",
+   "target": "https://w3id.org/og-caie/run/measles#annie"
+  },
+  {
+   "rel": "approvesReport",
+   "source": "https://w3id.org/og-caie/run/measles#report-approval-1",
+   "target": "https://w3id.org/og-caie/run/measles#report"
+  },
+  {
+   "rel": "subject",
+   "source": "https://w3id.org/og-caie/run/measles#report-approval-1",
+   "target": "https://w3id.org/og-caie/run/measles#report"
+  },
+  {
+   "rel": "used",
+   "source": "https://w3id.org/og-caie/run/measles#report-approval-1",
+   "target": "https://w3id.org/og-caie/run/measles#report-verdict-1"
+  },
+  {
+   "rel": "type",
+   "source": "https://w3id.org/og-caie/run/measles#report-verdict-1",
+   "target": "https://w3id.org/og-caie/epo#ConformanceVerdict"
+  },
+  {
+   "rel": "step",
+   "source": "https://w3id.org/og-caie/run/measles#report-verdict-1",
+   "target": "https://w3id.org/og-caie/epo#report"
+  },
+  {
+   "rel": "assertedBy",
+   "source": "https://w3id.org/og-caie/run/measles#report-verdict-1",
+   "target": "https://w3id.org/og-caie/run/measles#pyshacl"
+  },
+  {
+   "rel": "wasAssociatedWith",
+   "source": "https://w3id.org/og-caie/run/measles#report-verdict-1",
+   "target": "https://w3id.org/og-caie/run/measles#pyshacl"
+  },
+  {
+   "rel": "subject",
+   "source": "https://w3id.org/og-caie/run/measles#report-verdict-1",
+   "target": "https://w3id.org/og-caie/run/measles#record"
+  },
+  {
+   "rel": "subject",
+   "source": "https://w3id.org/og-caie/run/measles#report-verdict-1",
+   "target": "https://w3id.org/og-caie/run/measles#report"
+  },
+  {
+   "rel": "used",
+   "source": "https://w3id.org/og-caie/run/measles#report-verdict-1",
+   "target": "https://w3id.org/og-caie/run/measles#report"
   },
   {
    "rel": "type",
@@ -41025,7 +41578,17 @@
   {
    "rel": "checkedBy",
    "source": "https://w3id.org/og-caie/trace#SCI-07",
+   "target": "https://w3id.org/og-caie/S7-ConformanceVerdict"
+  },
+  {
+   "rel": "checkedBy",
+   "source": "https://w3id.org/og-caie/trace#SCI-07",
    "target": "https://w3id.org/og-caie/S7-Report"
+  },
+  {
+   "rel": "checkedBy",
+   "source": "https://w3id.org/og-caie/trace#SCI-07",
+   "target": "https://w3id.org/og-caie/S7-ReportApproval"
   },
   {
    "rel": "restsOn",
@@ -41070,7 +41633,17 @@
   {
    "rel": "checkedBy",
    "source": "https://w3id.org/og-caie/trace#SCI-08",
+   "target": "https://w3id.org/og-caie/S7-ConformanceVerdict"
+  },
+  {
+   "rel": "checkedBy",
+   "source": "https://w3id.org/og-caie/trace#SCI-08",
    "target": "https://w3id.org/og-caie/S7-Report"
+  },
+  {
+   "rel": "checkedBy",
+   "source": "https://w3id.org/og-caie/trace#SCI-08",
+   "target": "https://w3id.org/og-caie/S7-ReportApproval"
   },
   {
    "rel": "restsOn",
@@ -41569,11 +42142,6 @@
   },
   {
    "rel": "owner",
-   "source": "urn:sysmlv2:element:OGCAIE__AccountExecutive__recordIn",
-   "target": "urn:sysmlv2:element:OGCAIE__AccountExecutive"
-  },
-  {
-   "rel": "owner",
    "source": "urn:sysmlv2:element:OGCAIE__AccountExecutive__statementOfWorkIn",
    "target": "urn:sysmlv2:element:OGCAIE__AccountExecutive"
   },
@@ -41626,6 +42194,16 @@
    "rel": "owner",
    "source": "urn:sysmlv2:element:OGCAIE__ConformanceChecker__recordIn",
    "target": "urn:sysmlv2:element:OGCAIE__ConformanceChecker"
+  },
+  {
+   "rel": "owner",
+   "source": "urn:sysmlv2:element:OGCAIE__ConformanceChecker__verdictOut",
+   "target": "urn:sysmlv2:element:OGCAIE__ConformanceChecker"
+  },
+  {
+   "rel": "corresponds",
+   "source": "urn:sysmlv2:element:OGCAIE__ConformanceVerdict",
+   "target": "https://w3id.org/og-caie/epo#ConformanceVerdict"
   },
   {
    "rel": "corresponds",
@@ -41738,6 +42316,11 @@
    "target": "urn:sysmlv2:element:OGCAIE__Report"
   },
   {
+   "rel": "in",
+   "source": "urn:sysmlv2:element:OGCAIE__ContractingProcess__deliver",
+   "target": "urn:sysmlv2:element:OGCAIE__ReportApproval"
+  },
+  {
    "rel": "owner",
    "source": "urn:sysmlv2:element:OGCAIE__ContractingProcess__fulfil",
    "target": "urn:sysmlv2:element:OGCAIE__ContractingProcess"
@@ -41808,21 +42391,6 @@
    "target": "urn:sysmlv2:element:OGCAIE__Proposal"
   },
   {
-   "rel": "specializes",
-   "source": "urn:sysmlv2:element:OGCAIE__CoverageCalculator",
-   "target": "urn:sysmlv2:element:OGCAIE__Machine"
-  },
-  {
-   "rel": "owner",
-   "source": "urn:sysmlv2:element:OGCAIE__CoverageCalculator__recordIn",
-   "target": "urn:sysmlv2:element:OGCAIE__CoverageCalculator"
-  },
-  {
-   "rel": "owner",
-   "source": "urn:sysmlv2:element:OGCAIE__CoverageCalculator__reportOut",
-   "target": "urn:sysmlv2:element:OGCAIE__CoverageCalculator"
-  },
-  {
    "rel": "corresponds",
    "source": "urn:sysmlv2:element:OGCAIE__Delivery",
    "target": "https://w3id.org/og-caie/epo#Delivery"
@@ -41864,7 +42432,7 @@
   },
   {
    "rel": "owner",
-   "source": "urn:sysmlv2:element:OGCAIE__DomainExpert__recordIn",
+   "source": "urn:sysmlv2:element:OGCAIE__DomainExpert__reportApprovalOut",
    "target": "urn:sysmlv2:element:OGCAIE__DomainExpert"
   },
   {
@@ -41910,11 +42478,6 @@
   {
    "rel": "owner",
    "source": "urn:sysmlv2:element:OGCAIE__EvaluationOperator__recommendationOut",
-   "target": "urn:sysmlv2:element:OGCAIE__EvaluationOperator"
-  },
-  {
-   "rel": "owner",
-   "source": "urn:sysmlv2:element:OGCAIE__EvaluationOperator__recordIn",
    "target": "urn:sysmlv2:element:OGCAIE__EvaluationOperator"
   },
   {
@@ -42113,6 +42676,11 @@
    "target": "urn:sysmlv2:element:OGCAIE__Attestation"
   },
   {
+   "rel": "out",
+   "source": "urn:sysmlv2:element:OGCAIE__EvaluationProcess__report",
+   "target": "urn:sysmlv2:element:OGCAIE__ConformanceVerdict"
+  },
+  {
    "rel": "in",
    "source": "urn:sysmlv2:element:OGCAIE__EvaluationProcess__report",
    "target": "urn:sysmlv2:element:OGCAIE__Determination"
@@ -42131,6 +42699,11 @@
    "rel": "out",
    "source": "urn:sysmlv2:element:OGCAIE__EvaluationProcess__report",
    "target": "urn:sysmlv2:element:OGCAIE__Report"
+  },
+  {
+   "rel": "out",
+   "source": "urn:sysmlv2:element:OGCAIE__EvaluationProcess__report",
+   "target": "urn:sysmlv2:element:OGCAIE__ReportApproval"
   },
   {
    "rel": "corresponds",
@@ -42455,7 +43028,7 @@
   {
    "rel": "supplierPort",
    "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__derivedProbeSeam",
-   "target": "urn:sysmlv2:element:OGCAIE__ProbeDeriver__probesOut"
+   "target": "urn:sysmlv2:element:OGCAIE__TestDriver__probesOut"
   },
   {
    "rel": "supplierPort",
@@ -42683,14 +43256,14 @@
    "target": "urn:sysmlv2:element:OGCAIE__Probe"
   },
   {
-   "rel": "supplierPort",
-   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__probeRecordSeam",
-   "target": "urn:sysmlv2:element:OGCAIE__ProbeDeriver__probesOut"
-  },
-  {
    "rel": "consumerPort",
    "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__probeRecordSeam",
    "target": "urn:sysmlv2:element:OGCAIE__Recorder__probeIn"
+  },
+  {
+   "rel": "supplierPort",
+   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__probeRecordSeam",
+   "target": "urn:sysmlv2:element:OGCAIE__TestDriver__probesOut"
   },
   {
    "rel": "supplierPort",
@@ -42773,24 +43346,24 @@
    "target": "urn:sysmlv2:element:OGCAIE__Recorder__recommendationIn"
   },
   {
-   "rel": "consumerPort",
-   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToCalculatorSeam",
-   "target": "urn:sysmlv2:element:OGCAIE__CoverageCalculator__recordIn"
-  },
-  {
    "rel": "carries",
-   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToCalculatorSeam",
+   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToAssemblerSeam",
    "target": "urn:sysmlv2:element:OGCAIE__EvaluationRecord"
   },
   {
    "rel": "owner",
-   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToCalculatorSeam",
+   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToAssemblerSeam",
    "target": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation"
   },
   {
    "rel": "supplierPort",
-   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToCalculatorSeam",
+   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToAssemblerSeam",
    "target": "urn:sysmlv2:element:OGCAIE__Recorder__recordOut"
+  },
+  {
+   "rel": "consumerPort",
+   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToAssemblerSeam",
+   "target": "urn:sysmlv2:element:OGCAIE__ReportAssembler__recordIn"
   },
   {
    "rel": "consumerPort",
@@ -42814,88 +43387,43 @@
   },
   {
    "rel": "carries",
-   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToDeriverSeam",
+   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToDriverSeam",
    "target": "urn:sysmlv2:element:OGCAIE__EvaluationRecord"
   },
   {
    "rel": "owner",
-   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToDeriverSeam",
+   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToDriverSeam",
    "target": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation"
   },
   {
-   "rel": "consumerPort",
-   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToDeriverSeam",
-   "target": "urn:sysmlv2:element:OGCAIE__ProbeDeriver__recordIn"
-  },
-  {
    "rel": "supplierPort",
-   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToDeriverSeam",
+   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToDriverSeam",
    "target": "urn:sysmlv2:element:OGCAIE__Recorder__recordOut"
   },
   {
    "rel": "consumerPort",
-   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToExecutiveSeam",
-   "target": "urn:sysmlv2:element:OGCAIE__AccountExecutive__recordIn"
+   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToDriverSeam",
+   "target": "urn:sysmlv2:element:OGCAIE__TestDriver__recordIn"
+  },
+  {
+   "rel": "supplierPort",
+   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__reportApprovalSeam",
+   "target": "urn:sysmlv2:element:OGCAIE__DomainExpert__reportApprovalOut"
+  },
+  {
+   "rel": "owner",
+   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__reportApprovalSeam",
+   "target": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation"
+  },
+  {
+   "rel": "consumerPort",
+   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__reportApprovalSeam",
+   "target": "urn:sysmlv2:element:OGCAIE__Recorder__reportApprovalIn"
   },
   {
    "rel": "carries",
-   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToExecutiveSeam",
-   "target": "urn:sysmlv2:element:OGCAIE__EvaluationRecord"
-  },
-  {
-   "rel": "owner",
-   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToExecutiveSeam",
-   "target": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation"
-  },
-  {
-   "rel": "supplierPort",
-   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToExecutiveSeam",
-   "target": "urn:sysmlv2:element:OGCAIE__Recorder__recordOut"
-  },
-  {
-   "rel": "consumerPort",
-   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToExpertSeam",
-   "target": "urn:sysmlv2:element:OGCAIE__DomainExpert__recordIn"
-  },
-  {
-   "rel": "carries",
-   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToExpertSeam",
-   "target": "urn:sysmlv2:element:OGCAIE__EvaluationRecord"
-  },
-  {
-   "rel": "owner",
-   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToExpertSeam",
-   "target": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation"
-  },
-  {
-   "rel": "supplierPort",
-   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToExpertSeam",
-   "target": "urn:sysmlv2:element:OGCAIE__Recorder__recordOut"
-  },
-  {
-   "rel": "consumerPort",
-   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToOperatorSeam",
-   "target": "urn:sysmlv2:element:OGCAIE__EvaluationOperator__recordIn"
-  },
-  {
-   "rel": "carries",
-   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToOperatorSeam",
-   "target": "urn:sysmlv2:element:OGCAIE__EvaluationRecord"
-  },
-  {
-   "rel": "owner",
-   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToOperatorSeam",
-   "target": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation"
-  },
-  {
-   "rel": "supplierPort",
-   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToOperatorSeam",
-   "target": "urn:sysmlv2:element:OGCAIE__Recorder__recordOut"
-  },
-  {
-   "rel": "supplierPort",
-   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__reportSeam",
-   "target": "urn:sysmlv2:element:OGCAIE__CoverageCalculator__reportOut"
+   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__reportApprovalSeam",
+   "target": "urn:sysmlv2:element:OGCAIE__ReportApproval"
   },
   {
    "rel": "owner",
@@ -42911,6 +43439,11 @@
    "rel": "carries",
    "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__reportSeam",
    "target": "urn:sysmlv2:element:OGCAIE__Report"
+  },
+  {
+   "rel": "supplierPort",
+   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__reportSeam",
+   "target": "urn:sysmlv2:element:OGCAIE__ReportAssembler__reportOut"
   },
   {
    "rel": "supplierPort",
@@ -43033,6 +43566,26 @@
    "target": "urn:sysmlv2:element:OGCAIE__TestingOrganization"
   },
   {
+   "rel": "supplierPort",
+   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__verdictSeam",
+   "target": "urn:sysmlv2:element:OGCAIE__ConformanceChecker__verdictOut"
+  },
+  {
+   "rel": "carries",
+   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__verdictSeam",
+   "target": "urn:sysmlv2:element:OGCAIE__ConformanceVerdict"
+  },
+  {
+   "rel": "owner",
+   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__verdictSeam",
+   "target": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation"
+  },
+  {
+   "rel": "consumerPort",
+   "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__verdictSeam",
+   "target": "urn:sysmlv2:element:OGCAIE__Recorder__verdictIn"
+  },
+  {
    "rel": "specializes",
    "source": "urn:sysmlv2:element:OGCAIE__Organization",
    "target": "urn:sysmlv2:element:OGCAIE__Party"
@@ -43051,21 +43604,6 @@
    "rel": "corresponds",
    "source": "urn:sysmlv2:element:OGCAIE__Probe",
    "target": "https://w3id.org/og-caie/epo#Probe"
-  },
-  {
-   "rel": "specializes",
-   "source": "urn:sysmlv2:element:OGCAIE__ProbeDeriver",
-   "target": "urn:sysmlv2:element:OGCAIE__Machine"
-  },
-  {
-   "rel": "owner",
-   "source": "urn:sysmlv2:element:OGCAIE__ProbeDeriver__probesOut",
-   "target": "urn:sysmlv2:element:OGCAIE__ProbeDeriver"
-  },
-  {
-   "rel": "owner",
-   "source": "urn:sysmlv2:element:OGCAIE__ProbeDeriver__recordIn",
-   "target": "urn:sysmlv2:element:OGCAIE__ProbeDeriver"
   },
   {
    "rel": "corresponds",
@@ -43179,6 +43717,11 @@
   },
   {
    "rel": "owner",
+   "source": "urn:sysmlv2:element:OGCAIE__Recorder__reportApprovalIn",
+   "target": "urn:sysmlv2:element:OGCAIE__Recorder"
+  },
+  {
+   "rel": "owner",
    "source": "urn:sysmlv2:element:OGCAIE__Recorder__reportIn",
    "target": "urn:sysmlv2:element:OGCAIE__Recorder"
   },
@@ -43198,9 +43741,34 @@
    "target": "urn:sysmlv2:element:OGCAIE__Recorder"
   },
   {
+   "rel": "owner",
+   "source": "urn:sysmlv2:element:OGCAIE__Recorder__verdictIn",
+   "target": "urn:sysmlv2:element:OGCAIE__Recorder"
+  },
+  {
    "rel": "corresponds",
    "source": "urn:sysmlv2:element:OGCAIE__Report",
    "target": "https://w3id.org/og-caie/epo#Report"
+  },
+  {
+   "rel": "corresponds",
+   "source": "urn:sysmlv2:element:OGCAIE__ReportApproval",
+   "target": "https://w3id.org/og-caie/epo#ReportApproval"
+  },
+  {
+   "rel": "specializes",
+   "source": "urn:sysmlv2:element:OGCAIE__ReportAssembler",
+   "target": "urn:sysmlv2:element:OGCAIE__Machine"
+  },
+  {
+   "rel": "owner",
+   "source": "urn:sysmlv2:element:OGCAIE__ReportAssembler__recordIn",
+   "target": "urn:sysmlv2:element:OGCAIE__ReportAssembler"
+  },
+  {
+   "rel": "owner",
+   "source": "urn:sysmlv2:element:OGCAIE__ReportAssembler__reportOut",
+   "target": "urn:sysmlv2:element:OGCAIE__ReportAssembler"
   },
   {
    "rel": "corresponds",
@@ -43369,6 +43937,21 @@
   },
   {
    "rel": "specializes",
+   "source": "urn:sysmlv2:element:OGCAIE__TestDriver",
+   "target": "urn:sysmlv2:element:OGCAIE__Machine"
+  },
+  {
+   "rel": "owner",
+   "source": "urn:sysmlv2:element:OGCAIE__TestDriver__probesOut",
+   "target": "urn:sysmlv2:element:OGCAIE__TestDriver"
+  },
+  {
+   "rel": "owner",
+   "source": "urn:sysmlv2:element:OGCAIE__TestDriver__recordIn",
+   "target": "urn:sysmlv2:element:OGCAIE__TestDriver"
+  },
+  {
+   "rel": "specializes",
    "source": "urn:sysmlv2:element:OGCAIE__TestItem",
    "target": "urn:sysmlv2:element:OGCAIE__Machine"
   },
@@ -43419,26 +44002,6 @@
   },
   {
    "rel": "type",
-   "source": "urn:sysmlv2:element:OGCAIE__TestingOrganization__coverageCalculator",
-   "target": "urn:sysmlv2:element:OGCAIE__CoverageCalculator"
-  },
-  {
-   "rel": "owner",
-   "source": "urn:sysmlv2:element:OGCAIE__TestingOrganization__coverageCalculator",
-   "target": "urn:sysmlv2:element:OGCAIE__TestingOrganization"
-  },
-  {
-   "rel": "type",
-   "source": "urn:sysmlv2:element:OGCAIE__TestingOrganization__probeDeriver",
-   "target": "urn:sysmlv2:element:OGCAIE__ProbeDeriver"
-  },
-  {
-   "rel": "owner",
-   "source": "urn:sysmlv2:element:OGCAIE__TestingOrganization__probeDeriver",
-   "target": "urn:sysmlv2:element:OGCAIE__TestingOrganization"
-  },
-  {
-   "rel": "type",
    "source": "urn:sysmlv2:element:OGCAIE__TestingOrganization__recorder",
    "target": "urn:sysmlv2:element:OGCAIE__Recorder"
   },
@@ -43449,12 +44012,32 @@
   },
   {
    "rel": "type",
+   "source": "urn:sysmlv2:element:OGCAIE__TestingOrganization__reportAssembler",
+   "target": "urn:sysmlv2:element:OGCAIE__ReportAssembler"
+  },
+  {
+   "rel": "owner",
+   "source": "urn:sysmlv2:element:OGCAIE__TestingOrganization__reportAssembler",
+   "target": "urn:sysmlv2:element:OGCAIE__TestingOrganization"
+  },
+  {
+   "rel": "type",
    "source": "urn:sysmlv2:element:OGCAIE__TestingOrganization__team",
    "target": "urn:sysmlv2:element:OGCAIE__EvaluationTeam"
   },
   {
    "rel": "owner",
    "source": "urn:sysmlv2:element:OGCAIE__TestingOrganization__team",
+   "target": "urn:sysmlv2:element:OGCAIE__TestingOrganization"
+  },
+  {
+   "rel": "type",
+   "source": "urn:sysmlv2:element:OGCAIE__TestingOrganization__testDriver",
+   "target": "urn:sysmlv2:element:OGCAIE__TestDriver"
+  },
+  {
+   "rel": "owner",
+   "source": "urn:sysmlv2:element:OGCAIE__TestingOrganization__testDriver",
    "target": "urn:sysmlv2:element:OGCAIE__TestingOrganization"
   }
  ],
@@ -44629,7 +45212,7 @@
   },
   {
    "cls": "shape",
-   "desc": "Targets sysml:PortUsage. DSO, appropriateness assessment, plan approval and attestation are supplied only by the domain expert (R-10, R-21). Evidence is supplied only by the evaluation operator, and a person applies probes to the test item only as the evaluation operator (R-12, R-23). The service agreement is supplied only by the sponsor and the account executive; the account executive supplies nothing but the proposal, the countersigned agreement and the delivery, and never judges (R-23, R-24, R-32).",
+   "desc": "Targets sysml:PortUsage. DSO, appropriateness assessment, plan approval, report approval and attestation are supplied only by the domain expert (R-10, R-21, R-49). Evidence is supplied only by the evaluation operator, and a person applies probes to the test item only as the evaluation operator (R-12, R-23). The service agreement is supplied only by the sponsor and the account executive; the account executive supplies nothing but the proposal, the countersigned agreement and the delivery, and never judges (R-23, R-24, R-32).",
    "id": "https://w3id.org/og-caie/M5-PortsBelongToRoles",
    "label": "M5-PortsBelongToRoles",
    "ogc": "ogc sparql \"DESCRIBE ogc:M5-PortsBelongToRoles\"",
@@ -44829,6 +45412,14 @@
   },
   {
    "cls": "shape",
+   "desc": "Targets epo:ConformanceVerdict. S7: the conformance verdict is asserted by a versioned software agent and names the report it judged (walkthrough, R-49).",
+   "id": "https://w3id.org/og-caie/S7-ConformanceVerdict",
+   "label": "S7-ConformanceVerdict",
+   "ogc": "ogc sparql \"DESCRIBE ogc:S7-ConformanceVerdict\"",
+   "page": ""
+  },
+  {
+   "cls": "shape",
    "desc": "Targets epo:Report. S7: the outcome distribution must sum to one. S7: the report must be computed by an automatic activity of a versioned software agent. S7: the stored coverage equals the coverage recomputed from the record: the weighted share of acceptance criteria that carry at least one attestation with an outcome (walkthrough B5, R-48).",
    "id": "https://w3id.org/og-caie/S7-Report",
    "label": "S7-Report",
@@ -44837,7 +45428,15 @@
   },
   {
    "cls": "shape",
-   "desc": "Targets epo:Delivery. S8: a delivery is made by the account executive to the sponsor and carries the report and the recommendation.",
+   "desc": "Targets epo:ReportApproval. S7: the report's contents are approved by a domain expert, after a passed conformance verdict on that report: correct construction is not enough (walkthrough, R-49).",
+   "id": "https://w3id.org/og-caie/S7-ReportApproval",
+   "label": "S7-ReportApproval",
+   "ogc": "ogc sparql \"DESCRIBE ogc:S7-ReportApproval\"",
+   "page": ""
+  },
+  {
+   "cls": "shape",
+   "desc": "Targets epo:Delivery. S8: a delivery is made by the authorized representative to the sponsor and carries the report, its approval by a domain expert, and the recommendation (walkthrough, R-49).",
    "id": "https://w3id.org/og-caie/S8-Delivery",
    "label": "S8-Delivery",
    "ogc": "ogc sparql \"DESCRIBE ogc:S8-Delivery\"",
@@ -44953,6 +45552,14 @@
    "id": "https://w3id.org/og-caie/epo#Attestation",
    "label": "Attestation",
    "ogc": "ogc sparql \"DESCRIBE epo:Attestation\"",
+   "page": ""
+  },
+  {
+   "cls": "kind",
+   "desc": "conformance verdict: the checker's automatic assertion that the record and the report are correctly constructed to the shapes, traceable and covered (walkthrough, R-49)",
+   "id": "https://w3id.org/og-caie/epo#ConformanceVerdict",
+   "label": "ConformanceVerdict",
+   "ogc": "ogc sparql \"DESCRIBE epo:ConformanceVerdict\"",
    "page": ""
   },
   {
@@ -45089,6 +45696,14 @@
    "id": "https://w3id.org/og-caie/epo#Report",
    "label": "Report",
    "ogc": "ogc sparql \"DESCRIBE epo:Report\"",
+   "page": ""
+  },
+  {
+   "cls": "kind",
+   "desc": "report approval: a domain expert's approval of the report's contents after the machine verdict (walkthrough, R-49)",
+   "id": "https://w3id.org/og-caie/epo#ReportApproval",
+   "label": "ReportApproval",
+   "ogc": "ogc sparql \"DESCRIBE epo:ReportApproval\"",
    "page": ""
   },
   {
@@ -45333,7 +45948,7 @@
   },
   {
    "cls": "step",
-   "desc": "6 report: coverage and performance computed; recommendation written; handed to the account executive for delivery",
+   "desc": "6 report: the report assembled by machine with coverage and performance recomputed; its correct construction checked by machine and the verdict recorded; its contents approved by a domain expert; recommendation written; handed to the authorized representative for delivery",
    "id": "https://w3id.org/og-caie/epo#report",
    "label": "6 report",
    "ogc": "ogc steps",
@@ -46301,7 +46916,7 @@
   },
   {
    "cls": "agent",
-   "desc": "coverage calculator (queries/coverage.rq) Types: prov:Agent, prov:SoftwareAgent.",
+   "desc": "report assembler (queries/coverage.rq) Types: prov:Agent, prov:SoftwareAgent.",
    "id": "https://w3id.org/og-caie/run/measles#coverage-calculator",
    "label": "coverage-calculator",
    "ogc": "ogc record coverage-calculator",
@@ -46437,7 +47052,7 @@
   },
   {
    "cls": "agent",
-   "desc": "probe deriver Types: prov:Agent, prov:SoftwareAgent.",
+   "desc": "test driver Types: prov:Agent, prov:SoftwareAgent.",
    "id": "https://w3id.org/og-caie/run/measles#probe-deriver",
    "label": "probe-deriver",
    "ogc": "ogc record probe-deriver",
@@ -46481,6 +47096,22 @@
    "id": "https://w3id.org/og-caie/run/measles#report",
    "label": "report",
    "ogc": "ogc record report",
+   "page": ""
+  },
+  {
+   "cls": "record",
+   "desc": "report-approval-1 Types: epo:ReportApproval.",
+   "id": "https://w3id.org/og-caie/run/measles#report-approval-1",
+   "label": "report-approval-1",
+   "ogc": "ogc record report-approval-1",
+   "page": ""
+  },
+  {
+   "cls": "record",
+   "desc": "report-verdict-1 Types: epo:ConformanceVerdict.",
+   "id": "https://w3id.org/og-caie/run/measles#report-verdict-1",
+   "label": "report-verdict-1",
+   "ogc": "ogc record report-verdict-1",
    "page": ""
   },
   {
@@ -47413,14 +48044,6 @@
   },
   {
    "cls": "port",
-   "desc": "in port typed RecordWrite, carrying EvaluationRecord.",
-   "id": "urn:sysmlv2:element:OGCAIE__AccountExecutive__recordIn",
-   "label": "AccountExecutive::recordIn",
-   "ogc": "ogc view assemblage",
-   "page": ""
-  },
-  {
-   "cls": "port",
    "desc": "in port typed StatementOfWorkWrite, carrying StatementOfWork.",
    "id": "urn:sysmlv2:element:OGCAIE__AccountExecutive__statementOfWorkIn",
    "label": "AccountExecutive::statementOfWorkIn",
@@ -47485,7 +48108,7 @@
   },
   {
    "cls": "part",
-   "desc": "Machine verification, called conformance (ruling R-16): the\n record is correctly constructed to the EPO shapes.",
+   "desc": "Machine verification, called conformance (ruling R-16): the\n record and the report are correctly constructed to the EPO\n shapes, traceable and covered; its verdict is recorded\n (walkthrough, R-49).",
    "id": "urn:sysmlv2:element:OGCAIE__ConformanceChecker",
    "label": "ConformanceChecker",
    "ogc": "ogc view assemblage",
@@ -47497,6 +48120,22 @@
    "id": "urn:sysmlv2:element:OGCAIE__ConformanceChecker__recordIn",
    "label": "ConformanceChecker::recordIn",
    "ogc": "ogc view assemblage",
+   "page": ""
+  },
+  {
+   "cls": "port",
+   "desc": "out port typed ConformanceVerdictWrite, carrying ConformanceVerdict.",
+   "id": "urn:sysmlv2:element:OGCAIE__ConformanceChecker__verdictOut",
+   "label": "ConformanceChecker::verdictOut",
+   "ogc": "ogc view assemblage",
+   "page": ""
+  },
+  {
+   "cls": "item",
+   "desc": "The conformance checker's verdict on the record and the\n report: correctly constructed to the shapes, traceable and\n covered (walkthrough, R-49). Pinned within the evaluation.",
+   "id": "urn:sysmlv2:element:OGCAIE__ConformanceVerdict",
+   "label": "ConformanceVerdict",
+   "ogc": "ogc view layers",
    "page": ""
   },
   {
@@ -47561,30 +48200,6 @@
    "id": "urn:sysmlv2:element:OGCAIE__ContractingProcess__propose",
    "label": "ContractingProcess::propose",
    "ogc": "ogc view layers",
-   "page": ""
-  },
-  {
-   "cls": "part",
-   "desc": "Computes coverage and the outcome distribution over the\n record; anyone holding the record recomputes the same numbers\n (queries/coverage.rq).",
-   "id": "urn:sysmlv2:element:OGCAIE__CoverageCalculator",
-   "label": "CoverageCalculator",
-   "ogc": "ogc view assemblage",
-   "page": ""
-  },
-  {
-   "cls": "port",
-   "desc": "in port typed RecordWrite, carrying EvaluationRecord.",
-   "id": "urn:sysmlv2:element:OGCAIE__CoverageCalculator__recordIn",
-   "label": "CoverageCalculator::recordIn",
-   "ogc": "ogc view assemblage",
-   "page": ""
-  },
-  {
-   "cls": "port",
-   "desc": "out port typed ReportWrite, carrying Report.",
-   "id": "urn:sysmlv2:element:OGCAIE__CoverageCalculator__reportOut",
-   "label": "CoverageCalculator::reportOut",
-   "ogc": "ogc view assemblage",
    "page": ""
   },
   {
@@ -47653,9 +48268,9 @@
   },
   {
    "cls": "port",
-   "desc": "in port typed RecordWrite, carrying EvaluationRecord.",
-   "id": "urn:sysmlv2:element:OGCAIE__DomainExpert__recordIn",
-   "label": "DomainExpert::recordIn",
+   "desc": "out port typed ReportApprovalWrite, carrying ReportApproval.",
+   "id": "urn:sysmlv2:element:OGCAIE__DomainExpert__reportApprovalOut",
+   "label": "DomainExpert::reportApprovalOut",
    "ogc": "ogc view assemblage",
    "page": ""
   },
@@ -47728,14 +48343,6 @@
    "desc": "out port typed RecommendationWrite, carrying Recommendation.",
    "id": "urn:sysmlv2:element:OGCAIE__EvaluationOperator__recommendationOut",
    "label": "EvaluationOperator::recommendationOut",
-   "ogc": "ogc view assemblage",
-   "page": ""
-  },
-  {
-   "cls": "port",
-   "desc": "in port typed RecordWrite, carrying EvaluationRecord.",
-   "id": "urn:sysmlv2:element:OGCAIE__EvaluationOperator__recordIn",
-   "label": "EvaluationOperator::recordIn",
    "ogc": "ogc view assemblage",
    "page": ""
   },
@@ -47981,7 +48588,7 @@
   },
   {
    "cls": "seam",
-   "desc": "interface derivedProbeSeam : ProbeSeam connect testingOrg.probeDeriver.probesOut to testingOrg.team.operator.probesIn;",
+   "desc": "interface derivedProbeSeam : ProbeSeam connect testingOrg.testDriver.probesOut to testingOrg.team.operator.probesIn;",
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__derivedProbeSeam",
    "label": "OgCaieEvaluation::derivedProbeSeam",
    "ogc": "ogc view evaluation",
@@ -48077,7 +48684,7 @@
   },
   {
    "cls": "seam",
-   "desc": "interface probeRecordSeam : ProbeSeam connect testingOrg.probeDeriver.probesOut to testingOrg.recorder.probeIn;",
+   "desc": "interface probeRecordSeam : ProbeSeam connect testingOrg.testDriver.probesOut to testingOrg.recorder.probeIn;",
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__probeRecordSeam",
    "label": "OgCaieEvaluation::probeRecordSeam",
    "ogc": "ogc view evaluation",
@@ -48117,9 +48724,9 @@
   },
   {
    "cls": "seam",
-   "desc": "interface recordToCalculatorSeam : RecordSeam connect testingOrg.recorder.recordOut to testingOrg.coverageCalculator.recordIn;",
-   "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToCalculatorSeam",
-   "label": "OgCaieEvaluation::recordToCalculatorSeam",
+   "desc": "interface recordToAssemblerSeam : RecordSeam connect testingOrg.recorder.recordOut to testingOrg.reportAssembler.recordIn;",
+   "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToAssemblerSeam",
+   "label": "OgCaieEvaluation::recordToAssemblerSeam",
    "ogc": "ogc view evaluation",
    "page": ""
   },
@@ -48133,39 +48740,23 @@
   },
   {
    "cls": "seam",
-   "desc": "interface recordToDeriverSeam : RecordSeam connect testingOrg.recorder.recordOut to testingOrg.probeDeriver.recordIn;",
-   "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToDeriverSeam",
-   "label": "OgCaieEvaluation::recordToDeriverSeam",
+   "desc": "interface recordToDriverSeam : RecordSeam connect testingOrg.recorder.recordOut to testingOrg.testDriver.recordIn;",
+   "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToDriverSeam",
+   "label": "OgCaieEvaluation::recordToDriverSeam",
    "ogc": "ogc view evaluation",
    "page": ""
   },
   {
    "cls": "seam",
-   "desc": "interface recordToExecutiveSeam : RecordSeam connect testingOrg.recorder.recordOut to testingOrg.accountExecutive.recordIn;",
-   "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToExecutiveSeam",
-   "label": "OgCaieEvaluation::recordToExecutiveSeam",
+   "desc": "interface reportApprovalSeam : ReportApprovalSeam connect testingOrg.team.domainExpert.reportApprovalOut to testingOrg.recorder.reportApprovalIn;",
+   "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__reportApprovalSeam",
+   "label": "OgCaieEvaluation::reportApprovalSeam",
    "ogc": "ogc view evaluation",
    "page": ""
   },
   {
    "cls": "seam",
-   "desc": "interface recordToExpertSeam : RecordSeam connect testingOrg.recorder.recordOut to testingOrg.team.domainExpert.recordIn;",
-   "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToExpertSeam",
-   "label": "OgCaieEvaluation::recordToExpertSeam",
-   "ogc": "ogc view evaluation",
-   "page": ""
-  },
-  {
-   "cls": "seam",
-   "desc": "interface recordToOperatorSeam : RecordSeam connect testingOrg.recorder.recordOut to testingOrg.team.operator.recordIn;",
-   "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToOperatorSeam",
-   "label": "OgCaieEvaluation::recordToOperatorSeam",
-   "ogc": "ogc view evaluation",
-   "page": ""
-  },
-  {
-   "cls": "seam",
-   "desc": "interface reportSeam : ReportSeam connect testingOrg.coverageCalculator.reportOut to testingOrg.recorder.reportIn;",
+   "desc": "interface reportSeam : ReportSeam connect testingOrg.reportAssembler.reportOut to testingOrg.recorder.reportIn;",
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__reportSeam",
    "label": "OgCaieEvaluation::reportSeam",
    "ogc": "ogc view evaluation",
@@ -48228,6 +48819,14 @@
    "page": ""
   },
   {
+   "cls": "seam",
+   "desc": "interface verdictSeam : ConformanceVerdictSeam connect testingOrg.conformanceChecker.verdictOut to testingOrg.recorder.verdictIn;",
+   "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__verdictSeam",
+   "label": "OgCaieEvaluation::verdictSeam",
+   "ogc": "ogc view evaluation",
+   "page": ""
+  },
+  {
    "cls": "part",
    "desc": "ISO 9000:2026 3.1.1 (prov:Organization).",
    "id": "urn:sysmlv2:element:OGCAIE__Organization",
@@ -48265,30 +48864,6 @@
    "id": "urn:sysmlv2:element:OGCAIE__Probe",
    "label": "Probe",
    "ogc": "ogc view layers",
-   "page": ""
-  },
-  {
-   "cls": "part",
-   "desc": "Derives probes from the DSO release and the requirement set\n in the record; one output read by the operator and the recorder\n (an output wire may be shared, R-25).",
-   "id": "urn:sysmlv2:element:OGCAIE__ProbeDeriver",
-   "label": "ProbeDeriver",
-   "ogc": "ogc view assemblage",
-   "page": ""
-  },
-  {
-   "cls": "port",
-   "desc": "out port typed ProbeWrite, carrying Probe.",
-   "id": "urn:sysmlv2:element:OGCAIE__ProbeDeriver__probesOut",
-   "label": "ProbeDeriver::probesOut",
-   "ogc": "ogc view assemblage",
-   "page": ""
-  },
-  {
-   "cls": "port",
-   "desc": "in port typed RecordWrite, carrying EvaluationRecord.",
-   "id": "urn:sysmlv2:element:OGCAIE__ProbeDeriver__recordIn",
-   "label": "ProbeDeriver::recordIn",
-   "ogc": "ogc view assemblage",
    "page": ""
   },
   {
@@ -48469,6 +49044,14 @@
   },
   {
    "cls": "port",
+   "desc": "in port typed ReportApprovalWrite, carrying ReportApproval.",
+   "id": "urn:sysmlv2:element:OGCAIE__Recorder__reportApprovalIn",
+   "label": "Recorder::reportApprovalIn",
+   "ogc": "ogc view assemblage",
+   "page": ""
+  },
+  {
+   "cls": "port",
    "desc": "in port typed ReportWrite, carrying Report.",
    "id": "urn:sysmlv2:element:OGCAIE__Recorder__reportIn",
    "label": "Recorder::reportIn",
@@ -48500,11 +49083,51 @@
    "page": ""
   },
   {
+   "cls": "port",
+   "desc": "in port typed ConformanceVerdictWrite, carrying ConformanceVerdict.",
+   "id": "urn:sysmlv2:element:OGCAIE__Recorder__verdictIn",
+   "label": "Recorder::verdictIn",
+   "ogc": "ogc view assemblage",
+   "page": ""
+  },
+  {
    "cls": "item",
    "desc": "Coverage and performance, computed by machine over a\n conformant record and reported together, never merged.",
    "id": "urn:sysmlv2:element:OGCAIE__Report",
    "label": "Report",
    "ogc": "ogc view layers",
+   "page": ""
+  },
+  {
+   "cls": "item",
+   "desc": "A domain expert's approval of the report's contents after\n the machine verdict: correct construction is not enough\n (walkthrough, R-49). Pinned within the evaluation.",
+   "id": "urn:sysmlv2:element:OGCAIE__ReportApproval",
+   "label": "ReportApproval",
+   "ogc": "ogc view layers",
+   "page": ""
+  },
+  {
+   "cls": "part",
+   "desc": "Assembles the report from the record, coverage and the\n outcome distribution recomputed inside it; anyone holding the\n record recomputes the same numbers (queries/coverage.rq). The\n report is then checked by machine and approved by a domain expert\n (walkthrough, R-49).",
+   "id": "urn:sysmlv2:element:OGCAIE__ReportAssembler",
+   "label": "ReportAssembler",
+   "ogc": "ogc view assemblage",
+   "page": ""
+  },
+  {
+   "cls": "port",
+   "desc": "in port typed RecordWrite, carrying EvaluationRecord.",
+   "id": "urn:sysmlv2:element:OGCAIE__ReportAssembler__recordIn",
+   "label": "ReportAssembler::recordIn",
+   "ogc": "ogc view assemblage",
+   "page": ""
+  },
+  {
+   "cls": "port",
+   "desc": "out port typed ReportWrite, carrying Report.",
+   "id": "urn:sysmlv2:element:OGCAIE__ReportAssembler__reportOut",
+   "label": "ReportAssembler::reportOut",
+   "ogc": "ogc view assemblage",
    "page": ""
   },
   {
@@ -48765,6 +49388,30 @@
   },
   {
    "cls": "part",
+   "desc": "The machine part of administering the test plan (SEVOCAB test\n driver, walkthrough B8, R-49): derives the probes from the DSO\n release and the requirement set in the record; one output read\n by the operator and the recorder (an output wire may be shared,\n R-25).",
+   "id": "urn:sysmlv2:element:OGCAIE__TestDriver",
+   "label": "TestDriver",
+   "ogc": "ogc view assemblage",
+   "page": ""
+  },
+  {
+   "cls": "port",
+   "desc": "out port typed ProbeWrite, carrying Probe.",
+   "id": "urn:sysmlv2:element:OGCAIE__TestDriver__probesOut",
+   "label": "TestDriver::probesOut",
+   "ogc": "ogc view assemblage",
+   "page": ""
+  },
+  {
+   "cls": "port",
+   "desc": "in port typed RecordWrite, carrying EvaluationRecord.",
+   "id": "urn:sysmlv2:element:OGCAIE__TestDriver__recordIn",
+   "label": "TestDriver::recordIn",
+   "ogc": "ogc view assemblage",
+   "page": ""
+  },
+  {
+   "cls": "part",
    "desc": "The test item (SEVOCAB; the prose says system under test,\n ruling R-19): a black box that is given probes and produces\n responses. Provided by the accountable organization, inside\n the record, outside the testing organization's responsibility.",
    "id": "urn:sysmlv2:element:OGCAIE__TestItem",
    "label": "TestItem",
@@ -48829,22 +49476,6 @@
   },
   {
    "cls": "usage",
-   "desc": "OGCAIE::TestingOrganization::coverageCalculator",
-   "id": "urn:sysmlv2:element:OGCAIE__TestingOrganization__coverageCalculator",
-   "label": "TestingOrganization::coverageCalculator : Cover…",
-   "ogc": "ogc view assemblage",
-   "page": ""
-  },
-  {
-   "cls": "usage",
-   "desc": "OGCAIE::TestingOrganization::probeDeriver",
-   "id": "urn:sysmlv2:element:OGCAIE__TestingOrganization__probeDeriver",
-   "label": "TestingOrganization::probeDeriver : ProbeDeriver",
-   "ogc": "ogc view assemblage",
-   "page": ""
-  },
-  {
-   "cls": "usage",
    "desc": "OGCAIE::TestingOrganization::recorder",
    "id": "urn:sysmlv2:element:OGCAIE__TestingOrganization__recorder",
    "label": "TestingOrganization::recorder : Recorder",
@@ -48853,9 +49484,25 @@
   },
   {
    "cls": "usage",
+   "desc": "OGCAIE::TestingOrganization::reportAssembler",
+   "id": "urn:sysmlv2:element:OGCAIE__TestingOrganization__reportAssembler",
+   "label": "TestingOrganization::reportAssembler : ReportAs…",
+   "ogc": "ogc view assemblage",
+   "page": ""
+  },
+  {
+   "cls": "usage",
    "desc": "OGCAIE::TestingOrganization::team",
    "id": "urn:sysmlv2:element:OGCAIE__TestingOrganization__team",
    "label": "TestingOrganization::team : EvaluationTeam",
+   "ogc": "ogc view assemblage",
+   "page": ""
+  },
+  {
+   "cls": "usage",
+   "desc": "OGCAIE::TestingOrganization::testDriver",
+   "id": "urn:sysmlv2:element:OGCAIE__TestingOrganization__testDriver",
+   "label": "TestingOrganization::testDriver : TestDriver",
    "ogc": "ogc view assemblage",
    "page": ""
   }
@@ -49257,6 +49904,7 @@
     "https://w3id.org/og-caie/epo#AppropriatenessAssessment",
     "https://w3id.org/og-caie/epo#AppropriatenessValue",
     "https://w3id.org/og-caie/epo#Attestation",
+    "https://w3id.org/og-caie/epo#ConformanceVerdict",
     "https://w3id.org/og-caie/epo#ConsistencyCheck",
     "https://w3id.org/og-caie/epo#CoverageComputation",
     "https://w3id.org/og-caie/epo#Delivery",
@@ -49274,6 +49922,7 @@
     "https://w3id.org/og-caie/epo#Proposal",
     "https://w3id.org/og-caie/epo#Recommendation",
     "https://w3id.org/og-caie/epo#Report",
+    "https://w3id.org/og-caie/epo#ReportApproval",
     "https://w3id.org/og-caie/epo#Requirement",
     "https://w3id.org/og-caie/epo#RequirementSet",
     "https://w3id.org/og-caie/epo#Response",
@@ -49306,6 +49955,7 @@
     "urn:sysmlv2:element:OGCAIE__AcceptanceCriterion",
     "urn:sysmlv2:element:OGCAIE__AppropriatenessAssessment",
     "urn:sysmlv2:element:OGCAIE__Attestation",
+    "urn:sysmlv2:element:OGCAIE__ConformanceVerdict",
     "urn:sysmlv2:element:OGCAIE__ContractingProcess",
     "urn:sysmlv2:element:OGCAIE__ContractingProcess__acceptDelivery",
     "urn:sysmlv2:element:OGCAIE__ContractingProcess__access",
@@ -49333,6 +49983,7 @@
     "urn:sysmlv2:element:OGCAIE__Proposal",
     "urn:sysmlv2:element:OGCAIE__Recommendation",
     "urn:sysmlv2:element:OGCAIE__Report",
+    "urn:sysmlv2:element:OGCAIE__ReportApproval",
     "urn:sysmlv2:element:OGCAIE__RequirementSet",
     "urn:sysmlv2:element:OGCAIE__Response",
     "urn:sysmlv2:element:OGCAIE__ServiceAgreement",
@@ -49360,7 +50011,6 @@
     "urn:sysmlv2:element:OGCAIE__AccountExecutive__missionIn",
     "urn:sysmlv2:element:OGCAIE__AccountExecutive__needIn",
     "urn:sysmlv2:element:OGCAIE__AccountExecutive__proposalOut",
-    "urn:sysmlv2:element:OGCAIE__AccountExecutive__recordIn",
     "urn:sysmlv2:element:OGCAIE__AccountExecutive__statementOfWorkIn",
     "urn:sysmlv2:element:OGCAIE__AccountableOrganization",
     "urn:sysmlv2:element:OGCAIE__AccountableOrganization__accessOut",
@@ -49371,9 +50021,8 @@
     "urn:sysmlv2:element:OGCAIE__Attestation",
     "urn:sysmlv2:element:OGCAIE__ConformanceChecker",
     "urn:sysmlv2:element:OGCAIE__ConformanceChecker__recordIn",
-    "urn:sysmlv2:element:OGCAIE__CoverageCalculator",
-    "urn:sysmlv2:element:OGCAIE__CoverageCalculator__recordIn",
-    "urn:sysmlv2:element:OGCAIE__CoverageCalculator__reportOut",
+    "urn:sysmlv2:element:OGCAIE__ConformanceChecker__verdictOut",
+    "urn:sysmlv2:element:OGCAIE__ConformanceVerdict",
     "urn:sysmlv2:element:OGCAIE__Delivery",
     "urn:sysmlv2:element:OGCAIE__Determination",
     "urn:sysmlv2:element:OGCAIE__DomainExpert",
@@ -49382,7 +50031,7 @@
     "urn:sysmlv2:element:OGCAIE__DomainExpert__determinationOut",
     "urn:sysmlv2:element:OGCAIE__DomainExpert__dsoOut",
     "urn:sysmlv2:element:OGCAIE__DomainExpert__planApprovalOut",
-    "urn:sysmlv2:element:OGCAIE__DomainExpert__recordIn",
+    "urn:sysmlv2:element:OGCAIE__DomainExpert__reportApprovalOut",
     "urn:sysmlv2:element:OGCAIE__DsoRelease",
     "urn:sysmlv2:element:OGCAIE__EvaluationOperator",
     "urn:sysmlv2:element:OGCAIE__EvaluationOperator__accessIn",
@@ -49392,7 +50041,6 @@
     "urn:sysmlv2:element:OGCAIE__EvaluationOperator__probesIn",
     "urn:sysmlv2:element:OGCAIE__EvaluationOperator__probesToItem",
     "urn:sysmlv2:element:OGCAIE__EvaluationOperator__recommendationOut",
-    "urn:sysmlv2:element:OGCAIE__EvaluationOperator__recordIn",
     "urn:sysmlv2:element:OGCAIE__EvaluationOperator__requirementsOut",
     "urn:sysmlv2:element:OGCAIE__EvaluationRecord",
     "urn:sysmlv2:element:OGCAIE__EvaluationTeam",
@@ -49433,12 +50081,10 @@
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__proposalSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__proposalToSponsorSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recommendationSeam",
-    "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToCalculatorSeam",
+    "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToAssemblerSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToCheckerSeam",
-    "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToDeriverSeam",
-    "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToExecutiveSeam",
-    "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToExpertSeam",
-    "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToOperatorSeam",
+    "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToDriverSeam",
+    "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__reportApprovalSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__reportSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__requirementSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__responseSeam",
@@ -49447,14 +50093,12 @@
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__statementOfWorkSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__testingOrg",
+    "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__verdictSeam",
     "urn:sysmlv2:element:OGCAIE__Organization",
     "urn:sysmlv2:element:OGCAIE__Party",
     "urn:sysmlv2:element:OGCAIE__Person",
     "urn:sysmlv2:element:OGCAIE__PlanApproval",
     "urn:sysmlv2:element:OGCAIE__Probe",
-    "urn:sysmlv2:element:OGCAIE__ProbeDeriver",
-    "urn:sysmlv2:element:OGCAIE__ProbeDeriver__probesOut",
-    "urn:sysmlv2:element:OGCAIE__ProbeDeriver__recordIn",
     "urn:sysmlv2:element:OGCAIE__Proposal",
     "urn:sysmlv2:element:OGCAIE__Recommendation",
     "urn:sysmlv2:element:OGCAIE__Recorder",
@@ -49477,11 +50121,17 @@
     "urn:sysmlv2:element:OGCAIE__Recorder__proposalIn",
     "urn:sysmlv2:element:OGCAIE__Recorder__recommendationIn",
     "urn:sysmlv2:element:OGCAIE__Recorder__recordOut",
+    "urn:sysmlv2:element:OGCAIE__Recorder__reportApprovalIn",
     "urn:sysmlv2:element:OGCAIE__Recorder__reportIn",
     "urn:sysmlv2:element:OGCAIE__Recorder__requirementsIn",
     "urn:sysmlv2:element:OGCAIE__Recorder__responseIn",
     "urn:sysmlv2:element:OGCAIE__Recorder__statementOfWorkIn",
+    "urn:sysmlv2:element:OGCAIE__Recorder__verdictIn",
     "urn:sysmlv2:element:OGCAIE__Report",
+    "urn:sysmlv2:element:OGCAIE__ReportApproval",
+    "urn:sysmlv2:element:OGCAIE__ReportAssembler",
+    "urn:sysmlv2:element:OGCAIE__ReportAssembler__recordIn",
+    "urn:sysmlv2:element:OGCAIE__ReportAssembler__reportOut",
     "urn:sysmlv2:element:OGCAIE__RequirementSet",
     "urn:sysmlv2:element:OGCAIE__Response",
     "urn:sysmlv2:element:OGCAIE__Runs__MeaslesRun",
@@ -49514,6 +50164,9 @@
     "urn:sysmlv2:element:OGCAIE__StatementOfWork",
     "urn:sysmlv2:element:OGCAIE__StatementOfWork__regards",
     "urn:sysmlv2:element:OGCAIE__Strategy",
+    "urn:sysmlv2:element:OGCAIE__TestDriver",
+    "urn:sysmlv2:element:OGCAIE__TestDriver__probesOut",
+    "urn:sysmlv2:element:OGCAIE__TestDriver__recordIn",
     "urn:sysmlv2:element:OGCAIE__TestItem",
     "urn:sysmlv2:element:OGCAIE__TestItemAccess",
     "urn:sysmlv2:element:OGCAIE__TestItem__probesIn",
@@ -49522,10 +50175,10 @@
     "urn:sysmlv2:element:OGCAIE__TestingOrganization",
     "urn:sysmlv2:element:OGCAIE__TestingOrganization__accountExecutive",
     "urn:sysmlv2:element:OGCAIE__TestingOrganization__conformanceChecker",
-    "urn:sysmlv2:element:OGCAIE__TestingOrganization__coverageCalculator",
-    "urn:sysmlv2:element:OGCAIE__TestingOrganization__probeDeriver",
     "urn:sysmlv2:element:OGCAIE__TestingOrganization__recorder",
-    "urn:sysmlv2:element:OGCAIE__TestingOrganization__team"
+    "urn:sysmlv2:element:OGCAIE__TestingOrganization__reportAssembler",
+    "urn:sysmlv2:element:OGCAIE__TestingOrganization__team",
+    "urn:sysmlv2:element:OGCAIE__TestingOrganization__testDriver"
    ]
   },
   {
@@ -49572,6 +50225,8 @@
     "https://w3id.org/og-caie/run/measles#recommendation-1",
     "https://w3id.org/og-caie/run/measles#record",
     "https://w3id.org/og-caie/run/measles#report",
+    "https://w3id.org/og-caie/run/measles#report-approval-1",
+    "https://w3id.org/og-caie/run/measles#report-verdict-1",
     "https://w3id.org/og-caie/run/measles#requirement-set",
     "https://w3id.org/og-caie/run/measles#response-1",
     "https://w3id.org/og-caie/run/measles#service-agreement",
@@ -49626,7 +50281,9 @@
     "https://w3id.org/og-caie/S5-Response",
     "https://w3id.org/og-caie/S6-Attestation",
     "https://w3id.org/og-caie/S6-Determination",
+    "https://w3id.org/og-caie/S7-ConformanceVerdict",
     "https://w3id.org/og-caie/S7-Report",
+    "https://w3id.org/og-caie/S7-ReportApproval",
     "https://w3id.org/og-caie/S8-Delivery",
     "https://w3id.org/og-caie/S8-Recommendation",
     "https://w3id.org/og-caie/S9-Acceptance",
@@ -49947,7 +50604,9 @@
     "https://w3id.org/og-caie/S5-Response",
     "https://w3id.org/og-caie/S6-Attestation",
     "https://w3id.org/og-caie/S6-Determination",
+    "https://w3id.org/og-caie/S7-ConformanceVerdict",
     "https://w3id.org/og-caie/S7-Report",
+    "https://w3id.org/og-caie/S7-ReportApproval",
     "https://w3id.org/og-caie/S8-Delivery",
     "https://w3id.org/og-caie/S8-Recommendation",
     "https://w3id.org/og-caie/S9-Acceptance",
@@ -49963,6 +50622,7 @@
     "https://w3id.org/og-caie/epo#AppropriatenessAssessment",
     "https://w3id.org/og-caie/epo#AppropriatenessValue",
     "https://w3id.org/og-caie/epo#Attestation",
+    "https://w3id.org/og-caie/epo#ConformanceVerdict",
     "https://w3id.org/og-caie/epo#ConsistencyCheck",
     "https://w3id.org/og-caie/epo#CoverageComputation",
     "https://w3id.org/og-caie/epo#Delivery",
@@ -49980,6 +50640,7 @@
     "https://w3id.org/og-caie/epo#Proposal",
     "https://w3id.org/og-caie/epo#Recommendation",
     "https://w3id.org/og-caie/epo#Report",
+    "https://w3id.org/og-caie/epo#ReportApproval",
     "https://w3id.org/og-caie/epo#Requirement",
     "https://w3id.org/og-caie/epo#RequirementSet",
     "https://w3id.org/og-caie/epo#Response",
@@ -50154,6 +50815,8 @@
     "https://w3id.org/og-caie/run/measles#recommendation-1",
     "https://w3id.org/og-caie/run/measles#record",
     "https://w3id.org/og-caie/run/measles#report",
+    "https://w3id.org/og-caie/run/measles#report-approval-1",
+    "https://w3id.org/og-caie/run/measles#report-verdict-1",
     "https://w3id.org/og-caie/run/measles#requirement-set",
     "https://w3id.org/og-caie/run/measles#response-1",
     "https://w3id.org/og-caie/run/measles#service-agreement",
@@ -50270,7 +50933,6 @@
     "urn:sysmlv2:element:OGCAIE__AccountExecutive__missionIn",
     "urn:sysmlv2:element:OGCAIE__AccountExecutive__needIn",
     "urn:sysmlv2:element:OGCAIE__AccountExecutive__proposalOut",
-    "urn:sysmlv2:element:OGCAIE__AccountExecutive__recordIn",
     "urn:sysmlv2:element:OGCAIE__AccountExecutive__statementOfWorkIn",
     "urn:sysmlv2:element:OGCAIE__AccountableOrganization",
     "urn:sysmlv2:element:OGCAIE__AccountableOrganization__accessOut",
@@ -50281,6 +50943,8 @@
     "urn:sysmlv2:element:OGCAIE__Attestation",
     "urn:sysmlv2:element:OGCAIE__ConformanceChecker",
     "urn:sysmlv2:element:OGCAIE__ConformanceChecker__recordIn",
+    "urn:sysmlv2:element:OGCAIE__ConformanceChecker__verdictOut",
+    "urn:sysmlv2:element:OGCAIE__ConformanceVerdict",
     "urn:sysmlv2:element:OGCAIE__ContractingProcess",
     "urn:sysmlv2:element:OGCAIE__ContractingProcess__acceptDelivery",
     "urn:sysmlv2:element:OGCAIE__ContractingProcess__access",
@@ -50289,9 +50953,6 @@
     "urn:sysmlv2:element:OGCAIE__ContractingProcess__fulfil",
     "urn:sysmlv2:element:OGCAIE__ContractingProcess__need",
     "urn:sysmlv2:element:OGCAIE__ContractingProcess__propose",
-    "urn:sysmlv2:element:OGCAIE__CoverageCalculator",
-    "urn:sysmlv2:element:OGCAIE__CoverageCalculator__recordIn",
-    "urn:sysmlv2:element:OGCAIE__CoverageCalculator__reportOut",
     "urn:sysmlv2:element:OGCAIE__Delivery",
     "urn:sysmlv2:element:OGCAIE__Determination",
     "urn:sysmlv2:element:OGCAIE__DomainExpert",
@@ -50300,7 +50961,7 @@
     "urn:sysmlv2:element:OGCAIE__DomainExpert__determinationOut",
     "urn:sysmlv2:element:OGCAIE__DomainExpert__dsoOut",
     "urn:sysmlv2:element:OGCAIE__DomainExpert__planApprovalOut",
-    "urn:sysmlv2:element:OGCAIE__DomainExpert__recordIn",
+    "urn:sysmlv2:element:OGCAIE__DomainExpert__reportApprovalOut",
     "urn:sysmlv2:element:OGCAIE__DsoRelease",
     "urn:sysmlv2:element:OGCAIE__EvaluationOperator",
     "urn:sysmlv2:element:OGCAIE__EvaluationOperator__accessIn",
@@ -50310,7 +50971,6 @@
     "urn:sysmlv2:element:OGCAIE__EvaluationOperator__probesIn",
     "urn:sysmlv2:element:OGCAIE__EvaluationOperator__probesToItem",
     "urn:sysmlv2:element:OGCAIE__EvaluationOperator__recommendationOut",
-    "urn:sysmlv2:element:OGCAIE__EvaluationOperator__recordIn",
     "urn:sysmlv2:element:OGCAIE__EvaluationOperator__requirementsOut",
     "urn:sysmlv2:element:OGCAIE__EvaluationProcess",
     "urn:sysmlv2:element:OGCAIE__EvaluationProcess__declareRequirements",
@@ -50358,12 +51018,10 @@
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__proposalSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__proposalToSponsorSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recommendationSeam",
-    "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToCalculatorSeam",
+    "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToAssemblerSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToCheckerSeam",
-    "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToDeriverSeam",
-    "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToExecutiveSeam",
-    "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToExpertSeam",
-    "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToOperatorSeam",
+    "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToDriverSeam",
+    "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__reportApprovalSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__reportSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__requirementSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__responseSeam",
@@ -50372,14 +51030,12 @@
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__statementOfWorkSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam",
     "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__testingOrg",
+    "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__verdictSeam",
     "urn:sysmlv2:element:OGCAIE__Organization",
     "urn:sysmlv2:element:OGCAIE__Party",
     "urn:sysmlv2:element:OGCAIE__Person",
     "urn:sysmlv2:element:OGCAIE__PlanApproval",
     "urn:sysmlv2:element:OGCAIE__Probe",
-    "urn:sysmlv2:element:OGCAIE__ProbeDeriver",
-    "urn:sysmlv2:element:OGCAIE__ProbeDeriver__probesOut",
-    "urn:sysmlv2:element:OGCAIE__ProbeDeriver__recordIn",
     "urn:sysmlv2:element:OGCAIE__Proposal",
     "urn:sysmlv2:element:OGCAIE__Recommendation",
     "urn:sysmlv2:element:OGCAIE__Recorder",
@@ -50402,11 +51058,17 @@
     "urn:sysmlv2:element:OGCAIE__Recorder__proposalIn",
     "urn:sysmlv2:element:OGCAIE__Recorder__recommendationIn",
     "urn:sysmlv2:element:OGCAIE__Recorder__recordOut",
+    "urn:sysmlv2:element:OGCAIE__Recorder__reportApprovalIn",
     "urn:sysmlv2:element:OGCAIE__Recorder__reportIn",
     "urn:sysmlv2:element:OGCAIE__Recorder__requirementsIn",
     "urn:sysmlv2:element:OGCAIE__Recorder__responseIn",
     "urn:sysmlv2:element:OGCAIE__Recorder__statementOfWorkIn",
+    "urn:sysmlv2:element:OGCAIE__Recorder__verdictIn",
     "urn:sysmlv2:element:OGCAIE__Report",
+    "urn:sysmlv2:element:OGCAIE__ReportApproval",
+    "urn:sysmlv2:element:OGCAIE__ReportAssembler",
+    "urn:sysmlv2:element:OGCAIE__ReportAssembler__recordIn",
+    "urn:sysmlv2:element:OGCAIE__ReportAssembler__reportOut",
     "urn:sysmlv2:element:OGCAIE__RequirementSet",
     "urn:sysmlv2:element:OGCAIE__Response",
     "urn:sysmlv2:element:OGCAIE__Runs__MeaslesRun",
@@ -50439,6 +51101,9 @@
     "urn:sysmlv2:element:OGCAIE__StatementOfWork",
     "urn:sysmlv2:element:OGCAIE__StatementOfWork__regards",
     "urn:sysmlv2:element:OGCAIE__Strategy",
+    "urn:sysmlv2:element:OGCAIE__TestDriver",
+    "urn:sysmlv2:element:OGCAIE__TestDriver__probesOut",
+    "urn:sysmlv2:element:OGCAIE__TestDriver__recordIn",
     "urn:sysmlv2:element:OGCAIE__TestItem",
     "urn:sysmlv2:element:OGCAIE__TestItemAccess",
     "urn:sysmlv2:element:OGCAIE__TestItem__probesIn",
@@ -50447,10 +51112,10 @@
     "urn:sysmlv2:element:OGCAIE__TestingOrganization",
     "urn:sysmlv2:element:OGCAIE__TestingOrganization__accountExecutive",
     "urn:sysmlv2:element:OGCAIE__TestingOrganization__conformanceChecker",
-    "urn:sysmlv2:element:OGCAIE__TestingOrganization__coverageCalculator",
-    "urn:sysmlv2:element:OGCAIE__TestingOrganization__probeDeriver",
     "urn:sysmlv2:element:OGCAIE__TestingOrganization__recorder",
-    "urn:sysmlv2:element:OGCAIE__TestingOrganization__team"
+    "urn:sysmlv2:element:OGCAIE__TestingOrganization__reportAssembler",
+    "urn:sysmlv2:element:OGCAIE__TestingOrganization__team",
+    "urn:sysmlv2:element:OGCAIE__TestingOrganization__testDriver"
    ]
   }
  ]

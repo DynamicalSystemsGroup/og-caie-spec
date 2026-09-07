@@ -24,7 +24,7 @@ deployed AI system against the needs of a specific domain, written down as:
   `rulings/adjudications.ttl`. 85 quotes are machine-located in
   content-hashed snapshots or, where the source is held locally, in its
   committed digest, 48 verified by Z against the ISO screenshots or
-  the browsing platforms; none pending. Concerns C-25, C-26, C-30, C-43, C-44 and C-45 are open.
+  the browsing platforms; none pending. Concerns C-25, C-30, C-43 and C-45 are open; C-26 closes with the headword authorized representative.
 - **Both cycles are bound to the canon (R-31, R-32).** Each step cites the
   process step it matches: SEBoK's account of the ISO/IEC/IEEE 15288
   acquisition, stakeholder needs and system requirements processes; the
@@ -59,14 +59,14 @@ deployed AI system against the needs of a specific domain, written down as:
   (R-22), checked by wiring shapes M1 to M5 over kinds of parts and ports:
   four parties, three actor categories within the testing organization, the
   six-step EPO nested as the fulfil step of the contracting lifecycle (one
-  model, R-33), both process DAGs, 63 ports and 38 seams, every input wired
+  model, R-33), both process DAGs, 64 ports and 37 seams, every input wired
   once and every output somewhere, and the sponsor's obligation to the
   affected populations as a relation. Four model counterexamples fail their
   shape. The essentials SCI-01 to SCI-13 live in `model/trace.ttl`.
 - **The end-state demonstration (C-30) is built; Z's validation is not.**
   `ogc/executor.py` walks the process as the model states it and emits a
   record; the run conforms to S0 to S9, is complete against the model, has
-  a recomputable coverage and traces fully, and eight mutations are each
+  a recomputable coverage and traces fully, and nine mutations are each
   caught by a named check (`ogc execute`, chapter Records and reporting).
   Two findings are open as concern C-43: a record without a plan approval
   or an access grant conforms to the shapes and is caught only by

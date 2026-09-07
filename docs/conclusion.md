@@ -21,7 +21,7 @@ check the model and the record, and the record itself encode what
 qualifies as scientific about an evaluation, and nothing else. An
 evaluation that follows the process leaves a record, and the executor
 shows it for the runs it generates: each conforms, is complete, has a
-coverage anyone can recompute and traces fully, and each of eight ways of
+coverage anyone can recompute and traces fully, and each of nine ways of
 departing from the wiring is caught by a named check. That every possible
 run must do so is the open concern C-30, stated in Appendix C, not a claim
 made here. A record that conforms to the
