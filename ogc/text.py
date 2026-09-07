@@ -41,7 +41,7 @@ def wrap(s: str, indent: str = "  ", rest: str | None = None) -> list[str]:
 
 
 def cite_lines(c: dict, indent: str) -> list[str]:
-    L = [f"{indent}{c['source']} (rank {c['rank']}, {c['posture']}) {c['locator']}" + (f"  [{c['status']}]" if c["status"] else "  (cite-only)")]
+    L = [f"{indent}{c['source']} (rank {c['rank']}, {c['posture']}) {c['locator']}  [{c['status']}]"]
     if c["quote"]:
         L += wrap(f'"{c["quote"]}"', indent + "  ")
     if c.get("verified_by"):

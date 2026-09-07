@@ -2,12 +2,13 @@
 returning plain, sorted data. The CLI renders these."""
 from __future__ import annotations
 
+import hashlib
 import re
 import unicodedata
 from collections import Counter
 from pathlib import Path
 
-from rdflib import RDF, RDFS, Graph, URIRef
+from rdflib import RDF, RDFS, BNode, Graph, URIRef
 
 from .graph import EPO, OGC, PROV, RUL, SH, SKOS, SRC, TERM, PREFIXES
 
@@ -48,9 +49,15 @@ def concepts(g: Graph):
 def citation_record(g: Graph, c) -> dict:
     src = g.value(c, OGC.cites)
     return dict(source=local(src), source_label=one(g, src, RDFS.label), rank=one(g, src, OGC.rank), posture=one(g, src, OGC.posture),
-                locator=one(g, c, OGC.locator), quote=one(g, c, OGC.quote), status=one(g, c, OGC.quoteStatus),
+                locator=one(g, c, OGC.locator), quote=one(g, c, OGC.quote), status=cite_status(g, c),
                 pdf_page=one(g, c, OGC.pdfPage), file=one(g, c, OGC.file), verified_by=local(g.value(c, OGC.verifiedBy)) if g.value(c, OGC.verifiedBy) else "",
                 verified_on=one(g, c, OGC.verifiedOn), node=c)
+
+
+def cite_status(g: Graph, c) -> str:
+    """One status vocabulary for every rendering: the quote's status (machine,
+    human, pending) or `cite-only` when the citation carries no quote."""
+    return one(g, c, OGC.quoteStatus) or ("cite-only" if not one(g, c, OGC.quote) else "unstated")
 
 
 def term_record(g: Graph, s) -> dict:
@@ -133,7 +140,7 @@ def list_terms(g: Graph, klass=None, source=None) -> list[dict]:
     for t in all_terms(g).values():
         if klass and t["class"] != klass:
             continue
-        if source and t["canonical"].get("source") != source:
+        if source and t["canonical"].get("source", "").lower() != norm(source).lower():
             continue
         rows.append({"term": t["pref"], "local": t["local"], "class": t["class"], "source": t["canonical"].get("source", ""),
                      "locator": t["canonical"].get("locator", ""), "status": t["canonical"].get("status", "")})
@@ -142,19 +149,33 @@ def list_terms(g: Graph, klass=None, source=None) -> list[dict]:
 
 # ---------------------------------------------------------------- sources
 
+def source_slugs(g: Graph) -> list[str]:
+    return sorted(local(s) for s in g.subjects(RDF.type, OGC.Source))
+
+
+def resolve_source(g: Graph, slug: str):
+    """The source IRI for a slug, stripped and case-insensitive; None if unregistered."""
+    key = norm(slug).lower()
+    for s in g.subjects(RDF.type, OGC.Source):
+        if local(s).lower() == key:
+            return s
+    return None
+
+
 def source_record(g: Graph, slug: str) -> dict | None:
-    s = SRC[slug]
-    if (s, RDF.type, OGC.Source) not in g:
+    s = resolve_source(g, slug)
+    if s is None:
         return None
+    slug = local(s)
     snaps = sorted((dict(file=one(g, sn, OGC.file), hash=one(g, sn, OGC.contentHash)) for sn in g.objects(s, OGC.snapshot)), key=lambda d: d["file"])
     cits = []
     for t in concepts(g):
         for holder, c in [("canonical", g.value(t, OGC.canonical)), *[("seeAlso", x) for x in g.objects(t, OGC.seeAlso)]]:
             if c is not None and g.value(c, OGC.cites) == s:
-                cits.append(dict(term=one(g, t, SKOS.prefLabel), holder=holder, locator=one(g, c, OGC.locator), quote=one(g, c, OGC.quote), status=one(g, c, OGC.quoteStatus)))
+                cits.append(dict(term=one(g, t, SKOS.prefLabel), holder=holder, locator=one(g, c, OGC.locator), quote=one(g, c, OGC.quote), status=cite_status(g, c)))
     for x in g.subjects(OGC.cites, s):
         if (x, RDF.type, OGC.Crosswalk) in g:
-            cits.append(dict(term=f"crosswalk: {one(g, x, RDFS.label)}", holder="crosswalk", locator=one(g, x, OGC.locator), quote=one(g, x, OGC.quote), status=one(g, x, OGC.quoteStatus)))
+            cits.append(dict(term=f"crosswalk: {one(g, x, RDFS.label)}", holder="crosswalk", locator=one(g, x, OGC.locator), quote=one(g, x, OGC.quote), status=cite_status(g, x)))
     return dict(slug=slug, label=one(g, s, RDFS.label), rank=one(g, s, OGC.rank), kind=one(g, s, OGC.kind), posture=one(g, s, OGC.posture),
                 url=one(g, s, OGC.url), digest=one(g, s, OGC.digest), status=one(g, s, OGC.status), retrieval=one(g, s, OGC.retrievalNote),
                 licence=one(g, s, OGC.licenceNote), permission=one(g, s, OGC.permissionStatement), snapshots=snaps,
@@ -185,14 +206,24 @@ def sources_table(g: Graph, rank=None, posture=None, uncited=False) -> list[dict
 
 # ---------------------------------------------------------------- judgment record
 
-def _rid(text: str) -> str:
-    t = norm(text).upper()
-    m = re.fullmatch(r"(R|C)-?(\d+)", t)
-    return f"{m.group(1)}-{m.group(2).zfill(2)}" if m else t
+ID_FORM = r"^(?:(r|c|sci)-?)?0*(\d+)$"
+
+
+def norm_id(text: str, kind: str) -> str | None:
+    """One normaliser for the three id kinds (rulings R, concerns C, essentials
+    SCI): `^(r|c|sci)-?0*(\\d+)$`, case-insensitive, the kind prefix optional
+    when the command implies it. R16, r-016, 16 all give R-16; a prefix of
+    another kind gives None."""
+    m = re.fullmatch(ID_FORM, norm(text), re.I)
+    if not m or (m.group(1) and m.group(1).upper() != kind):
+        return None
+    return f"{kind}-{int(m.group(2)):02d}"
 
 
 def ruling_record(g: Graph, rid: str) -> dict | None:
-    rid = _rid(rid)
+    rid = norm_id(rid, "R")
+    if rid is None:
+        return None
     r = RUL[rid]
     if (r, RDF.type, OGC.Ruling) not in g:
         return None
@@ -229,7 +260,9 @@ def rulings_table(g: Graph, term_iri=None, grep=None) -> list[dict]:
 
 
 def concern_record(g: Graph, cid: str) -> dict | None:
-    cid = _rid(cid)
+    cid = norm_id(cid, "C")
+    if cid is None:
+        return None
     c = RUL[cid]
     if (c, RDF.type, OGC.Concern) not in g:
         return None
@@ -267,9 +300,10 @@ def concerns_mentioning(g: Graph, word: str) -> list[dict]:
 
 def sci_table(g: Graph, sid=None) -> list[dict]:
     rows = []
+    want = norm_id(sid, "SCI") if sid else None
     for t in g.subjects(RDF.type, OGC.Trace):
         i = local(t)
-        if sid and i.upper() != _rid(sid).replace("SCI", "SCI-") and i.upper() != norm(sid).upper():
+        if sid and i.upper() != want:
             continue
         rows.append(dict(id=i, name=one(g, t, RDFS.label).split(" ", 1)[-1], tag=one(g, t, OGC.tag), statement=one(g, t, RDFS.comment),
                          shapes=sorted(local(s) for s in g.objects(t, OGC.checkedBy)),
@@ -292,13 +326,35 @@ def steps_table(g: Graph) -> list[dict]:
     return sorted(rows, key=lambda d: d["order"])
 
 
+def resolve_step(g: Graph, text: str):
+    """A step IRI from its local name (`scope`, `acceptDelivery`), the head of
+    its label (`1 scope`, `C1 need`) or that head without the number (`need`,
+    `accept`); case-insensitive. None when nothing matches."""
+    key = norm(text).lower()
+    for st in sorted(set(g.subjects(RDF.type, EPO.ContractingStep)) | set(g.subjects(RDF.type, EPO.EpoStep)), key=str):
+        head = one(g, st, RDFS.label).split(":", 1)[0]
+        names = {local(st), head, head.split(" ", 1)[-1], one(g, st, RDFS.label)}
+        if key in {norm(n).lower() for n in names}:
+            return st
+    return None
+
+
+def step_citations(g: Graph, st) -> list[dict]:
+    """The canonical and seeAlso citations of a step, in the form `ogc quote` prints."""
+    out = []
+    for holder, c in [("canonical", g.value(st, OGC.canonical)), *[("seeAlso", x) for x in sorted(g.objects(st, OGC.seeAlso), key=lambda x: (str(g.value(x, OGC.cites)), str(g.value(x, OGC.locator))))]]:
+        if c is not None:
+            out.append(dict(holder=holder, **{k: v for k, v in citation_record(g, c).items() if k != "node"}))
+    return out
+
+
 def crosswalk(g: Graph, klass=None, source=None) -> list[dict]:
     """One row per term: its class, anchor relation, canonical source and locator, and binding."""
     rows = []
     for t in all_terms(g).values():
         if klass and t["class"] != klass:
             continue
-        if source and t["canonical"].get("source") != source:
+        if source and t["canonical"].get("source", "").lower() != norm(source).lower():
             continue
         rows.append({"term": t["pref"], "class": t["class"], "relation": t["anchor_relation"], "source": t["canonical"].get("source", ""),
                      "locator": t["canonical"].get("locator", ""), "status": t["canonical"].get("status", ""), "see_also": len(t["see_also"]), "binding": t["binding"]})
@@ -324,9 +380,9 @@ def check_word(g: Graph, word: str) -> dict:
             if norm(l).lower() == key:
                 hits.append((("pref", "alt").index(kind), s, kind, l))
                 break
-    concerns = concerns_mentioning(g, word)
+    concerns = concerns_mentioning(g, word) if len(key) >= 2 else []
     retired = RETIRED.get(key, "")
-    quote_hits = [dict(term=r["pref"], source=r["via"].split(":", 1)[1]) for r in find(g, word) if r["via"].startswith("quote:")]
+    quote_hits = [dict(term=r["pref"], source=r["via"].split(":", 1)[1]) for r in find(g, word) if r["via"].startswith("quote:")] if len(key) >= 2 else []
     if retired:
         return dict(word=word, registered=False, retired=retired, also=[], quote_hits=quote_hits, concerns=concerns, advice="do not use in prose; " + retired)
     if not hits:
@@ -341,7 +397,7 @@ def check_word(g: Graph, word: str) -> dict:
     t = term_record(g, s)
     c = t["canonical"]
     d = dict(word=word, registered=True, retired="", term=t["pref"], local=t["local"], matched_as=kind, label=l, **{"class": t["class"]},
-             sense=first_sentence(t["definition"]), canonical=f"{c.get('source', '')} {c.get('locator', '')} [{c.get('status', '')}]",
+             sense=first_sentence(t["definition"]), canonical=f"{c.get('source', '')} {c.get('locator', '')}" + (f" [{c['status']}]" if c.get("status") else ""),
              also=[dict(term=one(g, h[1], SKOS.prefLabel), local=local(h[1]), label=h[3], matched_as=h[2]) for h in hits[1:]],
              quote_hits=[], concerns=concerns)
     d["advice"] = (f"an alternate label; the headword is '{t['pref']}': write " if kind == "alt" else "registered: write ") + "{term}`" + (f"{l} <{t['pref']}>" if kind == "alt" else t["pref"]) + "` in prose"
@@ -365,9 +421,9 @@ def verify_citations(g: Graph, root: Path, terms: list, only_src=None) -> list[d
             if only_src is not None and src != only_src:
                 continue
             state, where = locate(g, root, c)
-            rows.append(dict(term=one(g, t, SKOS.prefLabel) or one(g, t, RDFS.label).split(":")[0], holder=holder, source=local(src), posture=one(g, src, OGC.posture),
-                             locator=one(g, c, OGC.locator), status=one(g, c, OGC.quoteStatus) or "none", state=state, where=where))
-    return sorted(rows, key=lambda d: (d["term"].lower(), d["holder"], d["source"], d["locator"]))
+            rows.append(dict(holder=one(g, t, SKOS.prefLabel) or one(g, t, RDFS.label).split(":")[0], citation=holder, source=local(src), posture=one(g, src, OGC.posture),
+                             locator=one(g, c, OGC.locator), status=cite_status(g, c), state=state, where=where))
+    return sorted(rows, key=lambda d: (d["holder"].lower(), d["citation"], d["source"], d["locator"]))
 
 
 def verify_term(g: Graph, root: Path, s) -> list[dict]:
@@ -375,8 +431,8 @@ def verify_term(g: Graph, root: Path, s) -> list[dict]:
 
 
 def verify_source(g: Graph, root: Path, slug: str) -> list[dict] | None:
-    src = SRC[slug]
-    if (src, RDF.type, OGC.Source) not in g:
+    src = resolve_source(g, slug)
+    if src is None:
         return None
     return verify_citations(g, root, concepts(g), only_src=src)
 
@@ -413,3 +469,125 @@ def ambiguous_labels(g: Graph) -> list[dict]:
             if kind != "local":
                 seen.setdefault(norm(l).lower(), set()).add(s)
     return sorted((dict(label=l, terms=sorted(one(g, t, SKOS.prefLabel) for t in ts)) for l, ts in seen.items() if len(ts) > 1), key=lambda d: d["label"])
+
+
+# ---------------------------------------------------------------- shapes
+
+SHAPE_FILES = ["shapes/epo.shapes.ttl", "shapes/model.shapes.ttl", "shapes/rulings.shapes.ttl", "shapes/glossary.shapes.ttl"]
+_PATH_OPS = {SH.inversePath: "^{}", SH.zeroOrMorePath: "{}*", SH.oneOrMorePath: "{}+", SH.zeroOrOnePath: "{}?"}
+
+
+def shapes_graph(root: Path) -> tuple[Graph, dict]:
+    """The shape files parsed on their own (the loaded graph carries only two of
+    them); returns the merged graph and a map shape IRI -> file."""
+    g = Graph()
+    for k, v in PREFIXES.items():
+        g.bind(k, v, replace=True)
+    where = {}
+    for f in SHAPE_FILES:
+        part = Graph().parse(root / f)
+        for s in part.subjects(RDF.type, SH.NodeShape):
+            where[s] = f
+        for t in part:
+            g.add(t)
+    return g, where
+
+
+def qname(g: Graph, x) -> str:
+    if isinstance(x, URIRef):
+        try:
+            return g.namespace_manager.normalizeUri(x)
+        except Exception:
+            return str(x)
+    return x.n3(g.namespace_manager) if x is not None else ""
+
+
+def rdf_list(g: Graph, node) -> list:
+    out = []
+    while node is not None and node != RDF.nil:
+        out.append(g.value(node, RDF.first))
+        node = g.value(node, RDF.rest)
+    return out
+
+
+def path_text(g: Graph, node) -> str:
+    """A SHACL property path as text: predicate, sequence (a / b), alternative (a | b), inverse (^a), and the closures."""
+    if isinstance(node, URIRef):
+        return qname(g, node)
+    if isinstance(node, BNode):
+        if g.value(node, RDF.first) is not None:
+            return " / ".join(path_text(g, x) for x in rdf_list(g, node))
+        alt = g.value(node, SH.alternativePath)
+        if alt is not None:
+            return "(" + " | ".join(path_text(g, x) for x in rdf_list(g, alt)) + ")"
+        for op, form in _PATH_OPS.items():
+            inner = g.value(node, op)
+            if inner is not None:
+                return form.format(path_text(g, inner))
+    return qname(g, node)
+
+
+def _shape_targets(g: Graph, s) -> list[str]:
+    out = [qname(g, c) for c in g.objects(s, SH.targetClass)]
+    out += [f"node {qname(g, n)}" for n in g.objects(s, SH.targetNode)]
+    out += [f"subjects of {qname(g, p)}" for p in g.objects(s, SH.targetSubjectsOf)]
+    out += [f"objects of {qname(g, p)}" for p in g.objects(s, SH.targetObjectsOf)]
+    out += ["sparql target" for _ in g.objects(s, SH.target)]
+    return sorted(out)
+
+
+def shapes_table(root: Path) -> list[dict]:
+    g, where = shapes_graph(root)
+    rows = []
+    for s, f in where.items():
+        rows.append(dict(id=local(s), target=_shape_targets(g, s), properties=sum(1 for _ in g.objects(s, SH.property)),
+                         sparql=sum(1 for _ in g.objects(s, SH.sparql)), file=f))
+    return sorted(rows, key=lambda d: (d["file"], d["id"].lower()))
+
+
+def shape_record(root: Path, sid: str) -> dict | None:
+    """One node shape, case-insensitive on its local name: target, property
+    constraints (path, min, max, class, in, hasValue, datatype, message) and
+    each SPARQL constraint's message."""
+    g, where = shapes_graph(root)
+    key = norm(sid).lower()
+    hit = next((s for s in sorted(where, key=str) if local(s).lower() == key), None)
+    if hit is None:
+        return None
+
+    def q(node, p):
+        v = g.value(node, p)
+        return qname(g, v) if v is not None else ""
+    props = []
+    for p in g.objects(hit, SH.property):
+        props.append({"path": path_text(g, g.value(p, SH.path)), "min": one(g, p, SH.minCount), "max": one(g, p, SH.maxCount),
+                      "class": q(p, SH["class"]), "in": [qname(g, x) if isinstance(x, URIRef) else str(x) for x in rdf_list(g, g.value(p, SH["in"]))],
+                      "hasValue": q(p, SH.hasValue), "datatype": q(p, SH.datatype), "nodeKind": q(p, SH.nodeKind), "message": one(g, p, SH.message)})
+    props.sort(key=lambda d: (d["path"], d["message"]))
+    sparql = sorted(one(g, x, SH.message) for x in g.objects(hit, SH.sparql))
+    return dict(id=local(hit), iri=str(hit), file=where[hit], target=_shape_targets(g, hit), message=one(g, hit, SH.message),
+                closed=one(g, hit, SH.closed), properties=props, sparql=sparql)
+
+
+# ---------------------------------------------------------------- blank nodes
+
+def bnode_labels(g: Graph, rounds: int = 3) -> dict:
+    """Run-independent labels for the blank nodes of a graph: a hash of each
+    node's neighbourhood, refined over a few rounds so that a node's label
+    also reflects the labels of the blank nodes it touches. Nodes whose
+    neighbourhoods stay identical after that are numbered in an arbitrary
+    order; everything else is stable across runs for the same graph."""
+    nodes = {n for t in g for n in (t[0], t[2]) if isinstance(n, BNode)}
+    sig = {b: "" for b in nodes}
+    for _ in range(rounds):
+        new = {}
+        for b in nodes:
+            parts = [f">{p}|{sig[o] if isinstance(o, BNode) else o.n3()}" for p, o in g.predicate_objects(b)]
+            parts += [f"<{p}|{sig[s] if isinstance(s, BNode) else s.n3()}" for s, p in g.subject_predicates(b)]
+            new[b] = hashlib.sha256("\n".join(sorted(parts)).encode()).hexdigest()[:12]
+        sig = new
+    labels, seen = {}, Counter()
+    for b in sorted(nodes, key=lambda b: (sig[b], str(b))):
+        seen[sig[b]] += 1
+        labels[b] = f"b{sig[b]}" + (f"n{seen[sig[b]]}" if seen[sig[b]] > 1 else "")
+    return labels
