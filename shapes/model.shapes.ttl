@@ -18,15 +18,18 @@
 ogc:M1-Parties a sh:NodeShape ;
     sh:targetClass sysml:PartDefinition ;
     sh:sparql [
-        sh:message "The assembly owns exactly one part typed by each of SponsorOrganization, TestingOrganization and AccountableOrganization (R-21)." ;
+        sh:message "The assembly owns exactly one part typed by each of SponsorOrganization, TestingOrganization and AccountableOrganization (R-21); a second sponsor part or a missing one fails (sheet 10)." ;
         sh:select """
             PREFIX sysml: <https://www.omg.org/spec/SysML#>
             SELECT $this ?value WHERE {
                 $this sysml:declaredName "OgCaieEvaluation" .
-                { BIND("SponsorOrganization" AS ?value) } UNION { BIND("TestingOrganization" AS ?value) } UNION { BIND("AccountableOrganization" AS ?value) }
-                FILTER NOT EXISTS {
-                    ?u a sysml:PartUsage ; sysml:owner $this ; sysml:type ?t . ?t sysml:declaredName ?value .
+                {
+                    SELECT $this ?value (COUNT(?u) AS ?n) WHERE {
+                        { BIND("SponsorOrganization" AS ?value) } UNION { BIND("TestingOrganization" AS ?value) } UNION { BIND("AccountableOrganization" AS ?value) }
+                        OPTIONAL { ?u a sysml:PartUsage ; sysml:owner $this ; sysml:type ?t . ?t sysml:declaredName ?value . }
+                    } GROUP BY $this ?value
                 }
+                FILTER(?n != 1)
             }
         """ ] ;
     sh:sparql [
@@ -258,7 +261,7 @@ ogc:M5-Roles a sh:NodeShape ;
             }
         """ ] ;
     sh:sparql [
-        sh:message "The testing organization holds an account executive and a team of at least one domain expert and one evaluation operator." ;
+        sh:message "The testing organization holds an authorized representative (AccountExecutive) and a team of at least one domain expert and one evaluation operator." ;
         sh:select """
             PREFIX sysml: <https://www.omg.org/spec/SysML#>
             SELECT $this ?value WHERE {
@@ -275,7 +278,7 @@ ogc:M5-Roles a sh:NodeShape ;
 ogc:M5-Cardinality a sh:NodeShape ;
     sh:targetClass sysml:PartDefinition ;
     sh:sparql [
-        sh:message "The testing organization holds exactly one account executive (R-23)." ;
+        sh:message "The testing organization holds exactly one authorized representative (AccountExecutive) (R-23)." ;
         sh:select """
             PREFIX sysml: <https://www.omg.org/spec/SysML#>
             SELECT $this (COUNT(?u) AS ?value) WHERE {
@@ -306,7 +309,7 @@ ogc:M5-PortsBelongToRoles a sh:NodeShape ;
             SELECT $this ?value WHERE {
                 FILTER NOT EXISTS { $this sysml:isEnd true } FILTER NOT EXISTS { $this sysml:isConjugated true }
                 $this sysml:type ?t ; sysml:owner ?o . ?t sysml:declaredName ?tn . ?o sysml:declaredName ?value .
-                FILTER(?tn IN ("DsoWrite", "AssessmentWrite", "PlanApprovalWrite", "AttestationWrite") && ?value != "DomainExpert")
+                FILTER(?tn IN ("DsoWrite", "AssessmentWrite", "PlanApprovalWrite", "ReportApprovalWrite", "AttestationWrite") && ?value != "DomainExpert")
             }
         """ ] ;
     sh:sparql [
@@ -322,7 +325,7 @@ ogc:M5-PortsBelongToRoles a sh:NodeShape ;
             }
         """ ] ;
     sh:sparql [
-        sh:message "The service agreement is supplied only by the sponsor and the account executive; the account executive supplies nothing but the proposal, the countersigned agreement and the delivery, and never judges (R-23, R-24, R-32)." ;
+        sh:message "The service agreement is supplied only by the sponsor and the authorized representative; the authorized representative supplies nothing but the proposal, the countersigned agreement and the delivery, and never judges (R-23, R-24, R-32)." ;
         sh:select """
             PREFIX sysml: <https://www.omg.org/spec/SysML#>
             SELECT $this ?value WHERE {

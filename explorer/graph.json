@@ -579,7 +579,7 @@
     ]
    ]
   },
-  "cite:appropriateness:seeAlso:isa-500:paragraph-5-b": {
+  "cite:appropriateness:seeAlso:isa-500:paragraph-5-b-fragment-of-the-paragraph": {
    "in": [],
    "out": [
     [
@@ -591,7 +591,7 @@
     [
      "ogc:locator",
      {
-      "text": "paragraph 5(b)"
+      "text": "paragraph 5(b) (fragment of the paragraph)"
      }
     ],
     [
@@ -1503,7 +1503,7 @@
     ]
    ]
   },
-  "cite:dialogue:canonical:nist-ai-700-2:appendix-a-dialogue-p-16": {
+  "cite:dialogue:canonical:nist-ai-700-2:appendix-a-dialogue-p-16-first-sentence-of-the-entry": {
    "in": [],
    "out": [
     [
@@ -1515,7 +1515,7 @@
     [
      "ogc:locator",
      {
-      "text": "Appendix A, Dialogue, p. 16"
+      "text": "Appendix A, Dialogue, p. 16 (first sentence of the entry)"
      }
     ],
     [
@@ -2315,7 +2315,7 @@
     ]
    ]
   },
-  "cite:guardrail:canonical:nist-ai-700-2:appendix-a-guardrail-p-17": {
+  "cite:guardrail:canonical:nist-ai-700-2:appendix-a-guardrail-p-17-first-sentence-of-the-entry": {
    "in": [],
    "out": [
     [
@@ -2327,7 +2327,7 @@
     [
      "ogc:locator",
      {
-      "text": "Appendix A, Guardrail, p. 17"
+      "text": "Appendix A, Guardrail, p. 17 (first sentence of the entry)"
      }
     ],
     [
@@ -3035,7 +3035,7 @@
     ]
    ]
   },
-  "cite:outcome:seeAlso:nist-ai-700-2:section-3-1-validity-risk-assessment-p-5": {
+  "cite:outcome:seeAlso:nist-ai-700-2:section-3-1-validity-risk-assessment-p-5-one-of-the-four-annotation-values-a-fragment": {
    "in": [],
    "out": [
     [
@@ -3047,7 +3047,7 @@
     [
      "ogc:locator",
      {
-      "text": "Section 3.1 Validity Risk Assessment, p. 5"
+      "text": "Section 3.1 Validity Risk Assessment, p. 5 (one of the four annotation values, a fragment)"
      }
     ],
     [
@@ -4005,7 +4005,7 @@
     ]
    ]
   },
-  "cite:scenario:seeAlso:nist-ai-700-2:appendix-a-scenario-p-17": {
+  "cite:scenario:seeAlso:nist-ai-700-2:appendix-a-scenario-p-17-first-sentence-of-the-entry": {
    "in": [],
    "out": [
     [
@@ -4017,7 +4017,7 @@
     [
      "ogc:locator",
      {
-      "text": "Appendix A, Scenario, p. 17"
+      "text": "Appendix A, Scenario, p. 17 (first sentence of the entry)"
      }
     ],
     [
@@ -4168,7 +4168,7 @@
     ]
    ]
   },
-  "cite:session:canonical:nist-ai-700-2:appendix-a-session-p-17": {
+  "cite:session:canonical:nist-ai-700-2:appendix-a-session-p-17-first-sentence-of-the-entry": {
    "in": [],
    "out": [
     [
@@ -4180,7 +4180,7 @@
     [
      "ogc:locator",
      {
-      "text": "Appendix A, Session, p. 17"
+      "text": "Appendix A, Session, p. 17 (first sentence of the entry)"
      }
     ],
     [
@@ -4355,7 +4355,7 @@
     ]
    ]
   },
-  "cite:sufficiency:seeAlso:isa-500:paragraph-5-f": {
+  "cite:sufficiency:seeAlso:isa-500:paragraph-5-f-first-sentence-of-the-paragraph": {
    "in": [],
    "out": [
     [
@@ -4367,7 +4367,7 @@
     [
      "ogc:locator",
      {
-      "text": "paragraph 5(f)"
+      "text": "paragraph 5(f) (first sentence of the paragraph)"
      }
     ],
     [
@@ -5956,7 +5956,7 @@
     [
      "sh:sparql",
      {
-      "text": "[sh:message The testing organization holds an accou…; sh:select PREFIX sysml: <https://www.omg.org/spec…]"
+      "text": "[sh:message The testing organization holds an autho…; sh:select PREFIX sysml: <https://www.omg.org/spec…]"
      }
     ],
     [
@@ -6219,7 +6219,7 @@
     [
      "sh:sparql",
      {
-      "text": "[sh:message S0: the proposal is the account executi…; sh:select PREFIX epo: <https://w3id.org/og-caie/e…]"
+      "text": "[sh:message S0: the proposal is the authorized repr…; sh:select PREFIX epo: <https://w3id.org/og-caie/e…]"
      }
     ],
     [
@@ -7449,7 +7449,7 @@
     [
      "ogc:locator",
      {
-      "text": "the definitions presented at the session"
+      "text": "the authors' definition for this specification (sheet 07-02); the slide read 'Context Matters!'"
      }
     ],
     [
@@ -8707,12 +8707,6 @@
      "rdfs:domain",
      {
       "text": "epo:approvedBy"
-     }
-    ],
-    [
-     "rdfs:domain",
-     {
-      "text": "epo:version"
      }
     ],
     [
@@ -10028,6 +10022,48 @@
      "rdfs:subClassOf",
      {
       "text": "prov:Entity"
+     }
+    ]
+   ]
+  },
+  "https://w3id.org/og-caie/epo#Step": {
+   "in": [
+    [
+     "rdfs:range",
+     {
+      "text": "epo:step"
+     }
+    ],
+    [
+     "rdfs:subClassOf",
+     {
+      "text": "epo:ContractingStep"
+     }
+    ],
+    [
+     "rdfs:subClassOf",
+     {
+      "text": "epo:EpoStep"
+     }
+    ]
+   ],
+   "out": [
+    [
+     "rdf:type",
+     {
+      "text": "owl:Class"
+     }
+    ],
+    [
+     "rdfs:comment",
+     {
+      "text": "no term: a structural superclass so that epo:step ranges over both cycles' steps without contradicting their disjointness (sheet 10)"
+     }
+    ],
+    [
+     "rdfs:label",
+     {
+      "text": "a step of either cycle (the range of epo:step)"
      }
     ]
    ]
@@ -17789,7 +17825,7 @@
     [
      "prov:wasAssociatedWith",
      {
-      "ref": "https://w3id.org/og-caie/run/measles#probe-deriver"
+      "ref": "https://w3id.org/og-caie/run/measles#test-driver"
      }
     ],
     [
@@ -18399,41 +18435,6 @@
     ]
    ]
   },
-  "https://w3id.org/og-caie/run/measles#probe-deriver": {
-   "in": [],
-   "out": [
-    [
-     "epo:version",
-     {
-      "text": "0.1"
-     }
-    ],
-    [
-     "prov:actedOnBehalfOf",
-     {
-      "ref": "https://w3id.org/og-caie/run/measles#humane-intelligence"
-     }
-    ],
-    [
-     "rdf:type",
-     {
-      "text": "prov:Agent"
-     }
-    ],
-    [
-     "rdf:type",
-     {
-      "text": "prov:SoftwareAgent"
-     }
-    ],
-    [
-     "rdfs:label",
-     {
-      "text": "test driver"
-     }
-    ]
-   ]
-  },
   "https://w3id.org/og-caie/run/measles#proposal-1": {
    "in": [],
    "out": [
@@ -18481,7 +18482,7 @@
     [
      "epo:version",
      {
-      "text": "0.27"
+      "text": "0.40.1"
      }
     ],
     [
@@ -19129,6 +19130,41 @@
      "rdfs:label",
      {
       "text": "scope of work under the agreement: the commuters are interviewed, the county residents are represented by the domain expert"
+     }
+    ]
+   ]
+  },
+  "https://w3id.org/og-caie/run/measles#test-driver": {
+   "in": [],
+   "out": [
+    [
+     "epo:version",
+     {
+      "text": "0.1"
+     }
+    ],
+    [
+     "prov:actedOnBehalfOf",
+     {
+      "ref": "https://w3id.org/og-caie/run/measles#humane-intelligence"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "prov:Agent"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "prov:SoftwareAgent"
+     }
+    ],
+    [
+     "rdfs:label",
+     {
+      "text": "test driver"
      }
     ]
    ]
@@ -19862,7 +19898,7 @@
     [
      "rdfs:label",
      {
-      "text": "IAASB, International Standard on Auditing 500: Audit Evidence (effective 15 December 2009)"
+      "text": "IAASB, International Standard on Auditing 500: Audit Evidence (2009 text, effective 15 December 2009; ISA 500 (Revised 2024), effective for periods beginning on or after 15 December 2026, keeps paragraphs 5(b) and 5(f))"
      }
     ]
    ]
@@ -22576,7 +22612,7 @@
     [
      "ogc:seeAlso",
      {
-      "ref": "cite:appropriateness:seeAlso:isa-500:paragraph-5-b"
+      "ref": "cite:appropriateness:seeAlso:isa-500:paragraph-5-b-fragment-of-the-paragraph"
      }
     ],
     [
@@ -23141,7 +23177,7 @@
     [
      "skos:definition",
      {
-      "text": "The binding agreement between the sponsor organization and the testing organization to perform OG-CAIE as a service. It is signed by the sponsor and by the testing organization's authorized representative, precedes the requirement set, and is the first item the record holds."
+      "text": "The binding agreement between the sponsor organization and the testing organization to perform OG-CAIE as a service. It is signed by the sponsor and by the testing organization's authorized representative, precedes the requirement set and follows the mission, the need and the proposal in the record."
      }
     ],
     [
@@ -23479,7 +23515,7 @@
     [
      "ogc:canonical",
      {
-      "ref": "cite:dialogue:canonical:nist-ai-700-2:appendix-a-dialogue-p-16"
+      "ref": "cite:dialogue:canonical:nist-ai-700-2:appendix-a-dialogue-p-16-first-sentence-of-the-entry"
      }
     ],
     [
@@ -24319,6 +24355,12 @@
     [
      "skos:related",
      {
+      "ref": "https://w3id.org/og-caie/terms#test-item-provider"
+     }
+    ],
+    [
+     "skos:related",
+     {
       "ref": "https://w3id.org/og-caie/terms#third-party-conformity-assessment-activity"
      }
     ]
@@ -24415,6 +24457,12 @@
      "skos:prefLabel",
      {
       "text": "evaluation team"
+     }
+    ],
+    [
+     "skos:related",
+     {
+      "ref": "https://w3id.org/og-caie/terms#account-executive"
      }
     ],
     [
@@ -24633,7 +24681,7 @@
     [
      "ogc:canonical",
      {
-      "ref": "cite:guardrail:canonical:nist-ai-700-2:appendix-a-guardrail-p-17"
+      "ref": "cite:guardrail:canonical:nist-ai-700-2:appendix-a-guardrail-p-17-first-sentence-of-the-entry"
      }
     ],
     [
@@ -25024,7 +25072,7 @@
     [
      "ogc:binding",
      {
-      "text": "sysml part def SystemUnderTest; earl:TestSubject"
+      "text": "sysml part def TestItem; earl:TestSubject"
      }
     ],
     [
@@ -25192,6 +25240,12 @@
      "skos:related",
      {
       "ref": "https://w3id.org/og-caie/terms#determination"
+     }
+    ],
+    [
+     "skos:related",
+     {
+      "ref": "https://w3id.org/og-caie/terms#record"
      }
     ],
     [
@@ -25647,7 +25701,7 @@
     [
      "ogc:seeAlso",
      {
-      "ref": "cite:outcome:seeAlso:nist-ai-700-2:section-3-1-validity-risk-assessment-p-5"
+      "ref": "cite:outcome:seeAlso:nist-ai-700-2:section-3-1-validity-risk-assessment-p-5-one-of-the-four-annotation-values-a-fragment"
      }
     ],
     [
@@ -26554,7 +26608,7 @@
     [
      "ogc:seeAlso",
      {
-      "ref": "cite:scenario:seeAlso:nist-ai-700-2:appendix-a-scenario-p-17"
+      "ref": "cite:scenario:seeAlso:nist-ai-700-2:appendix-a-scenario-p-17-first-sentence-of-the-entry"
      }
     ],
     [
@@ -26702,7 +26756,7 @@
     [
      "ogc:canonical",
      {
-      "ref": "cite:session:canonical:nist-ai-700-2:appendix-a-session-p-17"
+      "ref": "cite:session:canonical:nist-ai-700-2:appendix-a-session-p-17-first-sentence-of-the-entry"
      }
     ],
     [
@@ -26785,7 +26839,7 @@
     [
      "ogc:binding",
      {
-      "text": "sysml part defs Sponsor, Evaluator, DomainExpert; prov:Person, prov:Organization"
+      "text": "sysml part defs SponsorOrganization, TestingOrganization, AccountableOrganization, AffectedPopulation and the actor parts within the testing organization; prov:Person, prov:Organization"
      }
     ],
     [
@@ -27005,7 +27059,7 @@
     [
      "ogc:seeAlso",
      {
-      "ref": "cite:sufficiency:seeAlso:isa-500:paragraph-5-f"
+      "ref": "cite:sufficiency:seeAlso:isa-500:paragraph-5-f-first-sentence-of-the-paragraph"
      }
     ],
     [
@@ -28401,7 +28455,7 @@
     [
      "ogc:binding",
      {
-      "text": "SHACL shapes S1-S8 (machine); SCI requirements tagged machine"
+      "text": "SHACL shapes S0-S9 over the record and M1-M5 over the model graph (machine); SCI requirements tagged machine"
      }
     ],
     [
@@ -29657,7 +29711,7 @@
     [
      "rdfs:comment",
      {
-      "text": "The sponsor, the testing organization and the accountable organization are named; the sponsor's mission and obligations towards the affected populations are recorded before the need, and its statement of work decides, per population, interview or representation; the agreement is signed by the sponsor and the account executive; every affected population is interviewed or represented by a named domain expert."
+      "text": "The sponsor, the testing organization and the accountable organization are named; the sponsor's mission and obligations towards the affected populations are recorded before the need, and its statement of work decides, per population, interview or representation; the agreement is signed by the sponsor and the authorized representative; every affected population is spoken for by a named representative on the team, and interviewed where the statement of work decided so."
      }
     ],
     [
@@ -29925,7 +29979,7 @@
     [
      "rdfs:comment",
      {
-      "text": "The domain expert who approves the DSO, assesses appropriateness and attests is not the evaluation operator who administers tests and collects evidence, and neither is the account executive who signs the agreement; one account executive, one or more of each expert."
+      "text": "The domain expert who approves the DSO, assesses appropriateness and attests is not the evaluation operator who administers tests and collects evidence, and neither is the authorized representative who signs the agreement; one authorized representative, one or more of each expert."
      }
     ],
     [
@@ -43271,7 +43325,7 @@
   },
   {
    "rel": "cites",
-   "source": "cite:appropriateness:seeAlso:isa-500:paragraph-5-b",
+   "source": "cite:appropriateness:seeAlso:isa-500:paragraph-5-b-fragment-of-the-paragraph",
    "target": "https://w3id.org/og-caie/sources#isa-500"
   },
   {
@@ -43391,7 +43445,7 @@
   },
   {
    "rel": "cites",
-   "source": "cite:dialogue:canonical:nist-ai-700-2:appendix-a-dialogue-p-16",
+   "source": "cite:dialogue:canonical:nist-ai-700-2:appendix-a-dialogue-p-16-first-sentence-of-the-entry",
    "target": "https://w3id.org/og-caie/sources#nist-ai-700-2"
   },
   {
@@ -43501,7 +43555,7 @@
   },
   {
    "rel": "cites",
-   "source": "cite:guardrail:canonical:nist-ai-700-2:appendix-a-guardrail-p-17",
+   "source": "cite:guardrail:canonical:nist-ai-700-2:appendix-a-guardrail-p-17-first-sentence-of-the-entry",
    "target": "https://w3id.org/og-caie/sources#nist-ai-700-2"
   },
   {
@@ -43591,7 +43645,7 @@
   },
   {
    "rel": "cites",
-   "source": "cite:outcome:seeAlso:nist-ai-700-2:section-3-1-validity-risk-assessment-p-5",
+   "source": "cite:outcome:seeAlso:nist-ai-700-2:section-3-1-validity-risk-assessment-p-5-one-of-the-four-annotation-values-a-fragment",
    "target": "https://w3id.org/og-caie/sources#nist-ai-700-2"
   },
   {
@@ -43721,7 +43775,7 @@
   },
   {
    "rel": "cites",
-   "source": "cite:scenario:seeAlso:nist-ai-700-2:appendix-a-scenario-p-17",
+   "source": "cite:scenario:seeAlso:nist-ai-700-2:appendix-a-scenario-p-17-first-sentence-of-the-entry",
    "target": "https://w3id.org/og-caie/sources#nist-ai-700-2"
   },
   {
@@ -43746,7 +43800,7 @@
   },
   {
    "rel": "cites",
-   "source": "cite:session:canonical:nist-ai-700-2:appendix-a-session-p-17",
+   "source": "cite:session:canonical:nist-ai-700-2:appendix-a-session-p-17-first-sentence-of-the-entry",
    "target": "https://w3id.org/og-caie/sources#nist-ai-700-2"
   },
   {
@@ -43771,7 +43825,7 @@
   },
   {
    "rel": "cites",
-   "source": "cite:sufficiency:seeAlso:isa-500:paragraph-5-f",
+   "source": "cite:sufficiency:seeAlso:isa-500:paragraph-5-f-first-sentence-of-the-paragraph",
    "target": "https://w3id.org/og-caie/sources#isa-500"
   },
   {
@@ -45885,14 +45939,14 @@
    "target": "https://w3id.org/og-caie/run/measles#dso-apollo-sv-r1"
   },
   {
-   "rel": "wasAssociatedWith",
-   "source": "https://w3id.org/og-caie/run/measles#derivation-1",
-   "target": "https://w3id.org/og-caie/run/measles#probe-deriver"
-  },
-  {
    "rel": "used",
    "source": "https://w3id.org/og-caie/run/measles#derivation-1",
    "target": "https://w3id.org/og-caie/run/measles#requirement-set"
+  },
+  {
+   "rel": "wasAssociatedWith",
+   "source": "https://w3id.org/og-caie/run/measles#derivation-1",
+   "target": "https://w3id.org/og-caie/run/measles#test-driver"
   },
   {
    "rel": "type",
@@ -46168,11 +46222,6 @@
    "rel": "derivedFromDso",
    "source": "https://w3id.org/og-caie/run/measles#probe-1",
    "target": "https://w3id.org/og-caie/run/measles#dso-apollo-sv-r1"
-  },
-  {
-   "rel": "actedOnBehalfOf",
-   "source": "https://w3id.org/og-caie/run/measles#probe-deriver",
-   "target": "https://w3id.org/og-caie/run/measles#humane-intelligence"
   },
   {
    "rel": "type",
@@ -46498,6 +46547,11 @@
    "rel": "decides",
    "source": "https://w3id.org/og-caie/run/measles#statement-of-work",
    "target": "https://w3id.org/og-caie/run/measles#engagement-residents"
+  },
+  {
+   "rel": "actedOnBehalfOf",
+   "source": "https://w3id.org/og-caie/run/measles#test-driver",
+   "target": "https://w3id.org/og-caie/run/measles#humane-intelligence"
   },
   {
    "rel": "type",
@@ -46942,7 +46996,7 @@
   {
    "rel": "seeAlso",
    "source": "https://w3id.org/og-caie/terms#appropriateness",
-   "target": "cite:appropriateness:seeAlso:isa-500:paragraph-5-b"
+   "target": "cite:appropriateness:seeAlso:isa-500:paragraph-5-b-fragment-of-the-paragraph"
   },
   {
    "rel": "seeAlso",
@@ -47257,7 +47311,7 @@
   {
    "rel": "canonical",
    "source": "https://w3id.org/og-caie/terms#dialogue",
-   "target": "cite:dialogue:canonical:nist-ai-700-2:appendix-a-dialogue-p-16"
+   "target": "cite:dialogue:canonical:nist-ai-700-2:appendix-a-dialogue-p-16-first-sentence-of-the-entry"
   },
   {
    "rel": "wasDerivedFrom",
@@ -47562,6 +47616,11 @@
   {
    "rel": "related",
    "source": "https://w3id.org/og-caie/terms#evaluation-service-provider",
+   "target": "https://w3id.org/og-caie/terms#test-item-provider"
+  },
+  {
+   "rel": "related",
+   "source": "https://w3id.org/og-caie/terms#evaluation-service-provider",
    "target": "https://w3id.org/og-caie/terms#third-party-conformity-assessment-activity"
   },
   {
@@ -47588,6 +47647,11 @@
    "rel": "broad",
    "source": "https://w3id.org/og-caie/terms#evaluation-team",
    "target": "https://w3id.org/og-caie/sources#sevocab_evaluator"
+  },
+  {
+   "rel": "related",
+   "source": "https://w3id.org/og-caie/terms#evaluation-team",
+   "target": "https://w3id.org/og-caie/terms#account-executive"
   },
   {
    "rel": "related",
@@ -47677,7 +47741,7 @@
   {
    "rel": "canonical",
    "source": "https://w3id.org/og-caie/terms#guardrail",
-   "target": "cite:guardrail:canonical:nist-ai-700-2:appendix-a-guardrail-p-17"
+   "target": "cite:guardrail:canonical:nist-ai-700-2:appendix-a-guardrail-p-17-first-sentence-of-the-entry"
   },
   {
    "rel": "exact",
@@ -47862,6 +47926,11 @@
   {
    "rel": "related",
    "source": "https://w3id.org/og-caie/terms#objective-evidence",
+   "target": "https://w3id.org/og-caie/terms#record"
+  },
+  {
+   "rel": "related",
+   "source": "https://w3id.org/og-caie/terms#objective-evidence",
    "target": "https://w3id.org/og-caie/terms#session"
   },
   {
@@ -48017,7 +48086,7 @@
   {
    "rel": "seeAlso",
    "source": "https://w3id.org/og-caie/terms#outcome",
-   "target": "cite:outcome:seeAlso:nist-ai-700-2:section-3-1-validity-risk-assessment-p-5"
+   "target": "cite:outcome:seeAlso:nist-ai-700-2:section-3-1-validity-risk-assessment-p-5-one-of-the-four-annotation-values-a-fragment"
   },
   {
    "rel": "seeAlso",
@@ -48352,7 +48421,7 @@
   {
    "rel": "seeAlso",
    "source": "https://w3id.org/og-caie/terms#scenario",
-   "target": "cite:scenario:seeAlso:nist-ai-700-2:appendix-a-scenario-p-17"
+   "target": "cite:scenario:seeAlso:nist-ai-700-2:appendix-a-scenario-p-17-first-sentence-of-the-entry"
   },
   {
    "rel": "seeAlso",
@@ -48407,7 +48476,7 @@
   {
    "rel": "canonical",
    "source": "https://w3id.org/og-caie/terms#session",
-   "target": "cite:session:canonical:nist-ai-700-2:appendix-a-session-p-17"
+   "target": "cite:session:canonical:nist-ai-700-2:appendix-a-session-p-17-first-sentence-of-the-entry"
   },
   {
    "rel": "wasDerivedFrom",
@@ -48532,7 +48601,7 @@
   {
    "rel": "seeAlso",
    "source": "https://w3id.org/og-caie/terms#sufficiency",
-   "target": "cite:sufficiency:seeAlso:isa-500:paragraph-5-f"
+   "target": "cite:sufficiency:seeAlso:isa-500:paragraph-5-f-first-sentence-of-the-paragraph"
   },
   {
    "rel": "wasDerivedFrom",
@@ -52147,7 +52216,7 @@
    "id": "cite:account-executive:canonical:sevocab:acceptance-p-4-iso-iec-ieee-24748-5-2017-3-1-fragment-of-the-entry",
    "label": "sevocab acceptance, p. 4 (ISO/IEC/IEEE 24748-5:…",
    "ogc": "ogc quote \"authorized representative\"",
-   "page": "../glossary#term-authorized-representative"
+   "page": "../glossary"
   },
   {
    "cls": "citation",
@@ -52155,7 +52224,7 @@
    "id": "cite:account-executive:seeAlso:iso-iec-17000-2020:4-3-first-party-conformity-assessment-activity-note-1-the-descriptors-are-not-the-legal-identification-of-the-parties-to-a-contract",
    "label": "iso-iec-17000-2020 4.3 first-party conformity a…",
    "ogc": "ogc quote \"authorized representative\"",
-   "page": "../glossary#term-authorized-representative"
+   "page": "../glossary"
   },
   {
    "cls": "citation",
@@ -52192,8 +52261,8 @@
   {
    "cls": "citation",
    "desc": "“The measure of the quality of audit evidence; that is, its relevance and its reliability” [machine]",
-   "id": "cite:appropriateness:seeAlso:isa-500:paragraph-5-b",
-   "label": "isa-500 paragraph 5(b)",
+   "id": "cite:appropriateness:seeAlso:isa-500:paragraph-5-b-fragment-of-the-paragraph",
+   "label": "isa-500 paragraph 5(b) (fragment of the paragra…",
    "ogc": "ogc quote appropriateness",
    "page": "../glossary#term-appropriateness"
   },
@@ -52384,8 +52453,8 @@
   {
    "cls": "citation",
    "desc": "“A set of prompts to, and responses by, an application.” [machine]",
-   "id": "cite:dialogue:canonical:nist-ai-700-2:appendix-a-dialogue-p-16",
-   "label": "nist-ai-700-2 Appendix A, Dialogue, p. 16",
+   "id": "cite:dialogue:canonical:nist-ai-700-2:appendix-a-dialogue-p-16-first-sentence-of-the-entry",
+   "label": "nist-ai-700-2 Appendix A, Dialogue, p. 16 (firs…",
    "ogc": "ogc quote dialogue",
    "page": "../glossary#term-dialogue"
   },
@@ -52560,8 +52629,8 @@
   {
    "cls": "citation",
    "desc": "“An application requirement specifying both 1) permitted information that can be shared with a user, and 2) prohibited information that should be withheld from a user.” [machine]",
-   "id": "cite:guardrail:canonical:nist-ai-700-2:appendix-a-guardrail-p-17",
-   "label": "nist-ai-700-2 Appendix A, Guardrail, p. 17",
+   "id": "cite:guardrail:canonical:nist-ai-700-2:appendix-a-guardrail-p-17-first-sentence-of-the-entry",
+   "label": "nist-ai-700-2 Appendix A, Guardrail, p. 17 (fir…",
    "ogc": "ogc quote guardrail",
    "page": "../glossary#term-guardrail"
   },
@@ -52704,7 +52773,7 @@
   {
    "cls": "citation",
    "desc": "“Unable to Determine” [machine]",
-   "id": "cite:outcome:seeAlso:nist-ai-700-2:section-3-1-validity-risk-assessment-p-5",
+   "id": "cite:outcome:seeAlso:nist-ai-700-2:section-3-1-validity-risk-assessment-p-5-one-of-the-four-annotation-values-a-fragment",
    "label": "nist-ai-700-2 Section 3.1 Validity Risk Assessm…",
    "ogc": "ogc quote outcome",
    "page": "../glossary#term-outcome"
@@ -52912,8 +52981,8 @@
   {
    "cls": "citation",
    "desc": "“The context in which structured AI evaluation activities are performed.” [machine]",
-   "id": "cite:scenario:seeAlso:nist-ai-700-2:appendix-a-scenario-p-17",
-   "label": "nist-ai-700-2 Appendix A, Scenario, p. 17",
+   "id": "cite:scenario:seeAlso:nist-ai-700-2:appendix-a-scenario-p-17-first-sentence-of-the-entry",
+   "label": "nist-ai-700-2 Appendix A, Scenario, p. 17 (firs…",
    "ogc": "ogc quote scenario",
    "page": "../glossary#term-scenario"
   },
@@ -52952,8 +53021,8 @@
   {
    "cls": "citation",
    "desc": "“A single unit of ARIA testing, consisting of a pairing of one tester and one application.” [machine]",
-   "id": "cite:session:canonical:nist-ai-700-2:appendix-a-session-p-17",
-   "label": "nist-ai-700-2 Appendix A, Session, p. 17",
+   "id": "cite:session:canonical:nist-ai-700-2:appendix-a-session-p-17-first-sentence-of-the-entry",
+   "label": "nist-ai-700-2 Appendix A, Session, p. 17 (first…",
    "ogc": "ogc quote session",
    "page": "../glossary#term-session"
   },
@@ -52992,8 +53061,8 @@
   {
    "cls": "citation",
    "desc": "“The measure of the quantity of audit evidence.” [machine]",
-   "id": "cite:sufficiency:seeAlso:isa-500:paragraph-5-f",
-   "label": "isa-500 paragraph 5(f)",
+   "id": "cite:sufficiency:seeAlso:isa-500:paragraph-5-f-first-sentence-of-the-paragraph",
+   "label": "isa-500 paragraph 5(f) (first sentence of the p…",
    "ogc": "ogc quote sufficiency",
    "page": "../glossary#term-sufficiency"
   },
@@ -53251,15 +53320,15 @@
    "id": "https://w3id.org/og-caie/M1-Obligation",
    "label": "M1-Obligation",
    "ogc": "ogc sparql \"DESCRIBE ogc:M1-Obligation\"",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "shape",
-   "desc": "Targets sysml:PartDefinition. The assembly owns a part typed AffectedPopulation with lower bound zero: populations are many and may be absent (R-21). The assembly owns exactly one part typed by each of SponsorOrganization, TestingOrganization and AccountableOrganization (R-21).",
+   "desc": "Targets sysml:PartDefinition. The assembly owns a part typed AffectedPopulation with lower bound zero: populations are many and may be absent (R-21). The assembly owns exactly one part typed by each of SponsorOrganization, TestingOrganization and AccountableOrganization (R-21); a second sponsor part or a missing one fails (sheet 10).",
    "id": "https://w3id.org/og-caie/M1-Parties",
    "label": "M1-Parties",
    "ogc": "ogc sparql \"DESCRIBE ogc:M1-Parties\"",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "shape",
@@ -53267,7 +53336,7 @@
    "id": "https://w3id.org/og-caie/M2-Part",
    "label": "M2-Part",
    "ogc": "ogc sparql \"DESCRIBE ogc:M2-Part\"",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "shape",
@@ -53275,7 +53344,7 @@
    "id": "https://w3id.org/og-caie/M2-Wire",
    "label": "M2-Wire",
    "ogc": "ogc sparql \"DESCRIBE ogc:M2-Wire\"",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "shape",
@@ -53283,7 +53352,7 @@
    "id": "https://w3id.org/og-caie/M3-RecordHub",
    "label": "M3-RecordHub",
    "ogc": "ogc sparql \"DESCRIBE ogc:M3-RecordHub\"",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "shape",
@@ -53291,7 +53360,7 @@
    "id": "https://w3id.org/og-caie/M4-EveryItemProduced",
    "label": "M4-EveryItemProduced",
    "ogc": "ogc sparql \"DESCRIBE ogc:M4-EveryItemProduced\"",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "shape",
@@ -53299,7 +53368,7 @@
    "id": "https://w3id.org/og-caie/M4-Nesting",
    "label": "M4-Nesting",
    "ogc": "ogc sparql \"DESCRIBE ogc:M4-Nesting\"",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "shape",
@@ -53307,7 +53376,7 @@
    "id": "https://w3id.org/og-caie/M4-ProcessDag",
    "label": "M4-ProcessDag",
    "ogc": "ogc sparql \"DESCRIBE ogc:M4-ProcessDag\"",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "shape",
@@ -53315,31 +53384,31 @@
    "id": "https://w3id.org/og-caie/M4-Steps",
    "label": "M4-Steps",
    "ogc": "ogc sparql \"DESCRIBE ogc:M4-Steps\"",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "shape",
-   "desc": "Targets sysml:PartDefinition. The evaluation team allows one or more domain experts and one or more operators: lower bound one, upper bound unbounded (R-23). The testing organization holds exactly one account executive (R-23).",
+   "desc": "Targets sysml:PartDefinition. The evaluation team allows one or more domain experts and one or more operators: lower bound one, upper bound unbounded (R-23). The testing organization holds exactly one authorized representative (AccountExecutive) (R-23).",
    "id": "https://w3id.org/og-caie/M5-Cardinality",
    "label": "M5-Cardinality",
    "ogc": "ogc sparql \"DESCRIBE ogc:M5-Cardinality\"",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "shape",
-   "desc": "Targets sysml:PortUsage. DSO, appropriateness assessment, plan approval, report approval and attestation are supplied only by the domain expert (R-10, R-21, R-49). Evidence is supplied only by the evaluation operator, and a person applies probes to the test item only as the evaluation operator (R-12, R-23). The service agreement is supplied only by the sponsor and the account executive; the account executive supplies nothing but the proposal, the countersigned agreement and the delivery, and never judges (R-23, R-24, R-32).",
+   "desc": "Targets sysml:PortUsage. DSO, appropriateness assessment, plan approval, report approval and attestation are supplied only by the domain expert (R-10, R-21, R-49). Evidence is supplied only by the evaluation operator, and a person applies probes to the test item only as the evaluation operator (R-12, R-23). The service agreement is supplied only by the sponsor and the authorized representative; the authorized representative supplies nothing but the proposal, the countersigned agreement and the delivery, and never judges (R-23, R-24, R-32).",
    "id": "https://w3id.org/og-caie/M5-PortsBelongToRoles",
    "label": "M5-PortsBelongToRoles",
    "ogc": "ogc sparql \"DESCRIBE ogc:M5-PortsBelongToRoles\"",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "shape",
-   "desc": "Targets sysml:Package. The testing organization holds an account executive and a team of at least one domain expert and one evaluation operator. The three actor categories are distinct part definitions of Person: DomainExpert, EvaluationOperator, AccountExecutive (R-10, R-23).",
+   "desc": "Targets sysml:Package. The testing organization holds an authorized representative (AccountExecutive) and a team of at least one domain expert and one evaluation operator. The three actor categories are distinct part definitions of Person: DomainExpert, EvaluationOperator, AccountExecutive (R-10, R-23).",
    "id": "https://w3id.org/og-caie/M5-Roles",
    "label": "M5-Roles",
    "ogc": "ogc sparql \"DESCRIBE ogc:M5-Roles\"",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "shape",
@@ -53347,7 +53416,7 @@
    "id": "https://w3id.org/og-caie/S0-Access",
    "label": "S0-Access",
    "ogc": "ogc sparql \"DESCRIBE ogc:S0-Access\"",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "shape",
@@ -53355,7 +53424,7 @@
    "id": "https://w3id.org/og-caie/S0-Layers",
    "label": "S0-Layers",
    "ogc": "ogc sparql \"DESCRIBE ogc:S0-Layers\"",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "shape",
@@ -53363,7 +53432,7 @@
    "id": "https://w3id.org/og-caie/S0-Mission",
    "label": "S0-Mission",
    "ogc": "ogc sparql \"DESCRIBE ogc:S0-Mission\"",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "shape",
@@ -53371,7 +53440,7 @@
    "id": "https://w3id.org/og-caie/S0-Need",
    "label": "S0-Need",
    "ogc": "ogc sparql \"DESCRIBE ogc:S0-Need\"",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "shape",
@@ -53379,7 +53448,7 @@
    "id": "https://w3id.org/og-caie/S0-Parties",
    "label": "S0-Parties",
    "ogc": "ogc sparql \"DESCRIBE ogc:S0-Parties\"",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "shape",
@@ -53387,15 +53456,15 @@
    "id": "https://w3id.org/og-caie/S0-Population",
    "label": "S0-Population",
    "ogc": "ogc sparql \"DESCRIBE ogc:S0-Population\"",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "shape",
-   "desc": "Targets epo:Proposal. S0: the proposal is the account executive's answer to the need, and follows it.",
+   "desc": "Targets epo:Proposal. S0: the proposal is the authorized representative's answer to the need, and follows it.",
    "id": "https://w3id.org/og-caie/S0-Proposal",
    "label": "S0-Proposal",
    "ogc": "ogc sparql \"DESCRIBE ogc:S0-Proposal\"",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "shape",
@@ -53403,7 +53472,7 @@
    "id": "https://w3id.org/og-caie/S0-StatementOfWork",
    "label": "S0-StatementOfWork",
    "ogc": "ogc sparql \"DESCRIBE ogc:S0-StatementOfWork\"",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "shape",
@@ -53411,7 +53480,7 @@
    "id": "https://w3id.org/og-caie/S1-DsoRelease",
    "label": "S1-DsoRelease",
    "ogc": "ogc sparql \"DESCRIBE ogc:S1-DsoRelease\"",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "shape",
@@ -53419,7 +53488,7 @@
    "id": "https://w3id.org/og-caie/S2-AcceptanceCriterion",
    "label": "S2-AcceptanceCriterion",
    "ogc": "ogc sparql \"DESCRIBE ogc:S2-AcceptanceCriterion\"",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "shape",
@@ -53427,7 +53496,7 @@
    "id": "https://w3id.org/og-caie/S2-Requirement",
    "label": "S2-Requirement",
    "ogc": "ogc sparql \"DESCRIBE ogc:S2-Requirement\"",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "shape",
@@ -53435,7 +53504,7 @@
    "id": "https://w3id.org/og-caie/S2-RequirementSet",
    "label": "S2-RequirementSet",
    "ogc": "ogc sparql \"DESCRIBE ogc:S2-RequirementSet\"",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "shape",
@@ -53443,7 +53512,7 @@
    "id": "https://w3id.org/og-caie/S3-PlanApproval",
    "label": "S3-PlanApproval",
    "ogc": "ogc sparql \"DESCRIBE ogc:S3-PlanApproval\"",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "shape",
@@ -53451,7 +53520,7 @@
    "id": "https://w3id.org/og-caie/S3-Probe",
    "label": "S3-Probe",
    "ogc": "ogc sparql \"DESCRIBE ogc:S3-Probe\"",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "shape",
@@ -53459,7 +53528,7 @@
    "id": "https://w3id.org/og-caie/S3-Strategy",
    "label": "S3-Strategy",
    "ogc": "ogc sparql \"DESCRIBE ogc:S3-Strategy\"",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "shape",
@@ -53467,7 +53536,7 @@
    "id": "https://w3id.org/og-caie/S3-TestPlan",
    "label": "S3-TestPlan",
    "ogc": "ogc sparql \"DESCRIBE ogc:S3-TestPlan\"",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "shape",
@@ -53475,7 +53544,7 @@
    "id": "https://w3id.org/og-caie/S4-Session",
    "label": "S4-Session",
    "ogc": "ogc sparql \"DESCRIBE ogc:S4-Session\"",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "shape",
@@ -53483,7 +53552,7 @@
    "id": "https://w3id.org/og-caie/S4-TestSuite",
    "label": "S4-TestSuite",
    "ogc": "ogc sparql \"DESCRIBE ogc:S4-TestSuite\"",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "shape",
@@ -53491,7 +53560,7 @@
    "id": "https://w3id.org/og-caie/S4-Turn",
    "label": "S4-Turn",
    "ogc": "ogc sparql \"DESCRIBE ogc:S4-Turn\"",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "shape",
@@ -53499,7 +53568,7 @@
    "id": "https://w3id.org/og-caie/S5-Evidence",
    "label": "S5-Evidence",
    "ogc": "ogc sparql \"DESCRIBE ogc:S5-Evidence\"",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "shape",
@@ -53507,23 +53576,23 @@
    "id": "https://w3id.org/og-caie/S5-Response",
    "label": "S5-Response",
    "ogc": "ogc sparql \"DESCRIBE ogc:S5-Response\"",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "shape",
-   "desc": "Targets epo:Attestation. S6 chain rule (R-12, R-18, R-20): every determination an attestation aggregates tests the attested criterion, and every evidence item it rules on bears on that criterion under a plan that has it as an objective. S6 closure rule: an attestation with outcome passed or failed must aggregate at least one determination that rules on evidence; with none it can only say cantTell. S6: the attesting person holds the domain expert role; the operator collects and determines, the account executive signs and delivers, only the domain expert attests (R-21, R-23). An attestation is made by one named person. Appropriateness of the declared context is judged (R-08).",
+   "desc": "Targets epo:Attestation. S6 chain rule (R-12, R-18, R-20): every determination an attestation aggregates tests the attested criterion, and every evidence item it rules on bears on that criterion under a plan that has it as an objective. S6 closure rule: an attestation with outcome passed or failed must aggregate at least one determination that rules on evidence; with none it can only say cantTell. S6: the attesting person holds the domain expert role; the operator collects and determines, the authorized representative signs and delivers, only the domain expert attests (R-21, R-23). An attestation is made by one named person. Appropriateness of the declared context is judged (R-08).",
    "id": "https://w3id.org/og-caie/S6-Attestation",
    "label": "S6-Attestation",
    "ogc": "ogc sparql \"DESCRIBE ogc:S6-Attestation\"",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "shape",
-   "desc": "Targets epo:Determination. S6: a determination is made by a domain expert, an evaluation operator, or a versioned software agent; never by the account executive (R-21, R-23). S6: every evidence item a determination uses must bear on the criterion the determination tests. A determination rules on at least one evidence item. A determination's outcome is passed, failed or cantTell (EARL); not a Boolean.",
+   "desc": "Targets epo:Determination. S6: a determination is made by a domain expert, an evaluation operator, or a versioned software agent; never by the authorized representative (R-21, R-23). S6: every evidence item a determination uses must bear on the criterion the determination tests. A determination rules on at least one evidence item. A determination's outcome is passed, failed or cantTell (EARL); not a Boolean.",
    "id": "https://w3id.org/og-caie/S6-Determination",
    "label": "S6-Determination",
    "ogc": "ogc sparql \"DESCRIBE ogc:S6-Determination\"",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "shape",
@@ -53531,7 +53600,7 @@
    "id": "https://w3id.org/og-caie/S7-ConformanceVerdict",
    "label": "S7-ConformanceVerdict",
    "ogc": "ogc sparql \"DESCRIBE ogc:S7-ConformanceVerdict\"",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "shape",
@@ -53539,7 +53608,7 @@
    "id": "https://w3id.org/og-caie/S7-Report",
    "label": "S7-Report",
    "ogc": "ogc sparql \"DESCRIBE ogc:S7-Report\"",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "shape",
@@ -53547,7 +53616,7 @@
    "id": "https://w3id.org/og-caie/S7-ReportApproval",
    "label": "S7-ReportApproval",
    "ogc": "ogc sparql \"DESCRIBE ogc:S7-ReportApproval\"",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "shape",
@@ -53555,7 +53624,7 @@
    "id": "https://w3id.org/og-caie/S8-Delivery",
    "label": "S8-Delivery",
    "ogc": "ogc sparql \"DESCRIBE ogc:S8-Delivery\"",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "shape",
@@ -53563,7 +53632,7 @@
    "id": "https://w3id.org/og-caie/S8-Recommendation",
    "label": "S8-Recommendation",
    "ogc": "ogc sparql \"DESCRIBE ogc:S8-Recommendation\"",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "shape",
@@ -53571,7 +53640,7 @@
    "id": "https://w3id.org/og-caie/S9-Acceptance",
    "label": "S9-Acceptance",
    "ogc": "ogc sparql \"DESCRIBE ogc:S9-Acceptance\"",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "crosswalk",
@@ -53971,6 +54040,14 @@
    "id": "https://w3id.org/og-caie/epo#StatementOfWork",
    "label": "StatementOfWork",
    "ogc": "ogc sparql \"DESCRIBE epo:StatementOfWork\"",
+   "page": ""
+  },
+  {
+   "cls": "kind",
+   "desc": "a step of either cycle (the range of epo:step)",
+   "id": "https://w3id.org/og-caie/epo#Step",
+   "label": "Step",
+   "ogc": "ogc sparql \"DESCRIBE epo:Step\"",
    "page": ""
   },
   {
@@ -55059,7 +55136,7 @@
    "id": "https://w3id.org/og-caie/run/measles#R1",
    "label": "R1",
    "ogc": "ogc record R1",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "record",
@@ -55067,7 +55144,7 @@
    "id": "https://w3id.org/og-caie/run/measles#a1",
    "label": "a1",
    "ogc": "ogc record a1",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "record",
@@ -55075,7 +55152,7 @@
    "id": "https://w3id.org/og-caie/run/measles#a2",
    "label": "a2",
    "ogc": "ogc record a2",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "record",
@@ -55083,7 +55160,7 @@
    "id": "https://w3id.org/og-caie/run/measles#a3",
    "label": "a3",
    "ogc": "ogc record a3",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "record",
@@ -55099,7 +55176,7 @@
    "id": "https://w3id.org/og-caie/run/measles#annie",
    "label": "annie",
    "ogc": "ogc record annie",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "record",
@@ -55107,7 +55184,7 @@
    "id": "https://w3id.org/og-caie/run/measles#appropriateness-assessment-1",
    "label": "appropriateness-assessment-1",
    "ogc": "ogc record appropriateness-assessment-1",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "record",
@@ -55115,7 +55192,7 @@
    "id": "https://w3id.org/og-caie/run/measles#attestation-1",
    "label": "attestation-1",
    "ogc": "ogc record attestation-1",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "record",
@@ -55123,7 +55200,7 @@
    "id": "https://w3id.org/og-caie/run/measles#attestation-2",
    "label": "attestation-2",
    "ogc": "ogc record attestation-2",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "agent",
@@ -55131,7 +55208,7 @@
    "id": "https://w3id.org/og-caie/run/measles#chatbot-v1",
    "label": "chatbot-v1",
    "ogc": "ogc record chatbot-v1",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "agent",
@@ -55139,7 +55216,7 @@
    "id": "https://w3id.org/og-caie/run/measles#chatbot-vendor",
    "label": "chatbot-vendor",
    "ogc": "ogc record chatbot-vendor",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "agent",
@@ -55147,7 +55224,7 @@
    "id": "https://w3id.org/og-caie/run/measles#commuters",
    "label": "commuters",
    "ogc": "ogc record commuters",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "record",
@@ -55155,7 +55232,7 @@
    "id": "https://w3id.org/og-caie/run/measles#consistency-check-1",
    "label": "consistency-check-1",
    "ogc": "ogc record consistency-check-1",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "agent",
@@ -55163,7 +55240,7 @@
    "id": "https://w3id.org/og-caie/run/measles#county-public-health-office",
    "label": "county-public-health-office",
    "ogc": "ogc record county-public-health-office",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "agent",
@@ -55171,7 +55248,7 @@
    "id": "https://w3id.org/og-caie/run/measles#county-residents",
    "label": "county-residents",
    "ogc": "ogc record county-residents",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "agent",
@@ -55179,7 +55256,7 @@
    "id": "https://w3id.org/og-caie/run/measles#coverage-calculator",
    "label": "coverage-calculator",
    "ogc": "ogc record coverage-calculator",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "record",
@@ -55187,7 +55264,7 @@
    "id": "https://w3id.org/og-caie/run/measles#coverage-computation",
    "label": "coverage-computation",
    "ogc": "ogc record coverage-computation",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "record",
@@ -55203,7 +55280,7 @@
    "id": "https://w3id.org/og-caie/run/measles#derivation-1",
    "label": "derivation-1",
    "ogc": "ogc record derivation-1",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "record",
@@ -55211,7 +55288,7 @@
    "id": "https://w3id.org/og-caie/run/measles#determination-1a",
    "label": "determination-1a",
    "ogc": "ogc record determination-1a",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "record",
@@ -55219,7 +55296,7 @@
    "id": "https://w3id.org/og-caie/run/measles#determination-1b",
    "label": "determination-1b",
    "ogc": "ogc record determination-1b",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "record",
@@ -55227,7 +55304,7 @@
    "id": "https://w3id.org/og-caie/run/measles#dso-apollo-sv-r1",
    "label": "dso-apollo-sv-r1",
    "ogc": "ogc record dso-apollo-sv-r1",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "record",
@@ -55235,7 +55312,7 @@
    "id": "https://w3id.org/og-caie/run/measles#engagement-commuters",
    "label": "engagement-commuters",
    "ogc": "ogc record engagement-commuters",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "record",
@@ -55243,7 +55320,7 @@
    "id": "https://w3id.org/og-caie/run/measles#engagement-residents",
    "label": "engagement-residents",
    "ogc": "ogc record engagement-residents",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "record",
@@ -55251,7 +55328,7 @@
    "id": "https://w3id.org/og-caie/run/measles#evidence-1a",
    "label": "evidence-1a",
    "ogc": "ogc record evidence-1a",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "record",
@@ -55259,7 +55336,7 @@
    "id": "https://w3id.org/og-caie/run/measles#evidence-1b",
    "label": "evidence-1b",
    "ogc": "ogc record evidence-1b",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "agent",
@@ -55267,7 +55344,7 @@
    "id": "https://w3id.org/og-caie/run/measles#humane-intelligence",
    "label": "humane-intelligence",
    "ogc": "ogc record humane-intelligence",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "agent",
@@ -55275,7 +55352,7 @@
    "id": "https://w3id.org/og-caie/run/measles#mala",
    "label": "mala",
    "ogc": "ogc record mala",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "record",
@@ -55299,7 +55376,7 @@
    "id": "https://w3id.org/og-caie/run/measles#plan-approval-1",
    "label": "plan-approval-1",
    "ogc": "ogc record plan-approval-1",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "record",
@@ -55307,15 +55384,7 @@
    "id": "https://w3id.org/og-caie/run/measles#probe-1",
    "label": "probe-1",
    "ogc": "ogc record probe-1",
-   "page": ""
-  },
-  {
-   "cls": "agent",
-   "desc": "test driver Types: prov:Agent, prov:SoftwareAgent.",
-   "id": "https://w3id.org/og-caie/run/measles#probe-deriver",
-   "label": "probe-deriver",
-   "ogc": "ogc record probe-deriver",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "record",
@@ -55331,7 +55400,7 @@
    "id": "https://w3id.org/og-caie/run/measles#pyshacl",
    "label": "pyshacl",
    "ogc": "ogc record pyshacl",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "record",
@@ -55339,7 +55408,7 @@
    "id": "https://w3id.org/og-caie/run/measles#recommendation-1",
    "label": "recommendation-1",
    "ogc": "ogc record recommendation-1",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "record",
@@ -55347,7 +55416,7 @@
    "id": "https://w3id.org/og-caie/run/measles#record",
    "label": "record",
    "ogc": "ogc record record",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "record",
@@ -55355,7 +55424,7 @@
    "id": "https://w3id.org/og-caie/run/measles#report",
    "label": "report",
    "ogc": "ogc record report",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "record",
@@ -55363,7 +55432,7 @@
    "id": "https://w3id.org/og-caie/run/measles#report-approval-1",
    "label": "report-approval-1",
    "ogc": "ogc record report-approval-1",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "record",
@@ -55371,7 +55440,7 @@
    "id": "https://w3id.org/og-caie/run/measles#report-verdict-1",
    "label": "report-verdict-1",
    "ogc": "ogc record report-verdict-1",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "record",
@@ -55379,7 +55448,7 @@
    "id": "https://w3id.org/og-caie/run/measles#representation-commuters",
    "label": "representation-commuters",
    "ogc": "ogc record representation-commuters",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "record",
@@ -55387,7 +55456,7 @@
    "id": "https://w3id.org/og-caie/run/measles#representation-residents",
    "label": "representation-residents",
    "ogc": "ogc record representation-residents",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "record",
@@ -55395,7 +55464,7 @@
    "id": "https://w3id.org/og-caie/run/measles#requirement-set",
    "label": "requirement-set",
    "ogc": "ogc record requirement-set",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "record",
@@ -55403,7 +55472,7 @@
    "id": "https://w3id.org/og-caie/run/measles#response-1",
    "label": "response-1",
    "ogc": "ogc record response-1",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "record",
@@ -55419,7 +55488,7 @@
    "id": "https://w3id.org/og-caie/run/measles#session-1",
    "label": "session-1",
    "ogc": "ogc record session-1",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "record",
@@ -55427,7 +55496,7 @@
    "id": "https://w3id.org/og-caie/run/measles#stakeholder-input-1",
    "label": "stakeholder-input-1",
    "ogc": "ogc record stakeholder-input-1",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "record",
@@ -55436,6 +55505,14 @@
    "label": "statement-of-work",
    "ogc": "ogc record statement-of-work",
    "page": "../contracting"
+  },
+  {
+   "cls": "agent",
+   "desc": "test driver Types: prov:Agent, prov:SoftwareAgent.",
+   "id": "https://w3id.org/og-caie/run/measles#test-driver",
+   "label": "test-driver",
+   "ogc": "ogc record test-driver",
+   "page": "../guarantees"
   },
   {
    "cls": "record",
@@ -55451,7 +55528,7 @@
    "id": "https://w3id.org/og-caie/run/measles#test-plan",
    "label": "test-plan",
    "ogc": "ogc record test-plan",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "agent",
@@ -55459,7 +55536,7 @@
    "id": "https://w3id.org/og-caie/run/measles#theo",
    "label": "theo",
    "ogc": "ogc record theo",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "record",
@@ -55467,7 +55544,7 @@
    "id": "https://w3id.org/og-caie/run/measles#trajectory-1",
    "label": "trajectory-1",
    "ogc": "ogc record trajectory-1",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "record",
@@ -55475,7 +55552,7 @@
    "id": "https://w3id.org/og-caie/run/measles#turn-1",
    "label": "turn-1",
    "ogc": "ogc record turn-1",
-   "page": ""
+   "page": "../guarantees"
   },
   {
    "cls": "source",
@@ -55559,7 +55636,7 @@
   },
   {
    "cls": "source",
-   "desc": "IAASB, International Standard on Auditing 500: Audit Evidence (effective 15 December 2009) Rank reserve, posture heldLocally.",
+   "desc": "IAASB, International Standard on Auditing 500: Audit Evidence (2009 text, effective 15 December 2009; ISA 500 (Revised 2024), effective for periods beginning on or after 15 December 2026, keeps paragraphs 5(b) and 5(f)) Rank reserve, posture heldLocally.",
    "id": "https://w3id.org/og-caie/sources#isa-500",
    "label": "isa-500",
    "ogc": "ogc source isa-500",
@@ -56067,7 +56144,7 @@
    "id": "https://w3id.org/og-caie/terms#account-executive",
    "label": "authorized representative",
    "ogc": "ogc term \"authorized representative\"",
-   "page": "../glossary#term-authorized-representative"
+   "page": "../glossary"
   },
   {
    "cls": "term",
@@ -56119,7 +56196,7 @@
   },
   {
    "cls": "term",
-   "desc": "The binding agreement between the sponsor organization and the testing organization to perform OG-CAIE as a service. It is signed by the sponsor and by the testing organization's authorized representative, precedes the requirement set, and is the first item the record holds.",
+   "desc": "The binding agreement between the sponsor organization and the testing organization to perform OG-CAIE as a service. It is signed by the sponsor and by the testing organization's authorized representative, precedes the requirement set and follows the mission, the need and the proposal in the record.",
    "id": "https://w3id.org/og-caie/terms#contract",
    "label": "contract",
    "ogc": "ogc term contract",
@@ -56655,7 +56732,7 @@
   },
   {
    "cls": "sci",
-   "desc": "PartiesNamedAndAgreed: The sponsor, the testing organization and the accountable organization are named; the sponsor's mission and obligations towards the affected populations are recorded before the need, and its statement of work decides, per population, interview or representation; the agreement is signed by the sponsor and the account executive; every affected population is interviewed or represented by a named domain expert. [machine]",
+   "desc": "PartiesNamedAndAgreed: The sponsor, the testing organization and the accountable organization are named; the sponsor's mission and obligations towards the affected populations are recorded before the need, and its statement of work decides, per population, interview or representation; the agreement is signed by the sponsor and the authorized representative; every affected population is spoken for by a named representative on the team, and interviewed where the statement of work decided so. [machine]",
    "id": "https://w3id.org/og-caie/trace#SCI-10",
    "label": "SCI-10",
    "ogc": "ogc sci SCI-10",
@@ -56671,7 +56748,7 @@
   },
   {
    "cls": "sci",
-   "desc": "RolesDistinct: The domain expert who approves the DSO, assesses appropriateness and attests is not the evaluation operator who administers tests and collects evidence, and neither is the account executive who signs the agreement; one account executive, one or more of each expert. [machine]",
+   "desc": "RolesDistinct: The domain expert who approves the DSO, assesses appropriateness and attests is not the evaluation operator who administers tests and collects evidence, and neither is the authorized representative who signs the agreement; one authorized representative, one or more of each expert. [machine]",
    "id": "https://w3id.org/og-caie/trace#SCI-12",
    "label": "SCI-12",
    "ogc": "ogc sci SCI-12",
@@ -56691,7 +56768,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Acceptance",
    "label": "Acceptance",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "item",
@@ -56699,15 +56776,15 @@
    "id": "urn:sysmlv2:element:OGCAIE__AcceptanceCriterion",
    "label": "AcceptanceCriterion",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "part",
-   "desc": "Signatory of the service agreement and legal representative\n of the testing organization (ruling R-23). Countersigns the\n agreement into the record, reads the record, and delivers the\n report and the recommendation to the sponsor as one delivery\n (an activity of its own, R-24); answers the sponsor's need with\n the proposal and receives the acceptance (R-32). No evidence, determination or\n attestation port: the account executive never judges the test\n item. The worked example's Mala.",
+   "desc": "Signatory of the service agreement and legal representative\n of the testing organization (ruling R-23; headword authorized\n representative, R-49). Countersigns the agreement into the\n record, reads the record through its view, and delivers the\n report and the recommendation to the sponsor as one delivery\n (an activity of its own, R-24); answers the sponsor's need with\n the proposal and receives the acceptance (R-32). No evidence, determination or\n attestation port: the account executive never judges the test\n item. The worked example's Mala.",
    "id": "urn:sysmlv2:element:OGCAIE__AccountExecutive",
    "label": "AccountExecutive",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -56715,7 +56792,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__AccountExecutive__acceptanceIn",
    "label": "AccountExecutive::acceptanceIn",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -56723,7 +56800,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__AccountExecutive__agreementIn",
    "label": "AccountExecutive::agreementIn",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -56731,7 +56808,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__AccountExecutive__agreementOut",
    "label": "AccountExecutive::agreementOut",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -56739,7 +56816,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__AccountExecutive__deliveryOut",
    "label": "AccountExecutive::deliveryOut",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -56747,7 +56824,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__AccountExecutive__missionIn",
    "label": "AccountExecutive::missionIn",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -56755,7 +56832,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__AccountExecutive__needIn",
    "label": "AccountExecutive::needIn",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -56763,7 +56840,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__AccountExecutive__proposalOut",
    "label": "AccountExecutive::proposalOut",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -56771,7 +56848,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__AccountExecutive__statementOfWorkIn",
    "label": "AccountExecutive::statementOfWorkIn",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "part",
@@ -56779,7 +56856,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__AccountableOrganization",
    "label": "AccountableOrganization",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -56787,7 +56864,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__AccountableOrganization__accessOut",
    "label": "AccountableOrganization::accessOut",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "usage",
@@ -56795,15 +56872,15 @@
    "id": "urn:sysmlv2:element:OGCAIE__AccountableOrganization__testItem",
    "label": "AccountableOrganization::testItem : TestItem",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "part",
-   "desc": "A population of actors affected by the test item (ISO\n 9000:2026 3.1.4 interested party, ruling R-21): interviewed,\n in which case its input enters the record, or represented by a\n domain expert, in which case the record names who.",
+   "desc": "A population of actors affected by the test item (ISO\n 9000:2026 3.1.4 interested party, ruling R-21): always spoken for\n by a representative on the team, and interviewed where the\n statement of work decided so, in which case its input feeds the\n representation and enters the record (series wiring, R-49).",
    "id": "urn:sysmlv2:element:OGCAIE__AffectedPopulation",
    "label": "AffectedPopulation",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -56811,7 +56888,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__AffectedPopulation__inputOut",
    "label": "AffectedPopulation::inputOut",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "item",
@@ -56819,7 +56896,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__AppropriatenessAssessment",
    "label": "AppropriatenessAssessment",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "item",
@@ -56827,7 +56904,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Attestation",
    "label": "Attestation",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "part",
@@ -56835,7 +56912,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__ConformanceChecker",
    "label": "ConformanceChecker",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -56843,7 +56920,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__ConformanceChecker__recordIn",
    "label": "ConformanceChecker::recordIn",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -56851,7 +56928,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__ConformanceChecker__verdictOut",
    "label": "ConformanceChecker::verdictOut",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "item",
@@ -56859,7 +56936,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__ConformanceVerdict",
    "label": "ConformanceVerdict",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "process",
@@ -56867,7 +56944,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__ContractingProcess",
    "label": "ContractingProcess",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "action",
@@ -56875,7 +56952,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__ContractingProcess__acceptDelivery",
    "label": "ContractingProcess::acceptDelivery",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "action",
@@ -56883,7 +56960,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__ContractingProcess__access",
    "label": "ContractingProcess::access",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "action",
@@ -56891,7 +56968,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__ContractingProcess__agree",
    "label": "ContractingProcess::agree",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "action",
@@ -56899,7 +56976,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__ContractingProcess__deliver",
    "label": "ContractingProcess::deliver",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "action",
@@ -56907,7 +56984,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__ContractingProcess__fulfil",
    "label": "ContractingProcess::fulfil",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "action",
@@ -56915,7 +56992,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__ContractingProcess__need",
    "label": "ContractingProcess::need",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "action",
@@ -56923,7 +57000,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__ContractingProcess__propose",
    "label": "ContractingProcess::propose",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "item",
@@ -56931,7 +57008,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Delivery",
    "label": "Delivery",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "item",
@@ -56939,7 +57016,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Determination",
    "label": "Determination",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "part",
@@ -56947,7 +57024,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__DomainExpert",
    "label": "DomainExpert",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -56955,7 +57032,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__DomainExpert__assessmentOut",
    "label": "DomainExpert::assessmentOut",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -56963,7 +57040,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__DomainExpert__attestationOut",
    "label": "DomainExpert::attestationOut",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -56971,7 +57048,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__DomainExpert__determinationOut",
    "label": "DomainExpert::determinationOut",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -56979,7 +57056,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__DomainExpert__dsoOut",
    "label": "DomainExpert::dsoOut",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -56987,7 +57064,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__DomainExpert__planApprovalOut",
    "label": "DomainExpert::planApprovalOut",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -56995,7 +57072,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__DomainExpert__reportApprovalOut",
    "label": "DomainExpert::reportApprovalOut",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "item",
@@ -57003,7 +57080,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__DsoRelease",
    "label": "DsoRelease",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "part",
@@ -57011,7 +57088,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__EvaluationOperator",
    "label": "EvaluationOperator",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -57019,7 +57096,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__EvaluationOperator__accessIn",
    "label": "EvaluationOperator::accessIn",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -57027,7 +57104,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__EvaluationOperator__determinationOut",
    "label": "EvaluationOperator::determinationOut",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -57035,7 +57112,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__EvaluationOperator__evidenceOut",
    "label": "EvaluationOperator::evidenceOut",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -57043,7 +57120,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__EvaluationOperator__planOut",
    "label": "EvaluationOperator::planOut",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -57051,7 +57128,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__EvaluationOperator__probesIn",
    "label": "EvaluationOperator::probesIn",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -57059,7 +57136,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__EvaluationOperator__probesToItem",
    "label": "EvaluationOperator::probesToItem",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -57067,7 +57144,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__EvaluationOperator__recommendationOut",
    "label": "EvaluationOperator::recommendationOut",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -57075,7 +57152,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__EvaluationOperator__requirementsOut",
    "label": "EvaluationOperator::requirementsOut",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "process",
@@ -57083,7 +57160,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__EvaluationProcess",
    "label": "EvaluationProcess",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "action",
@@ -57091,7 +57168,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__EvaluationProcess__declareRequirements",
    "label": "EvaluationProcess::declareRequirements",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "action",
@@ -57099,7 +57176,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__EvaluationProcess__determineAndAttest",
    "label": "EvaluationProcess::determineAndAttest",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "action",
@@ -57107,7 +57184,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__EvaluationProcess__execute",
    "label": "EvaluationProcess::execute",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "action",
@@ -57115,7 +57192,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__EvaluationProcess__plan",
    "label": "EvaluationProcess::plan",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "action",
@@ -57123,7 +57200,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__EvaluationProcess__report",
    "label": "EvaluationProcess::report",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "action",
@@ -57131,7 +57208,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__EvaluationProcess__scope",
    "label": "EvaluationProcess::scope",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "item",
@@ -57139,7 +57216,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__EvaluationRecord",
    "label": "EvaluationRecord",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "part",
@@ -57147,7 +57224,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__EvaluationTeam",
    "label": "EvaluationTeam",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "usage",
@@ -57155,7 +57232,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__EvaluationTeam__domainExpert",
    "label": "EvaluationTeam::domainExpert : DomainExpert",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "usage",
@@ -57163,7 +57240,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__EvaluationTeam__operator",
    "label": "EvaluationTeam::operator : EvaluationOperator",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "usage",
@@ -57171,7 +57248,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__EvaluationTeam__representative",
    "label": "EvaluationTeam::representative : Representative",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "item",
@@ -57179,7 +57256,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Evidence",
    "label": "Evidence",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "part",
@@ -57187,7 +57264,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Machine",
    "label": "Machine",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "item",
@@ -57195,7 +57272,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Mission",
    "label": "Mission",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "usage",
@@ -57203,7 +57280,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Mission__regards",
    "label": "Mission::regards : AffectedPopulation",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "item",
@@ -57211,7 +57288,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Need",
    "label": "Need",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "part",
@@ -57219,7 +57296,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation",
    "label": "OgCaieEvaluation",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "seam",
@@ -57259,7 +57336,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__accountable",
    "label": "OgCaieEvaluation::accountable : AccountableOrga…",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "usage",
@@ -57267,7 +57344,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__affected",
    "label": "OgCaieEvaluation::affected : AffectedPopulation",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "seam",
@@ -57283,7 +57360,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__assessmentSeam",
    "label": "OgCaieEvaluation::assessmentSeam",
    "ogc": "ogc view evaluation",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "seam",
@@ -57291,7 +57368,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__attestationSeam",
    "label": "OgCaieEvaluation::attestationSeam",
    "ogc": "ogc view evaluation",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "seam",
@@ -57323,7 +57400,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__derivedProbeSeam",
    "label": "OgCaieEvaluation::derivedProbeSeam",
    "ogc": "ogc view evaluation",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "seam",
@@ -57331,7 +57408,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__dsoSeam",
    "label": "OgCaieEvaluation::dsoSeam",
    "ogc": "ogc view evaluation",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "seam",
@@ -57339,7 +57416,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__evidenceSeam",
    "label": "OgCaieEvaluation::evidenceSeam",
    "ogc": "ogc view evaluation",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "seam",
@@ -57347,7 +57424,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__expertDeterminationSeam",
    "label": "OgCaieEvaluation::expertDeterminationSeam",
    "ogc": "ogc view evaluation",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "seam",
@@ -57395,7 +57472,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__operatorDeterminationSeam",
    "label": "OgCaieEvaluation::operatorDeterminationSeam",
    "ogc": "ogc view evaluation",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "seam",
@@ -57403,7 +57480,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__planApprovalSeam",
    "label": "OgCaieEvaluation::planApprovalSeam",
    "ogc": "ogc view evaluation",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "seam",
@@ -57411,7 +57488,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__planSeam",
    "label": "OgCaieEvaluation::planSeam",
    "ogc": "ogc view evaluation",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "seam",
@@ -57419,7 +57496,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__probeRecordSeam",
    "label": "OgCaieEvaluation::probeRecordSeam",
    "ogc": "ogc view evaluation",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "seam",
@@ -57427,7 +57504,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__probeRunSeam",
    "label": "OgCaieEvaluation::probeRunSeam",
    "ogc": "ogc view evaluation",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "seam",
@@ -57451,7 +57528,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recommendationSeam",
    "label": "OgCaieEvaluation::recommendationSeam",
    "ogc": "ogc view evaluation",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "seam",
@@ -57459,7 +57536,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToAssemblerSeam",
    "label": "OgCaieEvaluation::recordToAssemblerSeam",
    "ogc": "ogc view evaluation",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "seam",
@@ -57467,7 +57544,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToCheckerSeam",
    "label": "OgCaieEvaluation::recordToCheckerSeam",
    "ogc": "ogc view evaluation",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "seam",
@@ -57475,7 +57552,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__recordToDriverSeam",
    "label": "OgCaieEvaluation::recordToDriverSeam",
    "ogc": "ogc view evaluation",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "seam",
@@ -57483,7 +57560,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__reportApprovalSeam",
    "label": "OgCaieEvaluation::reportApprovalSeam",
    "ogc": "ogc view evaluation",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "seam",
@@ -57491,7 +57568,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__reportSeam",
    "label": "OgCaieEvaluation::reportSeam",
    "ogc": "ogc view evaluation",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "seam",
@@ -57499,7 +57576,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__representationSeam",
    "label": "OgCaieEvaluation::representationSeam",
    "ogc": "ogc view evaluation",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "seam",
@@ -57507,7 +57584,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__requirementSeam",
    "label": "OgCaieEvaluation::requirementSeam",
    "ogc": "ogc view evaluation",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "seam",
@@ -57515,7 +57592,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__responseSeam",
    "label": "OgCaieEvaluation::responseSeam",
    "ogc": "ogc view evaluation",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "usage",
@@ -57523,7 +57600,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__sponsor",
    "label": "OgCaieEvaluation::sponsor : SponsorOrganization",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "seam",
@@ -57563,7 +57640,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__testingOrg",
    "label": "OgCaieEvaluation::testingOrg : TestingOrganizat…",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "seam",
@@ -57571,7 +57648,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__verdictSeam",
    "label": "OgCaieEvaluation::verdictSeam",
    "ogc": "ogc view evaluation",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "part",
@@ -57579,7 +57656,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Organization",
    "label": "Organization",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "part",
@@ -57587,7 +57664,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Party",
    "label": "Party",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "part",
@@ -57595,7 +57672,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Person",
    "label": "Person",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "item",
@@ -57603,7 +57680,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__PlanApproval",
    "label": "PlanApproval",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "item",
@@ -57611,7 +57688,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Probe",
    "label": "Probe",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "item",
@@ -57619,7 +57696,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Proposal",
    "label": "Proposal",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "item",
@@ -57627,7 +57704,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Recommendation",
    "label": "Recommendation",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "part",
@@ -57635,7 +57712,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Recorder",
    "label": "Recorder",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -57643,7 +57720,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Recorder__acceptanceIn",
    "label": "Recorder::acceptanceIn",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -57651,7 +57728,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Recorder__accessIn",
    "label": "Recorder::accessIn",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -57659,7 +57736,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Recorder__agreementIn",
    "label": "Recorder::agreementIn",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -57667,7 +57744,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Recorder__assessmentIn",
    "label": "Recorder::assessmentIn",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -57675,7 +57752,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Recorder__attestationIn",
    "label": "Recorder::attestationIn",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -57683,7 +57760,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Recorder__deliveryIn",
    "label": "Recorder::deliveryIn",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -57691,7 +57768,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Recorder__dsoIn",
    "label": "Recorder::dsoIn",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -57699,7 +57776,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Recorder__evidenceIn",
    "label": "Recorder::evidenceIn",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -57707,7 +57784,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Recorder__expertDeterminationIn",
    "label": "Recorder::expertDeterminationIn",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -57715,7 +57792,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Recorder__inputIn",
    "label": "Recorder::inputIn",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -57723,7 +57800,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Recorder__missionIn",
    "label": "Recorder::missionIn",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -57731,7 +57808,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Recorder__needIn",
    "label": "Recorder::needIn",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -57739,7 +57816,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Recorder__operatorDeterminationIn",
    "label": "Recorder::operatorDeterminationIn",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -57747,7 +57824,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Recorder__planApprovalIn",
    "label": "Recorder::planApprovalIn",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -57755,7 +57832,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Recorder__planIn",
    "label": "Recorder::planIn",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -57763,7 +57840,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Recorder__probeIn",
    "label": "Recorder::probeIn",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -57771,7 +57848,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Recorder__proposalIn",
    "label": "Recorder::proposalIn",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -57779,7 +57856,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Recorder__recommendationIn",
    "label": "Recorder::recommendationIn",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -57787,7 +57864,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Recorder__recordOut",
    "label": "Recorder::recordOut",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -57795,7 +57872,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Recorder__reportApprovalIn",
    "label": "Recorder::reportApprovalIn",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -57803,7 +57880,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Recorder__reportIn",
    "label": "Recorder::reportIn",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -57811,7 +57888,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Recorder__representationIn",
    "label": "Recorder::representationIn",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -57819,7 +57896,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Recorder__requirementsIn",
    "label": "Recorder::requirementsIn",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -57827,7 +57904,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Recorder__responseIn",
    "label": "Recorder::responseIn",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -57835,7 +57912,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Recorder__statementOfWorkIn",
    "label": "Recorder::statementOfWorkIn",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -57843,7 +57920,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Recorder__verdictIn",
    "label": "Recorder::verdictIn",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "item",
@@ -57851,7 +57928,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Report",
    "label": "Report",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "item",
@@ -57859,7 +57936,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__ReportApproval",
    "label": "ReportApproval",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "part",
@@ -57867,7 +57944,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__ReportAssembler",
    "label": "ReportAssembler",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -57875,7 +57952,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__ReportAssembler__recordIn",
    "label": "ReportAssembler::recordIn",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -57883,7 +57960,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__ReportAssembler__reportOut",
    "label": "ReportAssembler::reportOut",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "part",
@@ -57891,7 +57968,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Representative",
    "label": "Representative",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -57899,7 +57976,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Representative__inputIn",
    "label": "Representative::inputIn",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -57907,7 +57984,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Representative__representationOut",
    "label": "Representative::representationOut",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "item",
@@ -57915,7 +57992,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__RequirementSet",
    "label": "RequirementSet",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "item",
@@ -57923,7 +58000,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Response",
    "label": "Response",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "part",
@@ -57931,7 +58008,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Runs__MeaslesRun",
    "label": "Runs::MeaslesRun",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "usage",
@@ -57939,7 +58016,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Runs__MeaslesRun___401",
    "label": "Runs::MeaslesRun::@1 : None",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "usage",
@@ -57947,7 +58024,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Runs__MeaslesRun___402",
    "label": "Runs::MeaslesRun::@2 : None",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "usage",
@@ -57955,7 +58032,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Runs__MeaslesRun___402___401",
    "label": "Runs::MeaslesRun::@2::@1 : None",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "usage",
@@ -57963,7 +58040,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Runs__MeaslesRun___403",
    "label": "Runs::MeaslesRun::@3 : None",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "usage",
@@ -57971,7 +58048,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Runs__MeaslesRun___403___402",
    "label": "Runs::MeaslesRun::@3::@2 : None",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "usage",
@@ -57979,7 +58056,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Runs__MeaslesRun___403___403",
    "label": "Runs::MeaslesRun::@3::@3 : None",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "usage",
@@ -57987,7 +58064,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Runs__MeaslesRun___403___403__annie",
    "label": "Runs::MeaslesRun::@3::@3::annie : None",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "usage",
@@ -57995,7 +58072,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Runs__MeaslesRun___403___403__theo",
    "label": "Runs::MeaslesRun::@3::@3::theo : None",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "usage",
@@ -58003,7 +58080,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Runs__MeaslesRun___403___404",
    "label": "Runs::MeaslesRun::@3::@4 : None",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "usage",
@@ -58011,7 +58088,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Runs__MeaslesRun___403___405",
    "label": "Runs::MeaslesRun::@3::@5 : None",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "usage",
@@ -58019,7 +58096,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Runs__MeaslesRun___403___406",
    "label": "Runs::MeaslesRun::@3::@6 : None",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "usage",
@@ -58027,7 +58104,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Runs__MeaslesRun___403___407",
    "label": "Runs::MeaslesRun::@3::@7 : None",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "usage",
@@ -58035,7 +58112,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Runs__MeaslesRun__commuters",
    "label": "Runs::MeaslesRun::commuters : None",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "usage",
@@ -58043,7 +58120,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Runs__MeaslesRun__residents",
    "label": "Runs::MeaslesRun::residents : None",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "usage",
@@ -58051,7 +58128,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Runs__measlesRun",
    "label": "Runs::measlesRun : MeaslesRun",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "item",
@@ -58059,7 +58136,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__ServiceAgreement",
    "label": "ServiceAgreement",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "item",
@@ -58067,7 +58144,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Session",
    "label": "Session",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "part",
@@ -58075,7 +58152,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__SponsorOrganization",
    "label": "SponsorOrganization",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -58083,7 +58160,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__SponsorOrganization__acceptanceOut",
    "label": "SponsorOrganization::acceptanceOut",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -58091,7 +58168,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__SponsorOrganization__agreementOut",
    "label": "SponsorOrganization::agreementOut",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -58099,7 +58176,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__SponsorOrganization__deliveryIn",
    "label": "SponsorOrganization::deliveryIn",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -58107,7 +58184,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__SponsorOrganization__missionOut",
    "label": "SponsorOrganization::missionOut",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -58115,7 +58192,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__SponsorOrganization__needOut",
    "label": "SponsorOrganization::needOut",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -58123,7 +58200,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__SponsorOrganization__proposalIn",
    "label": "SponsorOrganization::proposalIn",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -58131,7 +58208,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__SponsorOrganization__statementOfWorkOut",
    "label": "SponsorOrganization::statementOfWorkOut",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "item",
@@ -58139,7 +58216,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__StakeholderInput",
    "label": "StakeholderInput",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "item",
@@ -58147,7 +58224,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__StakeholderRepresentation",
    "label": "StakeholderRepresentation",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "item",
@@ -58155,7 +58232,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__StatementOfWork",
    "label": "StatementOfWork",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "usage",
@@ -58163,7 +58240,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__StatementOfWork__regards",
    "label": "StatementOfWork::regards : AffectedPopulation",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "item",
@@ -58171,7 +58248,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__Strategy",
    "label": "Strategy",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "part",
@@ -58179,7 +58256,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__TestDriver",
    "label": "TestDriver",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -58187,7 +58264,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__TestDriver__probesOut",
    "label": "TestDriver::probesOut",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -58195,7 +58272,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__TestDriver__recordIn",
    "label": "TestDriver::recordIn",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "part",
@@ -58203,7 +58280,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__TestItem",
    "label": "TestItem",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "item",
@@ -58211,7 +58288,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__TestItemAccess",
    "label": "TestItemAccess",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -58219,7 +58296,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__TestItem__probesIn",
    "label": "TestItem::probesIn",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "port",
@@ -58227,7 +58304,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__TestItem__responseOut",
    "label": "TestItem::responseOut",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "item",
@@ -58235,7 +58312,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__TestPlan",
    "label": "TestPlan",
    "ogc": "ogc view layers",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "part",
@@ -58243,7 +58320,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__TestingOrganization",
    "label": "TestingOrganization",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "usage",
@@ -58251,7 +58328,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__TestingOrganization__accountExecutive",
    "label": "TestingOrganization::accountExecutive : Account…",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "usage",
@@ -58259,7 +58336,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__TestingOrganization__conformanceChecker",
    "label": "TestingOrganization::conformanceChecker : Confo…",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "usage",
@@ -58267,7 +58344,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__TestingOrganization__recorder",
    "label": "TestingOrganization::recorder : Recorder",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "usage",
@@ -58275,7 +58352,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__TestingOrganization__reportAssembler",
    "label": "TestingOrganization::reportAssembler : ReportAs…",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "usage",
@@ -58283,7 +58360,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__TestingOrganization__team",
    "label": "TestingOrganization::team : EvaluationTeam",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   },
   {
    "cls": "usage",
@@ -58291,7 +58368,7 @@
    "id": "urn:sysmlv2:element:OGCAIE__TestingOrganization__testDriver",
    "label": "TestingOrganization::testDriver : TestDriver",
    "ogc": "ogc view assemblage",
-   "page": ""
+   "page": "../model"
   }
  ],
  "title": "OG-CAIE: the knowledge graph explorer",
@@ -58318,7 +58395,7 @@
     "cite:agree:seeAlso:iso-9000-2026:3-3-13",
     "cite:agree:seeAlso:iso-iec-17000-2020:4-9-conformity-assessment-scheme",
     "cite:appropriateness:canonical:hawkins-2011:section-3-2-asserted-context-p-7",
-    "cite:appropriateness:seeAlso:isa-500:paragraph-5-b",
+    "cite:appropriateness:seeAlso:isa-500:paragraph-5-b-fragment-of-the-paragraph",
     "cite:appropriateness:seeAlso:iso-9000-2026:3-11-2-review",
     "cite:attestation:canonical:iso-iec-17000-2020:7-3",
     "cite:authoritative-reference:canonical:hogan-2021:section-1-p-2-arxiv-v3-fragment-of-the-entry",
@@ -58342,7 +58419,7 @@
     "cite:determineAndAttest:seeAlso:iso-iec-17000-2020:7-3-attestation",
     "cite:determineAndAttest:seeAlso:iso-iec-17000-2020:annex-a-a-4-review-decision-and-attestation-the-functional-approach",
     "cite:determineAndAttest:seeAlso:sevocab:evaluation-p-155-iso-iec-25001-2014-4-1",
-    "cite:dialogue:canonical:nist-ai-700-2:appendix-a-dialogue-p-16",
+    "cite:dialogue:canonical:nist-ai-700-2:appendix-a-dialogue-p-16-first-sentence-of-the-entry",
     "cite:evaluation-customer:canonical:iso-9000-2026:3-9-1-customer",
     "cite:evaluation-customer:seeAlso:iso-iec-17000-2020:4-4-second-party-conformity-assessment-activity",
     "cite:evaluation-operator:canonical:sevocab:operator-p-283-iso-iec-ieee-12207-2026-3-1-40",
@@ -58364,7 +58441,7 @@
     "cite:execute:seeAlso:iso-iec-17000-2020:annex-a-a-3-determination-the-functional-approach",
     "cite:expected-results:canonical:sevocab:expected-results-p-160",
     "cite:first-party-conformity-assessment-activity:canonical:iso-iec-17000-2020:4-3-first-party-conformity-assessment-activity",
-    "cite:guardrail:canonical:nist-ai-700-2:appendix-a-guardrail-p-17",
+    "cite:guardrail:canonical:nist-ai-700-2:appendix-a-guardrail-p-17-first-sentence-of-the-entry",
     "cite:knowledge-graph:canonical:hogan-2021:section-1-p-2-arxiv-v3",
     "cite:measurement-uncertainty:canonical:jcgm-200-2012:2-26-measurement-uncertainty-p-41",
     "cite:mission:canonical:iso-9000-2026:3-4-11",
@@ -58382,7 +58459,7 @@
     "cite:operational-environment:canonical:sevocab:operational-environment-p-282",
     "cite:organization:canonical:iso-9000-2026:3-1-1",
     "cite:outcome:canonical:sevocab:test-result-p-438",
-    "cite:outcome:seeAlso:nist-ai-700-2:section-3-1-validity-risk-assessment-p-5",
+    "cite:outcome:seeAlso:nist-ai-700-2:section-3-1-validity-risk-assessment-p-5-one-of-the-four-annotation-values-a-fragment",
     "cite:outcome:seeAlso:w3c-earl:section-2-7-outcomevalue-class",
     "cite:performance:canonical:iso-9000-2026:3-7-3",
     "cite:plan:canonical:sevocab:test-strategy-and-planning-process-p-439-iso-iec-ieee-29119-2-2021-3-51",
@@ -58408,17 +58485,17 @@
     "cite:requirements-traceability:seeAlso:jcgm-200-2012:2-41-metrological-traceability-p-45",
     "cite:risk-based-testing:canonical:sevocab:risk-based-testing-p-362",
     "cite:scenario:canonical:sevocab:scenario-p-369",
-    "cite:scenario:seeAlso:nist-ai-700-2:appendix-a-scenario-p-17",
+    "cite:scenario:seeAlso:nist-ai-700-2:appendix-a-scenario-p-17-first-sentence-of-the-entry",
     "cite:scenario:seeAlso:sevocab:test-scenario-p-438-iso-iec-tr-29119-11-2020-testing-of-ai-based-systems",
     "cite:scope:canonical:sebok-2-14:stakeholder-needs-and-requirements-p-549-stakeholder-needs-definition-concept-definition",
     "cite:scope:seeAlso:iso-iec-17000-2020:annex-a-a-2-selection-the-functional-approach",
     "cite:second-party-conformity-assessment-activity:canonical:iso-iec-17000-2020:4-4-second-party-conformity-assessment-activity",
-    "cite:session:canonical:nist-ai-700-2:appendix-a-session-p-17",
+    "cite:session:canonical:nist-ai-700-2:appendix-a-session-p-17-first-sentence-of-the-entry",
     "cite:stakeholder:canonical:iso-9000-2026:3-1-4",
     "cite:stakeholder:seeAlso:sevocab:stakeholder-p-403",
     "cite:statement-of-work:canonical:sevocab:statement-of-work-p-406",
     "cite:sufficiency:canonical:hawkins-2011:section-3-3-asserted-solution-p-10",
-    "cite:sufficiency:seeAlso:isa-500:paragraph-5-f",
+    "cite:sufficiency:seeAlso:isa-500:paragraph-5-f-first-sentence-of-the-paragraph",
     "cite:technical-expert:canonical:iso-9000-2026:3-12-9",
     "cite:test-case:canonical:sevocab:test-case-p-432",
     "cite:test-coverage:canonical:sevocab:test-coverage-p-433",
@@ -58742,6 +58819,7 @@
     "https://w3id.org/og-caie/epo#StakeholderInput",
     "https://w3id.org/og-caie/epo#StakeholderRepresentation",
     "https://w3id.org/og-caie/epo#StatementOfWork",
+    "https://w3id.org/og-caie/epo#Step",
     "https://w3id.org/og-caie/epo#Strategy",
     "https://w3id.org/og-caie/epo#SufficiencyValue",
     "https://w3id.org/og-caie/epo#TestItemAccess",
@@ -59040,7 +59118,6 @@
     "https://w3id.org/og-caie/run/measles#need-1",
     "https://w3id.org/og-caie/run/measles#plan-approval-1",
     "https://w3id.org/og-caie/run/measles#probe-1",
-    "https://w3id.org/og-caie/run/measles#probe-deriver",
     "https://w3id.org/og-caie/run/measles#proposal-1",
     "https://w3id.org/og-caie/run/measles#pyshacl",
     "https://w3id.org/og-caie/run/measles#recommendation-1",
@@ -59056,6 +59133,7 @@
     "https://w3id.org/og-caie/run/measles#session-1",
     "https://w3id.org/og-caie/run/measles#stakeholder-input-1",
     "https://w3id.org/og-caie/run/measles#statement-of-work",
+    "https://w3id.org/og-caie/run/measles#test-driver",
     "https://w3id.org/og-caie/run/measles#test-item-access",
     "https://w3id.org/og-caie/run/measles#test-plan",
     "https://w3id.org/og-caie/run/measles#theo",
@@ -59278,7 +59356,7 @@
     "cite:agree:seeAlso:iso-9000-2026:3-3-13",
     "cite:agree:seeAlso:iso-iec-17000-2020:4-9-conformity-assessment-scheme",
     "cite:appropriateness:canonical:hawkins-2011:section-3-2-asserted-context-p-7",
-    "cite:appropriateness:seeAlso:isa-500:paragraph-5-b",
+    "cite:appropriateness:seeAlso:isa-500:paragraph-5-b-fragment-of-the-paragraph",
     "cite:appropriateness:seeAlso:iso-9000-2026:3-11-2-review",
     "cite:attestation:canonical:iso-iec-17000-2020:7-3",
     "cite:authoritative-reference:canonical:hogan-2021:section-1-p-2-arxiv-v3-fragment-of-the-entry",
@@ -59302,7 +59380,7 @@
     "cite:determineAndAttest:seeAlso:iso-iec-17000-2020:7-3-attestation",
     "cite:determineAndAttest:seeAlso:iso-iec-17000-2020:annex-a-a-4-review-decision-and-attestation-the-functional-approach",
     "cite:determineAndAttest:seeAlso:sevocab:evaluation-p-155-iso-iec-25001-2014-4-1",
-    "cite:dialogue:canonical:nist-ai-700-2:appendix-a-dialogue-p-16",
+    "cite:dialogue:canonical:nist-ai-700-2:appendix-a-dialogue-p-16-first-sentence-of-the-entry",
     "cite:evaluation-customer:canonical:iso-9000-2026:3-9-1-customer",
     "cite:evaluation-customer:seeAlso:iso-iec-17000-2020:4-4-second-party-conformity-assessment-activity",
     "cite:evaluation-operator:canonical:sevocab:operator-p-283-iso-iec-ieee-12207-2026-3-1-40",
@@ -59324,7 +59402,7 @@
     "cite:execute:seeAlso:iso-iec-17000-2020:annex-a-a-3-determination-the-functional-approach",
     "cite:expected-results:canonical:sevocab:expected-results-p-160",
     "cite:first-party-conformity-assessment-activity:canonical:iso-iec-17000-2020:4-3-first-party-conformity-assessment-activity",
-    "cite:guardrail:canonical:nist-ai-700-2:appendix-a-guardrail-p-17",
+    "cite:guardrail:canonical:nist-ai-700-2:appendix-a-guardrail-p-17-first-sentence-of-the-entry",
     "cite:knowledge-graph:canonical:hogan-2021:section-1-p-2-arxiv-v3",
     "cite:measurement-uncertainty:canonical:jcgm-200-2012:2-26-measurement-uncertainty-p-41",
     "cite:mission:canonical:iso-9000-2026:3-4-11",
@@ -59342,7 +59420,7 @@
     "cite:operational-environment:canonical:sevocab:operational-environment-p-282",
     "cite:organization:canonical:iso-9000-2026:3-1-1",
     "cite:outcome:canonical:sevocab:test-result-p-438",
-    "cite:outcome:seeAlso:nist-ai-700-2:section-3-1-validity-risk-assessment-p-5",
+    "cite:outcome:seeAlso:nist-ai-700-2:section-3-1-validity-risk-assessment-p-5-one-of-the-four-annotation-values-a-fragment",
     "cite:outcome:seeAlso:w3c-earl:section-2-7-outcomevalue-class",
     "cite:performance:canonical:iso-9000-2026:3-7-3",
     "cite:plan:canonical:sevocab:test-strategy-and-planning-process-p-439-iso-iec-ieee-29119-2-2021-3-51",
@@ -59368,17 +59446,17 @@
     "cite:requirements-traceability:seeAlso:jcgm-200-2012:2-41-metrological-traceability-p-45",
     "cite:risk-based-testing:canonical:sevocab:risk-based-testing-p-362",
     "cite:scenario:canonical:sevocab:scenario-p-369",
-    "cite:scenario:seeAlso:nist-ai-700-2:appendix-a-scenario-p-17",
+    "cite:scenario:seeAlso:nist-ai-700-2:appendix-a-scenario-p-17-first-sentence-of-the-entry",
     "cite:scenario:seeAlso:sevocab:test-scenario-p-438-iso-iec-tr-29119-11-2020-testing-of-ai-based-systems",
     "cite:scope:canonical:sebok-2-14:stakeholder-needs-and-requirements-p-549-stakeholder-needs-definition-concept-definition",
     "cite:scope:seeAlso:iso-iec-17000-2020:annex-a-a-2-selection-the-functional-approach",
     "cite:second-party-conformity-assessment-activity:canonical:iso-iec-17000-2020:4-4-second-party-conformity-assessment-activity",
-    "cite:session:canonical:nist-ai-700-2:appendix-a-session-p-17",
+    "cite:session:canonical:nist-ai-700-2:appendix-a-session-p-17-first-sentence-of-the-entry",
     "cite:stakeholder:canonical:iso-9000-2026:3-1-4",
     "cite:stakeholder:seeAlso:sevocab:stakeholder-p-403",
     "cite:statement-of-work:canonical:sevocab:statement-of-work-p-406",
     "cite:sufficiency:canonical:hawkins-2011:section-3-3-asserted-solution-p-10",
-    "cite:sufficiency:seeAlso:isa-500:paragraph-5-f",
+    "cite:sufficiency:seeAlso:isa-500:paragraph-5-f-first-sentence-of-the-paragraph",
     "cite:technical-expert:canonical:iso-9000-2026:3-12-9",
     "cite:test-case:canonical:sevocab:test-case-p-432",
     "cite:test-coverage:canonical:sevocab:test-coverage-p-433",
@@ -59501,6 +59579,7 @@
     "https://w3id.org/og-caie/epo#StakeholderInput",
     "https://w3id.org/og-caie/epo#StakeholderRepresentation",
     "https://w3id.org/og-caie/epo#StatementOfWork",
+    "https://w3id.org/og-caie/epo#Step",
     "https://w3id.org/og-caie/epo#Strategy",
     "https://w3id.org/og-caie/epo#SufficiencyValue",
     "https://w3id.org/og-caie/epo#TechnicalExpertRole",
@@ -59668,7 +59747,6 @@
     "https://w3id.org/og-caie/run/measles#need-1",
     "https://w3id.org/og-caie/run/measles#plan-approval-1",
     "https://w3id.org/og-caie/run/measles#probe-1",
-    "https://w3id.org/og-caie/run/measles#probe-deriver",
     "https://w3id.org/og-caie/run/measles#proposal-1",
     "https://w3id.org/og-caie/run/measles#pyshacl",
     "https://w3id.org/og-caie/run/measles#recommendation-1",
@@ -59684,6 +59762,7 @@
     "https://w3id.org/og-caie/run/measles#session-1",
     "https://w3id.org/og-caie/run/measles#stakeholder-input-1",
     "https://w3id.org/og-caie/run/measles#statement-of-work",
+    "https://w3id.org/og-caie/run/measles#test-driver",
     "https://w3id.org/og-caie/run/measles#test-item-access",
     "https://w3id.org/og-caie/run/measles#test-plan",
     "https://w3id.org/og-caie/run/measles#theo",

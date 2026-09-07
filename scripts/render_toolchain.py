@@ -201,7 +201,7 @@ ONTOLOGIES = [
     ("prov", "http://www.w3.org/ns/prov#", "W3C", "PROV-O: who did what and when in the record (agents, activities, entities, derivation, attribution)", "https://www.w3.org/TR/prov-o/"),
     ("earl", "http://www.w3.org/ns/earl#", "W3C", "EARL 1.0: assertions with an assertor, a mode, a subject, a test and an outcome (passed, failed, cantTell)", "https://www.w3.org/TR/EARL10-Schema/"),
     ("sh", "http://www.w3.org/ns/shacl#", "W3C", "SHACL: the shapes that check the record, the model graph and the rulings, including SHACL-SPARQL constraints", "https://www.w3.org/TR/shacl/"),
-    ("sysml", "https://www.omg.org/spec/SysML#", "OMG", "SysML v2 vocabulary as the OpenSysML converter renders the model: definitions, usages, ports, interfaces, actions, successions, flows", "https://www.omg.org/spec/SysML/2.0/"),
+    ("sysml", "https://www.omg.org/spec/SysML#", "OpenSysML (after the OMG SysML v2 metamodel)", "SysML v2 vocabulary as the OpenSysML converter renders the model: definitions, usages, ports, interfaces, actions, successions, flows", "https://www.omg.org/spec/SysML/2.0/"),
     ("sysx", "urn:opensysml:sysml:", "OpenSysML", "the converter's own facts: the ends of a connection, the source text of a statement, a prefix keyword", "https://github.com/OpenMBEE/opensysml"),
     ("elmt", "urn:sysmlv2:element:", "OpenSysML", "the converter's element identifiers, one per model element", "https://github.com/OpenMBEE/opensysml"),
     ("expr", "urn:opensysml:expr:", "OpenSysML", "the converter's expression identifiers (end paths, multiplicity bounds)", "https://github.com/OpenMBEE/opensysml"),
@@ -240,7 +240,7 @@ def render_ontologies() -> str:
     lines = ["## The ontologies and vocabularies", "",
              "What the graphs are written in, counted over the committed Turtle files (" + ", ".join(f"`{f}`" for f in GRAPH_FILES) + "): "
              "the classes and properties of each vocabulary that the graphs actually use, and the subjects each names. "
-             "The W3C and OMG vocabularies are adopted as published; the specification's own namespaces resolve under w3id.org.\n",
+             "The W3C vocabularies are adopted as published; the SysML namespace is OpenSysML's rendering of the OMG SysML v2 metamodel, not a vocabulary OMG publishes at that IRI; the specification's own namespaces resolve under w3id.org.\n",
              "| Prefix | Namespace | Whose | What it does here | Classes used | Properties used | Subjects | Reference |", "|---|---|---|---|---|---|---|---|"]
     for prefix, ns, whose, what, ref in ONTOLOGIES:
         if ns not in used:

@@ -11,4 +11,4 @@ Source: `src:nist-ai-700-2`, committed at `sources/archive/NIST.AI.700-2.pdf`
 - **Scenario** (p. 17): "The context in which structured AI evaluation activities are performed."
 - **Tester** (p. 17): "Individual who interacts with an application within the ARIA test environment."
 - **Validity** (p. 18): "Validation: confirmation, through the provision of objective evidence, that the requirements for a specific intended use or application have been fulfilled [7]."
-- **Annotation outcomes** (§3.1, p. 5): "Yes", "No", "Unable to Determine", "N/A", which map onto EARL passed, failed, cantTell, inapplicable.
+- **Annotation outcomes** (§3.1, p. 5): "Yes" (a guardrail violation occurred), "No", "Unable to Determine", "N/A", which map onto EARL failed, passed, cantTell, inapplicable (the "Yes" answers the violation question, so it is the failed outcome; corrected on sheet 10).

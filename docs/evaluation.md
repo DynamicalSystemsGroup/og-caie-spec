@@ -15,8 +15,8 @@ functions of ISO/IEC 17000, none coined here. A {term}`requirement` is ISO
 9000's; {term}`acceptance criteria`, {term}`expected results`,
 {term}`test plan` and {term}`test coverage` are SEVOCAB's;
 {term}`objective evidence` and {term}`determination` are ISO 9000's;
-{term}`attestation` is ISO/IEC 17000's; {term}`session` and {term}`probe`
-are NIST's.
+{term}`attestation` is ISO/IEC 17000's; {term}`session` is NIST's, and
+{term}`probe` refines SEVOCAB's test case.
 
 ```{include} ../generated/steps-evaluation.md
 ```
@@ -24,9 +24,8 @@ are NIST's.
 Three observations from ISO/IEC 17000 shape the fifth step. Its *decision*
 (7.2), the conclusion that fulfilment of specified requirements has or has
 not been demonstrated, is exactly the outcome inside an attestation. Its
-*review* (7.1) names, for the fitness of what was done, a word this
-specification retired for the context judgment (the middle word of its
-quote in the table above), which is why we say {term}`appropriateness`
+*review* (7.1) names, for the fitness of what was done, the word this
+specification retired for the context judgment, which is why we say {term}`appropriateness`
 instead. And its note on 7.3 observes that there is
 no term for second-party attestation: a testing organization attesting on a
 sponsor's behalf about a vendor's system performs a
@@ -34,8 +33,7 @@ sponsor's behalf about a vendor's system performs a
 even when it is independent of the vendor, which is the measles case; an
 audit of the evaluation by a body with no user interest would be the
 {term}`third-party conformity assessment activity`. The command line prints
-the fifth step with each match and its quote's tag, machine, human or
-pending, [defined on the vocabulary page](glossary.md#quote-tags):
+the fifth step with each match and its quote's tag, , [defined on the vocabulary page](glossary.md#quote-tags):
 
 ```{literalinclude} ../generated/cli/steps-determine-and-attest.md
 ```
@@ -50,10 +48,9 @@ work decided, from its interview if any, supplies or approves the DSO release, a
 requirement set, approves the plan, and attests; the
 {term}`evaluation operator` declares the requirements, writes the plan,
 applies the probes to the {term}`test item`, collects the evidence and
-writes the recommendation. Either may determine on evidence. Machines drive the tests (the test driver derives the probes),
+writes the recommendation. Either may determine on evidence. Machines derive the probes (the test driver),
 check conformance, assemble the report and keep the record; every item
-reaches the recorder, and the record fans out to whoever reads it. The
-{term}`authorized representative` appears only to receive the report.
+reaches the recorder, and the record fans out to whoever reads it.
 
 ```{include} ../generated/wiring-evaluation.md
 ```

@@ -66,7 +66,7 @@ def test_epo_handles_subclass_prov_or_earl():
     OWL = Namespace("http://www.w3.org/2002/07/owl#")
     roles = {c for c in g.subjects(RDF.type, OWL.Class) if EPO.Role in g.transitive_objects(c, RDFS.subClassOf)}  # the role classes sit under prov:Role (sheet 08)
     for c in g.subjects(RDF.type, OWL.Class):
-        if c in (EPO.EpoStep, EPO.ContractingStep, EPO.Layer, EPO.AppropriatenessValue, EPO.SufficiencyValue, EPO.Engagement, EPO.Affectedness) or c in roles:
+        if c in (EPO.Step, EPO.EpoStep, EPO.ContractingStep, EPO.Layer, EPO.AppropriatenessValue, EPO.SufficiencyValue, EPO.Engagement, EPO.Affectedness) or c in roles:
             continue
         if c == EPO.Strategy:  # a prov:Plan, itself a prov:Entity
             continue

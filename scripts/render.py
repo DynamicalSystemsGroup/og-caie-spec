@@ -115,7 +115,7 @@ def render_popper() -> str:
         terms = ", ".join(term_role(g, t) for t in sorted(g.objects(r, OGC.mapsTo), key=lambda t: str(g.value(t, SKOS.prefLabel)).lower()))
         lines.append(f"| **{cell(g.value(r, RDFS.label))}** | {terms} | {cell(g.value(r, OGC.where))} | {cell(g.value(r, OGC.checkable))} |")
     lines.append("")
-    lines.append("The elements in the first column, as the authors defined them at their SciPy 2026 birds-of-a-feather session, after Popper (1959):")
+    lines.append("The elements in the first column, as the authors defined them at their SciPy 2026 birds-of-a-feather session, after Popper (1959), except the second-layer row, defined for this specification (sheet 07-02):")
     lines.append("")
     for r in crosswalk_rows(g):
         lines.append(f"- **{cell(g.value(r, RDFS.label))}**: {cell(g.value(r, OGC.quote))}")
@@ -242,6 +242,8 @@ def render_layers_walkthrough() -> str:
         items, whos, dates = [], [], []
         for c in classes:
             for n in g.subjects(RDF.type, c):
+                if (n, RDF.type, PROV.Agent) in g:  # a population is a party, not an item (sheet 10)
+                    continue
                 items.append(n)
                 dates += [str(d)[:10] for d in (g.value(n, PROV.generatedAtTime), g.value(n, PROV.startedAtTime)) if d]
                 whos += [str(g.value(a, RDFS.label) or a).split(" (")[0] for pr in (EARL.assertedBy, EPO.approvedBy, EPO.signedBy, PROV.wasAttributedTo, PROV.wasAssociatedWith) for a in g.objects(n, pr)]
@@ -306,7 +308,7 @@ def render_glossary() -> str:
 def render_quote_status() -> str:
     """The vocabulary page's honest count of quote statuses, from the graph, with the three tags defined once."""
     g = Graph()
-    for f in ("vocabulary/og-caie.ttl", "vocabulary/epo.ttl", "sources/sources.ttl"):
+    for f in ("vocabulary/og-caie.ttl", "vocabulary/epo.ttl", "sources/sources.ttl", "vocabulary/crosswalk.ttl"):  # the bridge's authors quotes count too (sheet 10)
         g.parse(ROOT / f)
     counts = {}
     for st in g.objects(None, OGC.quoteStatus):

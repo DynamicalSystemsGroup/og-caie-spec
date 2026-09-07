@@ -47,8 +47,8 @@ outcome of passed, failed or cannot tell, which is why a determination is
 never a Boolean. SKOS holds the glossary as concepts with labels,
 definitions and notes. OWL and RDF Schema declare the Evaluation Process
 Ontology's classes and properties. SHACL states every check, over the
-record, the model graph and the rulings. The OMG SysML v2 vocabulary is what
-the converter renders the model into, with a few tool facts of its own. The
+record, the model graph and the rulings. The SysML v2 vocabulary is OpenSysML's rendering of
+the OMG metamodel, with a few tool facts of its own. The
 specification's namespaces under w3id.org name the terms, the sources, the
 rulings, the essentials, the crosswalk, the derived ends of the model graph
 and the measles record. The table below counts what each is used for.
@@ -91,7 +91,8 @@ Appendix A's explorer next to it, and after a build of your own
 makes Appendix A's frame and its SPARQL box work (`myst start` serves the
 pages live but not the explorer). The converter's fetch script supports
 macOS and Linux on x86-64 and arm64 and needs curl, tar and a sha256 tool;
-the site build and the notebooks need free local ports.
+the site build and the notebooks need free local ports. A failing step
+prints its last lines.
 
 ## The first rung
 

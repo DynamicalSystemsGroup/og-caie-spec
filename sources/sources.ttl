@@ -139,7 +139,7 @@ src:hawkins-2011 a prov:Entity, ogc:Source ;
     ogc:licenceNote "Springer proceedings; author-hosted copy; held locally" .
 
 src:isa-500 a prov:Entity, ogc:Source ;
-    rdfs:label "IAASB, International Standard on Auditing 500: Audit Evidence (effective 15 December 2009)" ;
+    rdfs:label "IAASB, International Standard on Auditing 500: Audit Evidence (2009 text, effective 15 December 2009; ISA 500 (Revised 2024), effective for periods beginning on or after 15 December 2026, keeps paragraphs 5(b) and 5(f))" ;
     ogc:rank "reserve" ; ogc:kind "pdf" ; ogc:posture "heldLocally" ;
     ogc:digest "sources/digests/isa-500.md" ;
     ogc:snapshot [ ogc:file "sources/local/pdf/isa-500.pdf" ; ogc:contentHash "2ecc459ba84ce43199a5badf2807be9102d96aa717301a1d379a676549c231f4" ] ;

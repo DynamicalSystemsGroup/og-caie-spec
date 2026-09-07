@@ -8,7 +8,7 @@
 | **falsifiability** | {term}`attestation`, {term}`outcome`, {term}`test coverage` | The attestation's outcome for each criterion, and the report's coverage over all of them. | A failed outcome is a recorded falsifier; coverage is recomputed from the record, and a criterion with no attestation counts zero. |
 | **context** | {term}`appropriateness`, {term}`requirements traceability`, {term}`sufficiency` | The appropriateness and sufficiency judgments on every attestation, and the trace from each recommendation back to the requirement it answers. | A failed prediction is attributed: the record says which named person judged the context inappropriate or the evidence insufficient, and why. |
 
-The elements in the first column, as the authors defined them at their SciPy 2026 birds-of-a-feather session, after Popper (1959):
+The elements in the first column, as the authors defined them at their SciPy 2026 birds-of-a-feather session, after Popper (1959), except the second-layer row, defined for this specification (sheet 07-02):
 
 - **hypothesis**: A hypothesis is a conjectural claim that can be subjected to empirical tests and potentially falsified. Its empirical content lies partly in what it rules out: the more possible outcomes it excludes, the greater the risk it takes.
 - **auxiliary assumption, first layer (pinned at the contract)**: An (auxiliary) assumption is a background claim held fixed in deriving and testing a prediction. Because predictions normally follow from a hypothesis together with auxiliary assumptions and initial conditions, a failed prediction does not by logic alone identify which component is false.

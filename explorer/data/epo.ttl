@@ -11,7 +11,7 @@
 @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
 
 # The Evaluation Process Ontology, minimal form: handle classes for the
-# things the seven steps produce, each a subclass of a PROV-O or EARL class,
+# things the six steps produce, each a subclass of a PROV-O or EARL class,
 # with no new semantics. Import, don't mint. The DSO is referenced, never
 # imported. Prior art: DynamicalSystemsGroup/caie-epo-prototype (June 2026).
 
@@ -25,7 +25,8 @@ epo: a owl:Ontology ;
 # describes them, the ISO/IEC/IEEE 29119-2 test processes as SEVOCAB defines
 # them, and ISO/IEC 17000's functions (selection, determination, review,
 # decision and attestation). The steps are operationalized, not invented.
-epo:EpoStep a owl:Class ; rdfs:label "EPO step" .
+epo:Step a owl:Class ; rdfs:label "a step of either cycle (the range of epo:step)" ; rdfs:comment "no term: a structural superclass so that epo:step ranges over both cycles' steps without contradicting their disjointness (sheet 10)" .
+epo:EpoStep a owl:Class ; rdfs:subClassOf epo:Step ; rdfs:label "EPO step" .
 epo:scope a epo:EpoStep ; rdfs:label "1 scope: every affected population represented, with its interview when the statement of work decided one; build or select the DSO release; declare the operational environment" ;
     ogc:canonical [ ogc:cites src:sebok-2-14 ; ogc:locator "Stakeholder Needs and Requirements, p. 549 (Stakeholder Needs Definition, Concept Definition)" ; ogc:pdfPage 549 ; ogc:quote "Stakeholder Needs Definition, the second process in Concept Definition, explores what capabilities are needed by various stakeholders for the system-of-interest (SoI) to accomplish the mission." ; ogc:quoteStatus "machine" ] ;
     ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "Annex A, A.2 Selection (the functional approach)" ] .
@@ -59,7 +60,7 @@ epo:report a epo:EpoStep ; rdfs:label "6 report: the report assembled by machine
 # and the ISO/IEC/IEEE 29119-2 test environment and completion report. What
 # it pins is the first layer of assumptions: the parties, the object, the
 # specified requirements' frame and the methodology (ogc:pinnedAt epo:contract).
-epo:ContractingStep a owl:Class ; rdfs:label "contracting lifecycle step" ;
+epo:ContractingStep a owl:Class ; rdfs:subClassOf epo:Step ; rdfs:label "contracting lifecycle step" ;
     ogc:canonical [ ogc:cites src:sebok-2-14 ; ogc:locator "Stakeholder Needs (Acquisition and Supply), p. 353" ; ogc:pdfPage 353 ; ogc:quote "These needs and requirements are expressed in agreements between acquirers and suppliers." ; ogc:quoteStatus "machine" ] .
 epo:need a epo:ContractingStep ; rdfs:label "C1 need: the sponsor states its mission and obligations towards the affected populations, the problem, and what success would look like" ;
     ogc:canonical [ ogc:cites src:sebok-2-14 ; ogc:locator "Business or Mission Analysis, p. 543" ; ogc:pdfPage 543 ; ogc:quote "The purpose of Business or Mission Analysis is to understand a mission or market problem, threat, or opportunity, and to establish the goals, objectives and measures of success of a potential solution class." ; ogc:quoteStatus "machine" ] ;
@@ -216,7 +217,7 @@ epo:PlanApproval a owl:Class ; rdfs:subClassOf earl:Assertion, prov:Activity ; r
 epo:CoverageComputation a owl:Class ; rdfs:subClassOf prov:Activity ; rdfs:label "coverage computation" ; ogc:term term:test-coverage .
 
 # ---- properties
-epo:version a owl:DatatypeProperty ; rdfs:domain epo:DsoRelease ; rdfs:range xsd:string .
+epo:version a owl:DatatypeProperty ; rdfs:range xsd:string ; rdfs:comment "a DSO release's or a software agent's version; no domain, since both carry it (sheet 10)" .
 epo:approvedBy a owl:ObjectProperty ; rdfs:subPropertyOf prov:wasAttributedTo ; rdfs:domain epo:DsoRelease ; rdfs:range prov:Person .
 epo:environment a owl:DatatypeProperty ; rdfs:domain epo:RequirementSet ; rdfs:range xsd:string ; rdfs:comment "the operational environment (SEVOCAB), stated" .
 epo:systemUnderTest a owl:ObjectProperty ; rdfs:domain epo:RequirementSet ; rdfs:range earl:TestSubject ; rdfs:comment "the one system this envelope binds: THIS system in THIS environment must meet THESE requirements (R-14)" .
@@ -239,7 +240,7 @@ epo:exercises a owl:ObjectProperty ; rdfs:domain epo:Probe ; rdfs:range epo:Acce
 epo:derivedFromDso a owl:ObjectProperty ; rdfs:subPropertyOf prov:wasDerivedFrom ; rdfs:domain epo:Probe ; rdfs:range epo:DsoRelease .
 epo:appropriateness a owl:ObjectProperty ; rdfs:range epo:AppropriatenessValue ; rdfs:comment "on an attestation (the declared context) or an appropriateness assessment (the requirement set)" .
 epo:sufficiency a owl:ObjectProperty ; rdfs:domain epo:Attestation ; rdfs:range epo:SufficiencyValue .
-epo:step a owl:ObjectProperty ; rdfs:range epo:EpoStep .
+epo:step a owl:ObjectProperty ; rdfs:range epo:Step .
 epo:coverage a owl:DatatypeProperty ; rdfs:domain epo:Report ; rdfs:range xsd:decimal .
 epo:passRate a owl:DatatypeProperty ; rdfs:domain epo:Report ; rdfs:range xsd:decimal .
 epo:failRate a owl:DatatypeProperty ; rdfs:domain epo:Report ; rdfs:range xsd:decimal .

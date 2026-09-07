@@ -448,8 +448,9 @@ package OGCAIE {
 
     part def AccountExecutive :> Person {
         doc /* Signatory of the service agreement and legal representative
-           of the testing organization (ruling R-23). Countersigns the
-           agreement into the record, reads the record, and delivers the
+           of the testing organization (ruling R-23; headword authorized
+           representative, R-49). Countersigns the agreement into the
+           record, reads the record through its view, and delivers the
            report and the recommendation to the sponsor as one delivery
            (an activity of its own, R-24); answers the sponsor's need with
            the proposal and receives the acceptance (R-32). No evidence, determination or
@@ -536,9 +537,10 @@ package OGCAIE {
 
     part def AffectedPopulation :> Party {
         doc /* A population of actors affected by the test item (ISO
-           9000:2026 3.1.4 interested party, ruling R-21): interviewed,
-           in which case its input enters the record, or represented by a
-           domain expert, in which case the record names who. */
+           9000:2026 3.1.4 interested party, ruling R-21): always spoken for
+           by a representative on the team, and interviewed where the
+           statement of work decided so, in which case its input feeds the
+           representation and enters the record (series wiring, R-49). */
         port inputOut : StakeholderInputWrite;
     }
 

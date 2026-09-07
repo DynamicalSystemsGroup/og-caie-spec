@@ -242,7 +242,7 @@ class Builder:
             msgs += sorted(str(m) for p in g.objects(s, SH.property) for m in g.objects(p, SH.message))
             target = one(g, s, SH.targetClass)
             desc = (f"Targets {qname(target)}. " if target else "") + " ".join(msgs)
-            page = self.page("assemblage") if name.startswith("M") else self.page("record")
+            page = self.page("model") if name.startswith("M") else self.page("guarantees")
             self.add(s, "shape", name, desc or "A shape.", f"ogc sparql {shell(f'DESCRIBE ogc:{name}')}", page)
         for r in sorted(g.subjects(RDF.type, OGC.Crosswalk), key=lambda x: int(one(g, x, OGC.order, "0"))):
             desc = f"“{one(g, r, OGC.quote)}” Where: {one(g, r, OGC.where)} Checkable: {one(g, r, OGC.checkable)}"
@@ -282,18 +282,18 @@ class Builder:
 
         parts = sorted(g.subjects(RDF.type, SYS.PartDefinition), key=str)
         for d in parts:
-            self.add(d, "part", qual(d), doc(d), "ogc view assemblage", self.page("assemblage"))
+            self.add(d, "part", qual(d), doc(d), "ogc view assemblage", self.page("model"))
         for d in parts:
             for p in sorted(g.subjects(SYS.owner, d), key=str):
                 if (p, RDF.type, SYS.PortUsage) in g:
                     direction = "in" if g.value(p, SYS.isConjugated) else "out"
                     self.add(p, "port", qual(p), f"{direction} port typed {V.name(g, g.value(p, SYS.type))}, carrying {V.item_of_port_def(g, g.value(p, SYS.type))}.",
-                             "ogc view assemblage", self.page("assemblage"))
+                             "ogc view assemblage", self.page("model"))
         for u in sorted(g.subjects(RDF.type, SYS.PartUsage), key=str):
-            self.add(u, "usage", f"{qual(u)} : {V.name(g, g.value(u, SYS.type))}", doc(u), "ogc view assemblage", self.page("assemblage"))
+            self.add(u, "usage", f"{qual(u)} : {V.name(g, g.value(u, SYS.type))}", doc(u), "ogc view assemblage", self.page("model"))
         for s in sorted(g.subjects(RDF.type, SYS.InterfaceUsage), key=str):
             slice_ = V.seam_slice(g, s)
-            page = self.page("contracting") if slice_ == "contracting" else self.page("assemblage")
+            page = self.page("contracting") if slice_ == "contracting" else self.page("model")
             self.add(s, "seam", qual(s), one(g, s, Namespace("urn:opensysml:sysml:").sourceText) or doc(s), f"ogc view {slice_}", page)
             item = next((d for d in g.subjects(RDF.type, SYS.ItemDefinition) if V.name(g, d) == V.seam_item(g, s)), None)
             if item is not None:
@@ -301,11 +301,11 @@ class Builder:
         for c in sorted(g.subjects(RDF.type, SYS.ConnectionUsage), key=str):
             self.add(c, "relation", qual(c), one(g, c, Namespace("urn:opensysml:sysml:").sourceText) or doc(c), "ogc view contracting", self.page("contracting"))
         for a in sorted(g.subjects(RDF.type, SYS.ActionDefinition), key=str):
-            self.add(a, "process", qual(a), doc(a), "ogc view layers", self.page("assemblage"))
+            self.add(a, "process", qual(a), doc(a), "ogc view layers", self.page("model"))
             for st in sorted(g.subjects(SYS.owner, a), key=str):
                 if (st, RDF.type, SYS.ActionUsage) not in g:
                     continue
-                self.add(st, "action", qual(st), doc(st), "ogc view layers", self.page("assemblage"))
+                self.add(st, "action", qual(st), doc(st), "ogc view layers", self.page("model"))
                 for p in sorted(g.subjects(SYS.owner, st), key=str):
                     if (p, RDF.type, SYS.ReferenceUsage) in g and g.value(p, SYS.type) is not None:
                         self.derived.append((str(st), str(g.value(p, SYS.type)), str(g.value(p, SYS.direction))))
@@ -313,7 +313,7 @@ class Builder:
                 if g.value(s, SYS.owner) == a:
                     self.derived.append((str(g.value(s, OGM["first"])), str(g.value(s, OGM["then"])), "then"))
         for d in sorted(g.subjects(RDF.type, SYS.ItemDefinition), key=str):
-            self.add(d, "item", qual(d), doc(d), "ogc view layers", self.page("assemblage"))
+            self.add(d, "item", qual(d), doc(d), "ogc view layers", self.page("model"))
         # the binding by name between the model and the EPO handles (epo:step in the record relies on it)
         for st in g.subjects(RDF.type, SYS.ActionUsage):
             e = EPO[V.name(g, st)]
@@ -335,7 +335,7 @@ class Builder:
             label = one(g, n, RDFS.label) or one(g, n, EPO.text) or local(n)
             desc = f"{label} Types: {', '.join(types)}." + (f" {one(g, n, SKOS.note)}" if one(g, n, SKOS.note) else "")
             step = g.value(n, EPO.step)
-            page = self.page("contracting") if step is not None and str(step) in contracting else self.page("record")
+            page = self.page("contracting") if step is not None and str(step) in contracting else self.page("guarantees")
             cmd = f"ogc record {shell(local(n))}"  # the reader of the record (ruling R-47, closing C-44): everything the record says about this item
             self.add(n, "agent" if is_agent else "record", local(n), desc, cmd, page)
 

@@ -37,7 +37,7 @@ xw:auxiliary-assumption-contract a ogc:Crosswalk ; ogc:order 2 ;
 
 xw:auxiliary-assumption-evaluation a ogc:Crosswalk ; ogc:order 3 ;
     rdfs:label "auxiliary assumption, second layer (pinned within the evaluation)" ;
-    ogc:cites src:scipy-2026-bof ; ogc:locator "the definitions presented at the session" ; ogc:also src:popper-1959 ;
+    ogc:cites src:scipy-2026-bof ; ogc:locator "the authors' definition for this specification (sheet 07-02); the slide read 'Context Matters!'" ; ogc:also src:popper-1959 ;
     ogc:quote "An auxiliary assumption of the second layer is a claim about the domain and the deployment setting, declared and approved before any test and held fixed while it runs." ;
     ogc:quoteStatus "authors" ;
     ogc:mapsTo term:operational-environment, term:operational-envelope, term:domain-specific-ontology ;

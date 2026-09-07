@@ -18,9 +18,9 @@ accountable for it. A sponsor with a user interest in the test item is a
 {term}`second party <second-party conformity assessment activity>`, and a
 testing organization working on its behalf performs a second-party activity
 even when independent of the provider. Affected stakeholders are
-populations, interviewed or represented. The six steps are the standards'
-own, none coined here; each quote carries its tag, machine, human or
-pending, [defined on the vocabulary page](glossary.md#quote-tags):
+populations, spoken for, sometimes interviewed, who sign nothing. The
+six steps are the standards' own; each quote carries its tag,
+[defined on the vocabulary page](glossary.md#quote-tags):
 
 ```{include} ../generated/steps-contracting.md
 ```
@@ -36,8 +36,8 @@ The model states the cycle as parts, ports and wires: a part is a party or
 a role inside the testing organization, a port the typed point where an
 item leaves or enters a part, and a wire (a seam, in the model) joins an
 output port to an input port and carries one item kind. Four parties,
-three actor categories within the testing organization, and the wires
-between them. The sponsor holds an obligation towards the
+the fourth the affected populations who sign nothing, three actor
+categories within the testing organization, and the wires between them. The sponsor holds an obligation towards the
 affected populations, states its mission and then its need, and receives
 the proposal; the authorized representative answers, countersigns and, at the end,
 delivers; the test item provider grants access; every item reaches
@@ -123,13 +123,14 @@ against.
 
 Shapes S0-Parties, S0-Access, S0-Population, S0-StatementOfWork, S0-Need,
 S0-Proposal, S0-Layers and S9-Acceptance run over the record; M1-Parties,
-M1-Obligation and M5-Cardinality run over the model graph. Three
-counterexamples, records and a model broken on purpose, must fail: a
+M1-Obligation and M5-Cardinality run over the model graph. Four
+counterexamples, three records and a model broken on purpose, must fail: a
 requirement set declared before the agreement was signed fails the layer
 rule; an affected population nobody speaks for fails
 S0-Population, and so does a population the statement of work said would be
 interviewed but the record only speaks for; a model with a sponsor and
-populations but no obligation between them fails M1-Obligation.
+populations but no obligation between them fails M1-Obligation. The
+population wiring awaits its tick on rulings sheet 05 (C-30).
 
 :::{admonition} Verdict
 :class: checked

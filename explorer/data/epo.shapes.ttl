@@ -5,7 +5,7 @@
 @prefix earl: <http://www.w3.org/ns/earl#> .
 @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
 
-# The EPO shapes S0..S8: the machine-checkable conformance facts (R-16) over
+# The EPO shapes S0..S9: the machine-checkable conformance facts (R-16) over
 # the record. Each shape checks one or more of the essentials SCI-01 to
 # SCI-12 in model/trace.ttl (the structural half is checked by the M-shapes
 # over the model graph, shapes/model.shapes.ttl). A record
@@ -403,7 +403,7 @@ ogc:S6-Determination a sh:NodeShape ;
                   sh:in ( earl:passed earl:failed earl:cantTell ) ;
                   sh:message "A determination's outcome is passed, failed or cantTell (EARL); not a Boolean." ] ;
     sh:sparql [
-        sh:message "S6: a determination is made by a domain expert, an evaluation operator, or a versioned software agent; never by the account executive (R-21, R-23)." ;
+        sh:message "S6: a determination is made by a domain expert, an evaluation operator, or a versioned software agent; never by the authorized representative (R-21, R-23)." ;
         sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX earl: <http://www.w3.org/ns/earl#>
@@ -442,7 +442,7 @@ ogc:S6-Attestation a sh:NodeShape ;
     sh:property [ sh:path earl:assertedBy ; sh:minCount 1 ; sh:maxCount 1 ; sh:class prov:Person ;
                   sh:message "An attestation is made by one named person." ] ;
     sh:sparql [
-        sh:message "S6: the attesting person holds the domain expert role; the operator collects and determines, the account executive signs and delivers, only the domain expert attests (R-21, R-23)." ;
+        sh:message "S6: the attesting person holds the domain expert role; the operator collects and determines, the authorized representative signs and delivers, only the domain expert attests (R-21, R-23)." ;
         sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX earl: <http://www.w3.org/ns/earl#>
@@ -532,7 +532,6 @@ ogc:S7-Report a sh:NodeShape ;
             }
         """ ] .
 
-# S8 <-> SCI-09: a recommendation is attributed to a named person and derives
 # from at least one attestation, its evidence, and the DSO release; it names
 # the step.
 ogc:S7-ConformanceVerdict a sh:NodeShape ;
@@ -570,6 +569,7 @@ ogc:S7-ReportApproval a sh:NodeShape ;
             }
         """ ] .
 
+# S8 <-> SCI-09: a recommendation is attributed to a named person and derives
 ogc:S8-Recommendation a sh:NodeShape ;
     sh:targetClass epo:Recommendation ;
     sh:property [ sh:path prov:wasAttributedTo ; sh:minCount 1 ; sh:class prov:Person ;
@@ -674,7 +674,7 @@ ogc:S0-Proposal a sh:NodeShape ;
     sh:property [ sh:path epo:respondsTo ; sh:minCount 1 ; sh:maxCount 1 ; sh:class epo:Need ] ;
     sh:property [ sh:path epo:step ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue epo:propose ] ;
     sh:sparql [
-        sh:message "S0: the proposal is the account executive's answer to the need, and follows it." ;
+        sh:message "S0: the proposal is the authorized representative's answer to the need, and follows it." ;
         sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX prov: <http://www.w3.org/ns/prov#>
@@ -709,7 +709,7 @@ ogc:S0-Layers a sh:NodeShape ;
             PREFIX prov: <http://www.w3.org/ns/prov#>
             SELECT $this ?value WHERE {
                 $this prov:generatedAtTime ?ta . ?rs a epo:RequirementSet ; prov:generatedAtTime ?tr .
-                ?value a ?cls ; prov:generatedAtTime ?t . ?cls ogc:pinnedAt ?layer .
+                ?value a ?cls ; (prov:generatedAtTime|prov:endedAtTime) ?t . ?cls ogc:pinnedAt ?layer .
                 FILTER( (?layer = epo:contract && ?t > ?tr && NOT EXISTS { ?value a epo:Delivery } && NOT EXISTS { ?value a epo:Acceptance })
                      || (?layer = epo:evaluation && ?t < ?ta) )
             }

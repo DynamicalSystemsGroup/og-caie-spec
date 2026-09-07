@@ -62,6 +62,12 @@ HAND_ENTRIES = {
     "sevocab": ("misc", {"organization": "IEEE Computer Society and ISO/IEC JTC 1/SC 7"}),
     "nist-ai-700-2": ("techreport", {"author": "Amironesei, Razvan and Godil, Afzal and Greenberg, Craig and Greene, Kristen and Hall, Patrick and Jensen, Theodore and Fiscus, Jonathan and Schulman, Noah",
                                      "institution": "National Institute of Standards and Technology", "doi": "10.6028/NIST.AI.700-2"}),
+    "gruber-1993": ("article", {"author": "Gruber, Thomas R.", "journal": "Knowledge Acquisition", "volume": "5", "number": "2", "pages": "199--220", "doi": "10.1006/knac.1993.1008"}),
+    "hogan-2021": ("article", {"author": "Hogan, Aidan and Blomqvist, Eva and Cochez, Michael and d'Amato, Claudia and de Melo, Gerard and Gutierrez, Claudio and Kirrane, Sabrina and Labra Gayo, Jos\\'e Emilio and Navigli, Roberto and Neumaier, Sebastian and Ngonga Ngomo, Axel-Cyrille and Polleres, Axel and Rashid, Sabbir M. and Rula, Anisa and Schmelzeisen, Lukas and Sequeda, Juan and Staab, Steffen and Zimmermann, Antoine",
+                              "journal": "ACM Computing Surveys", "volume": "54", "number": "4", "pages": "71:1--71:37", "doi": "10.1145/3447772"}),
+    "popper-1959": ("book", {"author": "Popper, Karl R.", "publisher": "Hutchinson", "address": "London"}),
+    "nist-tn-1297": ("techreport", {"author": "Taylor, Barry N. and Kuyatt, Chris E.", "institution": "National Institute of Standards and Technology"}),
+    "sebok-2-14": ("misc", {"editor": "{SEBoK Editorial Board}", "publisher": "The Trustees of the Stevens Institute of Technology", "address": "Hoboken, NJ"}),
     "hawkins-2011": ("inproceedings", {"author": "Hawkins, Richard and Kelly, Tim and Knight, John and Graydon, Patrick",
                                        "booktitle": "Advances in Systems Safety: Proceedings of the Nineteenth Safety-Critical Systems Symposium"}),
     "scipy-2026-bof": ("misc", {"author": "Hollek, Julie and Zargham, Michael"}),  # Julie Hollek first author (Z, 2026-09-07)

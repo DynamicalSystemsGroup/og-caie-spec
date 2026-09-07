@@ -53,8 +53,8 @@ The measles record of the previous chapters is one run, written by hand.
 The executor's runs are generated from the same model with named parties,
 one requirement, three criteria, a plan that exercises two of them, and one
 session that applies every probe once. Coverage comes out at two thirds by
-weight because one criterion was left unplanned, exactly as in the measles
-case; the traceback returns one row per attestation. The variants change
+weight because one criterion was left unplanned, as in the measles case,
+where it is three quarters; the traceback returns one row per attestation. The variants change
 the parameters; the mutations each break one thing in the first run and
 the last column names the check that catches it.
 

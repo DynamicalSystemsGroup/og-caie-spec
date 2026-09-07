@@ -22,10 +22,10 @@ OGC_TERM = OGC["term"]  # OGC.term would be rdflib's Namespace.term method
 
 CONCEPTS = 66            # 62 before the audit, plus the four party specializations
 BROADER = 20             # each with its narrower stated on the other term
-RELATED = 177            # stated on one or both sides in the Turtle; read in both directions
+RELATED = 180  # sheet 10: three pairs made symmetric            # stated on one or both sides in the Turtle; read in both directions
 CLAUSES = 52             # the standards' own concepts (src: nodes) the canonical citations name
 MAPPINGS = {"exactMatch": 47, "broadMatch": 13, "closeMatch": 2, "relatedMatch": 0}  # adopted, specializes, corresponds, synonym
-EPO_CLASSES = 56         # 40 before the audit, plus the twelve role classes and epo:Affectedness, plus the report step opened (R-49: ConformanceVerdict, ReportApproval)
+EPO_CLASSES = 57  # sheet 10: epo:Step, the range of epo:step over both cycles         # 40 before the audit, plus the twelve role classes and epo:Affectedness, plus the report step opened (R-49: ConformanceVerdict, ReportApproval)
 DISJOINT = 8             # party/actor, the three actor categories pairwise, the two cycles, evidence/determination, probe/response, the two judgment values
 RELATION_BY_ANCHOR = {("adopted", ""): SKOS.exactMatch, ("refined", "specializes"): SKOS.broadMatch,
                       ("refined", "corresponds"): SKOS.closeMatch, ("refined", "synonym"): SKOS.relatedMatch}

@@ -122,7 +122,7 @@ def test_appendix_e_exists_is_last_in_the_toc_and_keeps_the_house_rules():
             assert not re.search(rf"\b{w}\b", p.read_text(), re.I), (p.name, w)
 
 
-def test_the_site_builds_without_a_citation_warning():
+def test_the_site_builds_without_a_citation_warning():  # needs the network once, for the MyST theme (sheet 10-39)
     r = subprocess.run(["uv", "run", "myst", "build", "--html"], cwd=ROOT, capture_output=True, text=True)
     out = r.stdout + r.stderr
     assert r.returncode == 0, out[-2000:]

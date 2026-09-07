@@ -42,8 +42,8 @@ run:commuters a prov:Agent, epo:Population ; rdfs:label "commuters through the c
     epo:responsibleParty run:theo .
 run:chatbot-v1 a prov:Agent, prov:SoftwareAgent, earl:TestSubject ; rdfs:label "public-health chatbot" ; epo:version "v1" ;
     prov:actedOnBehalfOf run:chatbot-vendor .
-run:probe-deriver a prov:Agent, prov:SoftwareAgent ; rdfs:label "test driver" ; epo:version "0.1" ; prov:actedOnBehalfOf run:humane-intelligence .
-run:pyshacl a prov:Agent, prov:SoftwareAgent ; rdfs:label "pySHACL (conformance checker)" ; epo:version "0.27" ; prov:actedOnBehalfOf run:humane-intelligence .
+run:test-driver a prov:Agent, prov:SoftwareAgent ; rdfs:label "test driver" ; epo:version "0.1" ; prov:actedOnBehalfOf run:humane-intelligence .
+run:pyshacl a prov:Agent, prov:SoftwareAgent ; rdfs:label "pySHACL (conformance checker)" ; epo:version "0.40.1" ; prov:actedOnBehalfOf run:humane-intelligence .
 run:coverage-calculator a prov:Agent, prov:SoftwareAgent ; rdfs:label "report assembler (queries/coverage.rq)" ; epo:version "0.1" ; prov:actedOnBehalfOf run:humane-intelligence .
 
 # ---- the contracting lifecycle (R-32): C1 need, C2 propose, C3 agree, C4 access; C5 deliver and C6 accept after the evaluation
@@ -168,7 +168,7 @@ run:appropriateness-assessment-1 a epo:AppropriatenessAssessment ;
 # ---- evaluation step 3: plan (probe derivation, the automatic consistency check, approval)
 run:derivation-1 a epo:ProbeDerivation ;
     prov:used run:dso-apollo-sv-r1 ; prov:used run:requirement-set ;
-    prov:wasAssociatedWith run:probe-deriver ;
+    prov:wasAssociatedWith run:test-driver ;
     prov:endedAtTime "2026-08-03T10:00:00Z"^^xsd:dateTime ;
     epo:step epo:plan .
 

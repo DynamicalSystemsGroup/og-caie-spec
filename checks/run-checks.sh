@@ -15,12 +15,14 @@ FAIL=0
 step() { # step <name> <expected-exit> <cmd...>
   local name="$1" expect="$2"; shift 2
   echo "== $name ==" | tee -a "$LOG"
+  local before; before=$(wc -l < "$LOG")
   "$@" >> "$LOG" 2>&1
   local got=$?
   if [ "$got" -eq "$expect" ]; then
     STEPS+=("\"$name\": \"pass\""); echo "   pass"
   else
     STEPS+=("\"$name\": \"FAIL\""); echo "   FAIL (exit $got, expected $expect; see checks/out/last.log)"; FAIL=1
+    tail -n +"$((before + 1))" "$LOG" | grep -v "IPKernelApp" | tail -n 12 | sed 's/^/   | /'  # the cause, not only the verdict (sheet 10)
   fi
 }
 

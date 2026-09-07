@@ -14,7 +14,10 @@
 # narrative reading: plain language, no citations.
 # ogc:class is adopted (used as the source defines it), refined (a typed
 # anchor plus an altLabel keeping the source's word) or coined (exactly
-# four). ogc:quoteStatus: machine (located in the snapshot by the tests),
+# four). A quote shorter than the source's whole entry or paragraph says so in
+# its locator: "(fragment ...)" or "(first sentence ...)" (sheet 10).
+# ogc:quoteStatus: machine (located in the snapshot by the tests),
+# authors (the bridge's own definitions, in crosswalk.ttl),
 # human (verified by a named person on a date), pending (transcribed from a
 # screenshot or a browsing platform; awaiting a named verification).
 
@@ -69,6 +72,7 @@ term:conformance a skos:Concept ; skos:inScheme ogc:Glossary ;
 term:objective-evidence a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:altLabel "evidence"@en ;
     skos:prefLabel "objective evidence"@en ;
+    skos:related term:record ;
     skos:definition "Data that supports the existence or truth of something. Here, what is collected as the basis for a determination: a response at one turn, a session's trajectory, or several of them rolled up over a test suite, as in a robustness battery. Each evidence item bears on one acceptance criterion's expected result and is bound to the test plan it was collected under. Evidence is the domain; the determination made on it, passed, failed or cannot tell, is the codomain. On its own evidence verifies nothing; a determination rules on it and an attestation judges it."@en ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.8.6" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-21.png" ;
@@ -124,7 +128,7 @@ term:verification a skos:Concept ; skos:inScheme ogc:Glossary ;
                   ogc:quote "confirmation, through the provision of objective evidence, that specified requirements have been fulfilled" ; ogc:quoteStatus "machine" ] ;
     skos:related term:conformance ;
     skos:related term:validation ;
-    ogc:binding "SHACL shapes S1-S8 (machine); SCI requirements tagged machine" .
+    ogc:binding "SHACL shapes S0-S9 over the record and M1-M5 over the model graph (machine); SCI requirements tagged machine" .
 
 term:validation a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "validation"@en ;
@@ -179,7 +183,7 @@ term:stakeholder a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:related term:mission ;
     skos:related term:test-item-customer ;
     skos:related term:statement-of-work ;
-    ogc:binding "sysml part defs Sponsor, Evaluator, DomainExpert; prov:Person, prov:Organization" .
+    ogc:binding "sysml part defs SponsorOrganization, TestingOrganization, AccountableOrganization, AffectedPopulation and the actor parts within the testing organization; prov:Person, prov:Organization" .
 
 term:performance a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "performance"@en ;
@@ -306,7 +310,7 @@ term:scenario a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "scenario, p. 369" ; ogc:pdfPage 369 ;
                     ogc:quote "step-by-step description of a series of events that occur concurrently or sequentially" ; ogc:quoteStatus "machine" ] ;
-    ogc:seeAlso [ ogc:cites src:nist-ai-700-2 ; ogc:locator "Appendix A, Scenario, p. 17" ; ogc:pdfPage 24 ;
+    ogc:seeAlso [ ogc:cites src:nist-ai-700-2 ; ogc:locator "Appendix A, Scenario, p. 17 (first sentence of the entry)" ; ogc:pdfPage 24 ;
                   ogc:quote "The context in which structured AI evaluation activities are performed." ; ogc:quoteStatus "machine" ] ;
     ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "test scenario, p. 438 (ISO/IEC TR 29119-11:2020, testing of AI-based systems)" ; ogc:pdfPage 438 ;
                   ogc:quote "situation or setting for a test item used as the basis for generating test cases" ; ogc:quoteStatus "machine" ] ;
@@ -368,7 +372,7 @@ term:session a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "session"@en ;
     skos:definition "One pairing of one tester with one system under test, in which a sequence of turns is run. Sessions are stateful: what the system says at a later turn depends on everything said before, so evidence belongs to its session, not only to its probe."@en ;
     ogc:class "adopted" ;
-    ogc:canonical [ ogc:cites src:nist-ai-700-2 ; ogc:locator "Appendix A, Session, p. 17" ; ogc:pdfPage 24 ;
+    ogc:canonical [ ogc:cites src:nist-ai-700-2 ; ogc:locator "Appendix A, Session, p. 17 (first sentence of the entry)" ; ogc:pdfPage 24 ;
                     ogc:quote "A single unit of ARIA testing, consisting of a pairing of one tester and one application." ; ogc:quoteStatus "machine" ] ;
     prov:wasDerivedFrom rul:R-13 ;
     skos:broader term:test ;
@@ -383,7 +387,7 @@ term:dialogue a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:altLabel "conversation"@en ;
     skos:definition "The ordered prompts to, and responses by, the system under test within one session. Its recorded form is the trajectory."@en ;
     ogc:class "adopted" ;
-    ogc:canonical [ ogc:cites src:nist-ai-700-2 ; ogc:locator "Appendix A, Dialogue, p. 16" ; ogc:pdfPage 23 ;
+    ogc:canonical [ ogc:cites src:nist-ai-700-2 ; ogc:locator "Appendix A, Dialogue, p. 16 (first sentence of the entry)" ; ogc:pdfPage 23 ;
                     ogc:quote "A set of prompts to, and responses by, an application." ; ogc:quoteStatus "machine" ] ;
     prov:wasDerivedFrom rul:R-13 ;
     skos:related term:trajectory ;
@@ -442,7 +446,7 @@ term:non-deterministic-system a skos:Concept ; skos:inScheme ogc:Glossary ;
     prov:wasDerivedFrom rul:R-13 ;
     skos:related term:test-item ;
     skos:related term:repeatability ;
-    ogc:binding "sysml part def SystemUnderTest; earl:TestSubject" .
+    ogc:binding "sysml part def TestItem; earl:TestSubject" .
 
 term:repeatability a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "repeatability"@en ;
@@ -504,7 +508,7 @@ term:guardrail a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "guardrail"@en ;
     skos:definition "A requirement on the system stating what may be shared with a user and what must be withheld. Recommendations at the end of an evaluation typically propose changes to guardrails."@en ;
     ogc:class "adopted" ;
-    ogc:canonical [ ogc:cites src:nist-ai-700-2 ; ogc:locator "Appendix A, Guardrail, p. 17" ; ogc:pdfPage 24 ;
+    ogc:canonical [ ogc:cites src:nist-ai-700-2 ; ogc:locator "Appendix A, Guardrail, p. 17 (first sentence of the entry)" ; ogc:pdfPage 24 ;
                     ogc:quote "An application requirement specifying both 1) permitted information that can be shared with a user, and 2) prohibited information that should be withheld from a user." ; ogc:quoteStatus "machine" ] ;
     skos:broader term:requirement ;
     skos:related term:red-teaming ;
@@ -533,7 +537,7 @@ term:appropriateness a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:hawkins-2011 ; ogc:locator "Section 3.2 Asserted context, p. 7" ; ogc:pdfPage 7 ;
                     ogc:quote "it is being asserted that the context is appropriate for the argument elements to which it applies" ; ogc:quoteStatus "machine" ] ;
-    ogc:seeAlso [ ogc:cites src:isa-500 ; ogc:locator "paragraph 5(b)" ; ogc:pdfPage 2 ;
+    ogc:seeAlso [ ogc:cites src:isa-500 ; ogc:locator "paragraph 5(b) (fragment of the paragraph)" ; ogc:pdfPage 2 ;
                   ogc:quote "The measure of the quality of audit evidence; that is, its relevance and its reliability" ; ogc:quoteStatus "machine" ] ;
     ogc:seeAlso [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.11.2 review" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-30.png" ;
                   ogc:quote "determination of the suitability, adequacy or effectiveness of an object to achieve established objectives" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
@@ -549,7 +553,7 @@ term:sufficiency a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:hawkins-2011 ; ogc:locator "Section 3.3 Asserted solution, p. 10" ; ogc:pdfPage 10 ;
                     ogc:quote "it is being asserted that the evidence put forward is sufficient to support the claim" ; ogc:quoteStatus "machine" ] ;
-    ogc:seeAlso [ ogc:cites src:isa-500 ; ogc:locator "paragraph 5(f)" ; ogc:pdfPage 2 ;
+    ogc:seeAlso [ ogc:cites src:isa-500 ; ogc:locator "paragraph 5(f) (first sentence of the paragraph)" ; ogc:pdfPage 2 ;
                   ogc:quote "The measure of the quantity of audit evidence." ; ogc:quoteStatus "machine" ] ;
     prov:wasDerivedFrom rul:R-08 ;
     skos:related term:attestation ;
@@ -587,7 +591,7 @@ term:outcome a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:seeAlso [ ogc:cites src:w3c-earl ; ogc:locator "Section 2.7 OutcomeValue Class" ;
                     ogc:quote "a value or expression that describes a resulting condition from carrying out the test" ; ogc:quoteStatus "machine" ] ;
     ogc:scopeNote "Ruling R-47 (sheet 06-06): the canonical definition is SEVOCAB's test result; EARL supplies the binding, not the definition." ;
-    ogc:seeAlso [ ogc:cites src:nist-ai-700-2 ; ogc:locator "Section 3.1 Validity Risk Assessment, p. 5" ; ogc:pdfPage 12 ;
+    ogc:seeAlso [ ogc:cites src:nist-ai-700-2 ; ogc:locator "Section 3.1 Validity Risk Assessment, p. 5 (one of the four annotation values, a fragment)" ; ogc:pdfPage 12 ;
                   ogc:quote "Unable to Determine" ; ogc:quoteStatus "machine" ] ;
     skos:related term:determination ;
     skos:related term:attestation ;
@@ -774,6 +778,7 @@ term:provider a skos:Concept ; skos:inScheme ogc:Glossary ;
 
 term:evaluation-service-provider a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "evaluation service provider"@en ;
+    skos:related term:test-item-provider ;
     skos:altLabel "testing organization"@en ; skos:altLabel "provider (ISO 9000:2026 3.1.9, of the evaluation)"@en ;
     skos:definition "The organization that provides the evaluation as a service: the testing organization. Its authorized representative signs the contract and delivers the report, its evaluation team does the work, and its machines keep the record. When it is independent of the test item provider and has no user interest in the test item, its activity is third-party in ISO/IEC 17000's sense; the record states that independence as a fact."@en ;
     ogc:class "refined" ;
@@ -884,7 +889,7 @@ term:third-party-conformity-assessment-activity a skos:Concept ; skos:inScheme o
 term:contract a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "contract"@en ;
     skos:altLabel "service agreement"@en ; skos:altLabel "agreement"@en ;
-    skos:definition "The binding agreement between the sponsor organization and the testing organization to perform OG-CAIE as a service. It is signed by the sponsor and by the testing organization's authorized representative, precedes the requirement set, and is the first item the record holds."@en ;
+    skos:definition "The binding agreement between the sponsor organization and the testing organization to perform OG-CAIE as a service. It is signed by the sponsor and by the testing organization's authorized representative, precedes the requirement set and follows the mission, the need and the proposal in the record."@en ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.3.13" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-38.png" ;
                     ogc:quote "binding agreement" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
@@ -898,6 +903,7 @@ term:contract a skos:Concept ; skos:inScheme ogc:Glossary ;
 
 term:evaluation-team a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "evaluation team"@en ;
+    skos:related term:account-executive ;
     skos:altLabel "evaluators"@en ; skos:altLabel "team"@en ;
     skos:definition "The evaluators within the testing organization who jointly perform one evaluation: at least one domain expert and at least one evaluation operator, each an evaluator in the SQuaRE sense, the person who performs an evaluation. What ISO 9000 calls an audit team is the same shape of thing for an audit; the word audit is kept out of the headword because readers hear legal bearing in it that neither standard intends."@en ;
     ogc:class "refined" ;

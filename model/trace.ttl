@@ -69,7 +69,7 @@ tr:SCI-09 a ogc:Trace ; rdfs:label "SCI-09 RecommendationTraceable" ;
     ogc:restsOn src:sevocab, src:nist-ai-700-2, rul:R-07 .
 tr:SCI-10 a ogc:Trace ; rdfs:label "SCI-10 PartiesNamedAndAgreed" ;
     ogc:page "contracting" ;
-    rdfs:comment "The sponsor, the testing organization and the accountable organization are named; the sponsor's mission and obligations towards the affected populations are recorded before the need, and its statement of work decides, per population, interview or representation; the agreement is signed by the sponsor and the account executive; every affected population is interviewed or represented by a named domain expert." ;
+    rdfs:comment "The sponsor, the testing organization and the accountable organization are named; the sponsor's mission and obligations towards the affected populations are recorded before the need, and its statement of work decides, per population, interview or representation; the agreement is signed by the sponsor and the authorized representative; every affected population is spoken for by a named representative on the team, and interviewed where the statement of work decided so." ;
     ogc:checkedBy ogc:M1-Parties, ogc:M1-Obligation, ogc:S0-Parties, ogc:S0-Population, ogc:S0-StatementOfWork, ogc:S0-Mission, ogc:S0-Need, ogc:S0-Proposal, ogc:S8-Delivery, ogc:S9-Acceptance ; ogc:tag "machine" ;
     ogc:usesTerm term:organization, term:customer, term:provider, term:evaluation-customer, term:test-item-customer, term:evaluation-service-provider, term:test-item-provider, term:mission, term:statement-of-work, term:first-party-conformity-assessment-activity, term:second-party-conformity-assessment-activity, term:third-party-conformity-assessment-activity, term:contract, term:stakeholder, term:account-executive ;
     ogc:restsOn src:iso-9000-2026, src:iso-iec-17000-2020, rul:R-21, rul:R-23 .
@@ -81,7 +81,7 @@ tr:SCI-11 a ogc:Trace ; rdfs:label "SCI-11 EndStateGuaranteed" ;
     ogc:restsOn src:w3c-shacl, rul:R-17, rul:R-21, rul:R-22, rul:R-25, rul:R-26 .
 tr:SCI-12 a ogc:Trace ; rdfs:label "SCI-12 RolesDistinct" ;
     ogc:page "contracting" ;
-    rdfs:comment "The domain expert who approves the DSO, assesses appropriateness and attests is not the evaluation operator who administers tests and collects evidence, and neither is the account executive who signs the agreement; one account executive, one or more of each expert." ;
+    rdfs:comment "The domain expert who approves the DSO, assesses appropriateness and attests is not the evaluation operator who administers tests and collects evidence, and neither is the authorized representative who signs the agreement; one authorized representative, one or more of each expert." ;
     ogc:checkedBy ogc:M5-Roles, ogc:M5-Cardinality, ogc:M5-PortsBelongToRoles, ogc:S1-DsoRelease, ogc:S4-Session, ogc:S6-Attestation, ogc:S6-Determination ; ogc:tag "machine" ;
     ogc:usesTerm term:technical-expert, term:evaluation-operator, term:account-executive, term:evaluation-team ;
     ogc:restsOn src:iso-9000-2026, src:sevocab, rul:R-10, rul:R-23 .
