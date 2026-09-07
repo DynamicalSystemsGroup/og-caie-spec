@@ -10,9 +10,8 @@ description: >
   process, the worked example's record (the measles run) item by item.
   Triggers: any glossary question, "what does X mean", quotes,
   sources, rulings, concerns, shapes, {term} markup, check a word, the
-  measles record, who attested or signed what and when,
-  og-caie.ttl, sources.ttl, adjudications.ttl, trace.ttl, crosswalk.ttl,
-  epo.shapes.ttl, model.shapes.ttl, og-caie.model.ttl, measles-run.ttl.
+  measles record, who attested or signed what and when, the model's
+  parts and wires, a SPARQL question over any of the repository's graphs.
 ---
 
 # Ask the graph with `ogc`
@@ -29,13 +28,25 @@ of the transcript); `python -m ogc` is the same tool. From elsewhere, pass
 one object with an `_ogc` key (`command`, `args`, `sha`); a list result sits
 under `rows`, and `verify --all` adds a `summary`. Flags may go before or
 after the subcommand. Exit 0 found, 1 not found or ambiguous or a bad
-filter value (candidates and allowed values are listed) or a failed
-VERDICT, 2 usage.
+filter value (candidates and allowed values are listed) or refused or a
+failed VERDICT, 2 usage (an empty or blank id, a flag where it does not
+apply, filters that exclude each other). Under `--json` every error is one
+object too: `_ogc` (with the real command name), `error`, `hint`,
+`candidates`; without `--json` a usage error or a refusal goes to stderr
+as `ogc: ...` and nothing is printed on stdout.
 
 Ids are case-insensitive and one normaliser serves rulings, concerns and
 essentials: `R-16`, `R16`, `r-016` and a bare `16` all name R-16; the same
-for `C-24` and `SCI-07`. Source slugs, view names, mutation names, shape ids
-and filter values are case-insensitive too.
+for `C-24` and `SCI-07`. Every reader also takes the id forms the tool
+itself prints: a CURIE (`term:probe`, `rul:R-16`, `rul:C-30`, `tr:SCI-07`,
+`src:sevocab`, `ogc:S0-Layers`, `run:mission-1`) or the full IRI, with or
+without angle brackets. Source slugs, view names, mutation names, shape ids
+and filter values are case-insensitive too. A miss lists up to eight near
+misses (substring, shared word, edit distance), never the whole list.
+
+`--model` and `--record` are accepted only where they change the answer
+(`sparql`, `record`, `execute`, `view`, `views`); anywhere else they are a
+usage error.
 
 ## The mental model (twelve lines)
 
@@ -62,8 +73,14 @@ and filter values are case-insensitive too.
    verbatim quote with a status: machine (located in a content-hashed
    snapshot by the tests), human (verified by a named person on a date,
    usually against an ISO screenshot), pending (transcribed; awaiting one),
-   cite-only (a citation that carries no quote). One vocabulary, used
+   cite-only (a citation that carries no quote), authors (the seven
+   crosswalk rows: the authors' own definitions as presented at the
+   session, so there is nothing to locate). One vocabulary, used
    everywhere: `ogc quote`, `ogc verify`, `ogc steps`, `ogc define --json`.
+   In JSON the kind of a citation is always `citation` (canonical, seeAlso,
+   crosswalk) and `holder` is the term, step or crosswalk row that carries
+   it. A coined term has no citation: `ogc term` and `ogc define` print
+   `coined by:` and the tables show `(coined)` in the source column.
 4. Sources have a posture: committed (snapshot in the repo), heldLocally
    (hash committed, file not), citeOnly (no quote or a human-verified one).
    `ogc sources` is the register, `ogc source <slug>` one entry.
@@ -74,7 +91,7 @@ and filter values are case-insensitive too.
    have no resolving ruling. `ogc rulings`, `ogc concerns --open`.
 7. The essentials SCI-01..13 name the shapes that check them, the terms
    they are stated in, and what they rest on. `ogc sci`.
-8. The Popper crosswalk maps six Popperian elements to standard terms and
+8. The Popper crosswalk maps seven Popperian elements to standard terms and
    to the EPO classes and shapes that realize them; Popper's words appear
    only on the front page and the conclusion. `ogc crosswalk --popper`.
 9. Retired words (adequacy and its forms) are barred from prose (R-08);
@@ -92,7 +109,9 @@ and filter values are case-insensitive too.
     made, signed, approved or asserted it and when; then the items without a
     step (criteria, turns, responses, trajectories, checks) and the parties.
     `ogc record <local-name>` prints everything the record says about one
-    item. `--record` adds the record to `sparql` (the `run:` prefix).
+    item (in JSON: `triples`, `referenced_by`; `who` and `when` are null
+    when the record carries none). `--record` adds the record to `sparql`
+    (the `run:` prefix).
 
 ## What is loaded
 
@@ -108,6 +127,14 @@ own. The record is read by `ogc record` and `--record` (ruling R-47, which
 closes concern C-44). Both flags are part of the printed and hashed args,
 so a `sparql` answer says which graphs it was asked over.
 
+The files behind the tool are `vocabulary/og-caie.ttl`, `vocabulary/epo.ttl`,
+`vocabulary/crosswalk.ttl`, `sources/sources.ttl`,
+`rulings/adjudications.ttl`, `model/trace.ttl`, the four shape files under
+`shapes/`, `model/og-caie.model.ttl` and `track/measles-run.ttl`.
+Never open these; they are what ogc reads. `ogc doctor` parses every one
+of them; `ogc shapes` and `ogc schema` count the shapes over all four
+shape files.
+
 ## Start here
 
 - `ogc schema`: the counts, the classes and properties in use, the prefixes.
@@ -122,24 +149,26 @@ so a `sparql` answer says which graphs it was asked over.
 | What does this word mean here? | `ogc define <term>` (says `resolved via alt:...` when you typed an alternative label; `--json` carries the quote `status`) |
 | The whole entry: class, anchor, citations with quotes and status, scope note, binding, rulings, concerns, essentials, crosswalk | `ogc term <term>` |
 | The canon behind a term, or behind a step, verbatim | `ogc quote <term>`; `ogc quote scope`, `ogc quote "C1 need"`, `ogc quote need` |
-| Is each quote really where its citation says? | `ogc verify <term>`, `ogc verify <source-slug>`, `ogc verify <step>`, `ogc verify --all` (summary line; in JSON a `summary`); the first column is `holder` (a term or a step), the second `citation` (canonical or seeAlso) |
+| Is each quote really where its citation says? | `ogc verify <term>`, `ogc verify <source-slug>`, `ogc verify <step>`, `ogc verify --all` (every citation: the terms', the steps' and the crosswalk rows'; summary line; in JSON a `summary`); the first column is `holder` (a term, a step or a crosswalk row), the second `citation` (canonical, seeAlso or crosswalk) |
+| Which quotes are pending, or in any one status or state? | `ogc verify --all --status pending` (the quote's tag: machine, human, pending, cite-only, authors); `ogc verify --all --state digest` (where it was located: verified, digest, human, pending, cite-only, authors, NOT FOUND); an empty answer prints `(none)` with exit 0 |
 | May I use this word in prose, and how do I mark it up? | `ogc check-word <word> [<word> ...]` (several words at once; quote multi-word ones; registered / alternative / retired; the `{term}` role to write; other terms the word lands on; concerns that mention it; empty words are refused) |
-| Every term a source supports, with the quotes | `ogc source <slug>`; the register: `ogc sources --rank 1`, `--posture heldLocally`, `--uncited` |
+| Every term a source supports, with the quotes | `ogc source <slug>`; the register: `ogc sources --rank 1`, `--posture heldLocally`, `--uncited` (not with `--rank 1`, `2` or `3`: a precedence-ranked source is cited by the terms defined from it, so the two exclude each other, exit 2) |
 | The terms by class or by source | `ogc list --class refined`, `ogc list --source sevocab` (an unregistered slug exits 1 with the candidates) |
 | Why is it defined this way? | `ogc rulings --term <term>`; a substring over ruling texts, messages as sent and change notes: `ogc rulings --grep conformance`; one ruling, the decision and then the message as sent: `ogc ruling R-16` (`--json` carries `text` and `verbatim`) |
-| What was in doubt, and what is still open | `ogc concerns --open`, `ogc concerns --status ruled`, `ogc concerns --severity H`; `ogc concern C-25` |
+| What was in doubt, and what is still open | `ogc concerns --open`, `ogc concerns --status ruled`, `ogc concerns --severity H`; `ogc concern C-25` (`--open` is `--status open`; with another `--status` the two exclude each other, exit 2) |
 | What must a scientific record contain? | `ogc sci`; one essential: `ogc sci SCI-07` |
 | Which canon step does each of the twelve steps match? | `ogc steps` |
-| What does a shape check, and over what? | `ogc shapes` (every node shape with its target and file); `ogc shape S3-PlanApproval`, `ogc shape m1-parties`, `ogc shape RulingShape` (target, property constraints, each SPARQL constraint's message) |
+| What does a shape check, and over what? | `ogc shapes` (every node shape with its target and file, over all four shape files); `ogc shape S3-PlanApproval`, `ogc shape m1-parties`, `ogc shape RulingShape` (target, property constraints, each SPARQL constraint's message and its `sh:select` body, indented; in JSON `sparql` is a list of `message` and `select`, and `message` and `closed` are null when the shape has none) |
 | The views of the model: what each brings into focus and leaves out | `ogc views` |
 | One view as mermaid, with its perspective (nesting, assemblage, contracting, evaluation) | `ogc view contracting` |
 | Execute the process from the model and run the checks over the emitted record; break one or more things | `ogc execute` (ends in `VERDICT: PASS` or `FAIL`, exit 1 on FAIL), `ogc execute --mutate skip-access`, `--mutate` repeated applies them in order, `ogc execute --turtle` |
-| Execute with other parameters: how many requirements, criteria per requirement, planned criteria, sessions, populations | `ogc execute --planned 3` (coverage 1.0), `ogc execute --requirements 2 --criteria 2 --planned 4 --sessions 2`; the `parameters:` line and the `params` key say what ran; positive integers, `planned` at most requirements times criteria, else exit 1 with the reason |
+| Execute with other parameters: how many requirements, criteria per requirement, planned criteria, sessions, populations | `ogc execute --planned 3` (coverage 1.0), `ogc execute --requirements 2 --criteria 2 --planned 4 --sessions 2`; the `parameters:` line and the `params` key say what ran; positive integers, `planned` at most requirements times criteria; capped, because every criterion is probed in every session and the checks are quadratic in that work: requirements times criteria at most 100, sessions at most 20, requirements times criteria times sessions at most 100 (about a minute), populations at most 20; over a cap, exit 1 with the reason and no run. The `VERDICT` line repeats the header's args in its parenthesis |
 | What is in the measles record, step by step: who made, signed, approved or asserted each item, and when | `ogc record` (C1..C6, then 1..6; then the items without a step; then the parties and machines) |
 | Everything the record says about one item, with the objects' labels and what points at it | `ogc record mission-1`, `ogc record attestation-1`, `ogc record annie` (local names, case-insensitive; a miss lists candidates) |
-| A query over the record | `ogc sparql 'DESCRIBE run:mission-1' --record`, `ogc --record sparql 'SELECT ?a WHERE { ?a a epo:Attestation }'` |
+| A query over the record | `ogc sparql 'DESCRIBE run:mission-1' --record`, `ogc --record sparql 'SELECT ?a WHERE { ?a a epo:Attestation }'`; without `--record` a query that names `run:` or types a variable by a record class (Attestation, Evidence, Session, Report, Determination, Turn and the other item kinds) is refused, exit 1, with the hint on stderr: the record is not loaded by default, so the empty answer would be a lie |
+| The model's own vocabulary | `ogc --model sparql 'SELECT ?n WHERE { ?p a sysml:PartDefinition ; sysml:declaredName ?n }'`: the model graph speaks the OMG `sysml:` vocabulary, names are `sysml:declaredName` (model nodes have no `rdfs:label`), containment is `sysml:owner`, typing is `sysml:specializes` and `sysml:definition`, the nodes are `elmt:` IRIs (`urn:sysmlv2:element:`), tool-specific facts are `sysx:`; `ogc schema --json` does not list them, `ogc --model sparql 'SELECT DISTINCT ?c WHERE { ?x a ?c FILTER(STRSTARTS(STR(?c), "https://www.omg.org/spec/SysML#")) }'` does |
 | The anchor table, one row per term | `ogc crosswalk`, `ogc crosswalk --class refined`, `ogc crosswalk --source iso-9000-2026` |
-| Popper to the standards and back | `ogc crosswalk --popper` |
+| Popper to the standards and back | `ogc crosswalk --popper` (the seven rows; `--class` and `--source` exclude it, exit 2) |
 | Anything else | `ogc sparql '<SELECT ...>'` or `ogc sparql @query.rq` (prefixes injected; read-only; `--model` adds the model graph, `--record` the record; both appear in the printed and hashed args) |
 | Is the graph healthy? | `ogc doctor` (VERDICT line; runs in the gate) |
 
@@ -154,8 +183,15 @@ The eight mutations of `execute`: `skip-assessment`, `skip-approval`,
   `ogc sparql 'DESCRIBE term:probe'` prints one term's triples; sources
   are `src:`, rulings and concerns `rul:`, steps `epo:`, essentials `tr:`,
   crosswalk rows `xw:`, the model `ogm:` with the OMG `sysml:` vocabulary,
-  the record's items `run:` (present only under `--record`).
-  `ogc schema` prints the whole prefix list.
+  the record's items `run:` (`https://w3id.org/og-caie/run/measles#`,
+  present only under `--record`; the executor's own emitted record uses
+  `run/executed#` and is never loaded). `ogc schema` prints the whole
+  prefix list.
+- The citation header is re-runnable: `# ogc sparql <query> #sha256:<12
+  hex> @ <sha>` carries the query as typed, with newlines escaped as `\n`
+  and comments intact (unescape `\n` to run it again), and the sha256 of
+  the query text; for `@file` it carries the path as typed and the sha256
+  of the file's content. `@` with a directory is a usage error.
 - Labels and definitions are language-tagged (`"probe"@en`): match with
   `STR(?l) = "probe"` or `LCASE(STR(?l))`.
 - The determinism promise: rows are sorted when the query has no ORDER BY,

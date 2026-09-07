@@ -2,15 +2,19 @@
 returning plain, sorted data. The CLI renders these."""
 from __future__ import annotations
 
+import difflib
 import hashlib
 import re
+import textwrap
 import unicodedata
 from collections import Counter
 from pathlib import Path
 
 from rdflib import RDF, RDFS, BNode, Graph, URIRef
 
-from .graph import EPO, EARL, EPO, OGC, PROV, RUL, RUN, SH, SKOS, SRC, TERM, PREFIXES
+from .graph import EPO, EARL, EPO, OGC, PROV, RUL, RUN, SH, SHAPE_FILES, SKOS, SRC, TERM, PREFIXES
+
+COINED = "(coined)"  # the source column of a coined term: it cites no source, it was coined (ruling R-29)
 
 RETIRED = {"adequacy": "ruling R-08: say appropriateness (of the context) or sufficiency (of the evidence)",
            "adequate": "ruling R-08: say appropriate or sufficient",
@@ -33,6 +37,56 @@ def many(g: Graph, s, p) -> list[str]:
 def local(iri) -> str:
     s = str(iri)
     return s.split("#")[-1] if "#" in s else s.rstrip("/").split("/")[-1]
+
+
+_CURIE = re.compile(r"([A-Za-z_][\w.-]*):(\S+)")
+
+
+def bare(text: str) -> str:
+    """The local name behind the id forms the tool itself prints: a CURIE in a
+    known prefix (`term:probe`, `rul:R-16`, `run:mission-1`, `ogc:S0-Layers`)
+    or a full IRI in a known namespace, with or without angle brackets. Any
+    other text (a label, even one with a colon inside it) comes back
+    normalised and otherwise untouched."""
+    s = norm(text)
+    if s.startswith("<") and s.endswith(">"):
+        s = s[1:-1].strip()
+    m = _CURIE.fullmatch(s)
+    if m and m.group(1) in PREFIXES:
+        return m.group(2)
+    for ns in sorted((str(v) for v in PREFIXES.values()), key=len, reverse=True):
+        if s.startswith(ns) and len(s) > len(ns):
+            return s[len(ns):]
+    return s
+
+
+def _tokens(s: str) -> set[str]:
+    return {t for t in re.split(r"[^a-z0-9]+", s.lower()) if len(t) >= 3}
+
+
+def near(key: str, names: list[str], limit: int = 8) -> list[str]:
+    """Up to `limit` near misses for a name that did not resolve: substring
+    hits first, then names sharing a token of three letters or more, then
+    names within edit distance (difflib ratio 0.6 or better); never the whole
+    list, and nothing when nothing is near."""
+    k = norm(key).lower()
+    if not k:
+        return []
+    kt = _tokens(k)
+    scored = []
+    for n in names:
+        l = n.lower()
+        ratio = difflib.SequenceMatcher(None, k, l).ratio()
+        if k in l:
+            rank = 0
+        elif kt & _tokens(l):
+            rank = 1
+        elif ratio >= 0.6:
+            rank = 2
+        else:
+            continue
+        scored.append((rank, -ratio, n))
+    return [n for _, _, n in sorted(scored)[:limit]]
 
 
 def first_sentence(s: str) -> str:
@@ -164,9 +218,14 @@ def list_terms(g: Graph, klass=None, source=None) -> list[dict]:
             continue
         if source and t["canonical"].get("source", "").lower() != norm(source).lower():
             continue
-        rows.append({"term": t["pref"], "local": t["local"], "class": t["class"], "source": t["canonical"].get("source", ""),
+        rows.append({"term": t["pref"], "local": t["local"], "class": t["class"], "source": _source_col(t),
                      "locator": t["canonical"].get("locator", ""), "status": t["canonical"].get("status", "")})
     return sorted(rows, key=lambda r: r["term"].lower())
+
+
+def _source_col(t: dict) -> str:
+    """The source column of a term row: the canonical source's slug, or `(coined)` for a coined term."""
+    return COINED if t["class"] == "coined" and not t["canonical"] else t["canonical"].get("source", "")
 
 
 # ---------------------------------------------------------------- sources
@@ -192,16 +251,16 @@ def source_record(g: Graph, slug: str) -> dict | None:
     snaps = sorted((dict(file=one(g, sn, OGC.file), hash=one(g, sn, OGC.contentHash)) for sn in g.objects(s, OGC.snapshot)), key=lambda d: d["file"])
     cits = []
     for t in concepts(g):
-        for holder, c in [("canonical", g.value(t, OGC.canonical)), *[("seeAlso", x) for x in g.objects(t, OGC.seeAlso)]]:
+        for kind, c in [("canonical", g.value(t, OGC.canonical)), *[("seeAlso", x) for x in g.objects(t, OGC.seeAlso)]]:
             if c is not None and g.value(c, OGC.cites) == s:
-                cits.append(dict(term=one(g, t, SKOS.prefLabel), holder=holder, locator=one(g, c, OGC.locator), quote=one(g, c, OGC.quote), status=cite_status(g, c)))
+                cits.append(dict(term=one(g, t, SKOS.prefLabel), citation=kind, locator=one(g, c, OGC.locator), quote=one(g, c, OGC.quote), status=cite_status(g, c)))
     for x in g.subjects(OGC.cites, s):
         if (x, RDF.type, OGC.Crosswalk) in g:
-            cits.append(dict(term=f"crosswalk: {one(g, x, RDFS.label)}", holder="crosswalk", locator=one(g, x, OGC.locator), quote=one(g, x, OGC.quote), status=cite_status(g, x)))
+            cits.append(dict(term=f"crosswalk: {one(g, x, RDFS.label)}", citation="crosswalk", locator=one(g, x, OGC.locator), quote=one(g, x, OGC.quote), status=cite_status(g, x)))
     return dict(slug=slug, label=one(g, s, RDFS.label), rank=one(g, s, OGC.rank), kind=one(g, s, OGC.kind), posture=one(g, s, OGC.posture),
                 url=one(g, s, OGC.url), digest=one(g, s, OGC.digest), status=one(g, s, OGC.status), retrieval=one(g, s, OGC.retrievalNote),
                 licence=one(g, s, OGC.licenceNote), permission=one(g, s, OGC.permissionStatement), snapshots=snaps,
-                citations=sorted(cits, key=lambda d: (d["term"].lower(), d["holder"], d["locator"])))
+                citations=sorted(cits, key=lambda d: (d["term"].lower(), d["citation"], d["locator"])))
 
 
 def sources_table(g: Graph, rank=None, posture=None, uncited=False) -> list[dict]:
@@ -367,9 +426,9 @@ def resolve_step(g: Graph, text: str):
 def step_citations(g: Graph, st) -> list[dict]:
     """The canonical and seeAlso citations of a step, in the form `ogc quote` prints."""
     out = []
-    for holder, c in [("canonical", g.value(st, OGC.canonical)), *[("seeAlso", x) for x in sorted(g.objects(st, OGC.seeAlso), key=lambda x: (str(g.value(x, OGC.cites)), str(g.value(x, OGC.locator))))]]:
+    for kind, c in [("canonical", g.value(st, OGC.canonical)), *[("seeAlso", x) for x in sorted(g.objects(st, OGC.seeAlso), key=lambda x: (str(g.value(x, OGC.cites)), str(g.value(x, OGC.locator))))]]:
         if c is not None:
-            out.append(dict(holder=holder, **{k: v for k, v in citation_record(g, c).items() if k != "node"}))
+            out.append(dict(citation=kind, **{k: v for k, v in citation_record(g, c).items() if k != "node"}))
     return out
 
 
@@ -381,7 +440,7 @@ def crosswalk(g: Graph, klass=None, source=None) -> list[dict]:
             continue
         if source and t["canonical"].get("source", "").lower() != norm(source).lower():
             continue
-        rows.append({"term": t["pref"], "class": t["class"], "relation": t["anchor_relation"], "source": t["canonical"].get("source", ""),
+        rows.append({"term": t["pref"], "class": t["class"], "relation": t["anchor_relation"], "source": _source_col(t),
                      "locator": t["canonical"].get("locator", ""), "status": t["canonical"].get("status", ""), "see_also": len(t["see_also"]), "binding": t["binding"]})
     return sorted(rows, key=lambda r: r["term"].lower())
 
@@ -422,7 +481,8 @@ def check_word(g: Graph, word: str) -> dict:
     t = term_record(g, s)
     c = t["canonical"]
     d = dict(word=word, registered=True, retired="", term=t["pref"], local=t["local"], matched_as=kind, label=l, **{"class": t["class"]},
-             sense=first_sentence(t["definition"]), canonical=f"{c.get('source', '')} {c.get('locator', '')}" + (f" [{c['status']}]" if c.get("status") else ""),
+             sense=first_sentence(t["definition"]), canonical=(f"{c.get('source', '')} {c.get('locator', '')}" + (f" [{c['status']}]" if c.get("status") else "")) if c else None,
+             coined_by=t["coined_by"] or None,
              also=[dict(term=one(g, h[1], SKOS.prefLabel), local=local(h[1]), label=h[3], matched_as=h[2]) for h in hits[1:]],
              quote_hits=[], concerns=concerns)
     d["advice"] = (f"an alternate label; the headword is '{t['pref']}': write " if kind == "alt" else "registered: write ") + "{term}`" + (f"{l} <{t['pref']}>" if kind == "alt" else t["pref"]) + "` in prose"
@@ -435,20 +495,40 @@ def check_word(g: Graph, word: str) -> dict:
 
 # ---------------------------------------------------------------- verify, schema
 
-def verify_citations(g: Graph, root: Path, terms: list, only_src=None) -> list[dict]:
+AUTHORS = "authors"  # the quote status of the crosswalk rows: the authors' own words (the session's definitions), not a quote from a source
+
+
+def _locate(g: Graph, root: Path, c) -> tuple[str, str]:
     from .verify import locate
+    if cite_status(g, c) == AUTHORS:
+        return AUTHORS, "the authors' own words; nothing to locate"
+    return locate(g, root, c)
+
+
+def verify_citations(g: Graph, root: Path, terms: list, only_src=None) -> list[dict]:
     rows = []
     for t in terms:
-        for holder, c in [("canonical", g.value(t, OGC.canonical)), *[("seeAlso", x) for x in g.objects(t, OGC.seeAlso)]]:
+        for kind, c in [("canonical", g.value(t, OGC.canonical)), *[("seeAlso", x) for x in g.objects(t, OGC.seeAlso)]]:
             if c is None:
                 continue
             src = g.value(c, OGC.cites)
             if only_src is not None and src != only_src:
                 continue
-            state, where = locate(g, root, c)
-            rows.append(dict(holder=one(g, t, SKOS.prefLabel) or one(g, t, RDFS.label).split(":")[0], citation=holder, source=local(src), posture=one(g, src, OGC.posture),
+            state, where = _locate(g, root, c)
+            rows.append(dict(holder=one(g, t, SKOS.prefLabel) or one(g, t, RDFS.label).split(":")[0], citation=kind, source=local(src), posture=one(g, src, OGC.posture),
                              locator=one(g, c, OGC.locator), status=cite_status(g, c), state=state, where=where))
     return sorted(rows, key=lambda d: (d["holder"].lower(), d["citation"], d["source"], d["locator"]))
+
+
+def verify_crosswalk(g: Graph, root: Path) -> list[dict]:
+    """The crosswalk rows as citations: each cites the session where the definitions were presented; their quotes are the authors' words (status `authors`)."""
+    rows = []
+    for x in g.subjects(RDF.type, OGC.Crosswalk):
+        src = g.value(x, OGC.cites)
+        state, where = _locate(g, root, x)
+        rows.append(dict(holder=f"crosswalk: {one(g, x, RDFS.label)}", citation="crosswalk", source=local(src), posture=one(g, src, OGC.posture),
+                         locator=one(g, x, OGC.locator), status=cite_status(g, x), state=state, where=where))
+    return sorted(rows, key=lambda d: (d["holder"].lower(), d["source"], d["locator"]))
 
 
 def verify_term(g: Graph, root: Path, s) -> list[dict]:
@@ -463,10 +543,13 @@ def verify_source(g: Graph, root: Path, slug: str) -> list[dict] | None:
 
 
 def verify_all(g: Graph, root: Path) -> list[dict]:
-    return verify_citations(g, root, concepts(g) + sorted(set(g.subjects(RDF.type, EPO.EpoStep)) | set(g.subjects(RDF.type, EPO.ContractingStep)) | {EPO.ContractingStep}, key=str))
+    """Every citation in the graph: the terms', the steps' and the crosswalk rows'."""
+    rows = verify_citations(g, root, concepts(g) + sorted(set(g.subjects(RDF.type, EPO.EpoStep)) | set(g.subjects(RDF.type, EPO.ContractingStep)) | {EPO.ContractingStep}, key=str))
+    return rows + verify_crosswalk(g, root)
 
 
-def schema(g: Graph) -> dict:
+def schema(g: Graph, root: Path | None = None) -> dict:
+    """The map; the shape count reads every shape file (the loaded graph carries two of them), the way `ogc shapes` does."""
     inv = {str(v): k for k, v in PREFIXES.items()}
 
     def qname(x):
@@ -481,7 +564,7 @@ def schema(g: Graph) -> dict:
                 properties=[dict(prop=p, uses=n) for p, n in sorted(props.items())],
                 counts=dict(terms=len(concepts(g)), coined=sum(1 for t in concepts(g) if one(g, t, OGC["class"]) == "coined"),
                             sources=sum(1 for _ in g.subjects(RDF.type, OGC.Source)), rulings=sum(1 for _ in g.subjects(RDF.type, OGC.Ruling)),
-                            concerns=sum(1 for _ in g.subjects(RDF.type, OGC.Concern)), shapes=sum(1 for _ in g.subjects(RDF.type, SH.NodeShape)),
+                            concerns=sum(1 for _ in g.subjects(RDF.type, OGC.Concern)), shapes=len(shapes_graph(root)[1]) if root is not None else sum(1 for _ in g.subjects(RDF.type, SH.NodeShape)),
                             essentials=sum(1 for _ in g.subjects(RDF.type, OGC.Trace)), crosswalk_rows=sum(1 for _ in g.subjects(RDF.type, OGC.Crosswalk))))
 
 
@@ -498,8 +581,7 @@ def ambiguous_labels(g: Graph) -> list[dict]:
 
 # ---------------------------------------------------------------- shapes
 
-SHAPE_FILES = ["shapes/epo.shapes.ttl", "shapes/model.shapes.ttl", "shapes/rulings.shapes.ttl", "shapes/glossary.shapes.ttl"]
-_PATH_OPS = {SH.inversePath: "^{}", SH.zeroOrMorePath: "{}*", SH.oneOrMorePath: "{}+", SH.zeroOrOnePath: "{}?"}
+_PATH_OPS ={SH.inversePath: "^{}", SH.zeroOrMorePath: "{}*", SH.oneOrMorePath: "{}+", SH.zeroOrOnePath: "{}?"}
 
 
 def shapes_graph(root: Path) -> tuple[Graph, dict]:
@@ -573,7 +655,8 @@ def shapes_table(root: Path) -> list[dict]:
 def shape_record(root: Path, sid: str) -> dict | None:
     """One node shape, case-insensitive on its local name: target, property
     constraints (path, min, max, class, in, hasValue, datatype, message) and
-    each SPARQL constraint's message."""
+    each SPARQL constraint's message with its `sh:select` body; the shape's
+    own message and closed flag are None when absent."""
     g, where = shapes_graph(root)
     key = norm(sid).lower()
     hit = next((s for s in sorted(where, key=str) if local(s).lower() == key), None)
@@ -589,9 +672,9 @@ def shape_record(root: Path, sid: str) -> dict | None:
                       "class": q(p, SH["class"]), "in": [qname(g, x) if isinstance(x, URIRef) else str(x) for x in rdf_list(g, g.value(p, SH["in"]))],
                       "hasValue": q(p, SH.hasValue), "datatype": q(p, SH.datatype), "nodeKind": q(p, SH.nodeKind), "message": one(g, p, SH.message)})
     props.sort(key=lambda d: (d["path"], d["message"]))
-    sparql = sorted(one(g, x, SH.message) for x in g.objects(hit, SH.sparql))
-    return dict(id=local(hit), iri=str(hit), file=where[hit], target=_shape_targets(g, hit), message=one(g, hit, SH.message),
-                closed=one(g, hit, SH.closed), properties=props, sparql=sparql)
+    sparql = sorted((dict(message=one(g, x, SH.message), select=textwrap.dedent(one(g, x, SH.select)).strip()) for x in g.objects(hit, SH.sparql)), key=lambda d: (d["message"], d["select"]))
+    return dict(id=local(hit), iri=str(hit), file=where[hit], target=_shape_targets(g, hit), message=one(g, hit, SH.message) or None,
+                closed=one(g, hit, SH.closed) or None, properties=props, sparql=sparql)
 
 
 # ---------------------------------------------------------------- blank nodes
@@ -629,6 +712,17 @@ def record_subjects(g: Graph) -> list:
     return sorted({s for s in g.subjects() if isinstance(s, URIRef) and str(s).startswith(str(RUN))}, key=str)
 
 
+def record_classes(g: Graph) -> set[str]:
+    """The local names of the EPO classes whose instances live only in a
+    record (Attestation, Evidence, Session, Report and the other item kinds,
+    roles' bearers, checks): every `epo:` class with no instance in the
+    graph as loaded without the record. A query typing a variable by one of
+    them answers nothing until --record loads the record."""
+    OWL_CLASS = URIRef("http://www.w3.org/2002/07/owl#Class")
+    typed = {c for c in g.objects(None, RDF.type)}
+    return {local(c) for c in g.subjects(RDF.type, OWL_CLASS) if str(c).startswith(str(EPO)) and c not in typed}
+
+
 def step_heads(g: Graph) -> dict:
     """Step IRI -> (order, head) as the two cycles order them: C1..C6 (1..6), then 1..6 (11..16), the order `ogc steps` prints."""
     return {str(EPO[r["step"]]): (r["order"], r["label"].split(":", 1)[0]) for r in steps_table(g)}
@@ -647,16 +741,18 @@ def _classes(g: Graph, n) -> list[str]:
     return epo or sorted(local(t) for t in g.objects(n, RDF.type) if t != PROV.Agent)
 
 
-def _who(g: Graph, n) -> list[str]:
-    return sorted({_label(g, o) or local(o) for p in WHO for o in g.objects(n, p)})
+def _who(g: Graph, n) -> list[str] | None:
+    """Who made, signed, approved or asserted the item; None when the record names nobody."""
+    return sorted({_label(g, o) or local(o) for p in WHO for o in g.objects(n, p)}) or None
 
 
-def _when(g: Graph, n) -> str:
+def _when(g: Graph, n) -> str | None:
+    """The item's date (generated, started or ended at); None when the record carries none."""
     for p in WHEN:
         v = g.value(n, p)
         if v is not None:
             return str(v)[:10]
-    return ""
+    return None
 
 
 def record_rows(g: Graph) -> list[dict]:
@@ -677,26 +773,27 @@ def record_rows(g: Graph) -> list[dict]:
             stepped.append(dict(group="step", step=head, order=order, **row))
         else:
             unstepped.append(dict(group="no-step", step="", order=0, **row))
-    stepped.sort(key=lambda r: (r["order"], r["when"], r["item"]))
+    stepped.sort(key=lambda r: (r["order"], r["when"] or "", r["item"]))
     unstepped.sort(key=lambda r: (r["class"], r["item"]))
     parties.sort(key=lambda r: r["item"])
     return stepped + unstepped + parties
 
 
 def resolve_record_item(g: Graph, name: str):
-    """(iri, candidates): the record subject whose local name is `name`, case-insensitive; else None and the local names containing it."""
+    """(iri, candidates): the record subject whose local name is `name`, case-insensitive; else None and up to eight near misses."""
     key = norm(name).lower()
     subjects = record_subjects(g)
     hit = next((s for s in subjects if local(s).lower() == key), None)
     if hit is not None:
         return hit, []
-    return None, [local(s) for s in subjects if key and key in local(s).lower()][:8]
+    return None, near(key, [local(s) for s in subjects])
 
 
 def record_item(g: Graph, n) -> dict:
     """Everything the record says about one item: every triple with it as
-    subject (a blank node's own triples inline, as `[ p o ; ... ]`), each
-    object's label where it has one, and the triples that point at it."""
+    subject (`triples`; a blank node's own triples inline, as `[ p o ; ... ]`),
+    each object's label where it has one, and the triples that point at it
+    (`referenced_by`); `who` and `when` are None when the record carries none."""
     def render(o):
         if isinstance(o, BNode):
             inner = sorted((qname(g, p), render(x)) for p, x in g.predicate_objects(o))
@@ -709,4 +806,4 @@ def record_item(g: Graph, n) -> dict:
     heads = step_heads(g)
     st = g.value(n, EPO.step)
     return dict(item=local(n), iri=str(n), label=one(g, n, RDFS.label) or one(g, n, EPO.text), **{"class": ", ".join(_classes(g, n))},
-                step=heads[str(st)][1] if st is not None and str(st) in heads else "", who=_who(g, n), when=_when(g, n), out=out, **{"in": inn})
+                step=heads[str(st)][1] if st is not None and str(st) in heads else "", who=_who(g, n), when=_when(g, n), triples=out, referenced_by=inn)

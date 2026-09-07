@@ -32,8 +32,10 @@ PREFIXES = {"ogc": OGC, "term": TERM, "src": SRC, "rul": RUL, "epo": EPO, "xw": 
 SPARQL_PREFIXES = "".join(f"PREFIX {k}: <{v}>\n" for k, v in PREFIXES.items())
 SOURCE_FILES = ["vocabulary/og-caie.ttl", "vocabulary/epo.ttl", "vocabulary/crosswalk.ttl", "sources/sources.ttl",
                 "rulings/adjudications.ttl", "model/trace.ttl", "shapes/epo.shapes.ttl", "shapes/model.shapes.ttl"]
+SHAPE_FILES = ["shapes/epo.shapes.ttl", "shapes/model.shapes.ttl", "shapes/rulings.shapes.ttl", "shapes/glossary.shapes.ttl"]  # every shape file; `ogc shapes`, `ogc shape` and the schema's shape count read them all
 MODEL_FILE = "model/og-caie.model.ttl"
 RECORD_FILE = "track/measles-run.ttl"  # the worked example's record; read by `ogc record` and `--record` (C-44, ruling R-47)
+DOCTOR_FILES = SOURCE_FILES + [f for f in SHAPE_FILES if f not in SOURCE_FILES] + [MODEL_FILE, RECORD_FILE]  # every file the tool reads; `ogc doctor` parses each
 
 
 def find_root(start: Path | None = None) -> Path:

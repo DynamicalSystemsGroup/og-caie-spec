@@ -279,8 +279,8 @@ def test_record_item_prints_its_label_and_step():
     assert r.returncode == 0 and "C1 need" in r.stdout and "protect the health of county residents" in r.stdout
     d = json.loads(run("record", "mission-1", "--json").stdout)
     assert d["item"] == "mission-1" and d["step"] == "C1 need" and d["class"] == "Mission"
-    assert any(t["predicate"] == "epo:regards" and t["object"] == "run:commuters" and t["label"].startswith("commuters") for t in d["out"])
-    assert any(t["predicate"] == "epo:underMission" and t["subject"] == "run:need-1" for t in d["in"])
+    assert any(t["predicate"] == "epo:regards" and t["object"] == "run:commuters" and t["label"].startswith("commuters") for t in d["triples"])
+    assert any(t["predicate"] == "epo:underMission" and t["subject"] == "run:need-1" for t in d["referenced_by"])
     r = run("record", "attestation-1")
     assert "earl:outcome earl:failed" in r.stdout  # a blank node's triples are printed inline
     assert run("record", "MISSION-1").returncode == 0
@@ -315,3 +315,260 @@ def test_execute_exposes_the_executor_parameters():
     assert run("execute", "--planned", "x").returncode == 2
     d = json.loads(run("execute", "--requirements", "2", "--criteria", "2", "--planned", "4", "--sessions", "2", "--json").stdout)
     assert d["ok"] and d["traceback"] == 8 and d["params"]["sessions"] == 2
+
+
+# ---------------------------------------------------------------- the second review (2026-09-06), one test each
+
+import hashlib  # noqa: E402
+
+SKILL = ROOT / ".claude" / "skills" / "ogc-glossary" / "SKILL.md"
+NUMBER_WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"]
+
+
+def _json(*cmd):
+    r = run(*cmd, "--json")
+    return r, json.loads(r.stdout)
+
+
+def test_r2_finding_01_query_file_that_is_a_directory_is_a_usage_error():
+    for f in ("@", "@.", f"@{ROOT}"):
+        r = run("sparql", f)
+        assert r.returncode == 2 and "query file is a directory" in r.stderr and "Traceback" not in r.stderr, f
+    r, d = _json("sparql", "@.")
+    assert r.returncode == 2 and d["error"] == "usage" and d["_ogc"]["command"] == "sparql" and r.stderr == ""
+
+
+def test_r2_finding_02_execute_is_capped():
+    r = run("execute", "--requirements", "20", "--criteria", "20", "--planned", "400")
+    assert r.returncode == 1 and "at most 100" in r.stdout and "VERDICT" not in r.stdout
+    r = run("execute", "--sessions", "21")
+    assert r.returncode == 1 and "at most 20" in r.stdout
+    assert run("execute", "--populations", "21").returncode == 1
+    r = run("execute", "--requirements", "5", "--criteria", "5", "--planned", "25", "--sessions", "5")  # 125 criterion-sessions of work
+    assert r.returncode == 1 and "times sessions must be at most 100" in r.stdout
+    r, d = _json("execute", "--sessions", "21")
+    assert r.returncode == 1 and d["_ogc"]["command"] == "execute" and "at most 20" in d["hint"]
+    help_ = run("execute", "--help").stdout
+    assert "requirements times criteria at most 100" in help_ and "sessions at most 20" in help_
+    assert "requirements times criteria at most 100" in SKILL.read_text()
+
+
+def test_r2_finding_03_query_naming_the_record_without_the_flag_is_refused_with_a_hint():
+    for q in ("DESCRIBE run:mission-1", "SELECT ?a WHERE { ?a a epo:Attestation }", "SELECT ?s WHERE { ?s rdf:type epo:Session }",
+              "SELECT ?e WHERE { ?e a epo:Evidence }", "ASK { <https://w3id.org/og-caie/run/measles#mission-1> ?p ?o }"):
+        r = run("sparql", q)
+        assert r.returncode == 1 and "add --record" in r.stderr and r.stdout == "", (q, r.stdout, r.stderr)
+        assert run("sparql", q, "--record").returncode == 0, q
+    assert run("sparql", "DESCRIBE epo:Attestation").returncode == 0  # the class itself lives in the vocabulary
+    assert run("sparql", "SELECT ?s WHERE { ?s a epo:EpoStep }").returncode == 0  # steps are instances in the vocabulary
+    r, d = _json("sparql", "DESCRIBE run:mission-1")
+    assert r.returncode == 1 and "add --record" in d["hint"] and d["_ogc"]["command"] == "sparql" and d["candidates"] == []
+
+
+def test_r2_finding_04_curie_and_iri_forms_resolve_to_the_local_name():
+    for cmd in (["record", "run:mission-1"], ["term", "term:probe"], ["define", "term:probe"], ["quote", "term:probe"], ["quote", "epo:scope"],
+                ["ruling", "rul:R-16"], ["concern", "rul:C-30"], ["sci", "tr:SCI-07"], ["source", "src:sevocab"], ["shape", "ogc:S0-Population"],
+                ["term", "https://w3id.org/og-caie/terms#probe"], ["ruling", "<https://w3id.org/og-caie/rulings#R-16>"],
+                ["record", "https://w3id.org/og-caie/run/measles#mission-1"], ["verify", "term:probe"], ["verify", "src:sevocab"],
+                ["rulings", "--term", "term:probe"], ["list", "--source", "src:sevocab"], ["check-word", "term:probe"]):
+        r = run(*cmd)
+        assert r.returncode == 0, (cmd, r.stdout, r.stderr)
+    assert run("term", "customer (ISO 9000:2026 3.9.1, of the evaluation)").returncode == 0  # a colon inside a label is not a prefix
+    assert run("term", "term:no-such-term").returncode == 1
+
+
+def test_r2_finding_05_candidates_on_a_miss_are_near_misses_never_the_whole_list():
+    r, d = _json("record", "statement-of-work-1")
+    assert r.returncode == 1 and "statement-of-work" in d["candidates"]
+    r, d = _json("record", "attestation")
+    assert d["candidates"][:2] == ["attestation-1", "attestation-2"]
+    r, d = _json("record", "atestation-1")
+    assert "attestation-1" in d["candidates"]
+    r, d = _json("shape", "nonexistent")
+    assert r.returncode == 1 and d["candidates"] == []
+    r, d = _json("shape", "S3-PlanAproval")
+    assert "S3-PlanApproval" in d["candidates"] and len(d["candidates"]) <= 8
+    n = len(_json("shapes")[1]["rows"])
+    r, d = _json("shape", "s")
+    assert 0 < len(d["candidates"]) <= 8 < n
+    r, d = _json("source", "sevocb")
+    assert d["candidates"] == ["sevocab"]
+
+
+def test_r2_finding_06_sparql_header_is_re_runnable():
+    q = '# the coined terms\nSELECT ?l WHERE {\n  ?t ogc:class "coined" ; skos:prefLabel ?l\n}'
+    r = run("sparql", q)
+    head = r.stdout.splitlines()[0]
+    assert r.returncode == 0 and "# the coined terms\\nSELECT" in head, head
+    m = re.fullmatch(r"# ogc sparql (.*) #sha256:([0-9a-f]{12}) @ \S+", head)
+    assert m and m.group(2) == hashlib.sha256(q.encode()).hexdigest()[:12]
+    again = run("sparql", m.group(1).replace("\\n", "\n"))
+    assert again.stdout.splitlines()[1:] == r.stdout.splitlines()[1:] and "(4 rows)" in again.stdout
+    assert json.loads(run("sparql", q, "--json").stdout)["_ogc"]["args"] == head[len("# ogc sparql "):].rsplit(" @ ", 1)[0]
+    f = ROOT / ".cache" / "r2-finding-06.rq"
+    f.parent.mkdir(exist_ok=True)
+    f.write_text(q)
+    try:
+        r = run("sparql", f"@{f}", "--record")
+        head = r.stdout.splitlines()[0]
+        assert head == f"# ogc sparql @{f} --record #sha256:{hashlib.sha256(q.encode()).hexdigest()[:12]} @ " + head.rsplit(" @ ", 1)[1]
+    finally:
+        f.unlink()
+
+
+def test_r2_finding_07_empty_ids_are_usage_errors_everywhere():
+    for cmd in ("term", "quote", "define", "find", "check-word", "record", "source", "ruling", "concern", "shape", "view", "sci", "verify"):
+        for empty in ("", "  "):
+            r = run(cmd, empty)
+            assert r.returncode == 2 and r.stdout == "" and r.stderr.startswith("ogc: "), (cmd, empty, r.stdout, r.stderr)
+            r, d = _json(cmd, empty)
+            assert r.returncode == 2 and d["error"] == "usage" and d["_ogc"]["command"] == cmd and d["candidates"] == [], (cmd, empty)
+
+
+def test_r2_finding_08_json_usage_errors_are_one_envelope_with_the_real_command():
+    cases = [(["term"], "term"), (["term", "probe", "extra"], "term"), (["execute", "--planned", "x"], "execute"), (["term", "probe", "--model"], "term"),
+             (["sparql", "@."], "sparql"), (["verify", "--all", "probe"], "verify"), (["bogus-command"], "ogc"), ([], "ogc")]
+    for cmd, name in cases:
+        r, d = _json(*cmd)
+        assert r.returncode == 2 and r.stderr == "", (cmd, r.stderr)
+        assert d["_ogc"]["command"] == name and d["_ogc"]["sha"] and d["error"] == "usage" and d["hint"] and d["candidates"] == [], (cmd, d)
+        assert set(d) == {"_ogc", "error", "hint", "candidates"}, cmd
+    r, d = _json("term", "no-such-term-xyz")
+    assert r.returncode == 1 and d["_ogc"]["command"] == "term" and d["_ogc"]["args"] == "no-such-term-xyz" and set(d) == {"_ogc", "error", "hint", "candidates"}
+
+
+def test_r2_finding_09_doctor_verdict_is_portable():
+    r = run("doctor")
+    last = r.stdout.rstrip().splitlines()[-1]
+    assert last == "VERDICT: PASS (ogc doctor)" and str(ROOT) not in r.stdout
+    r, d = _json("doctor")
+    assert "sha" not in d and d["_ogc"]["sha"] and d["verdict"] == last
+
+
+def test_r2_finding_10_execute_verdict_repeats_the_header_args():
+    r = run("execute", "--sessions", "2", "--planned", "3", "--mutate", "skip-access")
+    head, last = r.stdout.splitlines()[0], r.stdout.rstrip().splitlines()[-1]
+    argstr = re.fullmatch(r"# ogc execute (.*) @ \S+", head).group(1)
+    assert argstr == "--sessions 2 --planned 3 --mutate skip-access" and last == f"VERDICT: FAIL (ogc execute {argstr})"
+    assert run("execute").stdout.rstrip().splitlines()[-1] == "VERDICT: PASS (ogc execute)"
+
+
+def test_r2_finding_11_execute_json_carries_mutations_only():
+    r, d = _json("execute", "--mutate", "skip-access")
+    assert "mutation" not in d and d["mutations"] == ["skip-access"]
+
+
+def test_r2_finding_12_schema_and_shapes_count_the_same_files_and_doctor_parses_them_all():
+    n = len(_json("shapes")[1]["rows"])
+    assert _json("schema")[1]["counts"]["shapes"] == n and n > 45
+    r = run("doctor")
+    for f in ("shapes/glossary.shapes.ttl", "shapes/rulings.shapes.ttl", "track/measles-run.ttl", "model/og-caie.model.ttl"):
+        assert re.search(rf"^ok\s+{re.escape(f)} \(\d+ triples\)$", r.stdout, re.M), f
+
+
+def test_r2_finding_13_shape_prints_each_sparql_constraint_with_its_select_body():
+    r = run("shape", "S0-Layers")
+    assert re.search(r"^\s{4,}SELECT \$this", r.stdout, re.M) and "S0 two layers" in r.stdout
+    r, d = _json("shape", "S0-Layers")
+    assert d["sparql"] and all(set(c) == {"message", "select"} and "SELECT" in c["select"] and c["message"] for c in d["sparql"])
+    assert d["message"] is None and d["closed"] is None
+
+
+def test_r2_finding_14_citation_is_the_kind_everywhere():
+    r, d = _json("quote", "probe")
+    assert d["quotes"] and all("holder" not in q and q["citation"] in ("canonical", "seeAlso") for q in d["quotes"])
+    r, d = _json("quote", "scope")
+    assert d["quotes"] and all("holder" not in q and q["citation"] in ("canonical", "seeAlso") for q in d["quotes"])
+    r, d = _json("source", "scipy-2026-bof")
+    assert d["citations"] and all("holder" not in c and c["citation"] in ("canonical", "seeAlso", "crosswalk") for c in d["citations"])
+    assert "[crosswalk]" in run("source", "scipy-2026-bof").stdout and "[canonical]" in run("source", "sevocab").stdout
+    rows = _json("verify", "--all")[1]["rows"]
+    assert {x["citation"] for x in rows} == {"canonical", "seeAlso", "crosswalk"}
+
+
+def test_r2_finding_15_record_item_json_keys_and_nulls():
+    r, d = _json("record", "mission-1")
+    assert {"triples", "referenced_by"} <= set(d) and "out" not in d and "in" not in d and d["who"] and d["when"]
+    assert any(t["predicate"] == "epo:regards" for t in d["triples"]) and any(t["predicate"] == "epo:underMission" for t in d["referenced_by"])
+    assert _json("record", "turn-1")[1]["who"] is None and _json("record", "annie")[1]["when"] is None
+    rows = _json("record")[1]["rows"]
+    assert not any(x["who"] == [] or x["when"] == "" for x in rows) and any(x["who"] is None for x in rows)
+    assert "None" not in run("record").stdout and "None" not in run("record", "annie").stdout
+
+
+def test_r2_finding_16_model_and_record_flags_only_where_they_matter():
+    for cmd in (["term", "probe", "--model"], ["--record", "term", "probe"], ["list", "--record"], ["schema", "--model"], ["doctor", "--model"], ["shapes", "--record"]):
+        r = run(*cmd)
+        assert r.returncode == 2 and "--model and --record" in r.stderr and "sparql, record, execute, view and views" in r.stderr, (cmd, r.stderr)
+    for cmd in (["--model", "sparql", "ASK { ?s ?p ?o }"], ["record", "--record"], ["execute", "--model"], ["view", "nesting", "--model"], ["views", "--record"], ["sparql", "ASK { ?s ?p ?o }", "--record"]):
+        assert run(*cmd).returncode == 0, cmd
+    r, d = _json("term", "probe", "--record")
+    assert r.returncode == 2 and d["_ogc"]["command"] == "term"
+
+
+def test_r2_finding_17_contradictory_filters_are_usage_errors():
+    for cmd in (["crosswalk", "--popper", "--class", "refined"], ["crosswalk", "--popper", "--source", "sevocab"], ["concerns", "--open", "--status", "ruled"], ["sources", "--uncited", "--rank", "1"]):
+        r = run(*cmd)
+        assert r.returncode == 2 and "these filters exclude each other" in r.stderr, (cmd, r.stderr)
+    r = run("rulings", "--term", "probe", "--grep", "zzzz")
+    assert r.returncode == 0 and "(none)" in r.stdout
+    assert run("concerns", "--open", "--status", "open").returncode == 0 and run("sources", "--uncited", "--rank", "4").returncode == 0
+
+
+def test_r2_finding_18_the_popper_row_count_is_stated_correctly():
+    n = len(_json("crosswalk", "--popper")[1]["rows"])
+    assert f"the {NUMBER_WORDS[n]} Popper rows" in run("crosswalk", "--help").stdout
+    skill = SKILL.read_text()
+    assert f"{NUMBER_WORDS[n]} Popperian elements" in skill and "six Popper" not in skill
+
+
+def test_r2_finding_19_id_hints_give_examples_of_the_right_kind():
+    r = run("concern", "C-999").stdout
+    assert "C-24" in r and "c-024" in r and "R-16" not in r and "r-016" not in r
+    r = run("sci", "SCI-99").stdout
+    assert "SCI-07" in r and "sci-007" in r and "R-16" not in r
+    r = run("ruling", "R-999").stdout
+    assert "R-16" in r and "C-24" not in r
+
+
+def test_r2_finding_21_coined_terms_say_coined_by():
+    r = run("term", "DSO").stdout
+    assert "coined by:" in r and not re.search(r"^canonical:\s*$", r, re.M)
+    r = run("define", "DSO").stdout
+    assert "coined by:" in r and "canonical: ," not in r
+    r = run("check-word", "OG-CAIE").stdout
+    assert "coined by:" in r and not re.search(r"canonical:\s*$", r, re.M)
+    assert "(coined)" in run("list", "--class", "coined").stdout and "(coined)" in run("crosswalk", "--class", "coined").stdout
+    assert all(x["source"] == "(coined)" for x in _json("list", "--class", "coined")[1]["rows"])
+    assert not any(x["source"] == "(coined)" for x in _json("list", "--class", "adopted")[1]["rows"])
+
+
+def test_r2_finding_22_crosswalk_citations_are_listed_by_verify_all_with_state_authors():
+    r, d = _json("verify", "--all")
+    rows = [x for x in d["rows"] if x["citation"] == "crosswalk"]
+    n = len(_json("crosswalk", "--popper")[1]["rows"])
+    assert len(rows) == n and {x["state"] for x in rows} == {"authors"} and {x["status"] for x in rows} == {"authors"} and d["summary"]["states"]["authors"] == n
+    assert len(_json("verify", "--all", "--state", "authors")[1]["rows"]) == n and len(_json("verify", "--all", "--status", "authors")[1]["rows"]) == n
+    r, d = _json("verify", "--all", "--status", "pending")
+    assert r.returncode == 0 and d["rows"] == [] and d["summary"]["citations"] == 0
+    assert run("verify", "--all", "--status", "pending").stdout.rstrip().endswith("(0 citations)")
+    assert run("verify", "--all", "--state", "bogus").returncode == 1 and run("verify", "--all", "--status", "bogus").returncode == 1
+    assert run("verify", "probe", "--status", "machine").returncode == 0
+    skill = SKILL.read_text()
+    assert "authors" in skill and "--status pending" in skill
+
+
+def test_r2_finding_23_json_without_a_subcommand_is_a_json_usage_error():
+    r, d = _json()
+    assert r.returncode == 2 and r.stderr == "" and d["error"] == "usage" and d["_ogc"]["command"] == "ogc" and d["hint"]
+    r = run()
+    assert r.returncode == 2 and "usage" in r.stderr and r.stdout == ""
+
+
+def test_r2_skill_carries_the_new_recipes_and_keeps_the_file_names_out_of_the_triggers():
+    skill = SKILL.read_text()
+    front, body = skill.split("\n---\n", 1)
+    assert ".ttl" not in front
+    assert "Never open these; they are what ogc reads" in body
+    for needle in ("verify --all --status pending", "sysml:declaredName", "sysml:owner", "sysml:specializes", "elmt:", "no `rdfs:label`", "run:", "\\n"):
+        assert needle in body, needle

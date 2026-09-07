@@ -16,6 +16,8 @@ def clip(s: str, n: int = CLIP) -> str:
 
 
 def cell(v) -> str:
+    if v is None:
+        return ""
     s = ", ".join(str(x) for x in v) if isinstance(v, (list, tuple)) else str(v)
     lines = s.splitlines()
     if len(lines) > 1:
@@ -59,10 +61,10 @@ def term(t: dict, meta: dict | None = None) -> list[str]:
     L += ["", f"class: {t['class']}" + (f" ({t['anchor_relation']})" if t["anchor_relation"] else "")]
     if t["alts"]:
         L.append("also: " + "; ".join(t["alts"]))
-    L.append("canonical:")
     if t.get("coined_by"):
         L.append(f"coined by: {t['coined_by']}")
     else:
+        L.append("canonical:")
         L += cite_lines(t["canonical"], "  ")
     if t["see_also"]:
         L.append("see also:")
@@ -97,7 +99,7 @@ def check_word(r: dict) -> list[str]:
         L = [f"{r['word']}: not registered"]
     else:
         L = [f"{r['word']}: registered as {r['matched_as']} label '{r['label']}' of '{r['term']}' ({r['local']}); class {r['class']}",
-             f"  sense: {r['sense']}", f"  canonical: {r['canonical']}"]
+             f"  sense: {r['sense']}", f"  coined by: {r['coined_by']}" if r.get("coined_by") else f"  canonical: {r['canonical']}"]
         for a in r["also"]:
             L.append(f"  also: {a['term']} ({a['local']}) via {a['matched_as']} label '{a['label']}'")
     for q in r.get("quote_hits", []):

@@ -68,14 +68,31 @@ def params_dict(p: Params) -> dict:
     return {k: getattr(p, f) for k, f in PARAM_NAMES.items()}
 
 
+CAP_CRITERIA = 100   # requirements times criteria
+CAP_SESSIONS = 20
+CAP_WORK = 100       # requirements times criteria times sessions: every criterion is probed in every session, and the checks are quadratic in that work (100 runs in about a minute)
+CAP_POPULATIONS = 20
+CAP_NOTE = (f"capped: requirements times criteria at most {CAP_CRITERIA}, sessions at most {CAP_SESSIONS}, requirements times criteria times sessions at most {CAP_WORK}, "
+            f"populations at most {CAP_POPULATIONS} (every criterion is probed in every session and the checks are quadratic in that work; over a cap, exit 1 with the reason and no run)")
+
+
 def validate(p: Params) -> str | None:
     """The reason a Params cannot be run, or None: every count a positive
-    integer, and the planned criteria at most the criteria that exist."""
+    integer, the planned criteria at most the criteria that exist, and the
+    caps held (requirements times criteria, sessions, populations)."""
     for k, f in PARAM_NAMES.items():
         v = getattr(p, f)
         if not isinstance(v, int) or isinstance(v, bool) or v < 1:
             return f"{k} must be a positive integer (got {v!r})"
     total = p.requirements * p.criteria_per_requirement
+    if total > CAP_CRITERIA:
+        return f"requirements times criteria must be at most {CAP_CRITERIA} ({p.requirements} x {p.criteria_per_requirement} = {total}): the checks are quadratic in the criteria"
+    if p.sessions > CAP_SESSIONS:
+        return f"sessions must be at most {CAP_SESSIONS} (got {p.sessions}): the checks are quadratic in the sessions"
+    if total * p.sessions > CAP_WORK:
+        return f"requirements times criteria times sessions must be at most {CAP_WORK} ({p.requirements} x {p.criteria_per_requirement} x {p.sessions} = {total * p.sessions}): every criterion is probed in every session and the checks are quadratic in that work"
+    if p.populations > CAP_POPULATIONS:
+        return f"populations must be at most {CAP_POPULATIONS} (got {p.populations})"
     if p.planned > total:
         return f"planned must be at most requirements times criteria ({p.requirements} x {p.criteria_per_requirement} = {total}; got planned {p.planned})"
     return None
