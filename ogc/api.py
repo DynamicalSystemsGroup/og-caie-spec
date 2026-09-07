@@ -10,7 +10,7 @@ from pathlib import Path
 
 from rdflib import RDF, RDFS, BNode, Graph, URIRef
 
-from .graph import EARL, EPO, OGC, PROV, RUL, RUN, SH, SKOS, SRC, TERM, PREFIXES
+from .graph import EPO, EARL, EPO, OGC, PROV, RUL, RUN, SH, SKOS, SRC, TERM, PREFIXES
 
 RETIRED = {"adequacy": "ruling R-08: say appropriateness (of the context) or sufficiency (of the evidence)",
            "adequate": "ruling R-08: say appropriate or sufficient",
@@ -70,7 +70,7 @@ def term_record(g: Graph, s) -> dict:
     canon = g.value(s, OGC.canonical)
     return dict(iri=str(s), local=local(s), pref=one(g, s, SKOS.prefLabel), definition=norm(one(g, s, SKOS.definition)),
                 alts=many(g, s, SKOS.altLabel), **{"class": one(g, s, OGC["class"])}, anchor_relation=one(g, s, OGC.anchorRelation),
-                canonical=citation_record(g, canon) if canon is not None else {}, see_also=sorted((citation_record(g, c) for c in g.objects(s, OGC.seeAlso)), key=lambda d: (d["source"], d["locator"])),
+                canonical=citation_record(g, canon) if canon is not None else {}, coined_by=one(g, s, OGC.coinedBy), see_also=sorted((citation_record(g, c) for c in g.objects(s, OGC.seeAlso)), key=lambda d: (d["source"], d["locator"])),
                 scope_note=norm(one(g, s, OGC.scopeNote)), binding=one(g, s, OGC.binding), rulings=rulings, concerns=concerns, sci=sci, crosswalk=xw)
 
 
@@ -184,12 +184,15 @@ def source_record(g: Graph, slug: str) -> dict | None:
 
 def sources_table(g: Graph, rank=None, posture=None, uncited=False) -> list[dict]:
     counts = Counter()
-    for t in concepts(g):
+    holders = set(concepts(g)) | set(g.subjects(RDF.type, EPO.EpoStep)) | set(g.subjects(RDF.type, EPO.ContractingStep)) | {EPO.ContractingStep}
+    for t in holders:
         for c in [g.value(t, OGC.canonical), *g.objects(t, OGC.seeAlso)]:
             if c is not None:
                 counts[g.value(c, OGC.cites)] += 1
     for x in g.subjects(RDF.type, OGC.Crosswalk):
         counts[g.value(x, OGC.cites)] += 1
+        for a in g.objects(x, OGC.also):
+            counts[a] += 1
     rows = []
     for s in sorted(g.subjects(RDF.type, OGC.Source), key=str):
         r, p = one(g, s, OGC.rank), one(g, s, OGC.posture)

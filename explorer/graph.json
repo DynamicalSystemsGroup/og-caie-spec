@@ -112,41 +112,6 @@
     ]
    ]
   },
-  "cite:acceptDelivery:seeAlso:sevocab:delivery-p-120-iso-iec-ieee-24765-2017": {
-   "in": [],
-   "out": [
-    [
-     "ogc:cites",
-     {
-      "ref": "https://w3id.org/og-caie/sources#sevocab"
-     }
-    ],
-    [
-     "ogc:locator",
-     {
-      "text": "delivery, p. 120 (ISO/IEC/IEEE 24765:2017)"
-     }
-    ],
-    [
-     "ogc:pdfPage",
-     {
-      "text": "120"
-     }
-    ],
-    [
-     "ogc:quote",
-     {
-      "text": "release of a system or component to its customer or intended user"
-     }
-    ],
-    [
-     "ogc:quoteStatus",
-     {
-      "text": "machine"
-     }
-    ]
-   ]
-  },
   "cite:acceptance-criteria:canonical:sevocab:acceptance-criteria-p-4": {
    "in": [],
    "out": [
@@ -317,7 +282,7 @@
     [
      "ogc:quote",
      {
-      "text": "environment containing facilities, hardware, software, firmware, and procedures"
+      "text": "environment containing facilities, hardware, software, firmware, and procedures needed to conduct a test"
      }
     ],
     [
@@ -691,7 +656,7 @@
     ]
    ]
   },
-  "cite:authoritative-reference:canonical:hogan-2021:section-1-p-2-arxiv-v3": {
+  "cite:authoritative-reference:canonical:hogan-2021:section-1-p-2-arxiv-v3-fragment-of-the-entry": {
    "in": [],
    "out": [
     [
@@ -703,7 +668,7 @@
     [
      "ogc:locator",
      {
-      "text": "Section 1, p. 2 (arXiv v3)"
+      "text": "Section 1, p. 2 (arXiv v3) (fragment of the entry)"
      }
     ],
     [
@@ -1165,7 +1130,7 @@
     ]
    ]
   },
-  "cite:deployment-sensitivity:canonical:sevocab:risk-based-testing-p-362": {
+  "cite:deliver:seeAlso:sevocab:delivery-p-120-iso-iec-ieee-24765-2017": {
    "in": [],
    "out": [
     [
@@ -1177,7 +1142,42 @@
     [
      "ogc:locator",
      {
-      "text": "risk-based testing, p. 362"
+      "text": "delivery, p. 120 (ISO/IEC/IEEE 24765:2017)"
+     }
+    ],
+    [
+     "ogc:pdfPage",
+     {
+      "text": "120"
+     }
+    ],
+    [
+     "ogc:quote",
+     {
+      "text": "release of a system or component to its customer or intended user"
+     }
+    ],
+    [
+     "ogc:quoteStatus",
+     {
+      "text": "machine"
+     }
+    ]
+   ]
+  },
+  "cite:deployment-sensitivity:canonical:sevocab:risk-based-testing-p-362-fragment-of-the-entry": {
+   "in": [],
+   "out": [
+    [
+     "ogc:cites",
+     {
+      "ref": "https://w3id.org/og-caie/sources#sevocab"
+     }
+    ],
+    [
+     "ogc:locator",
+     {
+      "text": "risk-based testing, p. 362 (fragment of the entry)"
      }
     ],
     [
@@ -1342,6 +1342,47 @@
      "ogc:quote",
      {
       "text": "consideration of the suitability, adequacy and effectiveness of selection and determination activities, and the results of these activities, with regard to fulfilment of specified requirements by an object of conformity assessment"
+     }
+    ],
+    [
+     "ogc:quoteStatus",
+     {
+      "text": "human"
+     }
+    ],
+    [
+     "ogc:verifiedBy",
+     {
+      "text": "rul:Z"
+     }
+    ],
+    [
+     "ogc:verifiedOn",
+     {
+      "text": "2026-09-06 (date)"
+     }
+    ]
+   ]
+  },
+  "cite:determineAndAttest:seeAlso:iso-iec-17000-2020:7-3-attestation": {
+   "in": [],
+   "out": [
+    [
+     "ogc:cites",
+     {
+      "ref": "https://w3id.org/og-caie/sources#iso-iec-17000-2020"
+     }
+    ],
+    [
+     "ogc:locator",
+     {
+      "text": "7.3 attestation"
+     }
+    ],
+    [
+     "ogc:quote",
+     {
+      "text": "issue of a statement, based on a decision, that fulfilment of specified requirements has been demonstrated"
      }
     ],
     [
@@ -2070,7 +2111,7 @@
     ]
    ]
   },
-  "cite:knowledge-graph:canonical:hogan-2021:section-1-p-2-arxiv-v3-fragment-of-the-entry": {
+  "cite:knowledge-graph:canonical:hogan-2021:section-1-p-2-arxiv-v3": {
    "in": [],
    "out": [
     [
@@ -2082,7 +2123,7 @@
     [
      "ogc:locator",
      {
-      "text": "Section 1, p. 2 (arXiv v3) (fragment of the entry)"
+      "text": "Section 1, p. 2 (arXiv v3)"
      }
     ],
     [
@@ -2936,7 +2977,7 @@
     ]
    ]
   },
-  "cite:probe:canonical:sevocab:test-case-p-432": {
+  "cite:probe:canonical:sevocab:test-case-p-432-fragment-of-the-entry": {
    "in": [],
    "out": [
     [
@@ -2948,7 +2989,7 @@
     [
      "ogc:locator",
      {
-      "text": "test case, p. 432"
+      "text": "test case, p. 432 (fragment of the entry)"
      }
     ],
     [
@@ -3047,7 +3088,7 @@
     ]
    ]
   },
-  "cite:propose:seeAlso:sevocab:proposal-p-329-iso-iec-ieee-24765c-2014": {
+  "cite:propose:seeAlso:sevocab:proposal-p-329-iso-iec-ieee-24765-2014-sevocab-tag-24765c": {
    "in": [],
    "out": [
     [
@@ -3059,7 +3100,7 @@
     [
      "ogc:locator",
      {
-      "text": "proposal, p. 329 (ISO/IEC/IEEE 24765c:2014)"
+      "text": "proposal, p. 329 (ISO/IEC/IEEE 24765:2014, SEVOCAB tag 24765c)"
      }
     ],
     [
@@ -3655,7 +3696,7 @@
     ]
    ]
   },
-  "cite:risk-based-testing:canonical:sevocab:risk-based-testing-p-362-fragment-of-the-entry": {
+  "cite:risk-based-testing:canonical:sevocab:risk-based-testing-p-362": {
    "in": [],
    "out": [
     [
@@ -3667,7 +3708,7 @@
     [
      "ogc:locator",
      {
-      "text": "risk-based testing, p. 362 (fragment of the entry)"
+      "text": "risk-based testing, p. 362"
      }
     ],
     [
@@ -4157,7 +4198,7 @@
     ]
    ]
   },
-  "cite:test-case:canonical:sevocab:test-case-p-432-fragment-of-the-entry": {
+  "cite:test-case:canonical:sevocab:test-case-p-432": {
    "in": [],
    "out": [
     [
@@ -4169,7 +4210,7 @@
     [
      "ogc:locator",
      {
-      "text": "test case, p. 432 (fragment of the entry)"
+      "text": "test case, p. 432"
      }
     ],
     [
@@ -6692,7 +6733,7 @@
     [
      "ogc:quoteStatus",
      {
-      "text": "machine"
+      "text": "authors"
      }
     ],
     [
@@ -6835,7 +6876,7 @@
     [
      "ogc:quoteStatus",
      {
-      "text": "machine"
+      "text": "authors"
      }
     ],
     [
@@ -6942,7 +6983,7 @@
     [
      "ogc:quoteStatus",
      {
-      "text": "machine"
+      "text": "authors"
      }
     ],
     [
@@ -7037,7 +7078,7 @@
     [
      "ogc:quoteStatus",
      {
-      "text": "machine"
+      "text": "authors"
      }
     ],
     [
@@ -7144,7 +7185,7 @@
     [
      "ogc:quoteStatus",
      {
-      "text": "machine"
+      "text": "authors"
      }
     ],
     [
@@ -7251,7 +7292,7 @@
     [
      "ogc:quoteStatus",
      {
-      "text": "machine"
+      "text": "authors"
      }
     ],
     [
@@ -7358,7 +7399,7 @@
     [
      "ogc:quoteStatus",
      {
-      "text": "machine"
+      "text": "authors"
      }
     ],
     [
@@ -8989,12 +9030,6 @@
      }
     ],
     [
-     "ogc:seeAlso",
-     {
-      "ref": "cite:acceptDelivery:seeAlso:sevocab:delivery-p-120-iso-iec-ieee-24765-2017"
-     }
-    ],
-    [
      "rdf:type",
      {
       "text": "epo:ContractingStep"
@@ -9224,6 +9259,12 @@
      }
     ],
     [
+     "ogc:seeAlso",
+     {
+      "ref": "cite:deliver:seeAlso:sevocab:delivery-p-120-iso-iec-ieee-24765-2017"
+     }
+    ],
+    [
      "rdf:type",
      {
       "text": "epo:ContractingStep"
@@ -9257,6 +9298,12 @@
      "ogc:seeAlso",
      {
       "ref": "cite:determineAndAttest:seeAlso:iso-iec-17000-2020:7-1-review"
+     }
+    ],
+    [
+     "ogc:seeAlso",
+     {
+      "ref": "cite:determineAndAttest:seeAlso:iso-iec-17000-2020:7-3-attestation"
      }
     ],
     [
@@ -9473,7 +9520,7 @@
     [
      "ogc:seeAlso",
      {
-      "ref": "cite:propose:seeAlso:sevocab:proposal-p-329-iso-iec-ieee-24765c-2014"
+      "ref": "cite:propose:seeAlso:sevocab:proposal-p-329-iso-iec-ieee-24765-2014-sevocab-tag-24765c"
      }
     ],
     [
@@ -9678,7 +9725,7 @@
     [
      "ogc:surfacedHow",
      {
-      "text": "term contract v5 review against SEVOCAB"
+      "text": "the authors' term contract draft review against SEVOCAB"
      }
     ],
     [
@@ -9737,7 +9784,7 @@
     [
      "ogc:surfacedHow",
      {
-      "text": "term contract v5 review against ISO 9000:2026 and SEVOCAB"
+      "text": "the authors' term contract draft review against ISO 9000:2026 and SEVOCAB"
      }
     ],
     [
@@ -9849,7 +9896,7 @@
     [
      "ogc:surfacedHow",
      {
-      "text": "coinage audit of term contract v5"
+      "text": "coinage audit of the authors' term contract draft"
      }
     ],
     [
@@ -10002,7 +10049,7 @@
     [
      "ogc:problem",
      {
-      "text": "The paper draft and term contract v5 label the attestation's context judgment \"adequacy\". The primary source for the pairing (Hawkins, Kelly, Knight and Graydon 2011, assurance claim points) uses \"appropriateness\" for asserted context and \"sufficiency\" for asserted solution; ISA 500 uses appropriateness (quality) and sufficiency (quantity). \"Adequacy\" also collides with ISO 9000:2026 3.11.2 review."
+      "text": "The paper draft and the authors' term contract draft label the attestation's context judgment \"adequacy\". The primary source for the pairing (Hawkins, Kelly, Knight and Graydon 2011, assurance claim points) uses \"appropriateness\" for asserted context and \"sufficiency\" for asserted solution; ISA 500 uses appropriateness (quality) and sufficiency (quantity). \"Adequacy\" also collides with ISO 9000:2026 3.11.2 review."
      }
     ],
     [
@@ -10091,7 +10138,7 @@
     [
      "ogc:surfacedHow",
      {
-      "text": "coinage audit of term contract v5 during planning"
+      "text": "coinage audit of the authors' term contract draft during planning"
      }
     ],
     [
@@ -13033,7 +13080,7 @@
     [
      "ogc:changeNote",
      {
-      "text": "Every artifact uses appropriateness (of the declared context) and sufficiency (of the evidence); citations to Hawkins et al. 2011 3.2/3.3 with ISA 500 5(b)/5(f)/A8 as seeAlso; paper and term contract v5 asked to align."
+      "text": "Every artifact uses appropriateness (of the declared context) and sufficiency (of the evidence); citations to Hawkins et al. 2011 3.2/3.3 with ISA 500 5(b)/5(f)/A8 as seeAlso; paper and the authors' term contract draft asked to align."
      }
     ],
     [
@@ -13086,7 +13133,7 @@
     [
      "ogc:changeNote",
      {
-      "text": "Coinage is exactly three: Domain-Specific Ontology, Evaluation Process Ontology, OG-CAIE (the method name). Probe and deployment sensitivity are refined terms (R-05); operational envelope is a house label (R-03). Julie Hollek and Z agreed the DSO and EPO expansions in the paper comments (Mala Kumar's note, 2026-09-05)."
+      "text": "Coinage is exactly three: Domain-Specific Ontology, Evaluation Process Ontology, OG-CAIE (the method name). Probe and deployment sensitivity are refined terms (R-05); operational envelope is a house label (R-03). Julie Hollek and Z agreed the DSO and EPO expansions in the paper comments (a co-author's note, 2026-09-05)."
      }
     ],
     [
@@ -13192,7 +13239,7 @@
     [
      "ogc:changeNote",
      {
-      "text": "No assessor-of-assessors parts or shapes. The front page closes with a call to action: use OG-CAIE, or have an AI evaluation practice audited against this specification."
+      "text": "No assessor-of-assessors parts or shapes. The conclusion closes with a call to action: use OG-CAIE, or have an AI evaluation practice audited against this specification."
      }
     ],
     [
@@ -13722,7 +13769,7 @@
     [
      "ogc:changeNote",
      {
-      "text": "Parties become part defs: SponsorOrganization (ISO 9000:2026 customer), TestingOrganization (provider), AccountableOrganization (ISO/IEC 17000 first party), AffectedPopulation with multiplicity 0..*, EvaluationTeam (refined from audit team). A service agreement (ISO 9000:2026 contract) between sponsor and testing organization precedes the requirement set. Populations are interviewed (a StakeholderInput) or represented by a domain expert, and the record says which. The EPO becomes seven steps: agree, scope, declare requirements, plan, execute, determine and attest, report. Glossary: organization, customer, provider, first-, second- and third-party conformity assessment activity, contract, evaluation team added (this slice); model, shapes and record follow in the next slices."
+      "text": "Parties become part defs: SponsorOrganization (ISO 9000:2026 customer), TestingOrganization (provider), AccountableOrganization (ISO/IEC 17000 first party), AffectedPopulation with multiplicity 0..*, EvaluationTeam (refined from audit team). A service agreement (ISO 9000:2026 contract) between sponsor and testing organization precedes the requirement set. Populations are interviewed (a StakeholderInput) or represented by a domain expert, and the record says which. The EPO becomes seven steps (superseded by R-32: six evaluation steps nested in seven contracting steps): agree, scope, declare requirements, plan, execute, determine and attest, report. Glossary: organization, customer, provider, first-, second- and third-party conformity assessment activity, contract, evaluation team added (this slice); model, shapes and record follow in the next slices."
      }
     ],
     [
@@ -13775,7 +13822,7 @@
     [
      "ogc:changeNote",
      {
-      "text": "Four messages joined with a slash. The bracketed clause is the option Z selected when the first message was cut off. SysML holds structure only: part defs, port defs, interface defs, the action def and the assembly; requirement defs and -satisfy leave the model. The pruned RDF rendering of the model (model/og-caie.model.ttl, committed, byte-identical in the gate) is the canonical structure and the SysML source is the authoring view. Wiring rules are SHACL shapes over the model graph; value and provenance rules stay SHACL shapes over the record. Parsimony follows the authors' earlier lifecycle model builds: a term map of the OMG terms kept, a manifest, and a triple budget with a rationale."
+      "text": "SysML holds structure only: part defs, port defs, interface defs, the action def and the assembly; requirement defs and -satisfy leave the model. The pruned RDF rendering of the model (model/og-caie.model.ttl, committed, byte-identical in the gate) is the canonical structure and the SysML source is the authoring view. Wiring rules are SHACL shapes over the model graph; value and provenance rules stay SHACL shapes over the record. Parsimony follows the authors' earlier lifecycle model builds: a term map of the OMG terms kept, a manifest, and a triple budget with a rationale."
      }
     ],
     [
@@ -13828,7 +13875,7 @@
     [
      "ogc:changeNote",
      {
-      "text": "Three messages joined with slashes. Three abstract actor categories, each a distinct part def and EPO slot, all held by the testing organization (accountExecutive[1]; team.domainExpert[1..*]; team.operator[1..*]; shape M5-Cardinality): DomainExpert, EvaluationOperator (headword evaluation operator, refined from the SEVOCAB operator; AI evaluation expert becomes its altLabel) and AccountExecutive (signatory and legal representative of the testing organization; no evidence, determination or attestation port). The worked example names Mala (account executive), Annie (domain expert) and Theo (evaluation operator); the record and the record page state that the case is synthetic, that the names recognise the roles of real people, and that no attestation in the record was made by them."
+      "text": "Three abstract actor categories, each a distinct part def and EPO slot, all held by the testing organization (accountExecutive[1]; team.domainExpert[1..*]; team.operator[1..*]; shape M5-Cardinality): DomainExpert, EvaluationOperator (headword evaluation operator, refined from the SEVOCAB operator; AI evaluation expert becomes its altLabel) and AccountExecutive (signatory and legal representative of the testing organization; no evidence, determination or attestation port). The worked example names Mala (account executive), Annie (domain expert) and Theo (evaluation operator); the record and the record page state that the case is synthetic, that the names recognise the roles of real people, and that no attestation in the record was made by them."
      }
     ],
     [
@@ -13987,7 +14034,7 @@
     [
      "ogc:changeNote",
      {
-      "text": "Four messages joined with slashes. Shapes M2-Wire (per wire: from an output port on a part to an input port on a part, one item kind, ends typed by the seam) and M2-Part (per kind of part: every input present on exactly one wire, every output going somewhere) replace the port-targeted shape; M4-ProcessDag checks the succession graph has no cycle (loops stay admissible by ruling if the end state needs them; none does). queries/wiring.rq explains every port locally and renders as a table on the assemblage page. SCI-11 restated."
+      "text": "Shapes M2-Wire (per wire: from an output port on a part to an input port on a part, one item kind, ends typed by the seam) and M2-Part (per kind of part: every input present on exactly one wire, every output going somewhere) replace the port-targeted shape; M4-ProcessDag checks the succession graph has no cycle (loops stay admissible by ruling if the end state needs them; none does). queries/wiring.rq explains every port locally and renders as a table on the assemblage page. SCI-11 restated."
      }
     ],
     [
@@ -14146,7 +14193,7 @@
     [
      "ogc:changeNote",
      {
-      "text": "Four messages joined with slashes. Slice A of the site restructuring, one chapter at a time, working forward. Coinage becomes exactly four: Contextual AI Evaluation (CAIE) added as a coined term, OG-CAIE redefined as CAIE performed with the EPO and DSO method, DSO and EPO unchanged. The front page runs from why this counts as science to the bridge into the engineering standards and ends at the forward Popper crosswalk (vocabulary/crosswalk.ttl, six rows citing the BoF deck, rendered to generated/popper.md); the conclusion page reads the crosswalk backwards and states that the essentials, shapes and record encode exactly what qualifies as scientific; a test confines the Popperian words to those two pages. The glossary page carries the site map, the discipline, and a hover glossary of exactly the terms the prose references ({term} roles rendered to a {glossary} directive by scripts/render.py); the full table is generated for the paper only. Deferred to later slices, each scoped when reached: the contracting chapter, the evaluation chapter (absorbing the assemblage and record pages), the ogc navigation CLI ported from the authors' earlier glossary work; C-30 stays open."
+      "text": "Slice A of the site restructuring, one chapter at a time, working forward. Coinage becomes exactly four: Contextual AI Evaluation (CAIE) added as a coined term, OG-CAIE redefined as CAIE performed with the EPO and DSO method, DSO and EPO unchanged. The front page runs from why this counts as science to the bridge into the engineering standards and ends at the forward Popper crosswalk (vocabulary/crosswalk.ttl, six rows citing the BoF deck, rendered to generated/popper.md); the conclusion page reads the crosswalk backwards and states that the essentials, shapes and record encode exactly what qualifies as scientific; a test confines the Popperian words to those two pages. The glossary page carries the site map, the discipline, and a hover glossary of exactly the terms the prose references ({term} roles rendered to a {glossary} directive by scripts/render.py); the full table is generated for the paper only. Deferred to later slices, each scoped when reached: the contracting chapter, the evaluation chapter (absorbing the assemblage and record pages), the ogc navigation CLI ported from the authors' earlier glossary work; C-30 stays open."
      }
     ],
     [
@@ -14305,7 +14352,7 @@
     [
      "ogc:changeNote",
      {
-      "text": "Three messages joined with slashes. The contracting lifecycle is now explicit: six steps C1 need, C2 propose, C3 agree, C4 access, C5 deliver, C6 acceptDelivery (epo:ContractingStep; accept is a SysML keyword), each citing the canon step it matches: SEBoK's business or mission analysis (p. 543), supplier and acquisition process (pp. 352, 353); ISO/IEC 17000 access (4.10), scheme (4.9) and acceptance (9.6); ISO 9000:2026 contract (3.3.13) and requirement (3.5.1); SEVOCAB test environment (29119-2 3.34), test completion report (3.26) and acceptance (24748-5). The evaluation keeps six steps, scope to report; agree left it. New item kinds Need, Proposal, Acceptance. Every item class declares ogc:pinnedAt epo:contract or epo:evaluation; shape S0-Layers checks that the first layer is closed before the second opens; S0-Need, S0-Proposal and S9-Acceptance check the new items; the record's measles run carries a need, a proposal and an acceptance. The Popper crosswalk's auxiliary-assumption row splits into the two layers; SCI-13 states the separation. The model follows in the same slice: a ContractingProcess action def wrapping the EvaluationProcess."
+      "text": "The contracting lifecycle is now explicit: six steps C1 need, C2 propose, C3 agree, C4 access, C5 deliver, C6 acceptDelivery (epo:ContractingStep; accept is a SysML keyword), each citing the canon step it matches: SEBoK's business or mission analysis (p. 543), supplier and acquisition process (pp. 352, 353); ISO/IEC 17000 access (4.10), scheme (4.9) and acceptance (9.6); ISO 9000:2026 contract (3.3.13) and requirement (3.5.1); SEVOCAB test environment (29119-2 3.34), test completion report (3.26) and acceptance (24748-5). The evaluation keeps six steps, scope to report; agree left it. New item kinds Need, Proposal, Acceptance. Every item class declares ogc:pinnedAt epo:contract or epo:evaluation; shape S0-Layers checks that the first layer is closed before the second opens; S0-Need, S0-Proposal and S9-Acceptance check the new items; the record's measles run carries a need, a proposal and an acceptance. The Popper crosswalk's auxiliary-assumption row splits into the two layers; SCI-13 states the separation. The model follows in the same slice: a ContractingProcess action def wrapping the EvaluationProcess."
      }
     ],
     [
@@ -14411,7 +14458,7 @@
     [
      "ogc:changeNote",
      {
-      "text": "Three messages joined with slashes. The plan of record (2026-09-06) states what the representation must hold and prove and what each of eight pages shows and is rendered from: Why this counts as science, The vocabulary, Contracting, The evaluation, The nested model, What the record proves (executed live in the build), Rulings, Conclusion. Every chapter from Contracting on follows five titled blocks in order (What the standards say; The specification; The walkthrough; Checked; There is more in the model), enforced by a test, with a per-page prose budget. Slice B lands the Contracting chapter: renderer slices by item kind and by step, page tags on the essentials, and rulings sheet 05, generated from the model graph, for Z's block-by-block and wire-by-wire validation (C-30)."
+      "text": "The plan of record (2026-09-06) states what the representation must hold and prove and what each of eight pages shows and is rendered from: Why this counts as science, The vocabulary, Contracting, The evaluation, The nested model, What the record proves (executed live in the build), Rulings, Conclusion. Every chapter from Contracting on follows five titled blocks in order (What the standards say; The specification; The walkthrough; Checked; There is more in the model), enforced by a test, with a per-page prose budget. Slice B lands the Contracting chapter: renderer slices by item kind and by step, page tags on the essentials, and rulings sheet 05, generated from the model graph, for Z's block-by-block and wire-by-wire validation (C-30)."
      }
     ],
     [
@@ -18013,7 +18060,7 @@
     [
      "ogc:licenceNote",
      {
-      "text": "ISO copyright; the vocabulary is publicly browsable; short attributed quotations only (the party terms, object, access, scheme, specified requirement, testing, review, decision, attestation and its note, surveillance, acceptance)"
+      "text": "ISO copyright; the vocabulary is publicly browsable; short attributed quotations only (the party terms, object, access, scheme, specified requirement, testing, review, decision, attestation and its note, surveillance)"
      }
     ],
     [
@@ -18332,7 +18379,7 @@
     [
      "ogc:licenceNote",
      {
-      "text": "cited as the canonical source named on the BoF deck's Helpful Definitions slide; not quoted directly"
+      "text": "cited as the canonical source named as the source of the definitions presented at the SciPy 2026 session; not quoted directly"
      }
     ],
     [
@@ -19088,7 +19135,7 @@
     [
      "ogc:canonical",
      {
-      "ref": "cite:authoritative-reference:canonical:hogan-2021:section-1-p-2-arxiv-v3"
+      "ref": "cite:authoritative-reference:canonical:hogan-2021:section-1-p-2-arxiv-v3-fragment-of-the-entry"
      }
     ],
     [
@@ -19496,7 +19543,7 @@
     [
      "ogc:canonical",
      {
-      "ref": "cite:deployment-sensitivity:canonical:sevocab:risk-based-testing-p-362"
+      "ref": "cite:deployment-sensitivity:canonical:sevocab:risk-based-testing-p-362-fragment-of-the-entry"
      }
     ],
     [
@@ -19597,7 +19644,7 @@
     [
      "skos:definition",
      {
-      "text": "The ruling, made on one or more evidence items, that a criterion's expected result was met, was not met, or cannot be told. It is the codomain of evidence, recorded with an EARL outcome of passed, failed or cannot tell, made by machine or by a named person, and it is what an attestation aggregates for a criterion. The paper calls it a judgment."
+      "text": "The ruling, made on one or more evidence items, that a criterion's expected result was met, was not met, or cannot be told. It is the ruling made on evidence, recorded with an EARL outcome of passed, failed or cannot tell, made by machine or by a named person, and it is what an attestation aggregates for a criterion. The accompanying paper calls it a judgment."
      }
     ],
     [
@@ -20324,7 +20371,7 @@
     [
      "ogc:canonical",
      {
-      "ref": "cite:knowledge-graph:canonical:hogan-2021:section-1-p-2-arxiv-v3-fragment-of-the-entry"
+      "ref": "cite:knowledge-graph:canonical:hogan-2021:section-1-p-2-arxiv-v3"
      }
     ],
     [
@@ -20736,6 +20783,12 @@
      }
     ],
     [
+     "ogc:coinedBy",
+     {
+      "text": "Zargham and Hollek, for this specification (ruling R-47, sheet 06-10)"
+     }
+    ],
+    [
      "prov:wasDerivedFrom",
      {
       "ref": "https://w3id.org/og-caie/rulings#R-09"
@@ -21063,7 +21116,7 @@
     [
      "skos:definition",
      {
-      "text": "The result recorded for a judgment: passed, failed, cannot tell, inapplicable, or untested. Not binary on purpose."
+      "text": "The result recorded for a judgment: passed, failed or cannot tell, the three EARL values the record uses (EARL also allows inapplicable and untested). Not binary on purpose."
      }
     ],
     [
@@ -21145,7 +21198,7 @@
     [
      "ogc:canonical",
      {
-      "ref": "cite:probe:canonical:sevocab:test-case-p-432"
+      "ref": "cite:probe:canonical:sevocab:test-case-p-432-fragment-of-the-entry"
      }
     ],
     [
@@ -21181,7 +21234,7 @@
     [
      "skos:definition",
      {
-      "text": "A scenario tied to the acceptance criteria it exercises, derived from the Domain-Specific Ontology and checked for consistency before use, applied at one turn of a session. Its run yields one prompt and response pair; the response is the evidence. A test plan may list its probes or choose them by a test strategy as the trajectory unfolds."
+      "text": "A scenario tied to the acceptance criteria it exercises, derived from the Domain-Specific Ontology and checked for consistency before use, applied at one turn of a session. Its run yields one prompt and response pair; the response collected is evidence bearing on those criteria. A test plan may list its probes or choose them by a test strategy as the trajectory unfolds."
      }
     ],
     [
@@ -21629,7 +21682,7 @@
     [
      "ogc:canonical",
      {
-      "ref": "cite:risk-based-testing:canonical:sevocab:risk-based-testing-p-362-fragment-of-the-entry"
+      "ref": "cite:risk-based-testing:canonical:sevocab:risk-based-testing-p-362"
      }
     ],
     [
@@ -22160,7 +22213,7 @@
     [
      "ogc:canonical",
      {
-      "ref": "cite:test-case:canonical:sevocab:test-case-p-432-fragment-of-the-entry"
+      "ref": "cite:test-case:canonical:sevocab:test-case-p-432"
      }
     ],
     [
@@ -24132,7 +24185,7 @@
     [
      "rdfs:comment",
      {
-      "text": "The wiring guarantees the end state, checked locally over kinds of parts and ports: every wire runs from an output port on a part to an input port on a part carrying one item kind; at every part every input is present once and every output goes somewhere; every item kind reaches the recorder; the seven steps form a process DAG that produces every item kind; a conformant record then yields traceability in both directions and coverage, and answers why."
+      "text": "The wiring guarantees the end state, checked locally over kinds of parts and ports: every wire runs from an output port on a part to an input port on a part carrying one item kind; at every part every input is present once and every output goes somewhere; every item kind reaches the recorder; the seven contracting steps (C1 to C6 with fulfil between access and delivery) and the six evaluation steps form process DAGs that produce every item kind; a conformant record then yields traceability in both directions and coverage, and answers why."
      }
     ],
     [
@@ -36723,11 +36776,6 @@
   },
   {
    "rel": "cites",
-   "source": "cite:acceptDelivery:seeAlso:sevocab:delivery-p-120-iso-iec-ieee-24765-2017",
-   "target": "https://w3id.org/og-caie/sources#sevocab"
-  },
-  {
-   "rel": "cites",
    "source": "cite:acceptance-criteria:canonical:sevocab:acceptance-criteria-p-4",
    "target": "https://w3id.org/og-caie/sources#sevocab"
   },
@@ -36798,7 +36846,7 @@
   },
   {
    "rel": "cites",
-   "source": "cite:authoritative-reference:canonical:hogan-2021:section-1-p-2-arxiv-v3",
+   "source": "cite:authoritative-reference:canonical:hogan-2021:section-1-p-2-arxiv-v3-fragment-of-the-entry",
    "target": "https://w3id.org/og-caie/sources#hogan-2021"
   },
   {
@@ -36858,7 +36906,12 @@
   },
   {
    "rel": "cites",
-   "source": "cite:deployment-sensitivity:canonical:sevocab:risk-based-testing-p-362",
+   "source": "cite:deliver:seeAlso:sevocab:delivery-p-120-iso-iec-ieee-24765-2017",
+   "target": "https://w3id.org/og-caie/sources#sevocab"
+  },
+  {
+   "rel": "cites",
+   "source": "cite:deployment-sensitivity:canonical:sevocab:risk-based-testing-p-362-fragment-of-the-entry",
    "target": "https://w3id.org/og-caie/sources#sevocab"
   },
   {
@@ -36879,6 +36932,11 @@
   {
    "rel": "cites",
    "source": "cite:determineAndAttest:seeAlso:iso-iec-17000-2020:7-1-review",
+   "target": "https://w3id.org/og-caie/sources#iso-iec-17000-2020"
+  },
+  {
+   "rel": "cites",
+   "source": "cite:determineAndAttest:seeAlso:iso-iec-17000-2020:7-3-attestation",
    "target": "https://w3id.org/og-caie/sources#iso-iec-17000-2020"
   },
   {
@@ -36983,7 +37041,7 @@
   },
   {
    "rel": "cites",
-   "source": "cite:knowledge-graph:canonical:hogan-2021:section-1-p-2-arxiv-v3-fragment-of-the-entry",
+   "source": "cite:knowledge-graph:canonical:hogan-2021:section-1-p-2-arxiv-v3",
    "target": "https://w3id.org/og-caie/sources#hogan-2021"
   },
   {
@@ -37093,7 +37151,7 @@
   },
   {
    "rel": "cites",
-   "source": "cite:probe:canonical:sevocab:test-case-p-432",
+   "source": "cite:probe:canonical:sevocab:test-case-p-432-fragment-of-the-entry",
    "target": "https://w3id.org/og-caie/sources#sevocab"
   },
   {
@@ -37108,7 +37166,7 @@
   },
   {
    "rel": "cites",
-   "source": "cite:propose:seeAlso:sevocab:proposal-p-329-iso-iec-ieee-24765c-2014",
+   "source": "cite:propose:seeAlso:sevocab:proposal-p-329-iso-iec-ieee-24765-2014-sevocab-tag-24765c",
    "target": "https://w3id.org/og-caie/sources#sevocab"
   },
   {
@@ -37188,7 +37246,7 @@
   },
   {
    "rel": "cites",
-   "source": "cite:risk-based-testing:canonical:sevocab:risk-based-testing-p-362-fragment-of-the-entry",
+   "source": "cite:risk-based-testing:canonical:sevocab:risk-based-testing-p-362",
    "target": "https://w3id.org/og-caie/sources#sevocab"
   },
   {
@@ -37258,7 +37316,7 @@
   },
   {
    "rel": "cites",
-   "source": "cite:test-case:canonical:sevocab:test-case-p-432-fragment-of-the-entry",
+   "source": "cite:test-case:canonical:sevocab:test-case-p-432",
    "target": "https://w3id.org/og-caie/sources#sevocab"
   },
   {
@@ -37997,11 +38055,6 @@
    "target": "cite:acceptDelivery:seeAlso:sebok-2-14:acceptance-criteria-glossary-p-1437-incose-2011-section-6-1-15"
   },
   {
-   "rel": "seeAlso",
-   "source": "https://w3id.org/og-caie/epo#acceptDelivery",
-   "target": "cite:acceptDelivery:seeAlso:sevocab:delivery-p-120-iso-iec-ieee-24765-2017"
-  },
-  {
    "rel": "canonical",
    "source": "https://w3id.org/og-caie/epo#access",
    "target": "cite:access:canonical:sevocab:test-environment-and-data-management-process-p-434-iso-iec-ieee-29119-2-2021-3-37"
@@ -38067,6 +38120,11 @@
    "target": "cite:deliver:seeAlso:iso-iec-17000-2020:7-3-attestation-note-1-fragment-of-the-note"
   },
   {
+   "rel": "seeAlso",
+   "source": "https://w3id.org/og-caie/epo#deliver",
+   "target": "cite:deliver:seeAlso:sevocab:delivery-p-120-iso-iec-ieee-24765-2017"
+  },
+  {
    "rel": "canonical",
    "source": "https://w3id.org/og-caie/epo#determineAndAttest",
    "target": "cite:determineAndAttest:canonical:iso-iec-17000-2020:7-2-decision"
@@ -38075,6 +38133,11 @@
    "rel": "seeAlso",
    "source": "https://w3id.org/og-caie/epo#determineAndAttest",
    "target": "cite:determineAndAttest:seeAlso:iso-iec-17000-2020:7-1-review"
+  },
+  {
+   "rel": "seeAlso",
+   "source": "https://w3id.org/og-caie/epo#determineAndAttest",
+   "target": "cite:determineAndAttest:seeAlso:iso-iec-17000-2020:7-3-attestation"
   },
   {
    "rel": "seeAlso",
@@ -38134,7 +38197,7 @@
   {
    "rel": "seeAlso",
    "source": "https://w3id.org/og-caie/epo#propose",
-   "target": "cite:propose:seeAlso:sevocab:proposal-p-329-iso-iec-ieee-24765c-2014"
+   "target": "cite:propose:seeAlso:sevocab:proposal-p-329-iso-iec-ieee-24765-2014-sevocab-tag-24765c"
   },
   {
    "rel": "seeAlso",
@@ -39569,7 +39632,7 @@
   {
    "rel": "canonical",
    "source": "https://w3id.org/og-caie/terms#authoritative-reference",
-   "target": "cite:authoritative-reference:canonical:hogan-2021:section-1-p-2-arxiv-v3"
+   "target": "cite:authoritative-reference:canonical:hogan-2021:section-1-p-2-arxiv-v3-fragment-of-the-entry"
   },
   {
    "rel": "canonical",
@@ -39624,7 +39687,7 @@
   {
    "rel": "canonical",
    "source": "https://w3id.org/og-caie/terms#deployment-sensitivity",
-   "target": "cite:deployment-sensitivity:canonical:sevocab:risk-based-testing-p-362"
+   "target": "cite:deployment-sensitivity:canonical:sevocab:risk-based-testing-p-362-fragment-of-the-entry"
   },
   {
    "rel": "wasDerivedFrom",
@@ -39769,7 +39832,7 @@
   {
    "rel": "canonical",
    "source": "https://w3id.org/og-caie/terms#knowledge-graph",
-   "target": "cite:knowledge-graph:canonical:hogan-2021:section-1-p-2-arxiv-v3-fragment-of-the-entry"
+   "target": "cite:knowledge-graph:canonical:hogan-2021:section-1-p-2-arxiv-v3"
   },
   {
    "rel": "canonical",
@@ -39919,7 +39982,7 @@
   {
    "rel": "canonical",
    "source": "https://w3id.org/og-caie/terms#probe",
-   "target": "cite:probe:canonical:sevocab:test-case-p-432"
+   "target": "cite:probe:canonical:sevocab:test-case-p-432-fragment-of-the-entry"
   },
   {
    "rel": "canonical",
@@ -40009,7 +40072,7 @@
   {
    "rel": "canonical",
    "source": "https://w3id.org/og-caie/terms#risk-based-testing",
-   "target": "cite:risk-based-testing:canonical:sevocab:risk-based-testing-p-362-fragment-of-the-entry"
+   "target": "cite:risk-based-testing:canonical:sevocab:risk-based-testing-p-362"
   },
   {
    "rel": "canonical",
@@ -40104,7 +40167,7 @@
   {
    "rel": "canonical",
    "source": "https://w3id.org/og-caie/terms#test-case",
-   "target": "cite:test-case:canonical:sevocab:test-case-p-432-fragment-of-the-entry"
+   "target": "cite:test-case:canonical:sevocab:test-case-p-432"
   },
   {
    "rel": "canonical",
@@ -43074,14 +43137,6 @@
   },
   {
    "cls": "citation",
-   "desc": "“release of a system or component to its customer or intended user” [machine]",
-   "id": "cite:acceptDelivery:seeAlso:sevocab:delivery-p-120-iso-iec-ieee-24765-2017",
-   "label": "sevocab delivery, p. 120 (ISO/IEC/IEEE 24765:20…",
-   "ogc": "ogc steps",
-   "page": ""
-  },
-  {
-   "cls": "citation",
    "desc": "“criteria that a system or component is required to satisfy to be accepted by a user, customer, or other authorized entity” [machine]",
    "id": "cite:acceptance-criteria:canonical:sevocab:acceptance-criteria-p-4",
    "label": "sevocab acceptance criteria, p. 4",
@@ -43114,7 +43169,7 @@
   },
   {
    "cls": "citation",
-   "desc": "“environment containing facilities, hardware, software, firmware, and procedures” [machine]",
+   "desc": "“environment containing facilities, hardware, software, firmware, and procedures needed to conduct a test” [machine]",
    "id": "cite:access:seeAlso:sevocab:test-environment-p-434-iso-iec-ieee-29119-2-2021-3-34",
    "label": "sevocab test environment, p. 434 (ISO/IEC/IEEE…",
    "ogc": "ogc steps",
@@ -43195,8 +43250,8 @@
   {
    "cls": "citation",
    "desc": "“a graph of data intended to accumulate and convey knowledge of the real world” [machine]",
-   "id": "cite:authoritative-reference:canonical:hogan-2021:section-1-p-2-arxiv-v3",
-   "label": "hogan-2021 Section 1, p. 2 (arXiv v3)",
+   "id": "cite:authoritative-reference:canonical:hogan-2021:section-1-p-2-arxiv-v3-fragment-of-the-entry",
+   "label": "hogan-2021 Section 1, p. 2 (arXiv v3) (fragment…",
    "ogc": "ogc quote \"authoritative reference\"",
    "page": "../glossary"
   },
@@ -43290,9 +43345,17 @@
   },
   {
    "cls": "citation",
+   "desc": "“release of a system or component to its customer or intended user” [machine]",
+   "id": "cite:deliver:seeAlso:sevocab:delivery-p-120-iso-iec-ieee-24765-2017",
+   "label": "sevocab delivery, p. 120 (ISO/IEC/IEEE 24765:20…",
+   "ogc": "ogc steps",
+   "page": ""
+  },
+  {
+   "cls": "citation",
    "desc": "“prioritization, and use of testing activities and resources are consciously based on corresponding types and levels of analyzed risk” [machine]",
-   "id": "cite:deployment-sensitivity:canonical:sevocab:risk-based-testing-p-362",
-   "label": "sevocab risk-based testing, p. 362",
+   "id": "cite:deployment-sensitivity:canonical:sevocab:risk-based-testing-p-362-fragment-of-the-entry",
+   "label": "sevocab risk-based testing, p. 362 (fragment of…",
    "ogc": "ogc quote \"deployment sensitivity\"",
    "page": "../glossary"
   },
@@ -43325,6 +43388,14 @@
    "desc": "“consideration of the suitability, adequacy and effectiveness of selection and determination activities, and the results of these activities, with regard to fulfilment of specified requirements by an object of conformity assessment” [human]",
    "id": "cite:determineAndAttest:seeAlso:iso-iec-17000-2020:7-1-review",
    "label": "iso-iec-17000-2020 7.1 review",
+   "ogc": "ogc steps",
+   "page": ""
+  },
+  {
+   "cls": "citation",
+   "desc": "“issue of a statement, based on a decision, that fulfilment of specified requirements has been demonstrated” [human]",
+   "id": "cite:determineAndAttest:seeAlso:iso-iec-17000-2020:7-3-attestation",
+   "label": "iso-iec-17000-2020 7.3 attestation",
    "ogc": "ogc steps",
    "page": ""
   },
@@ -43491,8 +43562,8 @@
   {
    "cls": "citation",
    "desc": "“a graph of data intended to accumulate and convey knowledge of the real world, whose nodes represent entities of interest and whose edges represent relations between these entities” [machine]",
-   "id": "cite:knowledge-graph:canonical:hogan-2021:section-1-p-2-arxiv-v3-fragment-of-the-entry",
-   "label": "hogan-2021 Section 1, p. 2 (arXiv v3) (fragment…",
+   "id": "cite:knowledge-graph:canonical:hogan-2021:section-1-p-2-arxiv-v3",
+   "label": "hogan-2021 Section 1, p. 2 (arXiv v3)",
    "ogc": "ogc quote \"knowledge graph\"",
    "page": "../glossary"
   },
@@ -43667,8 +43738,8 @@
   {
    "cls": "citation",
    "desc": "“set of test inputs, execution conditions, and expected results developed for a particular objective” [machine]",
-   "id": "cite:probe:canonical:sevocab:test-case-p-432",
-   "label": "sevocab test case, p. 432",
+   "id": "cite:probe:canonical:sevocab:test-case-p-432-fragment-of-the-entry",
+   "label": "sevocab test case, p. 432 (fragment of the entr…",
    "ogc": "ogc quote probe",
    "page": "../glossary#term-probe"
   },
@@ -43691,8 +43762,8 @@
   {
    "cls": "citation",
    "desc": "“supplier's offer to provide a system or service, usually including benefits, costs, risks, opportunities, and other factors applicable to decisions” [machine]",
-   "id": "cite:propose:seeAlso:sevocab:proposal-p-329-iso-iec-ieee-24765c-2014",
-   "label": "sevocab proposal, p. 329 (ISO/IEC/IEEE 24765c:2…",
+   "id": "cite:propose:seeAlso:sevocab:proposal-p-329-iso-iec-ieee-24765-2014-sevocab-tag-24765c",
+   "label": "sevocab proposal, p. 329 (ISO/IEC/IEEE 24765:20…",
    "ogc": "ogc steps",
    "page": ""
   },
@@ -43819,8 +43890,8 @@
   {
    "cls": "citation",
    "desc": "“testing in which the management, selection, prioritization, and use of testing activities and resources are consciously based on corresponding types and levels of analyzed risk” [machine]",
-   "id": "cite:risk-based-testing:canonical:sevocab:risk-based-testing-p-362-fragment-of-the-entry",
-   "label": "sevocab risk-based testing, p. 362 (fragment of…",
+   "id": "cite:risk-based-testing:canonical:sevocab:risk-based-testing-p-362",
+   "label": "sevocab risk-based testing, p. 362",
    "ogc": "ogc quote \"risk-based testing\"",
    "page": "../glossary#term-risk-based-testing"
   },
@@ -43931,8 +44002,8 @@
   {
    "cls": "citation",
    "desc": "“set of test inputs, execution conditions, and expected results developed for a particular objective, such as to exercise a particular program path or to verify compliance with a specific requirement” [machine]",
-   "id": "cite:test-case:canonical:sevocab:test-case-p-432-fragment-of-the-entry",
-   "label": "sevocab test case, p. 432 (fragment of the entr…",
+   "id": "cite:test-case:canonical:sevocab:test-case-p-432",
+   "label": "sevocab test case, p. 432",
    "ogc": "ogc quote \"test case\"",
    "page": "../glossary"
   },
@@ -44994,7 +45065,7 @@
   },
   {
    "cls": "concern",
-   "desc": "adequacy vs appropriateness (H, ruled). The paper draft and term contract v5 label the attestation's context judgment \"adequacy\". The primary source for the pairing (Hawkins, Kelly, Knight and Graydon 2011, assurance claim points) uses \"appropriateness\" for asserted context and \"sufficiency\" for asserted solution; ISA 500 uses appropriateness (quality) and sufficiency (quantity). \"Adequacy\" also collides with ISO 9000:2026 3.11.2 review.",
+   "desc": "adequacy vs appropriateness (H, ruled). The paper draft and the authors' term contract draft label the attestation's context judgment \"adequacy\". The primary source for the pairing (Hawkins, Kelly, Knight and Graydon 2011, assurance claim points) uses \"appropriateness\" for asserted context and \"sufficiency\" for asserted solution; ISA 500 uses appropriateness (quality) and sufficiency (quantity). \"Adequacy\" also collides with ISO 9000:2026 3.11.2 review.",
    "id": "https://w3id.org/og-caie/rulings#C-08",
    "label": "C-08",
    "ogc": "ogc concern C-08",
@@ -46378,7 +46449,7 @@
   },
   {
    "cls": "term",
-   "desc": "The ruling, made on one or more evidence items, that a criterion's expected result was met, was not met, or cannot be told. It is the codomain of evidence, recorded with an EARL outcome of passed, failed or cannot tell, made by machine or by a named person, and it is what an attestation aggregates for a criterion. The paper calls it a judgment.",
+   "desc": "The ruling, made on one or more evidence items, that a criterion's expected result was met, was not met, or cannot be told. It is the ruling made on evidence, recorded with an EARL outcome of passed, failed or cannot tell, made by machine or by a named person, and it is what an attestation aggregates for a criterion. The accompanying paper calls it a judgment.",
    "id": "https://w3id.org/og-caie/terms#determination",
    "label": "determination",
    "ogc": "ogc term determination",
@@ -46554,7 +46625,7 @@
   },
   {
    "cls": "term",
-   "desc": "The result recorded for a judgment: passed, failed, cannot tell, inapplicable, or untested. Not binary on purpose.",
+   "desc": "The result recorded for a judgment: passed, failed or cannot tell, the three EARL values the record uses (EARL also allows inapplicable and untested). Not binary on purpose.",
    "id": "https://w3id.org/og-caie/terms#outcome",
    "label": "outcome",
    "ogc": "ogc term outcome",
@@ -46570,7 +46641,7 @@
   },
   {
    "cls": "term",
-   "desc": "A scenario tied to the acceptance criteria it exercises, derived from the Domain-Specific Ontology and checked for consistency before use, applied at one turn of a session. Its run yields one prompt and response pair; the response is the evidence. A test plan may list its probes or choose them by a test strategy as the trajectory unfolds.",
+   "desc": "A scenario tied to the acceptance criteria it exercises, derived from the Domain-Specific Ontology and checked for consistency before use, applied at one turn of a session. Its run yields one prompt and response pair; the response collected is evidence bearing on those criteria. A test plan may list its probes or choose them by a test strategy as the trajectory unfolds.",
    "id": "https://w3id.org/og-caie/terms#probe",
    "label": "probe",
    "ogc": "ogc term probe",
@@ -46866,7 +46937,7 @@
   },
   {
    "cls": "sci",
-   "desc": "EndStateGuaranteed: The wiring guarantees the end state, checked locally over kinds of parts and ports: every wire runs from an output port on a part to an input port on a part carrying one item kind; at every part every input is present once and every output goes somewhere; every item kind reaches the recorder; the seven steps form a process DAG that produces every item kind; a conformant record then yields traceability in both directions and coverage, and answers why. [machine]",
+   "desc": "EndStateGuaranteed: The wiring guarantees the end state, checked locally over kinds of parts and ports: every wire runs from an output port on a part to an input port on a part carrying one item kind; at every part every input is present once and every output goes somewhere; every item kind reaches the recorder; the seven contracting steps (C1 to C6 with fulfil between access and delivery) and the six evaluation steps form process DAGs that produce every item kind; a conformant record then yields traceability in both directions and coverage, and answers why. [machine]",
    "id": "https://w3id.org/og-caie/trace#SCI-11",
    "label": "SCI-11",
    "ogc": "ogc sci SCI-11",
@@ -48412,7 +48483,6 @@
     "cite:ContractingStep:canonical:sebok-2-14:stakeholder-needs-acquisition-and-supply-p-353",
     "cite:acceptDelivery:canonical:sevocab:acceptance-p-4-iso-iec-ieee-24748-5-2017-3-1",
     "cite:acceptDelivery:seeAlso:sebok-2-14:acceptance-criteria-glossary-p-1437-incose-2011-section-6-1-15",
-    "cite:acceptDelivery:seeAlso:sevocab:delivery-p-120-iso-iec-ieee-24765-2017",
     "cite:acceptance-criteria:canonical:sevocab:acceptance-criteria-p-4",
     "cite:acceptance-criteria:seeAlso:incose-gtwr-v4:c7-verifiable-p-2",
     "cite:access:canonical:sevocab:test-environment-and-data-management-process-p-434-iso-iec-ieee-29119-2-2021-3-37",
@@ -48427,7 +48497,7 @@
     "cite:appropriateness:seeAlso:isa-500:paragraph-5-b",
     "cite:appropriateness:seeAlso:iso-9000-2026:3-11-2-review",
     "cite:attestation:canonical:iso-iec-17000-2020:7-3",
-    "cite:authoritative-reference:canonical:hogan-2021:section-1-p-2-arxiv-v3",
+    "cite:authoritative-reference:canonical:hogan-2021:section-1-p-2-arxiv-v3-fragment-of-the-entry",
     "cite:conformance:canonical:iso-9000-2026:3-5-9-conformity-note-1",
     "cite:conformance:seeAlso:w3c-shacl:section-3-5-conformance-checking",
     "cite:conformity:canonical:iso-9000-2026:3-5-9",
@@ -48439,11 +48509,13 @@
     "cite:declareRequirements:seeAlso:sevocab:system-requirements-specification-syrs-p-422-iso-iec-ieee-29148-2018-4-1-29",
     "cite:deliver:canonical:sevocab:test-completion-report-p-433-iso-iec-ieee-29119-2-2021-3-26",
     "cite:deliver:seeAlso:iso-iec-17000-2020:7-3-attestation-note-1-fragment-of-the-note",
-    "cite:deployment-sensitivity:canonical:sevocab:risk-based-testing-p-362",
+    "cite:deliver:seeAlso:sevocab:delivery-p-120-iso-iec-ieee-24765-2017",
+    "cite:deployment-sensitivity:canonical:sevocab:risk-based-testing-p-362-fragment-of-the-entry",
     "cite:determination:canonical:iso-9000-2026:3-11-1",
     "cite:determination:seeAlso:sevocab:test-result-p-438",
     "cite:determineAndAttest:canonical:iso-iec-17000-2020:7-2-decision",
     "cite:determineAndAttest:seeAlso:iso-iec-17000-2020:7-1-review",
+    "cite:determineAndAttest:seeAlso:iso-iec-17000-2020:7-3-attestation",
     "cite:determineAndAttest:seeAlso:iso-iec-17000-2020:annex-a-a-4-review-decision-and-attestation-the-functional-approach",
     "cite:determineAndAttest:seeAlso:sevocab:evaluation-p-155-iso-iec-25001-2014-4-1",
     "cite:dialogue:canonical:nist-ai-700-2:appendix-a-dialogue-p-16",
@@ -48464,7 +48536,7 @@
     "cite:expected-results:canonical:sevocab:expected-results-p-160",
     "cite:first-party-conformity-assessment-activity:canonical:iso-iec-17000-2020:4-3-first-party-conformity-assessment-activity",
     "cite:guardrail:canonical:nist-ai-700-2:appendix-a-guardrail-p-17",
-    "cite:knowledge-graph:canonical:hogan-2021:section-1-p-2-arxiv-v3-fragment-of-the-entry",
+    "cite:knowledge-graph:canonical:hogan-2021:section-1-p-2-arxiv-v3",
     "cite:measurement-uncertainty:canonical:jcgm-200-2012:2-26-measurement-uncertainty-p-41",
     "cite:mission:canonical:iso-9000-2026:3-4-11",
     "cite:mission:seeAlso:iso-9000-2026:3-4-5-policy",
@@ -48486,10 +48558,10 @@
     "cite:performance:canonical:iso-9000-2026:3-7-3",
     "cite:plan:canonical:sevocab:test-strategy-and-planning-process-p-439-iso-iec-ieee-29119-2-2021-3-51",
     "cite:plan:seeAlso:sevocab:test-design-and-implementation-process-p-433-iso-iec-ieee-29119-2-2021-3-32",
-    "cite:probe:canonical:sevocab:test-case-p-432",
+    "cite:probe:canonical:sevocab:test-case-p-432-fragment-of-the-entry",
     "cite:propose:canonical:sebok-2-14:enterprise-systems-engineering-contract-products-and-services-p-935",
     "cite:propose:seeAlso:iso-iec-17000-2020:4-10-access",
-    "cite:propose:seeAlso:sevocab:proposal-p-329-iso-iec-ieee-24765c-2014",
+    "cite:propose:seeAlso:sevocab:proposal-p-329-iso-iec-ieee-24765-2014-sevocab-tag-24765c",
     "cite:propose:seeAlso:sevocab:request-for-proposal-rfp-p-350-iso-iec-ieee-24765-2017",
     "cite:provider:canonical:iso-9000-2026:3-1-9",
     "cite:record:canonical:iso-9000-2026:3-8-12",
@@ -48505,7 +48577,7 @@
     "cite:requirements-traceability:canonical:sevocab:requirements-traceability-p-352",
     "cite:requirements-traceability:seeAlso:iso-9000-2026:3-5-11-traceability",
     "cite:requirements-traceability:seeAlso:jcgm-200-2012:2-41-metrological-traceability-p-45",
-    "cite:risk-based-testing:canonical:sevocab:risk-based-testing-p-362-fragment-of-the-entry",
+    "cite:risk-based-testing:canonical:sevocab:risk-based-testing-p-362",
     "cite:scenario:canonical:sevocab:scenario-p-369",
     "cite:scenario:seeAlso:nist-ai-700-2:appendix-a-scenario-p-17",
     "cite:scenario:seeAlso:sevocab:test-scenario-p-438-iso-iec-tr-29119-11-2020-testing-of-ai-based-systems",
@@ -48519,7 +48591,7 @@
     "cite:sufficiency:canonical:hawkins-2011:section-3-3-asserted-solution-p-10",
     "cite:sufficiency:seeAlso:isa-500:paragraph-5-f",
     "cite:technical-expert:canonical:iso-9000-2026:3-12-9",
-    "cite:test-case:canonical:sevocab:test-case-p-432-fragment-of-the-entry",
+    "cite:test-case:canonical:sevocab:test-case-p-432",
     "cite:test-coverage:canonical:sevocab:test-coverage-p-433",
     "cite:test-item:canonical:sevocab:test-item-p-435-iso-iec-ieee-29119-2-2021",
     "cite:test-item:seeAlso:iso-iec-17000-2020:4-2-object-of-conformity-assessment",
@@ -49314,7 +49386,6 @@
     "cite:ContractingStep:canonical:sebok-2-14:stakeholder-needs-acquisition-and-supply-p-353",
     "cite:acceptDelivery:canonical:sevocab:acceptance-p-4-iso-iec-ieee-24748-5-2017-3-1",
     "cite:acceptDelivery:seeAlso:sebok-2-14:acceptance-criteria-glossary-p-1437-incose-2011-section-6-1-15",
-    "cite:acceptDelivery:seeAlso:sevocab:delivery-p-120-iso-iec-ieee-24765-2017",
     "cite:acceptance-criteria:canonical:sevocab:acceptance-criteria-p-4",
     "cite:acceptance-criteria:seeAlso:incose-gtwr-v4:c7-verifiable-p-2",
     "cite:access:canonical:sevocab:test-environment-and-data-management-process-p-434-iso-iec-ieee-29119-2-2021-3-37",
@@ -49329,7 +49400,7 @@
     "cite:appropriateness:seeAlso:isa-500:paragraph-5-b",
     "cite:appropriateness:seeAlso:iso-9000-2026:3-11-2-review",
     "cite:attestation:canonical:iso-iec-17000-2020:7-3",
-    "cite:authoritative-reference:canonical:hogan-2021:section-1-p-2-arxiv-v3",
+    "cite:authoritative-reference:canonical:hogan-2021:section-1-p-2-arxiv-v3-fragment-of-the-entry",
     "cite:conformance:canonical:iso-9000-2026:3-5-9-conformity-note-1",
     "cite:conformance:seeAlso:w3c-shacl:section-3-5-conformance-checking",
     "cite:conformity:canonical:iso-9000-2026:3-5-9",
@@ -49341,11 +49412,13 @@
     "cite:declareRequirements:seeAlso:sevocab:system-requirements-specification-syrs-p-422-iso-iec-ieee-29148-2018-4-1-29",
     "cite:deliver:canonical:sevocab:test-completion-report-p-433-iso-iec-ieee-29119-2-2021-3-26",
     "cite:deliver:seeAlso:iso-iec-17000-2020:7-3-attestation-note-1-fragment-of-the-note",
-    "cite:deployment-sensitivity:canonical:sevocab:risk-based-testing-p-362",
+    "cite:deliver:seeAlso:sevocab:delivery-p-120-iso-iec-ieee-24765-2017",
+    "cite:deployment-sensitivity:canonical:sevocab:risk-based-testing-p-362-fragment-of-the-entry",
     "cite:determination:canonical:iso-9000-2026:3-11-1",
     "cite:determination:seeAlso:sevocab:test-result-p-438",
     "cite:determineAndAttest:canonical:iso-iec-17000-2020:7-2-decision",
     "cite:determineAndAttest:seeAlso:iso-iec-17000-2020:7-1-review",
+    "cite:determineAndAttest:seeAlso:iso-iec-17000-2020:7-3-attestation",
     "cite:determineAndAttest:seeAlso:iso-iec-17000-2020:annex-a-a-4-review-decision-and-attestation-the-functional-approach",
     "cite:determineAndAttest:seeAlso:sevocab:evaluation-p-155-iso-iec-25001-2014-4-1",
     "cite:dialogue:canonical:nist-ai-700-2:appendix-a-dialogue-p-16",
@@ -49366,7 +49439,7 @@
     "cite:expected-results:canonical:sevocab:expected-results-p-160",
     "cite:first-party-conformity-assessment-activity:canonical:iso-iec-17000-2020:4-3-first-party-conformity-assessment-activity",
     "cite:guardrail:canonical:nist-ai-700-2:appendix-a-guardrail-p-17",
-    "cite:knowledge-graph:canonical:hogan-2021:section-1-p-2-arxiv-v3-fragment-of-the-entry",
+    "cite:knowledge-graph:canonical:hogan-2021:section-1-p-2-arxiv-v3",
     "cite:measurement-uncertainty:canonical:jcgm-200-2012:2-26-measurement-uncertainty-p-41",
     "cite:mission:canonical:iso-9000-2026:3-4-11",
     "cite:mission:seeAlso:iso-9000-2026:3-4-5-policy",
@@ -49388,10 +49461,10 @@
     "cite:performance:canonical:iso-9000-2026:3-7-3",
     "cite:plan:canonical:sevocab:test-strategy-and-planning-process-p-439-iso-iec-ieee-29119-2-2021-3-51",
     "cite:plan:seeAlso:sevocab:test-design-and-implementation-process-p-433-iso-iec-ieee-29119-2-2021-3-32",
-    "cite:probe:canonical:sevocab:test-case-p-432",
+    "cite:probe:canonical:sevocab:test-case-p-432-fragment-of-the-entry",
     "cite:propose:canonical:sebok-2-14:enterprise-systems-engineering-contract-products-and-services-p-935",
     "cite:propose:seeAlso:iso-iec-17000-2020:4-10-access",
-    "cite:propose:seeAlso:sevocab:proposal-p-329-iso-iec-ieee-24765c-2014",
+    "cite:propose:seeAlso:sevocab:proposal-p-329-iso-iec-ieee-24765-2014-sevocab-tag-24765c",
     "cite:propose:seeAlso:sevocab:request-for-proposal-rfp-p-350-iso-iec-ieee-24765-2017",
     "cite:provider:canonical:iso-9000-2026:3-1-9",
     "cite:record:canonical:iso-9000-2026:3-8-12",
@@ -49407,7 +49480,7 @@
     "cite:requirements-traceability:canonical:sevocab:requirements-traceability-p-352",
     "cite:requirements-traceability:seeAlso:iso-9000-2026:3-5-11-traceability",
     "cite:requirements-traceability:seeAlso:jcgm-200-2012:2-41-metrological-traceability-p-45",
-    "cite:risk-based-testing:canonical:sevocab:risk-based-testing-p-362-fragment-of-the-entry",
+    "cite:risk-based-testing:canonical:sevocab:risk-based-testing-p-362",
     "cite:scenario:canonical:sevocab:scenario-p-369",
     "cite:scenario:seeAlso:nist-ai-700-2:appendix-a-scenario-p-17",
     "cite:scenario:seeAlso:sevocab:test-scenario-p-438-iso-iec-tr-29119-11-2020-testing-of-ai-based-systems",
@@ -49421,7 +49494,7 @@
     "cite:sufficiency:canonical:hawkins-2011:section-3-3-asserted-solution-p-10",
     "cite:sufficiency:seeAlso:isa-500:paragraph-5-f",
     "cite:technical-expert:canonical:iso-9000-2026:3-12-9",
-    "cite:test-case:canonical:sevocab:test-case-p-432-fragment-of-the-entry",
+    "cite:test-case:canonical:sevocab:test-case-p-432",
     "cite:test-coverage:canonical:sevocab:test-coverage-p-433",
     "cite:test-item:canonical:sevocab:test-item-p-435-iso-iec-ieee-29119-2-2021",
     "cite:test-item:seeAlso:iso-iec-17000-2020:4-2-object-of-conformity-assessment",

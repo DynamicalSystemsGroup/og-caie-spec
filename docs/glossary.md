@@ -4,7 +4,7 @@ The front page ends at the bridge from a plain account of science to the
 engineering standards for evaluation. This chapter gives the terms on the
 far side of that bridge their definitions: rigorous, cited verbatim, and not
 exhaustive. It lists exactly the terms this site uses. The full register is
-generated from the same graph for the paper.
+generated from the same graph for the accompanying paper.
 
 ## The map of the site
 
@@ -32,7 +32,7 @@ chosen from the highest-ranked source that defines it: ISO 9000:2026,
 *Quality management: fundamentals and vocabulary*, for every quality and
 process term; SEVOCAB, the IEEE Computer Society's Software and Systems
 Engineering Vocabulary, for the systems-engineering and testing terms ISO
-9000 lacks; NIST AI 700-2, the ARIA pilot evaluation report, for the
+9000 lacks; NIST AI 700-2, the report of the ARIA pilot (Assessing Risks and Impacts of AI), for the
 AI-evaluation terms; and the W3C specifications for the technical binding
 only, never for a narrative definition: PROV-O for who did what and when,
 EARL for what was asserted and with what outcome, SHACL (the Shapes
@@ -90,7 +90,7 @@ the word this site's prose is allowed to use for the test item:
 Work on an evaluation happens in two cycles, and neither is invented. The
 outer cycle is the contracting lifecycle, from the sponsor's need to its
 acceptance of the delivery: its actors are the parties named above, and its
-six steps are the ISO/IEC/IEEE 15288 agreement processes as the SEBoK
+six steps are the ISO/IEC/IEEE 15288 agreement processes as the SEBoK (the Guide to the Systems Engineering Body of Knowledge)
 describes them, ISO/IEC 17000's access, scheme and acceptance, ISO 9000's
 {term}`contract`, and the ISO/IEC/IEEE 29119-2 test environment and
 completion report. The inner cycle is the

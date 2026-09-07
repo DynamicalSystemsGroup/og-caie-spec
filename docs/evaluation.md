@@ -24,9 +24,10 @@ are NIST's.
 Three observations from ISO/IEC 17000 shape the fifth step. Its *decision*
 (7.2), the conclusion that fulfilment of specified requirements has or has
 not been demonstrated, is exactly the outcome inside an attestation. Its
-*review* (7.1) names, for the fitness of what was done, the word this
-specification retired for the context judgment, which is why we say
-{term}`appropriateness` instead. And its note on 7.3 observes that there is
+*review* (7.1) names, for the fitness of what was done, a word this
+specification retired for the context judgment (the middle word of its
+quote in the table above), which is why we say {term}`appropriateness`
+instead. And its note on 7.3 observes that there is
 no term for second-party attestation: a testing organization attesting on a
 sponsor's behalf about a vendor's system performs a
 {term}`second-party <second-party conformity assessment activity>` activity
@@ -73,7 +74,7 @@ expected result under that plan; the determination that rules on the
 evidence with an {term}`outcome` as EARL, the W3C Evaluation and Report
 Language, records one, passed, failed or cannot tell, never a Boolean; and
 the attestation, a named person's judgment aggregating the determinations
-for the criterion. Evidence is the domain and determination the codomain;
+for the criterion. Evidence is what is ruled on and the determination is the ruling;
 evidence exists at probe, session or suite level, and a session's ordered
 turns are its {term}`trajectory`, the observable realization of a state the
 record never sees.

@@ -19,9 +19,12 @@ scope note:
   Ruling R-40: a boundary item between the contract and its fulfilment; the sponsor decides, per
   affected population, interview or representation; the record must show the decision and the
   evaluation must realize it.
-binding: sysml item def StatementOfWork, port def StatementOfWorkWrite, seams statementOfWorkSeam and statementOfWorkToExecutiveSeam; epo:StatementOfWork with epo:decides engagement decisions
+binding: sysml item def StatementOfWork, port def StatementOfWorkWrite, seams
+    statementOfWorkSeam and statementOfWorkToExecutiveSeam; epo:StatementOfWork with epo:decides
+    engagement decisions
 derives from rulings: R-40
-concerns naming it: C-46 (ruled) the sponsor's decision to interview or represent each affected population had no item of its own
+concerns naming it: C-46 (ruled) the sponsor's decision to interview or represent each affected
+    population had no item of its own
 essentials stated in it: SCI-10
 Popper crosswalk: auxiliary assumption, first layer (pinned at the contract)
 (exit 0)

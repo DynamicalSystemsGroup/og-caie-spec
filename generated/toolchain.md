@@ -99,9 +99,7 @@ Appendix A runs in the browser on two libraries committed under `explorer/vendor
 | checks | actions/setup-node@v4 | `actions/setup-node@v4` (node-version: 20) |
 | checks | python environment | `uv sync` |
 | checks | full gate | `bash checks/run-checks.sh` |
-| checks | gate log, for diagnosis when a step fails | `actions/upload-artifact@v4` (name: gate-log, path: checks/out/last.log
-checks/out/report.json
-) |
+| checks | gate log, for diagnosis when a step fails | `actions/upload-artifact@v4` (name: gate-log, path: checks/out/last.log checks/out/report.json) |
 | checks | build the site for Pages | `BASE_URL="/${REPO_NAME}" uv run myst build --html` |
 | checks | the knowledge graph explorer next to the site | `bash scripts/copy_explorer.sh` |
 | checks | actions/upload-pages-artifact@v3 | `actions/upload-pages-artifact@v3` (path: _build/html) |

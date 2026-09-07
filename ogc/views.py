@@ -233,9 +233,9 @@ def nesting(g: Graph) -> str:
         a, c = m.group(1), m.group(2)
         step_side, param_side = (a, c) if "." in a else (c, a)
         bound[param_side] = step_side.split(".")[0]
-    lines = ["flowchart TB", f'  subgraph OUTER["{OUTER_PROCESS}: the contracting lifecycle"]', "    direction LR"]
+    lines = ["flowchart TB", f'  subgraph OUTER["Contracting lifecycle"]', "    direction LR"]
     lines.append("    " + " --> ".join(f'o_{st}[["{st} : {INNER_PROCESS}"]]' if st in typed else f"o_{st}[{st}]" for st in outer_steps))
-    lines += ["  end", f'  subgraph INNER["{INNER_PROCESS}: the {sorted(typed)[0]} step opened"]', "    direction LR"]
+    lines += ["  end", f'  subgraph INNER["{sorted(typed)[0]}, opened: the evaluation"]', "    direction LR"]
     lines.append("    " + " --> ".join(f"i_{st}[{st}]" for st in inner_steps))
     lines.append("  end")
     crossing = []

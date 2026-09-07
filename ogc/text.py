@@ -41,6 +41,8 @@ def wrap(s: str, indent: str = "  ", rest: str | None = None) -> list[str]:
 
 
 def cite_lines(c: dict, indent: str) -> list[str]:
+    if not c:
+        return [f"{indent}(none)"]
     L = [f"{indent}{c['source']} (rank {c['rank']}, {c['posture']}) {c['locator']}  [{c['status']}]"]
     if c["quote"]:
         L += wrap(f'"{c["quote"]}"', indent + "  ")
@@ -58,7 +60,10 @@ def term(t: dict, meta: dict | None = None) -> list[str]:
     if t["alts"]:
         L.append("also: " + "; ".join(t["alts"]))
     L.append("canonical:")
-    L += cite_lines(t["canonical"], "  ")
+    if t.get("coined_by"):
+        L.append(f"coined by: {t['coined_by']}")
+    else:
+        L += cite_lines(t["canonical"], "  ")
     if t["see_also"]:
         L.append("see also:")
         for c in t["see_also"]:

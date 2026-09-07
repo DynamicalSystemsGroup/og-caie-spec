@@ -7,6 +7,7 @@ $ uv run -q ogc sci SCI-06
   and chain rules hold.
 
 checked by: S6-Attestation, S6-Determination
-terms: appropriateness, attestation, determination, expected results, objective evidence, outcome, sufficiency, test plan, validation
+terms: appropriateness, attestation, determination, expected results, objective evidence,
+    outcome, sufficiency, test plan, validation
 rests on: R-08, R-12, hawkins-2011, iso-iec-17000-2020, w3c-earl
 (exit 0)

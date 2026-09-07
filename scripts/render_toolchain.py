@@ -161,7 +161,7 @@ def render_ci() -> str:
             if "run" in step:
                 what = f"`{cell(step['run'])}`"
             else:
-                what = f"`{step['uses']}`" + (f" ({', '.join(f'{k}: {v}' for k, v in step['with'].items())})" if step.get("with") else "")
+                what = f"`{step['uses']}`" + (f" ({', '.join(f'{k}: {' '.join(str(v).split())}' for k, v in step['with'].items())})" if step.get("with") else "")
             lines.append(f"| {job} | {cell(label)} | {what} |")
     return "\n".join(lines) + "\n"
 

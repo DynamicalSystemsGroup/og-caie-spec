@@ -121,7 +121,7 @@ src:iso-iec-17000-2020 a prov:Entity, ogc:Source ;
     ogc:rank "reserve" ; ogc:kind "web" ; ogc:posture "citeOnly" ;
     ogc:url <https://www.iso.org/obp/ui/en/#iso:std:73029:en> ;
     ogc:digest "sources/digests/iso-iec-17000-2020.md" ;
-    ogc:licenceNote "ISO copyright; the vocabulary is publicly browsable; short attributed quotations only (the party terms, object, access, scheme, specified requirement, testing, review, decision, attestation and its note, surveillance, acceptance)" .
+    ogc:licenceNote "ISO copyright; the vocabulary is publicly browsable; short attributed quotations only (the party terms, object, access, scheme, specified requirement, testing, review, decision, attestation and its note, surveillance)" .
 
 src:incose-gtwr-v4 a prov:Entity, ogc:Source ;
     rdfs:label "INCOSE Guide to Writing Requirements v4, Summary Sheet (INCOSE-TP-2010-006-04, June 2023)" ;
@@ -179,7 +179,7 @@ src:popper-1959 a prov:Entity, ogc:Source ;
     rdfs:label "Popper, The Logic of Scientific Discovery, London: Hutchinson, 1959" ;
     ogc:rank "reserve" ; ogc:kind "web" ; ogc:posture "citeOnly" ;
     ogc:digest "sources/digests/popper-1959.md" ;
-    ogc:licenceNote "cited as the canonical source named on the BoF deck's Helpful Definitions slide; not quoted directly" .
+    ogc:licenceNote "cited as the canonical source named as the source of the definitions presented at the SciPy 2026 session; not quoted directly" .
 
 src:iec-60050-351 a prov:Entity, ogc:Source ;
     rdfs:label "IEC 60050-351:2013 International Electrotechnical Vocabulary, Part 351: Control technology (Electropedia)" ;

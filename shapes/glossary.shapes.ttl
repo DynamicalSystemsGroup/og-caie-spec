@@ -21,10 +21,9 @@ ogc:TermShape a sh:NodeShape ;
         sh:select """
             PREFIX ogc: <https://w3id.org/og-caie/>
             SELECT $this WHERE {
-                $this ogc:class ?c .
-                { FILTER(?c != "coined") FILTER NOT EXISTS { $this ogc:canonical ?x } }
-                UNION { FILTER(?c = "coined") FILTER NOT EXISTS { $this ogc:coinedBy ?w } }
-                UNION { FILTER(?c = "coined") $this ogc:canonical ?x }
+                { $this ogc:class ?c . FILTER(?c != "coined") FILTER NOT EXISTS { $this ogc:canonical ?x } }
+                UNION { $this ogc:class ?c . FILTER(?c = "coined") FILTER NOT EXISTS { $this ogc:coinedBy ?w } }
+                UNION { $this ogc:class ?c . FILTER(?c = "coined") $this ogc:canonical ?x }
             }
         """ ] ;
     sh:property [ sh:path ogc:binding ; sh:minCount 1 ;

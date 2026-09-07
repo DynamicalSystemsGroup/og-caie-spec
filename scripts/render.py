@@ -164,13 +164,16 @@ def _render_key_terms_bare() -> str:
     lines = ["```{glossary}"]
     for t in sorted(found, key=lambda t: str(g.value(t, SKOS.prefLabel)).lower()):
         c = g.value(t, OGC.canonical)
-        src = g.value(c, OGC.cites)
-        label = str(g.value(src, RDFS.label)).split(" (")[0].split(", ")[0]
-        quote = g.value(c, OGC.quote)
-        cite = f"{label}, {cell(g.value(c, OGC.locator))}" + (f': "{cell(quote)}" ({cell(g.value(c, OGC.quoteStatus))})' if quote else "")
+        if c is None:  # a coined term: the authors' own (R-47, sheet 06-10)
+            cite = None
+        else:
+            src = g.value(c, OGC.cites)
+            label = str(g.value(src, RDFS.label)).split(" (")[0].split(", ")[0]
+            quote = g.value(c, OGC.quote)
+            cite = f"{label}, {cell(g.value(c, OGC.locator))}" + (f': "{cell(quote)}" ({cell(g.value(c, OGC.quoteStatus))})' if quote else "")
         alts = sorted(str(a) for a in g.objects(t, SKOS.altLabel))
         rul = sorted(str(r).rsplit("#", 1)[-1] for r in g.objects(t, PROV.wasDerivedFrom))
-        body = cell(g.value(t, SKOS.definition)) + f" Source: {cite}."
+        body = cell(g.value(t, SKOS.definition)) + (f" Source: {cite}." if cite else " Coined by the authors for this specification; it cites no source.")
         if alts:
             body += f" Also: {', '.join(alts)}."
         if rul:
@@ -206,6 +209,12 @@ def render_record_chapter(chapter: str) -> str:
         who = [g.value(a, RDFS.label) or str(a).rsplit("#", 1)[-1] for pr in (EARL.assertedBy, EPO.approvedBy, EPO.signedBy, PROV.wasAttributedTo, PROV.wasAssociatedWith) for a in g.objects(n, pr)]
         when = g.value(n, PROV.generatedAtTime) or g.value(n, PROV.startedAtTime) or g.value(n, PROV.endedAtTime) or ""
         label = g.value(n, RDFS.label) or g.value(n, EPO.text) or ""
+        if not label and str(cls).endswith("ProbeDerivation"):
+            probe = next((p for p in g.subjects(PROV.wasGeneratedBy, n) if (p, RDF.type, EPO.Probe) in g), None)
+            label = f"derived the probe: {g.value(probe, EPO.text)}" if probe is not None else "derived the probes"
+        if not label and str(cls).endswith("CoverageComputation"):
+            rep = next((r for r in g.subjects(PROV.wasGeneratedBy, n) if (r, RDF.type, EPO.Report) in g), None)
+            label = f"coverage {g.value(rep, EPO.coverage)} by weight; pass {g.value(rep, EPO.passRate)}, fail {g.value(rep, EPO.failRate)}, cannot tell {g.value(rep, EPO.cantTellRate)}" if rep is not None else ""
         if not label:  # a judgment: what the assertor said in its result
             info = next((g.value(res, EARL.info) for res in g.objects(n, EARL.result)), None)
             outcome = next((str(g.value(res, EARL.outcome)).rsplit("#", 1)[-1] for res in g.objects(n, EARL.result)), None)
@@ -300,11 +309,13 @@ def render_quote_status() -> str:
     counts = {}
     for st in g.objects(None, OGC.quoteStatus):
         counts[str(st)] = counts.get(str(st), 0) + 1
-    return ("Every quote on this site carries one of three tags. *Machine*: the tests locate the quote in a content-hashed "
-            "snapshot of the source. *Human*: a named person verified it against the source on a date, usually an ISO "
-            "screenshot held locally. *Pending*: transcribed and awaiting that person's tick, listed on a rulings sheet; "
-            f"a pending quote is cited but not yet verified. At this commit: {counts.get('machine', 0)} machine, "
-            f"{counts.get('human', 0)} human, {counts.get('pending', 0)} pending.\n")
+    return ("Every quote on this site carries a tag. *Machine*: the tests locate the quote in a content-hashed "
+            "snapshot of the source or, where the source is held locally and not redistributed, in its committed digest. "
+            "*Human*: a named person verified it against the source on a date, usually an ISO screenshot held locally. "
+            "*Pending*: transcribed and awaiting that person's tick, listed on a rulings sheet; a pending quote is cited but "
+            "not yet verified. *Authors*: the authors' own words on the public record, as the bridge's definitions presented at "
+            f"the SciPy 2026 session. At this commit: {counts.get('machine', 0)} machine, {counts.get('human', 0)} human, "
+            f"{counts.get('pending', 0)} pending, {counts.get('authors', 0)} authors.\n")
 
 
 def render_criteria() -> str:
@@ -395,8 +406,8 @@ def render_steps() -> str:
             lines.append(f"| **{cell(g.value(st, RDFS.label))}** | {canon} | {also} |")
         return "\n".join(lines) + "\n"
     frame = citation(g.value(EPO.ContractingStep, OGC.canonical))
-    (OUT / "steps-contracting.md").write_text(table(EPO.ContractingStep, f"The outer cycle, contracting through delivery: {frame}."))
-    (OUT / "steps-evaluation.md").write_text(table(EPO.EpoStep, "The inner cycle, performed between access and delivery."))
+    (OUT / "steps-contracting.md").write_text(with_permission(table(EPO.ContractingStep, f"The outer cycle, contracting through delivery: {frame}.")))
+    (OUT / "steps-evaluation.md").write_text(with_permission(table(EPO.EpoStep, "The inner cycle, performed between access and delivery.")))
     return (table(EPO.ContractingStep, f"### The contracting lifecycle, C1 to C6\n\nThe outer cycle, contracting through delivery, whose actors are the parties and whose steps are the agreement processes of the standards ({frame}).")
             + "\n" + table(EPO.EpoStep, "### The evaluation, steps 1 to 6\n\nThe inner cycle, performed between access and delivery."))
 
@@ -410,7 +421,7 @@ def main_all() -> int:
     (OUT / "popper.md").write_text(render_popper())
     (OUT / "popper-back.md").write_text(render_popper_back())
     (OUT / "key-terms.md").write_text(render_key_terms())
-    (OUT / "steps.md").write_text(render_steps())
+    (OUT / "steps.md").write_text(with_permission(render_steps()))
     (OUT / "record-contracting.md").write_text(render_record_chapter("contracting"))
     (OUT / "record-evaluation.md").write_text(render_record_chapter("evaluation"))
     (OUT / "more-contracting.md").write_text(render_more("contracting",
@@ -422,7 +433,7 @@ def main_all() -> int:
     (OUT / "criteria.md").write_text(render_criteria())
     (OUT / "more-evaluation.md").write_text(render_more("evaluation",
         ["steps-evaluation.md", "wiring-evaluation.md", "wiring-table-evaluation.md", "sci-evaluation.md", "record-evaluation.md"],
-        ["ogc view evaluation", "ogc steps", "ogc sci SCI-06", "ogc term evidence", "ogc term determination", "ogc term attestation", "ogc term trajectory", "ogc rulings --term evidence", "ogc sparql"],
+        ["ogc record", "ogc record attestation-1", "ogc view evaluation", "ogc steps", "ogc sci SCI-06", "ogc term evidence", "ogc term determination", "ogc term attestation", "ogc term trajectory", "ogc rulings --term evidence", "ogc sparql"],
         ["model/og-caie.sysml", "model/og-caie.model.ttl", "vocabulary/epo.ttl", "shapes/epo.shapes.ttl (S1 to S8)", "shapes/model.shapes.ttl (M2 to M5)", "track/measles-run.ttl", "counterexamples/", "queries/coverage.rq", "queries/traceback.rq"]))
     (OUT / "more-model.md").write_text(render_more("model",
         ["nesting.md", "layers-walkthrough.md", "receipts.md"],
@@ -431,7 +442,7 @@ def main_all() -> int:
     (OUT / "executor.md").write_text(render_executor())
     (OUT / "more-guarantees.md").write_text(render_more("guarantees",
         ["sci-guarantees.md", "executor.md"],
-        ["ogc execute", "ogc execute --mutate skip-access", "ogc sci SCI-11", "ogc term \"test coverage\"", "ogc term \"requirements traceability\"", "ogc sparql"],
+        ["ogc execute", "ogc execute --planned 3", "ogc execute --mutate skip-access", "ogc sci SCI-11", "ogc term \"test coverage\"", "ogc term \"requirements traceability\"", "ogc sparql"],
         ["ogc/executor.py", "queries/coverage.rq", "queries/traceback.rq", "shapes/epo.shapes.ttl", "model/og-caie.model.ttl", "tests/test_executor.py"]))
     (ROOT / "rulings" / "sheets" / "05-blocks-and-wires.md").write_text(render_signoff_sheet())
     return 0

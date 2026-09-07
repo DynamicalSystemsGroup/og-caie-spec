@@ -20,9 +20,11 @@ to SCI-13, the statements the specification must keep), the shapes that
 check the model and the record, and the record itself encode what
 qualifies as scientific about an evaluation, and nothing else. An
 evaluation that follows the process leaves a record, and the executor
-shows it: a run that follows the wiring conforms, is complete, has a
-coverage anyone can recompute and traces fully, and each way of departing
-from the wiring is caught by a named check. A record that conforms to the
+shows it for the runs it generates: each conforms, is complete, has a
+coverage anyone can recompute and traces fully, and each of eight ways of
+departing from the wiring is caught by a named check. That every possible
+run must do so is the open concern C-30, stated in Appendix C, not a claim
+made here. A record that conforms to the
 shapes shows the hypothesis was stated before the test, the assumptions
 were declared and judged, the prediction was made and observed, the
 evidence was ruled on by a named person, the excluded outcomes were
@@ -33,7 +35,7 @@ the experts were right; that is theirs, and it is recorded with their names.
 
 Two offers close this specification. Use OG-CAIE: the process, the
 vocabulary and the record format are open, and the measles example shows
-the whole chain on one page. Or have your own AI evaluation practice audited
+the whole chain across two chapters. Or have your own AI evaluation practice audited
 against it: every requirement here is checkable, so an existing practice can
 be walked through the thirteen essentials and shown where its record would
 and would not conform.

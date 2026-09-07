@@ -59,17 +59,30 @@ def trim(lines: list[str], spec: tuple[str | None, str | None] | None) -> list[s
         kept.pop()
     out = head
     if i:
-        out.append(f"({i} lines omitted)")
+        out.append(f"({i} lines before this omitted; run the command for all)")
     out += kept
     if len(body) - j:
-        out.append(f"({len(body) - j} lines omitted)")
+        out.append(f"({len(body) - j} lines after this omitted; run the command for all)")
+    return out
+
+
+def wrapped(lines: list[str], width: int = 96) -> list[str]:
+    """Long lines fold with a hanging indent so the block never clips on the page."""
+    import textwrap
+    out = []
+    for l in lines:
+        if len(l) <= width or l.startswith("$ "):
+            out.append(l)
+        else:
+            indent = len(l) - len(l.lstrip()) + 4
+            out += textwrap.wrap(l, width=width, subsequent_indent=" " * indent, break_long_words=False, break_on_hyphens=False)
     return out
 
 
 def fragment(name: str) -> str:
     args, spec = COMMANDS[name]
     lines, code = run(args)
-    lines = trim(normalise(lines), spec)
+    lines = wrapped(trim(normalise(lines), spec))
     command = "$ uv run -q ogc " + shlex.join(args)
     return "\n".join([command, *lines, f"(exit {code})"]) + "\n"
 

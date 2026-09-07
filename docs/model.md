@@ -35,7 +35,7 @@ The same view as the tool prints it, perspective first, figure beneath:
 ```{literalinclude} ../generated/cli/view-nesting.md
 ```
 
-In SysML the outer cycle is an `action def`, the definition of a process
+In SysML v2, the systems modelling language the model is written in, the outer cycle is an `action def`, the definition of a process
 as steps in fixed succession, of seven steps, and the inner cycle another
 of six. The step `fulfil` is declared `action fulfil : EvaluationProcess`;
 its inputs, the agreement and the access, are bound by `flow`, SysML's

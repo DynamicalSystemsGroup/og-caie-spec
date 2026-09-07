@@ -39,9 +39,6 @@ definition is reproduced under the vocabulary's own terms:
 | traceability | 447 | discernible association among two or more logical entities, such as requirements, system elements, verifications, or tasks | ISO/IEC/IEEE 15288:2023, 3.52 |
 | validation | 464 | confirmation, through the provision of objective evidence, that the requirements for a specific intended use or application have been fulfilled | ISO/IEC 25000:2014, 4.41; 12207:2026, 3.1.71 |
 | verification | 470 | confirmation, through the provision of objective evidence, that specified requirements have been fulfilled | ISO/IEC 25000:2014, 4.43; 12207:2026, 3.1.72; 15288:2023 |
-
-Absent from SEVOCAB (checked 2026-09-05): attestation, red teaming,
-operational envelope, probe (in our sense), coverage on its own.
 | operator | 283 | entity that performs the operation of a system | ISO/IEC/IEEE 12207:2026, 3.1.40 |
 | evaluator | 157 | individual or organization that performs an evaluation | ISO/IEC 25000:2014, 4.18 |
 | assessment team | 30 | one or more individuals who jointly perform a process assessment | ISO/IEC 33001:2015, 3.2.10 |
@@ -56,9 +53,9 @@ operational envelope, probe (in our sense), coverage on its own.
 | proposal | 329 | supplier's offer to provide a system or service, usually including benefits, costs, risks, opportunities, and other factors applicable to decisions | ISO/IEC/IEEE 24765c:2014 |
 | request for proposal (RFP) | 350 | document used by the acquirer as the means to announce its intention to potential bidders to acquire a specified system, software product, or software service | ISO/IEC/IEEE 24765:2017 |
 | test environment and data management process | 434 | test process for establishing and maintaining a required test environment and corresponding test data | ISO/IEC/IEEE 29119-2:2021, 3.37 |
-| test environment | 434 | environment containing facilities, hardware, software, firmware, and procedures | ISO/IEC/IEEE 29119-2:2021, 3.34 |
 | test item transmittal report | 435 | document identifying test items | ISO/IEC/IEEE 24765:2017 |
 | delivery | 120 | release of a system or component to its customer or intended user | ISO/IEC/IEEE 24765:2017 |
 | system requirements specification (SyRS) | 422 | structured collection of the requirements (functions, performance, design constraints, and attributes) of the system and its operational environments and external interfaces | ISO/IEC/IEEE 29148:2018, 4.1.29 |
-| test result | 438 | indication of whether a specific test case has passed or failed, i.e. if the actual results correspond to the expected results or if deviations were observed | ISO/IEC/IEEE 29119-1:2022 |
 
+Absent from SEVOCAB (checked 2026-09-05): attestation, red teaming,
+operational envelope, probe (in our sense), coverage on its own.
