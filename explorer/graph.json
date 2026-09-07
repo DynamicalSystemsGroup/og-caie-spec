@@ -24268,6 +24268,59 @@
     ]
    ]
   },
+  "https://w3id.org/og-caie/rulings#C-58": {
+   "in": [],
+   "out": [
+    [
+     "ogc:problem",
+     {
+      "text": "Working toward a marketing whitepaper for a business, philanthropy and public-policy audience, Z and Claude produced a primer: a short term shortlist and a simplified two-cycle process description, checked against the glossary and the shapes, published outside this repository as a private page for the two coauthors. Its plain-language glosses and its Popper-to-ontology-grounding mapping (Popper defines what makes an evaluation scientific; ontology-grounding is what defines, enforces and machine-checks it) might be useful to a docs/ reader too, not only the coauthors. But the guardrails that made it safe as an internal document do not automatically transfer: several terms are marked decision-deferred candidates rather than settled choices; the marketing label sometimes differs from the glossary headword on purpose (system under test for test item, operating environment for operational environment); and it uses Popper's name and vocabulary outside the front page and the conclusion, which the site's own rule (R-29, R-30) restricts to those two bookends. Whether any version of it belongs in docs/, under which chapter or as a new one, and how much of it would need to be re-simplified or re-guarded first, is open."
+     }
+    ],
+    [
+     "ogc:severity",
+     {
+      "text": "L"
+     }
+    ],
+    [
+     "ogc:status",
+     {
+      "text": "open"
+     }
+    ],
+    [
+     "ogc:surfacedHow",
+     {
+      "text": "Z, after directing Claude to draft the marketing-whitepaper primer, entertaining whether it becomes a page in the docs app"
+     }
+    ],
+    [
+     "ogc:surfacedOn",
+     {
+      "text": "2026-09-07 (date)"
+     }
+    ],
+    [
+     "prov:wasGeneratedBy",
+     {
+      "text": "rul:marketing-primer-2026-09-07"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "ogc:Concern"
+     }
+    ],
+    [
+     "rdfs:label",
+     {
+      "text": "should the marketing-whitepaper primer become its own page on the site"
+     }
+    ]
+   ]
+  },
   "https://w3id.org/og-caie/rulings#R-01": {
    "in": [],
    "out": [
@@ -69210,6 +69263,14 @@
    "page": "../rulings"
   },
   {
+   "cls": "concern",
+   "desc": "should the marketing-whitepaper primer become its own page on the site (L, open). Working toward a marketing whitepaper for a business, philanthropy and public-policy audience, Z and Claude produced a primer: a short term shortlist and a simplified two-cycle process description, checked against the glossary and the shapes, published outside this repository as a private page for the two coauthors. Its plain-language glosses and its Popper-to-ontology-grounding mapping (Popper defines what makes an evaluation scientific; ontology-grounding is what defines, enforces and machine-checks it) might be useful to a docs/ reader too, not only the coauthors. But the guardrails that made it safe as an internal document do not automatically transfer: several terms are marked decision-deferred candidates rather than settled choices; the marketing label sometimes differs from the glossary headword on purpose (system under test for test item, operating environment for operational environment); and it uses Popper's name and vocabulary outside the front page and the conclusion, which the site's own rule (R-29, R-30) restricts to those two bookends. Whether any version of it belongs in docs/, under which chapter or as a new one, and how much of it would need to be re-simplified or re-guarded first, is open.",
+   "id": "https://w3id.org/og-caie/rulings#C-58",
+   "label": "C-58",
+   "ogc": "ogc concern C-58",
+   "page": "../rulings"
+  },
+  {
    "cls": "ruling",
    "desc": "SEVOCAB test coverage (ISO/IEC/IEEE 29119-2:2021 3.28) is adopted. The distinction between the abstract tests that cover requirements and the concrete applications of those tests during a case, which produce the evidence, is recorded as a scope note rather than as a term.",
    "id": "https://w3id.org/og-caie/rulings#R-01",
@@ -73000,6 +73061,7 @@
     "https://w3id.org/og-caie/rulings#C-55",
     "https://w3id.org/og-caie/rulings#C-56",
     "https://w3id.org/og-caie/rulings#C-57",
+    "https://w3id.org/og-caie/rulings#C-58",
     "https://w3id.org/og-caie/rulings#R-01",
     "https://w3id.org/og-caie/rulings#R-02",
     "https://w3id.org/og-caie/rulings#R-03",
@@ -74258,6 +74320,7 @@
     "https://w3id.org/og-caie/rulings#C-55",
     "https://w3id.org/og-caie/rulings#C-56",
     "https://w3id.org/og-caie/rulings#C-57",
+    "https://w3id.org/og-caie/rulings#C-58",
     "https://w3id.org/og-caie/rulings#R-01",
     "https://w3id.org/og-caie/rulings#R-02",
     "https://w3id.org/og-caie/rulings#R-03",

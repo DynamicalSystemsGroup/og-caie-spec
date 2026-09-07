@@ -1179,3 +1179,17 @@ Z (process): "okay you have a ton of work queued up now. my preference is that y
     prov:wasAttributedTo rul:Z ;
     prov:generatedAtTime "2026-09-07"^^xsd:date .
 
+rul:marketing-primer-2026-09-07 a prov:Activity ;
+    rdfs:label "Z and Claude select a term shortlist and a simplified process description to align Z and Julie before drafting an OG-CAIE marketing whitepaper, published as a private primer outside the repository" ;
+    prov:wasAssociatedWith rul:Z ;
+    prov:endedAtTime "2026-09-07"^^xsd:date .
+
+rul:C-58 a ogc:Concern ;
+    rdfs:label "should the marketing-whitepaper primer become its own page on the site" ;
+    ogc:problem """Working toward a marketing whitepaper for a business, philanthropy and public-policy audience, Z and Claude produced a primer: a short term shortlist and a simplified two-cycle process description, checked against the glossary and the shapes, published outside this repository as a private page for the two coauthors. Its plain-language glosses and its Popper-to-ontology-grounding mapping (Popper defines what makes an evaluation scientific; ontology-grounding is what defines, enforces and machine-checks it) might be useful to a docs/ reader too, not only the coauthors. But the guardrails that made it safe as an internal document do not automatically transfer: several terms are marked decision-deferred candidates rather than settled choices; the marketing label sometimes differs from the glossary headword on purpose (system under test for test item, operating environment for operational environment); and it uses Popper's name and vocabulary outside the front page and the conclusion, which the site's own rule (R-29, R-30) restricts to those two bookends. Whether any version of it belongs in docs/, under which chapter or as a new one, and how much of it would need to be re-simplified or re-guarded first, is open.""" ;
+    ogc:severity "L" ;
+    ogc:status "open" ;
+    ogc:surfacedOn "2026-09-07"^^xsd:date ;
+    ogc:surfacedHow "Z, after directing Claude to draft the marketing-whitepaper primer, entertaining whether it becomes a page in the docs app" ;
+    prov:wasGeneratedBy rul:marketing-primer-2026-09-07 .
+

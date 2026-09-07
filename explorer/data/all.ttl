@@ -991,6 +991,15 @@ rul:C-57 a ogc:Concern ;
     ogc:surfacedHow "slice D's report on the case redesign (R-51, 10-48)" ;
     ogc:surfacedOn "2026-09-07"^^xsd:date .
 
+rul:C-58 a ogc:Concern ;
+    rdfs:label "should the marketing-whitepaper primer become its own page on the site" ;
+    prov:wasGeneratedBy rul:marketing-primer-2026-09-07 ;
+    ogc:problem "Working toward a marketing whitepaper for a business, philanthropy and public-policy audience, Z and Claude produced a primer: a short term shortlist and a simplified two-cycle process description, checked against the glossary and the shapes, published outside this repository as a private page for the two coauthors. Its plain-language glosses and its Popper-to-ontology-grounding mapping (Popper defines what makes an evaluation scientific; ontology-grounding is what defines, enforces and machine-checks it) might be useful to a docs/ reader too, not only the coauthors. But the guardrails that made it safe as an internal document do not automatically transfer: several terms are marked decision-deferred candidates rather than settled choices; the marketing label sometimes differs from the glossary headword on purpose (system under test for test item, operating environment for operational environment); and it uses Popper's name and vocabulary outside the front page and the conclusion, which the site's own rule (R-29, R-30) restricts to those two bookends. Whether any version of it belongs in docs/, under which chapter or as a new one, and how much of it would need to be re-simplified or re-guarded first, is open." ;
+    ogc:severity "L" ;
+    ogc:status "open" ;
+    ogc:surfacedHow "Z, after directing Claude to draft the marketing-whitepaper primer, entertaining whether it becomes a page in the docs app" ;
+    ogc:surfacedOn "2026-09-07"^^xsd:date .
+
 rul:Julie a prov:Agent,
         prov:Person ;
     rdfs:label "Julie Hollek (Humane Intelligence), co-author" .
@@ -6682,6 +6691,11 @@ rul:R-40 a ogc:Ruling ;
     ogc:resolves rul:C-46 ;
     ogc:rulingText "In the example, one of the boundary items between the contract and the fulfilment of the evaluation contract covers the sponsor's decision that the commuters needed to be interviewed while the residents could simply be represented. This is the kind of judgement call that affects the scope of work: whether expert representation is accepted or interviews and documented stakeholder-needs input are required. The example case splits across two affected stakeholder groups to show that both options are valid and traceable under the EPO. In practice representation is the most common, with stakeholder interviews reserved for extenuating circumstances because of the increased level of effort, generally for under-represented stakeholders or under-documented stakeholder needs." ;
     ogc:verbatim "in the example one one of the boundary items between the contract and the fulfillment of the evaluation contract should cover the sponsors decision that the commuters needed to be interviewed but that the residents could simply be represented. this is the kind of judgement call that effects scope of work (whether or not we accept expert representation or require interviews and documented stakeholder needs input). in our example case we split across two affected stakeholder groups so we can show that both options are valid and traceable under out EPO. in practice the most common is represented with stakeholder interviews reserved for extenuating circumstances due to the increase in level of effort. generally reserved for underrepresent stakeholders or underdocumented stakeholder needs." .
+
+rul:marketing-primer-2026-09-07 a prov:Activity ;
+    rdfs:label "Z and Claude select a term shortlist and a simplified process description to align Z and Julie before drafting an OG-CAIE marketing whitepaper, published as a private primer outside the repository" ;
+    prov:endedAtTime "2026-09-07"^^xsd:date ;
+    prov:wasAssociatedWith rul:Z .
 
 ogc:seeAlso a owl:ObjectProperty ;
     rdfs:label "seeAlso" ;

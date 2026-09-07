@@ -8,6 +8,7 @@ system under test: registered as alt label 'system under test' of 'test item' (t
   concern: C-10 (ruled) system under test: weak canonical entry
   concern: C-15 (ruled) operational envelope: what it adds to a set of requirements
   concern: C-21 (ruled) parties to the evaluation are implicit
+  concern: C-58 (open) should the marketing-whitepaper primer become its own page on the site
   -> an alternate label; the headword is 'test item': write {term}`system under test <test
-      item>` in prose
+      item>` in prose; an open concern mentions the word
 (exit 0)
