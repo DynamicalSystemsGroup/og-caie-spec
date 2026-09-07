@@ -14,7 +14,11 @@ measles record, and writes:
   box, a legend, one button per view stating the perspective it encodes in
   two halves (what it brings into focus, what it leaves out), and a detail
   panel that names the `ogc` command that prints the node and links to the
-  site page where it is rendered;
+  site page where it is rendered, and a focus mode (ruling R-48): the
+  focused node and its neighbourhood at a distance of 1, 2 or 3 within the
+  current view, the rest faded or hidden, the legend counting what is
+  shown, Escape and the arrows to leave or walk the focus, and the deep
+  link `#view=..&node=..&focus=1&depth=N` so a neighbourhood can be shared;
 - explorer/data/*.ttl: copies of the Turtle files, for the optional SPARQL
   box (oxigraph's WebAssembly build under explorer/vendor/oxigraph/), which
   the d3 explorer never depends on.
@@ -433,10 +437,18 @@ PAGE = r"""<!doctype html>
   header{position:fixed;top:0;left:0;right:0;z-index:7;padding:6px 12px;display:flex;gap:8px;
          align-items:baseline;flex-wrap:wrap;background:#171a21ee;border-bottom:1px solid #2a2f3a}
   header h1{font-size:13px;margin:0;font-weight:600;white-space:nowrap}
-  #views{display:flex;gap:5px;flex-wrap:wrap}
-  #views button{background:#2a2f3a;color:#e6e6e6;border:1px solid #3a4150;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:11px}
-  #views button:hover{background:#333a48}
-  #views button[aria-pressed="true"]{background:#3d5afe33;border-color:#7986cb;color:#fff}
+  #views,#focusbar{display:flex;gap:5px;flex-wrap:wrap;align-items:baseline}
+  #views button,#focusbar button{background:#2a2f3a;color:#e6e6e6;border:1px solid #3a4150;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:11px}
+  #views button:hover,#focusbar button:hover{background:#333a48}
+  #views button[aria-pressed="true"],#focusbar button[aria-pressed="true"]{background:#3d5afe33;border-color:#7986cb;color:#fff}
+  #focusbar{margin-left:10px;padding-left:10px;border-left:1px solid #2a2f3a}
+  #focusbar .lbl{color:#9aa4b2;font-size:11px}
+  #focusbar.on .lbl{color:#ffd54f}
+  #focusbar button[data-depth]{padding:2px 6px}
+  #focusbar button:disabled{opacity:.4;cursor:default}
+  .node.dim{opacity:.12}
+  .link.dim{stroke-opacity:.06}
+  .node.focus path{stroke:#ffd54f;stroke-width:3px}
   #search{margin-left:auto;position:relative}
   #search input{background:#0f1115;color:#e6e6e6;border:1px solid #3a4150;border-radius:6px;padding:2px 8px;font-size:11px;width:180px}
   #hits{position:absolute;right:0;top:22px;background:#171a21;border:1px solid #3a4150;border-radius:6px;min-width:240px;max-height:260px;overflow-y:auto;display:none;z-index:9}
@@ -454,6 +466,8 @@ PAGE = r"""<!doctype html>
   #legend .row{display:flex;align-items:center;gap:6px;margin:1px 0}
   #legend .g{width:14px;text-align:center;font-size:12px}
   #legend summary{cursor:pointer;font-weight:600}
+  #legend #count{color:#c8cfda;font-weight:600;margin:2px 0 4px}
+  #legend #count.on{color:#ffd54f}
   #tip{position:fixed;pointer-events:none;background:#000d;border:1px solid #3a4150;border-radius:6px;padding:5px 8px;font-size:11.5px;
        max-width:320px;display:none;z-index:9;white-space:pre-line}
   #detail{position:fixed;left:12px;top:76px;bottom:12px;width:360px;z-index:5;overflow-y:auto;background:#171a21ee;
@@ -485,6 +499,8 @@ PAGE = r"""<!doctype html>
   #sparql th{color:#9aa4b2;font-weight:600}
   #full{font-size:11px;color:#7ab3ef;white-space:nowrap;display:none}
   #close{float:right;background:none;border:none;color:#9aa4b2;font-size:16px;cursor:pointer;padding:0 2px;display:none}
+  #detail .focusbtn{float:right;background:#2a2f3a;color:#e6e6e6;border:1px solid #3a4150;border-radius:6px;padding:1px 8px;cursor:pointer;font-size:11px;margin:0 0 4px 6px}
+  #detail .focusbtn.on{background:#ffd54f22;border-color:#ffd54f;color:#ffd54f}
   body.embed #viewdesc{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
   body.embed #detail{width:min(300px,70vw)}
   body.embed #detail.idle{display:none}
@@ -497,12 +513,18 @@ PAGE = r"""<!doctype html>
 <header>
   <h1>__TITLE__</h1>
   <nav id="views"></nav>
+  <span id="focusbar" title="focus on a node (double-click it, or the focus button in the panel) to see only its neighbourhood at this distance; Escape leaves, the arrows walk: right to a neighbour, left back, up and down between siblings">
+    <span class="lbl">focus depth</span>
+    <button data-depth="1" aria-pressed="true">1</button><button data-depth="2" aria-pressed="false">2</button><button data-depth="3" aria-pressed="false">3</button>
+    <button id="hidemode" aria-pressed="false" title="hide the nodes outside the neighbourhood instead of fading them">hide others</button>
+    <button id="unfocus" disabled title="restore the view (Escape)">unfocus</button>
+  </span>
   <div id="search"><input id="q" type="search" placeholder="find a node" autocomplete="off"><div id="hits"></div></div>
   <a id="full" href="../explorer/index.html" target="_top" title="open the explorer in the whole window">full screen ↗</a>
   <span id="viewdesc"></span>
 </header>
-<aside id="detail" class="idle"><div class="empty">click a node to read it; drag to pin, double-click to release</div></aside>
-<details id="legend" open><summary>legend</summary><div id="legendrows"></div></details>
+<aside id="detail" class="idle"><div class="empty">click a node to read it; double-click to focus on it and its neighbourhood; drag to pin, shift-click to release</div></aside>
+<details id="legend" open><summary>legend</summary><div id="count"></div><div id="legendrows"></div></details>
 <details id="sparql"><summary>SPARQL over the same graphs</summary><div class="body">
   <textarea id="qtext" spellcheck="false"></textarea>
   <div><button id="run">run</button> <span class="status" id="qstatus">SELECT queries; prefixes are injected; the store loads on first run.</span></div>
@@ -519,7 +541,18 @@ const DERIVED = new Set(["carries","in","out","then","corresponds"]);
 const byId = new Map(NODES.map(n=>[n.id,n]));
 const GLYPH = {circle:d3.symbolCircle, diamond:d3.symbolDiamond, square:d3.symbolSquare, triangle:d3.symbolTriangle};
 let cur = 0, selectedId = null;
+// focus mode (ruling R-48): the focused node and its neighbourhood at a distance, within the current view; the rest fades or hides
+let focusId = null, depth = 1, hideOthers = false, shownSet = null, trail = [];
 const view = ()=>VIEWS[cur];
+const lid = x => typeof x==="string" ? x : x.id;
+const ADJ = new Map(NODES.map(n=>[n.id,new Set()]));
+for(const e of MODEL.links){ ADJ.get(e.source).add(e.target); ADJ.get(e.target).add(e.source); }
+function neighbourhood(id, present){
+  const seen = new Set([id]); let frontier = [id];
+  for(let k=0; k<depth && frontier.length; k++){ const next=[]; for(const x of frontier) for(const y of ADJ.get(x)) if(present.has(y)&&!seen.has(y)){seen.add(y);next.push(y);} frontier=next; }
+  return seen;
+}
+function neighbours(id){ const present = new Set(view().present); return [...ADJ.get(id)].filter(y=>present.has(y)).sort((a,b)=>byId.get(a).label.localeCompare(byId.get(b).label)||a.localeCompare(b)); }
 // embedded in the appendix (an iframe, or a small window): panels give way to the canvas until a node is clicked
 const EMBED = (window.self !== window.top) || window.innerHeight < 560;
 if(EMBED){ document.body.classList.add("embed"); document.getElementById("legend").open = false; }
@@ -532,11 +565,12 @@ const W = window.innerWidth, H = window.innerHeight;
 svg.attr("viewBox",[0,0,W,H]);
 const g = svg.append("g");
 const linkLayer = g.append("g"), nodeLayer = g.append("g");
-const zoom = d3.zoom().scaleExtent([.15,5]).on("zoom",ev=>g.attr("transform",ev.transform));
+let userMoved = false;  // the reader panned or zoomed since the last repaint: the camera is theirs until the next
+const zoom = d3.zoom().scaleExtent([.15,5]).on("zoom",ev=>{ g.attr("transform",ev.transform); if(ev.sourceEvent) userMoved = true; });
 svg.call(zoom);
-let fitTimer = null;
-function fit(){  // zoom so the current view's nodes fill the canvas beside the panels, once the layout has settled
-  const nodes = sim.nodes(); if(!nodes.length) return;
+let fitTimer = null, CX = W*.58, CY = H*.54;
+function fit(){  // zoom so the current view's nodes (in focus mode, the neighbourhood) fill the canvas beside the panels, once the layout has settled
+  let nodes = sim.nodes(); if(shownSet){ const s = nodes.filter(d=>shownSet.has(d.id)); if(s.length) nodes = s; } if(!nodes.length) return;
   const xs = nodes.map(d=>d.x), ys = nodes.map(d=>d.y);
   const x0 = Math.min(...xs)-30, x1 = Math.max(...xs)+120, y0 = Math.min(...ys)-30, y1 = Math.max(...ys)+30;
   const hh = document.querySelector("header").offsetHeight;
@@ -545,7 +579,7 @@ function fit(){  // zoom so the current view's nodes fill the canvas beside the 
   const t = d3.zoomIdentity.translate(left+(W-left)/2-k*(x0+x1)/2, hh+(H-hh)/2-k*(y0+y1)/2).scale(k);
   svg.transition().duration(500).call(zoom.transform, t);
 }
-function scheduleFit(){ clearTimeout(fitTimer); fitTimer = setTimeout(fit, 1400); }
+function scheduleFit(delay){ clearTimeout(fitTimer); fitTimer = setTimeout(fit, delay==null ? 1400 : delay); }
 let linkSel = linkLayer.selectAll("line"), nodeSel = nodeLayer.selectAll("g");
 const sim = d3.forceSimulation()
   .force("link",d3.forceLink().id(d=>d.id).distance(l=>40+radius(l.source)+radius(l.target)).strength(.4))
@@ -557,43 +591,99 @@ const sim = d3.forceSimulation()
   .on("tick",()=>{
     linkSel.attr("x1",d=>d.source.x).attr("y1",d=>d.source.y).attr("x2",d=>d.target.x).attr("y2",d=>d.target.y);
     nodeSel.attr("transform",d=>`translate(${d.x},${d.y})`);
-  });
+  })
+  .on("end",()=>{ if(focusId && !userMoved) fit(); });  // a focused neighbourhood is small and moves with the layout: settle the camera on it once the layout has settled
 
 function nodeStroke(d){ return d.id===selectedId ? "#fff" : "#0b0d11"; }
 function paint(){
   const present = new Set(view().present);
-  const nodes = NODES.filter(n=>present.has(n.id));
-  const links = ALL_LINKS.filter(l=>present.has(typeof l.source==="string"?l.source:l.source.id)&&present.has(typeof l.target==="string"?l.target:l.target.id));
-  const showLabels = nodes.length <= 320;
-  linkSel = linkLayer.selectAll("line").data(links, l=>`${typeof l.source==="string"?l.source:l.source.id}|${typeof l.target==="string"?l.target:l.target.id}|${l.rel}`)
+  if(focusId && !present.has(focusId)){ focusId = null; trail = []; }
+  shownSet = focusId ? neighbourhood(focusId, present) : null;
+  const inShow = id => !shownSet || shownSet.has(id);
+  const nodes = NODES.filter(n=>present.has(n.id));  // the view
+  const links = ALL_LINKS.filter(l=>present.has(lid(l.source))&&present.has(lid(l.target)));
+  const drawn = hideOthers&&shownSet ? nodes.filter(n=>inShow(n.id)) : nodes;  // what the simulation holds
+  const drawnLinks = hideOthers&&shownSet ? links.filter(l=>inShow(lid(l.source))&&inShow(lid(l.target))) : links;
+  const showLabels = drawn.length <= 320;
+  linkSel = linkLayer.selectAll("line").data(drawnLinks, l=>`${lid(l.source)}|${lid(l.target)}|${l.rel}`)
     .join("line").attr("class",l=>"link"+(DERIVED.has(l.rel)?" derived":""))
+    .classed("dim", l=>!!shownSet&&!(shownSet.has(lid(l.source))&&shownSet.has(lid(l.target))))
     .on("mousemove",(ev,l)=>{tip.style("display","block").style("left",(ev.clientX+12)+"px").style("top",(ev.clientY+12)+"px")
-        .text(`${byId.get(l.source.id||l.source).label}\n  ${l.rel}\n${byId.get(l.target.id||l.target).label}`);})
+        .text(`${byId.get(lid(l.source)).label}\n  ${l.rel}\n${byId.get(lid(l.target)).label}`);})
     .on("mouseout",()=>tip.style("display","none"));
-  nodeSel = nodeLayer.selectAll("g").data(nodes, d=>d.id).join(enter=>{
-      const e = enter.append("g").attr("class","node")
+  nodeSel = nodeLayer.selectAll("g").data(drawn, d=>d.id).join(enter=>{
+      const e = enter.append("g")
         .call(d3.drag()
           .on("start",(ev,d)=>{if(!ev.active)sim.alphaTarget(.3).restart();d.fx=d.x;d.fy=d.y;})
           .on("drag",(ev,d)=>{d.fx=ev.x;d.fy=ev.y;})
           .on("end",(ev,d)=>{if(!ev.active)sim.alphaTarget(0);}))
-        .on("dblclick",(ev,d)=>{d.fx=null;d.fy=null;sim.alphaTarget(.2).restart();setTimeout(()=>sim.alphaTarget(0),400);ev.stopPropagation();})
-        .on("click",(ev,d)=>{showDetail(d.id);ev.stopPropagation();})
+        .on("dblclick",(ev,d)=>{focusOn(d.id);ev.stopPropagation();})
+        .on("click",(ev,d)=>{ev.stopPropagation();
+            if(ev.shiftKey){d.fx=null;d.fy=null;sim.alphaTarget(.2).restart();setTimeout(()=>sim.alphaTarget(0),400);return;}
+            goTo(d.id);})
         .on("mousemove",(ev,d)=>{tip.style("display","block").style("left",(ev.clientX+12)+"px").style("top",(ev.clientY+12)+"px")
             .text(`${d.label}\n${(FAM[d.cls]||{text:d.cls}).text}\n${d.desc.length>220?d.desc.slice(0,219)+"…":d.desc}`);})
         .on("mouseout",()=>tip.style("display","none"));
       e.append("path"); e.append("text").attr("y",3); return e; });
+  nodeSel.attr("class",d=>"node"+(shownSet&&!shownSet.has(d.id)?" dim":"")+(d.id===focusId?" focus":""));
   nodeSel.select("path").attr("d",symPath).attr("fill",color).attr("stroke",nodeStroke).attr("stroke-width",d=>d.id===selectedId?2.4:1.2);
-  nodeSel.select("text").attr("x",d=>radius(d)+3).text(d=>showLabels||d.id===selectedId?d.label:"");
-  nodeSel.style("opacity",1);
-  sim.nodes(nodes); sim.force("link").links(links);
-  sim.alpha(.6).restart(); scheduleFit();
+  nodeSel.select("text").attr("x",d=>radius(d)+3).text(d=>showLabels||d.id===selectedId||(shownSet&&shownSet.has(d.id))?d.label:"");
+  userMoved = false;
+  const before = sim.nodes(), same = before.length===drawn.length && before.every((d,i)=>d===drawn[i]);
+  if(!same){  // the node set changed: in focus mode with the others hidden, carry the neighbourhood so the focused node sits at the centre, then settle again
+    const f = focusId && byId.get(focusId);
+    if(hideOthers && f && f.x!=null){ const dx = CX-f.x, dy = CY-f.y; for(const d of drawn){ if(d.x==null) continue; d.x+=dx; d.y+=dy; if(d.fx!=null){d.fx+=dx;d.fy+=dy;} } }
+    sim.nodes(drawn); sim.force("link").links(drawnLinks);
+    sim.alpha(.6).restart(); scheduleFit();
+  } else scheduleFit(sim.alpha()>.05 ? 1400 : 250);  // same nodes, new emphasis: only the camera moves
   const v = view();
   const desc = d3.select("#viewdesc").text("");
   desc.append("b").text("In focus: "); desc.append("span").text(v.focus+" ");
   desc.append("b").text("Left out: "); desc.append("span").text(v.leaves_out+` (${nodes.length} nodes, ${links.length} links)`);
   d3.select("#views").selectAll("button").attr("aria-pressed",(x,i)=>String(i===cur));
+  const count = document.getElementById("count"); count.classList.toggle("on", !!shownSet);
+  count.textContent = shownSet
+    ? `${shownSet.size} of ${nodes.length} nodes, ${links.filter(l=>shownSet.has(lid(l.source))&&shownSet.has(lid(l.target))).length} of ${links.length} links (focus, depth ${depth})`
+    : `${nodes.length} nodes, ${links.length} links`;
+  syncFocusbar();
   writeHash();
 }
+// --- focus mode: enter, leave, move; the controls in the toolbar and the panel; Escape and the arrows ---
+const focusbar = document.getElementById("focusbar");
+function focusOn(id, d){
+  if(!byId.has(id)) return;
+  if(d) depth = Math.min(3, Math.max(1, d));
+  if(focusId && focusId!==id && trail[trail.length-1]!==id) trail.push(focusId);
+  focusId = id; selectedId = id;
+  if(!view().present.includes(id)){ cur = VIEWS.findIndex(v=>v.present.includes(id)); if(cur<0) cur = VIEWS.length-1; }
+  paint(); showDetail(id);
+}
+function unfocus(){ if(!focusId) return; focusId = null; trail = []; paint(); if(selectedId) showDetail(selectedId); }
+const goTo = id => focusId ? focusOn(id) : showDetail(id);  // in focus mode, every jump moves the focus
+function syncFocusbar(){
+  focusbar.querySelectorAll("button[data-depth]").forEach(b=>b.setAttribute("aria-pressed",String(+b.dataset.depth===depth)));
+  document.getElementById("hidemode").setAttribute("aria-pressed",String(hideOthers));
+  document.getElementById("unfocus").disabled = !focusId;
+  focusbar.classList.toggle("on", !!focusId);
+  const fb = detailEl.querySelector(".focusbtn");
+  if(fb){ const on = !!focusId && focusId===selectedId; fb.textContent = on ? "unfocus" : "focus"; fb.classList.toggle("on", on); }
+}
+focusbar.querySelectorAll("button[data-depth]").forEach(b=>b.addEventListener("click",()=>{ depth = +b.dataset.depth; if(focusId) focusOn(focusId); else syncFocusbar(); }));
+document.getElementById("hidemode").addEventListener("click",()=>{ hideOthers = !hideOthers; if(focusId) paint(); else syncFocusbar(); });
+document.getElementById("unfocus").addEventListener("click",unfocus);
+document.addEventListener("keydown",ev=>{
+  const t = ev.target, typing = !!t && (t.tagName==="INPUT" || t.tagName==="TEXTAREA");
+  if(typing || !focusId) return;
+  if(ev.key==="Escape"){ unfocus(); ev.preventDefault(); return; }
+  const from = trail[trail.length-1];
+  if(ev.key==="ArrowLeft"){ if(from){ const back = trail.slice(0,-1); focusOn(from); trail = back; } ev.preventDefault(); }
+  else if(ev.key==="ArrowRight"){ const nb = neighbours(focusId).filter(x=>x!==from); if(nb.length) focusOn(nb[0]); ev.preventDefault(); }
+  else if(ev.key==="ArrowDown" || ev.key==="ArrowUp"){  // siblings: the neighbours of the node the focus came from; with nowhere to come from, the focus's own
+    const sib = from ? neighbours(from).filter(x=>x!==from) : neighbours(focusId); if(!sib.length) return;
+    const i = sib.indexOf(focusId), n = sib.length, next = i<0 ? sib[0] : sib[(i+(ev.key==="ArrowDown"?1:n-1))%n];
+    const keep = trail.slice(); focusOn(next); trail = keep; ev.preventDefault();
+  }
+});
 function repaintSelection(){
   nodeSel.select("path").attr("stroke",nodeStroke).attr("stroke-width",d=>d.id===selectedId?2.4:1.2);
 }
@@ -614,6 +704,8 @@ function showDetail(id){
   if(!view().present.includes(id)){ cur = VIEWS.findIndex(v=>v.present.includes(id)); if(cur<0) cur = VIEWS.length-1; paint(); } else { repaintSelection(); writeHash(); }
   detailEl.textContent = ""; detailEl.classList.remove("idle");
   const close = el("button",null,"×"); close.id = "close"; close.title = "close"; close.addEventListener("click",clearDetail); detailEl.appendChild(close);
+  const fb = el("button","focusbtn","focus"); fb.title = "show only this node and its neighbourhood (double-click on the canvas does the same); Escape restores the view";
+  fb.addEventListener("click",()=>{ focusId===id ? unfocus() : focusOn(id); }); detailEl.appendChild(fb);
   detailEl.appendChild(el("h2",null,n.label));
   detailEl.appendChild(el("span","chip",(FAM[n.cls]||{text:n.cls}).text));
   detailEl.appendChild(el("div","desc",n.desc));
@@ -626,13 +718,14 @@ function showDetail(id){
   if(incoming.length){ const ul=section("said of the node"); for(const [p,s] of incoming){ const li=el("li"); li.appendChild(refSpan(s)); li.appendChild(el("span","dim"," "+p)); ul.appendChild(li);} }
   const ids = new Set(view().present);
   const nb = ALL_LINKS.filter(l=>{const a=l.source.id||l.source,b=l.target.id||l.target;return (a===id||b===id)&&(ids.has(a)&&ids.has(b));}).length;
-  detailEl.appendChild(el("div","dim",`${nb} links in this view; the id is ${id}`));
-  detailEl.scrollTop = 0;
+  const focusNote = focusId===id && shownSet ? `; focused at depth ${depth}: ${shownSet.size} nodes shown` : "";
+  detailEl.appendChild(el("div","dim",`${nb} links in this view${focusNote}; the id is ${id}`));
+  detailEl.scrollTop = 0; syncFocusbar();
 }
-detailEl.addEventListener("click",ev=>{const r=ev.target&&ev.target.dataset&&ev.target.dataset.ref; if(r) showDetail(r);});
+detailEl.addEventListener("click",ev=>{const r=ev.target&&ev.target.dataset&&ev.target.dataset.ref; if(r) goTo(r);});
 function clearDetail(){ selectedId=null; repaintSelection(); detailEl.textContent=""; detailEl.classList.add("idle");
-  detailEl.appendChild(el("div","empty","click a node to read it; drag to pin, double-click to release")); writeHash(); }
-svg.on("click",()=>{ if(selectedId) clearDetail(); });
+  detailEl.appendChild(el("div","empty","click a node to read it; double-click to focus on it and its neighbourhood; drag to pin, shift-click to release")); writeHash(); }
+svg.on("click",()=>{ if(selectedId && !focusId) clearDetail(); });  // in focus mode the canvas is not a way out; unfocus or Escape is
 
 // --- search: label substring, jump to the node ---
 const q = document.getElementById("q"), hits = document.getElementById("hits");
@@ -640,7 +733,7 @@ q.addEventListener("input",()=>{
   const s = q.value.trim().toLowerCase(); hits.textContent="";
   if(!s){hits.style.display="none";return;}
   const m = NODES.filter(n=>n.label.toLowerCase().includes(s)||n.id.toLowerCase().includes(s)).slice(0,14);
-  for(const n of m){ const d=el("div",null,n.label); d.appendChild(el("span","c",n.cls)); d.addEventListener("click",()=>{showDetail(n.id);hits.style.display="none";q.value="";}); hits.appendChild(d); }
+  for(const n of m){ const d=el("div",null,n.label); d.appendChild(el("span","c",n.cls)); d.addEventListener("click",()=>{goTo(n.id);hits.style.display="none";q.value="";}); hits.appendChild(d); }
   hits.style.display = m.length?"block":"none";
 });
 q.addEventListener("keydown",ev=>{ if(ev.key==="Enter"&&hits.firstChild) hits.firstChild.click(); if(ev.key==="Escape"){hits.style.display="none";} });
@@ -681,7 +774,7 @@ document.getElementById("run").addEventListener("click", async ()=>{
     out.appendChild(t); st.textContent = `${res.length} rows${res.length>200?", first 200 shown":""}; a cell that is a node is clickable.`;
   }catch(e){ st.textContent = "SPARQL needs the site served over http (the WebAssembly store cannot load from a file: URL); use `uv run -q ogc sparql` instead. " + (e && e.message ? e.message : e); }
 });
-document.getElementById("qout").addEventListener("click",ev=>{const r=ev.target&&ev.target.dataset&&ev.target.dataset.ref; if(r) showDetail(r);});
+document.getElementById("qout").addEventListener("click",ev=>{const r=ev.target&&ev.target.dataset&&ev.target.dataset.ref; if(r) goTo(r);});
 function shortIri(v){ for(const [k,ns] of PREFIX_LIST) if(v.startsWith(ns)) return k+":"+v.slice(ns.length); return v; }
 const PREFIX_LIST = PREFIXES.trim().split("\n").map(l=>{const m=l.match(/^PREFIX (\w*): <([^>]*)>/);return m?[m[1],m[2]]:null;}).filter(Boolean).sort((a,b)=>b[1].length-a[1].length);
 
@@ -690,16 +783,30 @@ function layout(){
   detailEl.style.top = (hh+12)+"px";
   detailEl.style.bottom = (document.getElementById("sparql").offsetHeight+24)+"px";
   const cy = hh + (H-hh)*.5, cx = EMBED ? W*.5 : W*.58;
+  CX = cx; CY = cy;
   sim.force("center").x(cx).y(cy); sim.force("x").x(cx); sim.force("y").y(cy);
 }
-// deep links: #view=<view id>&node=<node id>, read on load and kept current, so a view or a node can be linked to
-function readHash(){ const p = new URLSearchParams(location.hash.slice(1)); const v = VIEWS.findIndex(x=>x.id===p.get("view")); if(v>=0) cur=v; return p.get("node"); }
-function writeHash(){ const p = new URLSearchParams(); p.set("view", view().id); if(selectedId) p.set("node", selectedId); try{ history.replaceState(null,"","#"+p.toString()); }catch(e){} }
-const startNode = readHash();
+// deep links: #view=<view id>&node=<node id>[&focus=1&depth=N], read on load and kept current, so a view, a node or a focused neighbourhood can be linked to
+function readHash(){
+  const p = new URLSearchParams(location.hash.slice(1)); const v = VIEWS.findIndex(x=>x.id===p.get("view")); if(v>=0) cur=v;
+  const d = parseInt(p.get("depth"), 10);
+  return {node: p.get("node"), focus: p.get("focus")==="1", depth: d>=1 && d<=3 ? d : 0};
+}
+function writeHash(){
+  const p = new URLSearchParams(); p.set("view", view().id);
+  if(selectedId || focusId) p.set("node", selectedId || focusId);
+  if(focusId){ p.set("focus","1"); p.set("depth", String(depth)); }
+  try{ history.replaceState(null,"","#"+p.toString()); }catch(e){}
+}
+function openHash(h){
+  if(!(h.node && byId.has(h.node))){ if(focusId) unfocus(); return; }
+  if(h.focus) focusOn(h.node, h.depth || depth); else { if(focusId){ focusId = null; trail = []; } showDetail(h.node); }
+}
+const start = readHash();
 paint(); layout();
-if(startNode && byId.has(startNode)) showDetail(startNode);
+openHash(start);
 window.addEventListener("resize",layout);
-window.addEventListener("hashchange",()=>{ const n = readHash(); paint(); if(n && byId.has(n)) showDetail(n); });
+window.addEventListener("hashchange",()=>{ const h = readHash(); paint(); openHash(h); });
 document.getElementById("sparql").addEventListener("toggle",layout);
 </script>
 </body></html>

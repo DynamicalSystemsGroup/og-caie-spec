@@ -3,7 +3,9 @@ it regenerates byte-identically, every link joins two nodes, every view
 states both halves of its perspective, every term, ruling, concern,
 essential, shape, seam and record item is a node, every node names the
 `ogc` command that prints it, the page carries no timestamp of its own,
-and the appendix that embeds it is in the site's table of contents."""
+the appendix that embeds it is in the site's table of contents, and focus
+mode (ruling R-48: a node and its neighbourhood, everything else faded or
+hidden) is a matter of the page alone, never of the data."""
 import json
 import re
 import sys
@@ -109,3 +111,23 @@ def test_the_appendix_exists_is_in_the_toc_and_embeds_the_explorer():
     assert "```{iframe} explorer/index.html" in text and "(../explorer/index.html)" in text
     assert "—" not in text
     assert "appendix-explorer.md" in (ROOT / "generated" / "more-contracting.md").read_text()
+
+
+def test_the_page_has_focus_mode_and_the_data_does_not():
+    """Ruling R-48: focus on a node and see only its local neighbourhood.
+    The page carries the controls (a depth control 1, 2, 3, a fade or hide
+    toggle, an unfocus control), the shortcuts (double-click, Escape, the
+    arrows), the legend count of what is shown, and the deep-link parameters
+    focus and depth; graph.json is the data and knows nothing of it."""
+    html = (ROOT / "explorer" / "index.html").read_text()
+    for control in ('id="focusbar"', 'data-depth="1"', 'data-depth="2"', 'data-depth="3"', 'id="unfocus"', 'id="hidemode"', 'id="count"'):
+        assert control in html, control
+    for key in ('"Escape"', '"ArrowRight"', '"ArrowLeft"', '"dblclick"', 'p.get("focus")', 'p.get("depth")', 'p.set("focus","1")', 'p.set("depth"'):
+        assert key in html, key
+    assert "of ${nodes.length} nodes" in html  # the legend counts what is shown against the view
+    assert "double-click to focus" in html
+    m = model()
+    assert set(m) == {"detail", "families", "links", "nodes", "title", "views"}
+    assert not any("focus" in n or "depth" in n for n in m["nodes"])
+    assert set(m["views"][0]) == {"id", "label", "focus", "leaves_out", "present"}  # a view's focus is its perspective, not the mode
+    assert "focus" in (ROOT / "docs" / "appendix-explorer.md").read_text().lower()
