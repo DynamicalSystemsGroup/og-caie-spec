@@ -548,7 +548,7 @@ def verify(args, g, argstr: str) -> int:
         rows = keep(api.verify_all(g, args.root))
         states = dict(sorted(Counter(r["state"] for r in rows).items()))
         summary = dict(citations=len(rows), states=states)
-        return emit(args, "verify", argstr, rows, lambda: text.table(rows, VERIFY_COLS) + [f"({len(rows)} citations; " + ", ".join(f"{n} {s}" for s, n in states.items()) + ")"], summary=summary)
+        return emit(args, "verify", argstr, rows, lambda: text.table(rows, VERIFY_COLS) + [f"({len(rows)} citations" + ("; " + ", ".join(f"{n} {s}" for s, n in states.items()) if states else "") + ")"], summary=summary)
     if need(args, args.what, "a term, a source slug, a step, or --all"):
         return 2
     what = api.bare(args.what)

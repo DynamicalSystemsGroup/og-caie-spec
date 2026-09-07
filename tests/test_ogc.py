@@ -551,6 +551,7 @@ def test_r2_finding_22_crosswalk_citations_are_listed_by_verify_all_with_state_a
     assert len(_json("verify", "--all", "--state", "authors")[1]["rows"]) == n and len(_json("verify", "--all", "--status", "authors")[1]["rows"]) == n
     r, d = _json("verify", "--all", "--status", "pending")
     assert r.returncode == 0 and d["rows"] == [] and d["summary"]["citations"] == 0
+    assert run("verify", "--all", "--status", "pending").stdout.rstrip().endswith("(0 citations)")
     assert run("verify", "--all", "--state", "bogus").returncode == 1 and run("verify", "--all", "--status", "bogus").returncode == 1
     assert run("verify", "probe", "--status", "machine").returncode == 0
     skill = SKILL.read_text()
