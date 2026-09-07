@@ -8,15 +8,18 @@ A collaboration between Humane Intelligence and Dynamical Systems Group.
 ```
 
 Contextual AI Evaluation (CAIE) is the {term}`evaluation` of a deployed AI
-system against the needs of a specific domain, judged by people who know
-that domain. OG-CAIE is CAIE performed with the method this site sets out:
-an {term}`Evaluation Process Ontology` (EPO), the same six steps for every
-domain, performed inside a contracting lifecycle drawn from the same
+system against the needs of one domain, judged by people who know that
+domain. OG-CAIE is CAIE performed with the method this site sets out: an
+{term}`Evaluation Process Ontology` (EPO), the same six steps for every
+domain, performed inside a contracting lifecycle drawn from the engineering
 standards, and a {term}`Domain-Specific Ontology` (DSO), the vocabulary of
-one domain supplied or approved by its experts. This site is the specification
-of that method in a form a machine can check and a person can read. It is a
-collaboration between Dynamical Systems Group and Humane Intelligence,
-co-authored by Michael Zargham and Julie Hollek.
+one domain supplied or approved by its experts. The method is stated here
+in a form a machine can check and a person can read, and it is walked
+through on one synthetic case, a county public-health chatbot asked about
+measles during an outbreak.
+
+This site is a collaboration between Dynamical Systems Group and Humane
+Intelligence, co-authored by Michael Zargham and Julie Hollek.
 
 ## Why this counts as science
 
@@ -45,12 +48,14 @@ quality: ISO 9000 for {term}`requirement`, {term}`objective evidence` and
 Software and Systems Engineering Vocabulary for {term}`acceptance criteria`,
 {term}`expected results`, {term}`test plan`, {term}`test coverage` and the
 test case a {term}`probe` refines; NIST's evaluation reports for
-{term}`session`. Using those names
-rather than coining our own is what lets someone else check the record
-against the same definitions we used. The table is the bridge: each row
-takes one Popperian element to the standard terms it lands on, to the place
-it occupies in an evaluation record, and to the check that makes it more
-than a promise.
+{term}`session`. Using those names rather than coining our own is what lets
+someone else check the record against the same definitions we used. At
+SciPy 2026 the authors led a birds-of-a-feather session, Building
+Scientific Approaches to Generative AI, and put Popper's elements to the
+room in the words the table's first column keeps. The table is the bridge:
+each row takes one of those elements to the standard terms it lands on, to
+the place it occupies in an evaluation record, and to the check that makes
+it more than a promise.
 
 ```{include} generated/popper.md
 ```
