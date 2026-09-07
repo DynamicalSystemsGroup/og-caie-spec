@@ -57,11 +57,11 @@ What the graphs are written in, counted over the committed Turtle files (`vocabu
 | `term` | `https://w3id.org/og-caie/terms#` | this specification | the glossary's terms | 0 | 0 | 66 | <https://w3id.org/og-caie/> |
 | `src` | `https://w3id.org/og-caie/sources#` | this specification | the source register | 0 | 0 | 77 | <https://w3id.org/og-caie/> |
 | `rul` | `https://w3id.org/og-caie/rulings#` | this specification | concerns and rulings | 0 | 0 | 113 | <https://w3id.org/og-caie/> |
-| `epo` | `https://w3id.org/og-caie/epo#` | this specification | the Evaluation Process Ontology's handles: item classes, steps, layers, roles and their properties | 54 | 60 | 163 | <https://w3id.org/og-caie/> |
+| `epo` | `https://w3id.org/og-caie/epo#` | this specification | the Evaluation Process Ontology's handles: item classes, steps, layers, roles and their properties | 54 | 59 | 168 | <https://w3id.org/og-caie/> |
 | `xw` | `https://w3id.org/og-caie/crosswalk#` | this specification | the crosswalk rows of the front page's bridge into the standards | 0 | 0 | 7 | <https://w3id.org/og-caie/> |
 | `tr` | `https://w3id.org/og-caie/trace#` | this specification | the essentials SCI-01 to SCI-13 | 0 | 0 | 13 | <https://w3id.org/og-caie/> |
 | `ogm` | `https://w3id.org/og-caie/model#` | this specification | the derived ends of the canonical model graph (resolved ports, flow ends, successions, relations) | 0 | 11 | 11 | <https://w3id.org/og-caie/> |
-| `ev` | `https://w3id.org/og-caie/evaluation/measles#` | this specification | the measles evaluation's record, its items and agents (sheet 10-42) | 0 | 0 | 59 | <https://w3id.org/og-caie/> |
+| `ev` | `https://w3id.org/og-caie/evaluation/measles#` | this specification | the measles evaluation's record, its items and agents (sheet 10-42) | 0 | 0 | 127 | <https://w3id.org/og-caie/> |
 
 ## The vendored browser libraries
 

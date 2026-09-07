@@ -282,6 +282,7 @@ epo:passRate a owl:DatatypeProperty ; rdfs:domain epo:Report ; rdfs:range xsd:de
 epo:failRate a owl:DatatypeProperty ; rdfs:domain epo:Report ; rdfs:range xsd:decimal .
 epo:cantTellRate a owl:DatatypeProperty ; rdfs:domain epo:Report ; rdfs:range xsd:decimal .
 epo:targetsGuardrail a owl:DatatypeProperty ; rdfs:domain epo:Recommendation ; rdfs:range xsd:string .
+epo:fitness a owl:ObjectProperty ; rdfs:domain epo:Recommendation ; rdfs:range epo:FitnessValue ; rdfs:comment "the fitness the recommendation states, one of three values (sheet 10-48, R-51): fit to deploy, fit with conditions, not fit; required by S8; the sample report reads it for its badge, so the badge is the expert-approved word and never a parse of the prose" .
 epo:signedBy a owl:ObjectProperty ; rdfs:subPropertyOf prov:wasAttributedTo ; rdfs:domain epo:ServiceAgreement ; rdfs:range prov:Person ; rdfs:comment "the two persons who sign, each acting on behalf of their organization (prov:actedOnBehalfOf): the sponsor's signatory and the authorized representative (sheet 10-06)" .
 epo:underAgreement a owl:ObjectProperty ; rdfs:range epo:ServiceAgreement ; rdfs:comment "under the service agreement: the requirement set is agreed under it (R-21), and the statement of work, the access grant and the delivery are performed under it (sheet 10-05, R-50); no domain, since four kinds carry it" .
 epo:grantsAccessTo a owl:ObjectProperty ; rdfs:domain epo:TestItemAccess ; rdfs:range earl:TestSubject .
@@ -337,3 +338,9 @@ epo:inappropriate a epo:AppropriatenessValue .
 epo:SufficiencyValue a owl:Class ; ogc:term term:sufficiency .
 epo:sufficient a epo:SufficiencyValue ; rdfs:label "the evidence is enough to support the claim" .
 epo:insufficient a epo:SufficiencyValue .
+
+# ---- the fitness a recommendation states (sheet 10-48, R-51): the sponsor's executive reads this word as the badge
+epo:FitnessValue a owl:Class ; rdfs:comment "no term: the three-valued fitness a recommendation states (sheet 10-48); the recommendation names term guardrail, and the values are the report's own words" .
+epo:fitToDeploy a epo:FitnessValue ; rdfs:label "fit to deploy: every requirement met" .
+epo:fitWithConditions a epo:FitnessValue ; rdfs:label "fit with conditions: deploy once the named changes are made and verified" .
+epo:notFit a epo:FitnessValue ; rdfs:label "not fit: do not deploy" .
