@@ -84,7 +84,7 @@ Appendix A runs in the browser on two libraries committed under `explorer/vendor
 | 4 | ogc: doctor (labels unambiguous, quotes located, record consistent) | 0 | `uv run -q ogc doctor --no-cache` |
 | 5 | notebooks: executed by nbclient, outputs equal the committed ones, verdict NOTEBOOK: PASS | 0 | `uv run python scripts/execute_notebooks.py --check` |
 | 6 | tests: full suite | 0 | `uv run pytest -q` |
-| 7 | generated/ and explorer/: regenerate byte-identically | 0 | `bash checks/regen.sh (uv run python scripts/render.py && uv run python scripts/render_diagrams.py && uv run python scripts/render_explorer.py && uv run python scripts/render_toolchain.py) && git diff --quiet -- generated/ explorer/` |
+| 7 | generated/ and explorer/: regenerate byte-identically | 0 | `bash checks/regen.sh (uv run python scripts/render.py && uv run python scripts/render_cli.py && uv run python scripts/render_diagrams.py && uv run python scripts/render_explorer.py && uv run python scripts/render_toolchain.py) && git diff --quiet -- generated/ explorer/` |
 | 8 | site: myst build --html | 0 | `uv run myst build --html` |
 | 9 | site: the explorer copied next to the built site | 0 | `bash scripts/copy_explorer.sh` |
 
