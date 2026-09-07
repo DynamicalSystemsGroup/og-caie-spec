@@ -200,7 +200,7 @@ term:test-case a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "test case"@en ;
     skos:definition "Inputs, execution conditions and expected results developed for a particular objective. The abstract test; a probe is a test case tied to the criteria it exercises."@en ;
     ogc:class "adopted" ;
-    ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "test case, p. 432" ; ogc:pdfPage 432 ;
+    ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "test case, p. 432 (fragment of the entry)" ; ogc:pdfPage 432 ;
                     ogc:quote "set of test inputs, execution conditions, and expected results developed for a particular objective, such as to exercise a particular program path or to verify compliance with a specific requirement" ; ogc:quoteStatus "machine" ] ;
     ogc:binding "epo:Probe" .
 
@@ -213,7 +213,7 @@ term:test-item a skos:Concept ; skos:inScheme ogc:Glossary ;
                     ogc:quote "work product to be tested" ; ogc:quoteStatus "machine" ] ;
     ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "system-of-interest (SOI), p. 423 (ISO/IEC/IEEE 15288:2023)" ; ogc:pdfPage 423 ;
                   ogc:quote "system whose life cycle is under consideration" ; ogc:quoteStatus "machine" ] ;
-    ogc:seeAlso [ ogc:cites src:nist-ai-700-2 ; ogc:locator "Appendix A, Application, p. 16" ; ogc:pdfPage 23 ;
+    ogc:seeAlso [ ogc:cites src:nist-ai-700-2 ; ogc:locator "Appendix A, Application, p. 16 (fragment of the entry)" ; ogc:pdfPage 23 ;
                   ogc:quote "A generative artificial intelligence-based system to which NIST is given API access to test." ; ogc:quoteStatus "machine" ] ;
     ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "system under test (SUT), p. 423 (ISO/IEC 14756:1999)" ; ogc:pdfPage 423 ;
                   ogc:quote "parts of the CBSS to be tested" ; ogc:quoteStatus "machine" ] ;
@@ -251,7 +251,7 @@ term:risk-based-testing a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "risk-based testing"@en ;
     skos:definition "Testing in which what is tested, and how much, is chosen according to analyzed risk. Deployment sensitivity is the weight that makes coverage reflect consequence."@en ;
     ogc:class "adopted" ;
-    ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "risk-based testing, p. 362" ; ogc:pdfPage 362 ;
+    ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "risk-based testing, p. 362 (fragment of the entry)" ; ogc:pdfPage 362 ;
                     ogc:quote "testing in which the management, selection, prioritization, and use of testing activities and resources are consciously based on corresponding types and levels of analyzed risk" ; ogc:quoteStatus "machine" ] ;
     ogc:binding "epo:weight on AcceptanceCriterion" .
 
@@ -330,7 +330,7 @@ term:test-strategy a skos:Concept ; skos:inScheme ogc:Glossary ;
                   ogc:quote "closed-loop control with feedback of the measured output variables only" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:seeAlso [ ogc:cites src:iec-60050-351 ; ogc:locator "351-47-31 observer" ;
                   ogc:quote "system for complete reconstruction of the state of a controlled system from measured input and output variables, using a model of the controlled system" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
-    ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "exploratory testing, p. 161" ; ogc:pdfPage 161 ;
+    ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "exploratory testing, p. 161 (fragment of the entry)" ; ogc:pdfPage 161 ;
                   ogc:quote "type of unscripted experience-based testing in which the tester spontaneously designs and executes tests based on the tester's existing relevant knowledge, prior exploration of the test item (including the results of previous tests)" ; ogc:quoteStatus "machine" ] ;
     ogc:scopeNote "Ruling R-13: anchored to output feedback because the record only ever holds outputs; the memory operator with the DSO as model is the observer. Semantic state feedback is the authors' framing, kept as an alternative label." ;
     prov:wasDerivedFrom rul:R-13 ;
@@ -450,7 +450,7 @@ term:knowledge-graph a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "knowledge graph"@en ;
     skos:definition "The body of domain facts, expressed in an ontology's vocabulary, that answers are judged against. It conforms to the ontology and may hold more context than the ontology alone."@en ;
     ogc:class "adopted" ;
-    ogc:canonical [ ogc:cites src:hogan-2021 ; ogc:locator "Section 1, p. 2 (arXiv v3)" ; ogc:pdfPage 2 ;
+    ogc:canonical [ ogc:cites src:hogan-2021 ; ogc:locator "Section 1, p. 2 (arXiv v3) (fragment of the entry)" ; ogc:pdfPage 2 ;
                     ogc:quote "a graph of data intended to accumulate and convey knowledge of the real world, whose nodes represent entities of interest and whose edges represent relations between these entities" ; ogc:quoteStatus "machine" ] ;
     ogc:binding "an RDF data graph conforming to the DSO" .
 
@@ -458,8 +458,11 @@ term:outcome a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "outcome"@en ;
     skos:definition "The result recorded for a judgment: passed, failed, cannot tell, inapplicable, or untested. Not binary on purpose."@en ;
     ogc:class "adopted" ;
-    ogc:canonical [ ogc:cites src:w3c-earl ; ogc:locator "Section 2.7 OutcomeValue Class" ;
+    ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "test result, p. 438" ; ogc:pdfPage 438 ;
+                    ogc:quote "indication of whether a specific test case has passed or failed, i.e. if the actual results correspond to the expected results or if deviations were observed" ; ogc:quoteStatus "machine" ] ;
+    ogc:seeAlso [ ogc:cites src:w3c-earl ; ogc:locator "Section 2.7 OutcomeValue Class" ;
                     ogc:quote "a value or expression that describes a resulting condition from carrying out the test" ; ogc:quoteStatus "machine" ] ;
+    ogc:scopeNote "Ruling R-47 (sheet 06-06): the canonical definition is SEVOCAB's test result; EARL supplies the binding, not the definition." ;
     ogc:seeAlso [ ogc:cites src:nist-ai-700-2 ; ogc:locator "Section 3.1 Validity Risk Assessment, p. 5" ; ogc:pdfPage 12 ;
                   ogc:quote "Unable to Determine" ; ogc:quoteStatus "machine" ] ;
     ogc:binding "earl:outcome with earl:passed, earl:failed, earl:cantTell, earl:inapplicable, earl:untested; sysml enum Outcome" .
@@ -531,7 +534,7 @@ term:domain-specific-ontology a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:altLabel "DSO"@en ;
     skos:definition "The vocabulary and relations of the problem domain, imported from an existing ontology or supplied by domain experts, that equip one evaluation with the concepts it needs. A domain expert supplies or approves the release used. It changes when the domain changes."@en ;
     ogc:class "coined" ;
-    ogc:canonical [ ogc:cites src:term-contract-v5 ; ogc:locator "Section 1C, DSO (Domain-Specific Ontology)" ] ;
+    ogc:coinedBy "Zargham and Hollek, for this specification (ruling R-47, sheet 06-10)" ;
     prov:wasDerivedFrom rul:R-09 ;
     ogc:binding "epo:DsoRelease (version, approvedBy); sysml item def DsoRelease" .
 
@@ -540,14 +543,14 @@ term:evaluation-process-ontology a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:altLabel "EPO"@en ;
     skos:definition "The reusable, domain-independent description of how a rigorous evaluation is run: the standard operating procedure whose six steps, performed inside the contracting lifecycle, make a coverage claim checkable when followed. It assumes a Domain-Specific Ontology is in place and does not change across domains."@en ;
     ogc:class "coined" ;
-    ogc:canonical [ ogc:cites src:term-contract-v5 ; ogc:locator "Section 1C, EPO (Evaluation Process Ontology)" ] ;
-    ogc:seeAlso [ ogc:cites src:caie-epo-prototype ; ogc:locator "ontology/epo-core.ttl" ] ;
+    ogc:coinedBy "Zargham and Hollek, for this specification (ruling R-47, sheet 06-10)" ;
+    ogc:coinedBy "Zargham and Hollek, for this specification (ruling R-47, sheet 06-10)" ;
     ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "test process, p. 438 (ISO/IEC/IEEE 29119-2:2021, 3.55)" ; ogc:pdfPage 438 ;
                   ogc:quote "set of testing activities performed to achieve a test objective" ; ogc:quoteStatus "machine" ] ;
     ogc:seeAlso [ ogc:cites src:sebok-2-14 ; ogc:locator "Applying Life Cycle Processes, p. 444 (ISO/IEC/IEEE 24748-2 on 15288)" ; ogc:pdfPage 444 ;
                   ogc:quote "Each of the four process groups (Agreement Processes, Organizational Project-Enabling Processes, Technical Management Processes, and Technical Processes) can be used to establish a common understanding in a project." ; ogc:quoteStatus "machine" ] ;
     ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "4.1 conformity assessment, Note 3" ;
-                  ogc:quote "Conformity assessment is explained in Annex A as a series of functions. Activities contributing to any of these functions can be described as conformity assessment activities." ; ogc:quoteStatus "pending" ] ;
+                  ogc:quote "Conformity assessment is explained in Annex A as a series of functions. Activities contributing to any of these functions can be described as conformity assessment activities." ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:scopeNote "Rulings R-31 and R-32: the steps are not invented. Each step in vocabulary/epo.ttl cites the process step it matches: the contracting lifecycle (need, propose, agree, access, deliver, accept) matches the ISO/IEC/IEEE 15288 agreement processes, ISO/IEC 17000 access, scheme and acceptance, ISO 9000 contract and the 29119-2 test environment and completion report; scope and declare requirements match the ISO/IEC/IEEE 15288 acquisition, stakeholder needs definition and system requirements definition processes as SEBoK describes them; plan, execute and report match the ISO/IEC/IEEE 29119-2 test strategy and planning, test execution and test completion processes as SEVOCAB defines them; determine and attest matches ISO/IEC 17000's review, decision and attestation. The EPO operationalizes those steps as executable checks." ;
     prov:wasDerivedFrom rul:R-09 ; prov:wasDerivedFrom rul:R-31 ;
     ogc:binding "vocabulary/epo.ttl; sysml action def EvaluationProcess" .
@@ -557,7 +560,7 @@ term:contextual-ai-evaluation a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:altLabel "CAIE"@en ;
     skos:definition "The evaluation of a deployed AI system against the needs of a specific domain and deployment context, judged by people who know that domain. The class of evaluation this specification is for; OG-CAIE is the way it is performed here."@en ;
     ogc:class "coined" ;
-    ogc:canonical [ ogc:cites src:paper-draft-2026-09 ; ogc:locator "Introduction and Background" ] ;
+    ogc:coinedBy "Zargham and Hollek, for this specification (ruling R-47, sheet 06-10)" ;
     prov:wasDerivedFrom rul:R-29 ;
     ogc:binding "the scope of the specification; no node of its own" .
 
@@ -566,7 +569,6 @@ term:og-caie a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:altLabel "Ontology-Grounded Contextual AI Evaluation"@en ;
     skos:definition "Contextual AI Evaluation performed with the method this specification sets out: the Evaluation Process Ontology, the same six steps for every domain inside a contracting lifecycle, applied with a Domain-Specific Ontology supplied or approved by the domain's experts, leaving a record anyone can check for conformance, traceability and coverage."@en ;
     ogc:class "coined" ;
-    ogc:canonical [ ogc:cites src:paper-draft-2026-09 ; ogc:locator "Introduction and Background" ] ;
     prov:wasDerivedFrom rul:R-09 ; prov:wasDerivedFrom rul:R-29 ;
     ogc:binding "sysml package OGCAIE; part def OgCaieEvaluation" .
 
@@ -693,9 +695,9 @@ term:monitoring a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:definition "Determining the status of a system at different stages or times. After an evaluation, a sponsor may require the accountable organization to change the system per the findings and then require new testing to certify that the flagged issues were addressed; in conformity assessment that repeat is called surveillance. Observed in practice; not a step of the contracting lifecycle."@en ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.11.3" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-30.png" ;
-                    ogc:quote "determining the status of a system, a process or an activity" ; ogc:quoteStatus "pending" ] ;
+                    ogc:quote "determining the status of a system, a process or an activity" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "8.1 surveillance" ;
-                  ogc:quote "systematic iteration of conformity assessment activities as a basis for maintaining the validity of the statement of conformity" ; ogc:quoteStatus "pending" ] ;
+                  ogc:quote "systematic iteration of conformity assessment activities as a basis for maintaining the validity of the statement of conformity" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:scopeNote "Ruling R-36: the headword is ISO 9000's monitoring, the doctrine is ISO/IEC 17000's surveillance, kept as the alternative label with its clause so the concept stays mapped. Ruling R-35: narration in the Contracting chapter, outside the lifecycle." ;
     prov:wasDerivedFrom rul:R-36 ;
     ogc:binding "narration in docs/contracting.md; no node of the record" .
@@ -706,9 +708,9 @@ term:mission a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:definition "The sponsor organization's purpose for existing, as its top management expresses it, and with it the obligations and duties it holds towards the affected populations. Recorded before the need is stated, it is the context the contract answers to: what the sponsor owes the people the test item will serve. Pinned at the contract."@en ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.4.11" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-10.png" ;
-                    ogc:quote "organization's purpose for existing as expressed by top management" ; ogc:quoteStatus "pending" ] ;
+                    ogc:quote "organization's purpose for existing as expressed by top management" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:seeAlso [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.4.5 policy" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-10.png" ;
-                  ogc:quote "intentions and direction of an organization as formally expressed by its top management" ; ogc:quoteStatus "pending" ] ;
+                  ogc:quote "intentions and direction of an organization as formally expressed by its top management" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:scopeNote "Ruling R-37: a seam of its own from the sponsor, feeding the contract; the obligations towards the affected populations are the sponsor's mission and policy in ISO 9000's words, not a coinage." ;
     prov:wasDerivedFrom rul:R-37 ;
     ogc:binding "sysml item def Mission, port def MissionWrite, seams missionSeam and missionToExecutiveSeam; epo:Mission with epo:regards the populations" .

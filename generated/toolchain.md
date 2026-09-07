@@ -53,10 +53,10 @@ What the graphs are written in, counted over the committed Turtle files (`vocabu
 | `sysx` | `urn:opensysml:sysml:` | OpenSysML | the converter's own facts: the ends of a connection, the source text of a statement, a prefix keyword | 0 | 4 | 0 | <https://github.com/OpenMBEE/opensysml> |
 | `elmt` | `urn:sysmlv2:element:` | OpenSysML | the converter's element identifiers, one per model element | 0 | 0 | 542 | <https://github.com/OpenMBEE/opensysml> |
 | `expr` | `urn:opensysml:expr:` | OpenSysML | the converter's expression identifiers (end paths, multiplicity bounds) | 0 | 0 | 415 | <https://github.com/OpenMBEE/opensysml> |
-| `ogc` | `https://w3id.org/og-caie/` | this specification | the register: citation classes and properties, shapes' names, concerns, rulings, crosswalk rows, trace essentials | 5 | 44 | 44 | <https://w3id.org/og-caie/> |
+| `ogc` | `https://w3id.org/og-caie/` | this specification | the register: citation classes and properties, shapes' names, concerns, rulings, crosswalk rows, trace essentials | 5 | 46 | 44 | <https://w3id.org/og-caie/> |
 | `term` | `https://w3id.org/og-caie/terms#` | this specification | the glossary's terms | 0 | 0 | 62 | <https://w3id.org/og-caie/> |
-| `src` | `https://w3id.org/og-caie/sources#` | this specification | the source register | 0 | 0 | 23 | <https://w3id.org/og-caie/> |
-| `rul` | `https://w3id.org/og-caie/rulings#` | this specification | concerns and rulings | 0 | 0 | 103 | <https://w3id.org/og-caie/> |
+| `src` | `https://w3id.org/og-caie/sources#` | this specification | the source register | 0 | 0 | 20 | <https://w3id.org/og-caie/> |
+| `rul` | `https://w3id.org/og-caie/rulings#` | this specification | concerns and rulings | 0 | 0 | 105 | <https://w3id.org/og-caie/> |
 | `epo` | `https://w3id.org/og-caie/epo#` | this specification | the Evaluation Process Ontology's handles: item classes, steps, layers, roles and their properties | 38 | 42 | 112 | <https://w3id.org/og-caie/> |
 | `xw` | `https://w3id.org/og-caie/crosswalk#` | this specification | the crosswalk rows of the front page's bridge into the standards | 0 | 0 | 7 | <https://w3id.org/og-caie/> |
 | `tr` | `https://w3id.org/og-caie/trace#` | this specification | the essentials SCI-01 to SCI-13 | 0 | 0 | 13 | <https://w3id.org/og-caie/> |

@@ -90,4 +90,4 @@ tr:SCI-13 a ogc:Trace ; rdfs:label "SCI-13 TwoLayersOfAssumptions" ;
     rdfs:comment "What the contract pins (the counterparties, the test item, the requirements' frame, the method) is recorded and closed before what the evaluation pins (the environment, the requirement set, the DSO release, the plan) is declared; the evaluation documents the first layer and cannot change it." ;
     ogc:checkedBy ogc:S0-Layers, ogc:M4-Nesting ; ogc:tag "machine" ;
     ogc:usesTerm term:contract, term:operational-environment, term:operational-envelope, term:domain-specific-ontology, term:evaluation-process-ontology ;
-    ogc:restsOn src:sebok-2-14, src:iso-iec-17000-2020, src:bof-deck-2026-07, rul:R-32, rul:R-33 .
+    ogc:restsOn src:sebok-2-14, src:iso-iec-17000-2020, src:scipy-2026-bof, rul:R-32, rul:R-33 .

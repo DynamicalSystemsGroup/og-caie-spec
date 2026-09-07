@@ -107,7 +107,7 @@ def render_popper() -> str:
     g = Graph()
     for f in XW_FILES:
         g.parse(ROOT / f)
-    lines = ["| Popper's element, in the deck's words | The standard terms it lands on | Where it lives in the record | What makes it checkable |",
+    lines = ["| Popper's element, as presented at the SciPy 2026 session | The standard terms it lands on | Where it lives in the record | What makes it checkable |",
              "|---|---|---|---|"]
     for r in crosswalk_rows(g):
         terms = ", ".join(term_role(g, t) for t in sorted(g.objects(r, OGC.mapsTo), key=lambda t: str(g.value(t, SKOS.prefLabel)).lower()))

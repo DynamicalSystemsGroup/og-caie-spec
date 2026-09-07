@@ -23,7 +23,7 @@ def test_rows_closed():
     assert [int(g.value(r, OGC.order)) for r in rows] == list(range(1, ROWS + 1))
     terms = set(g.subjects(RDF.type, SKOS.Concept))
     realizers = set(g.subjects(RDF.type, OWL.Class)) | set(g.subjects(RDF.type, SH.NodeShape))
-    digest = normalized((ROOT / "sources" / "digests" / "bof-deck-2026-07.md").read_text())
+    digest = normalized((ROOT / "sources" / "digests" / "scipy-2026-bof.md").read_text())
     for r in rows:
         assert set(g.objects(r, OGC.mapsTo)) <= terms, (r, set(g.objects(r, OGC.mapsTo)) - terms)
         assert set(g.objects(r, OGC.realizedBy)) <= realizers, (r, set(g.objects(r, OGC.realizedBy)) - realizers)

@@ -9,15 +9,15 @@
 
 # The Popper crosswalk (ruling R-29): the coordinate transform from the
 # Popperian conception of science (the BoF deck's six definitions, after
-# Popper 1959) to the terms of the engineering standards for evaluation, and
-# back. Rendered forward on the front page (the bridge) and backward on the
+# Popper 1959, presented at the SciPy 2026 session) to the terms of the
+# engineering standards for evaluation, and back. Rendered forward on the front page (the bridge) and backward on the
 # conclusion page; the Popper words appear nowhere else. Each row names the
 # standard terms it lands on (glossary concepts), the EPO classes and shapes
 # that realize it in the record, and what makes it checkable.
 
 xw:hypothesis a ogc:Crosswalk ; ogc:order 1 ;
     rdfs:label "hypothesis" ;
-    ogc:cites src:bof-deck-2026-07 ; ogc:locator "slide 5, Helpful Definitions" ;
+    ogc:cites src:scipy-2026-bof ; ogc:locator "the definitions presented at the session" ; ogc:also src:popper-1959 ;
     ogc:quote "A hypothesis is a conjectural claim that can be subjected to empirical tests and potentially falsified. Its empirical content lies partly in what it rules out: the more possible outcomes it excludes, the greater the risk it takes." ;
     ogc:quoteStatus "machine" ;
     ogc:mapsTo term:acceptance-criteria, term:expected-results, term:requirement ;
@@ -27,7 +27,7 @@ xw:hypothesis a ogc:Crosswalk ; ogc:order 1 ;
 
 xw:auxiliary-assumption-contract a ogc:Crosswalk ; ogc:order 2 ;
     rdfs:label "auxiliary assumption, first layer (pinned at the contract)" ;
-    ogc:cites src:bof-deck-2026-07 ; ogc:locator "slide 5, Helpful Definitions" ;
+    ogc:cites src:scipy-2026-bof ; ogc:locator "the definitions presented at the session" ; ogc:also src:popper-1959 ;
     ogc:quote "An (auxiliary) assumption is a background claim held fixed in deriving and testing a prediction. Because predictions normally follow from a hypothesis together with auxiliary assumptions and initial conditions, a failed prediction does not by logic alone identify which component is false." ;
     ogc:quoteStatus "machine" ;
     ogc:mapsTo term:mission, term:statement-of-work, term:contract, term:customer, term:provider, term:test-item, term:stakeholder ;
@@ -37,7 +37,7 @@ xw:auxiliary-assumption-contract a ogc:Crosswalk ; ogc:order 2 ;
 
 xw:auxiliary-assumption-evaluation a ogc:Crosswalk ; ogc:order 3 ;
     rdfs:label "auxiliary assumption, second layer (pinned within the evaluation)" ;
-    ogc:cites src:bof-deck-2026-07 ; ogc:locator "slide 5, Helpful Definitions" ;
+    ogc:cites src:scipy-2026-bof ; ogc:locator "the definitions presented at the session" ; ogc:also src:popper-1959 ;
     ogc:quote "Context Matters!" ;
     ogc:quoteStatus "machine" ;
     ogc:mapsTo term:operational-environment, term:operational-envelope, term:domain-specific-ontology ;
@@ -47,7 +47,7 @@ xw:auxiliary-assumption-evaluation a ogc:Crosswalk ; ogc:order 3 ;
 
 xw:prediction a ogc:Crosswalk ; ogc:order 4 ;
     rdfs:label "prediction" ;
-    ogc:cites src:bof-deck-2026-07 ; ogc:locator "slide 5, Helpful Definitions" ;
+    ogc:cites src:scipy-2026-bof ; ogc:locator "the definitions presented at the session" ; ogc:also src:popper-1959 ;
     ogc:quote "A prediction is an observable consequence that should occur if the hypothesis and relevant auxiliary assumptions are true. An observation that should not occur under those conditions is a potential falsifier." ;
     ogc:quoteStatus "machine" ;
     ogc:mapsTo term:probe, term:test-plan, term:session, term:expected-results ;
@@ -57,7 +57,7 @@ xw:prediction a ogc:Crosswalk ; ogc:order 4 ;
 
 xw:evidence a ogc:Crosswalk ; ogc:order 5 ;
     rdfs:label "evidence" ;
-    ogc:cites src:bof-deck-2026-07 ; ogc:locator "slide 5, Helpful Definitions" ;
+    ogc:cites src:scipy-2026-bof ; ogc:locator "the definitions presented at the session" ; ogc:also src:popper-1959 ;
     ogc:quote "Evidence is an accepted result of observation or experiment." ;
     ogc:quoteStatus "machine" ;
     ogc:mapsTo term:objective-evidence, term:determination, term:trajectory ;
@@ -67,7 +67,7 @@ xw:evidence a ogc:Crosswalk ; ogc:order 5 ;
 
 xw:falsifiability a ogc:Crosswalk ; ogc:order 6 ;
     rdfs:label "falsifiability" ;
-    ogc:cites src:bof-deck-2026-07 ; ogc:locator "slide 5, Helpful Definitions" ;
+    ogc:cites src:scipy-2026-bof ; ogc:locator "the definitions presented at the session" ; ogc:also src:popper-1959 ;
     ogc:quote "Falsifiability is the property of excluding at least one possible empirical outcome." ;
     ogc:quoteStatus "machine" ;
     ogc:mapsTo term:attestation, term:outcome, term:test-coverage ;
@@ -77,7 +77,7 @@ xw:falsifiability a ogc:Crosswalk ; ogc:order 6 ;
 
 xw:context a ogc:Crosswalk ; ogc:order 7 ;
     rdfs:label "context" ;
-    ogc:cites src:bof-deck-2026-07 ; ogc:locator "slide 5, Helpful Definitions" ;
+    ogc:cites src:scipy-2026-bof ; ogc:locator "the definitions presented at the session" ; ogc:also src:popper-1959 ;
     ogc:quote "In practice, however, falsification also depends on auxiliary assumptions and methodological judgments." ;
     ogc:quoteStatus "machine" ;
     ogc:mapsTo term:appropriateness, term:sufficiency, term:requirements-traceability ;

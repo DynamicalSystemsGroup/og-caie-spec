@@ -77,31 +77,72 @@
     ]
    ]
   },
-  "cite:acceptDelivery:seeAlso:iso-iec-17000-2020:9-6-acceptance": {
+  "cite:acceptDelivery:seeAlso:sebok-2-14:acceptance-criteria-glossary-p-1437-incose-2011-section-6-1-15": {
    "in": [],
    "out": [
     [
      "ogc:cites",
      {
-      "ref": "https://w3id.org/og-caie/sources#iso-iec-17000-2020"
+      "ref": "https://w3id.org/og-caie/sources#sebok-2-14"
      }
     ],
     [
      "ogc:locator",
      {
-      "text": "9.6 acceptance"
+      "text": "Acceptance Criteria (glossary), p. 1437 (INCOSE 2011, Section 6.1.15)"
+     }
+    ],
+    [
+     "ogc:pdfPage",
+     {
+      "text": "1437"
      }
     ],
     [
      "ogc:quote",
      {
-      "text": "use of a conformity assessment result provided by another person or organization"
+      "text": "The procurement specification, in the context of the overall agreement, should clearly state the criteria by which the acquirer will accept delivery from the supplier."
      }
     ],
     [
      "ogc:quoteStatus",
      {
-      "text": "pending"
+      "text": "machine"
+     }
+    ]
+   ]
+  },
+  "cite:acceptDelivery:seeAlso:sevocab:delivery-p-120-iso-iec-ieee-24765-2017": {
+   "in": [],
+   "out": [
+    [
+     "ogc:cites",
+     {
+      "ref": "https://w3id.org/og-caie/sources#sevocab"
+     }
+    ],
+    [
+     "ogc:locator",
+     {
+      "text": "delivery, p. 120 (ISO/IEC/IEEE 24765:2017)"
+     }
+    ],
+    [
+     "ogc:pdfPage",
+     {
+      "text": "120"
+     }
+    ],
+    [
+     "ogc:quote",
+     {
+      "text": "release of a system or component to its customer or intended user"
+     }
+    ],
+    [
+     "ogc:quoteStatus",
+     {
+      "text": "machine"
      }
     ]
    ]
@@ -176,7 +217,7 @@
     ]
    ]
   },
-  "cite:access:canonical:sevocab:test-environment-p-434-iso-iec-ieee-29119-2-2021-3-34": {
+  "cite:access:canonical:sevocab:test-environment-and-data-management-process-p-434-iso-iec-ieee-29119-2-2021-3-37": {
    "in": [],
    "out": [
     [
@@ -188,7 +229,7 @@
     [
      "ogc:locator",
      {
-      "text": "test environment, p. 434 (ISO/IEC/IEEE 29119-2:2021, 3.34)"
+      "text": "test environment and data management process, p. 434 (ISO/IEC/IEEE 29119-2:2021, 3.37)"
      }
     ],
     [
@@ -200,7 +241,7 @@
     [
      "ogc:quote",
      {
-      "text": "environment containing facilities, hardware, software, firmware, and procedures needed to conduct a test"
+      "text": "test process for establishing and maintaining a required test environment and corresponding test data"
      }
     ],
     [
@@ -248,6 +289,76 @@
      "ogc:verifiedOn",
      {
       "text": "2026-09-06 (date)"
+     }
+    ]
+   ]
+  },
+  "cite:access:seeAlso:sevocab:test-environment-p-434-iso-iec-ieee-29119-2-2021-3-34": {
+   "in": [],
+   "out": [
+    [
+     "ogc:cites",
+     {
+      "ref": "https://w3id.org/og-caie/sources#sevocab"
+     }
+    ],
+    [
+     "ogc:locator",
+     {
+      "text": "test environment, p. 434 (ISO/IEC/IEEE 29119-2:2021, 3.34)"
+     }
+    ],
+    [
+     "ogc:pdfPage",
+     {
+      "text": "434"
+     }
+    ],
+    [
+     "ogc:quote",
+     {
+      "text": "environment containing facilities, hardware, software, firmware, and procedures"
+     }
+    ],
+    [
+     "ogc:quoteStatus",
+     {
+      "text": "machine"
+     }
+    ]
+   ]
+  },
+  "cite:access:seeAlso:sevocab:test-item-transmittal-report-p-435-iso-iec-ieee-24765-2017": {
+   "in": [],
+   "out": [
+    [
+     "ogc:cites",
+     {
+      "ref": "https://w3id.org/og-caie/sources#sevocab"
+     }
+    ],
+    [
+     "ogc:locator",
+     {
+      "text": "test item transmittal report, p. 435 (ISO/IEC/IEEE 24765:2017)"
+     }
+    ],
+    [
+     "ogc:pdfPage",
+     {
+      "text": "435"
+     }
+    ],
+    [
+     "ogc:quote",
+     {
+      "text": "document identifying test items"
+     }
+    ],
+    [
+     "ogc:quoteStatus",
+     {
+      "text": "machine"
      }
     ]
    ]
@@ -405,7 +516,19 @@
     [
      "ogc:quoteStatus",
      {
-      "text": "pending"
+      "text": "human"
+     }
+    ],
+    [
+     "ogc:verifiedBy",
+     {
+      "text": "rul:Z"
+     }
+    ],
+    [
+     "ogc:verifiedOn",
+     {
+      "text": "2026-09-06 (date)"
      }
     ]
    ]
@@ -726,23 +849,6 @@
     ]
    ]
   },
-  "cite:contextual-ai-evaluation:canonical:paper-draft-2026-09:introduction-and-background": {
-   "in": [],
-   "out": [
-    [
-     "ogc:cites",
-     {
-      "ref": "https://w3id.org/og-caie/sources#paper-draft-2026-09"
-     }
-    ],
-    [
-     "ogc:locator",
-     {
-      "text": "Introduction and Background"
-     }
-    ]
-   ]
-  },
   "cite:contract:canonical:iso-9000-2026:3-3-13": {
    "in": [],
    "out": [
@@ -837,7 +943,7 @@
     ]
    ]
   },
-  "cite:declareRequirements:canonical:sebok-2-14:system-requirements-definition-p-557": {
+  "cite:declareRequirements:canonical:sebok-2-14:system-requirements-definition-process-for-generating-system-requirements-p-558": {
    "in": [],
    "out": [
     [
@@ -849,19 +955,19 @@
     [
      "ogc:locator",
      {
-      "text": "System Requirements Definition, p. 557"
+      "text": "System Requirements Definition, Process for Generating System Requirements, p. 558"
      }
     ],
     [
      "ogc:pdfPage",
      {
-      "text": "557"
+      "text": "558"
      }
     ],
     [
      "ogc:quote",
      {
-      "text": "The System Requirements Definition process transforms the stakeholder view of desired capabilities into a technical, developer view of how the system can achieve those capabilities."
+      "text": "The System Requirement Definition activities begin with the transformation of the integrated set of needs into a set of requirements for the SoI. These requirements must be appropriate to the level that the SoI exists within the system architecture and communicate \"what\" the SoI must do to meet the needs, avoiding requirements that state implementation of \"how\" to achieve the design realization of the physical SoI."
      }
     ],
     [
@@ -896,7 +1002,89 @@
     [
      "ogc:quoteStatus",
      {
-      "text": "pending"
+      "text": "human"
+     }
+    ],
+    [
+     "ogc:verifiedBy",
+     {
+      "text": "rul:Z"
+     }
+    ],
+    [
+     "ogc:verifiedOn",
+     {
+      "text": "2026-09-06 (date)"
+     }
+    ]
+   ]
+  },
+  "cite:declareRequirements:seeAlso:sebok-2-14:system-requirements-definition-p-559": {
+   "in": [],
+   "out": [
+    [
+     "ogc:cites",
+     {
+      "ref": "https://w3id.org/og-caie/sources#sebok-2-14"
+     }
+    ],
+    [
+     "ogc:locator",
+     {
+      "text": "System Requirements Definition, p. 559"
+     }
+    ],
+    [
+     "ogc:pdfPage",
+     {
+      "text": "559"
+     }
+    ],
+    [
+     "ogc:quote",
+     {
+      "text": "A detailed analysis of a single need statement may result in multiple requirements expressing what the system must do to meet it, including definition of measurable performance criteria (INCOSE NRM 2022)."
+     }
+    ],
+    [
+     "ogc:quoteStatus",
+     {
+      "text": "machine"
+     }
+    ]
+   ]
+  },
+  "cite:declareRequirements:seeAlso:sevocab:system-requirements-specification-syrs-p-422-iso-iec-ieee-29148-2018-4-1-29": {
+   "in": [],
+   "out": [
+    [
+     "ogc:cites",
+     {
+      "ref": "https://w3id.org/og-caie/sources#sevocab"
+     }
+    ],
+    [
+     "ogc:locator",
+     {
+      "text": "system requirements specification (SyRS), p. 422 (ISO/IEC/IEEE 29148:2018, 4.1.29)"
+     }
+    ],
+    [
+     "ogc:pdfPage",
+     {
+      "text": "422"
+     }
+    ],
+    [
+     "ogc:quote",
+     {
+      "text": "structured collection of the requirements (functions, performance, design constraints, and attributes) of the system and its operational environments and external interfaces"
+     }
+    ],
+    [
+     "ogc:quoteStatus",
+     {
+      "text": "machine"
      }
     ]
    ]
@@ -936,7 +1124,7 @@
     ]
    ]
   },
-  "cite:deliver:seeAlso:iso-iec-17000-2020:7-3-attestation-note-1": {
+  "cite:deliver:seeAlso:iso-iec-17000-2020:7-3-attestation-note-1-fragment-of-the-note": {
    "in": [],
    "out": [
     [
@@ -948,7 +1136,7 @@
     [
      "ogc:locator",
      {
-      "text": "7.3 attestation, Note 1"
+      "text": "7.3 attestation, Note 1 (fragment of the note)"
      }
     ],
     [
@@ -960,7 +1148,19 @@
     [
      "ogc:quoteStatus",
      {
-      "text": "pending"
+      "text": "human"
+     }
+    ],
+    [
+     "ogc:verifiedBy",
+     {
+      "text": "rul:Z"
+     }
+    ],
+    [
+     "ogc:verifiedOn",
+     {
+      "text": "2026-09-06 (date)"
      }
     ]
    ]
@@ -1106,7 +1306,19 @@
     [
      "ogc:quoteStatus",
      {
-      "text": "pending"
+      "text": "human"
+     }
+    ],
+    [
+     "ogc:verifiedBy",
+     {
+      "text": "rul:Z"
+     }
+    ],
+    [
+     "ogc:verifiedOn",
+     {
+      "text": "2026-09-06 (date)"
      }
     ]
    ]
@@ -1135,7 +1347,19 @@
     [
      "ogc:quoteStatus",
      {
-      "text": "pending"
+      "text": "human"
+     }
+    ],
+    [
+     "ogc:verifiedBy",
+     {
+      "text": "rul:Z"
+     }
+    ],
+    [
+     "ogc:verifiedOn",
+     {
+      "text": "2026-09-06 (date)"
      }
     ]
    ]
@@ -1227,23 +1451,6 @@
     ]
    ]
   },
-  "cite:domain-specific-ontology:canonical:term-contract-v5:section-1c-dso-domain-specific-ontology": {
-   "in": [],
-   "out": [
-    [
-     "ogc:cites",
-     {
-      "ref": "https://w3id.org/og-caie/sources#term-contract-v5"
-     }
-    ],
-    [
-     "ogc:locator",
-     {
-      "text": "Section 1C, DSO (Domain-Specific Ontology)"
-     }
-    ]
-   ]
-  },
   "cite:evaluation-operator:canonical:sevocab:operator-p-283-iso-iec-ieee-12207-2026-3-1-40": {
    "in": [],
    "out": [
@@ -1279,40 +1486,6 @@
     ]
    ]
   },
-  "cite:evaluation-process-ontology:canonical:term-contract-v5:section-1c-epo-evaluation-process-ontology": {
-   "in": [],
-   "out": [
-    [
-     "ogc:cites",
-     {
-      "ref": "https://w3id.org/og-caie/sources#term-contract-v5"
-     }
-    ],
-    [
-     "ogc:locator",
-     {
-      "text": "Section 1C, EPO (Evaluation Process Ontology)"
-     }
-    ]
-   ]
-  },
-  "cite:evaluation-process-ontology:seeAlso:caie-epo-prototype:ontology-epo-core-ttl": {
-   "in": [],
-   "out": [
-    [
-     "ogc:cites",
-     {
-      "ref": "https://w3id.org/og-caie/sources#caie-epo-prototype"
-     }
-    ],
-    [
-     "ogc:locator",
-     {
-      "text": "ontology/epo-core.ttl"
-     }
-    ]
-   ]
-  },
   "cite:evaluation-process-ontology:seeAlso:iso-iec-17000-2020:4-1-conformity-assessment-note-3": {
    "in": [],
    "out": [
@@ -1337,7 +1510,19 @@
     [
      "ogc:quoteStatus",
      {
-      "text": "pending"
+      "text": "human"
+     }
+    ],
+    [
+     "ogc:verifiedBy",
+     {
+      "text": "rul:Z"
+     }
+    ],
+    [
+     "ogc:verifiedOn",
+     {
+      "text": "2026-09-06 (date)"
      }
     ]
    ]
@@ -1740,7 +1925,19 @@
     [
      "ogc:quoteStatus",
      {
-      "text": "pending"
+      "text": "human"
+     }
+    ],
+    [
+     "ogc:verifiedBy",
+     {
+      "text": "rul:Z"
+     }
+    ],
+    [
+     "ogc:verifiedOn",
+     {
+      "text": "2026-09-06 (date)"
      }
     ]
    ]
@@ -1873,7 +2070,7 @@
     ]
    ]
   },
-  "cite:knowledge-graph:canonical:hogan-2021:section-1-p-2-arxiv-v3": {
+  "cite:knowledge-graph:canonical:hogan-2021:section-1-p-2-arxiv-v3-fragment-of-the-entry": {
    "in": [],
    "out": [
     [
@@ -1885,7 +2082,7 @@
     [
      "ogc:locator",
      {
-      "text": "Section 1, p. 2 (arXiv v3)"
+      "text": "Section 1, p. 2 (arXiv v3) (fragment of the entry)"
      }
     ],
     [
@@ -1973,7 +2170,19 @@
     [
      "ogc:quoteStatus",
      {
-      "text": "pending"
+      "text": "human"
+     }
+    ],
+    [
+     "ogc:verifiedBy",
+     {
+      "text": "rul:Z"
+     }
+    ],
+    [
+     "ogc:verifiedOn",
+     {
+      "text": "2026-09-06 (date)"
      }
     ]
    ]
@@ -2008,7 +2217,19 @@
     [
      "ogc:quoteStatus",
      {
-      "text": "pending"
+      "text": "human"
+     }
+    ],
+    [
+     "ogc:verifiedBy",
+     {
+      "text": "rul:Z"
+     }
+    ],
+    [
+     "ogc:verifiedOn",
+     {
+      "text": "2026-09-06 (date)"
      }
     ]
    ]
@@ -2043,7 +2264,19 @@
     [
      "ogc:quoteStatus",
      {
-      "text": "pending"
+      "text": "human"
+     }
+    ],
+    [
+     "ogc:verifiedBy",
+     {
+      "text": "rul:Z"
+     }
+    ],
+    [
+     "ogc:verifiedOn",
+     {
+      "text": "2026-09-06 (date)"
      }
     ]
    ]
@@ -2072,7 +2305,19 @@
     [
      "ogc:quoteStatus",
      {
-      "text": "pending"
+      "text": "human"
+     }
+    ],
+    [
+     "ogc:verifiedBy",
+     {
+      "text": "rul:Z"
+     }
+    ],
+    [
+     "ogc:verifiedOn",
+     {
+      "text": "2026-09-06 (date)"
      }
     ]
    ]
@@ -2311,23 +2556,6 @@
     ]
    ]
   },
-  "cite:og-caie:canonical:paper-draft-2026-09:introduction-and-background": {
-   "in": [],
-   "out": [
-    [
-     "ogc:cites",
-     {
-      "ref": "https://w3id.org/og-caie/sources#paper-draft-2026-09"
-     }
-    ],
-    [
-     "ogc:locator",
-     {
-      "text": "Introduction and Background"
-     }
-    ]
-   ]
-  },
   "cite:ontology:canonical:gruber-1993:section-1-p-2-author-copy": {
    "in": [],
    "out": [
@@ -2492,25 +2720,31 @@
     ]
    ]
   },
-  "cite:outcome:canonical:w3c-earl:section-2-7-outcomevalue-class": {
+  "cite:outcome:canonical:sevocab:test-result-p-438": {
    "in": [],
    "out": [
     [
      "ogc:cites",
      {
-      "ref": "https://w3id.org/og-caie/sources#w3c-earl"
+      "ref": "https://w3id.org/og-caie/sources#sevocab"
      }
     ],
     [
      "ogc:locator",
      {
-      "text": "Section 2.7 OutcomeValue Class"
+      "text": "test result, p. 438"
+     }
+    ],
+    [
+     "ogc:pdfPage",
+     {
+      "text": "438"
      }
     ],
     [
      "ogc:quote",
      {
-      "text": "a value or expression that describes a resulting condition from carrying out the test"
+      "text": "indication of whether a specific test case has passed or failed, i.e. if the actual results correspond to the expected results or if deviations were observed"
      }
     ],
     [
@@ -2546,6 +2780,35 @@
      "ogc:quote",
      {
       "text": "Unable to Determine"
+     }
+    ],
+    [
+     "ogc:quoteStatus",
+     {
+      "text": "machine"
+     }
+    ]
+   ]
+  },
+  "cite:outcome:seeAlso:w3c-earl:section-2-7-outcomevalue-class": {
+   "in": [],
+   "out": [
+    [
+     "ogc:cites",
+     {
+      "ref": "https://w3id.org/og-caie/sources#w3c-earl"
+     }
+    ],
+    [
+     "ogc:locator",
+     {
+      "text": "Section 2.7 OutcomeValue Class"
+     }
+    ],
+    [
+     "ogc:quote",
+     {
+      "text": "a value or expression that describes a resulting condition from carrying out the test"
      }
     ],
     [
@@ -2708,7 +2971,7 @@
     ]
    ]
   },
-  "cite:propose:canonical:sebok-2-14:acquisition-and-supply-p-352-the-supplier": {
+  "cite:propose:canonical:sebok-2-14:enterprise-systems-engineering-contract-products-and-services-p-935": {
    "in": [],
    "out": [
     [
@@ -2720,19 +2983,19 @@
     [
      "ogc:locator",
      {
-      "text": "Acquisition and Supply, p. 352 (the supplier)"
+      "text": "Enterprise Systems Engineering, contract products and services, p. 935"
      }
     ],
     [
      "ogc:pdfPage",
      {
-      "text": "352"
+      "text": "935"
      }
     ],
     [
      "ogc:quote",
      {
-      "text": "The supplier is an organization or individual that enters into an agreement with the acquirer to supply a product or service."
+      "text": "Contract products and services often demand tailor-made system/service solutions which are typically specified by a single customer to whom the solution is provided. The supplier responds with proposed solutions."
      }
     ],
     [
@@ -2767,7 +3030,89 @@
     [
      "ogc:quoteStatus",
      {
-      "text": "pending"
+      "text": "human"
+     }
+    ],
+    [
+     "ogc:verifiedBy",
+     {
+      "text": "rul:Z"
+     }
+    ],
+    [
+     "ogc:verifiedOn",
+     {
+      "text": "2026-09-06 (date)"
+     }
+    ]
+   ]
+  },
+  "cite:propose:seeAlso:sevocab:proposal-p-329-iso-iec-ieee-24765c-2014": {
+   "in": [],
+   "out": [
+    [
+     "ogc:cites",
+     {
+      "ref": "https://w3id.org/og-caie/sources#sevocab"
+     }
+    ],
+    [
+     "ogc:locator",
+     {
+      "text": "proposal, p. 329 (ISO/IEC/IEEE 24765c:2014)"
+     }
+    ],
+    [
+     "ogc:pdfPage",
+     {
+      "text": "329"
+     }
+    ],
+    [
+     "ogc:quote",
+     {
+      "text": "supplier's offer to provide a system or service, usually including benefits, costs, risks, opportunities, and other factors applicable to decisions"
+     }
+    ],
+    [
+     "ogc:quoteStatus",
+     {
+      "text": "machine"
+     }
+    ]
+   ]
+  },
+  "cite:propose:seeAlso:sevocab:request-for-proposal-rfp-p-350-iso-iec-ieee-24765-2017": {
+   "in": [],
+   "out": [
+    [
+     "ogc:cites",
+     {
+      "ref": "https://w3id.org/og-caie/sources#sevocab"
+     }
+    ],
+    [
+     "ogc:locator",
+     {
+      "text": "request for proposal (RFP), p. 350 (ISO/IEC/IEEE 24765:2017)"
+     }
+    ],
+    [
+     "ogc:pdfPage",
+     {
+      "text": "350"
+     }
+    ],
+    [
+     "ogc:quote",
+     {
+      "text": "document used by the acquirer as the means to announce its intention to potential bidders to acquire a specified system, software product, or software service"
+     }
+    ],
+    [
+     "ogc:quoteStatus",
+     {
+      "text": "machine"
      }
     ]
    ]
@@ -3310,7 +3655,7 @@
     ]
    ]
   },
-  "cite:risk-based-testing:canonical:sevocab:risk-based-testing-p-362": {
+  "cite:risk-based-testing:canonical:sevocab:risk-based-testing-p-362-fragment-of-the-entry": {
    "in": [],
    "out": [
     [
@@ -3322,7 +3667,7 @@
     [
      "ogc:locator",
      {
-      "text": "risk-based testing, p. 362"
+      "text": "risk-based testing, p. 362 (fragment of the entry)"
      }
     ],
     [
@@ -3812,7 +4157,7 @@
     ]
    ]
   },
-  "cite:test-case:canonical:sevocab:test-case-p-432": {
+  "cite:test-case:canonical:sevocab:test-case-p-432-fragment-of-the-entry": {
    "in": [],
    "out": [
     [
@@ -3824,7 +4169,7 @@
     [
      "ogc:locator",
      {
-      "text": "test case, p. 432"
+      "text": "test case, p. 432 (fragment of the entry)"
      }
     ],
     [
@@ -3958,7 +4303,7 @@
     ]
    ]
   },
-  "cite:test-item:seeAlso:nist-ai-700-2:appendix-a-application-p-16": {
+  "cite:test-item:seeAlso:nist-ai-700-2:appendix-a-application-p-16-fragment-of-the-entry": {
    "in": [],
    "out": [
     [
@@ -3970,7 +4315,7 @@
     [
      "ogc:locator",
      {
-      "text": "Appendix A, Application, p. 16"
+      "text": "Appendix A, Application, p. 16 (fragment of the entry)"
      }
     ],
     [
@@ -4250,7 +4595,7 @@
     ]
    ]
   },
-  "cite:test-strategy:seeAlso:sevocab:exploratory-testing-p-161": {
+  "cite:test-strategy:seeAlso:sevocab:exploratory-testing-p-161-fragment-of-the-entry": {
    "in": [],
    "out": [
     [
@@ -4262,7 +4607,7 @@
     [
      "ogc:locator",
      {
-      "text": "exploratory testing, p. 161"
+      "text": "exploratory testing, p. 161 (fragment of the entry)"
      }
     ],
     [
@@ -6267,6 +6612,12 @@
    "in": [],
    "out": [
     [
+     "ogc:also",
+     {
+      "ref": "https://w3id.org/og-caie/sources#popper-1959"
+     }
+    ],
+    [
      "ogc:checkable",
      {
       "text": "Pinned at the contract and timestamped before the requirement set; the evaluation takes them as given, documents them, and cannot change them."
@@ -6275,13 +6626,13 @@
     [
      "ogc:cites",
      {
-      "ref": "https://w3id.org/og-caie/sources#bof-deck-2026-07"
+      "ref": "https://w3id.org/og-caie/sources#scipy-2026-bof"
      }
     ],
     [
      "ogc:locator",
      {
-      "text": "slide 5, Helpful Definitions"
+      "text": "the definitions presented at the session"
      }
     ],
     [
@@ -6428,6 +6779,12 @@
    "in": [],
    "out": [
     [
+     "ogc:also",
+     {
+      "ref": "https://w3id.org/og-caie/sources#popper-1959"
+     }
+    ],
+    [
      "ogc:checkable",
      {
       "text": "Declared and timestamped before testing; every attestation says whether that declared context was appropriate."
@@ -6436,13 +6793,13 @@
     [
      "ogc:cites",
      {
-      "ref": "https://w3id.org/og-caie/sources#bof-deck-2026-07"
+      "ref": "https://w3id.org/og-caie/sources#scipy-2026-bof"
      }
     ],
     [
      "ogc:locator",
      {
-      "text": "slide 5, Helpful Definitions"
+      "text": "the definitions presented at the session"
      }
     ],
     [
@@ -6529,6 +6886,12 @@
    "in": [],
    "out": [
     [
+     "ogc:also",
+     {
+      "ref": "https://w3id.org/og-caie/sources#popper-1959"
+     }
+    ],
+    [
      "ogc:checkable",
      {
       "text": "A failed prediction is attributed: the record says which named person judged the context inappropriate or the evidence insufficient, and why."
@@ -6537,13 +6900,13 @@
     [
      "ogc:cites",
      {
-      "ref": "https://w3id.org/og-caie/sources#bof-deck-2026-07"
+      "ref": "https://w3id.org/og-caie/sources#scipy-2026-bof"
      }
     ],
     [
      "ogc:locator",
      {
-      "text": "slide 5, Helpful Definitions"
+      "text": "the definitions presented at the session"
      }
     ],
     [
@@ -6618,6 +6981,12 @@
    "in": [],
    "out": [
     [
+     "ogc:also",
+     {
+      "ref": "https://w3id.org/og-caie/sources#popper-1959"
+     }
+    ],
+    [
      "ogc:checkable",
      {
       "text": "Evidence derives from a recorded response at a recorded turn; a determination rules only on evidence that bears on the criterion it tests."
@@ -6626,13 +6995,13 @@
     [
      "ogc:cites",
      {
-      "ref": "https://w3id.org/og-caie/sources#bof-deck-2026-07"
+      "ref": "https://w3id.org/og-caie/sources#scipy-2026-bof"
      }
     ],
     [
      "ogc:locator",
      {
-      "text": "slide 5, Helpful Definitions"
+      "text": "the definitions presented at the session"
      }
     ],
     [
@@ -6719,6 +7088,12 @@
    "in": [],
    "out": [
     [
+     "ogc:also",
+     {
+      "ref": "https://w3id.org/og-caie/sources#popper-1959"
+     }
+    ],
+    [
      "ogc:checkable",
      {
       "text": "A failed outcome is a recorded falsifier; coverage is recomputed from the record, and a criterion with no attestation counts zero."
@@ -6727,13 +7102,13 @@
     [
      "ogc:cites",
      {
-      "ref": "https://w3id.org/og-caie/sources#bof-deck-2026-07"
+      "ref": "https://w3id.org/og-caie/sources#scipy-2026-bof"
      }
     ],
     [
      "ogc:locator",
      {
-      "text": "slide 5, Helpful Definitions"
+      "text": "the definitions presented at the session"
      }
     ],
     [
@@ -6820,6 +7195,12 @@
    "in": [],
    "out": [
     [
+     "ogc:also",
+     {
+      "ref": "https://w3id.org/og-caie/sources#popper-1959"
+     }
+    ],
+    [
      "ogc:checkable",
      {
       "text": "The expected result is written down before testing, so a determination can rule it not met."
@@ -6828,13 +7209,13 @@
     [
      "ogc:cites",
      {
-      "ref": "https://w3id.org/og-caie/sources#bof-deck-2026-07"
+      "ref": "https://w3id.org/og-caie/sources#scipy-2026-bof"
      }
     ],
     [
      "ogc:locator",
      {
-      "text": "slide 5, Helpful Definitions"
+      "text": "the definitions presented at the session"
      }
     ],
     [
@@ -6915,6 +7296,12 @@
    "in": [],
    "out": [
     [
+     "ogc:also",
+     {
+      "ref": "https://w3id.org/og-caie/sources#popper-1959"
+     }
+    ],
+    [
      "ogc:checkable",
      {
       "text": "The plan names its objectives and means before any session; every probe names the criteria it exercises."
@@ -6923,13 +7310,13 @@
     [
      "ogc:cites",
      {
-      "ref": "https://w3id.org/og-caie/sources#bof-deck-2026-07"
+      "ref": "https://w3id.org/og-caie/sources#scipy-2026-bof"
      }
     ],
     [
      "ogc:locator",
      {
-      "text": "slide 5, Helpful Definitions"
+      "text": "the definitions presented at the session"
      }
     ],
     [
@@ -8590,9 +8977,21 @@
      }
     ],
     [
+     "ogc:scopeNote",
+     {
+      "text": "Ruling R-47 (sheet 06-09): ISO/IEC 17000 9.6 acceptance is the recognition of a result between bodies, not the sponsor accepting performance; it left this step."
+     }
+    ],
+    [
      "ogc:seeAlso",
      {
-      "ref": "cite:acceptDelivery:seeAlso:iso-iec-17000-2020:9-6-acceptance"
+      "ref": "cite:acceptDelivery:seeAlso:sebok-2-14:acceptance-criteria-glossary-p-1437-incose-2011-section-6-1-15"
+     }
+    ],
+    [
+     "ogc:seeAlso",
+     {
+      "ref": "cite:acceptDelivery:seeAlso:sevocab:delivery-p-120-iso-iec-ieee-24765-2017"
      }
     ],
     [
@@ -8615,13 +9014,31 @@
     [
      "ogc:canonical",
      {
-      "ref": "cite:access:canonical:sevocab:test-environment-p-434-iso-iec-ieee-29119-2-2021-3-34"
+      "ref": "cite:access:canonical:sevocab:test-environment-and-data-management-process-p-434-iso-iec-ieee-29119-2-2021-3-37"
+     }
+    ],
+    [
+     "ogc:scopeNote",
+     {
+      "text": "Ruling R-47 (sheet 06-09): the 29119-2 process whose output is the prepared test environment that step 4's test execution process presupposes; the environment itself is a thing and stays a neighbour."
      }
     ],
     [
      "ogc:seeAlso",
      {
       "ref": "cite:access:seeAlso:iso-iec-17000-2020:4-2-object-of-conformity-assessment"
+     }
+    ],
+    [
+     "ogc:seeAlso",
+     {
+      "ref": "cite:access:seeAlso:sevocab:test-environment-p-434-iso-iec-ieee-29119-2-2021-3-34"
+     }
+    ],
+    [
+     "ogc:seeAlso",
+     {
+      "ref": "cite:access:seeAlso:sevocab:test-item-transmittal-report-p-435-iso-iec-ieee-24765-2017"
      }
     ],
     [
@@ -8743,13 +9160,31 @@
     [
      "ogc:canonical",
      {
-      "ref": "cite:declareRequirements:canonical:sebok-2-14:system-requirements-definition-p-557"
+      "ref": "cite:declareRequirements:canonical:sebok-2-14:system-requirements-definition-process-for-generating-system-requirements-p-558"
+     }
+    ],
+    [
+     "ogc:scopeNote",
+     {
+      "text": "Ruling R-47 (sheet 06-09): the requirement set is what the test item must do, never how; SEBoK's own first activity of System Requirements Definition, the needs of step 1 transformed into requirements with measurable criteria."
      }
     ],
     [
      "ogc:seeAlso",
      {
       "ref": "cite:declareRequirements:seeAlso:iso-iec-17000-2020:5-1-specified-requirement"
+     }
+    ],
+    [
+     "ogc:seeAlso",
+     {
+      "ref": "cite:declareRequirements:seeAlso:sebok-2-14:system-requirements-definition-p-559"
+     }
+    ],
+    [
+     "ogc:seeAlso",
+     {
+      "ref": "cite:declareRequirements:seeAlso:sevocab:system-requirements-specification-syrs-p-422-iso-iec-ieee-29148-2018-4-1-29"
      }
     ],
     [
@@ -8785,7 +9220,7 @@
     [
      "ogc:seeAlso",
      {
-      "ref": "cite:deliver:seeAlso:iso-iec-17000-2020:7-3-attestation-note-1"
+      "ref": "cite:deliver:seeAlso:iso-iec-17000-2020:7-3-attestation-note-1-fragment-of-the-note"
      }
     ],
     [
@@ -9020,13 +9455,31 @@
     [
      "ogc:canonical",
      {
-      "ref": "cite:propose:canonical:sebok-2-14:acquisition-and-supply-p-352-the-supplier"
+      "ref": "cite:propose:canonical:sebok-2-14:enterprise-systems-engineering-contract-products-and-services-p-935"
+     }
+    ],
+    [
+     "ogc:scopeNote",
+     {
+      "text": "Ruling R-47 (sheet 06-09): the customer specifies, the supplier responds with a proposal; the supplier's definition (SEBoK p. 352) backs the testing organization's role, not this step."
      }
     ],
     [
      "ogc:seeAlso",
      {
       "ref": "cite:propose:seeAlso:iso-iec-17000-2020:4-10-access"
+     }
+    ],
+    [
+     "ogc:seeAlso",
+     {
+      "ref": "cite:propose:seeAlso:sevocab:proposal-p-329-iso-iec-ieee-24765c-2014"
+     }
+    ],
+    [
+     "ogc:seeAlso",
+     {
+      "ref": "cite:propose:seeAlso:sevocab:request-for-proposal-rfp-p-350-iso-iec-ieee-24765-2017"
      }
     ],
     [
@@ -12150,6 +12603,59 @@
     ]
    ]
   },
+  "https://w3id.org/og-caie/rulings#C-53": {
+   "in": [],
+   "out": [
+    [
+     "ogc:problem",
+     {
+      "text": "Four sandboxed persona reviewers (a human reader, a machine user of ogc, a reproducibility reviewer, a citation auditor) rated the site and reported findings; the code-level ones were fixed; fifteen needed the adjudicator: the front page's opening, the bridge's source, the chapter blocks, the register of the rulings, terms defined at first use, the canonical source of outcome, the rank of TN 1297, fragment quotes, four stretched step matches, the coined terms' internal citations, Popper uncited, a record reader, executor parameters, thirteen pending quotes, and the alignment of Appendix D with the code."
+     }
+    ],
+    [
+     "ogc:severity",
+     {
+      "text": "H"
+     }
+    ],
+    [
+     "ogc:status",
+     {
+      "text": "ruled"
+     }
+    ],
+    [
+     "ogc:surfacedHow",
+     {
+      "text": "rulings sheet 06, from the four reviewers' reports"
+     }
+    ],
+    [
+     "ogc:surfacedOn",
+     {
+      "text": "2026-09-06 (date)"
+     }
+    ],
+    [
+     "prov:wasGeneratedBy",
+     {
+      "text": "rul:model-revision-planning-2026-09-06"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "ogc:Concern"
+     }
+    ],
+    [
+     "rdfs:label",
+     {
+      "text": "round one of the simulated user test: fifteen findings that needed a judgment (rulings sheet 06)"
+     }
+    ]
+   ]
+  },
   "https://w3id.org/og-caie/rulings#R-01": {
    "in": [],
    "out": [
@@ -14290,6 +14796,53 @@
      "ogc:rulingText",
      {
       "text": "more feedback. this diagram is human illegible. needs similiar treatment to earlier diagrams. views need to be designed to communicate clearly as views not to be exhaustive. this means we may need multiple diagrams or it may be as simple as blackboxing subsystems more effectively. wiring two systems together often involves focusing on how they interface with each other, even when the interfaces span scales."
+     }
+    ],
+    [
+     "prov:generatedAtTime",
+     {
+      "text": "2026-09-06 (date)"
+     }
+    ],
+    [
+     "prov:wasAttributedTo",
+     {
+      "text": "rul:Z"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "ogc:Ruling"
+     }
+    ]
+   ]
+  },
+  "https://w3id.org/og-caie/rulings#R-47": {
+   "in": [],
+   "out": [
+    [
+     "ogc:changeNote",
+     {
+      "text": "06-14: the thirteen quotes ticked (human, Z, 2026-09-06); none pending. 06-06: outcome's canonical is SEVOCAB test result, EARL a seeAlso and the binding. 06-07: NIST TN 1297 rank reserve. 06-08: six fragment quotes say so in their locators. 06-10: the four coined terms cite nothing; they carry ogc:coinedBy; the internal sources leave the register. 06-02: the crosswalk cites the public SciPy 2026 session (src:scipy-2026-bof, digest) instead of the deck; 06-11: Popper 1959 stands alongside every row (ogc:also). 06-01, 06-03, 06-05: the front page and the chapters restructured (prose and headings, judicious info blocks, code blocks that pull content, terms defined at first use). 06-04: the rulings rewritten in a formal register with the verbatim messages kept in the graph as ogc:verbatim. 06-09: process canon researched for C2, C4, C6 and step 2 and re-cited. 06-12: ogc reads the record. 06-13: ogc execute exposes the executor's parameters. 06-15: Appendix D's descriptions rendered from the commands' own output."
+     }
+    ],
+    [
+     "ogc:order",
+     {
+      "text": "47"
+     }
+    ],
+    [
+     "ogc:resolves",
+     {
+      "ref": "https://w3id.org/og-caie/rulings#C-53"
+     }
+    ],
+    [
+     "ogc:rulingText",
+     {
+      "text": "rulings: 6-1: a as recommended. 6-2: don't cite the deck, site the public event. the BoF at SciPy 2026 is on the public record. you can reference it as a fact about events and what transpired there rather than a citation to a private artifact. there is a blog going live on the hi site soon about it which we can add as an additional citation later. 6-3: reorganize to make more judicious use of info blocks. balance info blocks with standard prose (and headers effecting outline) and code blocks which demonstrable pull content (see techniques in the vendor fraud example). 6-4: rework the rulings content so it doesn't read as messages i sent to an assistant. the intents should be preserved but the tone should shift to a more formal register. 6-5: define terms on first use. you can look at the conversations around the scipy-proceeding paper i wrote. look at the discussions with the reviewer and the fixes we made and they approved for guidance. 6-6: a as recommended. 6-7: a as recommended. 6-8: a as recommended. 6-9: dig in deeper to make sure we align with process canon. shouldn't seem like a stretch. our posture is implementation of standards not relitagating them. our contribution is application to contextual AI eval domain and executable spec implementation not standards authoring. 6-10: drop citations and own the coinage. 6-11: a as recommended. 6-12: a as recommended. 6-13: a as recommended. 6-14: tick them. 6-15: align the code and the appendix more clearly"
      }
     ],
     [
@@ -16483,118 +17036,6 @@
     ]
    ]
   },
-  "https://w3id.org/og-caie/sources#bof-deck-2026-07": {
-   "in": [],
-   "out": [
-    [
-     "ogc:digest",
-     {
-      "text": "sources/digests/bof-deck-2026-07.md"
-     }
-    ],
-    [
-     "ogc:kind",
-     {
-      "text": "web"
-     }
-    ],
-    [
-     "ogc:licenceNote",
-     {
-      "text": "authors' own deck; slide 2 (organization logos) reproduced at assets/hi-dsg-collaboration.png with the authors' agreement; slide 5 (Helpful Definitions) quoted"
-     }
-    ],
-    [
-     "ogc:posture",
-     {
-      "text": "citeOnly"
-     }
-    ],
-    [
-     "ogc:rank",
-     {
-      "text": "internal"
-     }
-    ],
-    [
-     "ogc:url",
-     {
-      "text": "https://docs.google.com/presentation/d/1LMPYu-DjGZ5uopZQYvmU96p7vDwcdBiLFEgrIsAdeoc/edit"
-     }
-    ],
-    [
-     "rdf:type",
-     {
-      "text": "ogc:Source"
-     }
-    ],
-    [
-     "rdf:type",
-     {
-      "text": "prov:Entity"
-     }
-    ],
-    [
-     "rdfs:label",
-     {
-      "text": "Zargham and Hollek, Building Scientific Approaches to Generative AI, Birds-of-a-Feather deck, SciPy 2026 (Google Slides)"
-     }
-    ]
-   ]
-  },
-  "https://w3id.org/og-caie/sources#caie-epo-prototype": {
-   "in": [],
-   "out": [
-    [
-     "ogc:kind",
-     {
-      "text": "git"
-     }
-    ],
-    [
-     "ogc:licenceNote",
-     {
-      "text": "Apache-2.0"
-     }
-    ],
-    [
-     "ogc:posture",
-     {
-      "text": "citeOnly"
-     }
-    ],
-    [
-     "ogc:rank",
-     {
-      "text": "internal"
-     }
-    ],
-    [
-     "ogc:url",
-     {
-      "text": "https://github.com/DynamicalSystemsGroup/caie-epo-prototype"
-     }
-    ],
-    [
-     "rdf:type",
-     {
-      "text": "ogc:Source"
-     }
-    ],
-    [
-     "rdf:type",
-     {
-      "text": "prov:Entity"
-     }
-    ],
-    [
-     "rdfs:label",
-     {
-      "text": "DynamicalSystemsGroup/caie-epo-prototype (June 2026): prior art for the EPO"
-     }
-    ]
-   ]
-  },
   "https://w3id.org/og-caie/sources#gruber-1993": {
    "in": [],
    "out": [
@@ -17550,7 +17991,7 @@
     [
      "ogc:rank",
      {
-      "text": "3"
+      "text": "reserve"
      }
     ],
     [
@@ -17581,59 +18022,6 @@
      "rdfs:label",
      {
       "text": "NIST Technical Note 1297, Guidelines for Evaluating and Expressing the Uncertainty of NIST Measurement Results, 1994 edition"
-     }
-    ]
-   ]
-  },
-  "https://w3id.org/og-caie/sources#paper-draft-2026-09": {
-   "in": [],
-   "out": [
-    [
-     "ogc:kind",
-     {
-      "text": "web"
-     }
-    ],
-    [
-     "ogc:licenceNote",
-     {
-      "text": "internal working document"
-     }
-    ],
-    [
-     "ogc:posture",
-     {
-      "text": "citeOnly"
-     }
-    ],
-    [
-     "ogc:rank",
-     {
-      "text": "internal"
-     }
-    ],
-    [
-     "ogc:url",
-     {
-      "text": "https://docs.google.com/document/d/1ErAaz4buh-Zny7yljaBsHfFnA_tbgJY9tVZ0sjQbHbE/edit"
-     }
-    ],
-    [
-     "rdf:type",
-     {
-      "text": "ogc:Source"
-     }
-    ],
-    [
-     "rdf:type",
-     {
-      "text": "prov:Entity"
-     }
-    ],
-    [
-     "rdfs:label",
-     {
-      "text": "Ontology-Grounded Contextual AI Evaluation, paper draft 1/2 (Google Doc, September 2026)"
      }
     ]
    ]
@@ -17687,6 +18075,59 @@
      "rdfs:label",
      {
       "text": "Popper, The Logic of Scientific Discovery, London: Hutchinson, 1959"
+     }
+    ]
+   ]
+  },
+  "https://w3id.org/og-caie/sources#scipy-2026-bof": {
+   "in": [],
+   "out": [
+    [
+     "ogc:digest",
+     {
+      "text": "sources/digests/scipy-2026-bof.md"
+     }
+    ],
+    [
+     "ogc:kind",
+     {
+      "text": "event"
+     }
+    ],
+    [
+     "ogc:licenceNote",
+     {
+      "text": "a public event on the conference record, cited as a fact about what was presented there; the definitions in the digest are the authors' own words as presented; the organization logos shown at the session are reproduced at assets/hi-dsg-collaboration.png with the organizations' agreement (ruling R-47, sheet 06-02)"
+     }
+    ],
+    [
+     "ogc:posture",
+     {
+      "text": "citeOnly"
+     }
+    ],
+    [
+     "ogc:rank",
+     {
+      "text": "internal"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "ogc:Source"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "prov:Entity"
+     }
+    ],
+    [
+     "rdfs:label",
+     {
+      "text": "Zargham and Hollek, Building Scientific Approaches to Generative AI, Birds-of-a-Feather session, SciPy 2026 (public event)"
      }
     ]
    ]
@@ -17823,59 +18264,6 @@
      "rdfs:label",
      {
       "text": "IEEE Computer Society, Software and Systems Engineering Vocabulary (SEVOCAB), PDF export (481 pp.)"
-     }
-    ]
-   ]
-  },
-  "https://w3id.org/og-caie/sources#term-contract-v5": {
-   "in": [],
-   "out": [
-    [
-     "ogc:kind",
-     {
-      "text": "web"
-     }
-    ],
-    [
-     "ogc:licenceNote",
-     {
-      "text": "internal working document; narrative definitions lifted with the authors' agreement"
-     }
-    ],
-    [
-     "ogc:posture",
-     {
-      "text": "citeOnly"
-     }
-    ],
-    [
-     "ogc:rank",
-     {
-      "text": "internal"
-     }
-    ],
-    [
-     "ogc:url",
-     {
-      "text": "https://docs.google.com/document/d/1KeevG-xi9-Iw2kbf2R0WFv3T0Uf1M5jAdnHCthDvkLo/edit"
-     }
-    ],
-    [
-     "rdf:type",
-     {
-      "text": "ogc:Source"
-     }
-    ],
-    [
-     "rdf:type",
-     {
-      "text": "prov:Entity"
-     }
-    ],
-    [
-     "rdfs:label",
-     {
-      "text": "Humane Intelligence, CAIE Term Contract (Controlled Vocabulary) v5, 2026-07-15 (Google Doc)"
      }
     ]
    ]
@@ -18611,15 +18999,15 @@
      }
     ],
     [
-     "ogc:canonical",
-     {
-      "ref": "cite:contextual-ai-evaluation:canonical:paper-draft-2026-09:introduction-and-background"
-     }
-    ],
-    [
      "ogc:class",
      {
       "text": "coined"
+     }
+    ],
+    [
+     "ogc:coinedBy",
+     {
+      "text": "Zargham and Hollek, for this specification (ruling R-47, sheet 06-10)"
      }
     ],
     [
@@ -19007,15 +19395,15 @@
      }
     ],
     [
-     "ogc:canonical",
-     {
-      "ref": "cite:domain-specific-ontology:canonical:term-contract-v5:section-1c-dso-domain-specific-ontology"
-     }
-    ],
-    [
      "ogc:class",
      {
       "text": "coined"
+     }
+    ],
+    [
+     "ogc:coinedBy",
+     {
+      "text": "Zargham and Hollek, for this specification (ruling R-47, sheet 06-10)"
      }
     ],
     [
@@ -19208,27 +19596,21 @@
      }
     ],
     [
-     "ogc:canonical",
-     {
-      "ref": "cite:evaluation-process-ontology:canonical:term-contract-v5:section-1c-epo-evaluation-process-ontology"
-     }
-    ],
-    [
      "ogc:class",
      {
       "text": "coined"
      }
     ],
     [
-     "ogc:scopeNote",
+     "ogc:coinedBy",
      {
-      "text": "Rulings R-31 and R-32: the steps are not invented. Each step in vocabulary/epo.ttl cites the process step it matches: the contracting lifecycle (need, propose, agree, access, deliver, accept) matches the ISO/IEC/IEEE 15288 agreement processes, ISO/IEC 17000 access, scheme and acceptance, ISO 9000 contract and the 29119-2 test environment and completion report; scope and declare requirements match the ISO/IEC/IEEE 15288 acquisition, stakeholder needs definition and system requirements definition processes as SEBoK describes them; plan, execute and report match the ISO/IEC/IEEE 29119-2 test strategy and planning, test execution and test completion processes as SEVOCAB defines them; determine and attest matches ISO/IEC 17000's review, decision and attestation. The EPO operationalizes those steps as executable checks."
+      "text": "Zargham and Hollek, for this specification (ruling R-47, sheet 06-10)"
      }
     ],
     [
-     "ogc:seeAlso",
+     "ogc:scopeNote",
      {
-      "ref": "cite:evaluation-process-ontology:seeAlso:caie-epo-prototype:ontology-epo-core-ttl"
+      "text": "Rulings R-31 and R-32: the steps are not invented. Each step in vocabulary/epo.ttl cites the process step it matches: the contracting lifecycle (need, propose, agree, access, deliver, accept) matches the ISO/IEC/IEEE 15288 agreement processes, ISO/IEC 17000 access, scheme and acceptance, ISO 9000 contract and the 29119-2 test environment and completion report; scope and declare requirements match the ISO/IEC/IEEE 15288 acquisition, stakeholder needs definition and system requirements definition processes as SEBoK describes them; plan, execute and report match the ISO/IEC/IEEE 29119-2 test strategy and planning, test execution and test completion processes as SEVOCAB defines them; determine and attest matches ISO/IEC 17000's review, decision and attestation. The EPO operationalizes those steps as executable checks."
      }
     ],
     [
@@ -19654,7 +20036,7 @@
     [
      "ogc:canonical",
      {
-      "ref": "cite:knowledge-graph:canonical:hogan-2021:section-1-p-2-arxiv-v3"
+      "ref": "cite:knowledge-graph:canonical:hogan-2021:section-1-p-2-arxiv-v3-fragment-of-the-entry"
      }
     ],
     [
@@ -20060,12 +20442,6 @@
      }
     ],
     [
-     "ogc:canonical",
-     {
-      "ref": "cite:og-caie:canonical:paper-draft-2026-09:introduction-and-background"
-     }
-    ],
-    [
      "ogc:class",
      {
       "text": "coined"
@@ -20363,7 +20739,7 @@
     [
      "ogc:canonical",
      {
-      "ref": "cite:outcome:canonical:w3c-earl:section-2-7-outcomevalue-class"
+      "ref": "cite:outcome:canonical:sevocab:test-result-p-438"
      }
     ],
     [
@@ -20373,9 +20749,21 @@
      }
     ],
     [
+     "ogc:scopeNote",
+     {
+      "text": "Ruling R-47 (sheet 06-06): the canonical definition is SEVOCAB's test result; EARL supplies the binding, not the definition."
+     }
+    ],
+    [
      "ogc:seeAlso",
      {
       "ref": "cite:outcome:seeAlso:nist-ai-700-2:section-3-1-validity-risk-assessment-p-5"
+     }
+    ],
+    [
+     "ogc:seeAlso",
+     {
+      "ref": "cite:outcome:seeAlso:w3c-earl:section-2-7-outcomevalue-class"
      }
     ],
     [
@@ -20953,7 +21341,7 @@
     [
      "ogc:canonical",
      {
-      "ref": "cite:risk-based-testing:canonical:sevocab:risk-based-testing-p-362"
+      "ref": "cite:risk-based-testing:canonical:sevocab:risk-based-testing-p-362-fragment-of-the-entry"
      }
     ],
     [
@@ -21484,7 +21872,7 @@
     [
      "ogc:canonical",
      {
-      "ref": "cite:test-case:canonical:sevocab:test-case-p-432"
+      "ref": "cite:test-case:canonical:sevocab:test-case-p-432-fragment-of-the-entry"
      }
     ],
     [
@@ -21620,7 +22008,7 @@
     [
      "ogc:seeAlso",
      {
-      "ref": "cite:test-item:seeAlso:nist-ai-700-2:appendix-a-application-p-16"
+      "ref": "cite:test-item:seeAlso:nist-ai-700-2:appendix-a-application-p-16-fragment-of-the-entry"
      }
     ],
     [
@@ -21804,7 +22192,7 @@
     [
      "ogc:seeAlso",
      {
-      "ref": "cite:test-strategy:seeAlso:sevocab:exploratory-testing-p-161"
+      "ref": "cite:test-strategy:seeAlso:sevocab:exploratory-testing-p-161-fragment-of-the-entry"
      }
     ],
     [
@@ -23628,13 +24016,13 @@
     [
      "ogc:restsOn",
      {
-      "ref": "https://w3id.org/og-caie/sources#bof-deck-2026-07"
+      "ref": "https://w3id.org/og-caie/sources#iso-iec-17000-2020"
      }
     ],
     [
      "ogc:restsOn",
      {
-      "ref": "https://w3id.org/og-caie/sources#iso-iec-17000-2020"
+      "ref": "https://w3id.org/og-caie/sources#scipy-2026-bof"
      }
     ],
     [
@@ -36042,8 +36430,13 @@
   },
   {
    "rel": "cites",
-   "source": "cite:acceptDelivery:seeAlso:iso-iec-17000-2020:9-6-acceptance",
-   "target": "https://w3id.org/og-caie/sources#iso-iec-17000-2020"
+   "source": "cite:acceptDelivery:seeAlso:sebok-2-14:acceptance-criteria-glossary-p-1437-incose-2011-section-6-1-15",
+   "target": "https://w3id.org/og-caie/sources#sebok-2-14"
+  },
+  {
+   "rel": "cites",
+   "source": "cite:acceptDelivery:seeAlso:sevocab:delivery-p-120-iso-iec-ieee-24765-2017",
+   "target": "https://w3id.org/og-caie/sources#sevocab"
   },
   {
    "rel": "cites",
@@ -36057,13 +36450,23 @@
   },
   {
    "rel": "cites",
-   "source": "cite:access:canonical:sevocab:test-environment-p-434-iso-iec-ieee-29119-2-2021-3-34",
+   "source": "cite:access:canonical:sevocab:test-environment-and-data-management-process-p-434-iso-iec-ieee-29119-2-2021-3-37",
    "target": "https://w3id.org/og-caie/sources#sevocab"
   },
   {
    "rel": "cites",
    "source": "cite:access:seeAlso:iso-iec-17000-2020:4-2-object-of-conformity-assessment",
    "target": "https://w3id.org/og-caie/sources#iso-iec-17000-2020"
+  },
+  {
+   "rel": "cites",
+   "source": "cite:access:seeAlso:sevocab:test-environment-p-434-iso-iec-ieee-29119-2-2021-3-34",
+   "target": "https://w3id.org/og-caie/sources#sevocab"
+  },
+  {
+   "rel": "cites",
+   "source": "cite:access:seeAlso:sevocab:test-item-transmittal-report-p-435-iso-iec-ieee-24765-2017",
+   "target": "https://w3id.org/og-caie/sources#sevocab"
   },
   {
    "rel": "cites",
@@ -36127,11 +36530,6 @@
   },
   {
    "rel": "cites",
-   "source": "cite:contextual-ai-evaluation:canonical:paper-draft-2026-09:introduction-and-background",
-   "target": "https://w3id.org/og-caie/sources#paper-draft-2026-09"
-  },
-  {
-   "rel": "cites",
    "source": "cite:contract:canonical:iso-9000-2026:3-3-13",
    "target": "https://w3id.org/og-caie/sources#iso-9000-2026"
   },
@@ -36142,7 +36540,7 @@
   },
   {
    "rel": "cites",
-   "source": "cite:declareRequirements:canonical:sebok-2-14:system-requirements-definition-p-557",
+   "source": "cite:declareRequirements:canonical:sebok-2-14:system-requirements-definition-process-for-generating-system-requirements-p-558",
    "target": "https://w3id.org/og-caie/sources#sebok-2-14"
   },
   {
@@ -36152,12 +36550,22 @@
   },
   {
    "rel": "cites",
+   "source": "cite:declareRequirements:seeAlso:sebok-2-14:system-requirements-definition-p-559",
+   "target": "https://w3id.org/og-caie/sources#sebok-2-14"
+  },
+  {
+   "rel": "cites",
+   "source": "cite:declareRequirements:seeAlso:sevocab:system-requirements-specification-syrs-p-422-iso-iec-ieee-29148-2018-4-1-29",
+   "target": "https://w3id.org/og-caie/sources#sevocab"
+  },
+  {
+   "rel": "cites",
    "source": "cite:deliver:canonical:sevocab:test-completion-report-p-433-iso-iec-ieee-29119-2-2021-3-26",
    "target": "https://w3id.org/og-caie/sources#sevocab"
   },
   {
    "rel": "cites",
-   "source": "cite:deliver:seeAlso:iso-iec-17000-2020:7-3-attestation-note-1",
+   "source": "cite:deliver:seeAlso:iso-iec-17000-2020:7-3-attestation-note-1-fragment-of-the-note",
    "target": "https://w3id.org/og-caie/sources#iso-iec-17000-2020"
   },
   {
@@ -36202,23 +36610,8 @@
   },
   {
    "rel": "cites",
-   "source": "cite:domain-specific-ontology:canonical:term-contract-v5:section-1c-dso-domain-specific-ontology",
-   "target": "https://w3id.org/og-caie/sources#term-contract-v5"
-  },
-  {
-   "rel": "cites",
    "source": "cite:evaluation-operator:canonical:sevocab:operator-p-283-iso-iec-ieee-12207-2026-3-1-40",
    "target": "https://w3id.org/og-caie/sources#sevocab"
-  },
-  {
-   "rel": "cites",
-   "source": "cite:evaluation-process-ontology:canonical:term-contract-v5:section-1c-epo-evaluation-process-ontology",
-   "target": "https://w3id.org/og-caie/sources#term-contract-v5"
-  },
-  {
-   "rel": "cites",
-   "source": "cite:evaluation-process-ontology:seeAlso:caie-epo-prototype:ontology-epo-core-ttl",
-   "target": "https://w3id.org/og-caie/sources#caie-epo-prototype"
   },
   {
    "rel": "cites",
@@ -36302,7 +36695,7 @@
   },
   {
    "rel": "cites",
-   "source": "cite:knowledge-graph:canonical:hogan-2021:section-1-p-2-arxiv-v3",
+   "source": "cite:knowledge-graph:canonical:hogan-2021:section-1-p-2-arxiv-v3-fragment-of-the-entry",
    "target": "https://w3id.org/og-caie/sources#hogan-2021"
   },
   {
@@ -36362,11 +36755,6 @@
   },
   {
    "rel": "cites",
-   "source": "cite:og-caie:canonical:paper-draft-2026-09:introduction-and-background",
-   "target": "https://w3id.org/og-caie/sources#paper-draft-2026-09"
-  },
-  {
-   "rel": "cites",
    "source": "cite:ontology:canonical:gruber-1993:section-1-p-2-author-copy",
    "target": "https://w3id.org/og-caie/sources#gruber-1993"
   },
@@ -36387,13 +36775,18 @@
   },
   {
    "rel": "cites",
-   "source": "cite:outcome:canonical:w3c-earl:section-2-7-outcomevalue-class",
-   "target": "https://w3id.org/og-caie/sources#w3c-earl"
+   "source": "cite:outcome:canonical:sevocab:test-result-p-438",
+   "target": "https://w3id.org/og-caie/sources#sevocab"
   },
   {
    "rel": "cites",
    "source": "cite:outcome:seeAlso:nist-ai-700-2:section-3-1-validity-risk-assessment-p-5",
    "target": "https://w3id.org/og-caie/sources#nist-ai-700-2"
+  },
+  {
+   "rel": "cites",
+   "source": "cite:outcome:seeAlso:w3c-earl:section-2-7-outcomevalue-class",
+   "target": "https://w3id.org/og-caie/sources#w3c-earl"
   },
   {
    "rel": "cites",
@@ -36417,13 +36810,23 @@
   },
   {
    "rel": "cites",
-   "source": "cite:propose:canonical:sebok-2-14:acquisition-and-supply-p-352-the-supplier",
+   "source": "cite:propose:canonical:sebok-2-14:enterprise-systems-engineering-contract-products-and-services-p-935",
    "target": "https://w3id.org/og-caie/sources#sebok-2-14"
   },
   {
    "rel": "cites",
    "source": "cite:propose:seeAlso:iso-iec-17000-2020:4-10-access",
    "target": "https://w3id.org/og-caie/sources#iso-iec-17000-2020"
+  },
+  {
+   "rel": "cites",
+   "source": "cite:propose:seeAlso:sevocab:proposal-p-329-iso-iec-ieee-24765c-2014",
+   "target": "https://w3id.org/og-caie/sources#sevocab"
+  },
+  {
+   "rel": "cites",
+   "source": "cite:propose:seeAlso:sevocab:request-for-proposal-rfp-p-350-iso-iec-ieee-24765-2017",
+   "target": "https://w3id.org/og-caie/sources#sevocab"
   },
   {
    "rel": "cites",
@@ -36497,7 +36900,7 @@
   },
   {
    "rel": "cites",
-   "source": "cite:risk-based-testing:canonical:sevocab:risk-based-testing-p-362",
+   "source": "cite:risk-based-testing:canonical:sevocab:risk-based-testing-p-362-fragment-of-the-entry",
    "target": "https://w3id.org/og-caie/sources#sevocab"
   },
   {
@@ -36567,7 +36970,7 @@
   },
   {
    "rel": "cites",
-   "source": "cite:test-case:canonical:sevocab:test-case-p-432",
+   "source": "cite:test-case:canonical:sevocab:test-case-p-432-fragment-of-the-entry",
    "target": "https://w3id.org/og-caie/sources#sevocab"
   },
   {
@@ -36587,7 +36990,7 @@
   },
   {
    "rel": "cites",
-   "source": "cite:test-item:seeAlso:nist-ai-700-2:appendix-a-application-p-16",
+   "source": "cite:test-item:seeAlso:nist-ai-700-2:appendix-a-application-p-16-fragment-of-the-entry",
    "target": "https://w3id.org/og-caie/sources#nist-ai-700-2"
   },
   {
@@ -36627,7 +37030,7 @@
   },
   {
    "rel": "cites",
-   "source": "cite:test-strategy:seeAlso:sevocab:exploratory-testing-p-161",
+   "source": "cite:test-strategy:seeAlso:sevocab:exploratory-testing-p-161-fragment-of-the-entry",
    "target": "https://w3id.org/og-caie/sources#sevocab"
   },
   {
@@ -36871,9 +37274,14 @@
    "target": "https://w3id.org/og-caie/epo#TestItemAccess"
   },
   {
+   "rel": "also",
+   "source": "https://w3id.org/og-caie/crosswalk#auxiliary-assumption-contract",
+   "target": "https://w3id.org/og-caie/sources#popper-1959"
+  },
+  {
    "rel": "cites",
    "source": "https://w3id.org/og-caie/crosswalk#auxiliary-assumption-contract",
-   "target": "https://w3id.org/og-caie/sources#bof-deck-2026-07"
+   "target": "https://w3id.org/og-caie/sources#scipy-2026-bof"
   },
   {
    "rel": "mapsTo",
@@ -36931,9 +37339,14 @@
    "target": "https://w3id.org/og-caie/epo#RequirementSet"
   },
   {
+   "rel": "also",
+   "source": "https://w3id.org/og-caie/crosswalk#auxiliary-assumption-evaluation",
+   "target": "https://w3id.org/og-caie/sources#popper-1959"
+  },
+  {
    "rel": "cites",
    "source": "https://w3id.org/og-caie/crosswalk#auxiliary-assumption-evaluation",
-   "target": "https://w3id.org/og-caie/sources#bof-deck-2026-07"
+   "target": "https://w3id.org/og-caie/sources#scipy-2026-bof"
   },
   {
    "rel": "mapsTo",
@@ -36961,9 +37374,14 @@
    "target": "https://w3id.org/og-caie/S8-Recommendation"
   },
   {
+   "rel": "also",
+   "source": "https://w3id.org/og-caie/crosswalk#context",
+   "target": "https://w3id.org/og-caie/sources#popper-1959"
+  },
+  {
    "rel": "cites",
    "source": "https://w3id.org/og-caie/crosswalk#context",
-   "target": "https://w3id.org/og-caie/sources#bof-deck-2026-07"
+   "target": "https://w3id.org/og-caie/sources#scipy-2026-bof"
   },
   {
    "rel": "mapsTo",
@@ -37001,9 +37419,14 @@
    "target": "https://w3id.org/og-caie/epo#Evidence"
   },
   {
+   "rel": "also",
+   "source": "https://w3id.org/og-caie/crosswalk#evidence",
+   "target": "https://w3id.org/og-caie/sources#popper-1959"
+  },
+  {
    "rel": "cites",
    "source": "https://w3id.org/og-caie/crosswalk#evidence",
-   "target": "https://w3id.org/og-caie/sources#bof-deck-2026-07"
+   "target": "https://w3id.org/og-caie/sources#scipy-2026-bof"
   },
   {
    "rel": "mapsTo",
@@ -37041,9 +37464,14 @@
    "target": "https://w3id.org/og-caie/epo#Report"
   },
   {
+   "rel": "also",
+   "source": "https://w3id.org/og-caie/crosswalk#falsifiability",
+   "target": "https://w3id.org/og-caie/sources#popper-1959"
+  },
+  {
    "rel": "cites",
    "source": "https://w3id.org/og-caie/crosswalk#falsifiability",
-   "target": "https://w3id.org/og-caie/sources#bof-deck-2026-07"
+   "target": "https://w3id.org/og-caie/sources#scipy-2026-bof"
   },
   {
    "rel": "mapsTo",
@@ -37076,9 +37504,14 @@
    "target": "https://w3id.org/og-caie/epo#AcceptanceCriterion"
   },
   {
+   "rel": "also",
+   "source": "https://w3id.org/og-caie/crosswalk#hypothesis",
+   "target": "https://w3id.org/og-caie/sources#popper-1959"
+  },
+  {
    "rel": "cites",
    "source": "https://w3id.org/og-caie/crosswalk#hypothesis",
-   "target": "https://w3id.org/og-caie/sources#bof-deck-2026-07"
+   "target": "https://w3id.org/og-caie/sources#scipy-2026-bof"
   },
   {
    "rel": "mapsTo",
@@ -37121,9 +37554,14 @@
    "target": "https://w3id.org/og-caie/epo#Turn"
   },
   {
+   "rel": "also",
+   "source": "https://w3id.org/og-caie/crosswalk#prediction",
+   "target": "https://w3id.org/og-caie/sources#popper-1959"
+  },
+  {
    "rel": "cites",
    "source": "https://w3id.org/og-caie/crosswalk#prediction",
-   "target": "https://w3id.org/og-caie/sources#bof-deck-2026-07"
+   "target": "https://w3id.org/og-caie/sources#scipy-2026-bof"
   },
   {
    "rel": "mapsTo",
@@ -37268,17 +37706,32 @@
   {
    "rel": "seeAlso",
    "source": "https://w3id.org/og-caie/epo#acceptDelivery",
-   "target": "cite:acceptDelivery:seeAlso:iso-iec-17000-2020:9-6-acceptance"
+   "target": "cite:acceptDelivery:seeAlso:sebok-2-14:acceptance-criteria-glossary-p-1437-incose-2011-section-6-1-15"
+  },
+  {
+   "rel": "seeAlso",
+   "source": "https://w3id.org/og-caie/epo#acceptDelivery",
+   "target": "cite:acceptDelivery:seeAlso:sevocab:delivery-p-120-iso-iec-ieee-24765-2017"
   },
   {
    "rel": "canonical",
    "source": "https://w3id.org/og-caie/epo#access",
-   "target": "cite:access:canonical:sevocab:test-environment-p-434-iso-iec-ieee-29119-2-2021-3-34"
+   "target": "cite:access:canonical:sevocab:test-environment-and-data-management-process-p-434-iso-iec-ieee-29119-2-2021-3-37"
   },
   {
    "rel": "seeAlso",
    "source": "https://w3id.org/og-caie/epo#access",
    "target": "cite:access:seeAlso:iso-iec-17000-2020:4-2-object-of-conformity-assessment"
+  },
+  {
+   "rel": "seeAlso",
+   "source": "https://w3id.org/og-caie/epo#access",
+   "target": "cite:access:seeAlso:sevocab:test-environment-p-434-iso-iec-ieee-29119-2-2021-3-34"
+  },
+  {
+   "rel": "seeAlso",
+   "source": "https://w3id.org/og-caie/epo#access",
+   "target": "cite:access:seeAlso:sevocab:test-item-transmittal-report-p-435-iso-iec-ieee-24765-2017"
   },
   {
    "rel": "canonical",
@@ -37298,12 +37751,22 @@
   {
    "rel": "canonical",
    "source": "https://w3id.org/og-caie/epo#declareRequirements",
-   "target": "cite:declareRequirements:canonical:sebok-2-14:system-requirements-definition-p-557"
+   "target": "cite:declareRequirements:canonical:sebok-2-14:system-requirements-definition-process-for-generating-system-requirements-p-558"
   },
   {
    "rel": "seeAlso",
    "source": "https://w3id.org/og-caie/epo#declareRequirements",
    "target": "cite:declareRequirements:seeAlso:iso-iec-17000-2020:5-1-specified-requirement"
+  },
+  {
+   "rel": "seeAlso",
+   "source": "https://w3id.org/og-caie/epo#declareRequirements",
+   "target": "cite:declareRequirements:seeAlso:sebok-2-14:system-requirements-definition-p-559"
+  },
+  {
+   "rel": "seeAlso",
+   "source": "https://w3id.org/og-caie/epo#declareRequirements",
+   "target": "cite:declareRequirements:seeAlso:sevocab:system-requirements-specification-syrs-p-422-iso-iec-ieee-29148-2018-4-1-29"
   },
   {
    "rel": "canonical",
@@ -37313,7 +37776,7 @@
   {
    "rel": "seeAlso",
    "source": "https://w3id.org/og-caie/epo#deliver",
-   "target": "cite:deliver:seeAlso:iso-iec-17000-2020:7-3-attestation-note-1"
+   "target": "cite:deliver:seeAlso:iso-iec-17000-2020:7-3-attestation-note-1-fragment-of-the-note"
   },
   {
    "rel": "canonical",
@@ -37373,12 +37836,22 @@
   {
    "rel": "canonical",
    "source": "https://w3id.org/og-caie/epo#propose",
-   "target": "cite:propose:canonical:sebok-2-14:acquisition-and-supply-p-352-the-supplier"
+   "target": "cite:propose:canonical:sebok-2-14:enterprise-systems-engineering-contract-products-and-services-p-935"
   },
   {
    "rel": "seeAlso",
    "source": "https://w3id.org/og-caie/epo#propose",
    "target": "cite:propose:seeAlso:iso-iec-17000-2020:4-10-access"
+  },
+  {
+   "rel": "seeAlso",
+   "source": "https://w3id.org/og-caie/epo#propose",
+   "target": "cite:propose:seeAlso:sevocab:proposal-p-329-iso-iec-ieee-24765c-2014"
+  },
+  {
+   "rel": "seeAlso",
+   "source": "https://w3id.org/og-caie/epo#propose",
+   "target": "cite:propose:seeAlso:sevocab:request-for-proposal-rfp-p-350-iso-iec-ieee-24765-2017"
   },
   {
    "rel": "canonical",
@@ -37844,6 +38317,11 @@
    "rel": "resolves",
    "source": "https://w3id.org/og-caie/rulings#R-46",
    "target": "https://w3id.org/og-caie/rulings#C-52"
+  },
+  {
+   "rel": "resolves",
+   "source": "https://w3id.org/og-caie/rulings#R-47",
+   "target": "https://w3id.org/og-caie/rulings#C-53"
   },
   {
    "rel": "type",
@@ -38826,11 +39304,6 @@
    "target": "https://w3id.org/og-caie/rulings#R-16"
   },
   {
-   "rel": "canonical",
-   "source": "https://w3id.org/og-caie/terms#contextual-ai-evaluation",
-   "target": "cite:contextual-ai-evaluation:canonical:paper-draft-2026-09:introduction-and-background"
-  },
-  {
    "rel": "wasDerivedFrom",
    "source": "https://w3id.org/og-caie/terms#contextual-ai-evaluation",
    "target": "https://w3id.org/og-caie/rulings#R-29"
@@ -38891,11 +39364,6 @@
    "target": "https://w3id.org/og-caie/rulings#R-13"
   },
   {
-   "rel": "canonical",
-   "source": "https://w3id.org/og-caie/terms#domain-specific-ontology",
-   "target": "cite:domain-specific-ontology:canonical:term-contract-v5:section-1c-dso-domain-specific-ontology"
-  },
-  {
    "rel": "wasDerivedFrom",
    "source": "https://w3id.org/og-caie/terms#domain-specific-ontology",
    "target": "https://w3id.org/og-caie/rulings#R-09"
@@ -38919,16 +39387,6 @@
    "rel": "wasDerivedFrom",
    "source": "https://w3id.org/og-caie/terms#evaluation-operator",
    "target": "https://w3id.org/og-caie/rulings#R-23"
-  },
-  {
-   "rel": "canonical",
-   "source": "https://w3id.org/og-caie/terms#evaluation-process-ontology",
-   "target": "cite:evaluation-process-ontology:canonical:term-contract-v5:section-1c-epo-evaluation-process-ontology"
-  },
-  {
-   "rel": "seeAlso",
-   "source": "https://w3id.org/og-caie/terms#evaluation-process-ontology",
-   "target": "cite:evaluation-process-ontology:seeAlso:caie-epo-prototype:ontology-epo-core-ttl"
   },
   {
    "rel": "seeAlso",
@@ -39018,7 +39476,7 @@
   {
    "rel": "canonical",
    "source": "https://w3id.org/og-caie/terms#knowledge-graph",
-   "target": "cite:knowledge-graph:canonical:hogan-2021:section-1-p-2-arxiv-v3"
+   "target": "cite:knowledge-graph:canonical:hogan-2021:section-1-p-2-arxiv-v3-fragment-of-the-entry"
   },
   {
    "rel": "canonical",
@@ -39096,11 +39554,6 @@
    "target": "https://w3id.org/og-caie/rulings#R-20"
   },
   {
-   "rel": "canonical",
-   "source": "https://w3id.org/og-caie/terms#og-caie",
-   "target": "cite:og-caie:canonical:paper-draft-2026-09:introduction-and-background"
-  },
-  {
    "rel": "wasDerivedFrom",
    "source": "https://w3id.org/og-caie/terms#og-caie",
    "target": "https://w3id.org/og-caie/rulings#R-09"
@@ -39153,12 +39606,17 @@
   {
    "rel": "canonical",
    "source": "https://w3id.org/og-caie/terms#outcome",
-   "target": "cite:outcome:canonical:w3c-earl:section-2-7-outcomevalue-class"
+   "target": "cite:outcome:canonical:sevocab:test-result-p-438"
   },
   {
    "rel": "seeAlso",
    "source": "https://w3id.org/og-caie/terms#outcome",
    "target": "cite:outcome:seeAlso:nist-ai-700-2:section-3-1-validity-risk-assessment-p-5"
+  },
+  {
+   "rel": "seeAlso",
+   "source": "https://w3id.org/og-caie/terms#outcome",
+   "target": "cite:outcome:seeAlso:w3c-earl:section-2-7-outcomevalue-class"
   },
   {
    "rel": "canonical",
@@ -39258,7 +39716,7 @@
   {
    "rel": "canonical",
    "source": "https://w3id.org/og-caie/terms#risk-based-testing",
-   "target": "cite:risk-based-testing:canonical:sevocab:risk-based-testing-p-362"
+   "target": "cite:risk-based-testing:canonical:sevocab:risk-based-testing-p-362-fragment-of-the-entry"
   },
   {
    "rel": "canonical",
@@ -39353,7 +39811,7 @@
   {
    "rel": "canonical",
    "source": "https://w3id.org/og-caie/terms#test-case",
-   "target": "cite:test-case:canonical:sevocab:test-case-p-432"
+   "target": "cite:test-case:canonical:sevocab:test-case-p-432-fragment-of-the-entry"
   },
   {
    "rel": "canonical",
@@ -39378,7 +39836,7 @@
   {
    "rel": "seeAlso",
    "source": "https://w3id.org/og-caie/terms#test-item",
-   "target": "cite:test-item:seeAlso:nist-ai-700-2:appendix-a-application-p-16"
+   "target": "cite:test-item:seeAlso:nist-ai-700-2:appendix-a-application-p-16-fragment-of-the-entry"
   },
   {
    "rel": "seeAlso",
@@ -39428,7 +39886,7 @@
   {
    "rel": "seeAlso",
    "source": "https://w3id.org/og-caie/terms#test-strategy",
-   "target": "cite:test-strategy:seeAlso:sevocab:exploratory-testing-p-161"
+   "target": "cite:test-strategy:seeAlso:sevocab:exploratory-testing-p-161-fragment-of-the-entry"
   },
   {
    "rel": "wasDerivedFrom",
@@ -40343,12 +40801,12 @@
   {
    "rel": "restsOn",
    "source": "https://w3id.org/og-caie/trace#SCI-13",
-   "target": "https://w3id.org/og-caie/sources#bof-deck-2026-07"
+   "target": "https://w3id.org/og-caie/sources#iso-iec-17000-2020"
   },
   {
    "rel": "restsOn",
    "source": "https://w3id.org/og-caie/trace#SCI-13",
-   "target": "https://w3id.org/og-caie/sources#iso-iec-17000-2020"
+   "target": "https://w3id.org/og-caie/sources#scipy-2026-bof"
   },
   {
    "rel": "restsOn",
@@ -42315,9 +42773,17 @@
   },
   {
    "cls": "citation",
-   "desc": "“use of a conformity assessment result provided by another person or organization” [pending]",
-   "id": "cite:acceptDelivery:seeAlso:iso-iec-17000-2020:9-6-acceptance",
-   "label": "iso-iec-17000-2020 9.6 acceptance",
+   "desc": "“The procurement specification, in the context of the overall agreement, should clearly state the criteria by which the acquirer will accept delivery from the supplier.” [machine]",
+   "id": "cite:acceptDelivery:seeAlso:sebok-2-14:acceptance-criteria-glossary-p-1437-incose-2011-section-6-1-15",
+   "label": "sebok-2-14 Acceptance Criteria (glossary), p. 1…",
+   "ogc": "ogc steps",
+   "page": ""
+  },
+  {
+   "cls": "citation",
+   "desc": "“release of a system or component to its customer or intended user” [machine]",
+   "id": "cite:acceptDelivery:seeAlso:sevocab:delivery-p-120-iso-iec-ieee-24765-2017",
+   "label": "sevocab delivery, p. 120 (ISO/IEC/IEEE 24765:20…",
    "ogc": "ogc steps",
    "page": ""
   },
@@ -42339,9 +42805,9 @@
   },
   {
    "cls": "citation",
-   "desc": "“environment containing facilities, hardware, software, firmware, and procedures needed to conduct a test” [machine]",
-   "id": "cite:access:canonical:sevocab:test-environment-p-434-iso-iec-ieee-29119-2-2021-3-34",
-   "label": "sevocab test environment, p. 434 (ISO/IEC/IEEE…",
+   "desc": "“test process for establishing and maintaining a required test environment and corresponding test data” [machine]",
+   "id": "cite:access:canonical:sevocab:test-environment-and-data-management-process-p-434-iso-iec-ieee-29119-2-2021-3-37",
+   "label": "sevocab test environment and data management pr…",
    "ogc": "ogc steps",
    "page": ""
   },
@@ -42350,6 +42816,22 @@
    "desc": "“entity to which specified requirements apply” [human]",
    "id": "cite:access:seeAlso:iso-iec-17000-2020:4-2-object-of-conformity-assessment",
    "label": "iso-iec-17000-2020 4.2 object of conformity ass…",
+   "ogc": "ogc steps",
+   "page": ""
+  },
+  {
+   "cls": "citation",
+   "desc": "“environment containing facilities, hardware, software, firmware, and procedures” [machine]",
+   "id": "cite:access:seeAlso:sevocab:test-environment-p-434-iso-iec-ieee-29119-2-2021-3-34",
+   "label": "sevocab test environment, p. 434 (ISO/IEC/IEEE…",
+   "ogc": "ogc steps",
+   "page": ""
+  },
+  {
+   "cls": "citation",
+   "desc": "“document identifying test items” [machine]",
+   "id": "cite:access:seeAlso:sevocab:test-item-transmittal-report-p-435-iso-iec-ieee-24765-2017",
+   "label": "sevocab test item transmittal report, p. 435 (I…",
    "ogc": "ogc steps",
    "page": ""
   },
@@ -42379,7 +42861,7 @@
   },
   {
    "cls": "citation",
-   "desc": "“set of rules and procedures that describes the objects of conformity assessment, identifies the specified requirements and provides the methodology for performing conformity assessment” [pending]",
+   "desc": "“set of rules and procedures that describes the objects of conformity assessment, identifies the specified requirements and provides the methodology for performing conformity assessment” [human]",
    "id": "cite:agree:seeAlso:iso-iec-17000-2020:4-9-conformity-assessment-scheme",
    "label": "iso-iec-17000-2020 4.9 conformity assessment sc…",
    "ogc": "ogc steps",
@@ -42451,14 +42933,6 @@
   },
   {
    "cls": "citation",
-   "desc": "No quote; a locator only.",
-   "id": "cite:contextual-ai-evaluation:canonical:paper-draft-2026-09:introduction-and-background",
-   "label": "paper-draft-2026-09 Introduction and Background",
-   "ogc": "ogc quote \"Contextual AI Evaluation\"",
-   "page": "../glossary#term-contextual-ai-evaluation"
-  },
-  {
-   "cls": "citation",
    "desc": "“binding agreement” [human]",
    "id": "cite:contract:canonical:iso-9000-2026:3-3-13",
    "label": "iso-9000-2026 3.3.13",
@@ -42475,17 +42949,33 @@
   },
   {
    "cls": "citation",
-   "desc": "“The System Requirements Definition process transforms the stakeholder view of desired capabilities into a technical, developer view of how the system can achieve those capabilities.” [machine]",
-   "id": "cite:declareRequirements:canonical:sebok-2-14:system-requirements-definition-p-557",
+   "desc": "“The System Requirement Definition activities begin with the transformation of the integrated set of needs into a set of requirements for the SoI. These requirements must be appropriate to the level that the SoI exists within the system architecture and communicate \"what\" the SoI must do to meet the needs, avoiding requirements that state implementation of \"how\" to achieve the design realization of the physical SoI.” [machine]",
+   "id": "cite:declareRequirements:canonical:sebok-2-14:system-requirements-definition-process-for-generating-system-requirements-p-558",
+   "label": "sebok-2-14 System Requirements Definition, Proc…",
+   "ogc": "ogc steps",
+   "page": ""
+  },
+  {
+   "cls": "citation",
+   "desc": "“need or expectation that is stated” [human]",
+   "id": "cite:declareRequirements:seeAlso:iso-iec-17000-2020:5-1-specified-requirement",
+   "label": "iso-iec-17000-2020 5.1 specified requirement",
+   "ogc": "ogc steps",
+   "page": ""
+  },
+  {
+   "cls": "citation",
+   "desc": "“A detailed analysis of a single need statement may result in multiple requirements expressing what the system must do to meet it, including definition of measurable performance criteria (INCOSE NRM 2022).” [machine]",
+   "id": "cite:declareRequirements:seeAlso:sebok-2-14:system-requirements-definition-p-559",
    "label": "sebok-2-14 System Requirements Definition, p. 5…",
    "ogc": "ogc steps",
    "page": ""
   },
   {
    "cls": "citation",
-   "desc": "“need or expectation that is stated” [pending]",
-   "id": "cite:declareRequirements:seeAlso:iso-iec-17000-2020:5-1-specified-requirement",
-   "label": "iso-iec-17000-2020 5.1 specified requirement",
+   "desc": "“structured collection of the requirements (functions, performance, design constraints, and attributes) of the system and its operational environments and external interfaces” [machine]",
+   "id": "cite:declareRequirements:seeAlso:sevocab:system-requirements-specification-syrs-p-422-iso-iec-ieee-29148-2018-4-1-29",
+   "label": "sevocab system requirements specification (SyRS…",
    "ogc": "ogc steps",
    "page": ""
   },
@@ -42499,9 +42989,9 @@
   },
   {
    "cls": "citation",
-   "desc": "“is intended to convey the assurance that the specified requirements have been fulfilled” [pending]",
-   "id": "cite:deliver:seeAlso:iso-iec-17000-2020:7-3-attestation-note-1",
-   "label": "iso-iec-17000-2020 7.3 attestation, Note 1",
+   "desc": "“is intended to convey the assurance that the specified requirements have been fulfilled” [human]",
+   "id": "cite:deliver:seeAlso:iso-iec-17000-2020:7-3-attestation-note-1-fragment-of-the-note",
+   "label": "iso-iec-17000-2020 7.3 attestation, Note 1 (fra…",
    "ogc": "ogc steps",
    "page": ""
   },
@@ -42531,7 +43021,7 @@
   },
   {
    "cls": "citation",
-   "desc": "“conclusion, based on the results of review, that fulfilment of specified requirements has or has not been demonstrated” [pending]",
+   "desc": "“conclusion, based on the results of review, that fulfilment of specified requirements has or has not been demonstrated” [human]",
    "id": "cite:determineAndAttest:canonical:iso-iec-17000-2020:7-2-decision",
    "label": "iso-iec-17000-2020 7.2 decision",
    "ogc": "ogc steps",
@@ -42539,7 +43029,7 @@
   },
   {
    "cls": "citation",
-   "desc": "“consideration of the suitability, adequacy and effectiveness of selection and determination activities, and the results of these activities, with regard to fulfilment of specified requirements by an object of conformity assessment” [pending]",
+   "desc": "“consideration of the suitability, adequacy and effectiveness of selection and determination activities, and the results of these activities, with regard to fulfilment of specified requirements by an object of conformity assessment” [human]",
    "id": "cite:determineAndAttest:seeAlso:iso-iec-17000-2020:7-1-review",
    "label": "iso-iec-17000-2020 7.1 review",
    "ogc": "ogc steps",
@@ -42571,14 +43061,6 @@
   },
   {
    "cls": "citation",
-   "desc": "No quote; a locator only.",
-   "id": "cite:domain-specific-ontology:canonical:term-contract-v5:section-1c-dso-domain-specific-ontology",
-   "label": "term-contract-v5 Section 1C, DSO (Domain-Specif…",
-   "ogc": "ogc quote \"Domain-Specific Ontology\"",
-   "page": "../glossary#term-domain-specific-ontology"
-  },
-  {
-   "cls": "citation",
    "desc": "“entity that performs the operation of a system” [machine]",
    "id": "cite:evaluation-operator:canonical:sevocab:operator-p-283-iso-iec-ieee-12207-2026-3-1-40",
    "label": "sevocab operator, p. 283 (ISO/IEC/IEEE 12207:20…",
@@ -42587,23 +43069,7 @@
   },
   {
    "cls": "citation",
-   "desc": "No quote; a locator only.",
-   "id": "cite:evaluation-process-ontology:canonical:term-contract-v5:section-1c-epo-evaluation-process-ontology",
-   "label": "term-contract-v5 Section 1C, EPO (Evaluation Pr…",
-   "ogc": "ogc quote \"Evaluation Process Ontology\"",
-   "page": "../glossary#term-evaluation-process-ontology"
-  },
-  {
-   "cls": "citation",
-   "desc": "No quote; a locator only.",
-   "id": "cite:evaluation-process-ontology:seeAlso:caie-epo-prototype:ontology-epo-core-ttl",
-   "label": "caie-epo-prototype ontology/epo-core.ttl",
-   "ogc": "ogc quote \"Evaluation Process Ontology\"",
-   "page": "../glossary#term-evaluation-process-ontology"
-  },
-  {
-   "cls": "citation",
-   "desc": "“Conformity assessment is explained in Annex A as a series of functions. Activities contributing to any of these functions can be described as conformity assessment activities.” [pending]",
+   "desc": "“Conformity assessment is explained in Annex A as a series of functions. Activities contributing to any of these functions can be described as conformity assessment activities.” [human]",
    "id": "cite:evaluation-process-ontology:seeAlso:iso-iec-17000-2020:4-1-conformity-assessment-note-3",
    "label": "iso-iec-17000-2020 4.1 conformity assessment, N…",
    "ogc": "ogc quote \"Evaluation Process Ontology\"",
@@ -42691,7 +43157,7 @@
   },
   {
    "cls": "citation",
-   "desc": "“determination of one or more characteristics of an object of conformity assessment, according to a procedure” [pending]",
+   "desc": "“determination of one or more characteristics of an object of conformity assessment, according to a procedure” [human]",
    "id": "cite:execute:seeAlso:iso-iec-17000-2020:6-2-testing",
    "label": "iso-iec-17000-2020 6.2 testing",
    "ogc": "ogc steps",
@@ -42732,8 +43198,8 @@
   {
    "cls": "citation",
    "desc": "“a graph of data intended to accumulate and convey knowledge of the real world, whose nodes represent entities of interest and whose edges represent relations between these entities” [machine]",
-   "id": "cite:knowledge-graph:canonical:hogan-2021:section-1-p-2-arxiv-v3",
-   "label": "hogan-2021 Section 1, p. 2 (arXiv v3)",
+   "id": "cite:knowledge-graph:canonical:hogan-2021:section-1-p-2-arxiv-v3-fragment-of-the-entry",
+   "label": "hogan-2021 Section 1, p. 2 (arXiv v3) (fragment…",
    "ogc": "ogc quote \"knowledge graph\"",
    "page": "../glossary"
   },
@@ -42747,7 +43213,7 @@
   },
   {
    "cls": "citation",
-   "desc": "“organization's purpose for existing as expressed by top management” [pending]",
+   "desc": "“organization's purpose for existing as expressed by top management” [human]",
    "id": "cite:mission:canonical:iso-9000-2026:3-4-11",
    "label": "iso-9000-2026 3.4.11",
    "ogc": "ogc quote mission",
@@ -42755,7 +43221,7 @@
   },
   {
    "cls": "citation",
-   "desc": "“intentions and direction of an organization as formally expressed by its top management” [pending]",
+   "desc": "“intentions and direction of an organization as formally expressed by its top management” [human]",
    "id": "cite:mission:seeAlso:iso-9000-2026:3-4-5-policy",
    "label": "iso-9000-2026 3.4.5 policy",
    "ogc": "ogc quote mission",
@@ -42763,7 +43229,7 @@
   },
   {
    "cls": "citation",
-   "desc": "“determining the status of a system, a process or an activity” [pending]",
+   "desc": "“determining the status of a system, a process or an activity” [human]",
    "id": "cite:monitoring:canonical:iso-9000-2026:3-11-3",
    "label": "iso-9000-2026 3.11.3",
    "ogc": "ogc quote monitoring",
@@ -42771,7 +43237,7 @@
   },
   {
    "cls": "citation",
-   "desc": "“systematic iteration of conformity assessment activities as a basis for maintaining the validity of the statement of conformity” [pending]",
+   "desc": "“systematic iteration of conformity assessment activities as a basis for maintaining the validity of the statement of conformity” [human]",
    "id": "cite:monitoring:seeAlso:iso-iec-17000-2020:8-1-surveillance",
    "label": "iso-iec-17000-2020 8.1 surveillance",
    "ogc": "ogc quote monitoring",
@@ -42827,14 +43293,6 @@
   },
   {
    "cls": "citation",
-   "desc": "No quote; a locator only.",
-   "id": "cite:og-caie:canonical:paper-draft-2026-09:introduction-and-background",
-   "label": "paper-draft-2026-09 Introduction and Background",
-   "ogc": "ogc quote OG-CAIE",
-   "page": "../glossary#term-og-caie"
-  },
-  {
-   "cls": "citation",
    "desc": "“An ontology is an explicit specification of a conceptualization.” [machine]",
    "id": "cite:ontology:canonical:gruber-1993:section-1-p-2-author-copy",
    "label": "gruber-1993 Section 1, p. 2 (author copy)",
@@ -42867,9 +43325,9 @@
   },
   {
    "cls": "citation",
-   "desc": "“a value or expression that describes a resulting condition from carrying out the test” [machine]",
-   "id": "cite:outcome:canonical:w3c-earl:section-2-7-outcomevalue-class",
-   "label": "w3c-earl Section 2.7 OutcomeValue Class",
+   "desc": "“indication of whether a specific test case has passed or failed, i.e. if the actual results correspond to the expected results or if deviations were observed” [machine]",
+   "id": "cite:outcome:canonical:sevocab:test-result-p-438",
+   "label": "sevocab test result, p. 438",
    "ogc": "ogc quote outcome",
    "page": "../glossary#term-outcome"
   },
@@ -42878,6 +43336,14 @@
    "desc": "“Unable to Determine” [machine]",
    "id": "cite:outcome:seeAlso:nist-ai-700-2:section-3-1-validity-risk-assessment-p-5",
    "label": "nist-ai-700-2 Section 3.1 Validity Risk Assessm…",
+   "ogc": "ogc quote outcome",
+   "page": "../glossary#term-outcome"
+  },
+  {
+   "cls": "citation",
+   "desc": "“a value or expression that describes a resulting condition from carrying out the test” [machine]",
+   "id": "cite:outcome:seeAlso:w3c-earl:section-2-7-outcomevalue-class",
+   "label": "w3c-earl Section 2.7 OutcomeValue Class",
    "ogc": "ogc quote outcome",
    "page": "../glossary#term-outcome"
   },
@@ -42915,17 +43381,33 @@
   },
   {
    "cls": "citation",
-   "desc": "“The supplier is an organization or individual that enters into an agreement with the acquirer to supply a product or service.” [machine]",
-   "id": "cite:propose:canonical:sebok-2-14:acquisition-and-supply-p-352-the-supplier",
-   "label": "sebok-2-14 Acquisition and Supply, p. 352 (the…",
+   "desc": "“Contract products and services often demand tailor-made system/service solutions which are typically specified by a single customer to whom the solution is provided. The supplier responds with proposed solutions.” [machine]",
+   "id": "cite:propose:canonical:sebok-2-14:enterprise-systems-engineering-contract-products-and-services-p-935",
+   "label": "sebok-2-14 Enterprise Systems Engineering, cont…",
    "ogc": "ogc steps",
    "page": ""
   },
   {
    "cls": "citation",
-   "desc": "“opportunity for an applicant to obtain a conformity assessment service from a body under a conformity assessment scheme” [pending]",
+   "desc": "“opportunity for an applicant to obtain a conformity assessment service from a body under a conformity assessment scheme” [human]",
    "id": "cite:propose:seeAlso:iso-iec-17000-2020:4-10-access",
    "label": "iso-iec-17000-2020 4.10 access",
+   "ogc": "ogc steps",
+   "page": ""
+  },
+  {
+   "cls": "citation",
+   "desc": "“supplier's offer to provide a system or service, usually including benefits, costs, risks, opportunities, and other factors applicable to decisions” [machine]",
+   "id": "cite:propose:seeAlso:sevocab:proposal-p-329-iso-iec-ieee-24765c-2014",
+   "label": "sevocab proposal, p. 329 (ISO/IEC/IEEE 24765c:2…",
+   "ogc": "ogc steps",
+   "page": ""
+  },
+  {
+   "cls": "citation",
+   "desc": "“document used by the acquirer as the means to announce its intention to potential bidders to acquire a specified system, software product, or software service” [machine]",
+   "id": "cite:propose:seeAlso:sevocab:request-for-proposal-rfp-p-350-iso-iec-ieee-24765-2017",
+   "label": "sevocab request for proposal (RFP), p. 350 (ISO…",
    "ogc": "ogc steps",
    "page": ""
   },
@@ -43044,8 +43526,8 @@
   {
    "cls": "citation",
    "desc": "“testing in which the management, selection, prioritization, and use of testing activities and resources are consciously based on corresponding types and levels of analyzed risk” [machine]",
-   "id": "cite:risk-based-testing:canonical:sevocab:risk-based-testing-p-362",
-   "label": "sevocab risk-based testing, p. 362",
+   "id": "cite:risk-based-testing:canonical:sevocab:risk-based-testing-p-362-fragment-of-the-entry",
+   "label": "sevocab risk-based testing, p. 362 (fragment of…",
    "ogc": "ogc quote \"risk-based testing\"",
    "page": "../glossary#term-risk-based-testing"
   },
@@ -43156,8 +43638,8 @@
   {
    "cls": "citation",
    "desc": "“set of test inputs, execution conditions, and expected results developed for a particular objective, such as to exercise a particular program path or to verify compliance with a specific requirement” [machine]",
-   "id": "cite:test-case:canonical:sevocab:test-case-p-432",
-   "label": "sevocab test case, p. 432",
+   "id": "cite:test-case:canonical:sevocab:test-case-p-432-fragment-of-the-entry",
+   "label": "sevocab test case, p. 432 (fragment of the entr…",
    "ogc": "ogc quote \"test case\"",
    "page": "../glossary"
   },
@@ -43188,8 +43670,8 @@
   {
    "cls": "citation",
    "desc": "“A generative artificial intelligence-based system to which NIST is given API access to test.” [machine]",
-   "id": "cite:test-item:seeAlso:nist-ai-700-2:appendix-a-application-p-16",
-   "label": "nist-ai-700-2 Appendix A, Application, p. 16",
+   "id": "cite:test-item:seeAlso:nist-ai-700-2:appendix-a-application-p-16-fragment-of-the-entry",
+   "label": "nist-ai-700-2 Appendix A, Application, p. 16 (f…",
    "ogc": "ogc quote \"test item\"",
    "page": "../glossary#term-test-item"
   },
@@ -43252,8 +43734,8 @@
   {
    "cls": "citation",
    "desc": "“type of unscripted experience-based testing in which the tester spontaneously designs and executes tests based on the tester's existing relevant knowledge, prior exploration of the test item (including the results of previous tests)” [machine]",
-   "id": "cite:test-strategy:seeAlso:sevocab:exploratory-testing-p-161",
-   "label": "sevocab exploratory testing, p. 161",
+   "id": "cite:test-strategy:seeAlso:sevocab:exploratory-testing-p-161-fragment-of-the-entry",
+   "label": "sevocab exploratory testing, p. 161 (fragment o…",
    "ogc": "ogc quote \"test strategy\"",
    "page": "../glossary#term-test-strategy"
   },
@@ -44578,6 +45060,14 @@
    "page": "../rulings"
   },
   {
+   "cls": "concern",
+   "desc": "round one of the simulated user test: fifteen findings that needed a judgment (rulings sheet 06) (H, ruled). Four sandboxed persona reviewers (a human reader, a machine user of ogc, a reproducibility reviewer, a citation auditor) rated the site and reported findings; the code-level ones were fixed; fifteen needed the adjudicator: the front page's opening, the bridge's source, the chapter blocks, the register of the rulings, terms defined at first use, the canonical source of outcome, the rank of TN 1297, fragment quotes, four stretched step matches, the coined terms' internal citations, Popper uncited, a record reader, executor parameters, thirteen pending quotes, and the alignment of Appendix D with the code.",
+   "id": "https://w3id.org/og-caie/rulings#C-53",
+   "label": "C-53",
+   "ogc": "ogc concern C-53",
+   "page": "../rulings"
+  },
+  {
    "cls": "ruling",
    "desc": "Adopt SEVOCAB test coverage; add the distinction as a note",
    "id": "https://w3id.org/og-caie/rulings#R-01",
@@ -44943,6 +45433,14 @@
    "id": "https://w3id.org/og-caie/rulings#R-46",
    "label": "R-46",
    "ogc": "ogc ruling R-46",
+   "page": "../rulings"
+  },
+  {
+   "cls": "ruling",
+   "desc": "rulings: 6-1: a as recommended. 6-2: don't cite the deck, site the public event. the BoF at SciPy 2026 is on the public record. you can reference it as a fact about events and what transpired there rather than a citation to a private artifact. there is a blog going live on the hi site soon about it which we can add as an additional citation later. 6-3: reorganize to make more judicious use of info blocks. balance info blocks with standard prose (and headers effecting outline) and code blocks which demonstrable pull content (see techniques in the vendor fraud example). 6-4: rework the rulings content so it doesn't read as messages i sent to an assistant. the intents should be preserved but the tone should shift to a more formal register. 6-5: define terms on first use. you can look at the conversations around the scipy-proceeding paper i wrote. look at the discussions with the reviewer and the fixes we made and they approved for guidance. 6-6: a as recommended. 6-7: a as recommended. 6-8: a as recommended. 6-9: dig in deeper to make sure we align with process canon. shouldn't seem like a stretch. our posture is implementation of standards not relitagating them. our contribution is application to contextual AI eval domain and executable spec implementation not standards authoring. 6-10: drop citations and own the coinage. 6-11: a as recommended. 6-12: a as recommended. 6-13: a as recommended. 6-14: tick them. 6-15: align the code and the appendix more clearly",
+   "id": "https://w3id.org/og-caie/rulings#R-47",
+   "label": "R-47",
+   "ogc": "ogc ruling R-47",
    "page": "../rulings"
   },
   {
@@ -45339,22 +45837,6 @@
   },
   {
    "cls": "source",
-   "desc": "Zargham and Hollek, Building Scientific Approaches to Generative AI, Birds-of-a-Feather deck, SciPy 2026 (Google Slides) Rank internal, posture citeOnly.",
-   "id": "https://w3id.org/og-caie/sources#bof-deck-2026-07",
-   "label": "bof-deck-2026-07",
-   "ogc": "ogc source bof-deck-2026-07",
-   "page": "../glossary"
-  },
-  {
-   "cls": "source",
-   "desc": "DynamicalSystemsGroup/caie-epo-prototype (June 2026): prior art for the EPO Rank internal, posture citeOnly.",
-   "id": "https://w3id.org/og-caie/sources#caie-epo-prototype",
-   "label": "caie-epo-prototype",
-   "ogc": "ogc source caie-epo-prototype",
-   "page": "../glossary"
-  },
-  {
-   "cls": "source",
    "desc": "Gruber, A Translation Approach to Portable Ontology Specifications, Knowledge Acquisition 5(2), 1993 (author copy) Rank reserve, posture heldLocally.",
    "id": "https://w3id.org/og-caie/sources#gruber-1993",
    "label": "gruber-1993",
@@ -45443,18 +45925,10 @@
   },
   {
    "cls": "source",
-   "desc": "NIST Technical Note 1297, Guidelines for Evaluating and Expressing the Uncertainty of NIST Measurement Results, 1994 edition Rank 3, posture committed.",
+   "desc": "NIST Technical Note 1297, Guidelines for Evaluating and Expressing the Uncertainty of NIST Measurement Results, 1994 edition Rank reserve, posture committed.",
    "id": "https://w3id.org/og-caie/sources#nist-tn-1297",
    "label": "nist-tn-1297",
    "ogc": "ogc source nist-tn-1297",
-   "page": "../glossary"
-  },
-  {
-   "cls": "source",
-   "desc": "Ontology-Grounded Contextual AI Evaluation, paper draft 1/2 (Google Doc, September 2026) Rank internal, posture citeOnly.",
-   "id": "https://w3id.org/og-caie/sources#paper-draft-2026-09",
-   "label": "paper-draft-2026-09",
-   "ogc": "ogc source paper-draft-2026-09",
    "page": "../glossary"
   },
   {
@@ -45463,6 +45937,14 @@
    "id": "https://w3id.org/og-caie/sources#popper-1959",
    "label": "popper-1959",
    "ogc": "ogc source popper-1959",
+   "page": "../glossary"
+  },
+  {
+   "cls": "source",
+   "desc": "Zargham and Hollek, Building Scientific Approaches to Generative AI, Birds-of-a-Feather session, SciPy 2026 (public event) Rank internal, posture citeOnly.",
+   "id": "https://w3id.org/og-caie/sources#scipy-2026-bof",
+   "label": "scipy-2026-bof",
+   "ogc": "ogc source scipy-2026-bof",
    "page": "../glossary"
   },
   {
@@ -45479,14 +45961,6 @@
    "id": "https://w3id.org/og-caie/sources#sevocab",
    "label": "sevocab",
    "ogc": "ogc source sevocab",
-   "page": "../glossary"
-  },
-  {
-   "cls": "source",
-   "desc": "Humane Intelligence, CAIE Term Contract (Controlled Vocabulary) v5, 2026-07-15 (Google Doc) Rank internal, posture citeOnly.",
-   "id": "https://w3id.org/og-caie/sources#term-contract-v5",
-   "label": "term-contract-v5",
-   "ogc": "ogc source term-contract-v5",
    "page": "../glossary"
   },
   {
@@ -47644,11 +48118,14 @@
    "present": [
     "cite:ContractingStep:canonical:sebok-2-14:stakeholder-needs-acquisition-and-supply-p-353",
     "cite:acceptDelivery:canonical:sevocab:acceptance-p-4-iso-iec-ieee-24748-5-2017-3-1",
-    "cite:acceptDelivery:seeAlso:iso-iec-17000-2020:9-6-acceptance",
+    "cite:acceptDelivery:seeAlso:sebok-2-14:acceptance-criteria-glossary-p-1437-incose-2011-section-6-1-15",
+    "cite:acceptDelivery:seeAlso:sevocab:delivery-p-120-iso-iec-ieee-24765-2017",
     "cite:acceptance-criteria:canonical:sevocab:acceptance-criteria-p-4",
     "cite:acceptance-criteria:seeAlso:incose-gtwr-v4:c7-verifiable-p-2",
-    "cite:access:canonical:sevocab:test-environment-p-434-iso-iec-ieee-29119-2-2021-3-34",
+    "cite:access:canonical:sevocab:test-environment-and-data-management-process-p-434-iso-iec-ieee-29119-2-2021-3-37",
     "cite:access:seeAlso:iso-iec-17000-2020:4-2-object-of-conformity-assessment",
+    "cite:access:seeAlso:sevocab:test-environment-p-434-iso-iec-ieee-29119-2-2021-3-34",
+    "cite:access:seeAlso:sevocab:test-item-transmittal-report-p-435-iso-iec-ieee-24765-2017",
     "cite:account-executive:canonical:iso-9000-2026:3-1-3",
     "cite:agree:canonical:sebok-2-14:acquisition-and-supply-p-353-incose-2012-the-acquisition-process",
     "cite:agree:seeAlso:iso-9000-2026:3-3-13",
@@ -47661,13 +48138,14 @@
     "cite:conformance:canonical:iso-9000-2026:3-5-9-conformity-note-1",
     "cite:conformance:seeAlso:w3c-shacl:section-3-5-conformance-checking",
     "cite:conformity:canonical:iso-9000-2026:3-5-9",
-    "cite:contextual-ai-evaluation:canonical:paper-draft-2026-09:introduction-and-background",
     "cite:contract:canonical:iso-9000-2026:3-3-13",
     "cite:customer:canonical:iso-9000-2026:3-9-1",
-    "cite:declareRequirements:canonical:sebok-2-14:system-requirements-definition-p-557",
+    "cite:declareRequirements:canonical:sebok-2-14:system-requirements-definition-process-for-generating-system-requirements-p-558",
     "cite:declareRequirements:seeAlso:iso-iec-17000-2020:5-1-specified-requirement",
+    "cite:declareRequirements:seeAlso:sebok-2-14:system-requirements-definition-p-559",
+    "cite:declareRequirements:seeAlso:sevocab:system-requirements-specification-syrs-p-422-iso-iec-ieee-29148-2018-4-1-29",
     "cite:deliver:canonical:sevocab:test-completion-report-p-433-iso-iec-ieee-29119-2-2021-3-26",
-    "cite:deliver:seeAlso:iso-iec-17000-2020:7-3-attestation-note-1",
+    "cite:deliver:seeAlso:iso-iec-17000-2020:7-3-attestation-note-1-fragment-of-the-note",
     "cite:deployment-sensitivity:canonical:sevocab:risk-based-testing-p-362",
     "cite:determination:canonical:iso-9000-2026:3-11-1",
     "cite:determination:seeAlso:sevocab:test-result-p-438",
@@ -47676,10 +48154,7 @@
     "cite:determineAndAttest:seeAlso:iso-iec-17000-2020:annex-a-a-4-review-decision-and-attestation-the-functional-approach",
     "cite:determineAndAttest:seeAlso:sevocab:evaluation-p-155-iso-iec-25001-2014-4-1",
     "cite:dialogue:canonical:nist-ai-700-2:appendix-a-dialogue-p-16",
-    "cite:domain-specific-ontology:canonical:term-contract-v5:section-1c-dso-domain-specific-ontology",
     "cite:evaluation-operator:canonical:sevocab:operator-p-283-iso-iec-ieee-12207-2026-3-1-40",
-    "cite:evaluation-process-ontology:canonical:term-contract-v5:section-1c-epo-evaluation-process-ontology",
-    "cite:evaluation-process-ontology:seeAlso:caie-epo-prototype:ontology-epo-core-ttl",
     "cite:evaluation-process-ontology:seeAlso:iso-iec-17000-2020:4-1-conformity-assessment-note-3",
     "cite:evaluation-process-ontology:seeAlso:sebok-2-14:applying-life-cycle-processes-p-444-iso-iec-ieee-24748-2-on-15288",
     "cite:evaluation-process-ontology:seeAlso:sevocab:test-process-p-438-iso-iec-ieee-29119-2-2021-3-55",
@@ -47696,7 +48171,7 @@
     "cite:expected-results:canonical:sevocab:expected-results-p-160",
     "cite:first-party-conformity-assessment-activity:canonical:iso-iec-17000-2020:4-3-first-party-conformity-assessment-activity",
     "cite:guardrail:canonical:nist-ai-700-2:appendix-a-guardrail-p-17",
-    "cite:knowledge-graph:canonical:hogan-2021:section-1-p-2-arxiv-v3",
+    "cite:knowledge-graph:canonical:hogan-2021:section-1-p-2-arxiv-v3-fragment-of-the-entry",
     "cite:measurement-uncertainty:canonical:jcgm-200-2012:2-26-measurement-uncertainty-p-41",
     "cite:mission:canonical:iso-9000-2026:3-4-11",
     "cite:mission:seeAlso:iso-9000-2026:3-4-5-policy",
@@ -47708,19 +48183,21 @@
     "cite:non-deterministic-system:seeAlso:sevocab:probabilistic-system-p-311",
     "cite:objective-evidence:canonical:iso-9000-2026:3-8-6",
     "cite:objective-evidence:seeAlso:sevocab:objective-evidence-p-277",
-    "cite:og-caie:canonical:paper-draft-2026-09:introduction-and-background",
     "cite:ontology:canonical:gruber-1993:section-1-p-2-author-copy",
     "cite:operational-envelope:canonical:iso-9000-2026:3-5-1-requirement",
     "cite:operational-environment:canonical:sevocab:operational-environment-p-282",
     "cite:organization:canonical:iso-9000-2026:3-1-1",
-    "cite:outcome:canonical:w3c-earl:section-2-7-outcomevalue-class",
+    "cite:outcome:canonical:sevocab:test-result-p-438",
     "cite:outcome:seeAlso:nist-ai-700-2:section-3-1-validity-risk-assessment-p-5",
+    "cite:outcome:seeAlso:w3c-earl:section-2-7-outcomevalue-class",
     "cite:performance:canonical:iso-9000-2026:3-7-3",
     "cite:plan:canonical:sevocab:test-strategy-and-planning-process-p-439-iso-iec-ieee-29119-2-2021-3-51",
     "cite:plan:seeAlso:sevocab:test-design-and-implementation-process-p-433-iso-iec-ieee-29119-2-2021-3-32",
     "cite:probe:canonical:sevocab:test-case-p-432",
-    "cite:propose:canonical:sebok-2-14:acquisition-and-supply-p-352-the-supplier",
+    "cite:propose:canonical:sebok-2-14:enterprise-systems-engineering-contract-products-and-services-p-935",
     "cite:propose:seeAlso:iso-iec-17000-2020:4-10-access",
+    "cite:propose:seeAlso:sevocab:proposal-p-329-iso-iec-ieee-24765c-2014",
+    "cite:propose:seeAlso:sevocab:request-for-proposal-rfp-p-350-iso-iec-ieee-24765-2017",
     "cite:provider:canonical:iso-9000-2026:3-1-9",
     "cite:record:canonical:iso-9000-2026:3-8-12",
     "cite:red-teaming:canonical:nist-ai-700-2:appendix-a-red-teaming-p-17",
@@ -47735,7 +48212,7 @@
     "cite:requirements-traceability:canonical:sevocab:requirements-traceability-p-352",
     "cite:requirements-traceability:seeAlso:iso-9000-2026:3-5-11-traceability",
     "cite:requirements-traceability:seeAlso:jcgm-200-2012:2-41-metrological-traceability-p-45",
-    "cite:risk-based-testing:canonical:sevocab:risk-based-testing-p-362",
+    "cite:risk-based-testing:canonical:sevocab:risk-based-testing-p-362-fragment-of-the-entry",
     "cite:scenario:canonical:sevocab:scenario-p-369",
     "cite:scenario:seeAlso:nist-ai-700-2:appendix-a-scenario-p-17",
     "cite:scenario:seeAlso:sevocab:test-scenario-p-438-iso-iec-tr-29119-11-2020-testing-of-ai-based-systems",
@@ -47749,11 +48226,11 @@
     "cite:sufficiency:canonical:hawkins-2011:section-3-3-asserted-solution-p-10",
     "cite:sufficiency:seeAlso:isa-500:paragraph-5-f",
     "cite:technical-expert:canonical:iso-9000-2026:3-12-9",
-    "cite:test-case:canonical:sevocab:test-case-p-432",
+    "cite:test-case:canonical:sevocab:test-case-p-432-fragment-of-the-entry",
     "cite:test-coverage:canonical:sevocab:test-coverage-p-433",
     "cite:test-item:canonical:sevocab:test-item-p-435-iso-iec-ieee-29119-2-2021",
     "cite:test-item:seeAlso:iso-iec-17000-2020:4-2-object-of-conformity-assessment",
-    "cite:test-item:seeAlso:nist-ai-700-2:appendix-a-application-p-16",
+    "cite:test-item:seeAlso:nist-ai-700-2:appendix-a-application-p-16-fragment-of-the-entry",
     "cite:test-item:seeAlso:sevocab:artificial-intelligence-based-system-p-28-iso-iec-tr-29119-11-2020",
     "cite:test-item:seeAlso:sevocab:system-of-interest-soi-p-423-iso-iec-ieee-15288-2023",
     "cite:test-item:seeAlso:sevocab:system-under-test-sut-p-423-iso-iec-14756-1999",
@@ -47761,7 +48238,7 @@
     "cite:test-strategy:canonical:sevocab:test-strategy-p-439",
     "cite:test-strategy:seeAlso:iec-60050-351:351-47-29-output-feedback-control",
     "cite:test-strategy:seeAlso:iec-60050-351:351-47-31-observer",
-    "cite:test-strategy:seeAlso:sevocab:exploratory-testing-p-161",
+    "cite:test-strategy:seeAlso:sevocab:exploratory-testing-p-161-fragment-of-the-entry",
     "cite:test-suite:canonical:sevocab:test-suite-p-439",
     "cite:test-suite:seeAlso:sevocab:robustness-p-363-iso-iec-25059-2023",
     "cite:test:canonical:iso-9000-2026:3-11-13",
@@ -47773,8 +48250,6 @@
     "cite:validation:seeAlso:sevocab:validation-p-464",
     "cite:verification:canonical:iso-9000-2026:3-11-12",
     "cite:verification:seeAlso:sevocab:verification-p-470",
-    "https://w3id.org/og-caie/sources#bof-deck-2026-07",
-    "https://w3id.org/og-caie/sources#caie-epo-prototype",
     "https://w3id.org/og-caie/sources#gruber-1993",
     "https://w3id.org/og-caie/sources#hawkins-2011",
     "https://w3id.org/og-caie/sources#hogan-2021",
@@ -47787,11 +48262,10 @@
     "https://w3id.org/og-caie/sources#nist-ai-100-1",
     "https://w3id.org/og-caie/sources#nist-ai-700-2",
     "https://w3id.org/og-caie/sources#nist-tn-1297",
-    "https://w3id.org/og-caie/sources#paper-draft-2026-09",
     "https://w3id.org/og-caie/sources#popper-1959",
+    "https://w3id.org/og-caie/sources#scipy-2026-bof",
     "https://w3id.org/og-caie/sources#sebok-2-14",
     "https://w3id.org/og-caie/sources#sevocab",
-    "https://w3id.org/og-caie/sources#term-contract-v5",
     "https://w3id.org/og-caie/sources#w3c-earl",
     "https://w3id.org/og-caie/sources#w3c-prov-o",
     "https://w3id.org/og-caie/sources#w3c-shacl",
@@ -47918,6 +48392,7 @@
     "https://w3id.org/og-caie/rulings#C-50",
     "https://w3id.org/og-caie/rulings#C-51",
     "https://w3id.org/og-caie/rulings#C-52",
+    "https://w3id.org/og-caie/rulings#C-53",
     "https://w3id.org/og-caie/rulings#R-01",
     "https://w3id.org/og-caie/rulings#R-02",
     "https://w3id.org/og-caie/rulings#R-03",
@@ -47964,6 +48439,7 @@
     "https://w3id.org/og-caie/rulings#R-44",
     "https://w3id.org/og-caie/rulings#R-45",
     "https://w3id.org/og-caie/rulings#R-46",
+    "https://w3id.org/og-caie/rulings#R-47",
     "https://w3id.org/og-caie/terms#acceptance-criteria",
     "https://w3id.org/og-caie/terms#account-executive",
     "https://w3id.org/og-caie/terms#appropriateness",
@@ -48507,7 +48983,8 @@
     "https://w3id.org/og-caie/epo#TestItemAccess",
     "https://w3id.org/og-caie/epo#TestPlan",
     "https://w3id.org/og-caie/epo#Turn",
-    "https://w3id.org/og-caie/sources#bof-deck-2026-07",
+    "https://w3id.org/og-caie/sources#popper-1959",
+    "https://w3id.org/og-caie/sources#scipy-2026-bof",
     "https://w3id.org/og-caie/terms#acceptance-criteria",
     "https://w3id.org/og-caie/terms#appropriateness",
     "https://w3id.org/og-caie/terms#attestation",
@@ -48543,11 +49020,14 @@
    "present": [
     "cite:ContractingStep:canonical:sebok-2-14:stakeholder-needs-acquisition-and-supply-p-353",
     "cite:acceptDelivery:canonical:sevocab:acceptance-p-4-iso-iec-ieee-24748-5-2017-3-1",
-    "cite:acceptDelivery:seeAlso:iso-iec-17000-2020:9-6-acceptance",
+    "cite:acceptDelivery:seeAlso:sebok-2-14:acceptance-criteria-glossary-p-1437-incose-2011-section-6-1-15",
+    "cite:acceptDelivery:seeAlso:sevocab:delivery-p-120-iso-iec-ieee-24765-2017",
     "cite:acceptance-criteria:canonical:sevocab:acceptance-criteria-p-4",
     "cite:acceptance-criteria:seeAlso:incose-gtwr-v4:c7-verifiable-p-2",
-    "cite:access:canonical:sevocab:test-environment-p-434-iso-iec-ieee-29119-2-2021-3-34",
+    "cite:access:canonical:sevocab:test-environment-and-data-management-process-p-434-iso-iec-ieee-29119-2-2021-3-37",
     "cite:access:seeAlso:iso-iec-17000-2020:4-2-object-of-conformity-assessment",
+    "cite:access:seeAlso:sevocab:test-environment-p-434-iso-iec-ieee-29119-2-2021-3-34",
+    "cite:access:seeAlso:sevocab:test-item-transmittal-report-p-435-iso-iec-ieee-24765-2017",
     "cite:account-executive:canonical:iso-9000-2026:3-1-3",
     "cite:agree:canonical:sebok-2-14:acquisition-and-supply-p-353-incose-2012-the-acquisition-process",
     "cite:agree:seeAlso:iso-9000-2026:3-3-13",
@@ -48560,13 +49040,14 @@
     "cite:conformance:canonical:iso-9000-2026:3-5-9-conformity-note-1",
     "cite:conformance:seeAlso:w3c-shacl:section-3-5-conformance-checking",
     "cite:conformity:canonical:iso-9000-2026:3-5-9",
-    "cite:contextual-ai-evaluation:canonical:paper-draft-2026-09:introduction-and-background",
     "cite:contract:canonical:iso-9000-2026:3-3-13",
     "cite:customer:canonical:iso-9000-2026:3-9-1",
-    "cite:declareRequirements:canonical:sebok-2-14:system-requirements-definition-p-557",
+    "cite:declareRequirements:canonical:sebok-2-14:system-requirements-definition-process-for-generating-system-requirements-p-558",
     "cite:declareRequirements:seeAlso:iso-iec-17000-2020:5-1-specified-requirement",
+    "cite:declareRequirements:seeAlso:sebok-2-14:system-requirements-definition-p-559",
+    "cite:declareRequirements:seeAlso:sevocab:system-requirements-specification-syrs-p-422-iso-iec-ieee-29148-2018-4-1-29",
     "cite:deliver:canonical:sevocab:test-completion-report-p-433-iso-iec-ieee-29119-2-2021-3-26",
-    "cite:deliver:seeAlso:iso-iec-17000-2020:7-3-attestation-note-1",
+    "cite:deliver:seeAlso:iso-iec-17000-2020:7-3-attestation-note-1-fragment-of-the-note",
     "cite:deployment-sensitivity:canonical:sevocab:risk-based-testing-p-362",
     "cite:determination:canonical:iso-9000-2026:3-11-1",
     "cite:determination:seeAlso:sevocab:test-result-p-438",
@@ -48575,10 +49056,7 @@
     "cite:determineAndAttest:seeAlso:iso-iec-17000-2020:annex-a-a-4-review-decision-and-attestation-the-functional-approach",
     "cite:determineAndAttest:seeAlso:sevocab:evaluation-p-155-iso-iec-25001-2014-4-1",
     "cite:dialogue:canonical:nist-ai-700-2:appendix-a-dialogue-p-16",
-    "cite:domain-specific-ontology:canonical:term-contract-v5:section-1c-dso-domain-specific-ontology",
     "cite:evaluation-operator:canonical:sevocab:operator-p-283-iso-iec-ieee-12207-2026-3-1-40",
-    "cite:evaluation-process-ontology:canonical:term-contract-v5:section-1c-epo-evaluation-process-ontology",
-    "cite:evaluation-process-ontology:seeAlso:caie-epo-prototype:ontology-epo-core-ttl",
     "cite:evaluation-process-ontology:seeAlso:iso-iec-17000-2020:4-1-conformity-assessment-note-3",
     "cite:evaluation-process-ontology:seeAlso:sebok-2-14:applying-life-cycle-processes-p-444-iso-iec-ieee-24748-2-on-15288",
     "cite:evaluation-process-ontology:seeAlso:sevocab:test-process-p-438-iso-iec-ieee-29119-2-2021-3-55",
@@ -48595,7 +49073,7 @@
     "cite:expected-results:canonical:sevocab:expected-results-p-160",
     "cite:first-party-conformity-assessment-activity:canonical:iso-iec-17000-2020:4-3-first-party-conformity-assessment-activity",
     "cite:guardrail:canonical:nist-ai-700-2:appendix-a-guardrail-p-17",
-    "cite:knowledge-graph:canonical:hogan-2021:section-1-p-2-arxiv-v3",
+    "cite:knowledge-graph:canonical:hogan-2021:section-1-p-2-arxiv-v3-fragment-of-the-entry",
     "cite:measurement-uncertainty:canonical:jcgm-200-2012:2-26-measurement-uncertainty-p-41",
     "cite:mission:canonical:iso-9000-2026:3-4-11",
     "cite:mission:seeAlso:iso-9000-2026:3-4-5-policy",
@@ -48607,19 +49085,21 @@
     "cite:non-deterministic-system:seeAlso:sevocab:probabilistic-system-p-311",
     "cite:objective-evidence:canonical:iso-9000-2026:3-8-6",
     "cite:objective-evidence:seeAlso:sevocab:objective-evidence-p-277",
-    "cite:og-caie:canonical:paper-draft-2026-09:introduction-and-background",
     "cite:ontology:canonical:gruber-1993:section-1-p-2-author-copy",
     "cite:operational-envelope:canonical:iso-9000-2026:3-5-1-requirement",
     "cite:operational-environment:canonical:sevocab:operational-environment-p-282",
     "cite:organization:canonical:iso-9000-2026:3-1-1",
-    "cite:outcome:canonical:w3c-earl:section-2-7-outcomevalue-class",
+    "cite:outcome:canonical:sevocab:test-result-p-438",
     "cite:outcome:seeAlso:nist-ai-700-2:section-3-1-validity-risk-assessment-p-5",
+    "cite:outcome:seeAlso:w3c-earl:section-2-7-outcomevalue-class",
     "cite:performance:canonical:iso-9000-2026:3-7-3",
     "cite:plan:canonical:sevocab:test-strategy-and-planning-process-p-439-iso-iec-ieee-29119-2-2021-3-51",
     "cite:plan:seeAlso:sevocab:test-design-and-implementation-process-p-433-iso-iec-ieee-29119-2-2021-3-32",
     "cite:probe:canonical:sevocab:test-case-p-432",
-    "cite:propose:canonical:sebok-2-14:acquisition-and-supply-p-352-the-supplier",
+    "cite:propose:canonical:sebok-2-14:enterprise-systems-engineering-contract-products-and-services-p-935",
     "cite:propose:seeAlso:iso-iec-17000-2020:4-10-access",
+    "cite:propose:seeAlso:sevocab:proposal-p-329-iso-iec-ieee-24765c-2014",
+    "cite:propose:seeAlso:sevocab:request-for-proposal-rfp-p-350-iso-iec-ieee-24765-2017",
     "cite:provider:canonical:iso-9000-2026:3-1-9",
     "cite:record:canonical:iso-9000-2026:3-8-12",
     "cite:red-teaming:canonical:nist-ai-700-2:appendix-a-red-teaming-p-17",
@@ -48634,7 +49114,7 @@
     "cite:requirements-traceability:canonical:sevocab:requirements-traceability-p-352",
     "cite:requirements-traceability:seeAlso:iso-9000-2026:3-5-11-traceability",
     "cite:requirements-traceability:seeAlso:jcgm-200-2012:2-41-metrological-traceability-p-45",
-    "cite:risk-based-testing:canonical:sevocab:risk-based-testing-p-362",
+    "cite:risk-based-testing:canonical:sevocab:risk-based-testing-p-362-fragment-of-the-entry",
     "cite:scenario:canonical:sevocab:scenario-p-369",
     "cite:scenario:seeAlso:nist-ai-700-2:appendix-a-scenario-p-17",
     "cite:scenario:seeAlso:sevocab:test-scenario-p-438-iso-iec-tr-29119-11-2020-testing-of-ai-based-systems",
@@ -48648,11 +49128,11 @@
     "cite:sufficiency:canonical:hawkins-2011:section-3-3-asserted-solution-p-10",
     "cite:sufficiency:seeAlso:isa-500:paragraph-5-f",
     "cite:technical-expert:canonical:iso-9000-2026:3-12-9",
-    "cite:test-case:canonical:sevocab:test-case-p-432",
+    "cite:test-case:canonical:sevocab:test-case-p-432-fragment-of-the-entry",
     "cite:test-coverage:canonical:sevocab:test-coverage-p-433",
     "cite:test-item:canonical:sevocab:test-item-p-435-iso-iec-ieee-29119-2-2021",
     "cite:test-item:seeAlso:iso-iec-17000-2020:4-2-object-of-conformity-assessment",
-    "cite:test-item:seeAlso:nist-ai-700-2:appendix-a-application-p-16",
+    "cite:test-item:seeAlso:nist-ai-700-2:appendix-a-application-p-16-fragment-of-the-entry",
     "cite:test-item:seeAlso:sevocab:artificial-intelligence-based-system-p-28-iso-iec-tr-29119-11-2020",
     "cite:test-item:seeAlso:sevocab:system-of-interest-soi-p-423-iso-iec-ieee-15288-2023",
     "cite:test-item:seeAlso:sevocab:system-under-test-sut-p-423-iso-iec-14756-1999",
@@ -48660,7 +49140,7 @@
     "cite:test-strategy:canonical:sevocab:test-strategy-p-439",
     "cite:test-strategy:seeAlso:iec-60050-351:351-47-29-output-feedback-control",
     "cite:test-strategy:seeAlso:iec-60050-351:351-47-31-observer",
-    "cite:test-strategy:seeAlso:sevocab:exploratory-testing-p-161",
+    "cite:test-strategy:seeAlso:sevocab:exploratory-testing-p-161-fragment-of-the-entry",
     "cite:test-suite:canonical:sevocab:test-suite-p-439",
     "cite:test-suite:seeAlso:sevocab:robustness-p-363-iso-iec-25059-2023",
     "cite:test:canonical:iso-9000-2026:3-11-13",
@@ -48826,6 +49306,7 @@
     "https://w3id.org/og-caie/rulings#C-50",
     "https://w3id.org/og-caie/rulings#C-51",
     "https://w3id.org/og-caie/rulings#C-52",
+    "https://w3id.org/og-caie/rulings#C-53",
     "https://w3id.org/og-caie/rulings#R-01",
     "https://w3id.org/og-caie/rulings#R-02",
     "https://w3id.org/og-caie/rulings#R-03",
@@ -48872,6 +49353,7 @@
     "https://w3id.org/og-caie/rulings#R-44",
     "https://w3id.org/og-caie/rulings#R-45",
     "https://w3id.org/og-caie/rulings#R-46",
+    "https://w3id.org/og-caie/rulings#R-47",
     "https://w3id.org/og-caie/run/measles#R1",
     "https://w3id.org/og-caie/run/measles#a1",
     "https://w3id.org/og-caie/run/measles#a2",
@@ -48921,8 +49403,6 @@
     "https://w3id.org/og-caie/run/measles#theo",
     "https://w3id.org/og-caie/run/measles#trajectory-1",
     "https://w3id.org/og-caie/run/measles#turn-1",
-    "https://w3id.org/og-caie/sources#bof-deck-2026-07",
-    "https://w3id.org/og-caie/sources#caie-epo-prototype",
     "https://w3id.org/og-caie/sources#gruber-1993",
     "https://w3id.org/og-caie/sources#hawkins-2011",
     "https://w3id.org/og-caie/sources#hogan-2021",
@@ -48935,11 +49415,10 @@
     "https://w3id.org/og-caie/sources#nist-ai-100-1",
     "https://w3id.org/og-caie/sources#nist-ai-700-2",
     "https://w3id.org/og-caie/sources#nist-tn-1297",
-    "https://w3id.org/og-caie/sources#paper-draft-2026-09",
     "https://w3id.org/og-caie/sources#popper-1959",
+    "https://w3id.org/og-caie/sources#scipy-2026-bof",
     "https://w3id.org/og-caie/sources#sebok-2-14",
     "https://w3id.org/og-caie/sources#sevocab",
-    "https://w3id.org/og-caie/sources#term-contract-v5",
     "https://w3id.org/og-caie/sources#w3c-earl",
     "https://w3id.org/og-caie/sources#w3c-prov-o",
     "https://w3id.org/og-caie/sources#w3c-shacl",

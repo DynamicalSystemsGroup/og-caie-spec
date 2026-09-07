@@ -946,3 +946,20 @@ rul:R-46 a ogc:Ruling ;
     prov:wasAttributedTo rul:Z ;
     prov:generatedAtTime "2026-09-06"^^xsd:date .
 
+rul:C-53 a ogc:Concern ;
+    rdfs:label "round one of the simulated user test: fifteen findings that needed a judgment (rulings sheet 06)" ;
+    ogc:problem """Four sandboxed persona reviewers (a human reader, a machine user of ogc, a reproducibility reviewer, a citation auditor) rated the site and reported findings; the code-level ones were fixed; fifteen needed the adjudicator: the front page's opening, the bridge's source, the chapter blocks, the register of the rulings, terms defined at first use, the canonical source of outcome, the rank of TN 1297, fragment quotes, four stretched step matches, the coined terms' internal citations, Popper uncited, a record reader, executor parameters, thirteen pending quotes, and the alignment of Appendix D with the code.""" ;
+    ogc:severity "H" ;
+    ogc:status "ruled" ;
+    ogc:surfacedOn "2026-09-06"^^xsd:date ;
+    ogc:surfacedHow "rulings sheet 06, from the four reviewers' reports" ;
+    prov:wasGeneratedBy rul:model-revision-planning-2026-09-06 .
+
+rul:R-47 a ogc:Ruling ;
+    ogc:order 47 ;
+    ogc:resolves rul:C-53 ;
+    ogc:rulingText "rulings: 6-1: a as recommended. 6-2: don't cite the deck, site the public event. the BoF at SciPy 2026 is on the public record. you can reference it as a fact about events and what transpired there rather than a citation to a private artifact. there is a blog going live on the hi site soon about it which we can add as an additional citation later. 6-3: reorganize to make more judicious use of info blocks. balance info blocks with standard prose (and headers effecting outline) and code blocks which demonstrable pull content (see techniques in the vendor fraud example). 6-4: rework the rulings content so it doesn't read as messages i sent to an assistant. the intents should be preserved but the tone should shift to a more formal register. 6-5: define terms on first use. you can look at the conversations around the scipy-proceeding paper i wrote. look at the discussions with the reviewer and the fixes we made and they approved for guidance. 6-6: a as recommended. 6-7: a as recommended. 6-8: a as recommended. 6-9: dig in deeper to make sure we align with process canon. shouldn't seem like a stretch. our posture is implementation of standards not relitagating them. our contribution is application to contextual AI eval domain and executable spec implementation not standards authoring. 6-10: drop citations and own the coinage. 6-11: a as recommended. 6-12: a as recommended. 6-13: a as recommended. 6-14: tick them. 6-15: align the code and the appendix more clearly" ;
+    ogc:changeNote "06-14: the thirteen quotes ticked (human, Z, 2026-09-06); none pending. 06-06: outcome's canonical is SEVOCAB test result, EARL a seeAlso and the binding. 06-07: NIST TN 1297 rank reserve. 06-08: six fragment quotes say so in their locators. 06-10: the four coined terms cite nothing; they carry ogc:coinedBy; the internal sources leave the register. 06-02: the crosswalk cites the public SciPy 2026 session (src:scipy-2026-bof, digest) instead of the deck; 06-11: Popper 1959 stands alongside every row (ogc:also). 06-01, 06-03, 06-05: the front page and the chapters restructured (prose and headings, judicious info blocks, code blocks that pull content, terms defined at first use). 06-04: the rulings rewritten in a formal register with the verbatim messages kept in the graph as ogc:verbatim. 06-09: process canon researched for C2, C4, C6 and step 2 and re-cited. 06-12: ogc reads the record. 06-13: ogc execute exposes the executor's parameters. 06-15: Appendix D's descriptions rendered from the commands' own output." ;
+    prov:wasAttributedTo rul:Z ;
+    prov:generatedAtTime "2026-09-06"^^xsd:date .
+

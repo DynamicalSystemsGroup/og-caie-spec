@@ -20,6 +20,8 @@ def main(argv):
         path = ROOT / "vocabulary" / "epo.ttl"
         head = f"{term} a epo:EpoStep"
     t = path.read_text()
+    if ":" in term and head not in t:  # a contracting step
+        head = f"{term} a epo:ContractingStep"
     start = t.index(head)
     end = t.find("\nterm:" if ":" not in term else "\nepo:", start + 1)
     block = t[start:end if end > 0 else len(t)]
