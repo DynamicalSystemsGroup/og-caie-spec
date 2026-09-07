@@ -4,8 +4,9 @@ interface to the same graphs the site is rendered from. An alternative user
 interface, not new content.
 
 Reads the vocabulary, the sources, the rulings, the essentials, the shapes,
-the canonical model graph (through ogc.graph.load, model=True) and the
-measles record, and writes:
+the canonical model graph and the measles evaluation (through
+ogc.graph.load, record=True, which derives each item's step through the
+model graph, sheet 10-33), and writes:
 
 - explorer/graph.json: nodes, links, views and the per-node detail (every
   triple the graph holds about the node, outgoing and incoming);
@@ -19,9 +20,15 @@ measles record, and writes:
   current view, the rest faded or hidden, the legend counting what is
   shown, Escape and the arrows to leave or walk the focus, and the deep
   link `#view=..&node=..&focus=1&depth=N` so a neighbourhood can be shared;
-- explorer/data/*.ttl: copies of the Turtle files, for the optional SPARQL
-  box (oxigraph's WebAssembly build under explorer/vendor/oxigraph/), which
-  the d3 explorer never depends on.
+- explorer/data/*.ttl: copies of the Turtle files, and explorer/data/all.ttl,
+  every one of them in one default graph (the shapes' and the queries'
+  precondition, sheet 10-31), for the optional SPARQL box (oxigraph's
+  WebAssembly build under explorer/vendor/oxigraph/), which the d3 explorer
+  never depends on.
+
+Every node of the record family carries `synthetic`, true where the graph
+tags the item so (sheet 10-43), so the page can include or exclude
+synthetic content.
 
 Deterministic: same graphs, same bytes. Everything is sorted, blank-node
 citations get ids computed from what they cite, and no timestamp is
@@ -36,9 +43,10 @@ from an EPO class to the glossary term that names it. Four derived links
 are added, each labelled by name so a reader can tell them apart:
 `carries` (a seam to the item kind its supplier port def carries, the
 reading ogc/views.py uses), `in` and `out` (a model step to the item kind
-of a parameter), `then` (the successions between steps) and `corresponds`
-(a model step or item def to the EPO step or class of the same name, the
-binding the record relies on through epo:step).
+of a parameter) and `then` (the successions between steps). The join
+between the model and the EPO is the graph's own `realizes` (ogm:realizes,
+written by scripts/prune_model.py; sheet 10-33), through which the record
+derives each item's step.
 """
 from __future__ import annotations
 
@@ -54,19 +62,17 @@ from rdflib import RDF, RDFS, BNode, Graph, Literal, Namespace, URIRef
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from ogc import views as V  # noqa: E402
-from ogc.graph import (EPO, MODEL_FILE, OGC, PREFIXES, RUL, SH, SKOS, SOURCE_FILES, SRC, TERM, TR, XW,  # noqa: E402
+from ogc.graph import (EPO, EV, MODEL_FILE, OGC, PREFIXES, RECORD_FILE, RUL, SH, SKOS, SOURCE_FILES, SRC, TERM, TR, XW,  # noqa: E402
                        load)
 
 PROV = Namespace("http://www.w3.org/ns/prov#")
 OWL = Namespace("http://www.w3.org/2002/07/owl#")
 SYS = V.SYS
 OGM = V.OGM
-RUN = Namespace("https://w3id.org/og-caie/run/measles#")
-RECORD_FILE = "track/measles-run.ttl"
 OUT = ROOT / "explorer"
 TITLE = "OG-CAIE: the knowledge graph explorer"
+MERGED_FILE = "all.ttl"  # every data file in one default graph (sheet 10-31)
 QNAMES = dict(PREFIXES)
-QNAMES["run"] = RUN
 QNAMES["owl"] = OWL
 QNAMES["prov"] = PROV
 
@@ -93,8 +99,8 @@ FAMILIES = [
     ("process", "#8d6e63", "triangle", 10, "action definition (a cycle)"),
     ("action", "#a1887f", "triangle", 7, "model step"),
     ("item", "#bcaaa4", "square", 5, "item definition (model)"),
-    ("record", "#ffb74d", "circle", 6, "record item (measles run)"),
-    ("agent", "#ffe082", "circle", 7, "agent (measles run)"),
+    ("record", "#ffb74d", "circle", 6, "record item (the measles evaluation)"),
+    ("agent", "#ffe082", "circle", 7, "agent (the measles evaluation)"),
 ]
 LABEL_MAX = 48
 # Short labels for the SKOS mappings and the class-to-term back-link (tbox audit, sheet 08); every other predicate keeps its local name.
@@ -154,9 +160,7 @@ def rendered_terms() -> set[str]:
 # --- the graph -------------------------------------------------------------
 
 def graph() -> Graph:
-    g = load(ROOT, model=True, cache=False)
-    g.parse(ROOT / RECORD_FILE)
-    return g
+    return load(ROOT, model=True, record=True, cache=False)  # the record with the model graph; the steps derived in memory (sheet 10-33)
 
 
 class Builder:
@@ -173,10 +177,10 @@ class Builder:
             return ""
         return ("../" if name == "index" else f"../{name}") + (f"#{anchor}" if anchor else "")
 
-    def add(self, term, cls: str, label: str, desc: str, ogc: str, page: str = "", nid: str | None = None) -> str:
+    def add(self, term, cls: str, label: str, desc: str, ogc: str, page: str = "", nid: str | None = None, **extra) -> str:
         nid = nid or str(term)
         self.ids[term] = nid
-        self.nodes[nid] = dict(id=nid, label=short(label), cls=cls, desc=re.sub(r"[ \t]+", " ", desc).strip(), ogc=ogc, page=page)
+        self.nodes[nid] = dict(id=nid, label=short(label), cls=cls, desc=re.sub(r"[ \t]+", " ", desc).strip(), ogc=ogc, page=page, **extra)
         return nid
 
     # -- vocabulary: terms, sources, citations
@@ -314,30 +318,23 @@ class Builder:
                     self.derived.append((str(g.value(s, OGM["first"])), str(g.value(s, OGM["then"])), "then"))
         for d in sorted(g.subjects(RDF.type, SYS.ItemDefinition), key=str):
             self.add(d, "item", qual(d), doc(d), "ogc view layers", self.page("model"))
-        # the binding by name between the model and the EPO handles (epo:step in the record relies on it)
-        for st in g.subjects(RDF.type, SYS.ActionUsage):
-            e = EPO[V.name(g, st)]
-            if str(e) in self.nodes:
-                self.derived.append((str(st), str(e), "corresponds"))
-        for d in g.subjects(RDF.type, SYS.ItemDefinition):
-            e = EPO[V.name(g, d)]
-            if str(e) in self.nodes:
-                self.derived.append((str(d), str(e), "corresponds"))
+        # the join between the model and the EPO handles is the graph's own ogm:realizes (sheet 10-33), a link like any other
 
-    # -- the record: the measles run
+    # -- the record: the measles evaluation
     def record(self):
         g = self.g
         contracting = {str(s) for s in g.subjects(RDF.type, EPO.ContractingStep)}
-        for n in sorted({s for s in g.subjects() if isinstance(s, URIRef) and str(s).startswith(str(RUN))}, key=str):
+        for n in sorted({s for s in g.subjects() if isinstance(s, URIRef) and str(s).startswith(str(EV))}, key=str):
             types = sorted(qname(t) for t in g.objects(n, RDF.type))
             kind = next((local(t) for t in g.objects(n, RDF.type) if str(t).startswith(str(EPO))), "")
             is_agent = (n, RDF.type, PROV.Agent) in g
             label = one(g, n, RDFS.label) or one(g, n, EPO.text) or local(n)
             desc = f"{label} Types: {', '.join(types)}." + (f" {one(g, n, SKOS.note)}" if one(g, n, SKOS.note) else "")
-            step = g.value(n, EPO.step)
-            page = self.page("contracting") if step is not None and str(step) in contracting else self.page("guarantees")
+            steps = {str(s) for s in g.objects(n, EPO.step)}  # derived in memory through the model graph (sheet 10-33)
+            page = self.page("contracting") if steps & contracting else self.page("guarantees")
             cmd = f"ogc record {shell(local(n))}"  # the reader of the record (ruling R-47, closing C-44): everything the record says about this item
-            self.add(n, "agent" if is_agent else "record", local(n), desc, cmd, page)
+            synthetic = str(g.value(n, OGC.synthetic)).lower() == "true"  # sheet 10-43: the page can include or exclude synthetic content
+            self.add(n, "agent" if is_agent else "record", local(n), desc, cmd, page, synthetic=synthetic)
 
     # -- links and detail
     def build(self) -> dict:
@@ -425,7 +422,7 @@ class Builder:
              "the steps and their order; the record; the vocabulary the part names come from.",
              of("part", "usage", "port", "seam", "relation", "item")),
             ("record", "Record",
-             "the measles run: every recorded item, the agent that produced, signed or attested it, and the provenance chain between them.",
+             "the measles evaluation: every recorded item, the agent that produced, signed or attested it, and the provenance chain between them.",
              "the step and the kind each item instantiates, one click away in the panel; the vocabulary and the rulings.",
              run_core),
             ("essentials", "Essentials",
@@ -761,7 +758,7 @@ q.addEventListener("keydown",ev=>{ if(ev.key==="Enter"&&hits.firstChild) hits.fi
 const L = d3.select("#legendrows");
 const GL = {circle:"●",diamond:"◆",square:"■",triangle:"▲"};
 for(const f of MODEL.families){ const r=L.append("div").attr("class","row"); r.append("span").attr("class","g").style("color",f.color).text(GL[f.glyph]||"●"); r.append("span").text(f.text); }
-{ const r=L.append("div").attr("class","row"); r.append("span").attr("class","g").text("┈"); r.append("span").text("derived link (carries, in, out, then, corresponds)"); }
+{ const r=L.append("div").attr("class","row"); r.append("span").attr("class","g").text("┈"); r.append("span").text("derived link (carries, in, out, then)"); }
 
 // --- SPARQL box (optional): oxigraph in WebAssembly over copies of the Turtle files; needs the site served over http ---
 const DATA_FILES = /*__FILES__*/;
@@ -833,7 +830,8 @@ document.getElementById("sparql").addEventListener("toggle",layout);
 
 
 def data_files() -> list[str]:
-    return [Path(f).name for f in (*SOURCE_FILES, MODEL_FILE, RECORD_FILE)]
+    """The one merged file: every graph in one default graph, so the shapes and the record queries answer in the SPARQL box (sheet 10-31)."""
+    return [MERGED_FILE]
 
 
 def sparql_prefixes() -> str:
@@ -852,6 +850,12 @@ def main() -> int:
     (OUT / "data").mkdir(exist_ok=True)
     for f in (*SOURCE_FILES, MODEL_FILE, RECORD_FILE):
         shutil.copyfile(ROOT / f, OUT / "data" / Path(f).name)
+    merged = Graph()  # every data file in one default graph (sheet 10-31): the copies stay for a reader who wants one file
+    for k, v in sorted(QNAMES.items()):
+        merged.bind(k, v, replace=True)
+    for f in (*SOURCE_FILES, MODEL_FILE, RECORD_FILE):
+        merged.parse(ROOT / f)
+    (OUT / "data" / MERGED_FILE).write_text("# Every Turtle file of the repository in one default graph, the precondition of the shapes and the record queries (sheet 10-31); written by scripts/render_explorer.py.\n" + merged.serialize(format="turtle"))
     model = Builder(graph()).build()
     (OUT / "graph.json").write_text(json.dumps(model, ensure_ascii=False, sort_keys=True, indent=1) + "\n")
     (OUT / "index.html").write_text(render(model))

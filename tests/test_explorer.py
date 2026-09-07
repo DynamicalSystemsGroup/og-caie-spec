@@ -22,7 +22,7 @@ SKOS = Namespace("http://www.w3.org/2004/02/skos/core#")
 SH = Namespace("http://www.w3.org/ns/shacl#")
 SYS = Namespace("https://www.omg.org/spec/SysML#")
 OGC = Namespace("https://w3id.org/og-caie/")
-RUN = "https://w3id.org/og-caie/run/measles#"
+EV = "https://w3id.org/og-caie/evaluation/measles#"
 EXPECTED_VIEWS = ["vocabulary", "rulings", "process", "wiring", "record", "essentials", "crosswalk", "everything"]
 
 
@@ -73,10 +73,37 @@ def test_every_term_ruling_concern_essential_shape_seam_and_record_item_is_a_nod
     mg = load("model/og-caie.model.ttl")
     assert by_cls["seam"] == {str(s) for s in mg.subjects(RDF.type, SYS.InterfaceUsage)}
     assert by_cls["part"] == {str(s) for s in mg.subjects(RDF.type, SYS.PartDefinition)}
-    rg = load("track/measles-run.ttl")
-    record = {str(s) for s in rg.subjects() if isinstance(s, URIRef) and str(s).startswith(RUN)}
+    rg = load("track/measles-evaluation.ttl")
+    record = {str(s) for s in rg.subjects() if isinstance(s, URIRef) and str(s).startswith(EV)}
     assert by_cls["record"] | by_cls["agent"] == record
     assert len(by_cls["term"]) > 50 and len(by_cls["seam"]) > 30 and len(record) > 40
+
+
+def test_record_nodes_carry_the_synthetic_tag_and_the_model_realizes_the_epo():
+    """Sheet 10-43: every record node says whether it is synthetic (the measles evaluation is, wholly), so the page can filter on it;
+    no other node carries the attribute. Sheet 10-33: the join between the model and the EPO is the graph's own realizes link."""
+    m = model()
+    for n in m["nodes"]:
+        if n["cls"] in ("record", "agent"):
+            assert n["synthetic"] is True, n["id"]
+        else:
+            assert "synthetic" not in n, n["id"]
+    rels = {l["rel"] for l in m["links"]}
+    assert "realizes" in rels and "corresponds" not in rels
+    assert sum(1 for l in m["links"] if l["rel"] == "realizes") == 43
+
+
+def test_the_merged_data_file_is_every_graph_in_one():
+    """Sheet 10-31: explorer/data/all.ttl holds every data file in one default graph, the precondition of the shapes and the queries;
+    it is the one file the SPARQL box loads, and it parses to the sum of the parts."""
+    from rdflib import Graph
+    parts = Graph()
+    for f in (*rx.SOURCE_FILES, rx.MODEL_FILE, rx.RECORD_FILE):
+        parts.parse(ROOT / f)
+    merged = Graph().parse(ROOT / "explorer" / "data" / rx.MERGED_FILE)
+    assert len(merged) == len(parts) and len(merged) > 10000
+    assert rx.data_files() == [rx.MERGED_FILE]
+    assert (ROOT / "explorer" / "data" / "measles-evaluation.ttl").exists() and not (ROOT / "explorer" / "data" / "measles-run.ttl").exists()
 
 
 def test_no_node_lacks_an_ogc_command_or_a_description():

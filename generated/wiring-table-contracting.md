@@ -1,7 +1,7 @@
 | Part | Port | Direction | Carries | Wire | Other end |
 |---|---|---|---|---|---|
-| AccountExecutive | acceptanceIn | in | AcceptanceWrite | acceptanceToExecutiveSeam | from SponsorOrganization.acceptanceOut |
-| AccountExecutive | agreementIn | in | AgreementWrite | agreementSeam | from SponsorOrganization.agreementOut |
+| AccountExecutive | acceptanceIn | in | AcceptanceWrite | acceptanceToExecutiveSeam | from SponsorSignatory.acceptanceOut |
+| AccountExecutive | agreementIn | in | AgreementWrite | agreementSeam | from SponsorSignatory.agreementOut |
 | AccountExecutive | missionIn | in | MissionWrite | missionToExecutiveSeam | from SponsorOrganization.missionOut |
 | AccountExecutive | needIn | in | NeedWrite | needToExecutiveSeam | from SponsorOrganization.needOut |
 | AccountExecutive | statementOfWorkIn | in | StatementOfWorkWrite | statementOfWorkToExecutiveSeam | from SponsorOrganization.statementOfWorkOut |
@@ -15,7 +15,7 @@
 | AffectedPopulation | inputOut | out | StakeholderInputWrite | stakeholderInputSeam | to Recorder.inputIn |
 | AffectedPopulation | inputOut | out | StakeholderInputWrite | stakeholderInputToRepresentativeSeam | to Representative.inputIn |
 | EvaluationOperator | accessIn | in | AccessWrite | accessToOperatorSeam | from AccountableOrganization.accessOut |
-| Recorder | acceptanceIn | in | AcceptanceWrite | acceptanceSeam | from SponsorOrganization.acceptanceOut |
+| Recorder | acceptanceIn | in | AcceptanceWrite | acceptanceSeam | from SponsorSignatory.acceptanceOut |
 | Recorder | accessIn | in | AccessWrite | accessSeam | from AccountableOrganization.accessOut |
 | Recorder | agreementIn | in | AgreementWrite | countersignSeam | from AccountExecutive.agreementOut |
 | Recorder | deliveryIn | in | DeliveryWrite | deliveryRecordSeam | from AccountExecutive.deliveryOut |
@@ -27,12 +27,12 @@
 | Representative | inputIn | in | StakeholderInputWrite | stakeholderInputToRepresentativeSeam | from AffectedPopulation.inputOut |
 | SponsorOrganization | deliveryIn | in | DeliveryWrite | deliverySeam | from AccountExecutive.deliveryOut |
 | SponsorOrganization | proposalIn | in | ProposalWrite | proposalToSponsorSeam | from AccountExecutive.proposalOut |
-| SponsorOrganization | acceptanceOut | out | AcceptanceWrite | acceptanceSeam | to Recorder.acceptanceIn |
-| SponsorOrganization | acceptanceOut | out | AcceptanceWrite | acceptanceToExecutiveSeam | to AccountExecutive.acceptanceIn |
-| SponsorOrganization | agreementOut | out | AgreementWrite | agreementSeam | to AccountExecutive.agreementIn |
 | SponsorOrganization | missionOut | out | MissionWrite | missionSeam | to Recorder.missionIn |
 | SponsorOrganization | missionOut | out | MissionWrite | missionToExecutiveSeam | to AccountExecutive.missionIn |
 | SponsorOrganization | needOut | out | NeedWrite | needSeam | to Recorder.needIn |
 | SponsorOrganization | needOut | out | NeedWrite | needToExecutiveSeam | to AccountExecutive.needIn |
 | SponsorOrganization | statementOfWorkOut | out | StatementOfWorkWrite | statementOfWorkSeam | to Recorder.statementOfWorkIn |
 | SponsorOrganization | statementOfWorkOut | out | StatementOfWorkWrite | statementOfWorkToExecutiveSeam | to AccountExecutive.statementOfWorkIn |
+| SponsorSignatory | acceptanceOut | out | AcceptanceWrite | acceptanceSeam | to Recorder.acceptanceIn |
+| SponsorSignatory | acceptanceOut | out | AcceptanceWrite | acceptanceToExecutiveSeam | to AccountExecutive.acceptanceIn |
+| SponsorSignatory | agreementOut | out | AgreementWrite | agreementSeam | to AccountExecutive.agreementIn |

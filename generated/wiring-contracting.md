@@ -3,6 +3,7 @@ flowchart LR
   accountable["accountable : test item provider"]
   affected{{"affected : affected population"}}
   sponsor["sponsor : sponsor"]
+  sponsor_signatory(["signatory : sponsor signatory"])
   testingOrg_accountExecutive(["accountExecutive : authorized representative"])
   testingOrg_recorder[["recorder : recorder"]]
   testingOrg_team_operator(["operator : evaluation operator"])
@@ -11,8 +12,10 @@ flowchart LR
   accountable -- "TestItemAccess" --> testingOrg_team_operator
   affected -- "StakeholderInput" --> testingOrg_recorder
   affected -- "StakeholderInput" --> testingOrg_team_representative
-  sponsor -- "Mission, Need, ServiceAgreement, StatementOfWork, Acceptance" --> testingOrg_accountExecutive
-  sponsor -- "Mission, Need, StatementOfWork, Acceptance" --> testingOrg_recorder
+  sponsor -- "Mission, Need, StatementOfWork" --> testingOrg_accountExecutive
+  sponsor -- "Mission, Need, StatementOfWork" --> testingOrg_recorder
+  sponsor_signatory -- "ServiceAgreement, Acceptance" --> testingOrg_accountExecutive
+  sponsor_signatory -- "Acceptance" --> testingOrg_recorder
   testingOrg_accountExecutive -- "Proposal, Delivery" --> sponsor
   testingOrg_accountExecutive -- "Proposal, ServiceAgreement, Delivery" --> testingOrg_recorder
   sponsor -. "obligation" .-> affected
@@ -21,7 +24,7 @@ flowchart LR
   classDef party fill:#f9a825,stroke:#e65100,stroke-width:2px,stroke-dasharray: 6 3,color:#000000;
   classDef organization fill:#37474f,stroke:#cfd8dc,stroke-width:2px,color:#ffffff;
   linkStyle default stroke:#90a4ae,stroke-width:1.5px;
-  class testingOrg_accountExecutive,testingOrg_team_operator,testingOrg_team_representative person;
+  class sponsor_signatory,testingOrg_accountExecutive,testingOrg_team_operator,testingOrg_team_representative person;
   class testingOrg_recorder machine;
   class affected party;
   class accountable,sponsor organization;

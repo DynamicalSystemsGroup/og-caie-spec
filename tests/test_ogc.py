@@ -781,8 +781,9 @@ def test_r3_finding_l9_who_and_when_derive_through_the_generating_activity():
     assert rows["attestation-1"]["via"] is None and rows["test-plan"]["via"] is None  # attributed directly
     assert rows["turn-1"]["who"] is None and rows["annie"]["when"] is None  # nothing to derive from
     listing = run("record").stdout
-    assert re.search(r"^probe-1\s+Probe\s+test driver \(via derivation-1\)\s+2026-08-03\s+synthetic$", listing, re.M), listing
-    assert re.search(r"^report\s+Report\s+report assembler \(queries/coverage.rq\) \(via coverage-computation\)\s+2026-08-12\s+synthetic$", listing, re.M)
+    # the probe and the report now derive their steps through the model graph (sheet 10-33), so they sit in the stepped table
+    assert re.search(r"^3 plan\s+probe-1\s+Probe\s+test driver \(via derivation-1\)\s+2026-08-03\s+synthetic$", listing, re.M), listing
+    assert re.search(r"^6 report\s+report\s+Report\s+report assembler \(queries/coverage.rq\) \(via coverage-computation\)\s+2026-08-12\s+synthetic$", listing, re.M)
 
 
 def test_r3_finding_l10_long_inputs_are_truncated_in_the_error_line():

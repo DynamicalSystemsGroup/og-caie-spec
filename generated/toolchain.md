@@ -23,9 +23,9 @@ Python `>=3.12` (`pyproject.toml`), pinned to `3.12` by `.python-version` so tha
 | Fetched from | `https://github.com/Open-MBEE/OpenSysML/releases/download/v0.4.3` | `toolchain/get-sysml.sh` (`VER=v0.4.3`) |
 | Invocation | `-convert ttl` | `model/model_manifest.json` |
 | Digest file | `toolchain/sysml-binaries.sha256`, sha256 `8efae36144923a29a21aa57d59286442db5ffaaa9a3773fafcc57616ade6f961` | `model/model_manifest.json` |
-| Authoring source | `model/og-caie.sysml`, sha256 `2bf54c02f0126154bae3cf14c56b4c8c15d434d3e6768e1970eed5538daab927` | `model/model_manifest.json` |
-| Term map | `model/sysml_term_map.csv`, 59 terms, sha256 `76069cb93b389619ffe4a8836a6e015a72620c9f1d56316c6dcee18a40364ba9` | `model/model_manifest.json` |
-| Canonical graph | `model/og-caie.model.ttl`, 5109 triples of 17132 converted (budget 6600, headroom 1491), sha256 `79663f2c525a32d660049b0ab68b0901031001e0bf5202c6ede4f5c37ccf8a6e` | `model/model_manifest.json` |
+| Authoring source | `model/og-caie.sysml`, sha256 `c786e9f4338506bbd37bd748c2a3a54f09d5cd36586af4e259a2379a0db280e8` | `model/model_manifest.json` |
+| Term map | `model/sysml_term_map.csv`, 59 terms, sha256 `6a58361b86b4a4a0a94c077efdb23a9541da988fca8735f74a4b02c6e4dd270f` | `model/model_manifest.json` |
+| Canonical graph | `model/og-caie.model.ttl`, 5712 triples of 18976 converted (budget 6600, headroom 888), sha256 `11bb8d307ee3b91e0e54caf8bdafeaa737b9d188c9aa8145e4d1426e2657b90c` | `model/model_manifest.json` |
 
 Per platform, the digest the installed binary must hash to (`toolchain/sysml-binaries.sha256`) and the digest the release tarball must hash to before it is unpacked (`toolchain/SHA256SUMS.pinned`); `toolchain/get-sysml.sh` checks both on every run.
 
@@ -38,7 +38,7 @@ Per platform, the digest the installed binary must hash to (`toolchain/sysml-bin
 
 ## The ontologies and vocabularies
 
-What the graphs are written in, counted over the committed Turtle files (`vocabulary/og-caie.ttl`, `vocabulary/epo.ttl`, `vocabulary/crosswalk.ttl`, `sources/sources.ttl`, `rulings/adjudications.ttl`, `model/trace.ttl`, `model/og-caie.model.ttl`, `track/measles-run.ttl`, `shapes/epo.shapes.ttl`, `shapes/model.shapes.ttl`, `shapes/rulings.shapes.ttl`): the classes and properties of each vocabulary that the graphs actually use, and the subjects each names. The W3C vocabularies are adopted as published; the SysML namespace is OpenSysML's rendering of the OMG SysML v2 metamodel, not a vocabulary OMG publishes at that IRI; the specification's own namespaces resolve under w3id.org.
+What the graphs are written in, counted over the committed Turtle files (`vocabulary/og-caie.ttl`, `vocabulary/epo.ttl`, `vocabulary/crosswalk.ttl`, `sources/sources.ttl`, `rulings/adjudications.ttl`, `model/trace.ttl`, `model/og-caie.model.ttl`, `track/measles-evaluation.ttl`, `shapes/epo.shapes.ttl`, `shapes/model.shapes.ttl`, `shapes/rulings.shapes.ttl`): the classes and properties of each vocabulary that the graphs actually use, and the subjects each names. The W3C vocabularies are adopted as published; the SysML namespace is OpenSysML's rendering of the OMG SysML v2 metamodel, not a vocabulary OMG publishes at that IRI; the specification's own namespaces resolve under w3id.org.
 
 | Prefix | Namespace | Whose | What it does here | Classes used | Properties used | Subjects | Reference |
 |---|---|---|---|---|---|---|---|
@@ -46,22 +46,22 @@ What the graphs are written in, counted over the committed Turtle files (`vocabu
 | `rdfs` | `http://www.w3.org/2000/01/rdf-schema#` | W3C | RDF Schema: labels, comments, subclassing | 0 | 6 | 0 | <https://www.w3.org/TR/rdf-schema/> |
 | `owl` | `http://www.w3.org/2002/07/owl#` | W3C | OWL 2: the EPO's classes and properties | 4 | 1 | 0 | <https://www.w3.org/TR/owl2-overview/> |
 | `skos` | `http://www.w3.org/2004/02/skos/core#` | W3C | SKOS: the glossary's concepts, labels, definitions and notes | 2 | 11 | 0 | <https://www.w3.org/TR/skos-reference/> |
-| `prov` | `http://www.w3.org/ns/prov#` | W3C | PROV-O: who did what and when in the record (agents, activities, entities, derivation, attribution) | 6 | 9 | 0 | <https://www.w3.org/TR/prov-o/> |
+| `prov` | `http://www.w3.org/ns/prov#` | W3C | PROV-O: who did what and when in the record (agents, activities, entities, derivation, attribution) | 7 | 9 | 0 | <https://www.w3.org/TR/prov-o/> |
 | `earl` | `http://www.w3.org/ns/earl#` | W3C | EARL 1.0: assertions with an assertor, a mode, a subject, a test and an outcome (passed, failed, cantTell) | 2 | 7 | 0 | <https://www.w3.org/TR/EARL10-Schema/> |
-| `sh` | `http://www.w3.org/ns/shacl#` | W3C | SHACL: the shapes that check the record, the model graph and the rulings, including SHACL-SPARQL constraints | 1 | 16 | 0 | <https://www.w3.org/TR/shacl/> |
-| `sysml` | `https://www.omg.org/spec/SysML#` | OpenSysML (after the OMG SysML v2 metamodel) | SysML v2 vocabulary as the OpenSysML converter renders the model: definitions, usages, ports, interfaces, actions, successions, flows | 27 | 18 | 0 | <https://www.omg.org/spec/SysML/2.0/> |
+| `sh` | `http://www.w3.org/ns/shacl#` | W3C | SHACL: the shapes that check the record, the model graph and the rulings, including SHACL-SPARQL constraints | 1 | 17 | 0 | <https://www.w3.org/TR/shacl/> |
+| `sysml` | `https://www.omg.org/spec/SysML#` | OpenSysML (after the OMG SysML v2 metamodel) | SysML v2 vocabulary as the OpenSysML converter renders the model: definitions, usages, ports, interfaces, actions, successions, flows | 26 | 18 | 0 | <https://www.omg.org/spec/SysML/2.0/> |
 | `sysx` | `urn:opensysml:sysml:` | OpenSysML | the converter's own facts: the ends of a connection, the source text of a statement, a prefix keyword | 0 | 4 | 0 | <https://github.com/OpenMBEE/opensysml> |
-| `elmt` | `urn:sysmlv2:element:` | OpenSysML | the converter's element identifiers, one per model element | 0 | 0 | 585 | <https://github.com/OpenMBEE/opensysml> |
-| `expr` | `urn:opensysml:expr:` | OpenSysML | the converter's expression identifiers (end paths, multiplicity bounds) | 0 | 0 | 443 | <https://github.com/OpenMBEE/opensysml> |
-| `ogc` | `https://w3id.org/og-caie/` | this specification | the register: citation classes and properties, shapes' names, concerns, rulings, crosswalk rows, trace essentials | 6 | 48 | 49 | <https://w3id.org/og-caie/> |
+| `elmt` | `urn:sysmlv2:element:` | OpenSysML | the converter's element identifiers, one per model element | 0 | 0 | 647 | <https://github.com/OpenMBEE/opensysml> |
+| `expr` | `urn:opensysml:expr:` | OpenSysML | the converter's expression identifiers (end paths, multiplicity bounds) | 0 | 0 | 491 | <https://github.com/OpenMBEE/opensysml> |
+| `ogc` | `https://w3id.org/og-caie/` | this specification | the register: citation classes and properties, shapes' names, concerns, rulings, crosswalk rows, trace essentials | 6 | 50 | 56 | <https://w3id.org/og-caie/> |
 | `term` | `https://w3id.org/og-caie/terms#` | this specification | the glossary's terms | 0 | 0 | 66 | <https://w3id.org/og-caie/> |
 | `src` | `https://w3id.org/og-caie/sources#` | this specification | the source register | 0 | 0 | 72 | <https://w3id.org/og-caie/> |
 | `rul` | `https://w3id.org/og-caie/rulings#` | this specification | concerns and rulings | 0 | 0 | 112 | <https://w3id.org/og-caie/> |
-| `epo` | `https://w3id.org/og-caie/epo#` | this specification | the Evaluation Process Ontology's handles: item classes, steps, layers, roles and their properties | 48 | 47 | 137 | <https://w3id.org/og-caie/> |
+| `epo` | `https://w3id.org/og-caie/epo#` | this specification | the Evaluation Process Ontology's handles: item classes, steps, layers, roles and their properties | 54 | 60 | 163 | <https://w3id.org/og-caie/> |
 | `xw` | `https://w3id.org/og-caie/crosswalk#` | this specification | the crosswalk rows of the front page's bridge into the standards | 0 | 0 | 7 | <https://w3id.org/og-caie/> |
 | `tr` | `https://w3id.org/og-caie/trace#` | this specification | the essentials SCI-01 to SCI-13 | 0 | 0 | 13 | <https://w3id.org/og-caie/> |
-| `ogm` | `https://w3id.org/og-caie/model#` | this specification | the derived ends of the canonical model graph (resolved ports, flow ends, successions, relations) | 0 | 10 | 0 | <https://w3id.org/og-caie/> |
-| `run` | `https://w3id.org/og-caie/run/measles#` | this specification | the measles record's items and agents | 0 | 0 | 53 | <https://w3id.org/og-caie/> |
+| `ogm` | `https://w3id.org/og-caie/model#` | this specification | the derived ends of the canonical model graph (resolved ports, flow ends, successions, relations) | 0 | 11 | 0 | <https://w3id.org/og-caie/> |
+| `ev` | `https://w3id.org/og-caie/evaluation/measles#` | this specification | the measles evaluation's record, its items and agents (sheet 10-42) | 0 | 0 | 59 | <https://w3id.org/og-caie/> |
 
 ## The vendored browser libraries
 

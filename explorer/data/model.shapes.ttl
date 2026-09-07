@@ -287,6 +287,15 @@ ogc:M5-Cardinality a sh:NodeShape ;
             } GROUP BY $this HAVING (COUNT(?u) != 1)
         """ ] ;
     sh:sparql [
+        sh:message "The sponsor organization holds exactly one signatory (SponsorSignatory), the named person who signs, approves the requirement set and accepts on its behalf (sheet 10-06, R-50)." ;
+        sh:select """
+            PREFIX sysml: <https://www.omg.org/spec/SysML#>
+            SELECT $this (COUNT(?u) AS ?value) WHERE {
+                $this sysml:declaredName "SponsorOrganization" .
+                OPTIONAL { ?u a sysml:PartUsage ; sysml:owner $this ; sysml:type ?t . ?t sysml:declaredName "SponsorSignatory" . }
+            } GROUP BY $this HAVING (COUNT(?u) != 1)
+        """ ] ;
+    sh:sparql [
         sh:message "The evaluation team allows one or more domain experts and one or more operators: lower bound one, upper bound unbounded (R-23)." ;
         sh:select """
             PREFIX sysml: <https://www.omg.org/spec/SysML#>
@@ -325,15 +334,26 @@ ogc:M5-PortsBelongToRoles a sh:NodeShape ;
             }
         """ ] ;
     sh:sparql [
-        sh:message "The service agreement is supplied only by the sponsor and the authorized representative; the authorized representative supplies nothing but the proposal, the countersigned agreement and the delivery, and never judges (R-23, R-24, R-32)." ;
+        sh:message "The service agreement is supplied only by the sponsor's signatory and the authorized representative (sheet 10-06); the authorized representative supplies nothing but the proposal, the countersigned agreement, its independence declaration (sheet 10-07) and the delivery, and never judges (R-23, R-24, R-32)." ;
         sh:select """
             PREFIX sysml: <https://www.omg.org/spec/SysML#>
             SELECT $this ?value WHERE {
                 FILTER NOT EXISTS { $this sysml:isEnd true }
                 $this sysml:type ?t ; sysml:owner ?o . ?t sysml:declaredName ?tn . ?o sysml:declaredName ?value .
                 OPTIONAL { $this sysml:isConjugated ?c }
-                FILTER( (?tn = "AgreementWrite" && !BOUND(?c) && ?value NOT IN ("SponsorOrganization", "AccountExecutive"))
-                     || (?value = "AccountExecutive" && !BOUND(?c) && ?tn NOT IN ("AgreementWrite", "DeliveryWrite", "ProposalWrite"))
+                FILTER( (?tn = "AgreementWrite" && !BOUND(?c) && ?value NOT IN ("SponsorSignatory", "AccountExecutive"))
+                     || (?value = "AccountExecutive" && !BOUND(?c) && ?tn NOT IN ("AgreementWrite", "DeliveryWrite", "ProposalWrite", "IndependenceDeclarationWrite"))
                      || (?value = "AccountExecutive" && ?tn IN ("EvidenceWrite", "DeterminationWrite", "AttestationWrite")) )
+            }
+        """ ] ;
+    sh:sparql [
+        sh:message "Where the sponsor signs, the port is its signatory's (sheet 10-06): the acceptance, the requirement-set approval and the user-interest declaration are supplied only by SponsorSignatory, a Person, and the sponsor organization supplies none of them." ;
+        sh:select """
+            PREFIX sysml: <https://www.omg.org/spec/SysML#>
+            SELECT $this ?value WHERE {
+                FILTER NOT EXISTS { $this sysml:isEnd true } FILTER NOT EXISTS { $this sysml:isConjugated true }
+                $this sysml:type ?t ; sysml:owner ?o . ?t sysml:declaredName ?tn . ?o sysml:declaredName ?value .
+                FILTER( (?tn IN ("AcceptanceWrite", "RequirementSetApprovalWrite", "UserInterestDeclarationWrite") && ?value != "SponsorSignatory")
+                     || (?value = "SponsorSignatory" && ?tn NOT IN ("AgreementWrite", "AcceptanceWrite", "RequirementSetApprovalWrite", "UserInterestDeclarationWrite")) )
             }
         """ ] .

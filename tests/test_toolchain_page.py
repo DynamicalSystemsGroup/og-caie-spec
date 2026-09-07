@@ -106,7 +106,7 @@ def test_every_namespace_in_use_is_registered_and_listed():
     text = fragment()
     assert "## The ontologies and vocabularies" in text
     assert "(unregistered)" not in text
-    for prefix in ("prov", "earl", "skos", "sh", "owl", "sysml", "sysx", "epo", "ogc", "run"):
+    for prefix in ("prov", "earl", "skos", "sh", "owl", "sysml", "sysx", "epo", "ogc", "ev"):
         assert f"| `{prefix}` |" in text, prefix
     page = (ROOT / "docs" / "appendix-toolchain.md").read_text()
     assert "PROV-O" in page and "EARL" in page and "not in that environment" in page
