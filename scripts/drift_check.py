@@ -45,6 +45,7 @@ SH = Namespace("http://www.w3.org/ns/shacl#")
 PAGES = [ROOT / "index.md", *sorted((ROOT / "docs").glob("*.md"))]
 PROSE_SOURCES = PAGES + [ROOT / "README.md", ROOT / "CLAUDE.md", ROOT / ".claude" / "skills" / "ogc-glossary" / "SKILL.md"]
 QUOTING = ("rulings/", "sources/digests/", "generated/rulings")  # files that quote history and may repeat stale words
+GATE_OUTPUTS = {"generated/version.md", "checks/out/report.json", "checks/out/last.log"}  # written by the gate, never committed; absent in a fresh checkout
 
 
 def problems() -> list[str]:
@@ -90,7 +91,7 @@ def problems() -> list[str]:
     for p in PROSE_SOURCES + sorted((ROOT / "shapes").glob("*.ttl")):
         for m in path_re.finditer(p.read_text()):
             path = m.group(1).rstrip(".")
-            if not (ROOT / path).exists() and path != "generated/version.md":
+            if not (ROOT / path).exists() and path not in GATE_OUTPUTS:
                 out.append(f"missing file '{path}' named in {p.relative_to(ROOT)}")
     # 5. sheet ticks name rulings the register holds
     rulings = {str(r).rsplit("#", 1)[-1] for r in g.subjects(RDF.type, OGC.Ruling)}
