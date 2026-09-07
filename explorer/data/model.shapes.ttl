@@ -248,12 +248,12 @@ ogc:M4-EveryItemProduced a sh:NodeShape ;
 ogc:M5-Roles a sh:NodeShape ;
     sh:targetClass sysml:Package ;
     sh:sparql [
-        sh:message "The three actor categories are distinct part definitions of Person: DomainExpert, EvaluationOperator, AccountExecutive (R-10, R-23)." ;
+        sh:message "The three actor categories are distinct part definitions of Person: DomainExpert, EvaluationOperator, AuthorizedRepresentative (R-10, R-23)." ;
         sh:select """
             PREFIX sysml: <https://www.omg.org/spec/SysML#>
             SELECT $this ?value WHERE {
                 FILTER NOT EXISTS { $this sysml:owner ?parent }
-                { BIND("DomainExpert" AS ?value) } UNION { BIND("EvaluationOperator" AS ?value) } UNION { BIND("AccountExecutive" AS ?value) }
+                { BIND("DomainExpert" AS ?value) } UNION { BIND("EvaluationOperator" AS ?value) } UNION { BIND("AuthorizedRepresentative" AS ?value) }
                 FILTER NOT EXISTS {
                     ?d a sysml:PartDefinition ; sysml:owner $this ; sysml:declaredName ?value ; sysml:specializes ?p .
                     ?p sysml:declaredName "Person" .
@@ -261,13 +261,13 @@ ogc:M5-Roles a sh:NodeShape ;
             }
         """ ] ;
     sh:sparql [
-        sh:message "The testing organization holds an authorized representative (AccountExecutive) and a team of at least one domain expert and one evaluation operator." ;
+        sh:message "The testing organization holds an authorized representative (AuthorizedRepresentative) and a team of at least one domain expert and one evaluation operator." ;
         sh:select """
             PREFIX sysml: <https://www.omg.org/spec/SysML#>
             SELECT $this ?value WHERE {
                 FILTER NOT EXISTS { $this sysml:owner ?parent }
                 ?org a sysml:PartDefinition ; sysml:owner $this ; sysml:declaredName "TestingOrganization" .
-                { BIND("AccountExecutive" AS ?value) } UNION { BIND("DomainExpert" AS ?value) } UNION { BIND("EvaluationOperator" AS ?value) }
+                { BIND("AuthorizedRepresentative" AS ?value) } UNION { BIND("DomainExpert" AS ?value) } UNION { BIND("EvaluationOperator" AS ?value) }
                 FILTER NOT EXISTS {
                     ?u a sysml:PartUsage ; sysml:type ?t ; sysml:owner ?holder . ?t sysml:declaredName ?value .
                     FILTER(?holder = ?org || EXISTS { ?tu a sysml:PartUsage ; sysml:owner ?org ; sysml:type ?holder })
@@ -278,12 +278,12 @@ ogc:M5-Roles a sh:NodeShape ;
 ogc:M5-Cardinality a sh:NodeShape ;
     sh:targetClass sysml:PartDefinition ;
     sh:sparql [
-        sh:message "The testing organization holds exactly one authorized representative (AccountExecutive) (R-23)." ;
+        sh:message "The testing organization holds exactly one authorized representative (AuthorizedRepresentative) (R-23)." ;
         sh:select """
             PREFIX sysml: <https://www.omg.org/spec/SysML#>
             SELECT $this (COUNT(?u) AS ?value) WHERE {
                 $this sysml:declaredName "TestingOrganization" .
-                OPTIONAL { ?u a sysml:PartUsage ; sysml:owner $this ; sysml:type ?t . ?t sysml:declaredName "AccountExecutive" . }
+                OPTIONAL { ?u a sysml:PartUsage ; sysml:owner $this ; sysml:type ?t . ?t sysml:declaredName "AuthorizedRepresentative" . }
             } GROUP BY $this HAVING (COUNT(?u) != 1)
         """ ] ;
     sh:sparql [
@@ -341,9 +341,9 @@ ogc:M5-PortsBelongToRoles a sh:NodeShape ;
                 FILTER NOT EXISTS { $this sysml:isEnd true }
                 $this sysml:type ?t ; sysml:owner ?o . ?t sysml:declaredName ?tn . ?o sysml:declaredName ?value .
                 OPTIONAL { $this sysml:isConjugated ?c }
-                FILTER( (?tn = "AgreementWrite" && !BOUND(?c) && ?value NOT IN ("SponsorSignatory", "AccountExecutive"))
-                     || (?value = "AccountExecutive" && !BOUND(?c) && ?tn NOT IN ("AgreementWrite", "DeliveryWrite", "ProposalWrite", "IndependenceDeclarationWrite"))
-                     || (?value = "AccountExecutive" && ?tn IN ("EvidenceWrite", "DeterminationWrite", "AttestationWrite")) )
+                FILTER( (?tn = "AgreementWrite" && !BOUND(?c) && ?value NOT IN ("SponsorSignatory", "AuthorizedRepresentative"))
+                     || (?value = "AuthorizedRepresentative" && !BOUND(?c) && ?tn NOT IN ("AgreementWrite", "DeliveryWrite", "ProposalWrite", "IndependenceDeclarationWrite"))
+                     || (?value = "AuthorizedRepresentative" && ?tn IN ("EvidenceWrite", "DeterminationWrite", "AttestationWrite")) )
             }
         """ ] ;
     sh:sparql [

@@ -645,7 +645,7 @@ def test_r3_finding_m5_epo_reader_and_find_indexes_the_epo_labels():
     sys.path.insert(0, str(ROOT))
     from ogc import cli
     assert "epo" in cli.build_parser().command_names and "epo" in run("--help").stdout
-    for name in ("StakeholderRepresentation", "epo:EngagementDecision", "ReportApproval", "conformanceverdict", "AuthorizedRepresentativeRole", "https://w3id.org/og-caie/epo#Report", "accountExecutiveRole"):
+    for name in ("StakeholderRepresentation", "epo:EngagementDecision", "ReportApproval", "conformanceverdict", "AuthorizedRepresentativeRole", "https://w3id.org/og-caie/epo#Report", "authorizedRepresentativeRole"):
         r = run("epo", name)
         assert r.returncode == 0 and r.stdout.startswith("# ogc epo "), (name, r.stdout, r.stderr)
     r, d = _json("epo", "StakeholderRepresentation")
@@ -653,10 +653,10 @@ def test_r3_finding_m5_epo_reader_and_find_indexes_the_epo_labels():
     assert d["superclasses"] == ["prov:Entity"] and d["pinned_at"]["id"] == "epo:evaluation" and d["pinned_at"]["label"]
     assert d["terms"] == [{"local": "stakeholder", "headword": "stakeholder"}]
     r, d = _json("epo", "AuthorizedRepresentativeRole")
-    assert d["kind"] == "class" and d["terms"] == [{"local": "account-executive", "headword": "authorized representative"}]
-    assert set(d["disjoint_with"]) == {"epo:DomainExpertRole", "epo:EvaluationOperatorRole"} and "epo:accountExecutiveRole" in d["instances"]
+    assert d["kind"] == "class" and d["terms"] == [{"local": "authorized-representative", "headword": "authorized representative"}]
+    assert set(d["disjoint_with"]) == {"epo:DomainExpertRole", "epo:EvaluationOperatorRole"} and "epo:authorizedRepresentativeRole" in d["instances"]
     assert d["superclasses"] == ["epo:ActorRole"] and d["pinned_at"] is None
-    r, d = _json("epo", "accountExecutiveRole")
+    r, d = _json("epo", "authorizedRepresentativeRole")
     assert d["kind"] == "role" and d["types"] == ["epo:AuthorizedRepresentativeRole"]
     r, d = _json("epo", "ReportApproval")
     assert d["terms"] == [] and d["comment"] and any(s["id"] == "S7-ReportApproval" for s in d["shapes"]) and any(s["id"] == "S8-Delivery" for s in d["shapes"])
@@ -674,7 +674,7 @@ def test_r3_finding_m5_epo_reader_and_find_indexes_the_epo_labels():
     out = run("find", "report approval").stdout
     assert "epo:ReportApproval" in out and "ogc epo" in out
     rows = _json("find", "authorized representative")[1]["rows"]
-    assert any(x["via"] == "epo:accountExecutiveRole" and x["class"] == "epo role" for x in rows) and rows[0]["via"] != "epo:accountExecutiveRole"  # the term ranks first
+    assert any(x["via"] == "epo:authorizedRepresentativeRole" and x["class"] == "epo role" for x in rows) and rows[0]["via"] != "epo:authorizedRepresentativeRole"  # the term ranks first
     assert any(x["via"] == "epo:Probe" and x["match"] == "exact" for x in _json("find", "probe", "--no-quotes")[1]["rows"])  # labels only still indexes the EPO
 
 

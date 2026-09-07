@@ -816,7 +816,7 @@ term:evaluation-service-provider a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:scopeNote "Tbox audit (sheet 08, on Z's instruction): the provider of the evaluation service, distinguished explicitly from the provider of the AI system under test. Ruling R-21 introduced the party under the headword provider." ;
     prov:wasDerivedFrom rul:R-21 ; prov:wasDerivedFrom rul:R-48 ;
     skos:broader term:provider ;
-    skos:related term:evaluation-customer ; skos:related term:third-party-conformity-assessment-activity ; skos:related term:evaluation-team ; skos:related term:account-executive ; skos:related term:contract ;
+    skos:related term:evaluation-customer ; skos:related term:third-party-conformity-assessment-activity ; skos:related term:evaluation-team ; skos:related term:authorized-representative ; skos:related term:contract ;
     ogc:binding "epo:EvaluationServiceProviderRole; epo:testingOrganizationRole on the service agreement; sysml part def TestingOrganization" .
 
 term:test-item-provider a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -923,12 +923,12 @@ term:contract a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:related term:statement-of-work ;
     skos:related term:evaluation-customer ;
     skos:related term:evaluation-service-provider ;
-    skos:related term:account-executive ;
+    skos:related term:authorized-representative ;
     ogc:binding "sysml item def ServiceAgreement; epo:ServiceAgreement, signed by the sponsor and the authorized representative" .
 
 term:evaluation-team a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "evaluation team"@en ;
-    skos:related term:account-executive ;
+    skos:related term:authorized-representative ;
     skos:altLabel "evaluators"@en ; skos:altLabel "team"@en ;
     skos:definition "The evaluators within the testing organization who jointly perform one evaluation: at least one domain expert and at least one evaluation operator, each an evaluator in the SQuaRE sense, the person who performs an evaluation. What ISO 9000 calls an audit team is the same shape of thing for an audit; the word audit is kept out of the headword because readers hear legal bearing in it that neither standard intends."@en ;
     ogc:class "refined" ;
@@ -964,7 +964,7 @@ term:evaluation-operator a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:related term:red-teaming ;
     ogc:binding "sysml part def EvaluationOperator; epo:evaluationOperatorRole; prov:Person" .
 
-term:account-executive a skos:Concept ; skos:inScheme ogc:Glossary ;
+term:authorized-representative a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "authorized representative"@en ;
     skos:altLabel "account executive"@en ; skos:altLabel "signatory"@en ;
     skos:definition "The person who signs the contract for the testing organization and delivers the report and the recommendation to the sponsor: the organization's interface with its contractual counterparties. The authorized representative is not responsible for the determinations in the report; those belong to the technical experts, and the representative makes no determination and no attestation. An abstract actor category, filled by exactly one named person in each evaluation."@en ;
@@ -973,10 +973,10 @@ term:account-executive a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "acceptance, p. 4 (ISO/IEC/IEEE 24748-5:2017, 3.1) (fragment of the entry)" ; ogc:pdfPage 4 ;
                     ogc:quote "authorized representative of the acquirer" ; ogc:quoteStatus "machine" ] ;
     ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "4.3 first-party conformity assessment activity, Note 1 (the descriptors are not the legal identification of the parties to a contract)" ] ;
-    ogc:scopeNote "Sheet 09 (block B1) and the tbox audit (sheet 08): the headword account executive becomes authorized representative, kept as the alternative label; SEVOCAB's acceptance entry names the authorized representative of the acquirer, and here the phrase is read for the provider's side, the person authorized to sign and deliver for the testing organization. The earlier anchor, ISO 9000:2026 3.1.3 top management, leaves. Concern C-26 (the anchor was provisional) is answered by this entry and closed by ruling R-49, which records the renaming. Z on the role: not responsible for the determination in the report; the interface for the organization with its contractual counterparties. The term's IRI keeps its former local name. Sheet 10-27 (R-50): authorized representatives exist per organization, so there are several in one evaluation; this term names the testing organization's, the acquirer's own is the sponsor's signatory (sheet 10-06), and no canonical definition is read reversed: SEVOCAB's phrase is cited as the standard's word for the role an organization's representative holds, whichever side signs. Z: \"there are multiple authorized representatives since they exist on a per organization basis; avoid reversal of canonical definitions\"." ;
+    ogc:scopeNote "Sheet 09 (block B1) and the tbox audit (sheet 08): the headword account executive becomes authorized representative, kept as the alternative label; SEVOCAB's acceptance entry names the authorized representative of the acquirer, and here the phrase is read for the provider's side, the person authorized to sign and deliver for the testing organization. The earlier anchor, ISO 9000:2026 3.1.3 top management, leaves. Concern C-26 (the anchor was provisional) is answered by this entry and closed by ruling R-49, which records the renaming. Z on the role: not responsible for the determination in the report; the interface for the organization with its contractual counterparties. The term's IRI kept its former local name until 2026-09-07, when Z, ticking W15, asked for the identifiers to follow the headword: the part def, the role individual and the term IRI are now authorized representative's (R-51). Sheet 10-27 (R-50): authorized representatives exist per organization, so there are several in one evaluation; this term names the testing organization's, the acquirer's own is the sponsor's signatory (sheet 10-06), and no canonical definition is read reversed: SEVOCAB's phrase is cited as the standard's word for the role an organization's representative holds, whichever side signs. Z: \"there are multiple authorized representatives since they exist on a per organization basis; avoid reversal of canonical definitions\"." ;
     prov:wasDerivedFrom rul:R-23 ; prov:wasDerivedFrom rul:R-48 ; prov:wasDerivedFrom rul:R-49 ; prov:wasDerivedFrom rul:R-50 ;
     skos:related term:contract ; skos:related term:evaluation-service-provider ; skos:related term:evaluation-team ;
-    ogc:binding "epo:AuthorizedRepresentativeRole; epo:accountExecutiveRole on the service agreement and the delivery; sysml part def AccountExecutive" .
+    ogc:binding "epo:AuthorizedRepresentativeRole; epo:authorizedRepresentativeRole on the service agreement and the delivery; sysml part def AuthorizedRepresentative" .
 
 term:monitoring a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "monitoring"@en ;
@@ -1092,7 +1092,7 @@ src:sevocab_test-strategy a ogc:SourceConcept ; ogc:cites src:sevocab ; ogc:loca
 src:sevocab_test-suite a ogc:SourceConcept ; ogc:cites src:sevocab ; ogc:locator "test suite, p. 439" ; rdfs:label "SEVOCAB test suite, p. 439" .
 
 term:acceptance-criteria skos:exactMatch src:sevocab_acceptance-criteria .
-term:account-executive skos:closeMatch src:sevocab_acceptance .
+term:authorized-representative skos:closeMatch src:sevocab_acceptance .
 term:appropriateness skos:exactMatch src:hawkins-2011_3.2 .
 term:attestation skos:broadMatch src:iso-iec-17000-2020_7.3 .
 term:authoritative-reference skos:closeMatch src:hogan-2021_section-1 .

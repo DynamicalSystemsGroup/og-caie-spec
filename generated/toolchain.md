@@ -23,9 +23,9 @@ Python `>=3.12` (`pyproject.toml`), pinned to `3.12` by `.python-version` so tha
 | Fetched from | `https://github.com/Open-MBEE/OpenSysML/releases/download/v0.4.3` | `toolchain/get-sysml.sh` (`VER=v0.4.3`) |
 | Invocation | `-convert ttl` | `model/model_manifest.json` |
 | Digest file | `toolchain/sysml-binaries.sha256`, sha256 `8efae36144923a29a21aa57d59286442db5ffaaa9a3773fafcc57616ade6f961` | `model/model_manifest.json` |
-| Authoring source | `model/og-caie.sysml`, sha256 `5012d8ac55d687290b2d28d527b4ea137296c5fadb5776f968de80afe1a3a5a9` | `model/model_manifest.json` |
+| Authoring source | `model/og-caie.sysml`, sha256 `4e93a267d226dbe29ebf1166ce707962029b1fe2a3b4d83405749fd306f2d503` | `model/model_manifest.json` |
 | Term map | `model/sysml_term_map.csv`, 59 terms, sha256 `6a58361b86b4a4a0a94c077efdb23a9541da988fca8735f74a4b02c6e4dd270f` | `model/model_manifest.json` |
-| Canonical graph | `model/og-caie.model.ttl`, 5712 triples of 18976 converted (budget 6600, headroom 888), sha256 `ee482d88f2328e128537b75552e8d38b8c6d5dba830d92f4a1885f2834f986f2` | `model/model_manifest.json` |
+| Canonical graph | `model/og-caie.model.ttl`, 5712 triples of 18976 converted (budget 6600, headroom 888), sha256 `6c00b03ec95426dc5ae98981d84790c8ef1710208f9bf4fd4f1205027fcfb745` | `model/model_manifest.json` |
 
 Per platform, the digest the installed binary must hash to (`toolchain/sysml-binaries.sha256`) and the digest the release tarball must hash to before it is unpacked (`toolchain/SHA256SUMS.pinned`); `toolchain/get-sysml.sh` checks both on every run.
 

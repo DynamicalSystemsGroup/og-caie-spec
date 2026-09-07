@@ -4,7 +4,7 @@ flowchart LR
   affected{{"affected : affected population"}}
   sponsor["sponsor : sponsor"]
   sponsor_signatory(["signatory : sponsor signatory"])
-  testingOrg_accountExecutive(["accountExecutive : authorized representative"])
+  testingOrg_authorizedRepresentative(["authorizedRepresentative : authorized representative"])
   testingOrg_recorder[["recorder : recorder"]]
   testingOrg_team_operator(["operator : evaluation operator"])
   testingOrg_team_representative(["representative : population representative"])
@@ -12,19 +12,19 @@ flowchart LR
   accountable -- "TestItemAccess" --> testingOrg_team_operator
   affected -- "StakeholderInput" --> testingOrg_recorder
   affected -- "StakeholderInput" --> testingOrg_team_representative
-  sponsor -- "Mission, Need, StatementOfWork" --> testingOrg_accountExecutive
+  sponsor -- "Mission, Need, StatementOfWork" --> testingOrg_authorizedRepresentative
   sponsor -- "Mission, Need, StatementOfWork" --> testingOrg_recorder
-  sponsor_signatory -- "ServiceAgreement, Acceptance" --> testingOrg_accountExecutive
+  sponsor_signatory -- "ServiceAgreement, Acceptance" --> testingOrg_authorizedRepresentative
   sponsor_signatory -- "Acceptance" --> testingOrg_recorder
-  testingOrg_accountExecutive -- "Proposal, Delivery" --> sponsor
-  testingOrg_accountExecutive -- "Proposal, ServiceAgreement, Delivery" --> testingOrg_recorder
+  testingOrg_authorizedRepresentative -- "Proposal, Delivery" --> sponsor
+  testingOrg_authorizedRepresentative -- "Proposal, ServiceAgreement, Delivery" --> testingOrg_recorder
   sponsor -. "obligation" .-> affected
   classDef person fill:#1b5e20,stroke:#a5d6a7,stroke-width:2px,color:#ffffff;
   classDef machine fill:#880e4f,stroke:#f48fb1,stroke-width:2px,color:#ffffff;
   classDef party fill:#f9a825,stroke:#e65100,stroke-width:2px,stroke-dasharray: 6 3,color:#000000;
   classDef organization fill:#37474f,stroke:#cfd8dc,stroke-width:2px,color:#ffffff;
   linkStyle default stroke:#90a4ae,stroke-width:1.5px;
-  class sponsor_signatory,testingOrg_accountExecutive,testingOrg_team_operator,testingOrg_team_representative person;
+  class sponsor_signatory,testingOrg_authorizedRepresentative,testingOrg_team_operator,testingOrg_team_representative person;
   class testingOrg_recorder machine;
   class affected party;
   class accountable,sponsor organization;

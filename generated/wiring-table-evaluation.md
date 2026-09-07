@@ -1,6 +1,6 @@
 | Part | Port | Direction | Carries | Wire | Other end |
 |---|---|---|---|---|---|
-| AccountExecutive | independenceDeclarationOut | out | IndependenceDeclarationWrite | independenceDeclarationSeam | to Recorder.independenceDeclarationIn |
+| AuthorizedRepresentative | independenceDeclarationOut | out | IndependenceDeclarationWrite | independenceDeclarationSeam | to Recorder.independenceDeclarationIn |
 | ConformanceChecker | recordIn | in | RecordWrite | recordToCheckerSeam | from Recorder.recordOut |
 | ConformanceChecker | verdictOut | out | ConformanceVerdictWrite | verdictSeam | to Recorder.verdictIn |
 | ConformanceChecker | verdictOut | out | ConformanceVerdictWrite | verdictToAssemblerSeam | to ReportAssembler.verdictIn |
@@ -23,7 +23,7 @@
 | Recorder | dsoIn | in | DsoWrite | dsoSeam | from DomainExpert.dsoOut |
 | Recorder | evidenceIn | in | EvidenceWrite | evidenceSeam | from EvaluationOperator.evidenceOut |
 | Recorder | expertDeterminationIn | in | DeterminationWrite | expertDeterminationSeam | from DomainExpert.determinationOut |
-| Recorder | independenceDeclarationIn | in | IndependenceDeclarationWrite | independenceDeclarationSeam | from AccountExecutive.independenceDeclarationOut |
+| Recorder | independenceDeclarationIn | in | IndependenceDeclarationWrite | independenceDeclarationSeam | from AuthorizedRepresentative.independenceDeclarationOut |
 | Recorder | operatorDeterminationIn | in | DeterminationWrite | operatorDeterminationSeam | from EvaluationOperator.determinationOut |
 | Recorder | planApprovalIn | in | PlanApprovalWrite | planApprovalSeam | from DomainExpert.planApprovalOut |
 | Recorder | planDeviationIn | in | PlanDeviationWrite | planDeviationSeam | from EvaluationOperator.planDeviationOut |

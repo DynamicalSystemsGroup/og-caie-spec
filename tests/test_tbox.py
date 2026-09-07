@@ -128,7 +128,7 @@ def test_role_classes_form_a_tree_under_role_and_the_individuals_keep_their_iris
     assert (EPO.EvaluationCustomerRole, OWL.disjointWith, EPO.TestItemCustomerRole) not in g, "the sponsor may also be the test item customer"
     assert (EPO.EvaluationServiceProviderRole, OWL.disjointWith, EPO.TestItemProviderRole) not in g, "disjoint only when independent: a record fact"
     individuals = {EPO.sponsorRole: EPO.EvaluationCustomerRole, EPO.testingOrganizationRole: EPO.EvaluationServiceProviderRole,
-                   EPO.accountableOrganizationRole: EPO.TestItemProviderRole, EPO.accountExecutiveRole: EPO.AuthorizedRepresentativeRole,
+                   EPO.accountableOrganizationRole: EPO.TestItemProviderRole, EPO.authorizedRepresentativeRole: EPO.AuthorizedRepresentativeRole,
                    EPO.domainExpertRole: EPO.DomainExpertRole, EPO.evaluationOperatorRole: EPO.EvaluationOperatorRole, EPO.testItemCustomerRole: EPO.TestItemCustomerRole}
     for ind, cls in individuals.items():
         assert (ind, RDF.type, cls) in g, ind
@@ -142,13 +142,13 @@ def test_glossary_mirrors_the_party_model():
     assert set(g.objects(TERM.provider, SKOS.narrower)) == {TERM["evaluation-service-provider"], TERM["test-item-provider"]}
     assert set(g.objects(TERM.customer, SKOS.narrower)) == {TERM["evaluation-customer"], TERM["test-item-customer"]}
     assert (TERM["evaluation-record"], SKOS.broader, TERM.record) in g and (TERM.record, SKOS.narrower, TERM["evaluation-record"]) in g
-    assert str(g.value(TERM["account-executive"], SKOS.prefLabel)) == "authorized representative"
-    assert "account executive" in {str(a) for a in g.objects(TERM["account-executive"], SKOS.altLabel)}
+    assert str(g.value(TERM["authorized-representative"], SKOS.prefLabel)) == "authorized representative"
+    assert "account executive" in {str(a) for a in g.objects(TERM["authorized-representative"], SKOS.altLabel)}
     assert str(g.value(TERM["test-item-provider"], SKOS.prefLabel)) == "test item provider"
     assert "accountable organization" in {str(a) for a in g.objects(TERM["test-item-provider"], SKOS.altLabel)}
-    canon = g.value(TERM["account-executive"], OGC.canonical)
+    canon = g.value(TERM["authorized-representative"], OGC.canonical)
     assert str(g.value(canon, OGC.cites)).endswith("#sevocab") and "authorized representative of the acquirer" == str(g.value(canon, OGC.quote))
-    assert str(g.value(TERM["account-executive"], OGC.anchorRelation)) == "corresponds"
+    assert str(g.value(TERM["authorized-representative"], OGC.anchorRelation)) == "corresponds"
 
 
 def _types_with_roles(g, n):

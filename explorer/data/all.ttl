@@ -823,7 +823,7 @@ tr:SCI-10 a ogc:Trace ;
         src:iso-9000-2026,
         src:iso-iec-17000-2020 ;
     ogc:tag "machine" ;
-    ogc:usesTerm term:account-executive,
+    ogc:usesTerm term:authorized-representative,
         term:contract,
         term:customer,
         term:evaluation-customer,
@@ -881,7 +881,7 @@ tr:SCI-12 a ogc:Trace ;
         src:iso-9000-2026,
         src:sevocab ;
     ogc:tag "machine" ;
-    ogc:usesTerm term:account-executive,
+    ogc:usesTerm term:authorized-representative,
         term:evaluation-operator,
         term:evaluation-team,
         term:technical-expert .
@@ -975,22 +975,6 @@ elmt:OGCAIE__AccessWrite__i a sysml:ItemUsage ;
     sysml:owner elmt:OGCAIE__AccessWrite ;
     sysml:qualifiedName "OGCAIE::AccessWrite::i" ;
     sysml:type elmt:OGCAIE__TestItemAccess .
-
-elmt:OGCAIE__AccountExecutive___400 a sysml:Documentation ;
-    sysml:body """ Signatory of the service agreement and legal representative
-           of the testing organization (ruling R-23; headword authorized
-           representative, R-49). Countersigns the agreement into the
-           record, reads the record through its view, and delivers the
-           report and the recommendation to the sponsor as one delivery
-           (an activity of its own, R-24); answers the sponsor's need with
-           the proposal and receives the acceptance (R-32). No evidence, determination or
-           attestation port: the authorized representative is not
-           responsible for the determinations in the report; it is the
-           organization's interface with its contractual counterparties
-           (sheet 09), and declares its independence of the test item
-           provider (sheet 10-07). The worked example's Mala. """ ;
-    sysml:owner elmt:OGCAIE__AccountExecutive ;
-    sysml:qualifiedName "OGCAIE::AccountExecutive::@0" .
 
 elmt:OGCAIE__AccountableOrganization___400 a sysml:Documentation ;
     sysml:body """ The organization that provides or is accountable for the
@@ -1116,6 +1100,22 @@ elmt:OGCAIE__Attestation__id a sysml:AttributeUsage ;
     sysml:owner elmt:OGCAIE__Attestation ;
     sysml:qualifiedName "OGCAIE::Attestation::id" ;
     sysml:type "ScalarValues::String" .
+
+elmt:OGCAIE__AuthorizedRepresentative___400 a sysml:Documentation ;
+    sysml:body """ Signatory of the service agreement and legal representative
+           of the testing organization (ruling R-23; headword authorized
+           representative, R-49). Countersigns the agreement into the
+           record, reads the record through its view, and delivers the
+           report and the recommendation to the sponsor as one delivery
+           (an activity of its own, R-24); answers the sponsor's need with
+           the proposal and receives the acceptance (R-32). No evidence, determination or
+           attestation port: the authorized representative is not
+           responsible for the determinations in the report; it is the
+           organization's interface with its contractual counterparties
+           (sheet 09), and declares its independence of the test item
+           provider (sheet 10-07). The worked example's Mala. """ ;
+    sysml:owner elmt:OGCAIE__AuthorizedRepresentative ;
+    sysml:qualifiedName "OGCAIE::AuthorizedRepresentative::@0" .
 
 elmt:OGCAIE__ConformanceChecker___400 a sysml:Documentation ;
     sysml:body """ Machine verification, called conformance (ruling R-16): the
@@ -2352,7 +2352,7 @@ elmt:OGCAIE__OgCaieEvaluation__acceptanceSeam a sysml:InterfaceUsage ;
     sysx:sourceText "interface acceptanceSeam : AcceptanceSeam connect sponsor.signatory.acceptanceOut to testingOrg.recorder.acceptanceIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam a sysml:InterfaceUsage ;
-    ogm:consumerPort elmt:OGCAIE__AccountExecutive__acceptanceIn ;
+    ogm:consumerPort elmt:OGCAIE__AuthorizedRepresentative__acceptanceIn ;
     ogm:supplierPort elmt:OGCAIE__SponsorSignatory__acceptanceOut ;
     sysml:declaredName "acceptanceToExecutiveSeam" ;
     sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
@@ -2360,7 +2360,7 @@ elmt:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam a sysml:InterfaceUsage 
     sysml:type elmt:OGCAIE__AcceptanceSeam ;
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam_pend0,
         expr:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam_pend1 ;
-    sysx:sourceText "interface acceptanceToExecutiveSeam : AcceptanceSeam connect sponsor.signatory.acceptanceOut to testingOrg.accountExecutive.acceptanceIn;" .
+    sysx:sourceText "interface acceptanceToExecutiveSeam : AcceptanceSeam connect sponsor.signatory.acceptanceOut to testingOrg.authorizedRepresentative.acceptanceIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__accessSeam a sysml:InterfaceUsage ;
     ogm:consumerPort elmt:OGCAIE__Recorder__accessIn ;
@@ -2385,7 +2385,7 @@ elmt:OGCAIE__OgCaieEvaluation__accessToOperatorSeam a sysml:InterfaceUsage ;
     sysx:sourceText "interface accessToOperatorSeam : AccessSeam connect accountable.accessOut to testingOrg.team.operator.accessIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__agreementSeam a sysml:InterfaceUsage ;
-    ogm:consumerPort elmt:OGCAIE__AccountExecutive__agreementIn ;
+    ogm:consumerPort elmt:OGCAIE__AuthorizedRepresentative__agreementIn ;
     ogm:supplierPort elmt:OGCAIE__SponsorSignatory__agreementOut ;
     sysml:declaredName "agreementSeam" ;
     sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
@@ -2393,7 +2393,7 @@ elmt:OGCAIE__OgCaieEvaluation__agreementSeam a sysml:InterfaceUsage ;
     sysml:type elmt:OGCAIE__AgreementSeam ;
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__agreementSeam_pend0,
         expr:OGCAIE__OgCaieEvaluation__agreementSeam_pend1 ;
-    sysx:sourceText "interface agreementSeam : AgreementSeam connect sponsor.signatory.agreementOut to testingOrg.accountExecutive.agreementIn;" .
+    sysx:sourceText "interface agreementSeam : AgreementSeam connect sponsor.signatory.agreementOut to testingOrg.authorizedRepresentative.agreementIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__assessmentSeam a sysml:InterfaceUsage ;
     ogm:consumerPort elmt:OGCAIE__Recorder__assessmentIn ;
@@ -2426,36 +2426,36 @@ elmt:OGCAIE__OgCaieEvaluation__contracting a sysml:ActionUsage ;
 
 elmt:OGCAIE__OgCaieEvaluation__countersignSeam a sysml:InterfaceUsage ;
     ogm:consumerPort elmt:OGCAIE__Recorder__agreementIn ;
-    ogm:supplierPort elmt:OGCAIE__AccountExecutive__agreementOut ;
+    ogm:supplierPort elmt:OGCAIE__AuthorizedRepresentative__agreementOut ;
     sysml:declaredName "countersignSeam" ;
     sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
     sysml:qualifiedName "OGCAIE::OgCaieEvaluation::countersignSeam" ;
     sysml:type elmt:OGCAIE__AgreementSeam ;
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__countersignSeam_pend0,
         expr:OGCAIE__OgCaieEvaluation__countersignSeam_pend1 ;
-    sysx:sourceText "interface countersignSeam : AgreementSeam connect testingOrg.accountExecutive.agreementOut to testingOrg.recorder.agreementIn;" .
+    sysx:sourceText "interface countersignSeam : AgreementSeam connect testingOrg.authorizedRepresentative.agreementOut to testingOrg.recorder.agreementIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__deliveryRecordSeam a sysml:InterfaceUsage ;
     ogm:consumerPort elmt:OGCAIE__Recorder__deliveryIn ;
-    ogm:supplierPort elmt:OGCAIE__AccountExecutive__deliveryOut ;
+    ogm:supplierPort elmt:OGCAIE__AuthorizedRepresentative__deliveryOut ;
     sysml:declaredName "deliveryRecordSeam" ;
     sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
     sysml:qualifiedName "OGCAIE::OgCaieEvaluation::deliveryRecordSeam" ;
     sysml:type elmt:OGCAIE__DeliverySeam ;
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__deliveryRecordSeam_pend0,
         expr:OGCAIE__OgCaieEvaluation__deliveryRecordSeam_pend1 ;
-    sysx:sourceText "interface deliveryRecordSeam : DeliverySeam connect testingOrg.accountExecutive.deliveryOut to testingOrg.recorder.deliveryIn;" .
+    sysx:sourceText "interface deliveryRecordSeam : DeliverySeam connect testingOrg.authorizedRepresentative.deliveryOut to testingOrg.recorder.deliveryIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__deliverySeam a sysml:InterfaceUsage ;
     ogm:consumerPort elmt:OGCAIE__SponsorOrganization__deliveryIn ;
-    ogm:supplierPort elmt:OGCAIE__AccountExecutive__deliveryOut ;
+    ogm:supplierPort elmt:OGCAIE__AuthorizedRepresentative__deliveryOut ;
     sysml:declaredName "deliverySeam" ;
     sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
     sysml:qualifiedName "OGCAIE::OgCaieEvaluation::deliverySeam" ;
     sysml:type elmt:OGCAIE__DeliverySeam ;
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__deliverySeam_pend0,
         expr:OGCAIE__OgCaieEvaluation__deliverySeam_pend1 ;
-    sysx:sourceText "interface deliverySeam : DeliverySeam connect testingOrg.accountExecutive.deliveryOut to sponsor.deliveryIn;" .
+    sysx:sourceText "interface deliverySeam : DeliverySeam connect testingOrg.authorizedRepresentative.deliveryOut to sponsor.deliveryIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__derivedProbeSeam a sysml:InterfaceUsage ;
     ogm:consumerPort elmt:OGCAIE__EvaluationOperator__probesIn ;
@@ -2503,14 +2503,14 @@ elmt:OGCAIE__OgCaieEvaluation__expertDeterminationSeam a sysml:InterfaceUsage ;
 
 elmt:OGCAIE__OgCaieEvaluation__independenceDeclarationSeam a sysml:InterfaceUsage ;
     ogm:consumerPort elmt:OGCAIE__Recorder__independenceDeclarationIn ;
-    ogm:supplierPort elmt:OGCAIE__AccountExecutive__independenceDeclarationOut ;
+    ogm:supplierPort elmt:OGCAIE__AuthorizedRepresentative__independenceDeclarationOut ;
     sysml:declaredName "independenceDeclarationSeam" ;
     sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
     sysml:qualifiedName "OGCAIE::OgCaieEvaluation::independenceDeclarationSeam" ;
     sysml:type elmt:OGCAIE__IndependenceDeclarationSeam ;
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__independenceDeclarationSeam_pend0,
         expr:OGCAIE__OgCaieEvaluation__independenceDeclarationSeam_pend1 ;
-    sysx:sourceText "interface independenceDeclarationSeam : IndependenceDeclarationSeam connect testingOrg.accountExecutive.independenceDeclarationOut to testingOrg.recorder.independenceDeclarationIn;" .
+    sysx:sourceText "interface independenceDeclarationSeam : IndependenceDeclarationSeam connect testingOrg.authorizedRepresentative.independenceDeclarationOut to testingOrg.recorder.independenceDeclarationIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__missionSeam a sysml:InterfaceUsage ;
     ogm:consumerPort elmt:OGCAIE__Recorder__missionIn ;
@@ -2524,7 +2524,7 @@ elmt:OGCAIE__OgCaieEvaluation__missionSeam a sysml:InterfaceUsage ;
     sysx:sourceText "interface missionSeam : MissionSeam connect sponsor.missionOut to testingOrg.recorder.missionIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__missionToExecutiveSeam a sysml:InterfaceUsage ;
-    ogm:consumerPort elmt:OGCAIE__AccountExecutive__missionIn ;
+    ogm:consumerPort elmt:OGCAIE__AuthorizedRepresentative__missionIn ;
     ogm:supplierPort elmt:OGCAIE__SponsorOrganization__missionOut ;
     sysml:declaredName "missionToExecutiveSeam" ;
     sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
@@ -2532,7 +2532,7 @@ elmt:OGCAIE__OgCaieEvaluation__missionToExecutiveSeam a sysml:InterfaceUsage ;
     sysml:type elmt:OGCAIE__MissionSeam ;
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__missionToExecutiveSeam_pend0,
         expr:OGCAIE__OgCaieEvaluation__missionToExecutiveSeam_pend1 ;
-    sysx:sourceText "interface missionToExecutiveSeam : MissionSeam connect sponsor.missionOut to testingOrg.accountExecutive.missionIn;" .
+    sysx:sourceText "interface missionToExecutiveSeam : MissionSeam connect sponsor.missionOut to testingOrg.authorizedRepresentative.missionIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__needSeam a sysml:InterfaceUsage ;
     ogm:consumerPort elmt:OGCAIE__Recorder__needIn ;
@@ -2546,7 +2546,7 @@ elmt:OGCAIE__OgCaieEvaluation__needSeam a sysml:InterfaceUsage ;
     sysx:sourceText "interface needSeam : NeedSeam connect sponsor.needOut to testingOrg.recorder.needIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__needToExecutiveSeam a sysml:InterfaceUsage ;
-    ogm:consumerPort elmt:OGCAIE__AccountExecutive__needIn ;
+    ogm:consumerPort elmt:OGCAIE__AuthorizedRepresentative__needIn ;
     ogm:supplierPort elmt:OGCAIE__SponsorOrganization__needOut ;
     sysml:declaredName "needToExecutiveSeam" ;
     sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
@@ -2554,7 +2554,7 @@ elmt:OGCAIE__OgCaieEvaluation__needToExecutiveSeam a sysml:InterfaceUsage ;
     sysml:type elmt:OGCAIE__NeedSeam ;
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__needToExecutiveSeam_pend0,
         expr:OGCAIE__OgCaieEvaluation__needToExecutiveSeam_pend1 ;
-    sysx:sourceText "interface needToExecutiveSeam : NeedSeam connect sponsor.needOut to testingOrg.accountExecutive.needIn;" .
+    sysx:sourceText "interface needToExecutiveSeam : NeedSeam connect sponsor.needOut to testingOrg.authorizedRepresentative.needIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__obligation a sysml:ConnectionUsage ;
     ogm:relatesFrom elmt:OGCAIE__OgCaieEvaluation__sponsor ;
@@ -2635,25 +2635,25 @@ elmt:OGCAIE__OgCaieEvaluation__probeRunSeam a sysml:InterfaceUsage ;
 
 elmt:OGCAIE__OgCaieEvaluation__proposalSeam a sysml:InterfaceUsage ;
     ogm:consumerPort elmt:OGCAIE__Recorder__proposalIn ;
-    ogm:supplierPort elmt:OGCAIE__AccountExecutive__proposalOut ;
+    ogm:supplierPort elmt:OGCAIE__AuthorizedRepresentative__proposalOut ;
     sysml:declaredName "proposalSeam" ;
     sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
     sysml:qualifiedName "OGCAIE::OgCaieEvaluation::proposalSeam" ;
     sysml:type elmt:OGCAIE__ProposalSeam ;
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__proposalSeam_pend0,
         expr:OGCAIE__OgCaieEvaluation__proposalSeam_pend1 ;
-    sysx:sourceText "interface proposalSeam : ProposalSeam connect testingOrg.accountExecutive.proposalOut to testingOrg.recorder.proposalIn;" .
+    sysx:sourceText "interface proposalSeam : ProposalSeam connect testingOrg.authorizedRepresentative.proposalOut to testingOrg.recorder.proposalIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__proposalToSponsorSeam a sysml:InterfaceUsage ;
     ogm:consumerPort elmt:OGCAIE__SponsorOrganization__proposalIn ;
-    ogm:supplierPort elmt:OGCAIE__AccountExecutive__proposalOut ;
+    ogm:supplierPort elmt:OGCAIE__AuthorizedRepresentative__proposalOut ;
     sysml:declaredName "proposalToSponsorSeam" ;
     sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
     sysml:qualifiedName "OGCAIE::OgCaieEvaluation::proposalToSponsorSeam" ;
     sysml:type elmt:OGCAIE__ProposalSeam ;
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__proposalToSponsorSeam_pend0,
         expr:OGCAIE__OgCaieEvaluation__proposalToSponsorSeam_pend1 ;
-    sysx:sourceText "interface proposalToSponsorSeam : ProposalSeam connect testingOrg.accountExecutive.proposalOut to sponsor.proposalIn;" .
+    sysx:sourceText "interface proposalToSponsorSeam : ProposalSeam connect testingOrg.authorizedRepresentative.proposalOut to sponsor.proposalIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__recommendationSeam a sysml:InterfaceUsage ;
     ogm:consumerPort elmt:OGCAIE__Recorder__recommendationIn ;
@@ -2799,7 +2799,7 @@ elmt:OGCAIE__OgCaieEvaluation__statementOfWorkSeam a sysml:InterfaceUsage ;
     sysx:sourceText "interface statementOfWorkSeam : StatementOfWorkSeam connect sponsor.statementOfWorkOut to testingOrg.recorder.statementOfWorkIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam a sysml:InterfaceUsage ;
-    ogm:consumerPort elmt:OGCAIE__AccountExecutive__statementOfWorkIn ;
+    ogm:consumerPort elmt:OGCAIE__AuthorizedRepresentative__statementOfWorkIn ;
     ogm:supplierPort elmt:OGCAIE__SponsorOrganization__statementOfWorkOut ;
     sysml:declaredName "statementOfWorkToExecutiveSeam" ;
     sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
@@ -2807,7 +2807,7 @@ elmt:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam a sysml:InterfaceU
     sysml:type elmt:OGCAIE__StatementOfWorkSeam ;
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam_pend0,
         expr:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam_pend1 ;
-    sysx:sourceText "interface statementOfWorkToExecutiveSeam : StatementOfWorkSeam connect sponsor.statementOfWorkOut to testingOrg.accountExecutive.statementOfWorkIn;" .
+    sysx:sourceText "interface statementOfWorkToExecutiveSeam : StatementOfWorkSeam connect sponsor.statementOfWorkOut to testingOrg.authorizedRepresentative.statementOfWorkIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__userInterestDeclarationSeam a sysml:InterfaceUsage ;
     ogm:consumerPort elmt:OGCAIE__Recorder__userInterestDeclarationIn ;
@@ -3844,12 +3844,12 @@ ogc:M4-Steps a sh:NodeShape ;
     sh:targetClass sysml:ActionDefinition .
 
 ogc:M5-Cardinality a sh:NodeShape ;
-    sh:sparql [ sh:message "The testing organization holds exactly one authorized representative (AccountExecutive) (R-23)." ;
+    sh:sparql [ sh:message "The testing organization holds exactly one authorized representative (AuthorizedRepresentative) (R-23)." ;
             sh:select """
             PREFIX sysml: <https://www.omg.org/spec/SysML#>
             SELECT $this (COUNT(?u) AS ?value) WHERE {
                 $this sysml:declaredName "TestingOrganization" .
-                OPTIONAL { ?u a sysml:PartUsage ; sysml:owner $this ; sysml:type ?t . ?t sysml:declaredName "AccountExecutive" . }
+                OPTIONAL { ?u a sysml:PartUsage ; sysml:owner $this ; sysml:type ?t . ?t sysml:declaredName "AuthorizedRepresentative" . }
             } GROUP BY $this HAVING (COUNT(?u) != 1)
         """ ],
         [ sh:message "The sponsor organization holds exactly one signatory (SponsorSignatory), the named person who signs, approves the requirement set and accepts on its behalf (sheet 10-06, R-50)." ;
@@ -3902,9 +3902,9 @@ ogc:M5-PortsBelongToRoles a sh:NodeShape ;
                 FILTER NOT EXISTS { $this sysml:isEnd true }
                 $this sysml:type ?t ; sysml:owner ?o . ?t sysml:declaredName ?tn . ?o sysml:declaredName ?value .
                 OPTIONAL { $this sysml:isConjugated ?c }
-                FILTER( (?tn = "AgreementWrite" && !BOUND(?c) && ?value NOT IN ("SponsorSignatory", "AccountExecutive"))
-                     || (?value = "AccountExecutive" && !BOUND(?c) && ?tn NOT IN ("AgreementWrite", "DeliveryWrite", "ProposalWrite", "IndependenceDeclarationWrite"))
-                     || (?value = "AccountExecutive" && ?tn IN ("EvidenceWrite", "DeterminationWrite", "AttestationWrite")) )
+                FILTER( (?tn = "AgreementWrite" && !BOUND(?c) && ?value NOT IN ("SponsorSignatory", "AuthorizedRepresentative"))
+                     || (?value = "AuthorizedRepresentative" && !BOUND(?c) && ?tn NOT IN ("AgreementWrite", "DeliveryWrite", "ProposalWrite", "IndependenceDeclarationWrite"))
+                     || (?value = "AuthorizedRepresentative" && ?tn IN ("EvidenceWrite", "DeterminationWrite", "AttestationWrite")) )
             }
         """ ],
         [ sh:message "Where the sponsor signs, the port is its signatory's (sheet 10-06): the acceptance, the requirement-set approval and the user-interest declaration are supplied only by SponsorSignatory, a Person, and the sponsor organization supplies none of them." ;
@@ -3920,25 +3920,25 @@ ogc:M5-PortsBelongToRoles a sh:NodeShape ;
     sh:targetClass sysml:PortUsage .
 
 ogc:M5-Roles a sh:NodeShape ;
-    sh:sparql [ sh:message "The three actor categories are distinct part definitions of Person: DomainExpert, EvaluationOperator, AccountExecutive (R-10, R-23)." ;
+    sh:sparql [ sh:message "The three actor categories are distinct part definitions of Person: DomainExpert, EvaluationOperator, AuthorizedRepresentative (R-10, R-23)." ;
             sh:select """
             PREFIX sysml: <https://www.omg.org/spec/SysML#>
             SELECT $this ?value WHERE {
                 FILTER NOT EXISTS { $this sysml:owner ?parent }
-                { BIND("DomainExpert" AS ?value) } UNION { BIND("EvaluationOperator" AS ?value) } UNION { BIND("AccountExecutive" AS ?value) }
+                { BIND("DomainExpert" AS ?value) } UNION { BIND("EvaluationOperator" AS ?value) } UNION { BIND("AuthorizedRepresentative" AS ?value) }
                 FILTER NOT EXISTS {
                     ?d a sysml:PartDefinition ; sysml:owner $this ; sysml:declaredName ?value ; sysml:specializes ?p .
                     ?p sysml:declaredName "Person" .
                 }
             }
         """ ],
-        [ sh:message "The testing organization holds an authorized representative (AccountExecutive) and a team of at least one domain expert and one evaluation operator." ;
+        [ sh:message "The testing organization holds an authorized representative (AuthorizedRepresentative) and a team of at least one domain expert and one evaluation operator." ;
             sh:select """
             PREFIX sysml: <https://www.omg.org/spec/SysML#>
             SELECT $this ?value WHERE {
                 FILTER NOT EXISTS { $this sysml:owner ?parent }
                 ?org a sysml:PartDefinition ; sysml:owner $this ; sysml:declaredName "TestingOrganization" .
-                { BIND("AccountExecutive" AS ?value) } UNION { BIND("DomainExpert" AS ?value) } UNION { BIND("EvaluationOperator" AS ?value) }
+                { BIND("AuthorizedRepresentative" AS ?value) } UNION { BIND("DomainExpert" AS ?value) } UNION { BIND("EvaluationOperator" AS ?value) }
                 FILTER NOT EXISTS {
                     ?u a sysml:PartUsage ; sysml:type ?t ; sysml:owner ?holder . ?t sysml:declaredName ?value .
                     FILTER(?holder = ?org || EXISTS { ?tu a sysml:PartUsage ; sysml:owner ?org ; sysml:type ?holder })
@@ -4060,7 +4060,7 @@ ogc:S0-Proposal a sh:NodeShape ;
             PREFIX prov: <http://www.w3.org/ns/prov#>
             PREFIX sysml: <https://www.omg.org/spec/SysML#>
             SELECT $this WHERE {
-                { FILTER NOT EXISTS { $this prov:wasAttributedTo ?p . ?p epo:role epo:accountExecutiveRole } }
+                { FILTER NOT EXISTS { $this prov:wasAttributedTo ?p . ?p epo:role epo:authorizedRepresentativeRole } }
                 UNION { $this epo:respondsTo ?n ; prov:generatedAtTime ?t1 . ?n prov:generatedAtTime ?t0 . FILTER(?t1 <= ?t0) }
                 UNION { FILTER NOT EXISTS { $this a ?cls . ?kind ogm:realizes ?cls . ?p sysml:type ?kind ; sysml:direction "out" ; sysml:owner ?act . ?act ogm:realizes epo:propose } }
             }
@@ -4089,8 +4089,8 @@ ogc:S0-Roles a sh:NodeShape ;
             SELECT $this ?value WHERE {
                 $this epo:role ?r1 ; epo:role ?value .
                 FILTER(?r1 != ?value)
-                FILTER(?r1 IN (epo:domainExpertRole, epo:evaluationOperatorRole, epo:accountExecutiveRole, epo:sponsorSignatoryRole))
-                FILTER(?value IN (epo:domainExpertRole, epo:evaluationOperatorRole, epo:accountExecutiveRole, epo:sponsorSignatoryRole))
+                FILTER(?r1 IN (epo:domainExpertRole, epo:evaluationOperatorRole, epo:authorizedRepresentativeRole, epo:sponsorSignatoryRole))
+                FILTER(?value IN (epo:domainExpertRole, epo:evaluationOperatorRole, epo:authorizedRepresentativeRole, epo:sponsorSignatoryRole))
             }
         """ ] ;
     sh:targetClass prov:Person .
@@ -4236,7 +4236,7 @@ ogc:S8-Delivery a sh:NodeShape ;
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX prov: <http://www.w3.org/ns/prov#>
             SELECT $this WHERE {
-                { FILTER NOT EXISTS { $this prov:wasAttributedTo ?p . ?p epo:role epo:accountExecutiveRole } }
+                { FILTER NOT EXISTS { $this prov:wasAttributedTo ?p . ?p epo:role epo:authorizedRepresentativeRole } }
                 UNION { FILTER NOT EXISTS { $this epo:deliveredTo ?o . ?o epo:role epo:sponsorRole } }
                 UNION { FILTER NOT EXISTS { $this prov:wasDerivedFrom ?r . ?r a epo:Report ; epo:draft false } }
                 UNION { FILTER NOT EXISTS { $this prov:wasDerivedFrom ?c . ?c a epo:Recommendation } }
@@ -4385,9 +4385,6 @@ epo:accessUntil a owl:DatatypeProperty ;
     rdfs:domain epo:TestItemAccess ;
     rdfs:range xsd:dateTime .
 
-epo:accountExecutiveRole a epo:AuthorizedRepresentativeRole ;
-    rdfs:label "authorized representative (formerly account executive): signs the agreement for the testing organization, declares its independence, and delivers the report; the organization's interface with its contractual counterparties, not responsible for the determinations in the report" .
-
 epo:accountableOrganizationRole a epo:TestItemProviderRole ;
     rdfs:label "test item provider (accountable organization, ISO/IEC 17000 first party): provides the test item and access to it" .
 
@@ -4428,6 +4425,9 @@ epo:approves a owl:ObjectProperty ;
 epo:approvesReport a owl:ObjectProperty ;
     rdfs:domain epo:ReportApproval ;
     rdfs:range epo:Report .
+
+epo:authorizedRepresentativeRole a epo:AuthorizedRepresentativeRole ;
+    rdfs:label "authorized representative (formerly account executive): signs the agreement for the testing organization, declares its independence, and delivers the report; the organization's interface with its contractual counterparties, not responsible for the determinations in the report" .
 
 epo:bearsOn a owl:ObjectProperty ;
     rdfs:comment "the criterion whose expected result this evidence item bears on (R-18, R-20)" ;
@@ -4806,9 +4806,9 @@ ev:coverage-computation a epo:CoverageComputation ;
         ev:conformance-verdict-1,
         ev:requirement-set ;
     prov:wasAssociatedWith ev:report-assembler ;
-    epo:ontologyDigest "6dd07afba5ed4091d4970bf2af3cf4dbc2b072fc9c8dde424335653917f0700b" ;
+    epo:ontologyDigest "5b8799330d65f30095ca256959adeb0558e589447547ab01d80e5810bc921c4e" ;
     epo:queryDigest "3ab9dc711479d53340c97c31be23dc071f5c8ed99a19378b4f1899e632325134" ;
-    epo:shapesDigest "463d2baec4320206b2cf1b42e1350d944d24bfbc37d3b60669fed78ae5d2d9c9" ;
+    epo:shapesDigest "72b98bf66a413fb4341545546caceb0876a50b27ea04822803075506ae570f38" ;
     ogc:inRecord ev:record ;
     ogc:synthetic true .
 
@@ -5193,7 +5193,7 @@ rul:C-24 a ogc:Concern ;
 rul:C-26 a ogc:Concern ;
     rdfs:label "account executive: canonical anchor" ;
     prov:wasGeneratedBy rul:model-revision-planning-2026-09-06 ;
-    ogc:concernsTerm term:account-executive ;
+    ogc:concernsTerm term:authorized-representative ;
     ogc:problem "No ranked source defines account executive. The entry is anchored, provisionally, as a specialization of ISO 9000:2026 3.1.3 top management (the person top management authorizes to sign for the organization); ISO/IEC 17000 4.3 Note 1 (parties to a contract) and 4.6 conformity assessment body are the alternatives. Z to confirm or redirect." ;
     ogc:severity "L" ;
     ogc:status "ruled" ;
@@ -5203,7 +5203,7 @@ rul:C-26 a ogc:Concern ;
 rul:C-27 a ogc:Concern ;
     rdfs:label "port reuse across actor categories: activities confused with actors" ;
     prov:wasGeneratedBy rul:model-revision-planning-2026-09-06 ;
-    ogc:concernsTerm term:account-executive ;
+    ogc:concernsTerm term:authorized-representative ;
     ogc:problem "The first structure-only model let the account executive deliver the report and the recommendation through ports typed by the operator's RecommendationWrite and the calculator's ReportWrite, and the wiring test excused the reuse as by design. Delivering is a different activity from recommending, with its own output." ;
     ogc:severity "M" ;
     ogc:status "ruled" ;
@@ -6848,17 +6848,17 @@ expr:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam_pend0_pa0_pa0 a sysml:F
     sysx:sourceText "sponsor" .
 
 expr:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam_pend1 a sysml:FeatureChainExpression ;
-    ogm:endPart elmt:OGCAIE__TestingOrganization__accountExecutive ;
-    ogm:resolvesTo elmt:OGCAIE__AccountExecutive__acceptanceIn ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__authorizedRepresentative ;
+    ogm:resolvesTo elmt:OGCAIE__AuthorizedRepresentative__acceptanceIn ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam_pend1_pa0 ;
     sysml:targetFeature "acceptanceIn" ;
     sysx:endIndex 1 ;
-    sysx:sourceText "testingOrg.accountExecutive.acceptanceIn" .
+    sysx:sourceText "testingOrg.authorizedRepresentative.acceptanceIn" .
 
 expr:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam_pend1_pa0 a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam_pend1_pa0_pa0 ;
-    sysml:targetFeature "accountExecutive" ;
-    sysx:sourceText "testingOrg.accountExecutive" .
+    sysml:targetFeature "authorizedRepresentative" ;
+    sysx:sourceText "testingOrg.authorizedRepresentative" .
 
 expr:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam_pend1_pa0_pa0 a sysml:FeatureReferenceExpression ;
     sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
@@ -6952,17 +6952,17 @@ expr:OGCAIE__OgCaieEvaluation__agreementSeam_pend0_pa0_pa0 a sysml:FeatureRefere
     sysx:sourceText "sponsor" .
 
 expr:OGCAIE__OgCaieEvaluation__agreementSeam_pend1 a sysml:FeatureChainExpression ;
-    ogm:endPart elmt:OGCAIE__TestingOrganization__accountExecutive ;
-    ogm:resolvesTo elmt:OGCAIE__AccountExecutive__agreementIn ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__authorizedRepresentative ;
+    ogm:resolvesTo elmt:OGCAIE__AuthorizedRepresentative__agreementIn ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__agreementSeam_pend1_pa0 ;
     sysml:targetFeature "agreementIn" ;
     sysx:endIndex 1 ;
-    sysx:sourceText "testingOrg.accountExecutive.agreementIn" .
+    sysx:sourceText "testingOrg.authorizedRepresentative.agreementIn" .
 
 expr:OGCAIE__OgCaieEvaluation__agreementSeam_pend1_pa0 a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__agreementSeam_pend1_pa0_pa0 ;
-    sysml:targetFeature "accountExecutive" ;
-    sysx:sourceText "testingOrg.accountExecutive" .
+    sysml:targetFeature "authorizedRepresentative" ;
+    sysx:sourceText "testingOrg.authorizedRepresentative" .
 
 expr:OGCAIE__OgCaieEvaluation__agreementSeam_pend1_pa0_pa0 a sysml:FeatureReferenceExpression ;
     sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
@@ -7047,17 +7047,17 @@ expr:OGCAIE__OgCaieEvaluation__attestationSeam_pend1_pa0_pa0 a sysml:FeatureRefe
     sysx:sourceText "testingOrg" .
 
 expr:OGCAIE__OgCaieEvaluation__countersignSeam_pend0 a sysml:FeatureChainExpression ;
-    ogm:endPart elmt:OGCAIE__TestingOrganization__accountExecutive ;
-    ogm:resolvesTo elmt:OGCAIE__AccountExecutive__agreementOut ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__authorizedRepresentative ;
+    ogm:resolvesTo elmt:OGCAIE__AuthorizedRepresentative__agreementOut ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__countersignSeam_pend0_pa0 ;
     sysml:targetFeature "agreementOut" ;
     sysx:endIndex 0 ;
-    sysx:sourceText "testingOrg.accountExecutive.agreementOut" .
+    sysx:sourceText "testingOrg.authorizedRepresentative.agreementOut" .
 
 expr:OGCAIE__OgCaieEvaluation__countersignSeam_pend0_pa0 a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__countersignSeam_pend0_pa0_pa0 ;
-    sysml:targetFeature "accountExecutive" ;
-    sysx:sourceText "testingOrg.accountExecutive" .
+    sysml:targetFeature "authorizedRepresentative" ;
+    sysx:sourceText "testingOrg.authorizedRepresentative" .
 
 expr:OGCAIE__OgCaieEvaluation__countersignSeam_pend0_pa0_pa0 a sysml:FeatureReferenceExpression ;
     sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
@@ -7081,17 +7081,17 @@ expr:OGCAIE__OgCaieEvaluation__countersignSeam_pend1_pa0_pa0 a sysml:FeatureRefe
     sysx:sourceText "testingOrg" .
 
 expr:OGCAIE__OgCaieEvaluation__deliveryRecordSeam_pend0 a sysml:FeatureChainExpression ;
-    ogm:endPart elmt:OGCAIE__TestingOrganization__accountExecutive ;
-    ogm:resolvesTo elmt:OGCAIE__AccountExecutive__deliveryOut ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__authorizedRepresentative ;
+    ogm:resolvesTo elmt:OGCAIE__AuthorizedRepresentative__deliveryOut ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__deliveryRecordSeam_pend0_pa0 ;
     sysml:targetFeature "deliveryOut" ;
     sysx:endIndex 0 ;
-    sysx:sourceText "testingOrg.accountExecutive.deliveryOut" .
+    sysx:sourceText "testingOrg.authorizedRepresentative.deliveryOut" .
 
 expr:OGCAIE__OgCaieEvaluation__deliveryRecordSeam_pend0_pa0 a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__deliveryRecordSeam_pend0_pa0_pa0 ;
-    sysml:targetFeature "accountExecutive" ;
-    sysx:sourceText "testingOrg.accountExecutive" .
+    sysml:targetFeature "authorizedRepresentative" ;
+    sysx:sourceText "testingOrg.authorizedRepresentative" .
 
 expr:OGCAIE__OgCaieEvaluation__deliveryRecordSeam_pend0_pa0_pa0 a sysml:FeatureReferenceExpression ;
     sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
@@ -7115,17 +7115,17 @@ expr:OGCAIE__OgCaieEvaluation__deliveryRecordSeam_pend1_pa0_pa0 a sysml:FeatureR
     sysx:sourceText "testingOrg" .
 
 expr:OGCAIE__OgCaieEvaluation__deliverySeam_pend0 a sysml:FeatureChainExpression ;
-    ogm:endPart elmt:OGCAIE__TestingOrganization__accountExecutive ;
-    ogm:resolvesTo elmt:OGCAIE__AccountExecutive__deliveryOut ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__authorizedRepresentative ;
+    ogm:resolvesTo elmt:OGCAIE__AuthorizedRepresentative__deliveryOut ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__deliverySeam_pend0_pa0 ;
     sysml:targetFeature "deliveryOut" ;
     sysx:endIndex 0 ;
-    sysx:sourceText "testingOrg.accountExecutive.deliveryOut" .
+    sysx:sourceText "testingOrg.authorizedRepresentative.deliveryOut" .
 
 expr:OGCAIE__OgCaieEvaluation__deliverySeam_pend0_pa0 a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__deliverySeam_pend0_pa0_pa0 ;
-    sysml:targetFeature "accountExecutive" ;
-    sysx:sourceText "testingOrg.accountExecutive" .
+    sysml:targetFeature "authorizedRepresentative" ;
+    sysx:sourceText "testingOrg.authorizedRepresentative" .
 
 expr:OGCAIE__OgCaieEvaluation__deliverySeam_pend0_pa0_pa0 a sysml:FeatureReferenceExpression ;
     sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
@@ -7300,17 +7300,17 @@ expr:OGCAIE__OgCaieEvaluation__expertDeterminationSeam_pend1_pa0_pa0 a sysml:Fea
     sysx:sourceText "testingOrg" .
 
 expr:OGCAIE__OgCaieEvaluation__independenceDeclarationSeam_pend0 a sysml:FeatureChainExpression ;
-    ogm:endPart elmt:OGCAIE__TestingOrganization__accountExecutive ;
-    ogm:resolvesTo elmt:OGCAIE__AccountExecutive__independenceDeclarationOut ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__authorizedRepresentative ;
+    ogm:resolvesTo elmt:OGCAIE__AuthorizedRepresentative__independenceDeclarationOut ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__independenceDeclarationSeam_pend0_pa0 ;
     sysml:targetFeature "independenceDeclarationOut" ;
     sysx:endIndex 0 ;
-    sysx:sourceText "testingOrg.accountExecutive.independenceDeclarationOut" .
+    sysx:sourceText "testingOrg.authorizedRepresentative.independenceDeclarationOut" .
 
 expr:OGCAIE__OgCaieEvaluation__independenceDeclarationSeam_pend0_pa0 a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__independenceDeclarationSeam_pend0_pa0_pa0 ;
-    sysml:targetFeature "accountExecutive" ;
-    sysx:sourceText "testingOrg.accountExecutive" .
+    sysml:targetFeature "authorizedRepresentative" ;
+    sysx:sourceText "testingOrg.authorizedRepresentative" .
 
 expr:OGCAIE__OgCaieEvaluation__independenceDeclarationSeam_pend0_pa0_pa0 a sysml:FeatureReferenceExpression ;
     sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
@@ -7375,17 +7375,17 @@ expr:OGCAIE__OgCaieEvaluation__missionToExecutiveSeam_pend0_pa0 a sysml:FeatureR
     sysx:sourceText "sponsor" .
 
 expr:OGCAIE__OgCaieEvaluation__missionToExecutiveSeam_pend1 a sysml:FeatureChainExpression ;
-    ogm:endPart elmt:OGCAIE__TestingOrganization__accountExecutive ;
-    ogm:resolvesTo elmt:OGCAIE__AccountExecutive__missionIn ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__authorizedRepresentative ;
+    ogm:resolvesTo elmt:OGCAIE__AuthorizedRepresentative__missionIn ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__missionToExecutiveSeam_pend1_pa0 ;
     sysml:targetFeature "missionIn" ;
     sysx:endIndex 1 ;
-    sysx:sourceText "testingOrg.accountExecutive.missionIn" .
+    sysx:sourceText "testingOrg.authorizedRepresentative.missionIn" .
 
 expr:OGCAIE__OgCaieEvaluation__missionToExecutiveSeam_pend1_pa0 a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__missionToExecutiveSeam_pend1_pa0_pa0 ;
-    sysml:targetFeature "accountExecutive" ;
-    sysx:sourceText "testingOrg.accountExecutive" .
+    sysml:targetFeature "authorizedRepresentative" ;
+    sysx:sourceText "testingOrg.authorizedRepresentative" .
 
 expr:OGCAIE__OgCaieEvaluation__missionToExecutiveSeam_pend1_pa0_pa0 a sysml:FeatureReferenceExpression ;
     sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
@@ -7433,17 +7433,17 @@ expr:OGCAIE__OgCaieEvaluation__needToExecutiveSeam_pend0_pa0 a sysml:FeatureRefe
     sysx:sourceText "sponsor" .
 
 expr:OGCAIE__OgCaieEvaluation__needToExecutiveSeam_pend1 a sysml:FeatureChainExpression ;
-    ogm:endPart elmt:OGCAIE__TestingOrganization__accountExecutive ;
-    ogm:resolvesTo elmt:OGCAIE__AccountExecutive__needIn ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__authorizedRepresentative ;
+    ogm:resolvesTo elmt:OGCAIE__AuthorizedRepresentative__needIn ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__needToExecutiveSeam_pend1_pa0 ;
     sysml:targetFeature "needIn" ;
     sysx:endIndex 1 ;
-    sysx:sourceText "testingOrg.accountExecutive.needIn" .
+    sysx:sourceText "testingOrg.authorizedRepresentative.needIn" .
 
 expr:OGCAIE__OgCaieEvaluation__needToExecutiveSeam_pend1_pa0 a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__needToExecutiveSeam_pend1_pa0_pa0 ;
-    sysml:targetFeature "accountExecutive" ;
-    sysx:sourceText "testingOrg.accountExecutive" .
+    sysml:targetFeature "authorizedRepresentative" ;
+    sysx:sourceText "testingOrg.authorizedRepresentative" .
 
 expr:OGCAIE__OgCaieEvaluation__needToExecutiveSeam_pend1_pa0_pa0 a sysml:FeatureReferenceExpression ;
     sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
@@ -7689,17 +7689,17 @@ expr:OGCAIE__OgCaieEvaluation__probeRunSeam_pend1_pa0_pa0 a sysml:FeatureReferen
     sysx:sourceText "accountable" .
 
 expr:OGCAIE__OgCaieEvaluation__proposalSeam_pend0 a sysml:FeatureChainExpression ;
-    ogm:endPart elmt:OGCAIE__TestingOrganization__accountExecutive ;
-    ogm:resolvesTo elmt:OGCAIE__AccountExecutive__proposalOut ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__authorizedRepresentative ;
+    ogm:resolvesTo elmt:OGCAIE__AuthorizedRepresentative__proposalOut ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__proposalSeam_pend0_pa0 ;
     sysml:targetFeature "proposalOut" ;
     sysx:endIndex 0 ;
-    sysx:sourceText "testingOrg.accountExecutive.proposalOut" .
+    sysx:sourceText "testingOrg.authorizedRepresentative.proposalOut" .
 
 expr:OGCAIE__OgCaieEvaluation__proposalSeam_pend0_pa0 a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__proposalSeam_pend0_pa0_pa0 ;
-    sysml:targetFeature "accountExecutive" ;
-    sysx:sourceText "testingOrg.accountExecutive" .
+    sysml:targetFeature "authorizedRepresentative" ;
+    sysx:sourceText "testingOrg.authorizedRepresentative" .
 
 expr:OGCAIE__OgCaieEvaluation__proposalSeam_pend0_pa0_pa0 a sysml:FeatureReferenceExpression ;
     sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
@@ -7723,17 +7723,17 @@ expr:OGCAIE__OgCaieEvaluation__proposalSeam_pend1_pa0_pa0 a sysml:FeatureReferen
     sysx:sourceText "testingOrg" .
 
 expr:OGCAIE__OgCaieEvaluation__proposalToSponsorSeam_pend0 a sysml:FeatureChainExpression ;
-    ogm:endPart elmt:OGCAIE__TestingOrganization__accountExecutive ;
-    ogm:resolvesTo elmt:OGCAIE__AccountExecutive__proposalOut ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__authorizedRepresentative ;
+    ogm:resolvesTo elmt:OGCAIE__AuthorizedRepresentative__proposalOut ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__proposalToSponsorSeam_pend0_pa0 ;
     sysml:targetFeature "proposalOut" ;
     sysx:endIndex 0 ;
-    sysx:sourceText "testingOrg.accountExecutive.proposalOut" .
+    sysx:sourceText "testingOrg.authorizedRepresentative.proposalOut" .
 
 expr:OGCAIE__OgCaieEvaluation__proposalToSponsorSeam_pend0_pa0 a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__proposalToSponsorSeam_pend0_pa0_pa0 ;
-    sysml:targetFeature "accountExecutive" ;
-    sysx:sourceText "testingOrg.accountExecutive" .
+    sysml:targetFeature "authorizedRepresentative" ;
+    sysx:sourceText "testingOrg.authorizedRepresentative" .
 
 expr:OGCAIE__OgCaieEvaluation__proposalToSponsorSeam_pend0_pa0_pa0 a sysml:FeatureReferenceExpression ;
     sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
@@ -8216,17 +8216,17 @@ expr:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam_pend0_pa0 a sysml:
     sysx:sourceText "sponsor" .
 
 expr:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam_pend1 a sysml:FeatureChainExpression ;
-    ogm:endPart elmt:OGCAIE__TestingOrganization__accountExecutive ;
-    ogm:resolvesTo elmt:OGCAIE__AccountExecutive__statementOfWorkIn ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__authorizedRepresentative ;
+    ogm:resolvesTo elmt:OGCAIE__AuthorizedRepresentative__statementOfWorkIn ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam_pend1_pa0 ;
     sysml:targetFeature "statementOfWorkIn" ;
     sysx:endIndex 1 ;
-    sysx:sourceText "testingOrg.accountExecutive.statementOfWorkIn" .
+    sysx:sourceText "testingOrg.authorizedRepresentative.statementOfWorkIn" .
 
 expr:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam_pend1_pa0 a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam_pend1_pa0_pa0 ;
-    sysml:targetFeature "accountExecutive" ;
-    sysx:sourceText "testingOrg.accountExecutive" .
+    sysml:targetFeature "authorizedRepresentative" ;
+    sysx:sourceText "testingOrg.authorizedRepresentative" .
 
 expr:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam_pend1_pa0_pa0 a sysml:FeatureReferenceExpression ;
     sysml:referent elmt:OGCAIE__OgCaieEvaluation__testingOrg ;
@@ -8352,7 +8352,7 @@ expr:OGCAIE__StatementOfWork__regards_plowerBound a sysml:LiteralInteger ;
 expr:OGCAIE__StatementOfWork__regards_pupperBound a sysml:LiteralInfinity ;
     sysx:sourceText "*" .
 
-expr:OGCAIE__TestingOrganization__accountExecutive_pupperBound a sysml:LiteralInteger ;
+expr:OGCAIE__TestingOrganization__authorizedRepresentative_pupperBound a sysml:LiteralInteger ;
     sysml:value 1 ;
     sysx:sourceText "1" .
 
@@ -8657,7 +8657,7 @@ elmt:OGCAIE__Examples__MeaslesEvaluation___401___401 a sysml:PartUsage ;
 elmt:OGCAIE__Examples__MeaslesEvaluation___403___401 a sysml:PartUsage ;
     sysml:owner elmt:OGCAIE__Examples__MeaslesEvaluation___403 ;
     sysml:qualifiedName "OGCAIE::Examples::MeaslesEvaluation::@3::@1" ;
-    sysml:redefines "accountExecutive" .
+    sysml:redefines "authorizedRepresentative" .
 
 elmt:OGCAIE__Examples__MeaslesEvaluation___403___402__annie a sysml:PartUsage ;
     sysml:declaredName "annie" ;
@@ -9694,58 +9694,58 @@ term:risk-based-testing a skos:Concept ;
             ogc:quoteStatus "machine" ] ;
     ogc:class "adopted" .
 
-elmt:OGCAIE__AccountExecutive__acceptanceIn a sysml:PortUsage ;
-    sysml:declaredName "acceptanceIn" ;
-    sysml:isConjugated true ;
-    sysml:owner elmt:OGCAIE__AccountExecutive ;
-    sysml:qualifiedName "OGCAIE::AccountExecutive::acceptanceIn" ;
-    sysml:type elmt:OGCAIE__AcceptanceWrite .
-
-elmt:OGCAIE__AccountExecutive__agreementIn a sysml:PortUsage ;
-    sysml:declaredName "agreementIn" ;
-    sysml:isConjugated true ;
-    sysml:owner elmt:OGCAIE__AccountExecutive ;
-    sysml:qualifiedName "OGCAIE::AccountExecutive::agreementIn" ;
-    sysml:type elmt:OGCAIE__AgreementWrite .
-
-elmt:OGCAIE__AccountExecutive__agreementOut a sysml:PortUsage ;
-    sysml:declaredName "agreementOut" ;
-    sysml:owner elmt:OGCAIE__AccountExecutive ;
-    sysml:qualifiedName "OGCAIE::AccountExecutive::agreementOut" ;
-    sysml:type elmt:OGCAIE__AgreementWrite .
-
-elmt:OGCAIE__AccountExecutive__independenceDeclarationOut a sysml:PortUsage ;
-    sysml:declaredName "independenceDeclarationOut" ;
-    sysml:owner elmt:OGCAIE__AccountExecutive ;
-    sysml:qualifiedName "OGCAIE::AccountExecutive::independenceDeclarationOut" ;
-    sysml:type elmt:OGCAIE__IndependenceDeclarationWrite .
-
-elmt:OGCAIE__AccountExecutive__missionIn a sysml:PortUsage ;
-    sysml:declaredName "missionIn" ;
-    sysml:isConjugated true ;
-    sysml:owner elmt:OGCAIE__AccountExecutive ;
-    sysml:qualifiedName "OGCAIE::AccountExecutive::missionIn" ;
-    sysml:type elmt:OGCAIE__MissionWrite .
-
-elmt:OGCAIE__AccountExecutive__needIn a sysml:PortUsage ;
-    sysml:declaredName "needIn" ;
-    sysml:isConjugated true ;
-    sysml:owner elmt:OGCAIE__AccountExecutive ;
-    sysml:qualifiedName "OGCAIE::AccountExecutive::needIn" ;
-    sysml:type elmt:OGCAIE__NeedWrite .
-
-elmt:OGCAIE__AccountExecutive__statementOfWorkIn a sysml:PortUsage ;
-    sysml:declaredName "statementOfWorkIn" ;
-    sysml:isConjugated true ;
-    sysml:owner elmt:OGCAIE__AccountExecutive ;
-    sysml:qualifiedName "OGCAIE::AccountExecutive::statementOfWorkIn" ;
-    sysml:type elmt:OGCAIE__StatementOfWorkWrite .
-
 elmt:OGCAIE__AccountableOrganization__testItem a sysml:PartUsage ;
     sysml:declaredName "testItem" ;
     sysml:owner elmt:OGCAIE__AccountableOrganization ;
     sysml:qualifiedName "OGCAIE::AccountableOrganization::testItem" ;
     sysml:type elmt:OGCAIE__TestItem .
+
+elmt:OGCAIE__AuthorizedRepresentative__acceptanceIn a sysml:PortUsage ;
+    sysml:declaredName "acceptanceIn" ;
+    sysml:isConjugated true ;
+    sysml:owner elmt:OGCAIE__AuthorizedRepresentative ;
+    sysml:qualifiedName "OGCAIE::AuthorizedRepresentative::acceptanceIn" ;
+    sysml:type elmt:OGCAIE__AcceptanceWrite .
+
+elmt:OGCAIE__AuthorizedRepresentative__agreementIn a sysml:PortUsage ;
+    sysml:declaredName "agreementIn" ;
+    sysml:isConjugated true ;
+    sysml:owner elmt:OGCAIE__AuthorizedRepresentative ;
+    sysml:qualifiedName "OGCAIE::AuthorizedRepresentative::agreementIn" ;
+    sysml:type elmt:OGCAIE__AgreementWrite .
+
+elmt:OGCAIE__AuthorizedRepresentative__agreementOut a sysml:PortUsage ;
+    sysml:declaredName "agreementOut" ;
+    sysml:owner elmt:OGCAIE__AuthorizedRepresentative ;
+    sysml:qualifiedName "OGCAIE::AuthorizedRepresentative::agreementOut" ;
+    sysml:type elmt:OGCAIE__AgreementWrite .
+
+elmt:OGCAIE__AuthorizedRepresentative__independenceDeclarationOut a sysml:PortUsage ;
+    sysml:declaredName "independenceDeclarationOut" ;
+    sysml:owner elmt:OGCAIE__AuthorizedRepresentative ;
+    sysml:qualifiedName "OGCAIE::AuthorizedRepresentative::independenceDeclarationOut" ;
+    sysml:type elmt:OGCAIE__IndependenceDeclarationWrite .
+
+elmt:OGCAIE__AuthorizedRepresentative__missionIn a sysml:PortUsage ;
+    sysml:declaredName "missionIn" ;
+    sysml:isConjugated true ;
+    sysml:owner elmt:OGCAIE__AuthorizedRepresentative ;
+    sysml:qualifiedName "OGCAIE::AuthorizedRepresentative::missionIn" ;
+    sysml:type elmt:OGCAIE__MissionWrite .
+
+elmt:OGCAIE__AuthorizedRepresentative__needIn a sysml:PortUsage ;
+    sysml:declaredName "needIn" ;
+    sysml:isConjugated true ;
+    sysml:owner elmt:OGCAIE__AuthorizedRepresentative ;
+    sysml:qualifiedName "OGCAIE::AuthorizedRepresentative::needIn" ;
+    sysml:type elmt:OGCAIE__NeedWrite .
+
+elmt:OGCAIE__AuthorizedRepresentative__statementOfWorkIn a sysml:PortUsage ;
+    sysml:declaredName "statementOfWorkIn" ;
+    sysml:isConjugated true ;
+    sysml:owner elmt:OGCAIE__AuthorizedRepresentative ;
+    sysml:qualifiedName "OGCAIE::AuthorizedRepresentative::statementOfWorkIn" ;
+    sysml:type elmt:OGCAIE__StatementOfWorkWrite .
 
 elmt:OGCAIE__ConformanceChecker__recordIn a sysml:PortUsage ;
     sysml:declaredName "recordIn" ;
@@ -10259,7 +10259,7 @@ ogc:S0-Parties a sh:NodeShape ;
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX prov: <http://www.w3.org/ns/prov#>
             SELECT $this WHERE {
-                FILTER NOT EXISTS { $this epo:signedBy ?p . ?p a prov:Person ; epo:role epo:accountExecutiveRole ; prov:actedOnBehalfOf ?t . ?t a prov:Organization ; epo:role epo:testingOrganizationRole }
+                FILTER NOT EXISTS { $this epo:signedBy ?p . ?p a prov:Person ; epo:role epo:authorizedRepresentativeRole ; prov:actedOnBehalfOf ?t . ?t a prov:Organization ; epo:role epo:testingOrganizationRole }
             }
         """ ],
         [ sh:message "S0: the provider fact agrees with the roles (sheet 10-09): the organization that says it provides the test item holds the test item provider's role and the one that holds the role says so; a sponsor that says it does not provide it does not hold the role." ;
@@ -10283,7 +10283,7 @@ ogc:S0-Parties a sh:NodeShape ;
             SELECT $this ?value WHERE {
                 { $this ogc:inRecord ?rec . BIND("no independence declaration" AS ?value)
                   FILTER NOT EXISTS { ?d a epo:IndependenceDeclaration ; ogc:inRecord ?rec ; epo:independentOf ?acc ; prov:wasAttributedTo ?p ; prov:generatedAtTime ?t .
-                                      ?acc epo:role epo:accountableOrganizationRole . ?p epo:role epo:accountExecutiveRole ; prov:actedOnBehalfOf ?org . ?org epo:role epo:testingOrganizationRole } }
+                                      ?acc epo:role epo:accountableOrganizationRole . ?p epo:role epo:authorizedRepresentativeRole ; prov:actedOnBehalfOf ?org . ?org epo:role epo:testingOrganizationRole } }
                 UNION
                 { $this ogc:inRecord ?rec . ?d a epo:IndependenceDeclaration ; ogc:inRecord ?rec ; epo:independentOf ?value ; prov:wasAttributedTo ?p . ?p prov:actedOnBehalfOf ?value }
             }
@@ -10568,9 +10568,9 @@ epo:AppropriatenessValue a owl:Class ;
     ogc:term term:appropriateness .
 
 epo:AuthorizedRepresentativeRole a owl:Class ;
-    rdfs:label "authorized representative: the testing organization's interface with its contractual counterparties (sheet 09; the term's IRI keeps its former local name account-executive)" ;
+    rdfs:label "authorized representative: the testing organization's interface with its contractual counterparties (sheet 09; the term's IRI keeps its former local name authorized-representative)" ;
     rdfs:subClassOf epo:ActorRole ;
-    ogc:term term:account-executive .
+    ogc:term term:authorized-representative .
 
 epo:ConformanceVerdict a owl:Class ;
     rdfs:label "conformance verdict: the checker's automatic assertion that the record is correctly constructed to the shapes, traceable in both directions and covered; its subject is the record, and it precedes the final report (walkthrough, R-49; sheet 10-41, R-50). Carries the digests of the shapes, the ontology and the coverage query it ran (sheet 10-18)" ;
@@ -10642,9 +10642,9 @@ ev:conformance-verdict-1 a epo:ConformanceVerdict ;
     prov:endedAtTime "2026-08-12T09:00:00+00:00"^^xsd:dateTime ;
     prov:used ev:record ;
     prov:wasAssociatedWith ev:pyshacl ;
-    epo:ontologyDigest "6dd07afba5ed4091d4970bf2af3cf4dbc2b072fc9c8dde424335653917f0700b" ;
+    epo:ontologyDigest "5b8799330d65f30095ca256959adeb0558e589447547ab01d80e5810bc921c4e" ;
     epo:queryDigest "3ab9dc711479d53340c97c31be23dc071f5c8ed99a19378b4f1899e632325134" ;
-    epo:shapesDigest "463d2baec4320206b2cf1b42e1350d944d24bfbc37d3b60669fed78ae5d2d9c9" ;
+    epo:shapesDigest "72b98bf66a413fb4341545546caceb0876a50b27ea04822803075506ae570f38" ;
     ogc:inRecord ev:record ;
     ogc:synthetic true .
 
@@ -11261,7 +11261,7 @@ ev:mala a prov:Agent,
     rdfs:label "Mala (authorized representative)" ;
     skos:note "synthetic role-holder; see ev:record" ;
     prov:actedOnBehalfOf ev:humane-intelligence ;
-    epo:role epo:accountExecutiveRole ;
+    epo:role epo:authorizedRepresentativeRole ;
     ogc:inRecord ev:record ;
     ogc:synthetic true .
 
@@ -11321,7 +11321,7 @@ rul:R-51 a ogc:Ruling ;
     ogc:changeNote "The record renamed; ogc:synthetic; the sample report appendix; the four canonicals moved and the SEVOCAB digest's check rows." ;
     ogc:order 51 ;
     ogc:resolves rul:C-56 ;
-    ogc:rulingText "Four rulings given during the sheet 10 walkthrough, after its items. The worked example is the measles evaluation, not the measles run: neither word is a glossary term, run reads at the execution scale (SEVOCAB's test, concern C-14) and case at the scale of SEVOCAB's test case, the anchor of probe, while the whole is one Contextual AI Evaluation and ISO/IEC 17000's conformity assessment; the record's namespace and file are renamed and the prose keeps walkthrough for the narrative (10-42). Synthetic content is tagged as such in the graph, on the measles evaluation's bundle and every member, and the explorer can include or exclude synthetic data (10-43). A sample report for the synthetic measles evaluation becomes the first appendix: a simple dashboard rendered from the record alone, built with d3, that answers the sponsor's question and does not overwhelm; the appendices are reordered and Records and reporting links to it as the sample report for the synthetic case (10-44). The SEVOCAB absence check behind every NIST and reserve canonical is recorded with its date: tester, session, measurement uncertainty, trajectory, appropriateness, sufficiency, attestation, red teaming, operational envelope and coverage are absent; ontology, repeatability, reproducibility and dialog are present in the specification's sense and take SEVOCAB as canonical by the precedence rule, with Gruber, JCGM 200 and NIST AI 700-2 kept as neighbour cites; guardrail and probe are present in another sense and keep their canonicals (10-45). The source ranks are ordinal, 1 to 8, with no reserve or internal class: ISO 9000, SEVOCAB, NIST, W3C, the ISO-family vocabularies, other bodies, academic works, the authors (10-46). Each chapter keeps one references block, the generated sources cited with locators, and MyST's compiled bibliography renders only in the works cited appendix; the prose sheds the source names the block carries (10-47). The sample report is redesigned first, positive and terse, then the synthetic case is redesigned to make the demo, with every criterion planned and attested; a final report requires full coverage, and only a flagged draft may carry gaps; the report's primary reader is an executive who knows the domain and little about AI, the non-profit director or the head of an administration, and the page carries no technical jargon (10-48)." ;
+    ogc:rulingText "Four rulings given during the sheet 10 walkthrough, after its items. The worked example is the measles evaluation, not the measles run: neither word is a glossary term, run reads at the execution scale (SEVOCAB's test, concern C-14) and case at the scale of SEVOCAB's test case, the anchor of probe, while the whole is one Contextual AI Evaluation and ISO/IEC 17000's conformity assessment; the record's namespace and file are renamed and the prose keeps walkthrough for the narrative (10-42). Synthetic content is tagged as such in the graph, on the measles evaluation's bundle and every member, and the explorer can include or exclude synthetic data (10-43). A sample report for the synthetic measles evaluation becomes the first appendix: a simple dashboard rendered from the record alone, built with d3, that answers the sponsor's question and does not overwhelm; the appendices are reordered and Records and reporting links to it as the sample report for the synthetic case (10-44). The SEVOCAB absence check behind every NIST and reserve canonical is recorded with its date: tester, session, measurement uncertainty, trajectory, appropriateness, sufficiency, attestation, red teaming, operational envelope and coverage are absent; ontology, repeatability, reproducibility and dialog are present in the specification's sense and take SEVOCAB as canonical by the precedence rule, with Gruber, JCGM 200 and NIST AI 700-2 kept as neighbour cites; guardrail and probe are present in another sense and keep their canonicals (10-45). The source ranks are ordinal, 1 to 8, with no reserve or internal class: ISO 9000, SEVOCAB, NIST, W3C, the ISO-family vocabularies, other bodies, academic works, the authors (10-46). Each chapter keeps one references block, the generated sources cited with locators, and MyST's compiled bibliography renders only in the works cited appendix; the prose sheds the source names the block carries (10-47). The sample report is redesigned first, positive and terse, then the synthetic case is redesigned to make the demo, with every criterion planned and attested; a final report requires full coverage, and only a flagged draft may carry gaps; the report's primary reader is an executive who knows the domain and little about AI, the non-profit director or the head of an administration, and the page carries no technical jargon (10-48). The identifiers follow the headword authorized representative: the part def, the role individual and the term IRI are renamed, the alternative label account executive kept (10-49)." ;
     ogc:verbatim """10-42 (Z, mid-walkthrough): "measles run" feels off to me. i feel like the term "Case" is more appropriate than "Run" for what we're describing. can you do a canon/glossary check and help me decide -> after the check: "evaluation": the measles evaluation (Recommended)
 10-43 (Z): i also think given that our models cases are synthetic we need to be able to tag synthetic content as such and have a filter toggle that includes/excludes synthetic data in the graph viewer
 10-44 (Z): i also think we want an example "report", strictly speaking it belongs in records and reporting but i think doing more than example content is likely to blow up the page so we could add a new appendix which is the demo report for the synthetic case. we would need to reorder the appendices though. it should probably come first. the idea is that the records and reporting section would have a link to that appendix noting that its a sample report for the synthetic case. it should be a dashboard, you can build it with d3. its more like the graph explorer but its not everything in our model, its precisely the concrete report for the synthetic measles eval. its designed to give the reader something to want to procure. it needs to be simple and intuitive and very clearly answer the question the sponsor wants answered and not overwhelm them with extra info
@@ -11332,7 +11332,8 @@ rul:R-51 a ogc:Ruling ;
 Z (process): "okay you have a ton of work queued up now. my preference is that you make a fresh plan. and you include in that plan a loop for consistency and drift checking because we've made a lot of incremental edits"
 10-48 (Z, on the first dashboard): "okay first try but i think we want a much more positive result in our demo. also the tables are way too verbose. this means we may need to rework the synthetic case. i also don't actually all results that don't have coverage in final reports so we need full coverage or it wouldn't make it to a final report stage. i recommend redesigning the dashboard first. then also redesigning the synthetic case data so it makes a better demo in the dashboard."
 10-48 (Z, addendum): also keep in mind the eval reports primary audience is the non profit exec persona or the head of a government administration or some other executive who doesn't know much about AI, and has some knowledge about the domain.
-10-48 (Z, second addendum): we also need to clean out the technical jargon like "checked by pyshacl" the person who is getting the report doesn't care about that level of technical detail""" .
+10-48 (Z, second addendum): we also need to clean out the technical jargon like "checked by pyshacl" the person who is getting the report doesn't care about that level of technical detail
+10-49 (Z, ticking W15 on sheet 05 after slice A): i thought we change the name of this iri -> Rename all three (Recommended)""" .
 
 term:deployment-sensitivity a skos:Concept ;
     skos:altLabel "risk weight"@en,
@@ -11518,18 +11519,6 @@ elmt:OGCAIE__AccessSeam a sysml:InterfaceDefinition ;
     sysml:owner elmt:OGCAIE ;
     sysml:qualifiedName "OGCAIE::AccessSeam" .
 
-elmt:OGCAIE__AccountExecutive__deliveryOut a sysml:PortUsage ;
-    sysml:declaredName "deliveryOut" ;
-    sysml:owner elmt:OGCAIE__AccountExecutive ;
-    sysml:qualifiedName "OGCAIE::AccountExecutive::deliveryOut" ;
-    sysml:type elmt:OGCAIE__DeliveryWrite .
-
-elmt:OGCAIE__AccountExecutive__proposalOut a sysml:PortUsage ;
-    sysml:declaredName "proposalOut" ;
-    sysml:owner elmt:OGCAIE__AccountExecutive ;
-    sysml:qualifiedName "OGCAIE::AccountExecutive::proposalOut" ;
-    sysml:type elmt:OGCAIE__ProposalWrite .
-
 elmt:OGCAIE__AccountableOrganization a sysml:PartDefinition ;
     sysml:declaredName "AccountableOrganization" ;
     sysml:owner elmt:OGCAIE ;
@@ -11558,6 +11547,18 @@ elmt:OGCAIE__AppropriatenessAssessment a sysml:ItemDefinition ;
     sysml:declaredName "AppropriatenessAssessment" ;
     sysml:owner elmt:OGCAIE ;
     sysml:qualifiedName "OGCAIE::AppropriatenessAssessment" .
+
+elmt:OGCAIE__AuthorizedRepresentative__deliveryOut a sysml:PortUsage ;
+    sysml:declaredName "deliveryOut" ;
+    sysml:owner elmt:OGCAIE__AuthorizedRepresentative ;
+    sysml:qualifiedName "OGCAIE::AuthorizedRepresentative::deliveryOut" ;
+    sysml:type elmt:OGCAIE__DeliveryWrite .
+
+elmt:OGCAIE__AuthorizedRepresentative__proposalOut a sysml:PortUsage ;
+    sysml:declaredName "proposalOut" ;
+    sysml:owner elmt:OGCAIE__AuthorizedRepresentative ;
+    sysml:qualifiedName "OGCAIE::AuthorizedRepresentative::proposalOut" ;
+    sysml:type elmt:OGCAIE__ProposalWrite .
 
 elmt:OGCAIE__ConformanceChecker a sysml:PartDefinition ;
     sysml:declaredName "ConformanceChecker" ;
@@ -12883,32 +12884,6 @@ term:acceptance-criteria a skos:Concept ;
             ogc:quote "The requirement statement is structured and worded such that its realization can be verified to the approving authority's satisfaction." ;
             ogc:quoteStatus "machine" ] .
 
-term:account-executive a skos:Concept ;
-    skos:altLabel "account executive"@en,
-        "signatory"@en ;
-    skos:closeMatch src:sevocab_acceptance ;
-    skos:definition "The person who signs the contract for the testing organization and delivers the report and the recommendation to the sponsor: the organization's interface with its contractual counterparties. The authorized representative is not responsible for the determinations in the report; those belong to the technical experts, and the representative makes no determination and no attestation. An abstract actor category, filled by exactly one named person in each evaluation."@en ;
-    skos:inScheme ogc:Glossary ;
-    skos:prefLabel "authorized representative"@en ;
-    skos:related term:contract,
-        term:evaluation-service-provider,
-        term:evaluation-team ;
-    prov:wasDerivedFrom rul:R-23,
-        rul:R-48,
-        rul:R-49,
-        rul:R-50 ;
-    ogc:anchorRelation "corresponds" ;
-    ogc:binding "epo:AuthorizedRepresentativeRole; epo:accountExecutiveRole on the service agreement and the delivery; sysml part def AccountExecutive" ;
-    ogc:canonical [ ogc:cites src:sevocab ;
-            ogc:locator "acceptance, p. 4 (ISO/IEC/IEEE 24748-5:2017, 3.1) (fragment of the entry)" ;
-            ogc:pdfPage 4 ;
-            ogc:quote "authorized representative of the acquirer" ;
-            ogc:quoteStatus "machine" ] ;
-    ogc:class "refined" ;
-    ogc:scopeNote "Sheet 09 (block B1) and the tbox audit (sheet 08): the headword account executive becomes authorized representative, kept as the alternative label; SEVOCAB's acceptance entry names the authorized representative of the acquirer, and here the phrase is read for the provider's side, the person authorized to sign and deliver for the testing organization. The earlier anchor, ISO 9000:2026 3.1.3 top management, leaves. Concern C-26 (the anchor was provisional) is answered by this entry and closed by ruling R-49, which records the renaming. Z on the role: not responsible for the determination in the report; the interface for the organization with its contractual counterparties. The term's IRI keeps its former local name. Sheet 10-27 (R-50): authorized representatives exist per organization, so there are several in one evaluation; this term names the testing organization's, the acquirer's own is the sponsor's signatory (sheet 10-06), and no canonical definition is read reversed: SEVOCAB's phrase is cited as the standard's word for the role an organization's representative holds, whichever side signs. Z: \"there are multiple authorized representatives since they exist on a per organization basis; avoid reversal of canonical definitions\"." ;
-    ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ;
-            ogc:locator "4.3 first-party conformity assessment activity, Note 1 (the descriptors are not the legal identification of the parties to a contract)" ] .
-
 term:appropriateness a skos:Concept ;
     skos:definition "The expert judgment that the declared context (operational environment, requirement set and Domain-Specific Ontology) was the right frame for the judgment being made. Not whether the system passed, and not whether there was enough evidence."@en ;
     skos:exactMatch src:hawkins-2011_3.2 ;
@@ -12938,6 +12913,32 @@ term:appropriateness a skos:Concept ;
             ogc:quoteStatus "human" ;
             ogc:verifiedBy rul:Z ;
             ogc:verifiedOn "2026-09-06"^^xsd:date ] .
+
+term:authorized-representative a skos:Concept ;
+    skos:altLabel "account executive"@en,
+        "signatory"@en ;
+    skos:closeMatch src:sevocab_acceptance ;
+    skos:definition "The person who signs the contract for the testing organization and delivers the report and the recommendation to the sponsor: the organization's interface with its contractual counterparties. The authorized representative is not responsible for the determinations in the report; those belong to the technical experts, and the representative makes no determination and no attestation. An abstract actor category, filled by exactly one named person in each evaluation."@en ;
+    skos:inScheme ogc:Glossary ;
+    skos:prefLabel "authorized representative"@en ;
+    skos:related term:contract,
+        term:evaluation-service-provider,
+        term:evaluation-team ;
+    prov:wasDerivedFrom rul:R-23,
+        rul:R-48,
+        rul:R-49,
+        rul:R-50 ;
+    ogc:anchorRelation "corresponds" ;
+    ogc:binding "epo:AuthorizedRepresentativeRole; epo:authorizedRepresentativeRole on the service agreement and the delivery; sysml part def AuthorizedRepresentative" ;
+    ogc:canonical [ ogc:cites src:sevocab ;
+            ogc:locator "acceptance, p. 4 (ISO/IEC/IEEE 24748-5:2017, 3.1) (fragment of the entry)" ;
+            ogc:pdfPage 4 ;
+            ogc:quote "authorized representative of the acquirer" ;
+            ogc:quoteStatus "machine" ] ;
+    ogc:class "refined" ;
+    ogc:scopeNote "Sheet 09 (block B1) and the tbox audit (sheet 08): the headword account executive becomes authorized representative, kept as the alternative label; SEVOCAB's acceptance entry names the authorized representative of the acquirer, and here the phrase is read for the provider's side, the person authorized to sign and deliver for the testing organization. The earlier anchor, ISO 9000:2026 3.1.3 top management, leaves. Concern C-26 (the anchor was provisional) is answered by this entry and closed by ruling R-49, which records the renaming. Z on the role: not responsible for the determination in the report; the interface for the organization with its contractual counterparties. The term's IRI kept its former local name until 2026-09-07, when Z, ticking W15, asked for the identifiers to follow the headword: the part def, the role individual and the term IRI are now authorized representative's (R-51). Sheet 10-27 (R-50): authorized representatives exist per organization, so there are several in one evaluation; this term names the testing organization's, the acquirer's own is the sponsor's signatory (sheet 10-06), and no canonical definition is read reversed: SEVOCAB's phrase is cited as the standard's word for the role an organization's representative holds, whichever side signs. Z: \"there are multiple authorized representatives since they exist on a per organization basis; avoid reversal of canonical definitions\"." ;
+    ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ;
+            ogc:locator "4.3 first-party conformity assessment activity, Note 1 (the descriptors are not the legal identification of the parties to a contract)" ] .
 
 term:conformance a skos:Concept ;
     skos:altLabel "correct construction"@en,
@@ -13024,7 +13025,7 @@ term:evaluation-team a skos:Concept ;
     skos:definition "The evaluators within the testing organization who jointly perform one evaluation: at least one domain expert and at least one evaluation operator, each an evaluator in the SQuaRE sense, the person who performs an evaluation. What ISO 9000 calls an audit team is the same shape of thing for an audit; the word audit is kept out of the headword because readers hear legal bearing in it that neither standard intends."@en ;
     skos:inScheme ogc:Glossary ;
     skos:prefLabel "evaluation team"@en ;
-    skos:related term:account-executive,
+    skos:related term:authorized-representative,
         term:evaluation,
         term:evaluation-operator,
         term:evaluation-service-provider,
@@ -13250,7 +13251,7 @@ term:evaluation-service-provider a skos:Concept ;
     skos:definition "The organization that provides the evaluation as a service: the testing organization. Its authorized representative signs the contract and delivers the report, its evaluation team does the work, and its machines keep the record. When it is independent of the test item provider and has no user interest in the test item, its activity is third-party in ISO/IEC 17000's sense; the record states that independence as a fact."@en ;
     skos:inScheme ogc:Glossary ;
     skos:prefLabel "evaluation service provider"@en ;
-    skos:related term:account-executive,
+    skos:related term:authorized-representative,
         term:contract,
         term:evaluation-customer,
         term:evaluation-team,
@@ -13621,10 +13622,10 @@ term:technical-expert a skos:Concept ;
     ogc:class "refined" ;
     ogc:scopeNote "Ruling R-10: the ISO entry is marked <audit>; here the team is an evaluation team, not an audit team, and both the domain expert and the evaluation operator are technical experts on it (R-23 names the second). Assessors of the assessment are out of scope (R-11). Sheet 10-25 (R-50): the standard's Note 2 keeps the technical expert from acting as an auditor (Z: the Note is not quoted, the reading stands in this note); here not all technical experts attest, but every attestation comes from a relevant role, the domain expert, so the term specializes the standard's. Z: \"not all technical experts attest but all attestation must come from relevant roles, in this case a technical expert.\"" .
 
-elmt:OGCAIE__AccountExecutive a sysml:PartDefinition ;
-    sysml:declaredName "AccountExecutive" ;
+elmt:OGCAIE__AuthorizedRepresentative a sysml:PartDefinition ;
+    sysml:declaredName "AuthorizedRepresentative" ;
     sysml:owner elmt:OGCAIE ;
-    sysml:qualifiedName "OGCAIE::AccountExecutive" ;
+    sysml:qualifiedName "OGCAIE::AuthorizedRepresentative" ;
     sysml:specializes elmt:OGCAIE__Person .
 
 elmt:OGCAIE__EvaluationOperator a sysml:PartDefinition ;
@@ -13639,12 +13640,12 @@ elmt:OGCAIE__EvaluationProcess__scope a sysml:ActionUsage ;
     sysml:owner elmt:OGCAIE__EvaluationProcess ;
     sysml:qualifiedName "OGCAIE::EvaluationProcess::scope" .
 
-elmt:OGCAIE__TestingOrganization__accountExecutive a sysml:PartUsage ;
-    sysml:declaredName "accountExecutive" ;
+elmt:OGCAIE__TestingOrganization__authorizedRepresentative a sysml:PartUsage ;
+    sysml:declaredName "authorizedRepresentative" ;
     sysml:owner elmt:OGCAIE__TestingOrganization ;
-    sysml:qualifiedName "OGCAIE::TestingOrganization::accountExecutive" ;
-    sysml:type elmt:OGCAIE__AccountExecutive ;
-    sysml:upperBound expr:OGCAIE__TestingOrganization__accountExecutive_pupperBound .
+    sysml:qualifiedName "OGCAIE::TestingOrganization::authorizedRepresentative" ;
+    sysml:type elmt:OGCAIE__AuthorizedRepresentative ;
+    sysml:upperBound expr:OGCAIE__TestingOrganization__authorizedRepresentative_pupperBound .
 
 epo:Population a owl:Class ;
     rdfs:label "affected population: a population of persons affected by the test item (ISO 9000:2026 3.1.4 interested party), as its customers or indirectly through others' use of it; engaged by interview or by representation, with a responsible party for the engagement" ;
@@ -13678,7 +13679,7 @@ term:contract a skos:Concept ;
     skos:exactMatch src:iso-9000-2026_3.3.13 ;
     skos:inScheme ogc:Glossary ;
     skos:prefLabel "contract"@en ;
-    skos:related term:account-executive,
+    skos:related term:authorized-representative,
         term:evaluation-customer,
         term:evaluation-service-provider,
         term:statement-of-work ;

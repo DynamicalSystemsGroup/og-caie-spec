@@ -345,58 +345,6 @@
     ]
    ]
   },
-  "cite:account-executive:canonical:sevocab:acceptance-p-4-iso-iec-ieee-24748-5-2017-3-1-fragment-of-the-entry": {
-   "in": [],
-   "out": [
-    [
-     "ogc:cites",
-     {
-      "ref": "https://w3id.org/og-caie/sources#sevocab"
-     }
-    ],
-    [
-     "ogc:locator",
-     {
-      "text": "acceptance, p. 4 (ISO/IEC/IEEE 24748-5:2017, 3.1) (fragment of the entry)"
-     }
-    ],
-    [
-     "ogc:pdfPage",
-     {
-      "text": "4"
-     }
-    ],
-    [
-     "ogc:quote",
-     {
-      "text": "authorized representative of the acquirer"
-     }
-    ],
-    [
-     "ogc:quoteStatus",
-     {
-      "text": "machine"
-     }
-    ]
-   ]
-  },
-  "cite:account-executive:seeAlso:iso-iec-17000-2020:4-3-first-party-conformity-assessment-activity-note-1-the-descriptors-are-not-the-legal-identification-of-the-parties-to-a-contract": {
-   "in": [],
-   "out": [
-    [
-     "ogc:cites",
-     {
-      "ref": "https://w3id.org/og-caie/sources#iso-iec-17000-2020"
-     }
-    ],
-    [
-     "ogc:locator",
-     {
-      "text": "4.3 first-party conformity assessment activity, Note 1 (the descriptors are not the legal identification of the parties to a contract)"
-     }
-    ]
-   ]
-  },
   "cite:agree:canonical:sebok-2-14:acquisition-and-supply-p-353-incose-2012-the-acquisition-process": {
    "in": [],
    "out": [
@@ -709,6 +657,58 @@
      "ogc:quoteStatus",
      {
       "text": "machine"
+     }
+    ]
+   ]
+  },
+  "cite:authorized-representative:canonical:sevocab:acceptance-p-4-iso-iec-ieee-24748-5-2017-3-1-fragment-of-the-entry": {
+   "in": [],
+   "out": [
+    [
+     "ogc:cites",
+     {
+      "ref": "https://w3id.org/og-caie/sources#sevocab"
+     }
+    ],
+    [
+     "ogc:locator",
+     {
+      "text": "acceptance, p. 4 (ISO/IEC/IEEE 24748-5:2017, 3.1) (fragment of the entry)"
+     }
+    ],
+    [
+     "ogc:pdfPage",
+     {
+      "text": "4"
+     }
+    ],
+    [
+     "ogc:quote",
+     {
+      "text": "authorized representative of the acquirer"
+     }
+    ],
+    [
+     "ogc:quoteStatus",
+     {
+      "text": "machine"
+     }
+    ]
+   ]
+  },
+  "cite:authorized-representative:seeAlso:iso-iec-17000-2020:4-3-first-party-conformity-assessment-activity-note-1-the-descriptors-are-not-the-legal-identification-of-the-parties-to-a-contract": {
+   "in": [],
+   "out": [
+    [
+     "ogc:cites",
+     {
+      "ref": "https://w3id.org/og-caie/sources#iso-iec-17000-2020"
+     }
+    ],
+    [
+     "ogc:locator",
+     {
+      "text": "4.3 first-party conformity assessment activity, Note 1 (the descriptors are not the legal identification of the parties to a contract)"
      }
     ]
    ]
@@ -8936,7 +8936,7 @@
     [
      "ogc:term",
      {
-      "ref": "https://w3id.org/og-caie/terms#account-executive"
+      "ref": "https://w3id.org/og-caie/terms#authorized-representative"
      }
     ],
     [
@@ -8948,7 +8948,7 @@
     [
      "rdfs:label",
      {
-      "text": "authorized representative: the testing organization's interface with its contractual counterparties (sheet 09; the term's IRI keeps its former local name account-executive)"
+      "text": "authorized representative: the testing organization's interface with its contractual counterparties (sheet 09; the term's IRI keeps its former local name authorized-representative)"
      }
     ],
     [
@@ -11437,23 +11437,6 @@
     ]
    ]
   },
-  "https://w3id.org/og-caie/epo#accountExecutiveRole": {
-   "in": [],
-   "out": [
-    [
-     "rdf:type",
-     {
-      "ref": "https://w3id.org/og-caie/epo#AuthorizedRepresentativeRole"
-     }
-    ],
-    [
-     "rdfs:label",
-     {
-      "text": "authorized representative (formerly account executive): signs the agreement for the testing organization, declares its independence, and delivers the report; the organization's interface with its contractual counterparties, not responsible for the determinations in the report"
-     }
-    ]
-   ]
-  },
   "https://w3id.org/og-caie/epo#accountableOrganizationRole": {
    "in": [],
    "out": [
@@ -11502,6 +11485,23 @@
      "rdfs:label",
      {
       "text": "C3 agree: the service agreement fixes the counterparties, the test item, the requirements' frame and the method"
+     }
+    ]
+   ]
+  },
+  "https://w3id.org/og-caie/epo#authorizedRepresentativeRole": {
+   "in": [],
+   "out": [
+    [
+     "rdf:type",
+     {
+      "ref": "https://w3id.org/og-caie/epo#AuthorizedRepresentativeRole"
+     }
+    ],
+    [
+     "rdfs:label",
+     {
+      "text": "authorized representative (formerly account executive): signs the agreement for the testing organization, declares its independence, and delivers the report; the organization's interface with its contractual counterparties, not responsible for the determinations in the report"
      }
     ]
    ]
@@ -12749,7 +12749,7 @@
     [
      "epo:ontologyDigest",
      {
-      "text": "6dd07afba5ed4091d4970bf2af3cf4dbc2b072fc9c8dde424335653917f0700b"
+      "text": "5b8799330d65f30095ca256959adeb0558e589447547ab01d80e5810bc921c4e"
      }
     ],
     [
@@ -12761,7 +12761,7 @@
     [
      "epo:shapesDigest",
      {
-      "text": "463d2baec4320206b2cf1b42e1350d944d24bfbc37d3b60669fed78ae5d2d9c9"
+      "text": "72b98bf66a413fb4341545546caceb0876a50b27ea04822803075506ae570f38"
      }
     ],
     [
@@ -13003,7 +13003,7 @@
     [
      "epo:ontologyDigest",
      {
-      "text": "6dd07afba5ed4091d4970bf2af3cf4dbc2b072fc9c8dde424335653917f0700b"
+      "text": "5b8799330d65f30095ca256959adeb0558e589447547ab01d80e5810bc921c4e"
      }
     ],
     [
@@ -13015,7 +13015,7 @@
     [
      "epo:shapesDigest",
      {
-      "text": "463d2baec4320206b2cf1b42e1350d944d24bfbc37d3b60669fed78ae5d2d9c9"
+      "text": "72b98bf66a413fb4341545546caceb0876a50b27ea04822803075506ae570f38"
      }
     ],
     [
@@ -13865,7 +13865,7 @@
     [
      "epo:role",
      {
-      "ref": "https://w3id.org/og-caie/epo#accountExecutiveRole"
+      "ref": "https://w3id.org/og-caie/epo#authorizedRepresentativeRole"
      }
     ],
     [
@@ -17123,7 +17123,7 @@
     [
      "ogc:concernsTerm",
      {
-      "ref": "https://w3id.org/og-caie/terms#account-executive"
+      "ref": "https://w3id.org/og-caie/terms#authorized-representative"
      }
     ],
     [
@@ -17182,7 +17182,7 @@
     [
      "ogc:concernsTerm",
      {
-      "ref": "https://w3id.org/og-caie/terms#account-executive"
+      "ref": "https://w3id.org/og-caie/terms#authorized-representative"
      }
     ],
     [
@@ -21524,13 +21524,13 @@
     [
      "ogc:rulingText",
      {
-      "text": "Four rulings given during the sheet 10 walkthrough, after its items. The worked example is the measles evaluation, not the measles run: neither word is a glossary term, run reads at the execution scale (SEVOCAB's test, concern C-14) and case at the scale of SEVOCAB's test case, the anchor of probe, while the whole is one Contextual AI Evaluation and ISO/IEC 17000's conformity assessment; the record's namespace and file are renamed and the prose keeps walkthrough for the narrative (10-42). Synthetic content is tagged as such in the graph, on the measles evaluation's bundle and every member, and the explorer can include or exclude synthetic data (10-43). A sample report for the synthetic measles evaluation becomes the first appendix: a simple dashboard rendered from the record alone, built with d3, that answers the sponsor's question and does not overwhelm; the appendices are reordered and Records and reporting links to it as the sample report for the synthetic case (10-44). The SEVOCAB absence check behind every NIST and reserve canonical is recorded with its date: tester, session, measurement uncertainty, trajectory, appropriateness, sufficiency, attestation, red teaming, operational envelope and coverage are absent; ontology, repeatability, reproducibility and dialog are present in the specification's sense and take SEVOCAB as canonical by the precedence rule, with Gruber, JCGM 200 and NIST AI 700-2 kept as neighbour cites; guardrail and probe are present in another sense and keep their canonicals (10-45). The source ranks are ordinal, 1 to 8, with no reserve or internal class: ISO 9000, SEVOCAB, NIST, W3C, the ISO-family vocabularies, other bodies, academic works, the authors (10-46). Each chapter keeps one references block, the generated sources cited with locators, and MyST's compiled bibliography renders only in the works cited appendix; the prose sheds the source names the block carries (10-47). The sample report is redesigned first, positive and terse, then the synthetic case is redesigned to make the demo, with every criterion planned and attested; a final report requires full coverage, and only a flagged draft may carry gaps; the report's primary reader is an executive who knows the domain and little about AI, the non-profit director or the head of an administration, and the page carries no technical jargon (10-48)."
+      "text": "Four rulings given during the sheet 10 walkthrough, after its items. The worked example is the measles evaluation, not the measles run: neither word is a glossary term, run reads at the execution scale (SEVOCAB's test, concern C-14) and case at the scale of SEVOCAB's test case, the anchor of probe, while the whole is one Contextual AI Evaluation and ISO/IEC 17000's conformity assessment; the record's namespace and file are renamed and the prose keeps walkthrough for the narrative (10-42). Synthetic content is tagged as such in the graph, on the measles evaluation's bundle and every member, and the explorer can include or exclude synthetic data (10-43). A sample report for the synthetic measles evaluation becomes the first appendix: a simple dashboard rendered from the record alone, built with d3, that answers the sponsor's question and does not overwhelm; the appendices are reordered and Records and reporting links to it as the sample report for the synthetic case (10-44). The SEVOCAB absence check behind every NIST and reserve canonical is recorded with its date: tester, session, measurement uncertainty, trajectory, appropriateness, sufficiency, attestation, red teaming, operational envelope and coverage are absent; ontology, repeatability, reproducibility and dialog are present in the specification's sense and take SEVOCAB as canonical by the precedence rule, with Gruber, JCGM 200 and NIST AI 700-2 kept as neighbour cites; guardrail and probe are present in another sense and keep their canonicals (10-45). The source ranks are ordinal, 1 to 8, with no reserve or internal class: ISO 9000, SEVOCAB, NIST, W3C, the ISO-family vocabularies, other bodies, academic works, the authors (10-46). Each chapter keeps one references block, the generated sources cited with locators, and MyST's compiled bibliography renders only in the works cited appendix; the prose sheds the source names the block carries (10-47). The sample report is redesigned first, positive and terse, then the synthetic case is redesigned to make the demo, with every criterion planned and attested; a final report requires full coverage, and only a flagged draft may carry gaps; the report's primary reader is an executive who knows the domain and little about AI, the non-profit director or the head of an administration, and the page carries no technical jargon (10-48). The identifiers follow the headword authorized representative: the part def, the role individual and the term IRI are renamed, the alternative label account executive kept (10-49)."
      }
     ],
     [
      "ogc:verbatim",
      {
-      "text": "10-42 (Z, mid-walkthrough): \"measles run\" feels off to me. i feel like the term \"Case\" is more appropriate than \"Run\" for what we're describing. can you do a canon/glossary check and help me decide -> after the check: \"evaluation\": the measles evaluation (Recommended)\n10-43 (Z): i also think given that our models cases are synthetic we need to be able to tag synthetic content as such and have a filter toggle that includes/excludes synthetic data in the graph viewer\n10-44 (Z): i also think we want an example \"report\", strictly speaking it belongs in records and reporting but i think doing more than example content is likely to blow up the page so we could add a new appendix which is the demo report for the synthetic case. we would need to reorder the appendices though. it should probably come first. the idea is that the records and reporting section would have a link to that appendix noting that its a sample report for the synthetic case. it should be a dashboard, you can build it with d3. its more like the graph explorer but its not everything in our model, its precisely the concrete report for the synthetic measles eval. its designed to give the reader something to want to procure. it needs to be simple and intuitive and very clearly answer the question the sponsor wants answered and not overwhelm them with extra info\n10-45 (the SEVOCAB check the professor asked for, run on the export on 2026-09-07 and put to Z): Move all four to SEVOCAB; guardrail and probe stay (Recommended)\n10-46 (Z): \"i think we need to get rid of the concept of a reserve resource. its okay to keep priority levels as a heuristic for what is prioritized when multiple sources define the same term but i think we should keep it ordinal\"\n10-46 order: Keep 1 to 4; then 5 ISO-family vocabularies (17000, JCGM 200, IEC 60050-351), 6 other bodies (ISA 500, INCOSE GtWR, SEBoK, NIST TN 1297), 7 academic works (Gruber, Hogan, Hawkins, Popper), 8 the authors (Recommended)\n10-47 (Z, with a screenshot of the front page's Sources cited list followed by MyST's compiled References): \"i am also noticing content redundancies such as the references in the prose and the compiled references section on this first page. now that we have references sections throughout we may be able to clean up some of the other text.\"\nZ (process): \"okay you have a ton of work queued up now. my preference is that you make a fresh plan. and you include in that plan a loop for consistency and drift checking because we've made a lot of incremental edits\"\n10-48 (Z, on the first dashboard): \"okay first try but i think we want a much more positive result in our demo. also the tables are way too verbose. this means we may need to rework the synthetic case. i also don't actually all results that don't have coverage in final reports so we need full coverage or it wouldn't make it to a final report stage. i recommend redesigning the dashboard first. then also redesigning the synthetic case data so it makes a better demo in the dashboard.\"\n10-48 (Z, addendum): also keep in mind the eval reports primary audience is the non profit exec persona or the head of a government administration or some other executive who doesn't know much about AI, and has some knowledge about the domain.\n10-48 (Z, second addendum): we also need to clean out the technical jargon like \"checked by pyshacl\" the person who is getting the report doesn't care about that level of technical detail"
+      "text": "10-42 (Z, mid-walkthrough): \"measles run\" feels off to me. i feel like the term \"Case\" is more appropriate than \"Run\" for what we're describing. can you do a canon/glossary check and help me decide -> after the check: \"evaluation\": the measles evaluation (Recommended)\n10-43 (Z): i also think given that our models cases are synthetic we need to be able to tag synthetic content as such and have a filter toggle that includes/excludes synthetic data in the graph viewer\n10-44 (Z): i also think we want an example \"report\", strictly speaking it belongs in records and reporting but i think doing more than example content is likely to blow up the page so we could add a new appendix which is the demo report for the synthetic case. we would need to reorder the appendices though. it should probably come first. the idea is that the records and reporting section would have a link to that appendix noting that its a sample report for the synthetic case. it should be a dashboard, you can build it with d3. its more like the graph explorer but its not everything in our model, its precisely the concrete report for the synthetic measles eval. its designed to give the reader something to want to procure. it needs to be simple and intuitive and very clearly answer the question the sponsor wants answered and not overwhelm them with extra info\n10-45 (the SEVOCAB check the professor asked for, run on the export on 2026-09-07 and put to Z): Move all four to SEVOCAB; guardrail and probe stay (Recommended)\n10-46 (Z): \"i think we need to get rid of the concept of a reserve resource. its okay to keep priority levels as a heuristic for what is prioritized when multiple sources define the same term but i think we should keep it ordinal\"\n10-46 order: Keep 1 to 4; then 5 ISO-family vocabularies (17000, JCGM 200, IEC 60050-351), 6 other bodies (ISA 500, INCOSE GtWR, SEBoK, NIST TN 1297), 7 academic works (Gruber, Hogan, Hawkins, Popper), 8 the authors (Recommended)\n10-47 (Z, with a screenshot of the front page's Sources cited list followed by MyST's compiled References): \"i am also noticing content redundancies such as the references in the prose and the compiled references section on this first page. now that we have references sections throughout we may be able to clean up some of the other text.\"\nZ (process): \"okay you have a ton of work queued up now. my preference is that you make a fresh plan. and you include in that plan a loop for consistency and drift checking because we've made a lot of incremental edits\"\n10-48 (Z, on the first dashboard): \"okay first try but i think we want a much more positive result in our demo. also the tables are way too verbose. this means we may need to rework the synthetic case. i also don't actually all results that don't have coverage in final reports so we need full coverage or it wouldn't make it to a final report stage. i recommend redesigning the dashboard first. then also redesigning the synthetic case data so it makes a better demo in the dashboard.\"\n10-48 (Z, addendum): also keep in mind the eval reports primary audience is the non profit exec persona or the head of a government administration or some other executive who doesn't know much about AI, and has some knowledge about the domain.\n10-48 (Z, second addendum): we also need to clean out the technical jargon like \"checked by pyshacl\" the person who is getting the report doesn't care about that level of technical detail\n10-49 (Z, ticking W15 on sheet 05 after slice A): i thought we change the name of this iri -> Rename all three (Recommended)"
      }
     ],
     [
@@ -24793,131 +24793,6 @@
     ]
    ]
   },
-  "https://w3id.org/og-caie/terms#account-executive": {
-   "in": [],
-   "out": [
-    [
-     "ogc:anchorRelation",
-     {
-      "text": "corresponds"
-     }
-    ],
-    [
-     "ogc:binding",
-     {
-      "text": "epo:AuthorizedRepresentativeRole; epo:accountExecutiveRole on the service agreement and the delivery; sysml part def AccountExecutive"
-     }
-    ],
-    [
-     "ogc:canonical",
-     {
-      "ref": "cite:account-executive:canonical:sevocab:acceptance-p-4-iso-iec-ieee-24748-5-2017-3-1-fragment-of-the-entry"
-     }
-    ],
-    [
-     "ogc:class",
-     {
-      "text": "refined"
-     }
-    ],
-    [
-     "ogc:scopeNote",
-     {
-      "text": "Sheet 09 (block B1) and the tbox audit (sheet 08): the headword account executive becomes authorized representative, kept as the alternative label; SEVOCAB's acceptance entry names the authorized representative of the acquirer, and here the phrase is read for the provider's side, the person authorized to sign and deliver for the testing organization. The earlier anchor, ISO 9000:2026 3.1.3 top management, leaves. Concern C-26 (the anchor was provisional) is answered by this entry and closed by ruling R-49, which records the renaming. Z on the role: not responsible for the determination in the report; the interface for the organization with its contractual counterparties. The term's IRI keeps its former local name. Sheet 10-27 (R-50): authorized representatives exist per organization, so there are several in one evaluation; this term names the testing organization's, the acquirer's own is the sponsor's signatory (sheet 10-06), and no canonical definition is read reversed: SEVOCAB's phrase is cited as the standard's word for the role an organization's representative holds, whichever side signs. Z: \"there are multiple authorized representatives since they exist on a per organization basis; avoid reversal of canonical definitions\"."
-     }
-    ],
-    [
-     "ogc:seeAlso",
-     {
-      "ref": "cite:account-executive:seeAlso:iso-iec-17000-2020:4-3-first-party-conformity-assessment-activity-note-1-the-descriptors-are-not-the-legal-identification-of-the-parties-to-a-contract"
-     }
-    ],
-    [
-     "prov:wasDerivedFrom",
-     {
-      "ref": "https://w3id.org/og-caie/rulings#R-23"
-     }
-    ],
-    [
-     "prov:wasDerivedFrom",
-     {
-      "ref": "https://w3id.org/og-caie/rulings#R-48"
-     }
-    ],
-    [
-     "prov:wasDerivedFrom",
-     {
-      "ref": "https://w3id.org/og-caie/rulings#R-49"
-     }
-    ],
-    [
-     "prov:wasDerivedFrom",
-     {
-      "ref": "https://w3id.org/og-caie/rulings#R-50"
-     }
-    ],
-    [
-     "rdf:type",
-     {
-      "text": "skos:Concept"
-     }
-    ],
-    [
-     "skos:altLabel",
-     {
-      "text": "account executive"
-     }
-    ],
-    [
-     "skos:altLabel",
-     {
-      "text": "signatory"
-     }
-    ],
-    [
-     "skos:closeMatch",
-     {
-      "ref": "https://w3id.org/og-caie/sources#sevocab_acceptance"
-     }
-    ],
-    [
-     "skos:definition",
-     {
-      "text": "The person who signs the contract for the testing organization and delivers the report and the recommendation to the sponsor: the organization's interface with its contractual counterparties. The authorized representative is not responsible for the determinations in the report; those belong to the technical experts, and the representative makes no determination and no attestation. An abstract actor category, filled by exactly one named person in each evaluation."
-     }
-    ],
-    [
-     "skos:inScheme",
-     {
-      "text": "ogc:Glossary"
-     }
-    ],
-    [
-     "skos:prefLabel",
-     {
-      "text": "authorized representative"
-     }
-    ],
-    [
-     "skos:related",
-     {
-      "ref": "https://w3id.org/og-caie/terms#contract"
-     }
-    ],
-    [
-     "skos:related",
-     {
-      "ref": "https://w3id.org/og-caie/terms#evaluation-service-provider"
-     }
-    ],
-    [
-     "skos:related",
-     {
-      "ref": "https://w3id.org/og-caie/terms#evaluation-team"
-     }
-    ]
-   ]
-  },
   "https://w3id.org/og-caie/terms#appropriateness": {
    "in": [],
    "out": [
@@ -25205,6 +25080,131 @@
      "skos:related",
      {
       "ref": "https://w3id.org/og-caie/terms#domain-specific-ontology"
+     }
+    ]
+   ]
+  },
+  "https://w3id.org/og-caie/terms#authorized-representative": {
+   "in": [],
+   "out": [
+    [
+     "ogc:anchorRelation",
+     {
+      "text": "corresponds"
+     }
+    ],
+    [
+     "ogc:binding",
+     {
+      "text": "epo:AuthorizedRepresentativeRole; epo:authorizedRepresentativeRole on the service agreement and the delivery; sysml part def AuthorizedRepresentative"
+     }
+    ],
+    [
+     "ogc:canonical",
+     {
+      "ref": "cite:authorized-representative:canonical:sevocab:acceptance-p-4-iso-iec-ieee-24748-5-2017-3-1-fragment-of-the-entry"
+     }
+    ],
+    [
+     "ogc:class",
+     {
+      "text": "refined"
+     }
+    ],
+    [
+     "ogc:scopeNote",
+     {
+      "text": "Sheet 09 (block B1) and the tbox audit (sheet 08): the headword account executive becomes authorized representative, kept as the alternative label; SEVOCAB's acceptance entry names the authorized representative of the acquirer, and here the phrase is read for the provider's side, the person authorized to sign and deliver for the testing organization. The earlier anchor, ISO 9000:2026 3.1.3 top management, leaves. Concern C-26 (the anchor was provisional) is answered by this entry and closed by ruling R-49, which records the renaming. Z on the role: not responsible for the determination in the report; the interface for the organization with its contractual counterparties. The term's IRI kept its former local name until 2026-09-07, when Z, ticking W15, asked for the identifiers to follow the headword: the part def, the role individual and the term IRI are now authorized representative's (R-51). Sheet 10-27 (R-50): authorized representatives exist per organization, so there are several in one evaluation; this term names the testing organization's, the acquirer's own is the sponsor's signatory (sheet 10-06), and no canonical definition is read reversed: SEVOCAB's phrase is cited as the standard's word for the role an organization's representative holds, whichever side signs. Z: \"there are multiple authorized representatives since they exist on a per organization basis; avoid reversal of canonical definitions\"."
+     }
+    ],
+    [
+     "ogc:seeAlso",
+     {
+      "ref": "cite:authorized-representative:seeAlso:iso-iec-17000-2020:4-3-first-party-conformity-assessment-activity-note-1-the-descriptors-are-not-the-legal-identification-of-the-parties-to-a-contract"
+     }
+    ],
+    [
+     "prov:wasDerivedFrom",
+     {
+      "ref": "https://w3id.org/og-caie/rulings#R-23"
+     }
+    ],
+    [
+     "prov:wasDerivedFrom",
+     {
+      "ref": "https://w3id.org/og-caie/rulings#R-48"
+     }
+    ],
+    [
+     "prov:wasDerivedFrom",
+     {
+      "ref": "https://w3id.org/og-caie/rulings#R-49"
+     }
+    ],
+    [
+     "prov:wasDerivedFrom",
+     {
+      "ref": "https://w3id.org/og-caie/rulings#R-50"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "skos:Concept"
+     }
+    ],
+    [
+     "skos:altLabel",
+     {
+      "text": "account executive"
+     }
+    ],
+    [
+     "skos:altLabel",
+     {
+      "text": "signatory"
+     }
+    ],
+    [
+     "skos:closeMatch",
+     {
+      "ref": "https://w3id.org/og-caie/sources#sevocab_acceptance"
+     }
+    ],
+    [
+     "skos:definition",
+     {
+      "text": "The person who signs the contract for the testing organization and delivers the report and the recommendation to the sponsor: the organization's interface with its contractual counterparties. The authorized representative is not responsible for the determinations in the report; those belong to the technical experts, and the representative makes no determination and no attestation. An abstract actor category, filled by exactly one named person in each evaluation."
+     }
+    ],
+    [
+     "skos:inScheme",
+     {
+      "text": "ogc:Glossary"
+     }
+    ],
+    [
+     "skos:prefLabel",
+     {
+      "text": "authorized representative"
+     }
+    ],
+    [
+     "skos:related",
+     {
+      "ref": "https://w3id.org/og-caie/terms#contract"
+     }
+    ],
+    [
+     "skos:related",
+     {
+      "ref": "https://w3id.org/og-caie/terms#evaluation-service-provider"
+     }
+    ],
+    [
+     "skos:related",
+     {
+      "ref": "https://w3id.org/og-caie/terms#evaluation-team"
      }
     ]
    ]
@@ -25555,7 +25555,7 @@
     [
      "skos:related",
      {
-      "ref": "https://w3id.org/og-caie/terms#account-executive"
+      "ref": "https://w3id.org/og-caie/terms#authorized-representative"
      }
     ],
     [
@@ -26745,7 +26745,7 @@
     [
      "skos:related",
      {
-      "ref": "https://w3id.org/og-caie/terms#account-executive"
+      "ref": "https://w3id.org/og-caie/terms#authorized-representative"
      }
     ],
     [
@@ -26876,7 +26876,7 @@
     [
      "skos:related",
      {
-      "ref": "https://w3id.org/og-caie/terms#account-executive"
+      "ref": "https://w3id.org/og-caie/terms#authorized-representative"
      }
     ],
     [
@@ -32137,7 +32137,7 @@
     [
      "ogc:usesTerm",
      {
-      "ref": "https://w3id.org/og-caie/terms#account-executive"
+      "ref": "https://w3id.org/og-caie/terms#authorized-representative"
      }
     ],
     [
@@ -32483,7 +32483,7 @@
     [
      "ogc:usesTerm",
      {
-      "ref": "https://w3id.org/og-caie/terms#account-executive"
+      "ref": "https://w3id.org/og-caie/terms#authorized-representative"
      }
     ],
     [
@@ -32759,468 +32759,6 @@
      "sysml:qualifiedName",
      {
       "text": "OGCAIE::AcceptanceCriterion"
-     }
-    ]
-   ]
-  },
-  "urn:sysmlv2:element:OGCAIE__AccountExecutive": {
-   "in": [
-    [
-     "sysml:owner",
-     {
-      "text": "elmt:OGCAIE__AccountExecutive___400"
-     }
-    ]
-   ],
-   "out": [
-    [
-     "rdf:type",
-     {
-      "text": "sysml:PartDefinition"
-     }
-    ],
-    [
-     "sysml:declaredName",
-     {
-      "text": "AccountExecutive"
-     }
-    ],
-    [
-     "sysml:owner",
-     {
-      "text": "elmt:OGCAIE"
-     }
-    ],
-    [
-     "sysml:qualifiedName",
-     {
-      "text": "OGCAIE::AccountExecutive"
-     }
-    ],
-    [
-     "sysml:specializes",
-     {
-      "ref": "urn:sysmlv2:element:OGCAIE__Person"
-     }
-    ]
-   ]
-  },
-  "urn:sysmlv2:element:OGCAIE__AccountExecutive__acceptanceIn": {
-   "in": [
-    [
-     "ogm:resolvesTo",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam_pend1"
-     }
-    ]
-   ],
-   "out": [
-    [
-     "rdf:type",
-     {
-      "text": "sysml:PortUsage"
-     }
-    ],
-    [
-     "sysml:declaredName",
-     {
-      "text": "acceptanceIn"
-     }
-    ],
-    [
-     "sysml:isConjugated",
-     {
-      "text": "true"
-     }
-    ],
-    [
-     "sysml:owner",
-     {
-      "ref": "urn:sysmlv2:element:OGCAIE__AccountExecutive"
-     }
-    ],
-    [
-     "sysml:qualifiedName",
-     {
-      "text": "OGCAIE::AccountExecutive::acceptanceIn"
-     }
-    ],
-    [
-     "sysml:type",
-     {
-      "text": "elmt:OGCAIE__AcceptanceWrite"
-     }
-    ]
-   ]
-  },
-  "urn:sysmlv2:element:OGCAIE__AccountExecutive__agreementIn": {
-   "in": [
-    [
-     "ogm:resolvesTo",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__agreementSeam_pend1"
-     }
-    ]
-   ],
-   "out": [
-    [
-     "rdf:type",
-     {
-      "text": "sysml:PortUsage"
-     }
-    ],
-    [
-     "sysml:declaredName",
-     {
-      "text": "agreementIn"
-     }
-    ],
-    [
-     "sysml:isConjugated",
-     {
-      "text": "true"
-     }
-    ],
-    [
-     "sysml:owner",
-     {
-      "ref": "urn:sysmlv2:element:OGCAIE__AccountExecutive"
-     }
-    ],
-    [
-     "sysml:qualifiedName",
-     {
-      "text": "OGCAIE::AccountExecutive::agreementIn"
-     }
-    ],
-    [
-     "sysml:type",
-     {
-      "text": "elmt:OGCAIE__AgreementWrite"
-     }
-    ]
-   ]
-  },
-  "urn:sysmlv2:element:OGCAIE__AccountExecutive__agreementOut": {
-   "in": [
-    [
-     "ogm:resolvesTo",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__countersignSeam_pend0"
-     }
-    ]
-   ],
-   "out": [
-    [
-     "rdf:type",
-     {
-      "text": "sysml:PortUsage"
-     }
-    ],
-    [
-     "sysml:declaredName",
-     {
-      "text": "agreementOut"
-     }
-    ],
-    [
-     "sysml:owner",
-     {
-      "ref": "urn:sysmlv2:element:OGCAIE__AccountExecutive"
-     }
-    ],
-    [
-     "sysml:qualifiedName",
-     {
-      "text": "OGCAIE::AccountExecutive::agreementOut"
-     }
-    ],
-    [
-     "sysml:type",
-     {
-      "text": "elmt:OGCAIE__AgreementWrite"
-     }
-    ]
-   ]
-  },
-  "urn:sysmlv2:element:OGCAIE__AccountExecutive__deliveryOut": {
-   "in": [
-    [
-     "ogm:resolvesTo",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__deliveryRecordSeam_pend0"
-     }
-    ],
-    [
-     "ogm:resolvesTo",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__deliverySeam_pend0"
-     }
-    ]
-   ],
-   "out": [
-    [
-     "rdf:type",
-     {
-      "text": "sysml:PortUsage"
-     }
-    ],
-    [
-     "sysml:declaredName",
-     {
-      "text": "deliveryOut"
-     }
-    ],
-    [
-     "sysml:owner",
-     {
-      "ref": "urn:sysmlv2:element:OGCAIE__AccountExecutive"
-     }
-    ],
-    [
-     "sysml:qualifiedName",
-     {
-      "text": "OGCAIE::AccountExecutive::deliveryOut"
-     }
-    ],
-    [
-     "sysml:type",
-     {
-      "text": "elmt:OGCAIE__DeliveryWrite"
-     }
-    ]
-   ]
-  },
-  "urn:sysmlv2:element:OGCAIE__AccountExecutive__independenceDeclarationOut": {
-   "in": [
-    [
-     "ogm:resolvesTo",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__independenceDeclarationSeam_pend0"
-     }
-    ]
-   ],
-   "out": [
-    [
-     "rdf:type",
-     {
-      "text": "sysml:PortUsage"
-     }
-    ],
-    [
-     "sysml:declaredName",
-     {
-      "text": "independenceDeclarationOut"
-     }
-    ],
-    [
-     "sysml:owner",
-     {
-      "ref": "urn:sysmlv2:element:OGCAIE__AccountExecutive"
-     }
-    ],
-    [
-     "sysml:qualifiedName",
-     {
-      "text": "OGCAIE::AccountExecutive::independenceDeclarationOut"
-     }
-    ],
-    [
-     "sysml:type",
-     {
-      "text": "elmt:OGCAIE__IndependenceDeclarationWrite"
-     }
-    ]
-   ]
-  },
-  "urn:sysmlv2:element:OGCAIE__AccountExecutive__missionIn": {
-   "in": [
-    [
-     "ogm:resolvesTo",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__missionToExecutiveSeam_pend1"
-     }
-    ]
-   ],
-   "out": [
-    [
-     "rdf:type",
-     {
-      "text": "sysml:PortUsage"
-     }
-    ],
-    [
-     "sysml:declaredName",
-     {
-      "text": "missionIn"
-     }
-    ],
-    [
-     "sysml:isConjugated",
-     {
-      "text": "true"
-     }
-    ],
-    [
-     "sysml:owner",
-     {
-      "ref": "urn:sysmlv2:element:OGCAIE__AccountExecutive"
-     }
-    ],
-    [
-     "sysml:qualifiedName",
-     {
-      "text": "OGCAIE::AccountExecutive::missionIn"
-     }
-    ],
-    [
-     "sysml:type",
-     {
-      "text": "elmt:OGCAIE__MissionWrite"
-     }
-    ]
-   ]
-  },
-  "urn:sysmlv2:element:OGCAIE__AccountExecutive__needIn": {
-   "in": [
-    [
-     "ogm:resolvesTo",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__needToExecutiveSeam_pend1"
-     }
-    ]
-   ],
-   "out": [
-    [
-     "rdf:type",
-     {
-      "text": "sysml:PortUsage"
-     }
-    ],
-    [
-     "sysml:declaredName",
-     {
-      "text": "needIn"
-     }
-    ],
-    [
-     "sysml:isConjugated",
-     {
-      "text": "true"
-     }
-    ],
-    [
-     "sysml:owner",
-     {
-      "ref": "urn:sysmlv2:element:OGCAIE__AccountExecutive"
-     }
-    ],
-    [
-     "sysml:qualifiedName",
-     {
-      "text": "OGCAIE::AccountExecutive::needIn"
-     }
-    ],
-    [
-     "sysml:type",
-     {
-      "text": "elmt:OGCAIE__NeedWrite"
-     }
-    ]
-   ]
-  },
-  "urn:sysmlv2:element:OGCAIE__AccountExecutive__proposalOut": {
-   "in": [
-    [
-     "ogm:resolvesTo",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__proposalSeam_pend0"
-     }
-    ],
-    [
-     "ogm:resolvesTo",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__proposalToSponsorSeam_pend0"
-     }
-    ]
-   ],
-   "out": [
-    [
-     "rdf:type",
-     {
-      "text": "sysml:PortUsage"
-     }
-    ],
-    [
-     "sysml:declaredName",
-     {
-      "text": "proposalOut"
-     }
-    ],
-    [
-     "sysml:owner",
-     {
-      "ref": "urn:sysmlv2:element:OGCAIE__AccountExecutive"
-     }
-    ],
-    [
-     "sysml:qualifiedName",
-     {
-      "text": "OGCAIE::AccountExecutive::proposalOut"
-     }
-    ],
-    [
-     "sysml:type",
-     {
-      "text": "elmt:OGCAIE__ProposalWrite"
-     }
-    ]
-   ]
-  },
-  "urn:sysmlv2:element:OGCAIE__AccountExecutive__statementOfWorkIn": {
-   "in": [
-    [
-     "ogm:resolvesTo",
-     {
-      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam_pend1"
-     }
-    ]
-   ],
-   "out": [
-    [
-     "rdf:type",
-     {
-      "text": "sysml:PortUsage"
-     }
-    ],
-    [
-     "sysml:declaredName",
-     {
-      "text": "statementOfWorkIn"
-     }
-    ],
-    [
-     "sysml:isConjugated",
-     {
-      "text": "true"
-     }
-    ],
-    [
-     "sysml:owner",
-     {
-      "ref": "urn:sysmlv2:element:OGCAIE__AccountExecutive"
-     }
-    ],
-    [
-     "sysml:qualifiedName",
-     {
-      "text": "OGCAIE::AccountExecutive::statementOfWorkIn"
-     }
-    ],
-    [
-     "sysml:type",
-     {
-      "text": "elmt:OGCAIE__StatementOfWorkWrite"
      }
     ]
    ]
@@ -33581,6 +33119,468 @@
      "sysml:qualifiedName",
      {
       "text": "OGCAIE::Attestation"
+     }
+    ]
+   ]
+  },
+  "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative": {
+   "in": [
+    [
+     "sysml:owner",
+     {
+      "text": "elmt:OGCAIE__AuthorizedRepresentative___400"
+     }
+    ]
+   ],
+   "out": [
+    [
+     "rdf:type",
+     {
+      "text": "sysml:PartDefinition"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "AuthorizedRepresentative"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "text": "elmt:OGCAIE"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::AuthorizedRepresentative"
+     }
+    ],
+    [
+     "sysml:specializes",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__Person"
+     }
+    ]
+   ]
+  },
+  "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__acceptanceIn": {
+   "in": [
+    [
+     "ogm:resolvesTo",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam_pend1"
+     }
+    ]
+   ],
+   "out": [
+    [
+     "rdf:type",
+     {
+      "text": "sysml:PortUsage"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "acceptanceIn"
+     }
+    ],
+    [
+     "sysml:isConjugated",
+     {
+      "text": "true"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::AuthorizedRepresentative::acceptanceIn"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__AcceptanceWrite"
+     }
+    ]
+   ]
+  },
+  "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__agreementIn": {
+   "in": [
+    [
+     "ogm:resolvesTo",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__agreementSeam_pend1"
+     }
+    ]
+   ],
+   "out": [
+    [
+     "rdf:type",
+     {
+      "text": "sysml:PortUsage"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "agreementIn"
+     }
+    ],
+    [
+     "sysml:isConjugated",
+     {
+      "text": "true"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::AuthorizedRepresentative::agreementIn"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__AgreementWrite"
+     }
+    ]
+   ]
+  },
+  "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__agreementOut": {
+   "in": [
+    [
+     "ogm:resolvesTo",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__countersignSeam_pend0"
+     }
+    ]
+   ],
+   "out": [
+    [
+     "rdf:type",
+     {
+      "text": "sysml:PortUsage"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "agreementOut"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::AuthorizedRepresentative::agreementOut"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__AgreementWrite"
+     }
+    ]
+   ]
+  },
+  "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__deliveryOut": {
+   "in": [
+    [
+     "ogm:resolvesTo",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__deliveryRecordSeam_pend0"
+     }
+    ],
+    [
+     "ogm:resolvesTo",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__deliverySeam_pend0"
+     }
+    ]
+   ],
+   "out": [
+    [
+     "rdf:type",
+     {
+      "text": "sysml:PortUsage"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "deliveryOut"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::AuthorizedRepresentative::deliveryOut"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__DeliveryWrite"
+     }
+    ]
+   ]
+  },
+  "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__independenceDeclarationOut": {
+   "in": [
+    [
+     "ogm:resolvesTo",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__independenceDeclarationSeam_pend0"
+     }
+    ]
+   ],
+   "out": [
+    [
+     "rdf:type",
+     {
+      "text": "sysml:PortUsage"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "independenceDeclarationOut"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::AuthorizedRepresentative::independenceDeclarationOut"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__IndependenceDeclarationWrite"
+     }
+    ]
+   ]
+  },
+  "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__missionIn": {
+   "in": [
+    [
+     "ogm:resolvesTo",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__missionToExecutiveSeam_pend1"
+     }
+    ]
+   ],
+   "out": [
+    [
+     "rdf:type",
+     {
+      "text": "sysml:PortUsage"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "missionIn"
+     }
+    ],
+    [
+     "sysml:isConjugated",
+     {
+      "text": "true"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::AuthorizedRepresentative::missionIn"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__MissionWrite"
+     }
+    ]
+   ]
+  },
+  "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__needIn": {
+   "in": [
+    [
+     "ogm:resolvesTo",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__needToExecutiveSeam_pend1"
+     }
+    ]
+   ],
+   "out": [
+    [
+     "rdf:type",
+     {
+      "text": "sysml:PortUsage"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "needIn"
+     }
+    ],
+    [
+     "sysml:isConjugated",
+     {
+      "text": "true"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::AuthorizedRepresentative::needIn"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__NeedWrite"
+     }
+    ]
+   ]
+  },
+  "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__proposalOut": {
+   "in": [
+    [
+     "ogm:resolvesTo",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__proposalSeam_pend0"
+     }
+    ],
+    [
+     "ogm:resolvesTo",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__proposalToSponsorSeam_pend0"
+     }
+    ]
+   ],
+   "out": [
+    [
+     "rdf:type",
+     {
+      "text": "sysml:PortUsage"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "proposalOut"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::AuthorizedRepresentative::proposalOut"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__ProposalWrite"
+     }
+    ]
+   ]
+  },
+  "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__statementOfWorkIn": {
+   "in": [
+    [
+     "ogm:resolvesTo",
+     {
+      "text": "urn:opensysml:expr:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam_pend1"
+     }
+    ]
+   ],
+   "out": [
+    [
+     "rdf:type",
+     {
+      "text": "sysml:PortUsage"
+     }
+    ],
+    [
+     "sysml:declaredName",
+     {
+      "text": "statementOfWorkIn"
+     }
+    ],
+    [
+     "sysml:isConjugated",
+     {
+      "text": "true"
+     }
+    ],
+    [
+     "sysml:owner",
+     {
+      "ref": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative"
+     }
+    ],
+    [
+     "sysml:qualifiedName",
+     {
+      "text": "OGCAIE::AuthorizedRepresentative::statementOfWorkIn"
+     }
+    ],
+    [
+     "sysml:type",
+     {
+      "text": "elmt:OGCAIE__StatementOfWorkWrite"
      }
     ]
    ]
@@ -37618,7 +37618,7 @@
     [
      "sysml:redefines",
      {
-      "text": "accountExecutive"
+      "text": "authorizedRepresentative"
      }
     ]
    ]
@@ -38417,7 +38417,7 @@
     [
      "ogm:consumerPort",
      {
-      "ref": "urn:sysmlv2:element:OGCAIE__AccountExecutive__acceptanceIn"
+      "ref": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__acceptanceIn"
      }
     ],
     [
@@ -38471,7 +38471,7 @@
     [
      "sysx:sourceText",
      {
-      "text": "interface acceptanceToExecutiveSeam : AcceptanceSeam connect sponsor.signatory.acceptanceOut to testingOrg.accountExecutive.acceptanceIn;"
+      "text": "interface acceptanceToExecutiveSeam : AcceptanceSeam connect sponsor.signatory.acceptanceOut to testingOrg.authorizedRepresentative.acceptanceIn;"
      }
     ]
    ]
@@ -38780,7 +38780,7 @@
     [
      "ogm:consumerPort",
      {
-      "ref": "urn:sysmlv2:element:OGCAIE__AccountExecutive__agreementIn"
+      "ref": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__agreementIn"
      }
     ],
     [
@@ -38834,7 +38834,7 @@
     [
      "sysx:sourceText",
      {
-      "text": "interface agreementSeam : AgreementSeam connect sponsor.signatory.agreementOut to testingOrg.accountExecutive.agreementIn;"
+      "text": "interface agreementSeam : AgreementSeam connect sponsor.signatory.agreementOut to testingOrg.authorizedRepresentative.agreementIn;"
      }
     ]
    ]
@@ -38999,7 +38999,7 @@
     [
      "ogm:supplierPort",
      {
-      "ref": "urn:sysmlv2:element:OGCAIE__AccountExecutive__agreementOut"
+      "ref": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__agreementOut"
      }
     ],
     [
@@ -39047,7 +39047,7 @@
     [
      "sysx:sourceText",
      {
-      "text": "interface countersignSeam : AgreementSeam connect testingOrg.accountExecutive.agreementOut to testingOrg.recorder.agreementIn;"
+      "text": "interface countersignSeam : AgreementSeam connect testingOrg.authorizedRepresentative.agreementOut to testingOrg.recorder.agreementIn;"
      }
     ]
    ]
@@ -39070,7 +39070,7 @@
     [
      "ogm:supplierPort",
      {
-      "ref": "urn:sysmlv2:element:OGCAIE__AccountExecutive__deliveryOut"
+      "ref": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__deliveryOut"
      }
     ],
     [
@@ -39118,7 +39118,7 @@
     [
      "sysx:sourceText",
      {
-      "text": "interface deliveryRecordSeam : DeliverySeam connect testingOrg.accountExecutive.deliveryOut to testingOrg.recorder.deliveryIn;"
+      "text": "interface deliveryRecordSeam : DeliverySeam connect testingOrg.authorizedRepresentative.deliveryOut to testingOrg.recorder.deliveryIn;"
      }
     ]
    ]
@@ -39141,7 +39141,7 @@
     [
      "ogm:supplierPort",
      {
-      "ref": "urn:sysmlv2:element:OGCAIE__AccountExecutive__deliveryOut"
+      "ref": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__deliveryOut"
      }
     ],
     [
@@ -39189,7 +39189,7 @@
     [
      "sysx:sourceText",
      {
-      "text": "interface deliverySeam : DeliverySeam connect testingOrg.accountExecutive.deliveryOut to sponsor.deliveryIn;"
+      "text": "interface deliverySeam : DeliverySeam connect testingOrg.authorizedRepresentative.deliveryOut to sponsor.deliveryIn;"
      }
     ]
    ]
@@ -39496,7 +39496,7 @@
     [
      "ogm:supplierPort",
      {
-      "ref": "urn:sysmlv2:element:OGCAIE__AccountExecutive__independenceDeclarationOut"
+      "ref": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__independenceDeclarationOut"
      }
     ],
     [
@@ -39544,7 +39544,7 @@
     [
      "sysx:sourceText",
      {
-      "text": "interface independenceDeclarationSeam : IndependenceDeclarationSeam connect testingOrg.accountExecutive.independenceDeclarationOut to testingOrg.recorder.independenceDeclarationIn;"
+      "text": "interface independenceDeclarationSeam : IndependenceDeclarationSeam connect testingOrg.authorizedRepresentative.independenceDeclarationOut to testingOrg.recorder.independenceDeclarationIn;"
      }
     ]
    ]
@@ -39632,7 +39632,7 @@
     [
      "ogm:consumerPort",
      {
-      "ref": "urn:sysmlv2:element:OGCAIE__AccountExecutive__missionIn"
+      "ref": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__missionIn"
      }
     ],
     [
@@ -39686,7 +39686,7 @@
     [
      "sysx:sourceText",
      {
-      "text": "interface missionToExecutiveSeam : MissionSeam connect sponsor.missionOut to testingOrg.accountExecutive.missionIn;"
+      "text": "interface missionToExecutiveSeam : MissionSeam connect sponsor.missionOut to testingOrg.authorizedRepresentative.missionIn;"
      }
     ]
    ]
@@ -39774,7 +39774,7 @@
     [
      "ogm:consumerPort",
      {
-      "ref": "urn:sysmlv2:element:OGCAIE__AccountExecutive__needIn"
+      "ref": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__needIn"
      }
     ],
     [
@@ -39828,7 +39828,7 @@
     [
      "sysx:sourceText",
      {
-      "text": "interface needToExecutiveSeam : NeedSeam connect sponsor.needOut to testingOrg.accountExecutive.needIn;"
+      "text": "interface needToExecutiveSeam : NeedSeam connect sponsor.needOut to testingOrg.authorizedRepresentative.needIn;"
      }
     ]
    ]
@@ -40342,7 +40342,7 @@
     [
      "ogm:supplierPort",
      {
-      "ref": "urn:sysmlv2:element:OGCAIE__AccountExecutive__proposalOut"
+      "ref": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__proposalOut"
      }
     ],
     [
@@ -40390,7 +40390,7 @@
     [
      "sysx:sourceText",
      {
-      "text": "interface proposalSeam : ProposalSeam connect testingOrg.accountExecutive.proposalOut to testingOrg.recorder.proposalIn;"
+      "text": "interface proposalSeam : ProposalSeam connect testingOrg.authorizedRepresentative.proposalOut to testingOrg.recorder.proposalIn;"
      }
     ]
    ]
@@ -40413,7 +40413,7 @@
     [
      "ogm:supplierPort",
      {
-      "ref": "urn:sysmlv2:element:OGCAIE__AccountExecutive__proposalOut"
+      "ref": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__proposalOut"
      }
     ],
     [
@@ -40461,7 +40461,7 @@
     [
      "sysx:sourceText",
      {
-      "text": "interface proposalToSponsorSeam : ProposalSeam connect testingOrg.accountExecutive.proposalOut to sponsor.proposalIn;"
+      "text": "interface proposalToSponsorSeam : ProposalSeam connect testingOrg.authorizedRepresentative.proposalOut to sponsor.proposalIn;"
      }
     ]
    ]
@@ -41569,7 +41569,7 @@
     [
      "ogm:consumerPort",
      {
-      "ref": "urn:sysmlv2:element:OGCAIE__AccountExecutive__statementOfWorkIn"
+      "ref": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__statementOfWorkIn"
      }
     ],
     [
@@ -41623,7 +41623,7 @@
     [
      "sysx:sourceText",
      {
-      "text": "interface statementOfWorkToExecutiveSeam : StatementOfWorkSeam connect sponsor.statementOfWorkOut to testingOrg.accountExecutive.statementOfWorkIn;"
+      "text": "interface statementOfWorkToExecutiveSeam : StatementOfWorkSeam connect sponsor.statementOfWorkOut to testingOrg.authorizedRepresentative.statementOfWorkIn;"
      }
     ]
    ]
@@ -46364,7 +46364,7 @@
     ]
    ]
   },
-  "urn:sysmlv2:element:OGCAIE__TestingOrganization__accountExecutive": {
+  "urn:sysmlv2:element:OGCAIE__TestingOrganization__authorizedRepresentative": {
    "in": [
     [
      "ogm:endPart",
@@ -46443,7 +46443,7 @@
     [
      "sysml:declaredName",
      {
-      "text": "accountExecutive"
+      "text": "authorizedRepresentative"
      }
     ],
     [
@@ -46455,19 +46455,19 @@
     [
      "sysml:qualifiedName",
      {
-      "text": "OGCAIE::TestingOrganization::accountExecutive"
+      "text": "OGCAIE::TestingOrganization::authorizedRepresentative"
      }
     ],
     [
      "sysml:type",
      {
-      "ref": "urn:sysmlv2:element:OGCAIE__AccountExecutive"
+      "ref": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative"
      }
     ],
     [
      "sysml:upperBound",
      {
-      "text": "urn:opensysml:expr:OGCAIE__TestingOrganization__accountExecutive_pupperBound"
+      "text": "urn:opensysml:expr:OGCAIE__TestingOrganization__authorizedRepresentative_pupperBound"
      }
     ]
    ]
@@ -47180,16 +47180,6 @@
   },
   {
    "rel": "cites",
-   "source": "cite:account-executive:canonical:sevocab:acceptance-p-4-iso-iec-ieee-24748-5-2017-3-1-fragment-of-the-entry",
-   "target": "https://w3id.org/og-caie/sources#sevocab"
-  },
-  {
-   "rel": "cites",
-   "source": "cite:account-executive:seeAlso:iso-iec-17000-2020:4-3-first-party-conformity-assessment-activity-note-1-the-descriptors-are-not-the-legal-identification-of-the-parties-to-a-contract",
-   "target": "https://w3id.org/og-caie/sources#iso-iec-17000-2020"
-  },
-  {
-   "rel": "cites",
    "source": "cite:agree:canonical:sebok-2-14:acquisition-and-supply-p-353-incose-2012-the-acquisition-process",
    "target": "https://w3id.org/og-caie/sources#sebok-2-14"
   },
@@ -47227,6 +47217,16 @@
    "rel": "cites",
    "source": "cite:authoritative-reference:canonical:hogan-2021:section-1-p-2-arxiv-v3-fragment-of-the-entry",
    "target": "https://w3id.org/og-caie/sources#hogan-2021"
+  },
+  {
+   "rel": "cites",
+   "source": "cite:authorized-representative:canonical:sevocab:acceptance-p-4-iso-iec-ieee-24748-5-2017-3-1-fragment-of-the-entry",
+   "target": "https://w3id.org/og-caie/sources#sevocab"
+  },
+  {
+   "rel": "cites",
+   "source": "cite:authorized-representative:seeAlso:iso-iec-17000-2020:4-3-first-party-conformity-assessment-activity-note-1-the-descriptors-are-not-the-legal-identification-of-the-parties-to-a-contract",
+   "target": "https://w3id.org/og-caie/sources#iso-iec-17000-2020"
   },
   {
    "rel": "cites",
@@ -48451,7 +48451,7 @@
   {
    "rel": "term",
    "source": "https://w3id.org/og-caie/epo#AuthorizedRepresentativeRole",
-   "target": "https://w3id.org/og-caie/terms#account-executive"
+   "target": "https://w3id.org/og-caie/terms#authorized-representative"
   },
   {
    "rel": "pinnedAt",
@@ -48905,11 +48905,6 @@
   },
   {
    "rel": "type",
-   "source": "https://w3id.org/og-caie/epo#accountExecutiveRole",
-   "target": "https://w3id.org/og-caie/epo#AuthorizedRepresentativeRole"
-  },
-  {
-   "rel": "type",
    "source": "https://w3id.org/og-caie/epo#accountableOrganizationRole",
    "target": "https://w3id.org/og-caie/epo#TestItemProviderRole"
   },
@@ -48927,6 +48922,11 @@
    "rel": "seeAlso",
    "source": "https://w3id.org/og-caie/epo#agree",
    "target": "cite:agree:seeAlso:iso-iec-17000-2020:4-9-conformity-assessment-scheme"
+  },
+  {
+   "rel": "type",
+   "source": "https://w3id.org/og-caie/epo#authorizedRepresentativeRole",
+   "target": "https://w3id.org/og-caie/epo#AuthorizedRepresentativeRole"
   },
   {
    "rel": "canonical",
@@ -49881,7 +49881,7 @@
   {
    "rel": "role",
    "source": "https://w3id.org/og-caie/evaluation/measles#mala",
-   "target": "https://w3id.org/og-caie/epo#accountExecutiveRole"
+   "target": "https://w3id.org/og-caie/epo#authorizedRepresentativeRole"
   },
   {
    "rel": "actedOnBehalfOf",
@@ -50796,12 +50796,12 @@
   {
    "rel": "concernsTerm",
    "source": "https://w3id.org/og-caie/rulings#C-26",
-   "target": "https://w3id.org/og-caie/terms#account-executive"
+   "target": "https://w3id.org/og-caie/terms#authorized-representative"
   },
   {
    "rel": "concernsTerm",
    "source": "https://w3id.org/og-caie/rulings#C-27",
-   "target": "https://w3id.org/og-caie/terms#account-executive"
+   "target": "https://w3id.org/og-caie/terms#authorized-representative"
   },
   {
    "rel": "concernsTerm",
@@ -51445,56 +51445,6 @@
   },
   {
    "rel": "canonical",
-   "source": "https://w3id.org/og-caie/terms#account-executive",
-   "target": "cite:account-executive:canonical:sevocab:acceptance-p-4-iso-iec-ieee-24748-5-2017-3-1-fragment-of-the-entry"
-  },
-  {
-   "rel": "seeAlso",
-   "source": "https://w3id.org/og-caie/terms#account-executive",
-   "target": "cite:account-executive:seeAlso:iso-iec-17000-2020:4-3-first-party-conformity-assessment-activity-note-1-the-descriptors-are-not-the-legal-identification-of-the-parties-to-a-contract"
-  },
-  {
-   "rel": "wasDerivedFrom",
-   "source": "https://w3id.org/og-caie/terms#account-executive",
-   "target": "https://w3id.org/og-caie/rulings#R-23"
-  },
-  {
-   "rel": "wasDerivedFrom",
-   "source": "https://w3id.org/og-caie/terms#account-executive",
-   "target": "https://w3id.org/og-caie/rulings#R-48"
-  },
-  {
-   "rel": "wasDerivedFrom",
-   "source": "https://w3id.org/og-caie/terms#account-executive",
-   "target": "https://w3id.org/og-caie/rulings#R-49"
-  },
-  {
-   "rel": "wasDerivedFrom",
-   "source": "https://w3id.org/og-caie/terms#account-executive",
-   "target": "https://w3id.org/og-caie/rulings#R-50"
-  },
-  {
-   "rel": "close",
-   "source": "https://w3id.org/og-caie/terms#account-executive",
-   "target": "https://w3id.org/og-caie/sources#sevocab_acceptance"
-  },
-  {
-   "rel": "related",
-   "source": "https://w3id.org/og-caie/terms#account-executive",
-   "target": "https://w3id.org/og-caie/terms#contract"
-  },
-  {
-   "rel": "related",
-   "source": "https://w3id.org/og-caie/terms#account-executive",
-   "target": "https://w3id.org/og-caie/terms#evaluation-service-provider"
-  },
-  {
-   "rel": "related",
-   "source": "https://w3id.org/og-caie/terms#account-executive",
-   "target": "https://w3id.org/og-caie/terms#evaluation-team"
-  },
-  {
-   "rel": "canonical",
    "source": "https://w3id.org/og-caie/terms#appropriateness",
    "target": "cite:appropriateness:canonical:hawkins-2011:section-3-2-asserted-context-p-7"
   },
@@ -51600,6 +51550,56 @@
   },
   {
    "rel": "canonical",
+   "source": "https://w3id.org/og-caie/terms#authorized-representative",
+   "target": "cite:authorized-representative:canonical:sevocab:acceptance-p-4-iso-iec-ieee-24748-5-2017-3-1-fragment-of-the-entry"
+  },
+  {
+   "rel": "seeAlso",
+   "source": "https://w3id.org/og-caie/terms#authorized-representative",
+   "target": "cite:authorized-representative:seeAlso:iso-iec-17000-2020:4-3-first-party-conformity-assessment-activity-note-1-the-descriptors-are-not-the-legal-identification-of-the-parties-to-a-contract"
+  },
+  {
+   "rel": "wasDerivedFrom",
+   "source": "https://w3id.org/og-caie/terms#authorized-representative",
+   "target": "https://w3id.org/og-caie/rulings#R-23"
+  },
+  {
+   "rel": "wasDerivedFrom",
+   "source": "https://w3id.org/og-caie/terms#authorized-representative",
+   "target": "https://w3id.org/og-caie/rulings#R-48"
+  },
+  {
+   "rel": "wasDerivedFrom",
+   "source": "https://w3id.org/og-caie/terms#authorized-representative",
+   "target": "https://w3id.org/og-caie/rulings#R-49"
+  },
+  {
+   "rel": "wasDerivedFrom",
+   "source": "https://w3id.org/og-caie/terms#authorized-representative",
+   "target": "https://w3id.org/og-caie/rulings#R-50"
+  },
+  {
+   "rel": "close",
+   "source": "https://w3id.org/og-caie/terms#authorized-representative",
+   "target": "https://w3id.org/og-caie/sources#sevocab_acceptance"
+  },
+  {
+   "rel": "related",
+   "source": "https://w3id.org/og-caie/terms#authorized-representative",
+   "target": "https://w3id.org/og-caie/terms#contract"
+  },
+  {
+   "rel": "related",
+   "source": "https://w3id.org/og-caie/terms#authorized-representative",
+   "target": "https://w3id.org/og-caie/terms#evaluation-service-provider"
+  },
+  {
+   "rel": "related",
+   "source": "https://w3id.org/og-caie/terms#authorized-representative",
+   "target": "https://w3id.org/og-caie/terms#evaluation-team"
+  },
+  {
+   "rel": "canonical",
    "source": "https://w3id.org/og-caie/terms#conformance",
    "target": "cite:conformance:canonical:iso-9000-2026:3-5-9-conformity-note-1"
   },
@@ -51696,7 +51696,7 @@
   {
    "rel": "related",
    "source": "https://w3id.org/og-caie/terms#contract",
-   "target": "https://w3id.org/og-caie/terms#account-executive"
+   "target": "https://w3id.org/og-caie/terms#authorized-representative"
   },
   {
    "rel": "related",
@@ -52126,7 +52126,7 @@
   {
    "rel": "related",
    "source": "https://w3id.org/og-caie/terms#evaluation-service-provider",
-   "target": "https://w3id.org/og-caie/terms#account-executive"
+   "target": "https://w3id.org/og-caie/terms#authorized-representative"
   },
   {
    "rel": "related",
@@ -52186,7 +52186,7 @@
   {
    "rel": "related",
    "source": "https://w3id.org/og-caie/terms#evaluation-team",
-   "target": "https://w3id.org/og-caie/terms#account-executive"
+   "target": "https://w3id.org/og-caie/terms#authorized-representative"
   },
   {
    "rel": "related",
@@ -54391,7 +54391,7 @@
   {
    "rel": "usesTerm",
    "source": "https://w3id.org/og-caie/trace#SCI-10",
-   "target": "https://w3id.org/og-caie/terms#account-executive"
+   "target": "https://w3id.org/og-caie/terms#authorized-representative"
   },
   {
    "rel": "usesTerm",
@@ -54621,7 +54621,7 @@
   {
    "rel": "usesTerm",
    "source": "https://w3id.org/og-caie/trace#SCI-12",
-   "target": "https://w3id.org/og-caie/terms#account-executive"
+   "target": "https://w3id.org/og-caie/terms#authorized-representative"
   },
   {
    "rel": "usesTerm",
@@ -54710,56 +54710,6 @@
   },
   {
    "rel": "specializes",
-   "source": "urn:sysmlv2:element:OGCAIE__AccountExecutive",
-   "target": "urn:sysmlv2:element:OGCAIE__Person"
-  },
-  {
-   "rel": "owner",
-   "source": "urn:sysmlv2:element:OGCAIE__AccountExecutive__acceptanceIn",
-   "target": "urn:sysmlv2:element:OGCAIE__AccountExecutive"
-  },
-  {
-   "rel": "owner",
-   "source": "urn:sysmlv2:element:OGCAIE__AccountExecutive__agreementIn",
-   "target": "urn:sysmlv2:element:OGCAIE__AccountExecutive"
-  },
-  {
-   "rel": "owner",
-   "source": "urn:sysmlv2:element:OGCAIE__AccountExecutive__agreementOut",
-   "target": "urn:sysmlv2:element:OGCAIE__AccountExecutive"
-  },
-  {
-   "rel": "owner",
-   "source": "urn:sysmlv2:element:OGCAIE__AccountExecutive__deliveryOut",
-   "target": "urn:sysmlv2:element:OGCAIE__AccountExecutive"
-  },
-  {
-   "rel": "owner",
-   "source": "urn:sysmlv2:element:OGCAIE__AccountExecutive__independenceDeclarationOut",
-   "target": "urn:sysmlv2:element:OGCAIE__AccountExecutive"
-  },
-  {
-   "rel": "owner",
-   "source": "urn:sysmlv2:element:OGCAIE__AccountExecutive__missionIn",
-   "target": "urn:sysmlv2:element:OGCAIE__AccountExecutive"
-  },
-  {
-   "rel": "owner",
-   "source": "urn:sysmlv2:element:OGCAIE__AccountExecutive__needIn",
-   "target": "urn:sysmlv2:element:OGCAIE__AccountExecutive"
-  },
-  {
-   "rel": "owner",
-   "source": "urn:sysmlv2:element:OGCAIE__AccountExecutive__proposalOut",
-   "target": "urn:sysmlv2:element:OGCAIE__AccountExecutive"
-  },
-  {
-   "rel": "owner",
-   "source": "urn:sysmlv2:element:OGCAIE__AccountExecutive__statementOfWorkIn",
-   "target": "urn:sysmlv2:element:OGCAIE__AccountExecutive"
-  },
-  {
-   "rel": "specializes",
    "source": "urn:sysmlv2:element:OGCAIE__AccountableOrganization",
    "target": "urn:sysmlv2:element:OGCAIE__Organization"
   },
@@ -54797,6 +54747,56 @@
    "rel": "realizes",
    "source": "urn:sysmlv2:element:OGCAIE__Attestation",
    "target": "https://w3id.org/og-caie/epo#Attestation"
+  },
+  {
+   "rel": "specializes",
+   "source": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative",
+   "target": "urn:sysmlv2:element:OGCAIE__Person"
+  },
+  {
+   "rel": "owner",
+   "source": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__acceptanceIn",
+   "target": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative"
+  },
+  {
+   "rel": "owner",
+   "source": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__agreementIn",
+   "target": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative"
+  },
+  {
+   "rel": "owner",
+   "source": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__agreementOut",
+   "target": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative"
+  },
+  {
+   "rel": "owner",
+   "source": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__deliveryOut",
+   "target": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative"
+  },
+  {
+   "rel": "owner",
+   "source": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__independenceDeclarationOut",
+   "target": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative"
+  },
+  {
+   "rel": "owner",
+   "source": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__missionIn",
+   "target": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative"
+  },
+  {
+   "rel": "owner",
+   "source": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__needIn",
+   "target": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative"
+  },
+  {
+   "rel": "owner",
+   "source": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__proposalOut",
+   "target": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative"
+  },
+  {
+   "rel": "owner",
+   "source": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__statementOfWorkIn",
+   "target": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative"
   },
   {
    "rel": "specializes",
@@ -55571,7 +55571,7 @@
   {
    "rel": "consumerPort",
    "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam",
-   "target": "urn:sysmlv2:element:OGCAIE__AccountExecutive__acceptanceIn"
+   "target": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__acceptanceIn"
   },
   {
    "rel": "owner",
@@ -55646,7 +55646,7 @@
   {
    "rel": "consumerPort",
    "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__agreementSeam",
-   "target": "urn:sysmlv2:element:OGCAIE__AccountExecutive__agreementIn"
+   "target": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__agreementIn"
   },
   {
    "rel": "owner",
@@ -55706,7 +55706,7 @@
   {
    "rel": "supplierPort",
    "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__countersignSeam",
-   "target": "urn:sysmlv2:element:OGCAIE__AccountExecutive__agreementOut"
+   "target": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__agreementOut"
   },
   {
    "rel": "owner",
@@ -55726,7 +55726,7 @@
   {
    "rel": "supplierPort",
    "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__deliveryRecordSeam",
-   "target": "urn:sysmlv2:element:OGCAIE__AccountExecutive__deliveryOut"
+   "target": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__deliveryOut"
   },
   {
    "rel": "carries",
@@ -55746,7 +55746,7 @@
   {
    "rel": "supplierPort",
    "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__deliverySeam",
-   "target": "urn:sysmlv2:element:OGCAIE__AccountExecutive__deliveryOut"
+   "target": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__deliveryOut"
   },
   {
    "rel": "carries",
@@ -55846,7 +55846,7 @@
   {
    "rel": "supplierPort",
    "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__independenceDeclarationSeam",
-   "target": "urn:sysmlv2:element:OGCAIE__AccountExecutive__independenceDeclarationOut"
+   "target": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__independenceDeclarationOut"
   },
   {
    "rel": "carries",
@@ -55886,7 +55886,7 @@
   {
    "rel": "consumerPort",
    "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__missionToExecutiveSeam",
-   "target": "urn:sysmlv2:element:OGCAIE__AccountExecutive__missionIn"
+   "target": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__missionIn"
   },
   {
    "rel": "carries",
@@ -55926,7 +55926,7 @@
   {
    "rel": "consumerPort",
    "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__needToExecutiveSeam",
-   "target": "urn:sysmlv2:element:OGCAIE__AccountExecutive__needIn"
+   "target": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__needIn"
   },
   {
    "rel": "carries",
@@ -56081,7 +56081,7 @@
   {
    "rel": "supplierPort",
    "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__proposalSeam",
-   "target": "urn:sysmlv2:element:OGCAIE__AccountExecutive__proposalOut"
+   "target": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__proposalOut"
   },
   {
    "rel": "owner",
@@ -56101,7 +56101,7 @@
   {
    "rel": "supplierPort",
    "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__proposalToSponsorSeam",
-   "target": "urn:sysmlv2:element:OGCAIE__AccountExecutive__proposalOut"
+   "target": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__proposalOut"
   },
   {
    "rel": "owner",
@@ -56391,7 +56391,7 @@
   {
    "rel": "consumerPort",
    "source": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam",
-   "target": "urn:sysmlv2:element:OGCAIE__AccountExecutive__statementOfWorkIn"
+   "target": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__statementOfWorkIn"
   },
   {
    "rel": "owner",
@@ -56880,12 +56880,12 @@
   },
   {
    "rel": "type",
-   "source": "urn:sysmlv2:element:OGCAIE__TestingOrganization__accountExecutive",
-   "target": "urn:sysmlv2:element:OGCAIE__AccountExecutive"
+   "source": "urn:sysmlv2:element:OGCAIE__TestingOrganization__authorizedRepresentative",
+   "target": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative"
   },
   {
    "rel": "owner",
-   "source": "urn:sysmlv2:element:OGCAIE__TestingOrganization__accountExecutive",
+   "source": "urn:sysmlv2:element:OGCAIE__TestingOrganization__authorizedRepresentative",
    "target": "urn:sysmlv2:element:OGCAIE__TestingOrganization"
   },
   {
@@ -57027,22 +57027,6 @@
   },
   {
    "cls": "citation",
-   "desc": "“authorized representative of the acquirer” [machine]",
-   "id": "cite:account-executive:canonical:sevocab:acceptance-p-4-iso-iec-ieee-24748-5-2017-3-1-fragment-of-the-entry",
-   "label": "sevocab acceptance, p. 4 (ISO/IEC/IEEE 24748-5:…",
-   "ogc": "ogc quote \"authorized representative\"",
-   "page": "../glossary"
-  },
-  {
-   "cls": "citation",
-   "desc": "No quote; a locator only.",
-   "id": "cite:account-executive:seeAlso:iso-iec-17000-2020:4-3-first-party-conformity-assessment-activity-note-1-the-descriptors-are-not-the-legal-identification-of-the-parties-to-a-contract",
-   "label": "iso-iec-17000-2020 4.3 first-party conformity a…",
-   "ogc": "ogc quote \"authorized representative\"",
-   "page": "../glossary"
-  },
-  {
-   "cls": "citation",
    "desc": "“The acquisition process includes activities to identify, select, and reach commercial agreements with a product or service supplier.” [machine]",
    "id": "cite:agree:canonical:sebok-2-14:acquisition-and-supply-p-353-incose-2012-the-acquisition-process",
    "label": "sebok-2-14 Acquisition and Supply, p. 353 (INCO…",
@@ -57103,6 +57087,22 @@
    "id": "cite:authoritative-reference:canonical:hogan-2021:section-1-p-2-arxiv-v3-fragment-of-the-entry",
    "label": "hogan-2021 Section 1, p. 2 (arXiv v3) (fragment…",
    "ogc": "ogc quote \"authoritative reference\"",
+   "page": "../glossary"
+  },
+  {
+   "cls": "citation",
+   "desc": "“authorized representative of the acquirer” [machine]",
+   "id": "cite:authorized-representative:canonical:sevocab:acceptance-p-4-iso-iec-ieee-24748-5-2017-3-1-fragment-of-the-entry",
+   "label": "sevocab acceptance, p. 4 (ISO/IEC/IEEE 24748-5:…",
+   "ogc": "ogc quote \"authorized representative\"",
+   "page": "../glossary"
+  },
+  {
+   "cls": "citation",
+   "desc": "No quote; a locator only.",
+   "id": "cite:authorized-representative:seeAlso:iso-iec-17000-2020:4-3-first-party-conformity-assessment-activity-note-1-the-descriptors-are-not-the-legal-identification-of-the-parties-to-a-contract",
+   "label": "iso-iec-17000-2020 4.3 first-party conformity a…",
+   "ogc": "ogc quote \"authorized representative\"",
    "page": "../glossary"
   },
   {
@@ -58243,7 +58243,7 @@
   },
   {
    "cls": "shape",
-   "desc": "Targets sysml:PartDefinition. The evaluation team allows one or more domain experts and one or more operators: lower bound one, upper bound unbounded (R-23). The sponsor organization holds exactly one signatory (SponsorSignatory), the named person who signs, approves the requirement set and accepts on its behalf (sheet 10-06, R-50). The testing organization holds exactly one authorized representative (AccountExecutive) (R-23).",
+   "desc": "Targets sysml:PartDefinition. The evaluation team allows one or more domain experts and one or more operators: lower bound one, upper bound unbounded (R-23). The sponsor organization holds exactly one signatory (SponsorSignatory), the named person who signs, approves the requirement set and accepts on its behalf (sheet 10-06, R-50). The testing organization holds exactly one authorized representative (AuthorizedRepresentative) (R-23).",
    "id": "https://w3id.org/og-caie/M5-Cardinality",
    "label": "M5-Cardinality",
    "ogc": "ogc sparql \"DESCRIBE ogc:M5-Cardinality\"",
@@ -58259,7 +58259,7 @@
   },
   {
    "cls": "shape",
-   "desc": "Targets sysml:Package. The testing organization holds an authorized representative (AccountExecutive) and a team of at least one domain expert and one evaluation operator. The three actor categories are distinct part definitions of Person: DomainExpert, EvaluationOperator, AccountExecutive (R-10, R-23).",
+   "desc": "Targets sysml:Package. The testing organization holds an authorized representative (AuthorizedRepresentative) and a team of at least one domain expert and one evaluation operator. The three actor categories are distinct part definitions of Person: DomainExpert, EvaluationOperator, AuthorizedRepresentative (R-10, R-23).",
    "id": "https://w3id.org/og-caie/M5-Roles",
    "label": "M5-Roles",
    "ogc": "ogc sparql \"DESCRIBE ogc:M5-Roles\"",
@@ -58651,7 +58651,7 @@
   },
   {
    "cls": "role",
-   "desc": "authorized representative: the testing organization's interface with its contractual counterparties (sheet 09; the term's IRI keeps its former local name account-executive)",
+   "desc": "authorized representative: the testing organization's interface with its contractual counterparties (sheet 09; the term's IRI keeps its former local name authorized-representative)",
    "id": "https://w3id.org/og-caie/epo#AuthorizedRepresentativeRole",
    "label": "AuthorizedRepresentativeRole",
    "ogc": "ogc sparql \"DESCRIBE epo:AuthorizedRepresentativeRole\"",
@@ -59091,14 +59091,6 @@
   },
   {
    "cls": "role",
-   "desc": "authorized representative (formerly account executive): signs the agreement for the testing organization, declares its independence, and delivers the report; the organization's interface with its contractual counterparties, not responsible for the determinations in the report",
-   "id": "https://w3id.org/og-caie/epo#accountExecutiveRole",
-   "label": "accountExecutiveRole",
-   "ogc": "ogc sparql \"DESCRIBE epo:accountExecutiveRole\"",
-   "page": ""
-  },
-  {
-   "cls": "role",
    "desc": "test item provider (accountable organization, ISO/IEC 17000 first party): provides the test item and access to it",
    "id": "https://w3id.org/og-caie/epo#accountableOrganizationRole",
    "label": "accountableOrganizationRole",
@@ -59112,6 +59104,14 @@
    "label": "C3 agree",
    "ogc": "ogc steps",
    "page": "../glossary"
+  },
+  {
+   "cls": "role",
+   "desc": "authorized representative (formerly account executive): signs the agreement for the testing organization, declares its independence, and delivers the report; the organization's interface with its contractual counterparties, not responsible for the determinations in the report",
+   "id": "https://w3id.org/og-caie/epo#authorizedRepresentativeRole",
+   "label": "authorizedRepresentativeRole",
+   "ogc": "ogc sparql \"DESCRIBE epo:authorizedRepresentativeRole\"",
+   "page": ""
   },
   {
    "cls": "layer",
@@ -60630,7 +60630,7 @@
   },
   {
    "cls": "ruling",
-   "desc": "Four rulings given during the sheet 10 walkthrough, after its items. The worked example is the measles evaluation, not the measles run: neither word is a glossary term, run reads at the execution scale (SEVOCAB's test, concern C-14) and case at the scale of SEVOCAB's test case, the anchor of probe, while the whole is one Contextual AI Evaluation and ISO/IEC 17000's conformity assessment; the record's namespace and file are renamed and the prose keeps walkthrough for the narrative (10-42). Synthetic content is tagged as such in the graph, on the measles evaluation's bundle and every member, and the explorer can include or exclude synthetic data (10-43). A sample report for the synthetic measles evaluation becomes the first appendix: a simple dashboard rendered from the record alone, built with d3, that answers the sponsor's question and does not overwhelm; the appendices are reordered and Records and reporting links to it as the sample report for the synthetic case (10-44). The SEVOCAB absence check behind every NIST and reserve canonical is recorded with its date: tester, session, measurement uncertainty, trajectory, appropriateness, sufficiency, attestation, red teaming, operational envelope and coverage are absent; ontology, repeatability, reproducibility and dialog are present in the specification's sense and take SEVOCAB as canonical by the precedence rule, with Gruber, JCGM 200 and NIST AI 700-2 kept as neighbour cites; guardrail and probe are present in another sense and keep their canonicals (10-45). The source ranks are ordinal, 1 to 8, with no reserve or internal class: ISO 9000, SEVOCAB, NIST, W3C, the ISO-family vocabularies, other bodies, academic works, the authors (10-46). Each chapter keeps one references block, the generated sources cited with locators, and MyST's compiled bibliography renders only in the works cited appendix; the prose sheds the source names the block carries (10-47). The sample report is redesigned first, positive and terse, then the synthetic case is redesigned to make the demo, with every criterion planned and attested; a final report requires full coverage, and only a flagged draft may carry gaps; the report's primary reader is an executive who knows the domain and little about AI, the non-profit director or the head of an administration, and the page carries no technical jargon (10-48).",
+   "desc": "Four rulings given during the sheet 10 walkthrough, after its items. The worked example is the measles evaluation, not the measles run: neither word is a glossary term, run reads at the execution scale (SEVOCAB's test, concern C-14) and case at the scale of SEVOCAB's test case, the anchor of probe, while the whole is one Contextual AI Evaluation and ISO/IEC 17000's conformity assessment; the record's namespace and file are renamed and the prose keeps walkthrough for the narrative (10-42). Synthetic content is tagged as such in the graph, on the measles evaluation's bundle and every member, and the explorer can include or exclude synthetic data (10-43). A sample report for the synthetic measles evaluation becomes the first appendix: a simple dashboard rendered from the record alone, built with d3, that answers the sponsor's question and does not overwhelm; the appendices are reordered and Records and reporting links to it as the sample report for the synthetic case (10-44). The SEVOCAB absence check behind every NIST and reserve canonical is recorded with its date: tester, session, measurement uncertainty, trajectory, appropriateness, sufficiency, attestation, red teaming, operational envelope and coverage are absent; ontology, repeatability, reproducibility and dialog are present in the specification's sense and take SEVOCAB as canonical by the precedence rule, with Gruber, JCGM 200 and NIST AI 700-2 kept as neighbour cites; guardrail and probe are present in another sense and keep their canonicals (10-45). The source ranks are ordinal, 1 to 8, with no reserve or internal class: ISO 9000, SEVOCAB, NIST, W3C, the ISO-family vocabularies, other bodies, academic works, the authors (10-46). Each chapter keeps one references block, the generated sources cited with locators, and MyST's compiled bibliography renders only in the works cited appendix; the prose sheds the source names the block carries (10-47). The sample report is redesigned first, positive and terse, then the synthetic case is redesigned to make the demo, with every criterion planned and attested; a final report requires full coverage, and only a flagged draft may carry gaps; the report's primary reader is an executive who knows the domain and little about AI, the non-profit director or the head of an administration, and the page carries no technical jargon (10-48). The identifiers follow the headword authorized representative: the part def, the role individual and the term IRI are renamed, the alternative label account executive kept (10-49).",
    "id": "https://w3id.org/og-caie/rulings#R-51",
    "label": "R-51",
    "ogc": "ogc ruling R-51",
@@ -61262,14 +61262,6 @@
   },
   {
    "cls": "term",
-   "desc": "The person who signs the contract for the testing organization and delivers the report and the recommendation to the sponsor: the organization's interface with its contractual counterparties. The authorized representative is not responsible for the determinations in the report; those belong to the technical experts, and the representative makes no determination and no attestation. An abstract actor category, filled by exactly one named person in each evaluation.",
-   "id": "https://w3id.org/og-caie/terms#account-executive",
-   "label": "authorized representative",
-   "ogc": "ogc term \"authorized representative\"",
-   "page": "../glossary"
-  },
-  {
-   "cls": "term",
    "desc": "The expert judgment that the declared context (operational environment, requirement set and Domain-Specific Ontology) was the right frame for the judgment being made. Not whether the system passed, and not whether there was enough evidence.",
    "id": "https://w3id.org/og-caie/terms#appropriateness",
    "label": "appropriateness",
@@ -61290,6 +61282,14 @@
    "id": "https://w3id.org/og-caie/terms#authoritative-reference",
    "label": "authoritative reference",
    "ogc": "ogc term \"authoritative reference\"",
+   "page": "../glossary"
+  },
+  {
+   "cls": "term",
+   "desc": "The person who signs the contract for the testing organization and delivers the report and the recommendation to the sponsor: the organization's interface with its contractual counterparties. The authorized representative is not responsible for the determinations in the report; those belong to the technical experts, and the representative makes no determination and no attestation. An abstract actor category, filled by exactly one named person in each evaluation.",
+   "id": "https://w3id.org/og-caie/terms#authorized-representative",
+   "label": "authorized representative",
+   "ogc": "ogc term \"authorized representative\"",
    "page": "../glossary"
   },
   {
@@ -61902,86 +61902,6 @@
   },
   {
    "cls": "part",
-   "desc": "Signatory of the service agreement and legal representative\n of the testing organization (ruling R-23; headword authorized\n representative, R-49). Countersigns the agreement into the\n record, reads the record through its view, and delivers the\n report and the recommendation to the sponsor as one delivery\n (an activity of its own, R-24); answers the sponsor's need with\n the proposal and receives the acceptance (R-32). No evidence, determination or\n attestation port: the authorized representative is not\n responsible for the determinations in the report; it is the\n organization's interface with its contractual counterparties\n (sheet 09), and declares its independence of the test item\n provider (sheet 10-07). The worked example's Mala.",
-   "id": "urn:sysmlv2:element:OGCAIE__AccountExecutive",
-   "label": "AccountExecutive",
-   "ogc": "ogc view assemblage",
-   "page": "../model"
-  },
-  {
-   "cls": "port",
-   "desc": "in port typed AcceptanceWrite, carrying Acceptance.",
-   "id": "urn:sysmlv2:element:OGCAIE__AccountExecutive__acceptanceIn",
-   "label": "AccountExecutive::acceptanceIn",
-   "ogc": "ogc view assemblage",
-   "page": "../model"
-  },
-  {
-   "cls": "port",
-   "desc": "in port typed AgreementWrite, carrying ServiceAgreement.",
-   "id": "urn:sysmlv2:element:OGCAIE__AccountExecutive__agreementIn",
-   "label": "AccountExecutive::agreementIn",
-   "ogc": "ogc view assemblage",
-   "page": "../model"
-  },
-  {
-   "cls": "port",
-   "desc": "out port typed AgreementWrite, carrying ServiceAgreement.",
-   "id": "urn:sysmlv2:element:OGCAIE__AccountExecutive__agreementOut",
-   "label": "AccountExecutive::agreementOut",
-   "ogc": "ogc view assemblage",
-   "page": "../model"
-  },
-  {
-   "cls": "port",
-   "desc": "out port typed DeliveryWrite, carrying Delivery.",
-   "id": "urn:sysmlv2:element:OGCAIE__AccountExecutive__deliveryOut",
-   "label": "AccountExecutive::deliveryOut",
-   "ogc": "ogc view assemblage",
-   "page": "../model"
-  },
-  {
-   "cls": "port",
-   "desc": "out port typed IndependenceDeclarationWrite, carrying IndependenceDeclaration.",
-   "id": "urn:sysmlv2:element:OGCAIE__AccountExecutive__independenceDeclarationOut",
-   "label": "AccountExecutive::independenceDeclarationOut",
-   "ogc": "ogc view assemblage",
-   "page": "../model"
-  },
-  {
-   "cls": "port",
-   "desc": "in port typed MissionWrite, carrying Mission.",
-   "id": "urn:sysmlv2:element:OGCAIE__AccountExecutive__missionIn",
-   "label": "AccountExecutive::missionIn",
-   "ogc": "ogc view assemblage",
-   "page": "../model"
-  },
-  {
-   "cls": "port",
-   "desc": "in port typed NeedWrite, carrying Need.",
-   "id": "urn:sysmlv2:element:OGCAIE__AccountExecutive__needIn",
-   "label": "AccountExecutive::needIn",
-   "ogc": "ogc view assemblage",
-   "page": "../model"
-  },
-  {
-   "cls": "port",
-   "desc": "out port typed ProposalWrite, carrying Proposal.",
-   "id": "urn:sysmlv2:element:OGCAIE__AccountExecutive__proposalOut",
-   "label": "AccountExecutive::proposalOut",
-   "ogc": "ogc view assemblage",
-   "page": "../model"
-  },
-  {
-   "cls": "port",
-   "desc": "in port typed StatementOfWorkWrite, carrying StatementOfWork.",
-   "id": "urn:sysmlv2:element:OGCAIE__AccountExecutive__statementOfWorkIn",
-   "label": "AccountExecutive::statementOfWorkIn",
-   "ogc": "ogc view assemblage",
-   "page": "../model"
-  },
-  {
-   "cls": "part",
    "desc": "The organization that provides or is accountable for the\n test item: the first party in ISO/IEC 17000's sense (4.3). It\n grants access to the test item and is named in the record.",
    "id": "urn:sysmlv2:element:OGCAIE__AccountableOrganization",
    "label": "AccountableOrganization",
@@ -62034,6 +61954,86 @@
    "id": "urn:sysmlv2:element:OGCAIE__Attestation",
    "label": "Attestation",
    "ogc": "ogc view layers",
+   "page": "../model"
+  },
+  {
+   "cls": "part",
+   "desc": "Signatory of the service agreement and legal representative\n of the testing organization (ruling R-23; headword authorized\n representative, R-49). Countersigns the agreement into the\n record, reads the record through its view, and delivers the\n report and the recommendation to the sponsor as one delivery\n (an activity of its own, R-24); answers the sponsor's need with\n the proposal and receives the acceptance (R-32). No evidence, determination or\n attestation port: the authorized representative is not\n responsible for the determinations in the report; it is the\n organization's interface with its contractual counterparties\n (sheet 09), and declares its independence of the test item\n provider (sheet 10-07). The worked example's Mala.",
+   "id": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative",
+   "label": "AuthorizedRepresentative",
+   "ogc": "ogc view assemblage",
+   "page": "../model"
+  },
+  {
+   "cls": "port",
+   "desc": "in port typed AcceptanceWrite, carrying Acceptance.",
+   "id": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__acceptanceIn",
+   "label": "AuthorizedRepresentative::acceptanceIn",
+   "ogc": "ogc view assemblage",
+   "page": "../model"
+  },
+  {
+   "cls": "port",
+   "desc": "in port typed AgreementWrite, carrying ServiceAgreement.",
+   "id": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__agreementIn",
+   "label": "AuthorizedRepresentative::agreementIn",
+   "ogc": "ogc view assemblage",
+   "page": "../model"
+  },
+  {
+   "cls": "port",
+   "desc": "out port typed AgreementWrite, carrying ServiceAgreement.",
+   "id": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__agreementOut",
+   "label": "AuthorizedRepresentative::agreementOut",
+   "ogc": "ogc view assemblage",
+   "page": "../model"
+  },
+  {
+   "cls": "port",
+   "desc": "out port typed DeliveryWrite, carrying Delivery.",
+   "id": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__deliveryOut",
+   "label": "AuthorizedRepresentative::deliveryOut",
+   "ogc": "ogc view assemblage",
+   "page": "../model"
+  },
+  {
+   "cls": "port",
+   "desc": "out port typed IndependenceDeclarationWrite, carrying IndependenceDeclaration.",
+   "id": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__independenceDeclarationOut",
+   "label": "AuthorizedRepresentative::independenceDeclarati…",
+   "ogc": "ogc view assemblage",
+   "page": "../model"
+  },
+  {
+   "cls": "port",
+   "desc": "in port typed MissionWrite, carrying Mission.",
+   "id": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__missionIn",
+   "label": "AuthorizedRepresentative::missionIn",
+   "ogc": "ogc view assemblage",
+   "page": "../model"
+  },
+  {
+   "cls": "port",
+   "desc": "in port typed NeedWrite, carrying Need.",
+   "id": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__needIn",
+   "label": "AuthorizedRepresentative::needIn",
+   "ogc": "ogc view assemblage",
+   "page": "../model"
+  },
+  {
+   "cls": "port",
+   "desc": "out port typed ProposalWrite, carrying Proposal.",
+   "id": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__proposalOut",
+   "label": "AuthorizedRepresentative::proposalOut",
+   "ogc": "ogc view assemblage",
+   "page": "../model"
+  },
+  {
+   "cls": "port",
+   "desc": "in port typed StatementOfWorkWrite, carrying StatementOfWork.",
+   "id": "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__statementOfWorkIn",
+   "label": "AuthorizedRepresentative::statementOfWorkIn",
+   "ogc": "ogc view assemblage",
    "page": "../model"
   },
   {
@@ -62590,7 +62590,7 @@
   },
   {
    "cls": "seam",
-   "desc": "interface acceptanceToExecutiveSeam : AcceptanceSeam connect sponsor.signatory.acceptanceOut to testingOrg.accountExecutive.acceptanceIn;",
+   "desc": "interface acceptanceToExecutiveSeam : AcceptanceSeam connect sponsor.signatory.acceptanceOut to testingOrg.authorizedRepresentative.acceptanceIn;",
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam",
    "label": "OgCaieEvaluation::acceptanceToExecutiveSeam",
    "ogc": "ogc view contracting",
@@ -62630,7 +62630,7 @@
   },
   {
    "cls": "seam",
-   "desc": "interface agreementSeam : AgreementSeam connect sponsor.signatory.agreementOut to testingOrg.accountExecutive.agreementIn;",
+   "desc": "interface agreementSeam : AgreementSeam connect sponsor.signatory.agreementOut to testingOrg.authorizedRepresentative.agreementIn;",
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__agreementSeam",
    "label": "OgCaieEvaluation::agreementSeam",
    "ogc": "ogc view contracting",
@@ -62654,7 +62654,7 @@
   },
   {
    "cls": "seam",
-   "desc": "interface countersignSeam : AgreementSeam connect testingOrg.accountExecutive.agreementOut to testingOrg.recorder.agreementIn;",
+   "desc": "interface countersignSeam : AgreementSeam connect testingOrg.authorizedRepresentative.agreementOut to testingOrg.recorder.agreementIn;",
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__countersignSeam",
    "label": "OgCaieEvaluation::countersignSeam",
    "ogc": "ogc view contracting",
@@ -62662,7 +62662,7 @@
   },
   {
    "cls": "seam",
-   "desc": "interface deliveryRecordSeam : DeliverySeam connect testingOrg.accountExecutive.deliveryOut to testingOrg.recorder.deliveryIn;",
+   "desc": "interface deliveryRecordSeam : DeliverySeam connect testingOrg.authorizedRepresentative.deliveryOut to testingOrg.recorder.deliveryIn;",
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__deliveryRecordSeam",
    "label": "OgCaieEvaluation::deliveryRecordSeam",
    "ogc": "ogc view contracting",
@@ -62670,7 +62670,7 @@
   },
   {
    "cls": "seam",
-   "desc": "interface deliverySeam : DeliverySeam connect testingOrg.accountExecutive.deliveryOut to sponsor.deliveryIn;",
+   "desc": "interface deliverySeam : DeliverySeam connect testingOrg.authorizedRepresentative.deliveryOut to sponsor.deliveryIn;",
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__deliverySeam",
    "label": "OgCaieEvaluation::deliverySeam",
    "ogc": "ogc view contracting",
@@ -62710,7 +62710,7 @@
   },
   {
    "cls": "seam",
-   "desc": "interface independenceDeclarationSeam : IndependenceDeclarationSeam connect testingOrg.accountExecutive.independenceDeclarationOut to testingOrg.recorder.independenceDeclarationIn;",
+   "desc": "interface independenceDeclarationSeam : IndependenceDeclarationSeam connect testingOrg.authorizedRepresentative.independenceDeclarationOut to testingOrg.recorder.independenceDeclarationIn;",
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__independenceDeclarationSeam",
    "label": "OgCaieEvaluation::independenceDeclarationSeam",
    "ogc": "ogc view evaluation",
@@ -62726,7 +62726,7 @@
   },
   {
    "cls": "seam",
-   "desc": "interface missionToExecutiveSeam : MissionSeam connect sponsor.missionOut to testingOrg.accountExecutive.missionIn;",
+   "desc": "interface missionToExecutiveSeam : MissionSeam connect sponsor.missionOut to testingOrg.authorizedRepresentative.missionIn;",
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__missionToExecutiveSeam",
    "label": "OgCaieEvaluation::missionToExecutiveSeam",
    "ogc": "ogc view contracting",
@@ -62742,7 +62742,7 @@
   },
   {
    "cls": "seam",
-   "desc": "interface needToExecutiveSeam : NeedSeam connect sponsor.needOut to testingOrg.accountExecutive.needIn;",
+   "desc": "interface needToExecutiveSeam : NeedSeam connect sponsor.needOut to testingOrg.authorizedRepresentative.needIn;",
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__needToExecutiveSeam",
    "label": "OgCaieEvaluation::needToExecutiveSeam",
    "ogc": "ogc view contracting",
@@ -62806,7 +62806,7 @@
   },
   {
    "cls": "seam",
-   "desc": "interface proposalSeam : ProposalSeam connect testingOrg.accountExecutive.proposalOut to testingOrg.recorder.proposalIn;",
+   "desc": "interface proposalSeam : ProposalSeam connect testingOrg.authorizedRepresentative.proposalOut to testingOrg.recorder.proposalIn;",
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__proposalSeam",
    "label": "OgCaieEvaluation::proposalSeam",
    "ogc": "ogc view contracting",
@@ -62814,7 +62814,7 @@
   },
   {
    "cls": "seam",
-   "desc": "interface proposalToSponsorSeam : ProposalSeam connect testingOrg.accountExecutive.proposalOut to sponsor.proposalIn;",
+   "desc": "interface proposalToSponsorSeam : ProposalSeam connect testingOrg.authorizedRepresentative.proposalOut to sponsor.proposalIn;",
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__proposalToSponsorSeam",
    "label": "OgCaieEvaluation::proposalToSponsorSeam",
    "ogc": "ogc view contracting",
@@ -62934,7 +62934,7 @@
   },
   {
    "cls": "seam",
-   "desc": "interface statementOfWorkToExecutiveSeam : StatementOfWorkSeam connect sponsor.statementOfWorkOut to testingOrg.accountExecutive.statementOfWorkIn;",
+   "desc": "interface statementOfWorkToExecutiveSeam : StatementOfWorkSeam connect sponsor.statementOfWorkOut to testingOrg.authorizedRepresentative.statementOfWorkIn;",
    "id": "urn:sysmlv2:element:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam",
    "label": "OgCaieEvaluation::statementOfWorkToExecutiveSeam",
    "ogc": "ogc view contracting",
@@ -63606,9 +63606,9 @@
   },
   {
    "cls": "usage",
-   "desc": "OGCAIE::TestingOrganization::accountExecutive",
-   "id": "urn:sysmlv2:element:OGCAIE__TestingOrganization__accountExecutive",
-   "label": "TestingOrganization::accountExecutive : Account…",
+   "desc": "OGCAIE::TestingOrganization::authorizedRepresentative",
+   "id": "urn:sysmlv2:element:OGCAIE__TestingOrganization__authorizedRepresentative",
+   "label": "TestingOrganization::authorizedRepresentative :…",
    "ogc": "ogc view assemblage",
    "page": "../model"
   },
@@ -63679,8 +63679,6 @@
     "cite:access:seeAlso:iso-iec-17000-2020:annex-a-a-2-selection-the-functional-approach-planning-and-preparation-to-obtain-the-inputs-for-determination",
     "cite:access:seeAlso:sevocab:test-environment-p-434-iso-iec-ieee-29119-2-2021-3-34",
     "cite:access:seeAlso:sevocab:test-item-transmittal-report-p-435-iso-iec-ieee-24765-2017",
-    "cite:account-executive:canonical:sevocab:acceptance-p-4-iso-iec-ieee-24748-5-2017-3-1-fragment-of-the-entry",
-    "cite:account-executive:seeAlso:iso-iec-17000-2020:4-3-first-party-conformity-assessment-activity-note-1-the-descriptors-are-not-the-legal-identification-of-the-parties-to-a-contract",
     "cite:agree:canonical:sebok-2-14:acquisition-and-supply-p-353-incose-2012-the-acquisition-process",
     "cite:agree:seeAlso:iso-9000-2026:3-3-13",
     "cite:agree:seeAlso:iso-iec-17000-2020:4-9-conformity-assessment-scheme",
@@ -63689,6 +63687,8 @@
     "cite:appropriateness:seeAlso:iso-9000-2026:3-11-2-review",
     "cite:attestation:canonical:iso-iec-17000-2020:7-3",
     "cite:authoritative-reference:canonical:hogan-2021:section-1-p-2-arxiv-v3-fragment-of-the-entry",
+    "cite:authorized-representative:canonical:sevocab:acceptance-p-4-iso-iec-ieee-24748-5-2017-3-1-fragment-of-the-entry",
+    "cite:authorized-representative:seeAlso:iso-iec-17000-2020:4-3-first-party-conformity-assessment-activity-note-1-the-descriptors-are-not-the-legal-identification-of-the-parties-to-a-contract",
     "cite:conformance:canonical:iso-9000-2026:3-5-9-conformity-note-1",
     "cite:conformance:seeAlso:w3c-shacl:section-3-5-conformance-checking",
     "cite:conformity:canonical:iso-9000-2026:3-5-9",
@@ -63843,10 +63843,10 @@
     "https://w3id.org/og-caie/sources#w3c-shacl",
     "https://w3id.org/og-caie/sources#w3c-skos",
     "https://w3id.org/og-caie/terms#acceptance-criteria",
-    "https://w3id.org/og-caie/terms#account-executive",
     "https://w3id.org/og-caie/terms#appropriateness",
     "https://w3id.org/og-caie/terms#attestation",
     "https://w3id.org/og-caie/terms#authoritative-reference",
+    "https://w3id.org/og-caie/terms#authorized-representative",
     "https://w3id.org/og-caie/terms#conformance",
     "https://w3id.org/og-caie/terms#conformity",
     "https://w3id.org/og-caie/terms#contextual-ai-evaluation",
@@ -64024,9 +64024,9 @@
     "https://w3id.org/og-caie/rulings#R-50",
     "https://w3id.org/og-caie/rulings#R-51",
     "https://w3id.org/og-caie/terms#acceptance-criteria",
-    "https://w3id.org/og-caie/terms#account-executive",
     "https://w3id.org/og-caie/terms#appropriateness",
     "https://w3id.org/og-caie/terms#attestation",
+    "https://w3id.org/og-caie/terms#authorized-representative",
     "https://w3id.org/og-caie/terms#conformance",
     "https://w3id.org/og-caie/terms#conformity",
     "https://w3id.org/og-caie/terms#contextual-ai-evaluation",
@@ -64202,16 +64202,6 @@
    "present": [
     "urn:sysmlv2:element:OGCAIE__Acceptance",
     "urn:sysmlv2:element:OGCAIE__AcceptanceCriterion",
-    "urn:sysmlv2:element:OGCAIE__AccountExecutive",
-    "urn:sysmlv2:element:OGCAIE__AccountExecutive__acceptanceIn",
-    "urn:sysmlv2:element:OGCAIE__AccountExecutive__agreementIn",
-    "urn:sysmlv2:element:OGCAIE__AccountExecutive__agreementOut",
-    "urn:sysmlv2:element:OGCAIE__AccountExecutive__deliveryOut",
-    "urn:sysmlv2:element:OGCAIE__AccountExecutive__independenceDeclarationOut",
-    "urn:sysmlv2:element:OGCAIE__AccountExecutive__missionIn",
-    "urn:sysmlv2:element:OGCAIE__AccountExecutive__needIn",
-    "urn:sysmlv2:element:OGCAIE__AccountExecutive__proposalOut",
-    "urn:sysmlv2:element:OGCAIE__AccountExecutive__statementOfWorkIn",
     "urn:sysmlv2:element:OGCAIE__AccountableOrganization",
     "urn:sysmlv2:element:OGCAIE__AccountableOrganization__accessOut",
     "urn:sysmlv2:element:OGCAIE__AccountableOrganization__testItem",
@@ -64219,6 +64209,16 @@
     "urn:sysmlv2:element:OGCAIE__AffectedPopulation__inputOut",
     "urn:sysmlv2:element:OGCAIE__AppropriatenessAssessment",
     "urn:sysmlv2:element:OGCAIE__Attestation",
+    "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative",
+    "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__acceptanceIn",
+    "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__agreementIn",
+    "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__agreementOut",
+    "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__deliveryOut",
+    "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__independenceDeclarationOut",
+    "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__missionIn",
+    "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__needIn",
+    "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__proposalOut",
+    "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__statementOfWorkIn",
     "urn:sysmlv2:element:OGCAIE__ConformanceChecker",
     "urn:sysmlv2:element:OGCAIE__ConformanceChecker__recordIn",
     "urn:sysmlv2:element:OGCAIE__ConformanceChecker__verdictOut",
@@ -64400,7 +64400,7 @@
     "urn:sysmlv2:element:OGCAIE__TestItem__responseOut",
     "urn:sysmlv2:element:OGCAIE__TestPlan",
     "urn:sysmlv2:element:OGCAIE__TestingOrganization",
-    "urn:sysmlv2:element:OGCAIE__TestingOrganization__accountExecutive",
+    "urn:sysmlv2:element:OGCAIE__TestingOrganization__authorizedRepresentative",
     "urn:sysmlv2:element:OGCAIE__TestingOrganization__conformanceChecker",
     "urn:sysmlv2:element:OGCAIE__TestingOrganization__recorder",
     "urn:sysmlv2:element:OGCAIE__TestingOrganization__reportAssembler",
@@ -64529,9 +64529,9 @@
     "https://w3id.org/og-caie/S8-Recommendation",
     "https://w3id.org/og-caie/S9-Acceptance",
     "https://w3id.org/og-caie/terms#acceptance-criteria",
-    "https://w3id.org/og-caie/terms#account-executive",
     "https://w3id.org/og-caie/terms#appropriateness",
     "https://w3id.org/og-caie/terms#attestation",
+    "https://w3id.org/og-caie/terms#authorized-representative",
     "https://w3id.org/og-caie/terms#conformance",
     "https://w3id.org/og-caie/terms#conformity",
     "https://w3id.org/og-caie/terms#contract",
@@ -64690,8 +64690,6 @@
     "cite:access:seeAlso:iso-iec-17000-2020:annex-a-a-2-selection-the-functional-approach-planning-and-preparation-to-obtain-the-inputs-for-determination",
     "cite:access:seeAlso:sevocab:test-environment-p-434-iso-iec-ieee-29119-2-2021-3-34",
     "cite:access:seeAlso:sevocab:test-item-transmittal-report-p-435-iso-iec-ieee-24765-2017",
-    "cite:account-executive:canonical:sevocab:acceptance-p-4-iso-iec-ieee-24748-5-2017-3-1-fragment-of-the-entry",
-    "cite:account-executive:seeAlso:iso-iec-17000-2020:4-3-first-party-conformity-assessment-activity-note-1-the-descriptors-are-not-the-legal-identification-of-the-parties-to-a-contract",
     "cite:agree:canonical:sebok-2-14:acquisition-and-supply-p-353-incose-2012-the-acquisition-process",
     "cite:agree:seeAlso:iso-9000-2026:3-3-13",
     "cite:agree:seeAlso:iso-iec-17000-2020:4-9-conformity-assessment-scheme",
@@ -64700,6 +64698,8 @@
     "cite:appropriateness:seeAlso:iso-9000-2026:3-11-2-review",
     "cite:attestation:canonical:iso-iec-17000-2020:7-3",
     "cite:authoritative-reference:canonical:hogan-2021:section-1-p-2-arxiv-v3-fragment-of-the-entry",
+    "cite:authorized-representative:canonical:sevocab:acceptance-p-4-iso-iec-ieee-24748-5-2017-3-1-fragment-of-the-entry",
+    "cite:authorized-representative:seeAlso:iso-iec-17000-2020:4-3-first-party-conformity-assessment-activity-note-1-the-descriptors-are-not-the-legal-identification-of-the-parties-to-a-contract",
     "cite:conformance:canonical:iso-9000-2026:3-5-9-conformity-note-1",
     "cite:conformance:seeAlso:w3c-shacl:section-3-5-conformance-checking",
     "cite:conformity:canonical:iso-9000-2026:3-5-9",
@@ -64948,9 +64948,9 @@
     "https://w3id.org/og-caie/epo#UserInterestDeclaration",
     "https://w3id.org/og-caie/epo#acceptDelivery",
     "https://w3id.org/og-caie/epo#access",
-    "https://w3id.org/og-caie/epo#accountExecutiveRole",
     "https://w3id.org/og-caie/epo#accountableOrganizationRole",
     "https://w3id.org/og-caie/epo#agree",
+    "https://w3id.org/og-caie/epo#authorizedRepresentativeRole",
     "https://w3id.org/og-caie/epo#contract",
     "https://w3id.org/og-caie/epo#declareRequirements",
     "https://w3id.org/og-caie/epo#deliver",
@@ -65212,10 +65212,10 @@
     "https://w3id.org/og-caie/sources#w3c-shacl",
     "https://w3id.org/og-caie/sources#w3c-skos",
     "https://w3id.org/og-caie/terms#acceptance-criteria",
-    "https://w3id.org/og-caie/terms#account-executive",
     "https://w3id.org/og-caie/terms#appropriateness",
     "https://w3id.org/og-caie/terms#attestation",
     "https://w3id.org/og-caie/terms#authoritative-reference",
+    "https://w3id.org/og-caie/terms#authorized-representative",
     "https://w3id.org/og-caie/terms#conformance",
     "https://w3id.org/og-caie/terms#conformity",
     "https://w3id.org/og-caie/terms#contextual-ai-evaluation",
@@ -65292,16 +65292,6 @@
     "https://w3id.org/og-caie/trace#SCI-13",
     "urn:sysmlv2:element:OGCAIE__Acceptance",
     "urn:sysmlv2:element:OGCAIE__AcceptanceCriterion",
-    "urn:sysmlv2:element:OGCAIE__AccountExecutive",
-    "urn:sysmlv2:element:OGCAIE__AccountExecutive__acceptanceIn",
-    "urn:sysmlv2:element:OGCAIE__AccountExecutive__agreementIn",
-    "urn:sysmlv2:element:OGCAIE__AccountExecutive__agreementOut",
-    "urn:sysmlv2:element:OGCAIE__AccountExecutive__deliveryOut",
-    "urn:sysmlv2:element:OGCAIE__AccountExecutive__independenceDeclarationOut",
-    "urn:sysmlv2:element:OGCAIE__AccountExecutive__missionIn",
-    "urn:sysmlv2:element:OGCAIE__AccountExecutive__needIn",
-    "urn:sysmlv2:element:OGCAIE__AccountExecutive__proposalOut",
-    "urn:sysmlv2:element:OGCAIE__AccountExecutive__statementOfWorkIn",
     "urn:sysmlv2:element:OGCAIE__AccountableOrganization",
     "urn:sysmlv2:element:OGCAIE__AccountableOrganization__accessOut",
     "urn:sysmlv2:element:OGCAIE__AccountableOrganization__testItem",
@@ -65309,6 +65299,16 @@
     "urn:sysmlv2:element:OGCAIE__AffectedPopulation__inputOut",
     "urn:sysmlv2:element:OGCAIE__AppropriatenessAssessment",
     "urn:sysmlv2:element:OGCAIE__Attestation",
+    "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative",
+    "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__acceptanceIn",
+    "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__agreementIn",
+    "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__agreementOut",
+    "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__deliveryOut",
+    "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__independenceDeclarationOut",
+    "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__missionIn",
+    "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__needIn",
+    "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__proposalOut",
+    "urn:sysmlv2:element:OGCAIE__AuthorizedRepresentative__statementOfWorkIn",
     "urn:sysmlv2:element:OGCAIE__ConformanceChecker",
     "urn:sysmlv2:element:OGCAIE__ConformanceChecker__recordIn",
     "urn:sysmlv2:element:OGCAIE__ConformanceChecker__verdictOut",
@@ -65505,7 +65505,7 @@
     "urn:sysmlv2:element:OGCAIE__TestItem__responseOut",
     "urn:sysmlv2:element:OGCAIE__TestPlan",
     "urn:sysmlv2:element:OGCAIE__TestingOrganization",
-    "urn:sysmlv2:element:OGCAIE__TestingOrganization__accountExecutive",
+    "urn:sysmlv2:element:OGCAIE__TestingOrganization__authorizedRepresentative",
     "urn:sysmlv2:element:OGCAIE__TestingOrganization__conformanceChecker",
     "urn:sysmlv2:element:OGCAIE__TestingOrganization__recorder",
     "urn:sysmlv2:element:OGCAIE__TestingOrganization__reportAssembler",

@@ -108,7 +108,7 @@ ogc:S0-Parties a sh:NodeShape ;
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX prov: <http://www.w3.org/ns/prov#>
             SELECT $this WHERE {
-                FILTER NOT EXISTS { $this epo:signedBy ?p . ?p a prov:Person ; epo:role epo:accountExecutiveRole ; prov:actedOnBehalfOf ?t . ?t a prov:Organization ; epo:role epo:testingOrganizationRole }
+                FILTER NOT EXISTS { $this epo:signedBy ?p . ?p a prov:Person ; epo:role epo:authorizedRepresentativeRole ; prov:actedOnBehalfOf ?t . ?t a prov:Organization ; epo:role epo:testingOrganizationRole }
             }
         """ ] ;
     sh:sparql [
@@ -134,7 +134,7 @@ ogc:S0-Parties a sh:NodeShape ;
             SELECT $this ?value WHERE {
                 { $this ogc:inRecord ?rec . BIND("no independence declaration" AS ?value)
                   FILTER NOT EXISTS { ?d a epo:IndependenceDeclaration ; ogc:inRecord ?rec ; epo:independentOf ?acc ; prov:wasAttributedTo ?p ; prov:generatedAtTime ?t .
-                                      ?acc epo:role epo:accountableOrganizationRole . ?p epo:role epo:accountExecutiveRole ; prov:actedOnBehalfOf ?org . ?org epo:role epo:testingOrganizationRole } }
+                                      ?acc epo:role epo:accountableOrganizationRole . ?p epo:role epo:authorizedRepresentativeRole ; prov:actedOnBehalfOf ?org . ?org epo:role epo:testingOrganizationRole } }
                 UNION
                 { $this ogc:inRecord ?rec . ?d a epo:IndependenceDeclaration ; ogc:inRecord ?rec ; epo:independentOf ?value ; prov:wasAttributedTo ?p . ?p prov:actedOnBehalfOf ?value }
             }
@@ -186,8 +186,8 @@ ogc:S0-Roles a sh:NodeShape ;
             SELECT $this ?value WHERE {
                 $this epo:role ?r1 ; epo:role ?value .
                 FILTER(?r1 != ?value)
-                FILTER(?r1 IN (epo:domainExpertRole, epo:evaluationOperatorRole, epo:accountExecutiveRole, epo:sponsorSignatoryRole))
-                FILTER(?value IN (epo:domainExpertRole, epo:evaluationOperatorRole, epo:accountExecutiveRole, epo:sponsorSignatoryRole))
+                FILTER(?r1 IN (epo:domainExpertRole, epo:evaluationOperatorRole, epo:authorizedRepresentativeRole, epo:sponsorSignatoryRole))
+                FILTER(?value IN (epo:domainExpertRole, epo:evaluationOperatorRole, epo:authorizedRepresentativeRole, epo:sponsorSignatoryRole))
             }
         """ ] .
 
@@ -1129,7 +1129,7 @@ ogc:S8-Delivery a sh:NodeShape ;
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX prov: <http://www.w3.org/ns/prov#>
             SELECT $this WHERE {
-                { FILTER NOT EXISTS { $this prov:wasAttributedTo ?p . ?p epo:role epo:accountExecutiveRole } }
+                { FILTER NOT EXISTS { $this prov:wasAttributedTo ?p . ?p epo:role epo:authorizedRepresentativeRole } }
                 UNION { FILTER NOT EXISTS { $this epo:deliveredTo ?o . ?o epo:role epo:sponsorRole } }
                 UNION { FILTER NOT EXISTS { $this prov:wasDerivedFrom ?r . ?r a epo:Report ; epo:draft false } }
                 UNION { FILTER NOT EXISTS { $this prov:wasDerivedFrom ?c . ?c a epo:Recommendation } }
@@ -1199,7 +1199,7 @@ ogc:S0-Proposal a sh:NodeShape ;
             PREFIX prov: <http://www.w3.org/ns/prov#>
             PREFIX sysml: <https://www.omg.org/spec/SysML#>
             SELECT $this WHERE {
-                { FILTER NOT EXISTS { $this prov:wasAttributedTo ?p . ?p epo:role epo:accountExecutiveRole } }
+                { FILTER NOT EXISTS { $this prov:wasAttributedTo ?p . ?p epo:role epo:authorizedRepresentativeRole } }
                 UNION { $this epo:respondsTo ?n ; prov:generatedAtTime ?t1 . ?n prov:generatedAtTime ?t0 . FILTER(?t1 <= ?t0) }
                 UNION { FILTER NOT EXISTS { $this a ?cls . ?kind ogm:realizes ?cls . ?p sysml:type ?kind ; sysml:direction "out" ; sysml:owner ?act . ?act ogm:realizes epo:propose } }
             }

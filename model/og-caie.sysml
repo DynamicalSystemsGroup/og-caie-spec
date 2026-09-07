@@ -523,7 +523,7 @@ package OGCAIE {
         port acceptanceOut : AcceptanceWrite;
     }
 
-    part def AccountExecutive :> Person {
+    part def AuthorizedRepresentative :> Person {
         doc /* Signatory of the service agreement and legal representative
            of the testing organization (ruling R-23; headword authorized
            representative, R-49). Countersigns the agreement into the
@@ -710,7 +710,7 @@ package OGCAIE {
            the test item, its activity is third-party (ISO/IEC 17000 4.5);
            its independence declaration in the record says so (sheet
            10-07). */
-        part accountExecutive : AccountExecutive[1];
+        part authorizedRepresentative : AuthorizedRepresentative[1];
         part team : EvaluationTeam[1];
         part testDriver : TestDriver;
         part conformanceChecker : ConformanceChecker;
@@ -740,16 +740,16 @@ package OGCAIE {
 
         connection obligation : Obligation connect sponsor to affected;
         interface missionSeam : MissionSeam connect sponsor.missionOut to testingOrg.recorder.missionIn;
-        interface missionToExecutiveSeam : MissionSeam connect sponsor.missionOut to testingOrg.accountExecutive.missionIn;
+        interface missionToExecutiveSeam : MissionSeam connect sponsor.missionOut to testingOrg.authorizedRepresentative.missionIn;
         interface statementOfWorkSeam : StatementOfWorkSeam connect sponsor.statementOfWorkOut to testingOrg.recorder.statementOfWorkIn;
-        interface statementOfWorkToExecutiveSeam : StatementOfWorkSeam connect sponsor.statementOfWorkOut to testingOrg.accountExecutive.statementOfWorkIn;
+        interface statementOfWorkToExecutiveSeam : StatementOfWorkSeam connect sponsor.statementOfWorkOut to testingOrg.authorizedRepresentative.statementOfWorkIn;
         interface needSeam : NeedSeam connect sponsor.needOut to testingOrg.recorder.needIn;
-        interface needToExecutiveSeam : NeedSeam connect sponsor.needOut to testingOrg.accountExecutive.needIn;
-        interface proposalSeam : ProposalSeam connect testingOrg.accountExecutive.proposalOut to testingOrg.recorder.proposalIn;
-        interface proposalToSponsorSeam : ProposalSeam connect testingOrg.accountExecutive.proposalOut to sponsor.proposalIn;
-        interface agreementSeam : AgreementSeam connect sponsor.signatory.agreementOut to testingOrg.accountExecutive.agreementIn;
-        interface countersignSeam : AgreementSeam connect testingOrg.accountExecutive.agreementOut to testingOrg.recorder.agreementIn;
-        interface independenceDeclarationSeam : IndependenceDeclarationSeam connect testingOrg.accountExecutive.independenceDeclarationOut to testingOrg.recorder.independenceDeclarationIn;
+        interface needToExecutiveSeam : NeedSeam connect sponsor.needOut to testingOrg.authorizedRepresentative.needIn;
+        interface proposalSeam : ProposalSeam connect testingOrg.authorizedRepresentative.proposalOut to testingOrg.recorder.proposalIn;
+        interface proposalToSponsorSeam : ProposalSeam connect testingOrg.authorizedRepresentative.proposalOut to sponsor.proposalIn;
+        interface agreementSeam : AgreementSeam connect sponsor.signatory.agreementOut to testingOrg.authorizedRepresentative.agreementIn;
+        interface countersignSeam : AgreementSeam connect testingOrg.authorizedRepresentative.agreementOut to testingOrg.recorder.agreementIn;
+        interface independenceDeclarationSeam : IndependenceDeclarationSeam connect testingOrg.authorizedRepresentative.independenceDeclarationOut to testingOrg.recorder.independenceDeclarationIn;
         interface userInterestDeclarationSeam : UserInterestDeclarationSeam connect sponsor.signatory.userInterestDeclarationOut to testingOrg.recorder.userInterestDeclarationIn;
         interface accessSeam : AccessSeam connect accountable.accessOut to testingOrg.recorder.accessIn;
         interface accessToOperatorSeam : AccessSeam connect accountable.accessOut to testingOrg.team.operator.accessIn;
@@ -779,10 +779,10 @@ package OGCAIE {
         interface recordToDriverSeam : RecordSeam connect testingOrg.recorder.recordOut to testingOrg.testDriver.recordIn;
         interface recordToCheckerSeam : RecordSeam connect testingOrg.recorder.recordOut to testingOrg.conformanceChecker.recordIn;
         interface recordToAssemblerSeam : RecordSeam connect testingOrg.recorder.recordOut to testingOrg.reportAssembler.recordIn;
-        interface deliverySeam : DeliverySeam connect testingOrg.accountExecutive.deliveryOut to sponsor.deliveryIn;
-        interface deliveryRecordSeam : DeliverySeam connect testingOrg.accountExecutive.deliveryOut to testingOrg.recorder.deliveryIn;
+        interface deliverySeam : DeliverySeam connect testingOrg.authorizedRepresentative.deliveryOut to sponsor.deliveryIn;
+        interface deliveryRecordSeam : DeliverySeam connect testingOrg.authorizedRepresentative.deliveryOut to testingOrg.recorder.deliveryIn;
         interface acceptanceSeam : AcceptanceSeam connect sponsor.signatory.acceptanceOut to testingOrg.recorder.acceptanceIn;
-        interface acceptanceToExecutiveSeam : AcceptanceSeam connect sponsor.signatory.acceptanceOut to testingOrg.accountExecutive.acceptanceIn;
+        interface acceptanceToExecutiveSeam : AcceptanceSeam connect sponsor.signatory.acceptanceOut to testingOrg.authorizedRepresentative.acceptanceIn;
 
         part sponsor : SponsorOrganization;
         part testingOrg : TestingOrganization;
@@ -816,7 +816,7 @@ package OGCAIE {
             }
             part :>> testingOrg {
                 attribute :>> name = "Humane Intelligence";
-                part :>> accountExecutive { attribute :>> name = "Mala"; }
+                part :>> authorizedRepresentative { attribute :>> name = "Mala"; }
                 part :>> team {
                     part annie :> domainExpert { attribute :>> name = "Annie"; }
                     part theo :> operator { attribute :>> name = "Theo"; }

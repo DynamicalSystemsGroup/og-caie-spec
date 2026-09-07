@@ -52,11 +52,11 @@ def test_inputs_unique_outputs_shared():
             if used[p] > 1:
                 shared.append((label, used[p]))
     assert sum(used.values()) == 2 * SEAMS
-    assert sorted(shared) == [("AccountExecutive.deliveryOut", 2), ("AccountExecutive.proposalOut", 2), ("AccountableOrganization.accessOut", 2), ("AffectedPopulation.inputOut", 2),
+    assert sorted(shared) == sorted([("AuthorizedRepresentative.deliveryOut", 2), ("AuthorizedRepresentative.proposalOut", 2), ("AccountableOrganization.accessOut", 2), ("AffectedPopulation.inputOut", 2),
                               ("ConformanceChecker.verdictOut", 2),  # sheet 10-41: the recorder and the assembler read the verdict
                               ("Recorder.recordOut", 3), ("SponsorOrganization.missionOut", 2), ("SponsorOrganization.needOut", 2), ("SponsorOrganization.statementOfWorkOut", 2),
                               ("SponsorSignatory.acceptanceOut", 2),  # sheet 10-06: the acceptance is the signatory's
-                              ("TestDriver.probesOut", 2)]
+                              ("TestDriver.probesOut", 2)])  # sorted on both sides: the rename of 10-49 reordered the names
 
 
 def test_every_item_kind_reaches_the_recorder():
@@ -75,7 +75,7 @@ def test_actor_categories_share_no_supplier_port_definition():
     Delivery is its own activity with its own output, not a reuse of the
     operator's recommendation port."""
     g = graph()
-    roles = {"DomainExpert", "EvaluationOperator", "AccountExecutive"}
+    roles = {"DomainExpert", "EvaluationOperator", "AuthorizedRepresentative"}
     shared_by_design = {d for d in g.subjects(RDF.type, SYS.PortDefinition) if name(g, d) == "DeterminationWrite"}
     supplied = {}
     for d in g.subjects(RDF.type, SYS.PartDefinition):
@@ -90,7 +90,7 @@ def test_actor_categories_share_no_supplier_port_definition():
     # sheet 10-06: the sponsor's signatory, a person on the other side of the contract, shares one supplier port
     # definition with the authorized representative, the agreement both sign, and nothing with the two experts
     agreement = {d for d in g.subjects(RDF.type, SYS.PortDefinition) if name(g, d) == "AgreementWrite"}
-    assert supplied["SponsorSignatory"] & supplied["AccountExecutive"] == agreement
+    assert supplied["SponsorSignatory"] & supplied["AuthorizedRepresentative"] == agreement
     assert not (supplied["SponsorSignatory"] & (supplied["DomainExpert"] | supplied["EvaluationOperator"]))
 
 
@@ -102,7 +102,7 @@ def test_parties_and_roles_present():
     assert typed == {"SponsorOrganization", "TestingOrganization", "AccountableOrganization", "AffectedPopulation"}
     org = defs["TestingOrganization"]
     held = {name(g, g.value(u, SYS.type)) for u in g.subjects(SYS.owner, org) if (u, RDF.type, SYS.PartUsage) in g}
-    assert {"AccountExecutive", "EvaluationTeam", "Recorder", "TestDriver", "ConformanceChecker", "ReportAssembler"} <= held
+    assert {"AuthorizedRepresentative", "EvaluationTeam", "Recorder", "TestDriver", "ConformanceChecker", "ReportAssembler"} <= held
     sponsor = defs["SponsorOrganization"]  # sheet 10-06: the sponsor holds its signatory, a person
     assert {name(g, g.value(u, SYS.type)) for u in g.subjects(SYS.owner, sponsor) if (u, RDF.type, SYS.PartUsage) in g} == {"SponsorSignatory"}
     assert name(g, g.value(defs["SponsorSignatory"], SYS.specializes)) == "Person"
@@ -131,6 +131,6 @@ def test_views_have_perspectives_and_cover_every_seam():
     drawn = {name(g, s) for sl in ("contracting", "evaluation") for s in views.seams(g, sl)}
     assert drawn == {name(g, s) for s in views.seams(g)}
     contracting = views.wiring(g, "contracting")
-    assert 'sponsor -- "Mission, Need, StatementOfWork" --> testingOrg_accountExecutive' in contracting  # sheet 10-06: what the organization sends
-    assert 'sponsor_signatory -- "ServiceAgreement, Acceptance" --> testingOrg_accountExecutive' in contracting  # and what its signatory signs
+    assert 'sponsor -- "Mission, Need, StatementOfWork" --> testingOrg_authorizedRepresentative' in contracting  # sheet 10-06: what the organization sends
+    assert 'sponsor_signatory -- "ServiceAgreement, Acceptance" --> testingOrg_authorizedRepresentative' in contracting  # and what its signatory signs
     assert 'sponsor -. "obligation" .-> affected' in contracting

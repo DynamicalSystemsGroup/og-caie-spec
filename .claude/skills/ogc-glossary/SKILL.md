@@ -179,7 +179,7 @@ shape files.
   printed args).
 - `ogc epo <class-or-role>`: one EPO class or role by local name, CURIE or
   IRI (`ogc epo StakeholderRepresentation`, `ogc epo
-  AuthorizedRepresentativeRole`, `ogc epo accountExecutiveRole`): its
+  AuthorizedRepresentativeRole`, `ogc epo authorizedRepresentativeRole`): its
   label (in the EPO the class's `rdfs:label` is its definition), its
   superclasses (a role's types), subclasses and instances, the layer it is
   pinned at (`ogc:pinnedAt`, contract or evaluation), the term it names

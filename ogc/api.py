@@ -749,9 +749,14 @@ def resolve_epo(g: Graph, name: str):
     """(node, kind, candidates): the EPO class or role whose local name is `name`, case-insensitive; else (None, None, near misses)."""
     key = norm(name).lower()
     nodes = epo_nodes(g)
-    hit = next(((n, k) for n, k in nodes if local(n).lower() == key), None)
-    if hit is not None:
-        return hit[0], hit[1], []
+    exact = next(((n, k) for n, k in nodes if local(n) == norm(name)), None)  # a class and its role individual differ only by case (AuthorizedRepresentativeRole, authorizedRepresentativeRole; sheet 10-49)
+    if exact is not None:
+        return exact[0], exact[1], []
+    hits = [(n, k) for n, k in nodes if local(n).lower() == key]
+    if len(hits) == 1:
+        return hits[0][0], hits[0][1], []
+    if hits:  # ambiguous in lower case: name the exact spellings
+        return None, None, [f"epo:{local(n)}" for n, _ in hits]
     return None, None, [f"epo:{c}" for c in near(key, [local(n) for n, _ in nodes])]
 
 

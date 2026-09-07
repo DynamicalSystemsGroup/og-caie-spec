@@ -197,7 +197,7 @@ def parties(r: Run, params: Params):
     a["AccountableOrganization"] = agent("accountable", "test item provider", PROV.Organization, role=EPO.accountableOrganizationRole, providesTestItem=Literal(True))
     a["TestingOrganization"] = agent("testing-org", "testing organization", PROV.Organization, role=EPO.testingOrganizationRole)
     a["SponsorSignatory"] = agent("signatory", "sponsor signatory", PROV.Person, role=EPO.sponsorSignatoryRole, actedOnBehalfOf=a["SponsorOrganization"])  # sheet 10-06
-    a["AccountExecutive"] = agent("executive", "authorized representative", PROV.Person, role=EPO.accountExecutiveRole, actedOnBehalfOf=a["TestingOrganization"])
+    a["AuthorizedRepresentative"] = agent("executive", "authorized representative", PROV.Person, role=EPO.authorizedRepresentativeRole, actedOnBehalfOf=a["TestingOrganization"])
     a["DomainExpert"] = agent("expert", "domain expert", PROV.Person, role=EPO.domainExpertRole, actedOnBehalfOf=a["TestingOrganization"])
     a["EvaluationOperator"] = agent("operator", "evaluation operator", PROV.Person, role=EPO.evaluationOperatorRole, actedOnBehalfOf=a["TestingOrganization"])
     a["TestItem"] = agent("test-item", "test item", PROV.SoftwareAgent, EARL.TestSubject, version=Literal("1"), actedOnBehalfOf=a["AccountableOrganization"])
@@ -250,7 +250,7 @@ def t_propose(r, i, p):
 def t_agree(r, i, p):
     g = r.g
     n = r.new("ServiceAgreement", "agreement", i)
-    g.add((n, EPO.signedBy, r.agents["SponsorSignatory"])); g.add((n, EPO.signedBy, r.agents["AccountExecutive"]))  # two persons sign, each for their organization (sheet 10-06)
+    g.add((n, EPO.signedBy, r.agents["SponsorSignatory"])); g.add((n, EPO.signedBy, r.agents["AuthorizedRepresentative"]))  # two persons sign, each for their organization (sheet 10-06)
     g.add((n, EPO.accepts, r.items["Proposal"][0])); g.add((n, RDFS.label, Literal("the service agreement; accepts the proposal")))  # sheet 10-05
     sow = r.new("StatementOfWork", "statement-of-work", i)  # dated with the agreement it is under (sheet 10-05)
     g.add((sow, EPO.underAgreement, n)); g.add((sow, RDFS.label, Literal("the scope of work: the first population interviewed, the others represented"))); by(r, sow, "StatementOfWork")
@@ -492,7 +492,7 @@ def m_unwire_evidence(g):
 
 
 def m_executive_attests(g):
-    ex = next(g.subjects(EPO.role, EPO.accountExecutiveRole))
+    ex = next(g.subjects(EPO.role, EPO.authorizedRepresentativeRole))
     for a in g.subjects(RDF.type, EPO.Attestation):
         g.remove((a, EARL.assertedBy, None)); g.add((a, EARL.assertedBy, ex))
 

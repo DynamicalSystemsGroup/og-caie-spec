@@ -2,7 +2,7 @@
  "artifact": {
   "derived_triples": 385,
   "path": "model/og-caie.model.ttl",
-  "sha256": "ee482d88f2328e128537b75552e8d38b8c6d5dba830d92f4a1885f2834f986f2",
+  "sha256": "6c00b03ec95426dc5ae98981d84790c8ef1710208f9bf4fd4f1205027fcfb745",
   "terms_used": [
    "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>",
    "ogm:consumerPort",
@@ -78,7 +78,7 @@
  },
  "source": {
   "path": "model/og-caie.sysml",
-  "sha256": "5012d8ac55d687290b2d28d527b4ea137296c5fadb5776f968de80afe1a3a5a9"
+  "sha256": "4e93a267d226dbe29ebf1166ce707962029b1fe2a3b4d83405749fd306f2d503"
  },
  "term_map": {
   "path": "model/sysml_term_map.csv",

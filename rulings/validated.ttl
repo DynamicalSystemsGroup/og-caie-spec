@@ -22,7 +22,7 @@ ogm:validation-needToExecutiveSeam a ogc:Validation ; ogc:validates "needToExecu
 ogm:validation-proposalToSponsorSeam a ogc:Validation ; ogc:validates "proposalToSponsorSeam" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .
 ogm:validation-statementOfWorkSeam a ogc:Validation ; ogc:validates "statementOfWorkSeam" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .
 ogm:validation-statementOfWorkToExecutiveSeam a ogc:Validation ; ogc:validates "statementOfWorkToExecutiveSeam" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .
-ogm:validation-AccountExecutive a ogc:Validation ; ogc:validates "AccountExecutive" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date ; ogc:via "walkthrough popup, block 2 of 11: ports and wires validated; the headword becomes authorized representative (C-26)" .
+ogm:validation-AuthorizedRepresentative a ogc:Validation ; ogc:validates "AuthorizedRepresentative" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date ; ogc:via "walkthrough popup, block 2 of 11: ports and wires validated; the headword becomes authorized representative (C-26)" .
 ogm:validation-countersignSeam a ogc:Validation ; ogc:validates "countersignSeam" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .
 ogm:validation-deliveryRecordSeam a ogc:Validation ; ogc:validates "deliveryRecordSeam" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .
 ogm:validation-proposalSeam a ogc:Validation ; ogc:validates "proposalSeam" ; ogc:validatedBy rul:Z ; ogc:validatedOn "2026-09-06"^^xsd:date .

@@ -134,98 +134,6 @@ elmt:OGCAIE__AccessWrite__i
     sysml:qualifiedName "OGCAIE::AccessWrite::i" ;
     sysml:type elmt:OGCAIE__TestItemAccess .
 
-elmt:OGCAIE__AccountExecutive
-    a sysml:PartDefinition ;
-    sysml:declaredName "AccountExecutive" ;
-    sysml:owner elmt:OGCAIE ;
-    sysml:qualifiedName "OGCAIE::AccountExecutive" ;
-    sysml:specializes elmt:OGCAIE__Person .
-
-elmt:OGCAIE__AccountExecutive___400
-    a sysml:Documentation ;
-    sysml:body """ Signatory of the service agreement and legal representative
-           of the testing organization (ruling R-23; headword authorized
-           representative, R-49). Countersigns the agreement into the
-           record, reads the record through its view, and delivers the
-           report and the recommendation to the sponsor as one delivery
-           (an activity of its own, R-24); answers the sponsor's need with
-           the proposal and receives the acceptance (R-32). No evidence, determination or
-           attestation port: the authorized representative is not
-           responsible for the determinations in the report; it is the
-           organization's interface with its contractual counterparties
-           (sheet 09), and declares its independence of the test item
-           provider (sheet 10-07). The worked example's Mala. """ ;
-    sysml:owner elmt:OGCAIE__AccountExecutive ;
-    sysml:qualifiedName "OGCAIE::AccountExecutive::@0" .
-
-elmt:OGCAIE__AccountExecutive__acceptanceIn
-    a sysml:PortUsage ;
-    sysml:declaredName "acceptanceIn" ;
-    sysml:isConjugated "true"^^xsd:boolean ;
-    sysml:owner elmt:OGCAIE__AccountExecutive ;
-    sysml:qualifiedName "OGCAIE::AccountExecutive::acceptanceIn" ;
-    sysml:type elmt:OGCAIE__AcceptanceWrite .
-
-elmt:OGCAIE__AccountExecutive__agreementIn
-    a sysml:PortUsage ;
-    sysml:declaredName "agreementIn" ;
-    sysml:isConjugated "true"^^xsd:boolean ;
-    sysml:owner elmt:OGCAIE__AccountExecutive ;
-    sysml:qualifiedName "OGCAIE::AccountExecutive::agreementIn" ;
-    sysml:type elmt:OGCAIE__AgreementWrite .
-
-elmt:OGCAIE__AccountExecutive__agreementOut
-    a sysml:PortUsage ;
-    sysml:declaredName "agreementOut" ;
-    sysml:owner elmt:OGCAIE__AccountExecutive ;
-    sysml:qualifiedName "OGCAIE::AccountExecutive::agreementOut" ;
-    sysml:type elmt:OGCAIE__AgreementWrite .
-
-elmt:OGCAIE__AccountExecutive__deliveryOut
-    a sysml:PortUsage ;
-    sysml:declaredName "deliveryOut" ;
-    sysml:owner elmt:OGCAIE__AccountExecutive ;
-    sysml:qualifiedName "OGCAIE::AccountExecutive::deliveryOut" ;
-    sysml:type elmt:OGCAIE__DeliveryWrite .
-
-elmt:OGCAIE__AccountExecutive__independenceDeclarationOut
-    a sysml:PortUsage ;
-    sysml:declaredName "independenceDeclarationOut" ;
-    sysml:owner elmt:OGCAIE__AccountExecutive ;
-    sysml:qualifiedName "OGCAIE::AccountExecutive::independenceDeclarationOut" ;
-    sysml:type elmt:OGCAIE__IndependenceDeclarationWrite .
-
-elmt:OGCAIE__AccountExecutive__missionIn
-    a sysml:PortUsage ;
-    sysml:declaredName "missionIn" ;
-    sysml:isConjugated "true"^^xsd:boolean ;
-    sysml:owner elmt:OGCAIE__AccountExecutive ;
-    sysml:qualifiedName "OGCAIE::AccountExecutive::missionIn" ;
-    sysml:type elmt:OGCAIE__MissionWrite .
-
-elmt:OGCAIE__AccountExecutive__needIn
-    a sysml:PortUsage ;
-    sysml:declaredName "needIn" ;
-    sysml:isConjugated "true"^^xsd:boolean ;
-    sysml:owner elmt:OGCAIE__AccountExecutive ;
-    sysml:qualifiedName "OGCAIE::AccountExecutive::needIn" ;
-    sysml:type elmt:OGCAIE__NeedWrite .
-
-elmt:OGCAIE__AccountExecutive__proposalOut
-    a sysml:PortUsage ;
-    sysml:declaredName "proposalOut" ;
-    sysml:owner elmt:OGCAIE__AccountExecutive ;
-    sysml:qualifiedName "OGCAIE::AccountExecutive::proposalOut" ;
-    sysml:type elmt:OGCAIE__ProposalWrite .
-
-elmt:OGCAIE__AccountExecutive__statementOfWorkIn
-    a sysml:PortUsage ;
-    sysml:declaredName "statementOfWorkIn" ;
-    sysml:isConjugated "true"^^xsd:boolean ;
-    sysml:owner elmt:OGCAIE__AccountExecutive ;
-    sysml:qualifiedName "OGCAIE::AccountExecutive::statementOfWorkIn" ;
-    sysml:type elmt:OGCAIE__StatementOfWorkWrite .
-
 elmt:OGCAIE__AccountableOrganization
     a sysml:PartDefinition ;
     sysml:declaredName "AccountableOrganization" ;
@@ -459,6 +367,98 @@ elmt:OGCAIE__Attestation__id
     sysml:owner elmt:OGCAIE__Attestation ;
     sysml:qualifiedName "OGCAIE::Attestation::id" ;
     sysml:type "ScalarValues::String" .
+
+elmt:OGCAIE__AuthorizedRepresentative
+    a sysml:PartDefinition ;
+    sysml:declaredName "AuthorizedRepresentative" ;
+    sysml:owner elmt:OGCAIE ;
+    sysml:qualifiedName "OGCAIE::AuthorizedRepresentative" ;
+    sysml:specializes elmt:OGCAIE__Person .
+
+elmt:OGCAIE__AuthorizedRepresentative___400
+    a sysml:Documentation ;
+    sysml:body """ Signatory of the service agreement and legal representative
+           of the testing organization (ruling R-23; headword authorized
+           representative, R-49). Countersigns the agreement into the
+           record, reads the record through its view, and delivers the
+           report and the recommendation to the sponsor as one delivery
+           (an activity of its own, R-24); answers the sponsor's need with
+           the proposal and receives the acceptance (R-32). No evidence, determination or
+           attestation port: the authorized representative is not
+           responsible for the determinations in the report; it is the
+           organization's interface with its contractual counterparties
+           (sheet 09), and declares its independence of the test item
+           provider (sheet 10-07). The worked example's Mala. """ ;
+    sysml:owner elmt:OGCAIE__AuthorizedRepresentative ;
+    sysml:qualifiedName "OGCAIE::AuthorizedRepresentative::@0" .
+
+elmt:OGCAIE__AuthorizedRepresentative__acceptanceIn
+    a sysml:PortUsage ;
+    sysml:declaredName "acceptanceIn" ;
+    sysml:isConjugated "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__AuthorizedRepresentative ;
+    sysml:qualifiedName "OGCAIE::AuthorizedRepresentative::acceptanceIn" ;
+    sysml:type elmt:OGCAIE__AcceptanceWrite .
+
+elmt:OGCAIE__AuthorizedRepresentative__agreementIn
+    a sysml:PortUsage ;
+    sysml:declaredName "agreementIn" ;
+    sysml:isConjugated "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__AuthorizedRepresentative ;
+    sysml:qualifiedName "OGCAIE::AuthorizedRepresentative::agreementIn" ;
+    sysml:type elmt:OGCAIE__AgreementWrite .
+
+elmt:OGCAIE__AuthorizedRepresentative__agreementOut
+    a sysml:PortUsage ;
+    sysml:declaredName "agreementOut" ;
+    sysml:owner elmt:OGCAIE__AuthorizedRepresentative ;
+    sysml:qualifiedName "OGCAIE::AuthorizedRepresentative::agreementOut" ;
+    sysml:type elmt:OGCAIE__AgreementWrite .
+
+elmt:OGCAIE__AuthorizedRepresentative__deliveryOut
+    a sysml:PortUsage ;
+    sysml:declaredName "deliveryOut" ;
+    sysml:owner elmt:OGCAIE__AuthorizedRepresentative ;
+    sysml:qualifiedName "OGCAIE::AuthorizedRepresentative::deliveryOut" ;
+    sysml:type elmt:OGCAIE__DeliveryWrite .
+
+elmt:OGCAIE__AuthorizedRepresentative__independenceDeclarationOut
+    a sysml:PortUsage ;
+    sysml:declaredName "independenceDeclarationOut" ;
+    sysml:owner elmt:OGCAIE__AuthorizedRepresentative ;
+    sysml:qualifiedName "OGCAIE::AuthorizedRepresentative::independenceDeclarationOut" ;
+    sysml:type elmt:OGCAIE__IndependenceDeclarationWrite .
+
+elmt:OGCAIE__AuthorizedRepresentative__missionIn
+    a sysml:PortUsage ;
+    sysml:declaredName "missionIn" ;
+    sysml:isConjugated "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__AuthorizedRepresentative ;
+    sysml:qualifiedName "OGCAIE::AuthorizedRepresentative::missionIn" ;
+    sysml:type elmt:OGCAIE__MissionWrite .
+
+elmt:OGCAIE__AuthorizedRepresentative__needIn
+    a sysml:PortUsage ;
+    sysml:declaredName "needIn" ;
+    sysml:isConjugated "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__AuthorizedRepresentative ;
+    sysml:qualifiedName "OGCAIE::AuthorizedRepresentative::needIn" ;
+    sysml:type elmt:OGCAIE__NeedWrite .
+
+elmt:OGCAIE__AuthorizedRepresentative__proposalOut
+    a sysml:PortUsage ;
+    sysml:declaredName "proposalOut" ;
+    sysml:owner elmt:OGCAIE__AuthorizedRepresentative ;
+    sysml:qualifiedName "OGCAIE::AuthorizedRepresentative::proposalOut" ;
+    sysml:type elmt:OGCAIE__ProposalWrite .
+
+elmt:OGCAIE__AuthorizedRepresentative__statementOfWorkIn
+    a sysml:PortUsage ;
+    sysml:declaredName "statementOfWorkIn" ;
+    sysml:isConjugated "true"^^xsd:boolean ;
+    sysml:owner elmt:OGCAIE__AuthorizedRepresentative ;
+    sysml:qualifiedName "OGCAIE::AuthorizedRepresentative::statementOfWorkIn" ;
+    sysml:type elmt:OGCAIE__StatementOfWorkWrite .
 
 elmt:OGCAIE__ConformanceChecker
     a sysml:PartDefinition ;
@@ -2399,7 +2399,7 @@ elmt:OGCAIE__Examples__MeaslesEvaluation___403___401
     a sysml:PartUsage ;
     sysml:owner elmt:OGCAIE__Examples__MeaslesEvaluation___403 ;
     sysml:qualifiedName "OGCAIE::Examples::MeaslesEvaluation::@3::@1" ;
-    sysml:redefines "accountExecutive" .
+    sysml:redefines "authorizedRepresentative" .
 
 elmt:OGCAIE__Examples__MeaslesEvaluation___403___401___400
     a sysml:AttributeUsage ;
@@ -2851,14 +2851,14 @@ elmt:OGCAIE__OgCaieEvaluation__acceptanceSeam
 
 elmt:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam
     a sysml:InterfaceUsage ;
-    ogm:consumerPort elmt:OGCAIE__AccountExecutive__acceptanceIn ;
+    ogm:consumerPort elmt:OGCAIE__AuthorizedRepresentative__acceptanceIn ;
     ogm:supplierPort elmt:OGCAIE__SponsorSignatory__acceptanceOut ;
     sysml:declaredName "acceptanceToExecutiveSeam" ;
     sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
     sysml:qualifiedName "OGCAIE::OgCaieEvaluation::acceptanceToExecutiveSeam" ;
     sysml:type elmt:OGCAIE__AcceptanceSeam ;
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam_pend0, expr:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam_pend1 ;
-    sysx:sourceText "interface acceptanceToExecutiveSeam : AcceptanceSeam connect sponsor.signatory.acceptanceOut to testingOrg.accountExecutive.acceptanceIn;" .
+    sysx:sourceText "interface acceptanceToExecutiveSeam : AcceptanceSeam connect sponsor.signatory.acceptanceOut to testingOrg.authorizedRepresentative.acceptanceIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__accessSeam
     a sysml:InterfaceUsage ;
@@ -2900,14 +2900,14 @@ elmt:OGCAIE__OgCaieEvaluation__affected
 
 elmt:OGCAIE__OgCaieEvaluation__agreementSeam
     a sysml:InterfaceUsage ;
-    ogm:consumerPort elmt:OGCAIE__AccountExecutive__agreementIn ;
+    ogm:consumerPort elmt:OGCAIE__AuthorizedRepresentative__agreementIn ;
     ogm:supplierPort elmt:OGCAIE__SponsorSignatory__agreementOut ;
     sysml:declaredName "agreementSeam" ;
     sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
     sysml:qualifiedName "OGCAIE::OgCaieEvaluation::agreementSeam" ;
     sysml:type elmt:OGCAIE__AgreementSeam ;
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__agreementSeam_pend0, expr:OGCAIE__OgCaieEvaluation__agreementSeam_pend1 ;
-    sysx:sourceText "interface agreementSeam : AgreementSeam connect sponsor.signatory.agreementOut to testingOrg.accountExecutive.agreementIn;" .
+    sysx:sourceText "interface agreementSeam : AgreementSeam connect sponsor.signatory.agreementOut to testingOrg.authorizedRepresentative.agreementIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__assessmentSeam
     a sysml:InterfaceUsage ;
@@ -2942,35 +2942,35 @@ elmt:OGCAIE__OgCaieEvaluation__contracting
 elmt:OGCAIE__OgCaieEvaluation__countersignSeam
     a sysml:InterfaceUsage ;
     ogm:consumerPort elmt:OGCAIE__Recorder__agreementIn ;
-    ogm:supplierPort elmt:OGCAIE__AccountExecutive__agreementOut ;
+    ogm:supplierPort elmt:OGCAIE__AuthorizedRepresentative__agreementOut ;
     sysml:declaredName "countersignSeam" ;
     sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
     sysml:qualifiedName "OGCAIE::OgCaieEvaluation::countersignSeam" ;
     sysml:type elmt:OGCAIE__AgreementSeam ;
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__countersignSeam_pend0, expr:OGCAIE__OgCaieEvaluation__countersignSeam_pend1 ;
-    sysx:sourceText "interface countersignSeam : AgreementSeam connect testingOrg.accountExecutive.agreementOut to testingOrg.recorder.agreementIn;" .
+    sysx:sourceText "interface countersignSeam : AgreementSeam connect testingOrg.authorizedRepresentative.agreementOut to testingOrg.recorder.agreementIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__deliveryRecordSeam
     a sysml:InterfaceUsage ;
     ogm:consumerPort elmt:OGCAIE__Recorder__deliveryIn ;
-    ogm:supplierPort elmt:OGCAIE__AccountExecutive__deliveryOut ;
+    ogm:supplierPort elmt:OGCAIE__AuthorizedRepresentative__deliveryOut ;
     sysml:declaredName "deliveryRecordSeam" ;
     sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
     sysml:qualifiedName "OGCAIE::OgCaieEvaluation::deliveryRecordSeam" ;
     sysml:type elmt:OGCAIE__DeliverySeam ;
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__deliveryRecordSeam_pend0, expr:OGCAIE__OgCaieEvaluation__deliveryRecordSeam_pend1 ;
-    sysx:sourceText "interface deliveryRecordSeam : DeliverySeam connect testingOrg.accountExecutive.deliveryOut to testingOrg.recorder.deliveryIn;" .
+    sysx:sourceText "interface deliveryRecordSeam : DeliverySeam connect testingOrg.authorizedRepresentative.deliveryOut to testingOrg.recorder.deliveryIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__deliverySeam
     a sysml:InterfaceUsage ;
     ogm:consumerPort elmt:OGCAIE__SponsorOrganization__deliveryIn ;
-    ogm:supplierPort elmt:OGCAIE__AccountExecutive__deliveryOut ;
+    ogm:supplierPort elmt:OGCAIE__AuthorizedRepresentative__deliveryOut ;
     sysml:declaredName "deliverySeam" ;
     sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
     sysml:qualifiedName "OGCAIE::OgCaieEvaluation::deliverySeam" ;
     sysml:type elmt:OGCAIE__DeliverySeam ;
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__deliverySeam_pend0, expr:OGCAIE__OgCaieEvaluation__deliverySeam_pend1 ;
-    sysx:sourceText "interface deliverySeam : DeliverySeam connect testingOrg.accountExecutive.deliveryOut to sponsor.deliveryIn;" .
+    sysx:sourceText "interface deliverySeam : DeliverySeam connect testingOrg.authorizedRepresentative.deliveryOut to sponsor.deliveryIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__derivedProbeSeam
     a sysml:InterfaceUsage ;
@@ -3019,13 +3019,13 @@ elmt:OGCAIE__OgCaieEvaluation__expertDeterminationSeam
 elmt:OGCAIE__OgCaieEvaluation__independenceDeclarationSeam
     a sysml:InterfaceUsage ;
     ogm:consumerPort elmt:OGCAIE__Recorder__independenceDeclarationIn ;
-    ogm:supplierPort elmt:OGCAIE__AccountExecutive__independenceDeclarationOut ;
+    ogm:supplierPort elmt:OGCAIE__AuthorizedRepresentative__independenceDeclarationOut ;
     sysml:declaredName "independenceDeclarationSeam" ;
     sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
     sysml:qualifiedName "OGCAIE::OgCaieEvaluation::independenceDeclarationSeam" ;
     sysml:type elmt:OGCAIE__IndependenceDeclarationSeam ;
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__independenceDeclarationSeam_pend0, expr:OGCAIE__OgCaieEvaluation__independenceDeclarationSeam_pend1 ;
-    sysx:sourceText "interface independenceDeclarationSeam : IndependenceDeclarationSeam connect testingOrg.accountExecutive.independenceDeclarationOut to testingOrg.recorder.independenceDeclarationIn;" .
+    sysx:sourceText "interface independenceDeclarationSeam : IndependenceDeclarationSeam connect testingOrg.authorizedRepresentative.independenceDeclarationOut to testingOrg.recorder.independenceDeclarationIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__missionSeam
     a sysml:InterfaceUsage ;
@@ -3040,14 +3040,14 @@ elmt:OGCAIE__OgCaieEvaluation__missionSeam
 
 elmt:OGCAIE__OgCaieEvaluation__missionToExecutiveSeam
     a sysml:InterfaceUsage ;
-    ogm:consumerPort elmt:OGCAIE__AccountExecutive__missionIn ;
+    ogm:consumerPort elmt:OGCAIE__AuthorizedRepresentative__missionIn ;
     ogm:supplierPort elmt:OGCAIE__SponsorOrganization__missionOut ;
     sysml:declaredName "missionToExecutiveSeam" ;
     sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
     sysml:qualifiedName "OGCAIE::OgCaieEvaluation::missionToExecutiveSeam" ;
     sysml:type elmt:OGCAIE__MissionSeam ;
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__missionToExecutiveSeam_pend0, expr:OGCAIE__OgCaieEvaluation__missionToExecutiveSeam_pend1 ;
-    sysx:sourceText "interface missionToExecutiveSeam : MissionSeam connect sponsor.missionOut to testingOrg.accountExecutive.missionIn;" .
+    sysx:sourceText "interface missionToExecutiveSeam : MissionSeam connect sponsor.missionOut to testingOrg.authorizedRepresentative.missionIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__needSeam
     a sysml:InterfaceUsage ;
@@ -3062,14 +3062,14 @@ elmt:OGCAIE__OgCaieEvaluation__needSeam
 
 elmt:OGCAIE__OgCaieEvaluation__needToExecutiveSeam
     a sysml:InterfaceUsage ;
-    ogm:consumerPort elmt:OGCAIE__AccountExecutive__needIn ;
+    ogm:consumerPort elmt:OGCAIE__AuthorizedRepresentative__needIn ;
     ogm:supplierPort elmt:OGCAIE__SponsorOrganization__needOut ;
     sysml:declaredName "needToExecutiveSeam" ;
     sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
     sysml:qualifiedName "OGCAIE::OgCaieEvaluation::needToExecutiveSeam" ;
     sysml:type elmt:OGCAIE__NeedSeam ;
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__needToExecutiveSeam_pend0, expr:OGCAIE__OgCaieEvaluation__needToExecutiveSeam_pend1 ;
-    sysx:sourceText "interface needToExecutiveSeam : NeedSeam connect sponsor.needOut to testingOrg.accountExecutive.needIn;" .
+    sysx:sourceText "interface needToExecutiveSeam : NeedSeam connect sponsor.needOut to testingOrg.authorizedRepresentative.needIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__obligation
     a sysml:ConnectionUsage ;
@@ -3151,24 +3151,24 @@ elmt:OGCAIE__OgCaieEvaluation__probeRunSeam
 elmt:OGCAIE__OgCaieEvaluation__proposalSeam
     a sysml:InterfaceUsage ;
     ogm:consumerPort elmt:OGCAIE__Recorder__proposalIn ;
-    ogm:supplierPort elmt:OGCAIE__AccountExecutive__proposalOut ;
+    ogm:supplierPort elmt:OGCAIE__AuthorizedRepresentative__proposalOut ;
     sysml:declaredName "proposalSeam" ;
     sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
     sysml:qualifiedName "OGCAIE::OgCaieEvaluation::proposalSeam" ;
     sysml:type elmt:OGCAIE__ProposalSeam ;
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__proposalSeam_pend0, expr:OGCAIE__OgCaieEvaluation__proposalSeam_pend1 ;
-    sysx:sourceText "interface proposalSeam : ProposalSeam connect testingOrg.accountExecutive.proposalOut to testingOrg.recorder.proposalIn;" .
+    sysx:sourceText "interface proposalSeam : ProposalSeam connect testingOrg.authorizedRepresentative.proposalOut to testingOrg.recorder.proposalIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__proposalToSponsorSeam
     a sysml:InterfaceUsage ;
     ogm:consumerPort elmt:OGCAIE__SponsorOrganization__proposalIn ;
-    ogm:supplierPort elmt:OGCAIE__AccountExecutive__proposalOut ;
+    ogm:supplierPort elmt:OGCAIE__AuthorizedRepresentative__proposalOut ;
     sysml:declaredName "proposalToSponsorSeam" ;
     sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
     sysml:qualifiedName "OGCAIE::OgCaieEvaluation::proposalToSponsorSeam" ;
     sysml:type elmt:OGCAIE__ProposalSeam ;
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__proposalToSponsorSeam_pend0, expr:OGCAIE__OgCaieEvaluation__proposalToSponsorSeam_pend1 ;
-    sysx:sourceText "interface proposalToSponsorSeam : ProposalSeam connect testingOrg.accountExecutive.proposalOut to sponsor.proposalIn;" .
+    sysx:sourceText "interface proposalToSponsorSeam : ProposalSeam connect testingOrg.authorizedRepresentative.proposalOut to sponsor.proposalIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__recommendationSeam
     a sysml:InterfaceUsage ;
@@ -3322,14 +3322,14 @@ elmt:OGCAIE__OgCaieEvaluation__statementOfWorkSeam
 
 elmt:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam
     a sysml:InterfaceUsage ;
-    ogm:consumerPort elmt:OGCAIE__AccountExecutive__statementOfWorkIn ;
+    ogm:consumerPort elmt:OGCAIE__AuthorizedRepresentative__statementOfWorkIn ;
     ogm:supplierPort elmt:OGCAIE__SponsorOrganization__statementOfWorkOut ;
     sysml:declaredName "statementOfWorkToExecutiveSeam" ;
     sysml:owner elmt:OGCAIE__OgCaieEvaluation ;
     sysml:qualifiedName "OGCAIE::OgCaieEvaluation::statementOfWorkToExecutiveSeam" ;
     sysml:type elmt:OGCAIE__StatementOfWorkSeam ;
     sysx:relatedFeature expr:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam_pend0, expr:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam_pend1 ;
-    sysx:sourceText "interface statementOfWorkToExecutiveSeam : StatementOfWorkSeam connect sponsor.statementOfWorkOut to testingOrg.accountExecutive.statementOfWorkIn;" .
+    sysx:sourceText "interface statementOfWorkToExecutiveSeam : StatementOfWorkSeam connect sponsor.statementOfWorkOut to testingOrg.authorizedRepresentative.statementOfWorkIn;" .
 
 elmt:OGCAIE__OgCaieEvaluation__testingOrg
     a sysml:PartUsage ;
@@ -4986,13 +4986,13 @@ elmt:OGCAIE__TestingOrganization___400
     sysml:owner elmt:OGCAIE__TestingOrganization ;
     sysml:qualifiedName "OGCAIE::TestingOrganization::@0" .
 
-elmt:OGCAIE__TestingOrganization__accountExecutive
+elmt:OGCAIE__TestingOrganization__authorizedRepresentative
     a sysml:PartUsage ;
-    sysml:declaredName "accountExecutive" ;
+    sysml:declaredName "authorizedRepresentative" ;
     sysml:owner elmt:OGCAIE__TestingOrganization ;
-    sysml:qualifiedName "OGCAIE::TestingOrganization::accountExecutive" ;
-    sysml:type elmt:OGCAIE__AccountExecutive ;
-    sysml:upperBound expr:OGCAIE__TestingOrganization__accountExecutive_pupperBound .
+    sysml:qualifiedName "OGCAIE::TestingOrganization::authorizedRepresentative" ;
+    sysml:type elmt:OGCAIE__AuthorizedRepresentative ;
+    sysml:upperBound expr:OGCAIE__TestingOrganization__authorizedRepresentative_pupperBound .
 
 elmt:OGCAIE__TestingOrganization__conformanceChecker
     a sysml:PartUsage ;
@@ -6343,18 +6343,18 @@ expr:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam_pend0_pa0_pa0
 
 expr:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam_pend1
     a sysml:FeatureChainExpression ;
-    ogm:endPart elmt:OGCAIE__TestingOrganization__accountExecutive ;
-    ogm:resolvesTo elmt:OGCAIE__AccountExecutive__acceptanceIn ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__authorizedRepresentative ;
+    ogm:resolvesTo elmt:OGCAIE__AuthorizedRepresentative__acceptanceIn ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam_pend1_pa0 ;
     sysml:targetFeature "acceptanceIn" ;
     sysx:endIndex "1"^^xsd:integer ;
-    sysx:sourceText "testingOrg.accountExecutive.acceptanceIn" .
+    sysx:sourceText "testingOrg.authorizedRepresentative.acceptanceIn" .
 
 expr:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam_pend1_pa0
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam_pend1_pa0_pa0 ;
-    sysml:targetFeature "accountExecutive" ;
-    sysx:sourceText "testingOrg.accountExecutive" .
+    sysml:targetFeature "authorizedRepresentative" ;
+    sysx:sourceText "testingOrg.authorizedRepresentative" .
 
 expr:OGCAIE__OgCaieEvaluation__acceptanceToExecutiveSeam_pend1_pa0_pa0
     a sysml:FeatureReferenceExpression ;
@@ -6466,18 +6466,18 @@ expr:OGCAIE__OgCaieEvaluation__agreementSeam_pend0_pa0_pa0
 
 expr:OGCAIE__OgCaieEvaluation__agreementSeam_pend1
     a sysml:FeatureChainExpression ;
-    ogm:endPart elmt:OGCAIE__TestingOrganization__accountExecutive ;
-    ogm:resolvesTo elmt:OGCAIE__AccountExecutive__agreementIn ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__authorizedRepresentative ;
+    ogm:resolvesTo elmt:OGCAIE__AuthorizedRepresentative__agreementIn ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__agreementSeam_pend1_pa0 ;
     sysml:targetFeature "agreementIn" ;
     sysx:endIndex "1"^^xsd:integer ;
-    sysx:sourceText "testingOrg.accountExecutive.agreementIn" .
+    sysx:sourceText "testingOrg.authorizedRepresentative.agreementIn" .
 
 expr:OGCAIE__OgCaieEvaluation__agreementSeam_pend1_pa0
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__agreementSeam_pend1_pa0_pa0 ;
-    sysml:targetFeature "accountExecutive" ;
-    sysx:sourceText "testingOrg.accountExecutive" .
+    sysml:targetFeature "authorizedRepresentative" ;
+    sysx:sourceText "testingOrg.authorizedRepresentative" .
 
 expr:OGCAIE__OgCaieEvaluation__agreementSeam_pend1_pa0_pa0
     a sysml:FeatureReferenceExpression ;
@@ -6578,18 +6578,18 @@ expr:OGCAIE__OgCaieEvaluation__attestationSeam_pend1_pa0_pa0
 
 expr:OGCAIE__OgCaieEvaluation__countersignSeam_pend0
     a sysml:FeatureChainExpression ;
-    ogm:endPart elmt:OGCAIE__TestingOrganization__accountExecutive ;
-    ogm:resolvesTo elmt:OGCAIE__AccountExecutive__agreementOut ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__authorizedRepresentative ;
+    ogm:resolvesTo elmt:OGCAIE__AuthorizedRepresentative__agreementOut ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__countersignSeam_pend0_pa0 ;
     sysml:targetFeature "agreementOut" ;
     sysx:endIndex "0"^^xsd:integer ;
-    sysx:sourceText "testingOrg.accountExecutive.agreementOut" .
+    sysx:sourceText "testingOrg.authorizedRepresentative.agreementOut" .
 
 expr:OGCAIE__OgCaieEvaluation__countersignSeam_pend0_pa0
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__countersignSeam_pend0_pa0_pa0 ;
-    sysml:targetFeature "accountExecutive" ;
-    sysx:sourceText "testingOrg.accountExecutive" .
+    sysml:targetFeature "authorizedRepresentative" ;
+    sysx:sourceText "testingOrg.authorizedRepresentative" .
 
 expr:OGCAIE__OgCaieEvaluation__countersignSeam_pend0_pa0_pa0
     a sysml:FeatureReferenceExpression ;
@@ -6618,18 +6618,18 @@ expr:OGCAIE__OgCaieEvaluation__countersignSeam_pend1_pa0_pa0
 
 expr:OGCAIE__OgCaieEvaluation__deliveryRecordSeam_pend0
     a sysml:FeatureChainExpression ;
-    ogm:endPart elmt:OGCAIE__TestingOrganization__accountExecutive ;
-    ogm:resolvesTo elmt:OGCAIE__AccountExecutive__deliveryOut ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__authorizedRepresentative ;
+    ogm:resolvesTo elmt:OGCAIE__AuthorizedRepresentative__deliveryOut ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__deliveryRecordSeam_pend0_pa0 ;
     sysml:targetFeature "deliveryOut" ;
     sysx:endIndex "0"^^xsd:integer ;
-    sysx:sourceText "testingOrg.accountExecutive.deliveryOut" .
+    sysx:sourceText "testingOrg.authorizedRepresentative.deliveryOut" .
 
 expr:OGCAIE__OgCaieEvaluation__deliveryRecordSeam_pend0_pa0
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__deliveryRecordSeam_pend0_pa0_pa0 ;
-    sysml:targetFeature "accountExecutive" ;
-    sysx:sourceText "testingOrg.accountExecutive" .
+    sysml:targetFeature "authorizedRepresentative" ;
+    sysx:sourceText "testingOrg.authorizedRepresentative" .
 
 expr:OGCAIE__OgCaieEvaluation__deliveryRecordSeam_pend0_pa0_pa0
     a sysml:FeatureReferenceExpression ;
@@ -6658,18 +6658,18 @@ expr:OGCAIE__OgCaieEvaluation__deliveryRecordSeam_pend1_pa0_pa0
 
 expr:OGCAIE__OgCaieEvaluation__deliverySeam_pend0
     a sysml:FeatureChainExpression ;
-    ogm:endPart elmt:OGCAIE__TestingOrganization__accountExecutive ;
-    ogm:resolvesTo elmt:OGCAIE__AccountExecutive__deliveryOut ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__authorizedRepresentative ;
+    ogm:resolvesTo elmt:OGCAIE__AuthorizedRepresentative__deliveryOut ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__deliverySeam_pend0_pa0 ;
     sysml:targetFeature "deliveryOut" ;
     sysx:endIndex "0"^^xsd:integer ;
-    sysx:sourceText "testingOrg.accountExecutive.deliveryOut" .
+    sysx:sourceText "testingOrg.authorizedRepresentative.deliveryOut" .
 
 expr:OGCAIE__OgCaieEvaluation__deliverySeam_pend0_pa0
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__deliverySeam_pend0_pa0_pa0 ;
-    sysml:targetFeature "accountExecutive" ;
-    sysx:sourceText "testingOrg.accountExecutive" .
+    sysml:targetFeature "authorizedRepresentative" ;
+    sysx:sourceText "testingOrg.authorizedRepresentative" .
 
 expr:OGCAIE__OgCaieEvaluation__deliverySeam_pend0_pa0_pa0
     a sysml:FeatureReferenceExpression ;
@@ -6876,18 +6876,18 @@ expr:OGCAIE__OgCaieEvaluation__expertDeterminationSeam_pend1_pa0_pa0
 
 expr:OGCAIE__OgCaieEvaluation__independenceDeclarationSeam_pend0
     a sysml:FeatureChainExpression ;
-    ogm:endPart elmt:OGCAIE__TestingOrganization__accountExecutive ;
-    ogm:resolvesTo elmt:OGCAIE__AccountExecutive__independenceDeclarationOut ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__authorizedRepresentative ;
+    ogm:resolvesTo elmt:OGCAIE__AuthorizedRepresentative__independenceDeclarationOut ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__independenceDeclarationSeam_pend0_pa0 ;
     sysml:targetFeature "independenceDeclarationOut" ;
     sysx:endIndex "0"^^xsd:integer ;
-    sysx:sourceText "testingOrg.accountExecutive.independenceDeclarationOut" .
+    sysx:sourceText "testingOrg.authorizedRepresentative.independenceDeclarationOut" .
 
 expr:OGCAIE__OgCaieEvaluation__independenceDeclarationSeam_pend0_pa0
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__independenceDeclarationSeam_pend0_pa0_pa0 ;
-    sysml:targetFeature "accountExecutive" ;
-    sysx:sourceText "testingOrg.accountExecutive" .
+    sysml:targetFeature "authorizedRepresentative" ;
+    sysx:sourceText "testingOrg.authorizedRepresentative" .
 
 expr:OGCAIE__OgCaieEvaluation__independenceDeclarationSeam_pend0_pa0_pa0
     a sysml:FeatureReferenceExpression ;
@@ -6964,18 +6964,18 @@ expr:OGCAIE__OgCaieEvaluation__missionToExecutiveSeam_pend0_pa0
 
 expr:OGCAIE__OgCaieEvaluation__missionToExecutiveSeam_pend1
     a sysml:FeatureChainExpression ;
-    ogm:endPart elmt:OGCAIE__TestingOrganization__accountExecutive ;
-    ogm:resolvesTo elmt:OGCAIE__AccountExecutive__missionIn ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__authorizedRepresentative ;
+    ogm:resolvesTo elmt:OGCAIE__AuthorizedRepresentative__missionIn ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__missionToExecutiveSeam_pend1_pa0 ;
     sysml:targetFeature "missionIn" ;
     sysx:endIndex "1"^^xsd:integer ;
-    sysx:sourceText "testingOrg.accountExecutive.missionIn" .
+    sysx:sourceText "testingOrg.authorizedRepresentative.missionIn" .
 
 expr:OGCAIE__OgCaieEvaluation__missionToExecutiveSeam_pend1_pa0
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__missionToExecutiveSeam_pend1_pa0_pa0 ;
-    sysml:targetFeature "accountExecutive" ;
-    sysx:sourceText "testingOrg.accountExecutive" .
+    sysml:targetFeature "authorizedRepresentative" ;
+    sysx:sourceText "testingOrg.authorizedRepresentative" .
 
 expr:OGCAIE__OgCaieEvaluation__missionToExecutiveSeam_pend1_pa0_pa0
     a sysml:FeatureReferenceExpression ;
@@ -7032,18 +7032,18 @@ expr:OGCAIE__OgCaieEvaluation__needToExecutiveSeam_pend0_pa0
 
 expr:OGCAIE__OgCaieEvaluation__needToExecutiveSeam_pend1
     a sysml:FeatureChainExpression ;
-    ogm:endPart elmt:OGCAIE__TestingOrganization__accountExecutive ;
-    ogm:resolvesTo elmt:OGCAIE__AccountExecutive__needIn ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__authorizedRepresentative ;
+    ogm:resolvesTo elmt:OGCAIE__AuthorizedRepresentative__needIn ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__needToExecutiveSeam_pend1_pa0 ;
     sysml:targetFeature "needIn" ;
     sysx:endIndex "1"^^xsd:integer ;
-    sysx:sourceText "testingOrg.accountExecutive.needIn" .
+    sysx:sourceText "testingOrg.authorizedRepresentative.needIn" .
 
 expr:OGCAIE__OgCaieEvaluation__needToExecutiveSeam_pend1_pa0
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__needToExecutiveSeam_pend1_pa0_pa0 ;
-    sysml:targetFeature "accountExecutive" ;
-    sysx:sourceText "testingOrg.accountExecutive" .
+    sysml:targetFeature "authorizedRepresentative" ;
+    sysx:sourceText "testingOrg.authorizedRepresentative" .
 
 expr:OGCAIE__OgCaieEvaluation__needToExecutiveSeam_pend1_pa0_pa0
     a sysml:FeatureReferenceExpression ;
@@ -7334,18 +7334,18 @@ expr:OGCAIE__OgCaieEvaluation__probeRunSeam_pend1_pa0_pa0
 
 expr:OGCAIE__OgCaieEvaluation__proposalSeam_pend0
     a sysml:FeatureChainExpression ;
-    ogm:endPart elmt:OGCAIE__TestingOrganization__accountExecutive ;
-    ogm:resolvesTo elmt:OGCAIE__AccountExecutive__proposalOut ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__authorizedRepresentative ;
+    ogm:resolvesTo elmt:OGCAIE__AuthorizedRepresentative__proposalOut ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__proposalSeam_pend0_pa0 ;
     sysml:targetFeature "proposalOut" ;
     sysx:endIndex "0"^^xsd:integer ;
-    sysx:sourceText "testingOrg.accountExecutive.proposalOut" .
+    sysx:sourceText "testingOrg.authorizedRepresentative.proposalOut" .
 
 expr:OGCAIE__OgCaieEvaluation__proposalSeam_pend0_pa0
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__proposalSeam_pend0_pa0_pa0 ;
-    sysml:targetFeature "accountExecutive" ;
-    sysx:sourceText "testingOrg.accountExecutive" .
+    sysml:targetFeature "authorizedRepresentative" ;
+    sysx:sourceText "testingOrg.authorizedRepresentative" .
 
 expr:OGCAIE__OgCaieEvaluation__proposalSeam_pend0_pa0_pa0
     a sysml:FeatureReferenceExpression ;
@@ -7374,18 +7374,18 @@ expr:OGCAIE__OgCaieEvaluation__proposalSeam_pend1_pa0_pa0
 
 expr:OGCAIE__OgCaieEvaluation__proposalToSponsorSeam_pend0
     a sysml:FeatureChainExpression ;
-    ogm:endPart elmt:OGCAIE__TestingOrganization__accountExecutive ;
-    ogm:resolvesTo elmt:OGCAIE__AccountExecutive__proposalOut ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__authorizedRepresentative ;
+    ogm:resolvesTo elmt:OGCAIE__AuthorizedRepresentative__proposalOut ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__proposalToSponsorSeam_pend0_pa0 ;
     sysml:targetFeature "proposalOut" ;
     sysx:endIndex "0"^^xsd:integer ;
-    sysx:sourceText "testingOrg.accountExecutive.proposalOut" .
+    sysx:sourceText "testingOrg.authorizedRepresentative.proposalOut" .
 
 expr:OGCAIE__OgCaieEvaluation__proposalToSponsorSeam_pend0_pa0
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__proposalToSponsorSeam_pend0_pa0_pa0 ;
-    sysml:targetFeature "accountExecutive" ;
-    sysx:sourceText "testingOrg.accountExecutive" .
+    sysml:targetFeature "authorizedRepresentative" ;
+    sysx:sourceText "testingOrg.authorizedRepresentative" .
 
 expr:OGCAIE__OgCaieEvaluation__proposalToSponsorSeam_pend0_pa0_pa0
     a sysml:FeatureReferenceExpression ;
@@ -7954,18 +7954,18 @@ expr:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam_pend0_pa0
 
 expr:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam_pend1
     a sysml:FeatureChainExpression ;
-    ogm:endPart elmt:OGCAIE__TestingOrganization__accountExecutive ;
-    ogm:resolvesTo elmt:OGCAIE__AccountExecutive__statementOfWorkIn ;
+    ogm:endPart elmt:OGCAIE__TestingOrganization__authorizedRepresentative ;
+    ogm:resolvesTo elmt:OGCAIE__AuthorizedRepresentative__statementOfWorkIn ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam_pend1_pa0 ;
     sysml:targetFeature "statementOfWorkIn" ;
     sysx:endIndex "1"^^xsd:integer ;
-    sysx:sourceText "testingOrg.accountExecutive.statementOfWorkIn" .
+    sysx:sourceText "testingOrg.authorizedRepresentative.statementOfWorkIn" .
 
 expr:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam_pend1_pa0
     a sysml:FeatureChainExpression ;
     sysml:argument expr:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam_pend1_pa0_pa0 ;
-    sysml:targetFeature "accountExecutive" ;
-    sysx:sourceText "testingOrg.accountExecutive" .
+    sysml:targetFeature "authorizedRepresentative" ;
+    sysx:sourceText "testingOrg.authorizedRepresentative" .
 
 expr:OGCAIE__OgCaieEvaluation__statementOfWorkToExecutiveSeam_pend1_pa0_pa0
     a sysml:FeatureReferenceExpression ;
@@ -8115,7 +8115,7 @@ expr:OGCAIE__StatementOfWork__regards_pupperBound
     a sysml:LiteralInfinity ;
     sysx:sourceText "*" .
 
-expr:OGCAIE__TestingOrganization__accountExecutive_pupperBound
+expr:OGCAIE__TestingOrganization__authorizedRepresentative_pupperBound
     a sysml:LiteralInteger ;
     sysml:value "1"^^xsd:integer ;
     sysx:sourceText "1" .

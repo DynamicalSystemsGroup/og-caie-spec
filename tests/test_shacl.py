@@ -151,7 +151,7 @@ def test_record_names_the_parties_and_roles():
     g = data(RECORD)
     roles = {str(r).rsplit("#", 1)[-1] for r in g.objects(None, EPO.role)}
     assert roles == {"sponsorRole", "testingOrganizationRole", "accountableOrganizationRole",
-                     "accountExecutiveRole", "domainExpertRole", "evaluationOperatorRole",
+                     "authorizedRepresentativeRole", "domainExpertRole", "evaluationOperatorRole",
                      "testItemCustomerRole", "sponsorSignatoryRole"}  # sheet 08: the sponsor is also the customer of the chatbot it deploys; sheet 10-06: the sponsor's signatory
     persons = [a for a in g.subjects(RDF.type, PROV.Person)]
     assert len(persons) == 4

@@ -54,7 +54,7 @@ WHERE {
   ?agreement epo:accepts ?proposal .
   ?agreement epo:signedBy ?signatoryNode . ?signatoryNode epo:role epo:sponsorSignatoryRole ; rdfs:label ?signatory ; prov:actedOnBehalfOf ?sponsorNode .
   ?sponsorNode a prov:Organization ; epo:role epo:sponsorRole ; rdfs:label ?sponsor .
-  ?agreement epo:signedBy ?execNode . ?execNode epo:role epo:accountExecutiveRole ; prov:actedOnBehalfOf ?testingNode . ?testingNode rdfs:label ?testingOrg .
+  ?agreement epo:signedBy ?execNode . ?execNode epo:role epo:authorizedRepresentativeRole ; prov:actedOnBehalfOf ?testingNode . ?testingNode rdfs:label ?testingOrg .
   ?independence a epo:IndependenceDeclaration ; ogc:inRecord ?record ; epo:independentOf ?independentOfNode . ?independentOfNode rdfs:label ?independentOf .
   ?interest a epo:UserInterestDeclaration ; ogc:inRecord ?record ; epo:hasUserInterest ?userInterest .
   ?access a epo:TestItemAccess ; epo:grantsAccessTo ?sutNode ; epo:underAgreement ?agreement ; prov:wasAttributedTo ?accountableNode . ?accountableNode rdfs:label ?accountable .

@@ -30,7 +30,7 @@ CONTRACT_KINDS = {"Mission", "StatementOfWork", "Need", "Proposal", "ServiceAgre
 # Strong, distinct fills with an explicit text colour, so the figures read on
 # a light or a dark page (Z, 2026-09-06: pastel fills were hard to read).
 # Headwords for the figures where the identifier and the headword differ (R-49); identifiers stay.
-DISPLAY = {"AccountExecutive": "authorized representative", "AccountableOrganization": "test item provider", "TestDriver": "test driver",
+DISPLAY = {"AuthorizedRepresentative": "authorized representative", "AccountableOrganization": "test item provider", "TestDriver": "test driver",
            "ReportAssembler": "report assembler", "ConformanceChecker": "conformance checker", "SponsorOrganization": "sponsor", "TestingOrganization": "testing organization",
            "AffectedPopulation": "affected population", "DomainExpert": "domain expert", "EvaluationOperator": "evaluation operator", "EvaluationTeam": "evaluation team",
            "Recorder": "recorder", "TestItem": "test item", "Representative": "population representative"}
