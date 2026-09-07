@@ -358,9 +358,12 @@ def render_signoff_sheet() -> str:
     from prune_model import OGM, SYS
     g = Graph(); g.parse(ROOT / "model" / "og-caie.model.ttl")
     def nm(n): return str(g.value(n, SYS.declaredName))
+    v = Graph(); v.parse(ROOT / "rulings" / "validated.ttl")
+    ticks = {str(v.value(x, OGC.validates)): str(v.value(x, OGC.validatedOn)) for x in v.subjects(RDF.type, OGC.Validation)}
+    def tick(name): return f"[x] {ticks[name]}" if name in ticks else "[ ]"
     defs = sorted((d for d in g.subjects(RDF.type, SYS.PartDefinition) if any(True for _ in g.subjects(SYS.owner, d))), key=nm)
     lines = ["# Rulings sheet 05: the blocks and the wires (concern C-30)", "",
-             "Generated from `model/og-caie.model.ttl` by `scripts/render.py`; do not edit the rows by hand, tick them. One row per kind of part (its inputs and outputs) and one per wire (output port on a part to input port on a part). Z: tick a row when the block or the wire is validated; add a concern for anything wrong.", "",
+             "Generated from `model/og-caie.model.ttl` by `scripts/render.py`; do not edit the rows by hand, tick them. One row per kind of part (its inputs and outputs) and one per wire (output port on a part to input port on a part). Ticks come from rulings/validated.ttl (Z's walkthrough, R-48 sheet 07-09), so regeneration keeps them; add a concern for anything wrong.", "",
              "## Blocks", "", "| # | Part kind | Inputs | Outputs | Validated |", "|---|---|---|---|---|"]
     i = 0
     for d in defs:
@@ -370,20 +373,20 @@ def render_signoff_sheet() -> str:
         i += 1
         ins = ", ".join(sorted(nm(p) for p in ports if g.value(p, SYS.isConjugated)))
         outs = ", ".join(sorted(nm(p) for p in ports if not g.value(p, SYS.isConjugated)))
-        lines.append(f"| B{i} | {nm(d)} | {ins or '(none)'} | {outs or '(none)'} | [ ] |")
+        lines.append(f"| B{i} | {nm(d)} | {ins or '(none)'} | {outs or '(none)'} | {tick(nm(d))} |")
     lines += ["", "## Wires", "", "| # | Wire | From | To | Carries | Validated |", "|---|---|---|---|---|---|"]
     j = 0
     for s in sorted(g.subjects(RDF.type, SYS.InterfaceUsage), key=nm):
         j += 1
         sp, cp = g.value(s, OGM.supplierPort), g.value(s, OGM.consumerPort)
-        lines.append(f"| W{j} | {nm(s)} | {nm(g.value(sp, SYS.owner))}.{nm(sp)} | {nm(g.value(cp, SYS.owner))}.{nm(cp)} | {nm(g.value(sp, SYS.type))} | [ ] |")
+        lines.append(f"| W{j} | {nm(s)} | {nm(g.value(sp, SYS.owner))}.{nm(sp)} | {nm(g.value(cp, SYS.owner))}.{nm(cp)} | {nm(g.value(sp, SYS.type))} | {tick(nm(s))} |")
     lines += ["", "## Relations", "", "Connections that carry no item: a relation between two parties, drawn dotted in the views (R-38).", "",
               "| # | Relation | Kind | Between | Validated |", "|---|---|---|---|---|"]
     k = 0
     for c in sorted(g.subjects(RDF.type, SYS.ConnectionUsage), key=nm):
         k += 1
         parts = " towards ".join(f"{nm(p)} : {nm(g.value(p, SYS.type))}" for p in (g.value(c, OGM.relatesFrom), g.value(c, OGM.relatesTo)))
-        lines.append(f"| X{k} | {nm(c)} | {nm(g.value(c, SYS.type))} | {parts} | [ ] |")
+        lines.append(f"| X{k} | {nm(c)} | {nm(g.value(c, SYS.type))} | {parts} | {tick(nm(c))} |")
     return "\n".join(lines) + "\n"
 
 
