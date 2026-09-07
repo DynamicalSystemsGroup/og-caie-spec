@@ -1104,3 +1104,68 @@ def test_r4_kg6_every_member_has_exactly_one_derived_step():
     by_name = {str(m).rsplit("#", 1)[-1]: str(next(rg.objects(m, OGC.derivedStep))).rsplit("#", 1)[-1] for m in members if (m, RDF.type, PROV.Agent) not in rg}
     assert by_name["R1"] == "declareRequirements" and by_name["trajectory-1"] == "execute"
     assert by_name["engagement-commuters"] == "agree" and by_name["consistency-check-1"] == "plan"
+
+
+# Drift pass 4 (rulings sheet 11): the tool and renderer findings, one test each.
+
+def _render():
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import render
+    return render
+
+
+def test_d4_replies_judged():
+    """Human reader 8, QA 20: the criteria table counts the replies judged
+    (the turns whose responses the evidence derives from), not the evidence
+    items, and heads the column so."""
+    render = _render()
+    md = render.render_criteria()
+    assert "| Replies judged |" in md.splitlines()[0] and "Observations" not in md
+    assert md == (ROOT / "generated" / "criteria.md").read_text()
+    rg = load("vocabulary/epo.ttl", "track/measles-evaluation.ttl")
+    from rdflib import Namespace
+    PROV = Namespace("http://www.w3.org/ns/prov#")
+    for a in rg.subjects(RDF.type, EPO.AcceptanceCriterion):
+        turns = {t for e in rg.subjects(EPO.bearsOn, a) if (e, RDF.type, EPO.Evidence) in rg
+                 for r in rg.objects(e, PROV.wasDerivedFrom) if (r, RDF.type, EPO.Response) in rg
+                 for t in rg.objects(r, PROV.wasGeneratedBy) if (t, RDF.type, EPO.Turn) in rg}
+        row = next(l for l in md.splitlines() if l.startswith(f"| `{str(a).rsplit('#', 1)[-1]}`"))
+        assert row.split(" | ")[3] == str(len(turns)), row
+    assert "replies judged" in md.splitlines()[-1]
+
+
+def test_d4_rendered_here_lists_only_what_the_page_includes():
+    """Contracting officer 15: every fragment a `more-*.md` block says is
+    rendered on its chapter page is included by that page."""
+    for page in ("contracting", "evaluation", "model", "guarantees"):
+        more = (ROOT / "generated" / f"more-{page}.md").read_text()
+        doc = (ROOT / "docs" / f"{page}.md").read_text()
+        rendered = re.findall(r"`generated/([^`]+)`", more.split("- Rendered here: ", 1)[1].split("\n", 1)[0])
+        assert rendered, page
+        for f in rendered:
+            assert f"generated/{f}" in doc, (page, f)
+
+
+def test_d4_quote_status_counts_cite_only_from_the_graph():
+    """Professor M11: the vocabulary page's count names the cite-only
+    citations too, the number equal to `ogc verify --all --status cite-only`,
+    and the paragraph defines the tag."""
+    md = (ROOT / "generated" / "quote-status.md").read_text()
+    assert md == _render().render_quote_status()
+    n = json.loads(run("verify", "--all", "--status", "cite-only", "--json").stdout)["summary"]["citations"]
+    assert n > 0 and f"{n} cite-only" in md
+    assert "*Cite-only*:" in md and "carries no quote" in md
+
+
+def test_d4_cited_through_notes_every_sevocab_tag():
+    """Professor M9 residual: a designation a SEVOCAB locator tags (an
+    edition letter, or a locator that says `SEVOCAB tag`) carries the note
+    on every row, 24765:2014 as much as 24765e:2015."""
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import render_bib as rb
+    md = (ROOT / "generated" / "cited-through.md").read_text()
+    assert md == rb.render_cited_through()
+    rows = rb.cited_through()
+    tagged = [d for d in rows if "(as SEVOCAB tags the entry)" in d]
+    assert any(d.startswith("ISO/IEC/IEEE 24765:2014") for d in tagged) and any(d.startswith("ISO/IEC/IEEE 24765e:2015") for d in tagged)
+    assert "| ISO/IEC/IEEE 24765:2014 |" not in md

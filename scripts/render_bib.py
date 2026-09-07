@@ -404,7 +404,9 @@ def cited_through(g: Graph | None = None) -> dict[str, dict[str, set[str]]]:
                 designation = m.group(1).split(",")[0].strip()
                 if designation.startswith("fragment") or designation.startswith("first sentence"):
                     continue
-                if re.search(r"\d[a-z]:\d{4}$", designation):
+                # SEVOCAB's own tag on the entry, not an edition the body published: an edition letter before the year
+                # (24765e:2015), or a locator that names the tag outright (24765:2014, SEVOCAB tag 24765c; drift pass 4, professor M9)
+                if re.search(r"\d[a-z]:\d{4}$", designation) or "SEVOCAB tag" in m.group(1):
                     designation += " (as SEVOCAB tags the entry)"
                 elif designation.startswith("INCOSE"):
                     designation += " (a SEBoK reference key)"
