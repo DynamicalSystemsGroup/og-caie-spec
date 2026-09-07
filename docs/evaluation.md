@@ -138,9 +138,8 @@ criterion and attested it met, naming the judgment it supersedes. pySHACL
 judged the record conformant, the assembler recomputed coverage at one,
 Annie approved the final report, and Theo wrote the recommendation the
 approval owns: fit to deploy once the vaccination question is asked before
-any advice, the {term}`guardrail` the vendor has agreed to change, and
-retest it. Every row below names its person and its day; the case is
-synthetic and none of its judgments was made by the people named.
+any advice, the {term}`guardrail` the vendor must change, and retest
+it. Every row names its person and day; the case is synthetic.
 
 ```{include} ../generated/record-evaluation.md
 ```
