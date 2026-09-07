@@ -1,5 +1,5 @@
-# Counterexample for S0-Population: the statement of work decided that the county residents would be interviewed, but the record holds no stakeholder input from them, only Annie's representation (R-40).
-# Must fail on ogc:S0-Population and nothing else.
+# Counterexample for S7-CoverageComputation: the final report's coverage computation names neither the shapes, the ontology nor the coverage query it ran by their digests (sheet 10-18).
+# Must fail on ogc:S7-CoverageComputation and nothing else.
 # A copy of track/measles-evaluation.ttl with one change (sheet 10-19; written by scripts/render_counterexamples.py).
 @prefix ev:   <https://w3id.org/og-caie/evaluation/measles#> .
 @prefix epo:  <https://w3id.org/og-caie/epo#> .
@@ -116,7 +116,7 @@ ev:engagement-commuters a epo:EngagementDecision ;
     epo:population ev:commuters ; epo:engagement epo:interview .
 ev:engagement-residents a epo:EngagementDecision ;
     rdfs:label "county residents: represented by the domain expert" ;
-    epo:population ev:county-residents ; epo:engagement epo:interview .
+    epo:population ev:county-residents ; epo:engagement epo:representation .
 
 ev:test-item-access a epo:TestItemAccess ;
     rdfs:label "API access to chatbot v1 for the evaluation, August 2026, under the vendor's deployment contract with the county" ;
@@ -688,7 +688,7 @@ ev:coverage-computation a epo:CoverageComputation ;
     prov:used ev:conformance-verdict-1 ;
     prov:wasAssociatedWith ev:report-assembler ;
     earl:mode earl:automatic ;
-    epo:shapesDigest "8dbf3ba216c84170ddd3e47ee220a55f7a43edade8e7a0ccd52f0596b00ab741" ; epo:ontologyDigest "f6e5fae77beb870b86cde259a4156b570bf9e643d3babebe2a3ae949bd257ded" ; epo:queryDigest "ecc9688b862ffd77beae1e94d4cba1ae07701ca7521f2cff63b908da90eb9bb3" ;
+    epo:shapesDigest "not recorded" ; epo:ontologyDigest "not recorded" ; epo:queryDigest "not recorded" ;
     prov:endedAtTime "2026-08-12T10:00:00Z"^^xsd:dateTime .
 
 ev:report a epo:Report ;

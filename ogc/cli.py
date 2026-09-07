@@ -1020,13 +1020,17 @@ def doctor(args) -> int:
             add("ok" if render_key_terms() == key.read_text() else "STALE", "generated/key-terms.md is current", render_key_terms() != key.read_text())
         except SystemExit as e:
             add("BAD", f"{{term}} roles: {e}", True)
-    if (root / RECORD_FILE).exists():  # sheet 10-18: the record's verdict and coverage computation name the shapes, the ontology and the query by sha256
+    if (root / RECORD_FILE).exists():  # sheet 10-18: the verdict names the shapes, the ontology and the record it judged; the coverage computations the shapes, the ontology and the query (round four, KG 8)
+        from .graph import COVERAGE_DIGESTS, VERDICT_DIGESTS, verdict_digest
         rg = Graph().parse(root / RECORD_FILE)
         want = digests(root)
-        holders = list(rg.subjects(RDF.type, EPO.ConformanceVerdict)) + list(rg.subjects(RDF.type, EPO.CoverageComputation))
-        drift = sorted(f"{api.local(h)} {k}" for h in holders for k in want if str(rg.value(h, EPO[k])) != want[k])
-        add("ok" if not drift and holders else "BAD", f"the record's digests name shapes/epo.shapes.ttl, vocabulary/epo.ttl and queries/coverage.rq as committed"
-            + (f": stale on {', '.join(drift)}; run scripts/stamp_digests.py, then scripts/render_counterexamples.py" if drift else "" if holders else ": no verdict in the record"), bool(drift) or not holders)
+        verdicts = list(rg.subjects(RDF.type, EPO.ConformanceVerdict))
+        computations = list(rg.subjects(RDF.type, EPO.CoverageComputation))
+        want_verdict = {v: {**{k: want[k] for k in VERDICT_DIGESTS if k in want}, "recordDigest": d} for v, d in verdict_digest(rg).items()}
+        drift = sorted(f"{api.local(v)} {k}" for v, w in want_verdict.items() for k in VERDICT_DIGESTS if str(rg.value(v, EPO[k])) != w[k])
+        drift += sorted(f"{api.local(c)} {k}" for c in computations for k in COVERAGE_DIGESTS if str(rg.value(c, EPO[k])) != want[k])
+        add("ok" if not drift and verdicts else "BAD", "the record's digests: the verdict names shapes/epo.shapes.ttl and vocabulary/epo.ttl as committed and the record as it stood; the coverage computations name the shapes, the ontology and queries/coverage.rq"
+            + (f": stale on {', '.join(drift)}; run scripts/stamp_digests.py, then scripts/render_counterexamples.py" if drift else "" if verdicts else ": no verdict in the record"), bool(drift) or not verdicts)
     cache = sorted((root / ".cache").glob("ogc-graph-*.pkl")) if (root / ".cache").exists() else []
     add("cache", cache[0].name if cache else "(none)")
     verdict = f"VERDICT: {'PASS' if ok else 'FAIL'} (ogc doctor)"  # no path: the line is the same in every checkout

@@ -27,7 +27,7 @@ ogc:BindingOnlyShape a sh:NodeShape ;
             sh:select """
             PREFIX ogc: <https://w3id.org/og-caie/>
             SELECT $this WHERE {
-                $this ogc:canonical ?c . ?c ogc:cites ?s . ?s ogc:rank "4" .
+                $this ogc:canonical ?c . ?c ogc:cites ?s . ?s ogc:rank 4 .
                 FILTER NOT EXISTS { ?c ogc:quote ?q }
             }
         """ ] ;
@@ -161,10 +161,45 @@ ogc:RulingShape a sh:NodeShape ;
             sh:path ogc:order ] ;
     sh:targetClass ogc:Ruling .
 
-ogc:SourceShape a sh:NodeShape ;
-    sh:property [ sh:in ( "1" "2" "3" "4" "5" "6" "7" "8" ) ;
+ogc:S7-CoverageComputation a sh:NodeShape ;
+    sh:property [ sh:hasValue earl:automatic ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
+            sh:path earl:mode ],
+        [ sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path prov:endedAtTime ],
+        [ sh:class prov:SoftwareAgent ;
+            sh:message "The coverage computation is a software agent's activity, the report assembler's." ;
+            sh:minCount 1 ;
+            sh:path prov:wasAssociatedWith ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:message "The coverage computation names the shapes it ran by their sha256 digest (sheet 10-18)." ;
+            sh:minCount 1 ;
+            sh:path epo:shapesDigest ;
+            sh:pattern "^[0-9a-f]{64}$" ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:message "The coverage computation names the ontology it ran by its sha256 digest (sheet 10-18)." ;
+            sh:minCount 1 ;
+            sh:path epo:ontologyDigest ;
+            sh:pattern "^[0-9a-f]{64}$" ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:message "The coverage computation names the coverage query it ran by its sha256 digest (sheet 10-18; round four, KG 8: the query is the assembler's tool, not the checker's)." ;
+            sh:minCount 1 ;
+            sh:path epo:queryDigest ;
+            sh:pattern "^[0-9a-f]{64}$" ] ;
+    sh:targetClass epo:CoverageComputation .
+
+ogc:SourceShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 8 ;
+            sh:minCount 1 ;
+            sh:minInclusive 1 ;
             sh:path ogc:rank ],
         [ sh:in ( "pdf" "html" "web" "git" "event" ) ;
             sh:maxCount 1 ;
@@ -262,6 +297,11 @@ ogc:contentHash a owl:DatatypeProperty ;
     rdfs:label "contentHash" ;
     rdfs:comment "the sha256 of a snapshot file" ;
     rdfs:range xsd:string .
+
+ogc:crosswalk a owl:Ontology ;
+    rdfs:label "the Popper crosswalk" ;
+    rdfs:comment "The rows (xw:) of the bridge from the Popperian conception of science to the standards' terms (ruling R-29); the class and the properties are declared in vocabulary/register.ttl." ;
+    owl:versionInfo "0.3.0 in preparation; the git tag is the version" .
 
 xw:auxiliary-assumption-contract a ogc:Crosswalk ;
     rdfs:label "auxiliary assumption, first layer (pinned at the contract)" ;
@@ -406,55 +446,69 @@ ogc:digest a owl:DatatypeProperty ;
 
 epo: a owl:Ontology ;
     rdfs:label "OG-CAIE Evaluation Process Ontology (EPO), minimal handles" ;
-    rdfs:comment "Assembles PROV-O and EARL. A coined term (ruling R-09): the domain-independent standard operating procedure whose record, when it conforms to shapes/epo.shapes.ttl, shows the process was followed and lets coverage be computed." .
+    rdfs:comment "Assembles PROV-O and EARL. A coined term (ruling R-09): the domain-independent standard operating procedure whose record, when it conforms to shapes/epo.shapes.ttl, shows the process was followed and lets coverage be computed." ;
+    owl:imports earl:,
+        <http://www.w3.org/ns/prov-o#> ;
+    owl:versionInfo "0.3.0 in preparation; the git tag is the version" .
 
 epo:actsOnBehalfOf a owl:ObjectProperty ;
+    rdfs:label "acts on behalf of" ;
     rdfs:comment "the sponsor commissions the evaluation on behalf of an affected population: one that is a customer of the test item, or one affected indirectly through others' use of it (Z, sheet 08); the sponsor's mission regards the same populations (R-37). A plain property, no longer a subproperty of prov:actedOnBehalfOf, whose direction of responsibility runs the other way (sheet 10-34, R-50)" ;
     rdfs:domain prov:Organization ;
     rdfs:range epo:Population .
 
 epo:affectedAs a owl:ObjectProperty ;
+    rdfs:label "affected as" ;
     rdfs:comment "how the population is affected; a population may carry both values" ;
     rdfs:domain epo:Population ;
     rdfs:range epo:Affectedness .
 
 epo:approvesRequirementSet a owl:ObjectProperty ;
+    rdfs:label "approves requirement set" ;
     rdfs:comment "the requirement set the sponsor's signatory approved (sheet 10-01)" ;
     rdfs:domain epo:RequirementSetApproval ;
     rdfs:range epo:RequirementSet .
 
 epo:decides a owl:ObjectProperty ;
+    rdfs:label "decides" ;
     rdfs:domain epo:StatementOfWork ;
     rdfs:range epo:EngagementDecision .
 
 epo:engagement a owl:ObjectProperty ;
+    rdfs:label "engagement" ;
     rdfs:comment "interview or representation (R-40)" ;
     rdfs:domain epo:EngagementDecision ;
     rdfs:range epo:Engagement .
 
 epo:excludes a owl:ObjectProperty ;
+    rdfs:label "excludes" ;
     rdfs:comment "what a judgment left out on purpose, with epo:reason (sheets 10-11, 10-14, R-50): a determination the attestation did not use, an evidence item the determination did not use, an attestation the recommendation does not rest on. No cherry-picking: a judgment accounts for all relevant evidence in the record, or names what it left out and why" .
 
 epo:gaps a owl:DatatypeProperty ;
+    rdfs:label "gaps" ;
     rdfs:comment "the gaps a draft report flags (sheet 10-41); required by S7 on a draft" ;
     rdfs:domain epo:Report ;
     rdfs:range xsd:string .
 
 epo:hasUserInterest a owl:DatatypeProperty ;
+    rdfs:label "has user interest" ;
     rdfs:comment "whether the sponsor has a user interest in the test item (ISO/IEC 17000 4.4, 4.5; sheet 10-07)" ;
     rdfs:domain epo:UserInterestDeclaration ;
     rdfs:range xsd:boolean .
 
 epo:inSuite a owl:ObjectProperty ;
+    rdfs:label "in suite" ;
     rdfs:domain epo:Session ;
     rdfs:range epo:TestSuite .
 
 epo:independentOf a owl:ObjectProperty ;
+    rdfs:label "independent of" ;
     rdfs:comment "the test item provider the testing organization declares itself independent of (sheet 10-07)" ;
     rdfs:domain epo:IndependenceDeclaration ;
     rdfs:range prov:Organization .
 
 epo:population a owl:ObjectProperty ;
+    rdfs:label "population" ;
     rdfs:domain epo:EngagementDecision ;
     rdfs:range epo:Population .
 
@@ -465,44 +519,58 @@ epo:providesTestItem a owl:DatatypeProperty ;
     rdfs:range xsd:boolean .
 
 epo:representedBy a owl:ObjectProperty ;
-    rdfs:comment "who speaks for the population: the team member whose stakeholder representation speaks on its behalf, whether or not it was interviewed; any team member may, since speaking for a population is not a judgment on the test item (sheet 10-13, R-50). Every population carries it; an interviewed population carries the responsible party too" ;
+    rdfs:label "represented by" ;
+    rdfs:comment "who speaks for the population: the team member whose stakeholder representation speaks on its behalf, whether or not it was interviewed; any team member may, since speaking for a population is not a judgment on the test item (sheet 10-13, R-50). Every population carries it; an interviewed population carries the responsible party too. Not a sub-property of epo:responsibleParty (round four, KG 14): under RDFS that made the interview branch of S0-Population vacuous, since every represented population then had a responsible party" ;
     rdfs:domain epo:Population ;
-    rdfs:range prov:Person ;
-    rdfs:subPropertyOf epo:responsibleParty .
+    rdfs:range prov:Person .
 
 epo:represents a owl:ObjectProperty ;
+    rdfs:label "represents" ;
     rdfs:comment "the population spoken for" ;
     rdfs:domain epo:StakeholderRepresentation ;
     rdfs:range epo:Population .
 
+epo:responsibleParty a owl:ObjectProperty ;
+    rdfs:label "responsible party" ;
+    rdfs:comment "who engaged the population: the actor, a person or an organization, responsible for its engagement, for an interviewed population the interviewer or the organization that ran the interviews (Z, sheet 08; sheet 10-13, R-50). Required by S0-Population" ;
+    rdfs:domain epo:Population ;
+    rdfs:range prov:Agent .
+
 epo:role a owl:ObjectProperty ;
+    rdfs:label "role" ;
     rdfs:comment "convenience handle: the role an agent fills in this record (the PROV form is a qualified association; one property keeps the shapes readable); an agent may hold several roles (the sponsor may also be the test item customer)" ;
     rdfs:domain prov:Agent ;
     rdfs:range epo:Role .
 
 epo:signedBy a owl:ObjectProperty ;
+    rdfs:label "signed by" ;
     rdfs:comment "the two persons who sign, each acting on behalf of their organization (prov:actedOnBehalfOf): the sponsor's signatory and the authorized representative (sheet 10-06)" ;
     rdfs:domain epo:ServiceAgreement ;
     rdfs:range prov:Person ;
     rdfs:subPropertyOf prov:wasAttributedTo .
 
 epo:step a owl:ObjectProperty ;
+    rdfs:label "step" ;
     rdfs:comment "the step an item was produced at: derived from the item's class through the model graph (ogm:realizes), never asserted in a record (sheet 10-33, R-50); see the note under epo:Step" ;
     rdfs:range epo:Step .
 
 epo:targetsGuardrail a owl:DatatypeProperty ;
+    rdfs:label "targets guardrail" ;
     rdfs:domain epo:Recommendation ;
     rdfs:range xsd:string .
 
 epo:turns a owl:DatatypeProperty ;
+    rdfs:label "turns" ;
     rdfs:domain epo:Trajectory ;
     rdfs:range xsd:integer .
 
 epo:underMission a owl:ObjectProperty ;
+    rdfs:label "under mission" ;
     rdfs:domain epo:Need ;
     rdfs:range epo:Mission .
 
 epo:versionIdentity a owl:DatatypeProperty ;
+    rdfs:label "version identity" ;
     rdfs:comment "the identity of the test item version access is granted to, as the provider names it (sheet 10-04)" ;
     rdfs:domain epo:TestItemAccess ;
     rdfs:range xsd:string .
@@ -810,7 +878,8 @@ ogc:file a owl:DatatypeProperty ;
     rdfs:range xsd:string .
 
 ogc:inRecord a owl:ObjectProperty ;
-    rdfs:comment "membership of a record item or agent in its record, the prov:Bundle (sheet 10-31); required on every entity, activity and agent of a record by S0-Record" ;
+    rdfs:label "inRecord" ;
+    rdfs:comment "membership of a record item or agent in its record, the prov:Bundle (sheet 10-31); required on every member of a record by S0-Member" ;
     rdfs:range prov:Bundle .
 
 ogc:mapsTo a owl:ObjectProperty ;
@@ -879,8 +948,7 @@ ogc:permissionStatement a owl:DatatypeProperty ;
 
 ogc:pinnedAt a owl:ObjectProperty ;
     rdfs:label "pinnedAt" ;
-    rdfs:comment "on an item class: which layer fixes it (R-32)",
-        "the layer that fixes an item kind: the contract or the evaluation (R-32)" ;
+    rdfs:comment "on an item class, the layer that fixes it: the contract or the evaluation (R-32)" ;
     rdfs:domain owl:Class ;
     rdfs:range epo:Layer .
 
@@ -891,8 +959,9 @@ ogc:realizedBy a owl:ObjectProperty ;
 
 ogc:register a owl:Ontology ;
     rdfs:label "the OG-CAIE register vocabulary" ;
-    rdfs:comment "Declares the ogc: classes and properties; the shapes over the register are shapes/glossary.shapes.ttl and shapes/rulings.shapes.ttl." ;
+    rdfs:comment "Declares every ogc: class and property, the one home of each (round four, KG 10); the shapes over the register are shapes/glossary.shapes.ttl and shapes/rulings.shapes.ttl." ;
     owl:imports <http://www.w3.org/2004/02/skos/core>,
+        earl:,
         <http://www.w3.org/ns/prov-o#> ;
     owl:versionInfo "0.3.0 in preparation; the git tag is the version" .
 
@@ -1156,7 +1225,7 @@ src:w3c-skos a prov:Entity,
     ogc:kind "html" ;
     ogc:licenceNote "W3C Document Licence" ;
     ogc:posture "committed" ;
-    ogc:rank "4" ;
+    ogc:rank 4 ;
     ogc:snapshot [ ogc:contentHash "3aa00cd16ee4d86d3a19b75501bb317d0b0c134e1f4029e9f3098c4dd3669e4c" ;
             ogc:file "sources/archive/skos-reference-20090818.html" ] ;
     ogc:url <https://www.w3.org/TR/2009/REC-skos-reference-20090818/> .
@@ -1169,10 +1238,15 @@ ogc:tag a owl:DatatypeProperty ;
 
 ogc:term a owl:ObjectProperty ;
     rdfs:label "term" ;
-    rdfs:comment "the glossary term (vocabulary/og-caie.ttl) that names this class; the inverse of the term's ogc:binding string, as a link the explorer can draw and `ogc term` can print",
-        "the glossary term an EPO class names (sheet 08)" ;
+    rdfs:comment "the glossary term (vocabulary/og-caie.ttl) an EPO class names (sheet 08): the inverse of the term's ogc:binding string, as a link the explorer can draw and `ogc term` can print" ;
     rdfs:domain owl:Class ;
     rdfs:range skos:Concept .
+
+ogc:terms a owl:Ontology ;
+    rdfs:label "the OG-CAIE glossary" ;
+    rdfs:comment "The terms (term:), one SKOS concept scheme; the classes and properties they are written in are declared in vocabulary/register.ttl." ;
+    owl:imports <http://www.w3.org/2004/02/skos/core> ;
+    owl:versionInfo "0.3.0 in preparation; the git tag is the version" .
 
 tr:SCI-01 a ogc:Trace ;
     rdfs:label "SCI-01 DsoApprovedBeforeProbes" ;
@@ -4593,6 +4667,10 @@ ogc:S0-Independence a sh:NodeShape ;
     sh:targetClass prov:Bundle .
 
 ogc:S0-Member a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:message "A member's synthetic tag is one boolean (sheet 10-43)." ;
+            sh:path ogc:synthetic ] ;
     sh:sparql [ sh:message "S0: every entity, activity and agent of a record is a member of exactly one record, a prov:Bundle, through ogc:inRecord (sheet 10-31): an item outside every record would escape the constraints anchored on it." ;
             sh:select """
             PREFIX ogc: <https://w3id.org/og-caie/>
@@ -4601,6 +4679,15 @@ ogc:S0-Member a sh:NodeShape ;
                 FILTER NOT EXISTS { $this a prov:Bundle }
                 { FILTER NOT EXISTS { $this ogc:inRecord ?r . ?r a prov:Bundle } }
                 UNION { $this ogc:inRecord ?r1 . $this ogc:inRecord ?r2 . FILTER(?r1 != ?r2) }
+            }
+        """ ],
+        [ sh:message "S0: a member's synthetic tag equals its record's (sheet 10-43; round four, KG 9): a synthetic record has no untagged member, and a member tagged synthetic sits in a record tagged so." ;
+            sh:select """
+            PREFIX ogc: <https://w3id.org/og-caie/>
+            SELECT $this ?value WHERE {
+                $this ogc:inRecord ?rec .
+                { ?rec ogc:synthetic ?value . FILTER NOT EXISTS { $this ogc:synthetic ?value } }
+                UNION { $this ogc:synthetic ?value . FILTER NOT EXISTS { ?rec ogc:synthetic ?value } }
             }
         """ ] ;
     sh:target [ a sh:SPARQLTarget ;
@@ -4924,40 +5011,44 @@ ogc:class a owl:DatatypeProperty ;
     rdfs:range xsd:string .
 
 epo:DomainExpertRole a owl:Class ;
-    rdfs:label "domain expert: expert in the Domain-Specific Ontology (an alternative label of technical expert, R-10)" ;
+    rdfs:label "domain expert role" ;
+    rdfs:comment "expert in the Domain-Specific Ontology (an alternative label of technical expert, R-10)" ;
     rdfs:subClassOf epo:TechnicalExpertRole ;
     owl:disjointWith epo:AuthorizedRepresentativeRole,
         epo:EvaluationOperatorRole ;
     ogc:term term:technical-expert .
 
 epo:EvaluationCustomerRole a owl:Class ;
-    rdfs:label "evaluation customer (the sponsor): receives the evaluation as a service, signs the agreement, decides the statement of work, accepts the delivery" ;
+    rdfs:label "evaluation customer role" ;
+    rdfs:comment "receives the evaluation as a service, signs the agreement, decides the statement of work, accepts the delivery" ;
     rdfs:subClassOf epo:CustomerRole ;
     ogc:term term:evaluation-customer .
 
 epo:EvaluationServiceProviderRole a owl:Class ;
-    rdfs:label "evaluation service provider (the testing organization): provides the evaluation as a service; ISO/IEC 17000 third party when independent of the test item provider and without a user interest" ;
+    rdfs:label "evaluation service provider role" ;
+    rdfs:comment "provides the evaluation as a service; ISO/IEC 17000 third party when independent of the test item provider and without a user interest" ;
     rdfs:subClassOf epo:ProviderRole ;
     ogc:term term:evaluation-service-provider .
 
 epo:ProbeDerivation a owl:Class ;
     rdfs:label "probe derivation" ;
-    rdfs:comment "no term: the machine activity that derives probes from the DSO release and the requirement set (term probe names its output)" ;
+    rdfs:comment "the machine activity that derives probes from the DSO release and the requirement set. No term: the machine activity that derives probes from the DSO release and the requirement set (term probe names its output)" ;
     rdfs:subClassOf prov:Activity .
 
 epo:SponsorSignatoryRole a owl:Class ;
-    rdfs:label "sponsor signatory: a named person acting on behalf of the sponsor organization, who signs the agreement, declares the sponsor's user interest, approves the requirement set and accepts the delivery (sheet 10-06, R-50)" ;
-    rdfs:comment "no term: the sponsor's counterpart of the authorized representative, the acquirer's side of SEVOCAB's acceptance; neither a party role (held by an organization) nor an actor category (within the testing organization), so a sibling of both" ;
+    rdfs:label "sponsor signatory role" ;
+    rdfs:comment "a named person acting on behalf of the sponsor organization, who signs the agreement, declares the sponsor's user interest, approves the requirement set and accepts the delivery (sheet 10-06, R-50). No term: the sponsor's counterpart of the authorized representative, the acquirer's side of SEVOCAB's acceptance; neither a party role (held by an organization) nor an actor category (within the testing organization), so a sibling of both" ;
     rdfs:subClassOf epo:Role .
 
 epo:TestItemCustomerRole a owl:Class ;
-    rdfs:label "test item customer: receives the AI system under test as a product or a service; the sponsor may be one, and an affected population is one when it uses the system" ;
-    rdfs:comment "not disjoint with epo:EvaluationCustomerRole on purpose: the sponsor may also be the customer of the AI system it commissions the evaluation of (Z, sheet 08)" ;
+    rdfs:label "test item customer role" ;
+    rdfs:comment "receives the AI system under test as a product or a service; the sponsor may be one, and an affected population is one when it uses the system. Not disjoint with epo:EvaluationCustomerRole on purpose: the sponsor may also be the customer of the AI system it commissions the evaluation of (Z, sheet 08)" ;
     rdfs:subClassOf epo:CustomerRole ;
     ogc:term term:test-item-customer .
 
 epo:TestItemProviderRole a owl:Class ;
-    rdfs:label "test item provider: provides, and is accountable for, the AI system under test as its provider (ISO/IEC 17000 first party, sheet 10-09); grants access to the test item (C4)" ;
+    rdfs:label "test item provider role" ;
+    rdfs:comment "provides, and is accountable for, the AI system under test as its provider (ISO/IEC 17000 first party, sheet 10-09); grants access to the test item (C4)" ;
     rdfs:subClassOf epo:ProviderRole ;
     ogc:term term:test-item-provider .
 
@@ -5003,11 +5094,13 @@ epo:access a epo:ContractingStep ;
             ogc:locator "Annex A, A.2 Selection (the functional approach: planning and preparation to obtain the inputs for determination)" ] .
 
 epo:accessFrom a owl:DatatypeProperty ;
+    rdfs:label "access from" ;
     rdfs:comment "the start of the access period (sheet 10-04); required by S0-Access" ;
     rdfs:domain epo:TestItemAccess ;
     rdfs:range xsd:dateTime .
 
 epo:accessUntil a owl:DatatypeProperty ;
+    rdfs:label "access until" ;
     rdfs:comment "the end of the access period (sheet 10-04); required by S0-Access" ;
     rdfs:domain epo:TestItemAccess ;
     rdfs:range xsd:dateTime .
@@ -5037,19 +5130,23 @@ epo:agree a epo:ContractingStep ;
             ogc:verifiedOn "2026-09-06"^^xsd:date ] .
 
 epo:appropriateness a owl:ObjectProperty ;
+    rdfs:label "appropriateness" ;
     rdfs:comment "on an attestation (the declared context) or an appropriateness assessment (the requirement set)" ;
     rdfs:range epo:AppropriatenessValue .
 
 epo:approvedBy a owl:ObjectProperty ;
+    rdfs:label "approved by" ;
     rdfs:domain epo:DsoRelease ;
     rdfs:range prov:Person ;
     rdfs:subPropertyOf prov:wasAttributedTo .
 
 epo:approves a owl:ObjectProperty ;
+    rdfs:label "approves" ;
     rdfs:domain epo:PlanApproval ;
     rdfs:range epo:TestPlan .
 
 epo:approvesReport a owl:ObjectProperty ;
+    rdfs:label "approves report" ;
     rdfs:domain epo:ReportApproval ;
     rdfs:range epo:Report .
 
@@ -5057,20 +5154,26 @@ epo:authorizedRepresentativeRole a epo:AuthorizedRepresentativeRole ;
     rdfs:label "authorized representative (formerly account executive): signs the agreement for the testing organization, declares its independence, and delivers the report; the organization's interface with its contractual counterparties, not responsible for the determinations in the report" .
 
 epo:bearsOn a owl:ObjectProperty ;
+    rdfs:label "bears on" ;
     rdfs:comment "the criterion whose expected result this evidence item bears on (R-18, R-20)" ;
     rdfs:domain epo:Evidence ;
     rdfs:range epo:AcceptanceCriterion .
 
 epo:cantTellRate a owl:DatatypeProperty ;
+    rdfs:label "cannot-tell rate" ;
+    rdfs:comment "by count of the covered criteria: the share whose outcome is cannot tell, as queries/coverage.rq computes it; the three rates sum to one; recomputed by S7-Report" ;
     rdfs:domain epo:Report ;
     rdfs:range xsd:decimal .
 
 epo:concerns a owl:ObjectProperty ;
+    rdfs:label "concerns" ;
     rdfs:comment "the criterion left unplanned, or the plan objective left without an attestation (sheet 10-16)" ;
     rdfs:domain epo:PlanDeviation ;
     rdfs:range epo:AcceptanceCriterion .
 
 epo:coverage a owl:DatatypeProperty ;
+    rdfs:label "coverage" ;
+    rdfs:comment "by weight: the sum of the weights of the acceptance criteria that carry at least one attestation with an outcome, over the sum of every criterion's weight, as queries/coverage.rq computes it (ruling R-01, R-05); recomputed by S7-Report over the attestations dated no later than the report" ;
     rdfs:domain epo:Report ;
     rdfs:range xsd:decimal .
 
@@ -5119,6 +5222,7 @@ epo:deliver a epo:ContractingStep ;
             ogc:verifiedOn "2026-09-06"^^xsd:date ] .
 
 epo:deliveredTo a owl:ObjectProperty ;
+    rdfs:label "delivered to" ;
     rdfs:domain epo:Delivery ;
     rdfs:range prov:Organization .
 
@@ -5126,6 +5230,7 @@ epo:department a epo:IndependenceLevel ;
     rdfs:label "independence at the department level: the determiner and the operator, and the assessor and the author, act on behalf of different units" .
 
 epo:derivedFromDso a owl:ObjectProperty ;
+    rdfs:label "derived from DSO" ;
     rdfs:domain epo:Probe ;
     rdfs:range epo:DsoRelease ;
     rdfs:subPropertyOf prov:wasDerivedFrom .
@@ -5160,6 +5265,7 @@ epo:determineAndAttest a epo:EpoStep ;
             ogc:locator "Annex A, A.4 Review, decision and attestation (the functional approach)" ] .
 
 epo:deviatesFrom a owl:ObjectProperty ;
+    rdfs:label "deviates from" ;
     rdfs:comment "the test plan the deviation departs from (sheet 10-16)" ;
     rdfs:domain epo:PlanDeviation ;
     rdfs:range epo:TestPlan .
@@ -5168,11 +5274,13 @@ epo:domainExpertRole a epo:DomainExpertRole ;
     rdfs:label "domain expert: DSO, appropriateness, plan approval, determinations, attestations; represents populations not interviewed" .
 
 epo:draft a owl:DatatypeProperty ;
+    rdfs:label "draft" ;
     rdfs:comment "true for a draft report, which may carry gaps in traceability or coverage flagged in epo:gaps; false for a final report, which rests on a passed conformance verdict on the record (sheet 10-41, R-50)" ;
     rdfs:domain epo:Report ;
     rdfs:range xsd:boolean .
 
 epo:environment a owl:DatatypeProperty ;
+    rdfs:label "environment" ;
     rdfs:comment "the operational environment (SEVOCAB), stated: on the requirement set the environment the envelope binds, on the access grant the test environment provided (sheet 10-04); no domain, since both carry it" ;
     rdfs:range xsd:string .
 
@@ -5196,15 +5304,19 @@ epo:execute a epo:EpoStep ;
             ogc:locator "Annex A, A.3 Determination (the functional approach)" ] .
 
 epo:exercises a owl:ObjectProperty ;
+    rdfs:label "exercises" ;
     rdfs:domain epo:Probe ;
     rdfs:range epo:AcceptanceCriterion .
 
 epo:expectedResult a owl:DatatypeProperty ;
+    rdfs:label "expected result" ;
     rdfs:comment "SEVOCAB expected results: the observable predicted behavior that would show the criterion met (ruling R-12)" ;
     rdfs:domain epo:AcceptanceCriterion ;
     rdfs:range xsd:string .
 
 epo:failRate a owl:DatatypeProperty ;
+    rdfs:label "fail rate" ;
+    rdfs:comment "by count of the covered criteria: the share whose outcome is failed, as queries/coverage.rq computes it; recomputed by S7-Report" ;
     rdfs:domain epo:Report ;
     rdfs:range xsd:decimal .
 
@@ -5212,25 +5324,30 @@ epo:fitToDeploy a epo:FitnessValue ;
     rdfs:label "fit to deploy: every requirement met" .
 
 epo:fitness a owl:ObjectProperty ;
+    rdfs:label "fitness" ;
     rdfs:comment "the fitness the recommendation states, one of three values (sheet 10-48, R-51): fit to deploy, fit with conditions, not fit; required by S8; the sample report reads it for its badge, so the badge is the expert-approved word and never a parse of the prose" ;
     rdfs:domain epo:Recommendation ;
     rdfs:range epo:FitnessValue .
 
 epo:grantsAccessTo a owl:ObjectProperty ;
+    rdfs:label "grants access to" ;
     rdfs:domain epo:TestItemAccess ;
     rdfs:range earl:TestSubject .
 
 epo:groundedIn a owl:ObjectProperty ;
+    rdfs:label "grounded in" ;
     rdfs:domain epo:Strategy ;
     rdfs:range epo:DsoRelease .
 
 epo:inSession a owl:ObjectProperty ;
+    rdfs:label "in session" ;
     rdfs:domain epo:Turn ;
     rdfs:range epo:Session .
 
 epo:inappropriate a epo:AppropriatenessValue .
 
 epo:independenceLevel a owl:ObjectProperty ;
+    rdfs:label "independence level" ;
     rdfs:comment "on the record: the level at which independence is required and checked (sheet 10-15)" ;
     rdfs:domain prov:Bundle ;
     rdfs:range epo:IndependenceLevel .
@@ -5242,6 +5359,7 @@ epo:interview a epo:Engagement ;
     rdfs:label "interviewed: its stakeholder needs documented as input" .
 
 epo:means a owl:ObjectProperty ;
+    rdfs:label "means" ;
     rdfs:comment "SEVOCAB test plan: the means for achieving them; a Probe or a Strategy (R-13)" ;
     rdfs:domain epo:TestPlan .
 
@@ -5264,22 +5382,22 @@ epo:notFit a epo:FitnessValue ;
     rdfs:label "not fit: do not deploy" .
 
 epo:objective a owl:ObjectProperty ;
+    rdfs:label "objective" ;
     rdfs:comment "SEVOCAB test plan: the test objectives to be achieved" ;
     rdfs:domain epo:TestPlan ;
     rdfs:range epo:AcceptanceCriterion .
-
-epo:ontologyDigest a owl:DatatypeProperty ;
-    rdfs:comment "sha256 of vocabulary/epo.ttl as the checker ran it (sheet 10-18)" ;
-    rdfs:range xsd:string .
 
 epo:organization a epo:IndependenceLevel ;
     rdfs:label "independence at the organization level: the determiner and the operator, and the assessor and the author, act on behalf of different organizations" .
 
 epo:partOf a owl:ObjectProperty ;
+    rdfs:label "part of" ;
     rdfs:domain epo:Requirement ;
     rdfs:range epo:RequirementSet .
 
 epo:passRate a owl:DatatypeProperty ;
+    rdfs:label "pass rate" ;
+    rdfs:comment "by count of the covered criteria, not by weight: the share of covered criteria whose outcome is passed (a criterion counts once: failed if any attestation failed, else passed if any passed, else cannot tell), as queries/coverage.rq computes it; recomputed by S7-Report" ;
     rdfs:domain epo:Report ;
     rdfs:range xsd:decimal .
 
@@ -5297,6 +5415,7 @@ epo:plan a epo:EpoStep ;
             ogc:quoteStatus "machine" ] .
 
 epo:policy a owl:DatatypeProperty ;
+    rdfs:label "policy" ;
     rdfs:comment "the rule that maps the trajectory so far to the next probe; may name a person's exploratory testing" ;
     rdfs:domain epo:Strategy ;
     rdfs:range xsd:string .
@@ -5327,14 +5446,23 @@ epo:propose a epo:ContractingStep ;
             ogc:verifiedOn "2026-09-06"^^xsd:date ] .
 
 epo:queryDigest a owl:DatatypeProperty ;
-    rdfs:comment "sha256 of queries/coverage.rq as the assembler ran it (sheet 10-18)" ;
+    rdfs:label "query digest" ;
+    rdfs:comment "sha256 of queries/coverage.rq as the assembler ran it (sheet 10-18), on the coverage computation, whose tool the query is (S7-CoverageComputation; round four, KG 8)" ;
     rdfs:range xsd:string .
 
 epo:reason a owl:DatatypeProperty ;
+    rdfs:label "reason" ;
     rdfs:comment "why: the reason for an exclusion or a plan deviation (sheets 10-11, 10-14, 10-16)" ;
     rdfs:range xsd:string .
 
+epo:recordDigest a owl:DatatypeProperty ;
+    rdfs:label "record digest" ;
+    rdfs:comment "on the conformance verdict: sha256 of the canonical N-Triples of the record's member triples dated no later than the verdict, the verdict itself excluded (round four, KG 8), the record as the checker judged it; computed by ogc.graph.record_digest, written by scripts/stamp_digests.py and the executor, required by S7-ConformanceVerdict and recomputed by `ogc doctor`" ;
+    rdfs:domain epo:ConformanceVerdict ;
+    rdfs:range xsd:string .
+
 epo:regards a owl:ObjectProperty ;
+    rdfs:label "regards" ;
     rdfs:comment "the affected populations the mission holds obligations towards (R-37)" ;
     rdfs:domain epo:Mission ;
     rdfs:range epo:Population .
@@ -5351,13 +5479,9 @@ epo:representation a epo:Engagement ;
     rdfs:label "represented by the domain expert" .
 
 epo:respondsTo a owl:ObjectProperty ;
+    rdfs:label "responds to" ;
     rdfs:domain epo:Proposal ;
     rdfs:range epo:Need .
-
-epo:responsibleParty a owl:ObjectProperty ;
-    rdfs:comment "who engaged the population: the actor, a person or an organization, responsible for its engagement, for an interviewed population the interviewer or the organization that ran the interviews (Z, sheet 08; sheet 10-13, R-50). Required by S0-Population" ;
-    rdfs:domain epo:Population ;
-    rdfs:range prov:Agent .
 
 epo:scope a epo:EpoStep ;
     rdfs:label "1 scope: every affected population represented, with its interview when the statement of work decided one; build or select the DSO release; declare the operational environment" ;
@@ -5369,10 +5493,6 @@ epo:scope a epo:EpoStep ;
     ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ;
             ogc:locator "Annex A, A.2 Selection (the functional approach)" ] .
 
-epo:shapesDigest a owl:DatatypeProperty ;
-    rdfs:comment "sha256 of shapes/epo.shapes.ttl as the checker ran it, on the conformance verdict and the coverage computation (tool qualification, sheet 10-18, R-50); ogc doctor compares it with the file" ;
-    rdfs:range xsd:string .
-
 epo:sponsorRole a epo:EvaluationCustomerRole ;
     rdfs:label "sponsor (evaluation customer, ISO 9000:2026 customer): commissions the evaluation, may act on behalf of the affected populations, and receives the delivery" .
 
@@ -5380,10 +5500,12 @@ epo:sponsorSignatoryRole a epo:SponsorSignatoryRole ;
     rdfs:label "sponsor signatory: signs the agreement, declares the user interest, approves the requirement set and accepts the delivery on behalf of the sponsor (sheet 10-06)" .
 
 epo:sufficiency a owl:ObjectProperty ;
+    rdfs:label "sufficiency" ;
     rdfs:domain epo:Attestation ;
     rdfs:range epo:SufficiencyValue .
 
 epo:systemUnderTest a owl:ObjectProperty ;
+    rdfs:label "system under test" ;
     rdfs:comment "the one system this envelope binds: THIS system in THIS environment must meet THESE requirements (R-14)" ;
     rdfs:domain epo:RequirementSet ;
     rdfs:range earl:TestSubject .
@@ -5395,31 +5517,37 @@ epo:testingOrganizationRole a epo:EvaluationServiceProviderRole ;
     rdfs:label "testing organization (evaluation service provider, ISO 9000:2026 provider): performs the evaluation as a service" .
 
 epo:turnIndex a owl:DatatypeProperty ;
+    rdfs:label "turn index" ;
     rdfs:comment "1-based position in the session's trajectory" ;
     rdfs:domain epo:Turn ;
     rdfs:range xsd:integer .
 
 epo:underInstrument a owl:DatatypeProperty ;
+    rdfs:label "under instrument" ;
     rdfs:comment "the instrument outside this agreement under which the provider owes the access, named (sheet 10-04): the provider's duty comes from it, and the record names it; required by S0-Access" ;
     rdfs:domain epo:TestItemAccess ;
     rdfs:range xsd:string .
 
 epo:underPlan a owl:ObjectProperty ;
+    rdfs:label "under plan" ;
     rdfs:comment "the test plan an evidence item was collected under (R-18)" ;
     rdfs:domain epo:Evidence ;
     rdfs:range epo:TestPlan ;
     rdfs:subPropertyOf prov:wasDerivedFrom .
 
 epo:version a owl:DatatypeProperty ;
+    rdfs:label "version" ;
     rdfs:comment "a DSO release's or a software agent's version; no domain, since both carry it (sheet 10)" ;
     rdfs:range xsd:string .
 
 epo:weight a owl:DatatypeProperty ;
+    rdfs:label "weight" ;
     rdfs:comment "deployment sensitivity (ruling R-05)" ;
     rdfs:domain epo:AcceptanceCriterion ;
     rdfs:range xsd:decimal .
 
 epo:weightRationale a owl:DatatypeProperty ;
+    rdfs:label "weight rationale" ;
     rdfs:comment "why the criterion carries its weight (sheet 10-10, R-50); required by S2, with the criterion's prov:generatedAtTime" ;
     rdfs:domain epo:AcceptanceCriterion ;
     rdfs:range xsd:string .
@@ -5442,9 +5570,9 @@ ev:coverage-computation a epo:CoverageComputation ;
         ev:conformance-verdict-1,
         ev:requirement-set ;
     prov:wasAssociatedWith ev:report-assembler ;
-    epo:ontologyDigest "ae92b5fa6b8b80a264a821b321f597472b4955e93f301ee4885c5b5eb993e002" ;
-    epo:queryDigest "3ab9dc711479d53340c97c31be23dc071f5c8ed99a19378b4f1899e632325134" ;
-    epo:shapesDigest "04bc00dd72a98a154338412c1af0bb62673807880e00d38e6708febecba72eb1" ;
+    epo:ontologyDigest "f6e5fae77beb870b86cde259a4156b570bf9e643d3babebe2a3ae949bd257ded" ;
+    epo:queryDigest "ecc9688b862ffd77beae1e94d4cba1ae07701ca7521f2cff63b908da90eb9bb3" ;
+    epo:shapesDigest "8dbf3ba216c84170ddd3e47ee220a55f7a43edade8e7a0ccd52f0596b00ab741" ;
     ogc:inRecord ev:record ;
     ogc:synthetic true .
 
@@ -5458,9 +5586,9 @@ ev:coverage-computation-draft a epo:CoverageComputation ;
         ev:attestation-5,
         ev:requirement-set ;
     prov:wasAssociatedWith ev:report-assembler ;
-    epo:ontologyDigest "ae92b5fa6b8b80a264a821b321f597472b4955e93f301ee4885c5b5eb993e002" ;
-    epo:queryDigest "3ab9dc711479d53340c97c31be23dc071f5c8ed99a19378b4f1899e632325134" ;
-    epo:shapesDigest "04bc00dd72a98a154338412c1af0bb62673807880e00d38e6708febecba72eb1" ;
+    epo:ontologyDigest "f6e5fae77beb870b86cde259a4156b570bf9e643d3babebe2a3ae949bd257ded" ;
+    epo:queryDigest "ecc9688b862ffd77beae1e94d4cba1ae07701ca7521f2cff63b908da90eb9bb3" ;
+    epo:shapesDigest "8dbf3ba216c84170ddd3e47ee220a55f7a43edade8e7a0ccd52f0596b00ab741" ;
     ogc:inRecord ev:record ;
     ogc:synthetic true .
 
@@ -5866,9 +5994,9 @@ ogc:quoteStatus a owl:DatatypeProperty ;
 
 ogc:rank a owl:DatatypeProperty ;
     rdfs:label "rank" ;
-    rdfs:comment "the source's ordinal rank, 1 to 8, a heuristic for which definition wins when several sources define a term (sheet 10-46)" ;
+    rdfs:comment "the source's ordinal rank, 1 to 8, an integer (round four, KG 11): a heuristic for which definition wins when several sources define a term (sheet 10-46)" ;
     rdfs:domain ogc:Source ;
-    rdfs:range xsd:string .
+    rdfs:range xsd:integer .
 
 ogc:resolves a owl:ObjectProperty ;
     rdfs:label "resolves" ;
@@ -5877,10 +6005,8 @@ ogc:resolves a owl:ObjectProperty ;
     rdfs:range ogc:Concern .
 
 ogc:rulingText a owl:DatatypeProperty ;
-    rdfs:label "ruling text",
-        "rulingText" ;
-    rdfs:comment "the decision in the register's own words: the same decision, reasons and scope as the message as sent, in a formal register, third person or imperative, no addressee (R-47); rendered on Appendix C and printed first by `ogc ruling`",
-        "the ruling in the register's formal words" ;
+    rdfs:label "ruling text" ;
+    rdfs:comment "the decision in the register's own words: the same decision, reasons and scope as the message as sent, in a formal register, third person or imperative, no addressee (R-47); rendered on Appendix C and printed first by `ogc ruling`" ;
     rdfs:domain ogc:Ruling ;
     rdfs:range xsd:string .
 
@@ -6652,7 +6778,7 @@ src:nist-ai-100-1 a prov:Entity,
     ogc:kind "pdf" ;
     ogc:licenceNote "US Government work, public domain" ;
     ogc:posture "committed" ;
-    ogc:rank "3" ;
+    ogc:rank 3 ;
     ogc:snapshot [ ogc:contentHash "7576edb531d9848825814ee88e28b1795d3a84b435b4b797d3670eafdc4a89f1" ;
             ogc:file "sources/archive/NIST.AI.100-1.pdf" ] ;
     ogc:url <https://doi.org/10.6028/NIST.AI.100-1> .
@@ -6785,7 +6911,7 @@ src:w3c-prov-o a prov:Entity,
     ogc:kind "html" ;
     ogc:licenceNote "W3C Document Licence" ;
     ogc:posture "committed" ;
-    ogc:rank "4" ;
+    ogc:rank 4 ;
     ogc:snapshot [ ogc:contentHash "6b96671ab84faf12ce3f041aca12c3f93a6df2ed242348810743179a68e69555" ;
             ogc:file "sources/archive/prov-o-20130430.html" ],
         [ ogc:contentHash "7d203989f67b38bca572253942acc5a1bf24ce3ccfece16f072dcb4be2b79a96" ;
@@ -6809,15 +6935,9 @@ ogc:surfacedOn a owl:DatatypeProperty ;
     rdfs:domain ogc:Concern ;
     rdfs:range xsd:date .
 
-ogc:synthetic a owl:DatatypeProperty ;
-    rdfs:comment "true on a record and on each of its members when the content is synthetic (sheet 10-43, R-51): the worked example is a synthetic case whose names recognise the roles of real people (R-23); the tool prints the tag and the explorer can filter on it" ;
-    rdfs:range xsd:boolean .
-
 ogc:verbatim a owl:DatatypeProperty ;
-    rdfs:label "as sent",
-        "verbatim" ;
-    rdfs:comment "the adjudicator's message as sent, untouched, typos included (R-47); kept in the graph, carried by the explorer's panel and printed by `ogc ruling` under the heading as sent; not rendered on Appendix C",
-        "the ruling as Z sent it" ;
+    rdfs:label "as sent" ;
+    rdfs:comment "the adjudicator's message as sent, untouched, typos included (R-47); kept in the graph, carried by the explorer's panel and printed by `ogc ruling` under the heading as sent; not rendered on Appendix C" ;
     rdfs:domain ogc:Ruling ;
     rdfs:range xsd:string .
 
@@ -10129,9 +10249,9 @@ ogc:S7-ConformanceVerdict a sh:NodeShape ;
             sh:pattern "^[0-9a-f]{64}$" ],
         [ sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:message "The verdict names the coverage query by its sha256 digest (sheet 10-18)." ;
+            sh:message "The verdict names the record it judged by the sha256 digest of its canonical member triples as they stood at the verdict (round four, KG 8); `ogc doctor` recomputes it." ;
             sh:minCount 1 ;
-            sh:path epo:queryDigest ;
+            sh:path epo:recordDigest ;
             sh:pattern "^[0-9a-f]{64}$" ] ;
     sh:sparql [ sh:message "S7: the conformance verdict is asserted by a versioned software agent and judges the record it belongs to: its subject is that record (sheet 10-41; walkthrough, R-49)." ;
             sh:select """
@@ -10258,50 +10378,59 @@ ogc:canonical a owl:ObjectProperty ;
     rdfs:comment "a term's or step's one canonical citation (a blank node carrying cites, locator, quote, quoteStatus)" .
 
 epo:AppropriatenessAssessment a owl:Class ;
-    rdfs:label "appropriateness assessment: the domain expert's judgment that the requirement set is appropriate for the populations and the environment (R-08, R-21)" ;
+    rdfs:label "appropriateness assessment" ;
+    rdfs:comment "the domain expert's judgment that the requirement set is appropriate for the populations and the environment (R-08, R-21)" ;
     rdfs:subClassOf earl:Assertion,
         prov:Entity ;
     ogc:term term:appropriateness .
 
 epo:CustomerRole a owl:Class ;
-    rdfs:label "customer (ISO 9000:2026 3.9.1): person or organization that receives a product or a service; the genus of the two customers below" ;
+    rdfs:label "customer role" ;
+    rdfs:comment "person or organization that receives a product or a service; the genus of the two customers below" ;
     rdfs:subClassOf epo:PartyRole ;
     ogc:term term:customer .
 
 epo:EvaluationOperatorRole a owl:Class ;
-    rdfs:label "evaluation operator: expert in performing the tests the EPO specifies (R-23)" ;
+    rdfs:label "evaluation operator role" ;
+    rdfs:comment "expert in performing the tests the EPO specifies (R-23)" ;
     rdfs:subClassOf epo:TechnicalExpertRole ;
     owl:disjointWith epo:AuthorizedRepresentativeRole ;
     ogc:term term:evaluation-operator .
 
 epo:PartyRole a owl:Class ;
-    rdfs:label "a party's role: held by an organization (R-21)" ;
+    rdfs:label "party role" ;
+    rdfs:comment "held by an organization (R-21)" ;
     rdfs:subClassOf epo:Role ;
     owl:disjointWith epo:ActorRole ;
     ogc:term term:organization .
 
 epo:ProviderRole a owl:Class ;
-    rdfs:label "provider (ISO 9000:2026 3.1.9): organization that provides a product or a service; the genus of the two providers below" ;
+    rdfs:label "provider role" ;
+    rdfs:comment "organization that provides a product or a service; the genus of the two providers below" ;
     rdfs:subClassOf epo:PartyRole ;
     ogc:term term:provider .
 
 epo:StakeholderInput a owl:Class ;
-    rdfs:label "stakeholder input: what an interviewed population said" ;
+    rdfs:label "stakeholder input" ;
+    rdfs:comment "what an interviewed population said" ;
     rdfs:subClassOf prov:Entity ;
     ogc:pinnedAt epo:evaluation ;
     ogc:term term:stakeholder .
 
 epo:TechnicalExpertRole a owl:Class ;
-    rdfs:label "technical expert (ISO 9000:2026 3.12.9): a person who provides specific knowledge to the evaluation team; the genus of the domain expert and the evaluation operator (R-10, R-23)" ;
+    rdfs:label "technical expert role" ;
+    rdfs:comment "a person who provides specific knowledge to the evaluation team; the genus of the domain expert and the evaluation operator (R-10, R-23)" ;
     rdfs:subClassOf epo:ActorRole ;
     ogc:term term:technical-expert .
 
 epo:TestSuite a owl:Class ;
-    rdfs:label "test suite (SEVOCAB 29119-1): a set of sessions run together, e.g. a robustness battery (R-18)" ;
+    rdfs:label "test suite" ;
+    rdfs:comment "a set of sessions run together, e.g. a robustness battery (R-18)" ;
     rdfs:subClassOf prov:Activity ;
     ogc:term term:test-suite .
 
 epo:accepts a owl:ObjectProperty ;
+    rdfs:label "accepts" ;
     rdfs:comment "what an act accepts: the acceptance accepts the delivery (C6), the service agreement accepts the proposal (sheet 10-05); no domain, since both carry it" .
 
 epo:asCustomer a epo:Affectedness ;
@@ -10312,8 +10441,18 @@ epo:fitWithConditions a epo:FitnessValue ;
 
 epo:insufficient a epo:SufficiencyValue .
 
+epo:ontologyDigest a owl:DatatypeProperty ;
+    rdfs:label "ontology digest" ;
+    rdfs:comment "sha256 of vocabulary/epo.ttl as the checker ran it (sheet 10-18)" ;
+    rdfs:range xsd:string .
+
 epo:person a epo:IndependenceLevel ;
     rdfs:label "independence at the person level: the determiner is not the operator of the session behind the evidence it rules on, unless a second determination by another person exists; the appropriateness assessor is not an author of the requirement set" .
+
+epo:shapesDigest a owl:DatatypeProperty ;
+    rdfs:label "shapes digest" ;
+    rdfs:comment "sha256 of shapes/epo.shapes.ttl as the checker and the assembler ran it, on the conformance verdict and the coverage computation (tool qualification, sheet 10-18, R-50); ogc doctor compares it with the file" ;
+    rdfs:range xsd:string .
 
 ev:R1 a epo:Requirement ;
     epo:partOf ev:requirement-set ;
@@ -10575,7 +10714,7 @@ src:gruber-1993 a prov:Entity,
     ogc:kind "pdf" ;
     ogc:licenceNote "Academic Press copyright; author-hosted copy; held locally" ;
     ogc:posture "heldLocally" ;
-    ogc:rank "7" ;
+    ogc:rank 7 ;
     ogc:snapshot [ ogc:contentHash "ffa4b4476a1f95a5572e741c7a7cafb0d7793d2139c5268c8b4071c45906459e" ;
             ogc:file "sources/local/pdf/gruber-1993.pdf" ] ;
     ogc:url <https://tomgruber.org/writing/ontolingua-kaj-1993.pdf> .
@@ -10593,7 +10732,7 @@ src:incose-gtwr-v4 a prov:Entity,
     ogc:kind "pdf" ;
     ogc:licenceNote "INCOSE copyright restrictions; held locally" ;
     ogc:posture "heldLocally" ;
-    ogc:rank "6" ;
+    ogc:rank 6 ;
     ogc:snapshot [ ogc:contentHash "0bf5918db034757fb63fb81a677263ebe36323eee95e51fbd0197aecdd574176" ;
             ogc:file "sources/local/pdf/incose-gtwr-v4-summary.pdf" ] .
 
@@ -10605,7 +10744,7 @@ src:isa-500 a prov:Entity,
     ogc:kind "pdf" ;
     ogc:licenceNote "IFAC copyright; freely downloadable; held locally" ;
     ogc:posture "heldLocally" ;
-    ogc:rank "6" ;
+    ogc:rank 6 ;
     ogc:snapshot [ ogc:contentHash "2ecc459ba84ce43199a5badf2807be9102d96aa717301a1d379a676549c231f4" ;
             ogc:file "sources/local/pdf/isa-500.pdf" ] .
 
@@ -10642,12 +10781,17 @@ src:w3c-earl a prov:Entity,
     ogc:kind "html" ;
     ogc:licenceNote "W3C Document Licence" ;
     ogc:posture "committed" ;
-    ogc:rank "4" ;
+    ogc:rank 4 ;
     ogc:snapshot [ ogc:contentHash "bd256af93da1fe22459a97a5ab18c1bc492932695e2e428ddd88a774c5338213" ;
             ogc:file "sources/archive/earl10-schema-20170202.html" ],
         [ ogc:contentHash "4cde74807d5e31e58cc462ea6c1b1fc8fc0cf5bdbf8ac224ef95525efbeb2879" ;
             ogc:file "sources/archive/earl10-schema-20170202.rdf" ] ;
     ogc:url <https://www.w3.org/TR/2017/NOTE-EARL10-Schema-20170202/> .
+
+ogc:synthetic a owl:DatatypeProperty ;
+    rdfs:label "synthetic" ;
+    rdfs:comment "true on a record and on each of its members when the content is synthetic (sheet 10-43, R-51): the worked example is a synthetic case whose names recognise the roles of real people (R-23); a member's tag equals its record's (S0-Member); the tool prints the tag and the explorer can filter on it" ;
+    rdfs:range xsd:boolean .
 
 term:authoritative-reference a skos:Concept ;
     skos:altLabel "knowledge graph (as the reference for one evaluation)"@en,
@@ -11291,15 +11435,15 @@ elmt:OGCAIE__TestItem__responseOut a sysml:PortUsage ;
     sysml:type elmt:OGCAIE__ResponseWrite .
 
 ogc:S0-Parties a sh:NodeShape ;
-    sh:property [ sh:class epo:Proposal ;
+    sh:property [ sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path prov:generatedAtTime ],
+        [ sh:class epo:Proposal ;
             sh:maxCount 1 ;
             sh:message "The agreement accepts the proposal (sheet 10-05)." ;
             sh:minCount 1 ;
-            sh:path epo:accepts ],
-        [ sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path prov:generatedAtTime ] ;
+            sh:path epo:accepts ] ;
     sh:sparql [ sh:message "S0: the agreement is an item of the agree step: its class realizes an item kind the model's agree step produces (the step is derived through the model graph, sheet 10-33)." ;
             sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
@@ -11612,14 +11756,14 @@ ogc:S7-Report a sh:NodeShape ;
     sh:targetClass epo:Report .
 
 epo:Acceptance a owl:Class ;
-    rdfs:label "acceptance: the sponsor's acceptance of the delivery as performance of the agreement" ;
-    rdfs:comment "no term: SEVOCAB acceptance is cited on step C6; the item is the sponsor's act and needs no headword of its own" ;
+    rdfs:label "acceptance" ;
+    rdfs:comment "the sponsor's acceptance of the delivery as performance of the agreement. No term: SEVOCAB acceptance is cited on step C6; the item is the sponsor's act and needs no headword of its own" ;
     rdfs:subClassOf prov:Entity ;
     ogc:pinnedAt epo:contract .
 
 epo:ActorRole a owl:Class ;
-    rdfs:label "an actor category: held by a named person within the testing organization (R-10, R-23)" ;
-    rdfs:comment "no term of its own: the three actor categories are terms (authorized representative, technical expert with its two kinds, evaluation operator); the category of categories is not" ;
+    rdfs:label "actor category" ;
+    rdfs:comment "held by a named person within the testing organization (R-10, R-23). No term of its own: the three actor categories are terms (authorized representative, technical expert with its two kinds, evaluation operator); the category of categories is not" ;
     rdfs:subClassOf epo:Role .
 
 epo:Affectedness a owl:Class ;
@@ -11627,53 +11771,45 @@ epo:Affectedness a owl:Class ;
     rdfs:comment "no term: the two values below say whether the population is a test item customer (term test item customer) or is affected indirectly (term stakeholder)" .
 
 epo:AppropriatenessValue a owl:Class ;
+    rdfs:label "appropriateness value" ;
+    rdfs:comment "the two values of appropriateness (ruling R-08): appropriate or inappropriate" ;
     owl:disjointWith epo:SufficiencyValue ;
     ogc:term term:appropriateness .
 
 epo:AuthorizedRepresentativeRole a owl:Class ;
-    rdfs:label "authorized representative: the testing organization's interface with its contractual counterparties (sheet 09; the term's IRI keeps its former local name authorized-representative)" ;
+    rdfs:label "authorized representative role" ;
+    rdfs:comment "the testing organization's interface with its contractual counterparties (sheet 09; the term's IRI keeps its former local name authorized-representative)" ;
     rdfs:subClassOf epo:ActorRole ;
     ogc:term term:authorized-representative .
-
-epo:ConformanceVerdict a owl:Class ;
-    rdfs:label "conformance verdict: the checker's automatic assertion that the record is correctly constructed to the shapes, traceable in both directions and covered; its subject is the record, and it precedes the final report (walkthrough, R-49; sheet 10-41, R-50). Carries the digests of the shapes, the ontology and the coverage query it ran (sheet 10-18)" ;
-    rdfs:subClassOf earl:Assertion,
-        prov:Entity ;
-    ogc:pinnedAt epo:evaluation ;
-    ogc:term term:conformance .
-
-epo:CoverageComputation a owl:Class ;
-    rdfs:label "coverage computation" ;
-    rdfs:subClassOf prov:Activity ;
-    ogc:term term:test-coverage .
 
 epo:Engagement a owl:Class ;
     rdfs:label "how an affected population is engaged" ;
     rdfs:comment "no term: the two ways of engaging a population are values decided by the statement of work (R-40); the terms are statement of work and stakeholder" .
 
 epo:IndependenceDeclaration a owl:Class ;
-    rdfs:label "independence declaration: the testing organization's dated statement, made by its authorized representative, that it is independent of the test item provider (ISO/IEC 17000 4.5, 5.4; sheet 10-07)" ;
-    rdfs:comment "no term: the declaration records the party fact that makes the testing organization's activity third-party (term third-party conformity assessment activity); it is the fact's record, not a headword" ;
+    rdfs:label "independence declaration" ;
+    rdfs:comment "the testing organization's dated statement, made by its authorized representative, that it is independent of the test item provider (ISO/IEC 17000 4.5, 5.4; sheet 10-07). No term: the declaration records the party fact that makes the testing organization's activity third-party (term third-party conformity assessment activity); it is the fact's record, not a headword" ;
     rdfs:subClassOf prov:Entity ;
     ogc:pinnedAt epo:contract .
 
 epo:Layer a owl:Class ;
-    rdfs:label "the layer at which an item is pinned" ;
-    rdfs:comment "no term: the two layers are a pinning device of ruling R-32 (ogc:pinnedAt), not a headword; the terms are contract and Evaluation Process Ontology" .
+    rdfs:label "layer" ;
+    rdfs:comment "the layer at which an item class is pinned (ogc:pinnedAt, R-32): the contract or the evaluation. No term: the two layers are a pinning device of ruling R-32, not a headword; the terms are contract and Evaluation Process Ontology" .
 
 epo:RequirementSetApproval a owl:Class ;
-    rdfs:label "requirement-set approval: the sponsor's approval of the requirement set, made by its signatory, dated after the set and before any session (sheet 10-01, R-50)" ;
+    rdfs:label "requirement-set approval" ;
+    rdfs:comment "the sponsor's approval of the requirement set, made by its signatory, dated after the set and before any session (sheet 10-01, R-50)" ;
     rdfs:subClassOf prov:Entity ;
     ogc:pinnedAt epo:evaluation ;
     ogc:term term:operational-envelope .
 
 epo:Step a owl:Class ;
-    rdfs:label "a step of either cycle (the range of epo:step)" ;
+    rdfs:label "step (of either cycle)" ;
     rdfs:comment "no term: a structural superclass so that epo:step ranges over both cycles' steps without contradicting their disjointness (sheet 10)" .
 
 epo:UserInterestDeclaration a owl:Class ;
-    rdfs:label "user-interest declaration: the sponsor's dated statement, made by its signatory, of whether it has a user interest in the test item (ISO/IEC 17000 4.4; sheet 10-07)" ;
-    rdfs:comment "no term: the declaration records the party fact that makes the sponsor's own activity second-party (term second-party conformity assessment activity); it is the fact's record, not a headword" ;
+    rdfs:label "user-interest declaration" ;
+    rdfs:comment "the sponsor's dated statement, made by its signatory, of whether it has a user interest in the test item (ISO/IEC 17000 4.4; sheet 10-07). No term: the declaration records the party fact that makes the sponsor's own activity second-party (term second-party conformity assessment activity); it is the fact's record, not a headword" ;
     rdfs:subClassOf prov:Entity ;
     ogc:pinnedAt epo:contract .
 
@@ -11776,9 +11912,9 @@ ev:conformance-verdict-1 a epo:ConformanceVerdict ;
     prov:generatedAtTime "2026-08-12T09:30:00+00:00"^^xsd:dateTime ;
     prov:wasAttributedTo ev:pyshacl ;
     prov:wasDerivedFrom ev:record ;
-    epo:ontologyDigest "ae92b5fa6b8b80a264a821b321f597472b4955e93f301ee4885c5b5eb993e002" ;
-    epo:queryDigest "3ab9dc711479d53340c97c31be23dc071f5c8ed99a19378b4f1899e632325134" ;
-    epo:shapesDigest "04bc00dd72a98a154338412c1af0bb62673807880e00d38e6708febecba72eb1" ;
+    epo:ontologyDigest "f6e5fae77beb870b86cde259a4156b570bf9e643d3babebe2a3ae949bd257ded" ;
+    epo:recordDigest "a15ceee4f191bae902932487af1b336080100d43e6c4dbfd9de6af4401435b18" ;
+    epo:shapesDigest "8dbf3ba216c84170ddd3e47ee220a55f7a43edade8e7a0ccd52f0596b00ab741" ;
     ogc:inRecord ev:record ;
     ogc:synthetic true .
 
@@ -11951,7 +12087,7 @@ src:hogan-2021 a prov:Entity,
     ogc:kind "pdf" ;
     ogc:licenceNote "arXiv non-exclusive licence; held locally" ;
     ogc:posture "heldLocally" ;
-    ogc:rank "7" ;
+    ogc:rank 7 ;
     ogc:snapshot [ ogc:contentHash "3ff78a3ca650982c76c3d137675f1c6c406863d2f724cffcc10c17102739d6ea" ;
             ogc:file "sources/local/pdf/hogan-2021.pdf" ] ;
     ogc:url <https://arxiv.org/abs/2003.02320> .
@@ -11974,7 +12110,7 @@ src:nist-tn-1297 a prov:Entity,
     ogc:kind "pdf" ;
     ogc:licenceNote "US Government work, public domain" ;
     ogc:posture "committed" ;
-    ogc:rank "6" ;
+    ogc:rank 6 ;
     ogc:snapshot [ ogc:contentHash "f2c8e6026d5589a63d492f192b72cd905f554b477a6049532256170aec477e92" ;
             ogc:file "sources/archive/NIST.TN.1297.pdf" ] ;
     ogc:url <https://nvlpubs.nist.gov/nistpubs/legacy/tn/nbstechnicalnote1297.pdf> .
@@ -11987,7 +12123,7 @@ src:w3c-shacl a prov:Entity,
     ogc:kind "html" ;
     ogc:licenceNote "W3C Document Licence" ;
     ogc:posture "committed" ;
-    ogc:rank "4" ;
+    ogc:rank 4 ;
     ogc:snapshot [ ogc:contentHash "ccca77caed771f42ea649c03d190b9c7ea0b82286c22c457b9edc8087c9ad0f8" ;
             ogc:file "sources/archive/shacl-20170720.html" ] ;
     ogc:url <https://www.w3.org/TR/2017/REC-shacl-20170720/> .
@@ -12445,50 +12581,71 @@ ogc:Validation a owl:Class ;
     rdfs:label "Validation" ;
     rdfs:comment "Z's tick on one block or wire of the model (sheet 05)" .
 
+epo:ConformanceVerdict a owl:Class ;
+    rdfs:label "conformance verdict" ;
+    rdfs:comment "the checker's automatic assertion that the record is correctly constructed to the shapes, traceable in both directions and covered; its subject is the record, and it precedes the final report (walkthrough, R-49; sheet 10-41, R-50). Carries the digests of the shapes and the ontology it ran and of the record it judged (sheet 10-18; round four, KG 8)" ;
+    rdfs:subClassOf earl:Assertion,
+        prov:Entity ;
+    ogc:pinnedAt epo:evaluation ;
+    ogc:term term:conformance .
+
+epo:CoverageComputation a owl:Class ;
+    rdfs:label "coverage computation" ;
+    rdfs:comment "the report assembler's automatic activity that recomputes coverage and the outcome rates over the record (queries/coverage.rq) and generates a report; carries the digests of the shapes, the ontology and the query it ran (S7-CoverageComputation)" ;
+    rdfs:subClassOf prov:Activity ;
+    ogc:term term:test-coverage .
+
 epo:FitnessValue a owl:Class ;
+    rdfs:label "fitness value" ;
     rdfs:comment "no term: the three-valued fitness a recommendation states (sheet 10-48); the recommendation names term guardrail, and the values are the report's own words" .
 
 epo:IndependenceLevel a owl:Class ;
-    rdfs:label "the level at which independence between the roles is required (sheet 10-15, R-50)" ;
-    rdfs:comment "no term: three values on the record, each with its constraint in S0-Independence; the terms are the actor categories and third-party conformity assessment activity" .
+    rdfs:label "independence level" ;
+    rdfs:comment "the level at which independence between the roles is required (sheet 10-15, R-50). No term: three values on the record, each with its constraint in S0-Independence; the terms are the actor categories and third-party conformity assessment activity" .
 
 epo:PlanApproval a owl:Class ;
-    rdfs:label "plan approval: the domain expert's approval of a test plan (R-21)" ;
-    rdfs:comment "no term: the domain expert's approval of the test plan (term test plan); SEVOCAB has no entry for the approval itself" ;
+    rdfs:label "plan approval" ;
+    rdfs:comment "the domain expert's approval of a test plan (R-21). No term: the domain expert's approval of the test plan (term test plan); SEVOCAB has no entry for the approval itself" ;
     rdfs:subClassOf earl:Assertion,
         prov:Entity .
 
 epo:PlanDeviation a owl:Class ;
-    rdfs:label "plan deviation: a recorded departure from the test plan with its reason, for a criterion left unplanned or a plan objective left without an attestation; the operator's, dated (sheet 10-16, R-50)" ;
+    rdfs:label "plan deviation" ;
+    rdfs:comment "a recorded departure from the test plan with its reason, for a criterion left unplanned or a plan objective left without an attestation; the operator's, dated (sheet 10-16, R-50)" ;
     rdfs:subClassOf prov:Entity ;
     ogc:pinnedAt epo:evaluation ;
     ogc:term term:test-plan .
 
 epo:ReportApproval a owl:Class ;
-    rdfs:label "report approval: a domain expert's approval of the final report's contents after the machine verdict on the record (walkthrough, R-49; sheet 10-41); the approval owns the recommendation (sheet 10-11)" ;
-    rdfs:comment "no term: the approval is the domain expert's act on the report; the report and the technical expert are the terms" ;
+    rdfs:label "report approval" ;
+    rdfs:comment "a domain expert's approval of the final report's contents after the machine verdict on the record (walkthrough, R-49; sheet 10-41); the approval owns the recommendation (sheet 10-11). No term: the approval is the domain expert's act on the report; the report and the technical expert are the terms" ;
     rdfs:subClassOf earl:Assertion,
         prov:Entity ;
     ogc:pinnedAt epo:evaluation .
 
 epo:Role a owl:Class ;
-    rdfs:label "a role in one evaluation: a party's (an organization's) or an actor's (a person's within the testing organization)" ;
-    rdfs:comment "no term of its own: prov:Role; the subclasses name the terms (party terms of R-21, actor categories of R-23)" ;
+    rdfs:label "role" ;
+    rdfs:comment "a role in one evaluation: a party's (an organization's) or an actor's (a person's within the testing organization). No term of its own: prov:Role; the subclasses name the terms (party terms of R-21, actor categories of R-23)" ;
     rdfs:subClassOf prov:Role .
 
 epo:StakeholderRepresentation a owl:Class ;
-    rdfs:label "stakeholder representation: what a representative says on behalf of an affected population, built from its interview when there was one (walkthrough B3, R-49)" ;
+    rdfs:label "stakeholder representation" ;
+    rdfs:comment "what a representative says on behalf of an affected population, built from its interview when there was one (walkthrough B3, R-49)" ;
     rdfs:subClassOf prov:Entity ;
     ogc:pinnedAt epo:evaluation ;
     ogc:term term:stakeholder .
 
 epo:SufficiencyValue a owl:Class ;
+    rdfs:label "sufficiency value" ;
+    rdfs:comment "the two values of sufficiency (ruling R-08): sufficient or insufficient" ;
     ogc:term term:sufficiency .
 
 epo:text a owl:DatatypeProperty ;
+    rdfs:label "text" ;
     rdfs:range xsd:string .
 
 epo:underAgreement a owl:ObjectProperty ;
+    rdfs:label "under agreement" ;
     rdfs:comment "under the service agreement: the requirement set is agreed under it (R-21), and the statement of work, the access grant and the delivery are performed under it (sheet 10-05, R-50); no domain, since four kinds carry it" ;
     rdfs:range epo:ServiceAgreement .
 
@@ -13016,37 +13173,41 @@ elmt:OGCAIE__UserInterestDeclaration a sysml:ItemDefinition ;
     sysml:qualifiedName "OGCAIE::UserInterestDeclaration" .
 
 epo:Delivery a owl:Class ;
-    rdfs:label "delivery: the final report, its approval and the recommendation handed to the sponsor by the authorized representative under the agreement (R-24; sheets 10-02, 10-41): the report is the record's delivered export, the record itself is not delivered" ;
-    rdfs:comment "no term: SEVOCAB delivery is cited on step C5; the item carries the final report, its approval and the recommendation, whose terms are performance, test coverage and guardrail" ;
+    rdfs:label "delivery" ;
+    rdfs:comment "the final report, its approval and the recommendation handed to the sponsor by the authorized representative under the agreement (R-24; sheets 10-02, 10-41): the report is the record's delivered export, the record itself is not delivered. No term: SEVOCAB delivery is cited on step C5; the item carries the final report, its approval and the recommendation, whose terms are performance, test coverage and guardrail" ;
     rdfs:subClassOf prov:Entity ;
     ogc:pinnedAt epo:contract .
 
 epo:EngagementDecision a owl:Class ;
-    rdfs:label "engagement decision: for one affected population, interview or representation (R-40)" ;
+    rdfs:label "engagement decision" ;
+    rdfs:comment "for one affected population, interview or representation (R-40)" ;
     rdfs:subClassOf prov:Entity ;
     ogc:pinnedAt epo:contract ;
     ogc:term term:statement-of-work .
 
 epo:Proposal a owl:Class ;
-    rdfs:label "proposal: the testing organization's response to the sponsor's need, offering the service" ;
-    rdfs:comment "no term: SEVOCAB proposal is cited on step C2 as a neighbour; the item is the testing organization's offer and needs no headword of its own" ;
+    rdfs:label "proposal" ;
+    rdfs:comment "the testing organization's response to the sponsor's need, offering the service. No term: SEVOCAB proposal is cited on step C2 as a neighbour; the item is the testing organization's offer and needs no headword of its own" ;
     rdfs:subClassOf prov:Entity ;
     ogc:pinnedAt epo:contract .
 
 epo:Recommendation a owl:Class ;
     rdfs:label "recommendation" ;
+    rdfs:comment "the evaluation operator's recommendation, stating a fitness, owned by the report approval and resting on the attestations (sheets 10-11, 10-48)" ;
     rdfs:subClassOf prov:Entity ;
     ogc:pinnedAt epo:evaluation ;
     ogc:term term:guardrail .
 
 epo:StatementOfWork a owl:Class ;
-    rdfs:label "statement of work: the sponsor's scope-of-work decisions under the contract, here one engagement decision per affected population (SEVOCAB statement of work; R-40)" ;
+    rdfs:label "statement of work" ;
+    rdfs:comment "the sponsor's scope-of-work decisions under the contract, here one engagement decision per affected population (SEVOCAB statement of work; R-40)" ;
     rdfs:subClassOf prov:Entity ;
     ogc:pinnedAt epo:contract ;
     ogc:term term:statement-of-work .
 
 epo:Strategy a owl:Class ;
-    rdfs:label "test strategy (SEVOCAB 29119-2): a state feedback policy that chooses the next probe from the trajectory so far, grounded in the DSO (R-13)" ;
+    rdfs:label "test strategy" ;
+    rdfs:comment "a state feedback policy that chooses the next probe from the trajectory so far, grounded in the DSO (R-13)" ;
     rdfs:subClassOf prov:Entity,
         prov:Plan ;
     ogc:pinnedAt epo:evaluation ;
@@ -13093,7 +13254,7 @@ src:hawkins-2011 a prov:Entity,
     ogc:kind "pdf" ;
     ogc:licenceNote "Springer proceedings; author-hosted copy; held locally" ;
     ogc:posture "heldLocally" ;
-    ogc:rank "7" ;
+    ogc:rank 7 ;
     ogc:snapshot [ ogc:contentHash "1043bce7b664fa09c2c1f3a3e63a3ba6ba9b4f9ba42d02d2036d258afaf6c77c" ;
             ogc:file "sources/local/pdf/hawkins-sss-2011.pdf" ] ;
     ogc:url <https://www-users.york.ac.uk/~rdh2/papers/HawkinsSSS11.pdf> .
@@ -13509,6 +13670,7 @@ elmt:OGCAIE__UserInterestDeclarationWrite a sysml:PortDefinition ;
 
 epo:ContractingStep a owl:Class ;
     rdfs:label "contracting lifecycle step" ;
+    rdfs:comment "one of the six steps of the contracting lifecycle (the outer cycle, ruling R-32)" ;
     rdfs:subClassOf epo:Step ;
     owl:disjointWith epo:EpoStep ;
     ogc:canonical [ ogc:cites src:sebok-2-14 ;
@@ -13519,25 +13681,28 @@ epo:ContractingStep a owl:Class ;
     ogc:term term:contract .
 
 epo:Mission a owl:Class ;
-    rdfs:label "mission: the sponsor's purpose and its obligations towards the affected populations (ISO 9000:2026 3.4.11; R-37), the context the contract answers to" ;
+    rdfs:label "mission" ;
+    rdfs:comment "the sponsor's purpose and its obligations towards the affected populations (ISO 9000:2026 3.4.11; R-37), the context the contract answers to" ;
     rdfs:subClassOf prov:Entity ;
     ogc:pinnedAt epo:contract ;
     ogc:term term:mission .
 
 epo:Need a owl:Class ;
-    rdfs:label "need: the sponsor's stated mission problem and measures of success (ISO 9000:2026 requirement: need or expectation that is stated)" ;
-    rdfs:comment "no term: the sponsor's stated need is what step C1 records (SEBoK business or mission analysis); ISO 9000:2026 3.5.1 requirement is a stated need, but the headword requirement is reserved for what the test item must do (sheet 06-09)" ;
+    rdfs:label "need" ;
+    rdfs:comment "the sponsor's stated mission problem and measures of success (ISO 9000:2026 requirement: need or expectation that is stated). No term: the sponsor's stated need is what step C1 records (SEBoK business or mission analysis); ISO 9000:2026 3.5.1 requirement is a stated need, but the headword requirement is reserved for what the test item must do (sheet 06-09)" ;
     rdfs:subClassOf prov:Entity ;
     ogc:pinnedAt epo:contract .
 
 epo:Requirement a owl:Class ;
     rdfs:label "requirement" ;
+    rdfs:comment "what the test item must do, in the sponsor's words, never how (ruling R-47); part of the requirement set" ;
     rdfs:subClassOf prov:Entity ;
     ogc:pinnedAt epo:evaluation ;
     ogc:term term:requirement .
 
 epo:Trajectory a owl:Class ;
-    rdfs:label "trajectory: the ordered prompt-response pairs of a session, the observable realization (IEC 60050-351 351-41-10, refined; R-13)" ;
+    rdfs:label "trajectory" ;
+    rdfs:comment "the ordered prompt-response pairs of a session, the observable realization (IEC 60050-351 351-41-10, refined; R-13)" ;
     rdfs:subClassOf prov:Entity ;
     ogc:pinnedAt epo:evaluation ;
     ogc:term term:trajectory .
@@ -13844,6 +14009,7 @@ elmt:OGCAIE__TestItemAccess a sysml:ItemDefinition ;
 
 epo:EpoStep a owl:Class ;
     rdfs:label "EPO step" ;
+    rdfs:comment "one of the six steps of the evaluation (the inner cycle, rulings R-21, R-32); the range of epo:step with epo:ContractingStep" ;
     rdfs:subClassOf epo:Step ;
     ogc:term term:evaluation-process-ontology .
 
@@ -13855,7 +14021,7 @@ src:iec-60050-351 a prov:Entity,
     ogc:kind "web" ;
     ogc:licenceNote "IEC copyright; Electropedia is publicly browsable; short attributed quotations only; quotes transcribed from the browser and verified by Z on 2026-09-06 (rulings sheet 02)" ;
     ogc:posture "citeOnly" ;
-    ogc:rank "5" ;
+    ogc:rank 5 ;
     ogc:url <https://www.electropedia.org/iev/iev.nsf/index?openform=&part=351> .
 
 src:popper-1959 a prov:Entity,
@@ -13866,7 +14032,7 @@ src:popper-1959 a prov:Entity,
     ogc:kind "web" ;
     ogc:licenceNote "cited as the canonical source named as the source of the definitions presented at the SciPy 2026 session; not quoted directly" ;
     ogc:posture "citeOnly" ;
-    ogc:rank "7" .
+    ogc:rank 7 .
 
 term:evaluation-record a skos:Concept ;
     skos:altLabel "record (ISO 9000:2026 3.8.12, of one evaluation)"@en,
@@ -14088,7 +14254,8 @@ elmt:OGCAIE__Report a sysml:ItemDefinition ;
     sysml:qualifiedName "OGCAIE::Report" .
 
 epo:RequirementSet a owl:Class ;
-    rdfs:label "requirement set (operational envelope): the requirements one system under test must meet in one operational environment (R-14)" ;
+    rdfs:label "requirement set (operational envelope)" ;
+    rdfs:comment "the requirements one system under test must meet in one operational environment (R-14)" ;
     rdfs:subClassOf prov:Entity ;
     ogc:pinnedAt epo:evaluation ;
     ogc:term term:operational-envelope .
@@ -14104,7 +14271,7 @@ src:scipy-2026-bof a prov:Entity,
     ogc:kind "event" ;
     ogc:licenceNote "a public event on the conference record, cited as a fact about what was presented there; the definitions in the digest are the authors' own words as presented; the organization logos shown at the session are reproduced at assets/hi-dsg-collaboration.png with the organizations' agreement (ruling R-47, sheet 06-02)" ;
     ogc:posture "citeOnly" ;
-    ogc:rank "8" .
+    ogc:rank 8 .
 
 term:acceptance-criteria a skos:Concept ;
     skos:altLabel "acceptance criterion"@en ;
@@ -14428,17 +14595,20 @@ elmt:OGCAIE__TestingOrganization a sysml:PartDefinition ;
 
 epo:DsoRelease a owl:Class ;
     rdfs:label "DSO release" ;
+    rdfs:comment "a versioned release of the Domain-Specific Ontology, approved by a domain expert before any probe derives from it (SCI-01)" ;
     rdfs:subClassOf prov:Entity ;
     ogc:pinnedAt epo:evaluation ;
     ogc:term term:domain-specific-ontology .
 
 epo:Session a owl:Class ;
-    rdfs:label "session (NIST AI 700-2): one tester, one system under test, a sequence of turns; the test execution" ;
+    rdfs:label "session" ;
+    rdfs:comment "one tester, one system under test, a sequence of turns; the test execution" ;
     rdfs:subClassOf prov:Activity ;
     ogc:term term:session .
 
 epo:TestItemAccess a owl:Class ;
-    rdfs:label "test-item access: the test item provider's grant of access to the versioned test item under the agreement, for a period, under an instrument outside this agreement, in a named environment (sheet 10-04)" ;
+    rdfs:label "test-item access" ;
+    rdfs:comment "the test item provider's grant of access to the versioned test item under the agreement, for a period, under an instrument outside this agreement, in a named environment (sheet 10-04)" ;
     rdfs:subClassOf prov:Entity ;
     ogc:pinnedAt epo:contract ;
     ogc:term term:test-item .
@@ -14634,6 +14804,7 @@ elmt:OGCAIE__SponsorOrganization a sysml:PartDefinition ;
 
 epo:Attestation a owl:Class ;
     rdfs:label "attestation" ;
+    rdfs:comment "the domain expert's statement on one criterion: an EARL outcome with the appropriateness of the declared context and the sufficiency of the evidence (ruling R-08); aggregates determinations" ;
     rdfs:subClassOf earl:Assertion,
         prov:Entity ;
     ogc:term term:attestation .
@@ -14688,7 +14859,7 @@ src:jcgm-200-2012 a prov:Entity,
     ogc:kind "pdf" ;
     ogc:licenceNote "JCGM copyright; freely downloadable from BIPM; held locally" ;
     ogc:posture "heldLocally" ;
-    ogc:rank "5" ;
+    ogc:rank 5 ;
     ogc:snapshot [ ogc:contentHash "8a603e99d236a65d771f38b6dcf627953146fe023a5266b3307681ada30f4fe7" ;
             ogc:file "sources/local/pdf/jcgm-200-2012.pdf" ] ;
     ogc:url <https://www.bipm.org/en/doi/10.59161/jcgm200-2012> .
@@ -14701,7 +14872,7 @@ src:sebok-2-14 a prov:Entity,
     ogc:kind "pdf" ;
     ogc:licenceNote "CC BY-NC-SA; held locally per ruling R-04" ;
     ogc:posture "heldLocally" ;
-    ogc:rank "6" ;
+    ogc:rank 6 ;
     ogc:snapshot [ ogc:contentHash "251668f0ed4eca5a7c36755c6c56a07d663ef8a2bd66addd41e595eabcf0dce2" ;
             ogc:file "sources/local/pdf/sebok-v2.14.pdf" ] ;
     ogc:url <https://sebokwiki.org/> .
@@ -14850,13 +15021,15 @@ elmt:OGCAIE__ContractingProcess__propose a sysml:ActionUsage ;
     sysml:qualifiedName "OGCAIE::ContractingProcess::propose" .
 
 epo:Determination a owl:Class ;
-    rdfs:label "determination (ISO 9000:2026 3.11.1; the paper's judgment): the ruling on one or more evidence items that a criterion's expected result was met, not met, or cannot be told (R-20); the codomain of evidence" ;
+    rdfs:label "determination" ;
+    rdfs:comment "the ruling on one or more evidence items that a criterion's expected result was met, not met, or cannot be told (R-20); the codomain of evidence" ;
     rdfs:subClassOf earl:Assertion,
         prov:Entity ;
     ogc:term term:determination .
 
 epo:ServiceAgreement a owl:Class ;
-    rdfs:label "service agreement: the contract (ISO 9000:2026 3.3.13) to perform OG-CAIE as a service, signed by the sponsor's signatory and the testing organization's authorized representative, each on behalf of their organization (R-21, R-23, R-50); accepts the proposal" ;
+    rdfs:label "service agreement" ;
+    rdfs:comment "the contract (ISO 9000:2026 3.3.13) to perform OG-CAIE as a service, signed by the sponsor's signatory and the testing organization's authorized representative, each on behalf of their organization (R-21, R-23, R-50); accepts the proposal" ;
     rdfs:subClassOf prov:Entity ;
     ogc:pinnedAt epo:contract ;
     ogc:term term:contract .
@@ -14953,13 +15126,15 @@ ogc:Crosswalk a owl:Class ;
     rdfs:comment "a row of the bridge from Popper's account of science to the standards" .
 
 epo:ConsistencyCheck a owl:Class ;
-    rdfs:label "automatic consistency check of a probe" ;
+    rdfs:label "consistency check" ;
+    rdfs:comment "the machine's assertion that a probe conforms to the DSO shapes, dated before any turn uses it (S3)" ;
     rdfs:subClassOf earl:Assertion,
         prov:Entity ;
     ogc:term term:conformance .
 
 epo:Population a owl:Class ;
-    rdfs:label "affected population: a population of persons affected by the test item (ISO 9000:2026 3.1.4 interested party), as its customers or indirectly through others' use of it; engaged by interview or by representation, with a responsible party for the engagement" ;
+    rdfs:label "affected population" ;
+    rdfs:comment "a population of persons affected by the test item (ISO 9000:2026 3.1.4 interested party), as its customers or indirectly through others' use of it; engaged by interview or by representation, with a responsible party for the engagement" ;
     rdfs:subClassOf prov:Agent ;
     ogc:pinnedAt epo:contract ;
     ogc:term term:stakeholder .
@@ -15034,21 +15209,24 @@ elmt:OGCAIE__EvaluationProcess__determineAndAttest a sysml:ActionUsage ;
     sysml:qualifiedName "OGCAIE::EvaluationProcess::determineAndAttest" .
 
 epo:Evidence a owl:Class ;
-    rdfs:label "evidence: collected material (a response, a trajectory, or several) bearing on one criterion's expected result, under the test plan (R-18, R-20); the domain of a determination" ;
+    rdfs:label "evidence" ;
+    rdfs:comment "collected material (a response, a trajectory, or several) bearing on one criterion's expected result, under the test plan (R-18, R-20); the domain of a determination" ;
     rdfs:subClassOf prov:Entity ;
     owl:disjointWith epo:Determination ;
     ogc:pinnedAt epo:evaluation ;
     ogc:term term:objective-evidence .
 
 epo:Report a owl:Class ;
-    rdfs:label "report: coverage and performance recomputed over the record; a draft may carry flagged gaps, a final report (epo:draft false) rests on a passed verdict on the record (sheet 10-41)" ;
+    rdfs:label "report" ;
+    rdfs:comment "coverage and performance recomputed over the record; a draft may carry flagged gaps, a final report (epo:draft false) rests on a passed verdict on the record (sheet 10-41)" ;
     rdfs:subClassOf prov:Entity ;
     ogc:pinnedAt epo:evaluation ;
     ogc:term term:performance,
         term:test-coverage .
 
 epo:TestPlan a owl:Class ;
-    rdfs:label "test plan (objectives: criteria; means: probes, or a strategy that chooses them)" ;
+    rdfs:label "test plan" ;
+    rdfs:comment "SEVOCAB test plan: its objectives are acceptance criteria, its means are probes or a strategy that chooses them (R-13); derives from the requirement set and a DSO release, approved by a domain expert" ;
     rdfs:subClassOf prov:Entity ;
     ogc:pinnedAt epo:evaluation ;
     ogc:term term:test-plan .
@@ -15117,7 +15295,7 @@ src:nist-ai-700-2 a prov:Entity,
     ogc:kind "pdf" ;
     ogc:licenceNote "US Government work, public domain" ;
     ogc:posture "committed" ;
-    ogc:rank "3" ;
+    ogc:rank 3 ;
     ogc:snapshot [ ogc:contentHash "5478e8c37a182adaf9449d1d315689beba3db2808db430c54fe3fc8da04ea3b9" ;
             ogc:file "sources/archive/NIST.AI.700-2.pdf" ] ;
     ogc:url <https://doi.org/10.6028/NIST.AI.700-2> .
@@ -15129,14 +15307,14 @@ elmt:OGCAIE__ContractingProcess__agree a sysml:ActionUsage ;
     sysml:qualifiedName "OGCAIE::ContractingProcess::agree" .
 
 epo:Response a owl:Class ;
-    rdfs:label "response: what the system under test produced at one turn (the actual result)" ;
-    rdfs:comment "no term: the actual result at one turn (SEVOCAB test execution, cited on term test); prose says response and the headword stays with the evidence it becomes" ;
+    rdfs:label "response" ;
+    rdfs:comment "what the system under test produced at one turn (the actual result). No term: the actual result at one turn (SEVOCAB test execution, cited on term test); prose says response and the headword stays with the evidence it becomes" ;
     rdfs:subClassOf prov:Entity ;
     ogc:pinnedAt epo:evaluation .
 
 epo:Turn a owl:Class ;
-    rdfs:label "turn: one probe applied within a session, producing one response" ;
-    rdfs:comment "no term by ruling R-13: a probe is applied at one turn of a session; turn is prose, session and trajectory are the headwords" ;
+    rdfs:label "turn" ;
+    rdfs:comment "one probe applied within a session, producing one response. No term by ruling R-13: a probe is applied at one turn of a session; turn is prose, session and trajectory are the headwords" ;
     rdfs:subClassOf prov:Activity .
 
 elmt:OGCAIE__EvaluationProcess__plan a sysml:ActionUsage ;
@@ -15154,6 +15332,7 @@ epo:evaluation a epo:Layer ;
 
 epo:Probe a owl:Class ;
     rdfs:label "probe" ;
+    rdfs:comment "one prompt applied at a turn of a session; exercises one or more criteria and derives from a DSO release (R-13)" ;
     rdfs:subClassOf prov:Entity ;
     owl:disjointWith epo:Response ;
     ogc:pinnedAt epo:evaluation ;
@@ -15176,6 +15355,7 @@ elmt:OGCAIE__EvaluationProcess__declareRequirements a sysml:ActionUsage ;
 
 epo:AcceptanceCriterion a owl:Class ;
     rdfs:label "acceptance criterion" ;
+    rdfs:comment "a verifiable criterion derived from a requirement, with its expected result, its weight and the weight's rationale (rulings R-05, R-12)" ;
     rdfs:subClassOf earl:TestCriterion,
         prov:Entity ;
     ogc:pinnedAt epo:evaluation ;
@@ -15258,7 +15438,7 @@ src:iso-iec-17000-2020 a prov:Entity,
     ogc:kind "web" ;
     ogc:licenceNote "ISO copyright; the vocabulary is publicly browsable; short attributed quotations only (the party terms, object, access, scheme, specified requirement, testing, review, decision, attestation and its note, surveillance)" ;
     ogc:posture "citeOnly" ;
-    ogc:rank "5" ;
+    ogc:rank 5 ;
     ogc:url <https://www.iso.org/obp/ui/en/#iso:std:73029:en> .
 
 ogc:Source a owl:Class ;
@@ -15283,7 +15463,7 @@ src:iso-9000-2026 a prov:Entity,
     ogc:kind "web" ;
     ogc:licenceNote "ISO copyright; the preview is publicly browsable; short attributed quotations only" ;
     ogc:posture "heldLocally" ;
-    ogc:rank "1" ;
+    ogc:rank 1 ;
     ogc:retrievalNote "Clause 3 captured as 37 screenshots by Z on 2026-09-05 18:00-18:04, renamed iso-9000-2026-obp-01..37 in capture order, held under sources/local/iso-9000-2026/; a 38th (clauses 3.3.9 to 3.3.13, contract) captured by Z on 2026-09-05 23:02 to close concern C-24" ;
     ogc:snapshot [ ogc:contentHash "4b5e4d2558a013cd9acde3d1e68dbcf3934038992729b8213e90cbfadb616743" ;
             ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-01.png" ],
@@ -15394,7 +15574,7 @@ src:sevocab a prov:Entity,
     ogc:licenceNote "Each definition may be copied provided the IEEE statement remains with it, and the ISO/IEC definitions provided their source is cited; the PDF itself is not redistributed" ;
     ogc:permissionStatement "Copyright © 2021 IEEE. Used by permission." ;
     ogc:posture "heldLocally" ;
-    ogc:rank "2" ;
+    ogc:rank 2 ;
     ogc:retrievalNote "The statement as printed under every SEVOCAB entry, checked by Z on 2026-09-07 (sheet 10-29): \"This definition is copyrighted ©, 2021 by the IEEE. The reader is granted permission to copy the definition as long as the statement \"Copyright©, 2021, IEEE. Used by permission.\" remains with the definition. All other rights are reserved.\" and \"Copyright © 2021 ISO/IEC. In accordance with ISO/IEC JTC 1/SC 7 N2882 and N2930, this definition is made publicly available. Permission is granted to copy the definition providing that its source is cited.\" The year 2021 is the statement's own; the entries carry the dates of the standards they come from, up to 2026." ;
     ogc:snapshot [ ogc:contentHash "f6351ba98335af2e9c5c7e70ee09140721dd19da9693bbfef8bd4803cf71f0ee" ;
             ogc:file "sources/local/pdf/sevocab.pdf" ] ;

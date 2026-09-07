@@ -392,19 +392,20 @@ def t_report(r, i, p):
     """The report step opened (sheet 10-41): the checker's verdict on the record first, then the coverage computation that used it,
     the final report resting on it, the domain expert's approval, and the recommendation the approval owns (sheet 10-11)."""
     g = r.g
-    from .graph import digests
+    from .graph import COVERAGE_DIGESTS, VERDICT_DIGESTS, digests, record_digest
     dg = digests(views_root())  # what the checker and the assembler ran, by sha256 (sheet 10-18)
     ok, fired = conformance(g, *_checker_graphs())  # the verdict is the checker's own finding on the record so far, never a constant (sheet 10-19)
+    dg["recordDigest"] = record_digest(g, RECORD, r.at(i, 0))  # the record as it stood when the checker ran, the verdict not yet in it (round four, KG 8)
     ver = r.new("ConformanceVerdict", "verdict", i, 0)
     g.add((ver, EARL.subject, RECORD)); g.add((ver, EARL.mode, EARL.automatic)); g.add((ver, EARL.assertedBy, r.agents["ConformanceChecker"]))
     g.add((ver, PROV.wasAttributedTo, r.agents["ConformanceChecker"])); g.add((ver, PROV.wasDerivedFrom, RECORD))
-    for k, v in dg.items():
-        g.add((ver, EPO[k], Literal(v)))
+    for k in VERDICT_DIGESTS:
+        g.add((ver, EPO[k], Literal(dg[k])))
     result(g, ver, "passed" if ok else "failed", info="the record conforms to the EPO shapes" if ok else "the record fails " + ", ".join(fired))
     comp = r.new("CoverageComputation", "coverage", i, 1, timed="endedAtTime")
     g.add((comp, PROV.used, r.items["RequirementSet"][0])); g.add((comp, PROV.used, ver)); g.add((comp, PROV.wasAssociatedWith, r.agents["ReportAssembler"])); g.add((comp, EARL.mode, EARL.automatic))
-    for k, v in dg.items():
-        g.add((comp, EPO[k], Literal(v)))
+    for k in COVERAGE_DIGESTS:
+        g.add((comp, EPO[k], Literal(dg[k])))
     for att in r.items["Attestation"]:
         g.add((comp, PROV.used, att))
     rep = r.new("Report", "report", i, 1)

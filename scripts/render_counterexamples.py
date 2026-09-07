@@ -203,8 +203,12 @@ COUNTEREXAMPLES: dict[str, dict] = {
         replace=[("    prov:wasGeneratedBy ev:coverage-computation ;\n    prov:wasDerivedFrom ev:conformance-verdict-1 ;\n", "    prov:wasGeneratedBy ev:coverage-computation ;\n")]),
     "verdict-without-digests": dict(
         shapes=["S7-ConformanceVerdict"],
-        fault="the verdict names neither the shapes, the ontology nor the query it ran by their digests (tool qualification, sheet 10-18).",
+        fault="the verdict names neither the shapes nor the ontology it ran, nor the record it judged, by their digests (tool qualification, sheet 10-18).",
         digests=True),
+    "coverage-without-digests": dict(
+        shapes=["S7-CoverageComputation"],
+        fault="the final report's coverage computation names neither the shapes, the ontology nor the coverage query it ran by their digests (sheet 10-18).",
+        coverage_digests=True),
     "recommendation-unapproved": dict(
         shapes=["S8-Recommendation"],
         fault="the recommendation derives from no report approval: nobody but its author owns it (sheet 10-11).",
@@ -253,9 +257,14 @@ def render(name: str, spec: dict, record: str) -> str:
     if "drop" in spec:
         text = drop_block(text, spec["drop"])
     if spec.get("digests"):
-        m = re.search(r'(    epo:shapesDigest ")[0-9a-f]{64}(" ; epo:ontologyDigest ")[0-9a-f]{64}(" ; epo:queryDigest ")[0-9a-f]{64}(" ;\n    earl:result \[ a earl:TestResult ; earl:outcome earl:passed ; earl:info "the record conforms)', text)
+        m = re.search(r'(    epo:recordDigest ")[0-9a-f]{64}(" ;\n    epo:shapesDigest ")[0-9a-f]{64}(" ; epo:ontologyDigest ")[0-9a-f]{64}(" ;\n    earl:result \[ a earl:TestResult ; earl:outcome earl:passed ; earl:info "the record conforms)', text)
         if m is None:
-            raise SystemExit(f"{name}: the verdict's digest line was not found")
+            raise SystemExit(f"{name}: the verdict's digest lines were not found")
+        text = text[:m.start()] + m.group(1) + "not recorded" + m.group(2) + "not recorded" + m.group(3) + "not recorded" + m.group(4) + text[m.end():]
+    if spec.get("coverage_digests"):
+        m = re.search(r'(    epo:shapesDigest ")[0-9a-f]{64}(" ; epo:ontologyDigest ")[0-9a-f]{64}(" ; epo:queryDigest ")[0-9a-f]{64}(" ;\n    prov:endedAtTime "2026-08-12T10:00:00Z")', text)
+        if m is None:
+            raise SystemExit(f"{name}: the final coverage computation's digest line was not found")
         text = text[:m.start()] + m.group(1) + "not recorded" + m.group(2) + "not recorded" + m.group(3) + "not recorded" + m.group(4) + text[m.end():]
     if "append" in spec:
         text = text.rstrip("\n") + "\n" + spec["append"]

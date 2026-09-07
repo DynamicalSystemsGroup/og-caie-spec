@@ -15,8 +15,8 @@
 <https://w3id.org/og-caie/register> a owl:Ontology ;
     rdfs:label "the OG-CAIE register vocabulary" ;
     owl:versionInfo "0.3.0 in preparation; the git tag is the version" ;
-    owl:imports <http://www.w3.org/ns/prov-o#> , <http://www.w3.org/2004/02/skos/core> ;
-    rdfs:comment "Declares the ogc: classes and properties; the shapes over the register are shapes/glossary.shapes.ttl and shapes/rulings.shapes.ttl." .
+    owl:imports <http://www.w3.org/ns/prov-o#> , <http://www.w3.org/ns/earl#> , <http://www.w3.org/2004/02/skos/core> ;
+    rdfs:comment "Declares every ogc: class and property, the one home of each (round four, KG 10); the shapes over the register are shapes/glossary.shapes.ttl and shapes/rulings.shapes.ttl." .
 
 ogc:Source a owl:Class ; rdfs:label "Source" ; rdfs:comment "a registered source: a standard, a report, a specification, a paper or the authors' own session" .
 ogc:SourceConcept a owl:Class ; rdfs:label "SourceConcept" ; rdfs:comment "one clause or entry of a source that a term maps to by SKOS (sheet 08)" .
@@ -42,16 +42,18 @@ ogc:anchorRelation a owl:DatatypeProperty ; rdfs:label "anchorRelation" ; rdfs:c
 ogc:binding a owl:DatatypeProperty ; rdfs:label "binding" ; rdfs:comment "the technical binding of a term: the SysML, EPO, PROV, EARL or SHACL element that realizes it" ; rdfs:domain skos:Concept ; rdfs:range xsd:string .
 ogc:scopeNote a owl:DatatypeProperty ; rdfs:label "scopeNote" ; rdfs:comment "the term's scope note: the rulings and the readings behind it" ; rdfs:domain skos:Concept ; rdfs:range xsd:string .
 ogc:coinedBy a owl:DatatypeProperty ; rdfs:label "coinedBy" ; rdfs:comment "who coined a coined term, and where" ; rdfs:domain skos:Concept ; rdfs:range xsd:string .
-ogc:term a owl:ObjectProperty ; rdfs:label "term" ; rdfs:comment "the glossary term an EPO class names (sheet 08)" ; rdfs:domain owl:Class ; rdfs:range skos:Concept .
+ogc:term a owl:ObjectProperty ; rdfs:label "term" ; rdfs:comment "the glossary term (vocabulary/og-caie.ttl) an EPO class names (sheet 08): the inverse of the term's ogc:binding string, as a link the explorer can draw and `ogc term` can print" ; rdfs:domain owl:Class ; rdfs:range skos:Concept .
 ogc:concernsTerm a owl:ObjectProperty ; rdfs:label "concernsTerm" ; rdfs:comment "the term a concern is about" ; rdfs:domain ogc:Concern ; rdfs:range skos:Concept .
 ogc:usesTerm a owl:ObjectProperty ; rdfs:label "usesTerm" ; rdfs:comment "a term an essential is stated in" ; rdfs:domain ogc:Trace ; rdfs:range skos:Concept .
 ogc:tag a owl:DatatypeProperty ; rdfs:label "tag" ; rdfs:comment "an essential's tag: machine (checked by shapes) or human (validated by Z)" ; rdfs:domain ogc:Trace ; rdfs:range xsd:string .
 ogc:checkedBy a owl:ObjectProperty ; rdfs:label "checkedBy" ; rdfs:comment "the shape that checks an essential" ; rdfs:domain ogc:Trace ; rdfs:range sh:NodeShape .
 ogc:restsOn a owl:ObjectProperty ; rdfs:label "restsOn" ; rdfs:comment "the source an essential rests on" ; rdfs:domain ogc:Trace ; rdfs:range ogc:Source .
 ogc:page a owl:DatatypeProperty ; rdfs:label "page" ; rdfs:comment "the chapter an essential is rendered on" ; rdfs:domain ogc:Trace ; rdfs:range xsd:string .
-ogc:pinnedAt a owl:ObjectProperty ; rdfs:label "pinnedAt" ; rdfs:comment "the layer that fixes an item kind: the contract or the evaluation (R-32)" ; rdfs:domain owl:Class ; rdfs:range epo:Layer .
+ogc:pinnedAt a owl:ObjectProperty ; rdfs:label "pinnedAt" ; rdfs:comment "on an item class, the layer that fixes it: the contract or the evaluation (R-32)" ; rdfs:domain owl:Class ; rdfs:range epo:Layer .
+ogc:inRecord a owl:ObjectProperty ; rdfs:label "inRecord" ; rdfs:comment "membership of a record item or agent in its record, the prov:Bundle (sheet 10-31); required on every member of a record by S0-Member" ; rdfs:range prov:Bundle .
+ogc:synthetic a owl:DatatypeProperty ; rdfs:label "synthetic" ; rdfs:comment "true on a record and on each of its members when the content is synthetic (sheet 10-43, R-51): the worked example is a synthetic case whose names recognise the roles of real people (R-23); a member's tag equals its record's (S0-Member); the tool prints the tag and the explorer can filter on it" ; rdfs:range xsd:boolean .
 ogc:bibkey a owl:DatatypeProperty ; rdfs:label "bibkey" ; rdfs:comment "the BibTeX key the works cited use for the source (sheet 10-40)" ; rdfs:domain ogc:Source ; rdfs:range xsd:string .
-ogc:rank a owl:DatatypeProperty ; rdfs:label "rank" ; rdfs:comment "the source's ordinal rank, 1 to 8, a heuristic for which definition wins when several sources define a term (sheet 10-46)" ; rdfs:domain ogc:Source ; rdfs:range xsd:string .
+ogc:rank a owl:DatatypeProperty ; rdfs:label "rank" ; rdfs:comment "the source's ordinal rank, 1 to 8, an integer (round four, KG 11): a heuristic for which definition wins when several sources define a term (sheet 10-46)" ; rdfs:domain ogc:Source ; rdfs:range xsd:integer .
 ogc:kind a owl:DatatypeProperty ; rdfs:label "kind" ; rdfs:comment "pdf, web, html or event" ; rdfs:domain ogc:Source ; rdfs:range xsd:string .
 ogc:posture a owl:DatatypeProperty ; rdfs:label "posture" ; rdfs:comment "committed (the snapshot is in the repository), heldLocally (hashed, not redistributed) or citeOnly" ; rdfs:domain ogc:Source ; rdfs:range xsd:string .
 ogc:url a owl:ObjectProperty ; rdfs:label "url" ; rdfs:comment "where the source is obtained" ; rdfs:domain ogc:Source .
@@ -64,8 +66,8 @@ ogc:licenceNote a owl:DatatypeProperty ; rdfs:label "licenceNote" ; rdfs:comment
 ogc:permissionStatement a owl:DatatypeProperty ; rdfs:label "permissionStatement" ; rdfs:comment "a statement that must travel with every quotation from the source" ; rdfs:domain ogc:Source ; rdfs:range xsd:string .
 ogc:order a owl:DatatypeProperty ; rdfs:label "order" ; rdfs:comment "a ruling's or crosswalk row's ordinal position" ; rdfs:range xsd:integer .
 ogc:resolves a owl:ObjectProperty ; rdfs:label "resolves" ; rdfs:comment "the concern a ruling resolves" ; rdfs:domain ogc:Ruling ; rdfs:range ogc:Concern .
-ogc:rulingText a owl:DatatypeProperty ; rdfs:label "rulingText" ; rdfs:comment "the ruling in the register's formal words" ; rdfs:domain ogc:Ruling ; rdfs:range xsd:string .
-ogc:verbatim a owl:DatatypeProperty ; rdfs:label "verbatim" ; rdfs:comment "the ruling as Z sent it" ; rdfs:domain ogc:Ruling ; rdfs:range xsd:string .
+ogc:rulingText a owl:DatatypeProperty ; rdfs:label "ruling text" ; rdfs:comment "the decision in the register's own words: the same decision, reasons and scope as the message as sent, in a formal register, third person or imperative, no addressee (R-47); rendered on Appendix C and printed first by `ogc ruling`" ; rdfs:domain ogc:Ruling ; rdfs:range xsd:string .
+ogc:verbatim a owl:DatatypeProperty ; rdfs:label "as sent" ; rdfs:comment "the adjudicator's message as sent, untouched, typos included (R-47); kept in the graph, carried by the explorer's panel and printed by `ogc ruling` under the heading as sent; not rendered on Appendix C" ; rdfs:domain ogc:Ruling ; rdfs:range xsd:string .
 ogc:changeNote a owl:DatatypeProperty ; rdfs:label "changeNote" ; rdfs:comment "what changed in the repository when the ruling landed" ; rdfs:domain ogc:Ruling ; rdfs:range xsd:string .
 ogc:problem a owl:DatatypeProperty ; rdfs:label "problem" ; rdfs:comment "what a concern is" ; rdfs:domain ogc:Concern ; rdfs:range xsd:string .
 ogc:severity a owl:DatatypeProperty ; rdfs:label "severity" ; rdfs:comment "a concern's severity: H, M or L" ; rdfs:domain ogc:Concern ; rdfs:range xsd:string .

@@ -35,7 +35,9 @@ SOURCE_FILES = ["vocabulary/og-caie.ttl", "vocabulary/epo.ttl", "vocabulary/regi
 SHAPE_FILES = ["shapes/epo.shapes.ttl", "shapes/model.shapes.ttl", "shapes/rulings.shapes.ttl", "shapes/glossary.shapes.ttl"]  # every shape file; `ogc shapes`, `ogc shape` and the schema's shape count read them all
 MODEL_FILE = "model/og-caie.model.ttl"
 RECORD_FILE = "track/measles-evaluation.ttl"  # the worked example's record, the measles evaluation; read by `ogc record` and `--record` (C-44, ruling R-47; sheet 10-42)
-DIGEST_FILES = {"shapesDigest": "shapes/epo.shapes.ttl", "ontologyDigest": "vocabulary/epo.ttl", "queryDigest": "queries/coverage.rq"}  # what the verdict names by sha256 (tool qualification, sheet 10-18)
+DIGEST_FILES = {"shapesDigest": "shapes/epo.shapes.ttl", "ontologyDigest": "vocabulary/epo.ttl", "queryDigest": "queries/coverage.rq"}  # what is named by sha256 (tool qualification, sheet 10-18): the verdict names the shapes and the ontology it ran and the record it judged (epo:recordDigest, computed by record_digest), the coverage computation the shapes, the ontology and the query
+VERDICT_DIGESTS = ("shapesDigest", "ontologyDigest", "recordDigest")
+COVERAGE_DIGESTS = ("shapesDigest", "ontologyDigest", "queryDigest")
 DOCTOR_FILES = SOURCE_FILES + [f for f in SHAPE_FILES if f not in SOURCE_FILES] + [MODEL_FILE, RECORD_FILE]  # every file the tool reads; `ogc doctor` parses each
 
 
@@ -69,6 +71,56 @@ def digests(root: Path | None = None) -> dict[str, str]:
     digests with, and what the executor writes."""
     root = root or find_root()
     return {k: hashlib.sha256((root / f).read_bytes()).hexdigest() for k, f in DIGEST_FILES.items()}
+
+
+def record_digest(g: Graph, record, cutoff, exclude=()) -> str:
+    """The record digest a conformance verdict carries (round four, KG 8):
+    the sha256 of the canonical N-Triples of the record's member triples
+    generated at or before the cutoff, the verdict's own time. A member is
+    the record itself or a node with ogc:inRecord the record; a member
+    dated (prov:generatedAtTime, else prov:startedAtTime, else
+    prov:endedAtTime) after the cutoff is left out, an undated member
+    (a requirement, a trajectory, an agent) is in; the nodes in `exclude`
+    (the verdict) are left out; a blank node reachable from a member's
+    triples (an earl:result) comes with it. Canonical: rdflib's
+    to_canonical_graph relabels the blank nodes deterministically, and the
+    N-Triples lines are sorted before hashing, so the value does not depend
+    on the file's layout, comments or prefixes. Written by
+    scripts/stamp_digests.py and the executor, checked by `ogc doctor`."""
+    from rdflib import BNode
+    from rdflib.compare import to_canonical_graph
+    cut = cutoff.toPython() if hasattr(cutoff, "toPython") else cutoff
+    members = set(g.subjects(OGC.inRecord, record)) | {record}
+    sub = Graph()
+
+    def take(s):
+        for p, o in g.predicate_objects(s):
+            if p == EPO.step:  # derived in memory by infer_steps, never the record's own (sheet 10-33)
+                continue
+            sub.add((s, p, o))
+            if isinstance(o, BNode):
+                take(o)
+    for s in members:
+        if s in exclude:
+            continue
+        when = g.value(s, PROV.generatedAtTime) or g.value(s, PROV.startedAtTime) or g.value(s, PROV.endedAtTime)
+        if when is not None and when.toPython() > cut:
+            continue
+        take(s)
+    lines = sorted(l for l in to_canonical_graph(sub).serialize(format="nt").splitlines() if l.strip())
+    return hashlib.sha256("\n".join(lines).encode()).hexdigest()
+
+
+def verdict_digest(g: Graph) -> dict:
+    """(verdict, record digest) per conformance verdict of a loaded record:
+    the digest recomputed over the record as it stood at the verdict, the
+    verdict itself excluded; what `ogc doctor` compares with the stored
+    epo:recordDigest and the tests assert."""
+    out = {}
+    for v in g.subjects(RDF.type, EPO.ConformanceVerdict):
+        rec = g.value(v, OGC.inRecord)
+        out[v] = record_digest(g, rec, g.value(v, PROV.generatedAtTime), exclude={v})
+    return out
 
 
 def infer_steps(g: Graph) -> int:

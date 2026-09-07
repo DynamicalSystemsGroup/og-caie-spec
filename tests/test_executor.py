@@ -100,6 +100,9 @@ def test_the_executed_record_is_a_bundle_with_the_verdict_before_the_report(grap
     (rep,) = list(g.subjects(RDF.type, EPO.Report))
     assert g.value(ver, EARL.subject) == bundle and (rep, PROV.wasDerivedFrom, ver) in g and str(g.value(rep, EPO.draft)) == "false"
     assert str(g.value(ver, PROV.generatedAtTime)) <= str(g.value(rep, PROV.generatedAtTime))
+    from ogc.graph import verdict_digest
     for k, v in digests(ROOT).items():
-        assert str(g.value(ver, EPO[k])) == v
+        assert str(g.value(ver, EPO[k])) == (v if k != "queryDigest" else "None")  # the verdict names the shapes and the ontology; the query is the assembler's (round four, KG 8)
+        assert str(g.value(next(g.subjects(RDF.type, EPO.CoverageComputation)), EPO[k])) == v
+    assert str(g.value(ver, EPO.recordDigest)) == verdict_digest(g)[ver]  # the record as it stood when the checker ran, recomputable
     assert not list(g.subject_objects(EPO.step))

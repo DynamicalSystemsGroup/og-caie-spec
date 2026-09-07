@@ -24,7 +24,7 @@ EARL = Namespace("http://www.w3.org/ns/earl#")
 SKOS = Namespace("http://www.w3.org/2004/02/skos/core#")
 RECORD = "track/measles-evaluation.ttl"
 EV = "https://w3id.org/og-caie/evaluation/measles#"
-NEW_SHAPES = ["S0-Independence", "S0-Member", "S0-Record", "S0-Roles", "S3-PlanDeviation"]  # sheet 10: 10-15, 10-31, 10-13, 10-16
+NEW_SHAPES = ["S0-Independence", "S0-Member", "S0-Record", "S0-Roles", "S3-PlanDeviation", "S7-CoverageComputation"]  # sheet 10: 10-15, 10-31, 10-13, 10-16; round four, KG 8
 
 
 def shapes():
@@ -124,15 +124,42 @@ def test_every_graph_in_one_default_graph_conforms():
 
 
 def test_record_digests_are_current():
-    """Sheet 10-18: the verdict and the coverage computation name the shapes, the ontology and the query by sha256; the values equal the files'."""
+    """Sheet 10-18: the verdict names the shapes and the ontology by sha256 and the record it judged by the digest of its canonical
+    member triples as they stood at the verdict (round four, KG 8); the two coverage computations name the shapes, the ontology and
+    the query; every value equals what is recomputed from the checkout."""
+    from ogc.graph import verdict_digest
     g = data(RECORD)
     expected = {k: hashlib.sha256((ROOT / f).read_bytes()).hexdigest()
                 for k, f in (("shapesDigest", "shapes/epo.shapes.ttl"), ("ontologyDigest", "vocabulary/epo.ttl"), ("queryDigest", "queries/coverage.rq"))}
-    holders = list(g.subjects(RDF.type, EPO.ConformanceVerdict)) + list(g.subjects(RDF.type, EPO.CoverageComputation))
-    assert len(holders) == 3  # the verdict, the draft's coverage computation and the final's (sheet 10-41)
-    for h in holders:
+    (verdict,) = list(g.subjects(RDF.type, EPO.ConformanceVerdict))
+    computations = list(g.subjects(RDF.type, EPO.CoverageComputation))
+    assert len(computations) == 2  # the draft's coverage computation and the final's (sheet 10-41)
+    for k in ("shapesDigest", "ontologyDigest"):
+        assert str(g.value(verdict, EPO[k])) == expected[k], f"{k} is stale: run scripts/stamp_digests.py"
+    assert g.value(verdict, EPO.queryDigest) is None  # the query is the assembler's tool, not the checker's
+    assert str(g.value(verdict, EPO.recordDigest)) == verdict_digest(g)[verdict], "the record digest is stale: run scripts/stamp_digests.py"
+    raw = Graph().parse(ROOT / RECORD)  # the digest does not depend on the derived steps or the vocabulary being loaded
+    assert verdict_digest(raw)[verdict] == verdict_digest(g)[verdict]
+    for c in computations:
         for k, v in expected.items():
-            assert str(g.value(h, EPO[k])) == v, f"{h} {k} is stale: run scripts/stamp_digests.py"
+            assert str(g.value(c, EPO[k])) == v, f"{c} {k} is stale: run scripts/stamp_digests.py"
+        assert g.value(c, EPO.recordDigest) is None
+
+
+def test_record_digest_covers_the_record_as_it_stood_and_nothing_later():
+    """Round four, KG 8: a change to a member dated before the verdict changes the digest; a change to a member dated after it
+    (the final report), or to the verdict itself, does not; a comment or a prefix in the file does not."""
+    from rdflib import Literal, URIRef
+    from ogc.graph import record_digest
+    g = Graph().parse(ROOT / RECORD)
+    (verdict,) = list(g.subjects(RDF.type, EPO.ConformanceVerdict))
+    rec, when = g.value(verdict, OGC.inRecord), g.value(verdict, PROV.generatedAtTime)
+    before = record_digest(g, rec, when, exclude={verdict})
+    g.add((URIRef(EV + "report"), EPO.gaps, Literal("a later item, after the verdict")))
+    g.add((verdict, EPO.text, Literal("the verdict itself")))
+    assert record_digest(g, rec, when, exclude={verdict}) == before
+    g.add((URIRef(EV + "a1"), EPO.text, Literal("a criterion, dated before the verdict")))
+    assert record_digest(g, rec, when, exclude={verdict}) != before
 
 
 def test_shapes_s0_to_s9():
@@ -142,7 +169,7 @@ def test_shapes_s0_to_s9():
                      "S1-DsoRelease", "S2-AcceptanceCriterion", "S2-Requirement", "S2-RequirementSet",
                      "S3-PlanApproval", "S3-PlanDeviation", "S3-Probe", "S3-Strategy", "S3-TestPlan",
                      "S4-Session", "S4-TestSuite", "S4-Turn", "S5-Evidence", "S5-Response", "S6-Attestation", "S6-Determination",
-                     "S7-ConformanceVerdict", "S7-Report", "S7-ReportApproval", "S8-Delivery", "S8-Recommendation", "S9-Acceptance"]
+                     "S7-ConformanceVerdict", "S7-CoverageComputation", "S7-Report", "S7-ReportApproval", "S8-Delivery", "S8-Recommendation", "S9-Acceptance"]
 
 
 def test_no_record_asserts_a_step():

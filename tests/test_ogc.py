@@ -468,7 +468,7 @@ def test_r2_finding_12_schema_and_shapes_count_the_same_files_and_doctor_parses_
     r = run("doctor")
     for f in ("shapes/glossary.shapes.ttl", "shapes/rulings.shapes.ttl", "track/measles-evaluation.ttl", "model/og-caie.model.ttl"):
         assert re.search(rf"^ok\s+{re.escape(f)} \(\d+ triples\)$", r.stdout, re.M), f
-    assert re.search(r"^ok\s+the record's digests name shapes/epo.shapes.ttl", r.stdout, re.M)  # sheet 10-18
+    assert re.search(r"^ok\s+the record's digests: the verdict names shapes/epo.shapes.ttl and vocabulary/epo.ttl as committed and the record as it stood", r.stdout, re.M)  # sheet 10-18; round four, KG 8
 
 
 def test_r2_finding_13_shape_prints_each_sparql_constraint_with_its_select_body():

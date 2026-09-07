@@ -89,6 +89,17 @@ ogc:S0-Member a sh:NodeShape ;
                 UNION { ?item a ?kind . FILTER(STRSTARTS(STR(?kind), "https://w3id.org/og-caie/epo#")) ?item prov:wasAttributedTo ?this }
             }
         """ ] ;
+    sh:property [ sh:path ogc:synthetic ; sh:maxCount 1 ; sh:datatype xsd:boolean ; sh:message "A member's synthetic tag is one boolean (sheet 10-43)." ] ;
+    sh:sparql [
+        sh:message "S0: a member's synthetic tag equals its record's (sheet 10-43; round four, KG 9): a synthetic record has no untagged member, and a member tagged synthetic sits in a record tagged so." ;
+        sh:select """
+            PREFIX ogc: <https://w3id.org/og-caie/>
+            SELECT $this ?value WHERE {
+                $this ogc:inRecord ?rec .
+                { ?rec ogc:synthetic ?value . FILTER NOT EXISTS { $this ogc:synthetic ?value } }
+                UNION { $this ogc:synthetic ?value . FILTER NOT EXISTS { ?rec ogc:synthetic ?value } }
+            }
+        """ ] ;
     sh:sparql [
         sh:message "S0: every entity, activity and agent of a record is a member of exactly one record, a prov:Bundle, through ogc:inRecord (sheet 10-31): an item outside every record would escape the constraints anchored on it." ;
         sh:select """
@@ -927,8 +938,9 @@ ogc:S6-Attestation a sh:NodeShape ;
 # report has every attestation behind it), and the rates sum to one; a draft
 # flags its gaps, a final report rests on a passed verdict on the record
 # dated no later than it (sheet 10-41); the verdict judges the record and
-# carries the digests of what it ran (sheet 10-18); the approval is a domain
-# expert's, of a final report, after that verdict.
+# carries the digests of what it ran and of the record it judged (sheet
+# 10-18; round four, KG 8); the approval is a domain expert's, of a final
+# report, after that verdict.
 ogc:S7-Report a sh:NodeShape ;
     sh:targetClass epo:Report ;
     sh:property [ sh:path epo:coverage ; sh:minCount 1 ; sh:maxCount 1 ; sh:minInclusive 0 ; sh:maxInclusive 1 ] ;
@@ -1036,8 +1048,8 @@ ogc:S7-ConformanceVerdict a sh:NodeShape ;
                   sh:message "The verdict names the shapes it ran by their sha256 digest (tool qualification, sheet 10-18)." ] ;
     sh:property [ sh:path epo:ontologyDigest ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ; sh:pattern "^[0-9a-f]{64}$" ;
                   sh:message "The verdict names the ontology it ran by its sha256 digest (sheet 10-18)." ] ;
-    sh:property [ sh:path epo:queryDigest ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ; sh:pattern "^[0-9a-f]{64}$" ;
-                  sh:message "The verdict names the coverage query by its sha256 digest (sheet 10-18)." ] ;
+    sh:property [ sh:path epo:recordDigest ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ; sh:pattern "^[0-9a-f]{64}$" ;
+                  sh:message "The verdict names the record it judged by the sha256 digest of its canonical member triples as they stood at the verdict (round four, KG 8); `ogc doctor` recomputes it." ] ;
     sh:sparql [
         sh:message "S7: the conformance verdict is asserted by a versioned software agent and judges the record it belongs to: its subject is that record (sheet 10-41; walkthrough, R-49)." ;
         sh:select """
@@ -1050,6 +1062,22 @@ ogc:S7-ConformanceVerdict a sh:NodeShape ;
                 UNION { FILTER NOT EXISTS { $this ogc:inRecord ?rec ; earl:subject ?rec . ?rec a prov:Bundle } }
             }
         """ ] .
+
+# S7 (round four, KG 8): the coverage computation names what it ran, the
+# shapes, the ontology and the coverage query, by their digests; it is the
+# automatic activity of a versioned software agent.
+ogc:S7-CoverageComputation a sh:NodeShape ;
+    sh:targetClass epo:CoverageComputation ;
+    sh:property [ sh:path earl:mode ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue earl:automatic ] ;
+    sh:property [ sh:path prov:endedAtTime ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path prov:wasAssociatedWith ; sh:minCount 1 ; sh:class prov:SoftwareAgent ;
+                  sh:message "The coverage computation is a software agent's activity, the report assembler's." ] ;
+    sh:property [ sh:path epo:shapesDigest ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ; sh:pattern "^[0-9a-f]{64}$" ;
+                  sh:message "The coverage computation names the shapes it ran by their sha256 digest (sheet 10-18)." ] ;
+    sh:property [ sh:path epo:ontologyDigest ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ; sh:pattern "^[0-9a-f]{64}$" ;
+                  sh:message "The coverage computation names the ontology it ran by its sha256 digest (sheet 10-18)." ] ;
+    sh:property [ sh:path epo:queryDigest ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ; sh:pattern "^[0-9a-f]{64}$" ;
+                  sh:message "The coverage computation names the coverage query it ran by its sha256 digest (sheet 10-18; round four, KG 8: the query is the assembler's tool, not the checker's)." ] .
 
 ogc:S7-ReportApproval a sh:NodeShape ;
     sh:targetClass epo:ReportApproval ;

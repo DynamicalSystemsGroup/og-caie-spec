@@ -6263,6 +6263,18 @@
      }
     ],
     [
+     "sh:property",
+     {
+      "text": "[sh:datatype http://www.w3.org/2001/XMLSchema#boolean; sh:maxCount 1; sh:message A member's synthetic tag is one boolean…; sh:path https://w3id.org/og-caie/synthetic]"
+     }
+    ],
+    [
+     "sh:sparql",
+     {
+      "text": "[sh:message S0: a member's synthetic tag equals its…; sh:select PREFIX ogc: <https://w3id.org/og-caie/>…]"
+     }
+    ],
+    [
      "sh:sparql",
      {
       "text": "[sh:message S0: every entity, activity and agent of…; sh:select PREFIX ogc: <https://w3id.org/og-caie/>…]"
@@ -7428,13 +7440,13 @@
     [
      "sh:property",
      {
-      "text": "[sh:datatype http://www.w3.org/2001/XMLSchema#string; sh:maxCount 1; sh:message The verdict names the coverage query by…; sh:minCount 1; sh:path https://w3id.org/og-caie/epo#queryDigest; sh:pattern ^[0-9a-f]{64}$]"
+      "text": "[sh:datatype http://www.w3.org/2001/XMLSchema#string; sh:maxCount 1; sh:message The verdict names the ontology it ran b…; sh:minCount 1; sh:path https://w3id.org/og-caie/epo#ontologyDi…; sh:pattern ^[0-9a-f]{64}$]"
      }
     ],
     [
      "sh:property",
      {
-      "text": "[sh:datatype http://www.w3.org/2001/XMLSchema#string; sh:maxCount 1; sh:message The verdict names the ontology it ran b…; sh:minCount 1; sh:path https://w3id.org/og-caie/epo#ontologyDi…; sh:pattern ^[0-9a-f]{64}$]"
+      "text": "[sh:datatype http://www.w3.org/2001/XMLSchema#string; sh:maxCount 1; sh:message The verdict names the record it judged…; sh:minCount 1; sh:path https://w3id.org/og-caie/epo#recordDige…; sh:pattern ^[0-9a-f]{64}$]"
      }
     ],
     [
@@ -7465,6 +7477,59 @@
      "sh:targetClass",
      {
       "ref": "https://w3id.org/og-caie/epo#ConformanceVerdict"
+     }
+    ]
+   ]
+  },
+  "https://w3id.org/og-caie/S7-CoverageComputation": {
+   "in": [],
+   "out": [
+    [
+     "rdf:type",
+     {
+      "text": "sh:NodeShape"
+     }
+    ],
+    [
+     "sh:property",
+     {
+      "text": "[sh:class http://www.w3.org/ns/prov#SoftwareAgent; sh:message The coverage computation is a software…; sh:minCount 1; sh:path http://www.w3.org/ns/prov#wasAssociated…]"
+     }
+    ],
+    [
+     "sh:property",
+     {
+      "text": "[sh:datatype http://www.w3.org/2001/XMLSchema#dateTi…; sh:maxCount 1; sh:minCount 1; sh:path http://www.w3.org/ns/prov#endedAtTime]"
+     }
+    ],
+    [
+     "sh:property",
+     {
+      "text": "[sh:datatype http://www.w3.org/2001/XMLSchema#string; sh:maxCount 1; sh:message The coverage computation names the cove…; sh:minCount 1; sh:path https://w3id.org/og-caie/epo#queryDigest; sh:pattern ^[0-9a-f]{64}$]"
+     }
+    ],
+    [
+     "sh:property",
+     {
+      "text": "[sh:datatype http://www.w3.org/2001/XMLSchema#string; sh:maxCount 1; sh:message The coverage computation names the onto…; sh:minCount 1; sh:path https://w3id.org/og-caie/epo#ontologyDi…; sh:pattern ^[0-9a-f]{64}$]"
+     }
+    ],
+    [
+     "sh:property",
+     {
+      "text": "[sh:datatype http://www.w3.org/2001/XMLSchema#string; sh:maxCount 1; sh:message The coverage computation names the shap…; sh:minCount 1; sh:path https://w3id.org/og-caie/epo#shapesDige…; sh:pattern ^[0-9a-f]{64}$]"
+     }
+    ],
+    [
+     "sh:property",
+     {
+      "text": "[sh:hasValue http://www.w3.org/ns/earl#automatic; sh:maxCount 1; sh:minCount 1; sh:path http://www.w3.org/ns/earl#mode]"
+     }
+    ],
+    [
+     "sh:targetClass",
+     {
+      "ref": "https://w3id.org/og-caie/epo#CoverageComputation"
      }
     ]
    ]
@@ -8603,13 +8668,13 @@
     [
      "rdfs:comment",
      {
-      "text": "no term: SEVOCAB acceptance is cited on step C6; the item is the sponsor's act and needs no headword of its own"
+      "text": "the sponsor's acceptance of the delivery as performance of the agreement. No term: SEVOCAB acceptance is cited on step C6; the item is the sponsor's act and needs no headword of its own"
      }
     ],
     [
      "rdfs:label",
      {
-      "text": "acceptance: the sponsor's acceptance of the delivery as performance of the agreement"
+      "text": "acceptance"
      }
     ],
     [
@@ -8721,6 +8786,12 @@
      }
     ],
     [
+     "rdfs:comment",
+     {
+      "text": "a verifiable criterion derived from a requirement, with its expected result, its weight and the weight's rationale (rulings R-05, R-12)"
+     }
+    ],
+    [
      "rdfs:label",
      {
       "text": "acceptance criterion"
@@ -8752,13 +8823,13 @@
     [
      "rdfs:comment",
      {
-      "text": "no term of its own: the three actor categories are terms (authorized representative, technical expert with its two kinds, evaluation operator); the category of categories is not"
+      "text": "held by a named person within the testing organization (R-10, R-23). No term of its own: the three actor categories are terms (authorized representative, technical expert with its two kinds, evaluation operator); the category of categories is not"
      }
     ],
     [
      "rdfs:label",
      {
-      "text": "an actor category: held by a named person within the testing organization (R-10, R-23)"
+      "text": "actor category"
      }
     ],
     [
@@ -8827,9 +8898,15 @@
      }
     ],
     [
+     "rdfs:comment",
+     {
+      "text": "the domain expert's judgment that the requirement set is appropriate for the populations and the environment (R-08, R-21)"
+     }
+    ],
+    [
      "rdfs:label",
      {
-      "text": "appropriateness assessment: the domain expert's judgment that the requirement set is appropriate for the populations and the environment (R-08, R-21)"
+      "text": "appropriateness assessment"
      }
     ],
     [
@@ -8885,6 +8962,18 @@
      {
       "text": "owl:Class"
      }
+    ],
+    [
+     "rdfs:comment",
+     {
+      "text": "the two values of appropriateness (ruling R-08): appropriate or inappropriate"
+     }
+    ],
+    [
+     "rdfs:label",
+     {
+      "text": "appropriateness value"
+     }
     ]
    ]
   },
@@ -8908,6 +8997,12 @@
      "rdf:type",
      {
       "text": "owl:Class"
+     }
+    ],
+    [
+     "rdfs:comment",
+     {
+      "text": "the domain expert's statement on one criterion: an EARL outcome with the appropriateness of the declared context and the sufficiency of the evidence (ruling R-08); aggregates determinations"
      }
     ],
     [
@@ -8946,9 +9041,15 @@
      }
     ],
     [
+     "rdfs:comment",
+     {
+      "text": "the testing organization's interface with its contractual counterparties (sheet 09; the term's IRI keeps its former local name authorized-representative)"
+     }
+    ],
+    [
      "rdfs:label",
      {
-      "text": "authorized representative: the testing organization's interface with its contractual counterparties (sheet 09; the term's IRI keeps its former local name authorized-representative)"
+      "text": "authorized representative role"
      }
     ],
     [
@@ -8960,7 +9061,14 @@
    ]
   },
   "https://w3id.org/og-caie/epo#ConformanceVerdict": {
-   "in": [],
+   "in": [
+    [
+     "rdfs:domain",
+     {
+      "text": "epo:recordDigest"
+     }
+    ]
+   ],
    "out": [
     [
      "ogc:pinnedAt",
@@ -8981,9 +9089,15 @@
      }
     ],
     [
+     "rdfs:comment",
+     {
+      "text": "the checker's automatic assertion that the record is correctly constructed to the shapes, traceable in both directions and covered; its subject is the record, and it precedes the final report (walkthrough, R-49; sheet 10-41, R-50). Carries the digests of the shapes and the ontology it ran and of the record it judged (sheet 10-18; round four, KG 8)"
+     }
+    ],
+    [
      "rdfs:label",
      {
-      "text": "conformance verdict: the checker's automatic assertion that the record is correctly constructed to the shapes, traceable in both directions and covered; its subject is the record, and it precedes the final report (walkthrough, R-49; sheet 10-41, R-50). Carries the digests of the shapes, the ontology and the coverage query it ran (sheet 10-18)"
+      "text": "conformance verdict"
      }
     ],
     [
@@ -9016,9 +9130,15 @@
      }
     ],
     [
+     "rdfs:comment",
+     {
+      "text": "the machine's assertion that a probe conforms to the DSO shapes, dated before any turn uses it (S3)"
+     }
+    ],
+    [
      "rdfs:label",
      {
-      "text": "automatic consistency check of a probe"
+      "text": "consistency check"
      }
     ],
     [
@@ -9058,6 +9178,12 @@
      }
     ],
     [
+     "rdfs:comment",
+     {
+      "text": "the report assembler's automatic activity that recomputes coverage and the outcome rates over the record (queries/coverage.rq) and generates a report; carries the digests of the shapes, the ontology and the query it ran (S7-CoverageComputation)"
+     }
+    ],
+    [
      "rdfs:label",
      {
       "text": "coverage computation"
@@ -9087,9 +9213,15 @@
      }
     ],
     [
+     "rdfs:comment",
+     {
+      "text": "person or organization that receives a product or a service; the genus of the two customers below"
+     }
+    ],
+    [
      "rdfs:label",
      {
-      "text": "customer (ISO 9000:2026 3.9.1): person or organization that receives a product or a service; the genus of the two customers below"
+      "text": "customer role"
      }
     ],
     [
@@ -9131,13 +9263,13 @@
     [
      "rdfs:comment",
      {
-      "text": "no term: SEVOCAB delivery is cited on step C5; the item carries the final report, its approval and the recommendation, whose terms are performance, test coverage and guardrail"
+      "text": "the final report, its approval and the recommendation handed to the sponsor by the authorized representative under the agreement (R-24; sheets 10-02, 10-41): the report is the record's delivered export, the record itself is not delivered. No term: SEVOCAB delivery is cited on step C5; the item carries the final report, its approval and the recommendation, whose terms are performance, test coverage and guardrail"
      }
     ],
     [
      "rdfs:label",
      {
-      "text": "delivery: the final report, its approval and the recommendation handed to the sponsor by the authorized representative under the agreement (R-24; sheets 10-02, 10-41): the report is the record's delivered export, the record itself is not delivered"
+      "text": "delivery"
      }
     ],
     [
@@ -9164,9 +9296,15 @@
      }
     ],
     [
+     "rdfs:comment",
+     {
+      "text": "the ruling on one or more evidence items that a criterion's expected result was met, not met, or cannot be told (R-20); the codomain of evidence"
+     }
+    ],
+    [
      "rdfs:label",
      {
-      "text": "determination (ISO 9000:2026 3.11.1; the paper's judgment): the ruling on one or more evidence items that a criterion's expected result was met, not met, or cannot be told (R-20); the codomain of evidence"
+      "text": "determination"
      }
     ],
     [
@@ -9211,9 +9349,15 @@
      }
     ],
     [
+     "rdfs:comment",
+     {
+      "text": "expert in the Domain-Specific Ontology (an alternative label of technical expert, R-10)"
+     }
+    ],
+    [
      "rdfs:label",
      {
-      "text": "domain expert: expert in the Domain-Specific Ontology (an alternative label of technical expert, R-10)"
+      "text": "domain expert role"
      }
     ],
     [
@@ -9274,6 +9418,12 @@
      "rdf:type",
      {
       "text": "owl:Class"
+     }
+    ],
+    [
+     "rdfs:comment",
+     {
+      "text": "a versioned release of the Domain-Specific Ontology, approved by a domain expert before any probe derives from it (SCI-01)"
      }
     ],
     [
@@ -9373,9 +9523,15 @@
      }
     ],
     [
+     "rdfs:comment",
+     {
+      "text": "for one affected population, interview or representation (R-40)"
+     }
+    ],
+    [
      "rdfs:label",
      {
-      "text": "engagement decision: for one affected population, interview or representation (R-40)"
+      "text": "engagement decision"
      }
     ],
     [
@@ -9402,9 +9558,15 @@
      }
     ],
     [
+     "rdfs:comment",
+     {
+      "text": "receives the evaluation as a service, signs the agreement, decides the statement of work, accepts the delivery"
+     }
+    ],
+    [
      "rdfs:label",
      {
-      "text": "evaluation customer (the sponsor): receives the evaluation as a service, signs the agreement, decides the statement of work, accepts the delivery"
+      "text": "evaluation customer role"
      }
     ],
     [
@@ -9437,9 +9599,15 @@
      }
     ],
     [
+     "rdfs:comment",
+     {
+      "text": "expert in performing the tests the EPO specifies (R-23)"
+     }
+    ],
+    [
      "rdfs:label",
      {
-      "text": "evaluation operator: expert in performing the tests the EPO specifies (R-23)"
+      "text": "evaluation operator role"
      }
     ],
     [
@@ -9466,9 +9634,15 @@
      }
     ],
     [
+     "rdfs:comment",
+     {
+      "text": "provides the evaluation as a service; ISO/IEC 17000 third party when independent of the test item provider and without a user interest"
+     }
+    ],
+    [
      "rdfs:label",
      {
-      "text": "evaluation service provider (the testing organization): provides the evaluation as a service; ISO/IEC 17000 third party when independent of the test item provider and without a user interest"
+      "text": "evaluation service provider role"
      }
     ],
     [
@@ -9526,9 +9700,15 @@
      }
     ],
     [
+     "rdfs:comment",
+     {
+      "text": "collected material (a response, a trajectory, or several) bearing on one criterion's expected result, under the test plan (R-18, R-20); the domain of a determination"
+     }
+    ],
+    [
      "rdfs:label",
      {
-      "text": "evidence: collected material (a response, a trajectory, or several) bearing on one criterion's expected result, under the test plan (R-18, R-20); the domain of a determination"
+      "text": "evidence"
      }
     ],
     [
@@ -9578,6 +9758,12 @@
      {
       "text": "no term: the three-valued fitness a recommendation states (sheet 10-48); the recommendation names term guardrail, and the values are the report's own words"
      }
+    ],
+    [
+     "rdfs:label",
+     {
+      "text": "fitness value"
+     }
     ]
    ]
   },
@@ -9606,13 +9792,13 @@
     [
      "rdfs:comment",
      {
-      "text": "no term: the declaration records the party fact that makes the testing organization's activity third-party (term third-party conformity assessment activity); it is the fact's record, not a headword"
+      "text": "the testing organization's dated statement, made by its authorized representative, that it is independent of the test item provider (ISO/IEC 17000 4.5, 5.4; sheet 10-07). No term: the declaration records the party fact that makes the testing organization's activity third-party (term third-party conformity assessment activity); it is the fact's record, not a headword"
      }
     ],
     [
      "rdfs:label",
      {
-      "text": "independence declaration: the testing organization's dated statement, made by its authorized representative, that it is independent of the test item provider (ISO/IEC 17000 4.5, 5.4; sheet 10-07)"
+      "text": "independence declaration"
      }
     ],
     [
@@ -9660,13 +9846,13 @@
     [
      "rdfs:comment",
      {
-      "text": "no term: three values on the record, each with its constraint in S0-Independence; the terms are the actor categories and third-party conformity assessment activity"
+      "text": "the level at which independence between the roles is required (sheet 10-15, R-50). No term: three values on the record, each with its constraint in S0-Independence; the terms are the actor categories and third-party conformity assessment activity"
      }
     ],
     [
      "rdfs:label",
      {
-      "text": "the level at which independence between the roles is required (sheet 10-15, R-50)"
+      "text": "independence level"
      }
     ]
    ]
@@ -9706,9 +9892,15 @@
      }
     ],
     [
+     "rdfs:comment",
+     {
+      "text": "the sponsor's purpose and its obligations towards the affected populations (ISO 9000:2026 3.4.11; R-37), the context the contract answers to"
+     }
+    ],
+    [
      "rdfs:label",
      {
-      "text": "mission: the sponsor's purpose and its obligations towards the affected populations (ISO 9000:2026 3.4.11; R-37), the context the contract answers to"
+      "text": "mission"
      }
     ],
     [
@@ -9756,13 +9948,13 @@
     [
      "rdfs:comment",
      {
-      "text": "no term: the sponsor's stated need is what step C1 records (SEBoK business or mission analysis); ISO 9000:2026 3.5.1 requirement is a stated need, but the headword requirement is reserved for what the test item must do (sheet 06-09)"
+      "text": "the sponsor's stated mission problem and measures of success (ISO 9000:2026 requirement: need or expectation that is stated). No term: the sponsor's stated need is what step C1 records (SEBoK business or mission analysis); ISO 9000:2026 3.5.1 requirement is a stated need, but the headword requirement is reserved for what the test item must do (sheet 06-09)"
      }
     ],
     [
      "rdfs:label",
      {
-      "text": "need: the sponsor's stated mission problem and measures of success (ISO 9000:2026 requirement: need or expectation that is stated)"
+      "text": "need"
      }
     ],
     [
@@ -9795,9 +9987,15 @@
      }
     ],
     [
+     "rdfs:comment",
+     {
+      "text": "held by an organization (R-21)"
+     }
+    ],
+    [
      "rdfs:label",
      {
-      "text": "a party's role: held by an organization (R-21)"
+      "text": "party role"
      }
     ],
     [
@@ -9827,13 +10025,13 @@
     [
      "rdfs:comment",
      {
-      "text": "no term: the domain expert's approval of the test plan (term test plan); SEVOCAB has no entry for the approval itself"
+      "text": "the domain expert's approval of a test plan (R-21). No term: the domain expert's approval of the test plan (term test plan); SEVOCAB has no entry for the approval itself"
      }
     ],
     [
      "rdfs:label",
      {
-      "text": "plan approval: the domain expert's approval of a test plan (R-21)"
+      "text": "plan approval"
      }
     ],
     [
@@ -9885,9 +10083,15 @@
      }
     ],
     [
+     "rdfs:comment",
+     {
+      "text": "a recorded departure from the test plan with its reason, for a criterion left unplanned or a plan objective left without an attestation; the operator's, dated (sheet 10-16, R-50)"
+     }
+    ],
+    [
      "rdfs:label",
      {
-      "text": "plan deviation: a recorded departure from the test plan with its reason, for a criterion left unplanned or a plan objective left without an attestation; the operator's, dated (sheet 10-16, R-50)"
+      "text": "plan deviation"
      }
     ],
     [
@@ -9969,9 +10173,15 @@
      }
     ],
     [
+     "rdfs:comment",
+     {
+      "text": "a population of persons affected by the test item (ISO 9000:2026 3.1.4 interested party), as its customers or indirectly through others' use of it; engaged by interview or by representation, with a responsible party for the engagement"
+     }
+    ],
+    [
      "rdfs:label",
      {
-      "text": "affected population: a population of persons affected by the test item (ISO 9000:2026 3.1.4 interested party), as its customers or indirectly through others' use of it; engaged by interview or by representation, with a responsible party for the engagement"
+      "text": "affected population"
      }
     ],
     [
@@ -10035,6 +10245,12 @@
      }
     ],
     [
+     "rdfs:comment",
+     {
+      "text": "one prompt applied at a turn of a session; exercises one or more criteria and derives from a DSO release (R-13)"
+     }
+    ],
+    [
      "rdfs:label",
      {
       "text": "probe"
@@ -10060,7 +10276,7 @@
     [
      "rdfs:comment",
      {
-      "text": "no term: the machine activity that derives probes from the DSO release and the requirement set (term probe names its output)"
+      "text": "the machine activity that derives probes from the DSO release and the requirement set. No term: the machine activity that derives probes from the DSO release and the requirement set (term probe names its output)"
      }
     ],
     [
@@ -10108,13 +10324,13 @@
     [
      "rdfs:comment",
      {
-      "text": "no term: SEVOCAB proposal is cited on step C2 as a neighbour; the item is the testing organization's offer and needs no headword of its own"
+      "text": "the testing organization's response to the sponsor's need, offering the service. No term: SEVOCAB proposal is cited on step C2 as a neighbour; the item is the testing organization's offer and needs no headword of its own"
      }
     ],
     [
      "rdfs:label",
      {
-      "text": "proposal: the testing organization's response to the sponsor's need, offering the service"
+      "text": "proposal"
      }
     ],
     [
@@ -10141,9 +10357,15 @@
      }
     ],
     [
+     "rdfs:comment",
+     {
+      "text": "organization that provides a product or a service; the genus of the two providers below"
+     }
+    ],
+    [
      "rdfs:label",
      {
-      "text": "provider (ISO 9000:2026 3.1.9): organization that provides a product or a service; the genus of the two providers below"
+      "text": "provider role"
      }
     ],
     [
@@ -10186,6 +10408,12 @@
      "rdf:type",
      {
       "text": "owl:Class"
+     }
+    ],
+    [
+     "rdfs:comment",
+     {
+      "text": "the evaluation operator's recommendation, stating a fitness, owned by the report approval and resting on the attestations (sheets 10-11, 10-48)"
      }
     ],
     [
@@ -10279,9 +10507,15 @@
      }
     ],
     [
+     "rdfs:comment",
+     {
+      "text": "coverage and performance recomputed over the record; a draft may carry flagged gaps, a final report (epo:draft false) rests on a passed verdict on the record (sheet 10-41)"
+     }
+    ],
+    [
      "rdfs:label",
      {
-      "text": "report: coverage and performance recomputed over the record; a draft may carry flagged gaps, a final report (epo:draft false) rests on a passed verdict on the record (sheet 10-41)"
+      "text": "report"
      }
     ],
     [
@@ -10317,13 +10551,13 @@
     [
      "rdfs:comment",
      {
-      "text": "no term: the approval is the domain expert's act on the report; the report and the technical expert are the terms"
+      "text": "a domain expert's approval of the final report's contents after the machine verdict on the record (walkthrough, R-49; sheet 10-41); the approval owns the recommendation (sheet 10-11). No term: the approval is the domain expert's act on the report; the report and the technical expert are the terms"
      }
     ],
     [
      "rdfs:label",
      {
-      "text": "report approval: a domain expert's approval of the final report's contents after the machine verdict on the record (walkthrough, R-49; sheet 10-41); the approval owns the recommendation (sheet 10-11)"
+      "text": "report approval"
      }
     ],
     [
@@ -10372,6 +10606,12 @@
      "rdf:type",
      {
       "text": "owl:Class"
+     }
+    ],
+    [
+     "rdfs:comment",
+     {
+      "text": "what the test item must do, in the sponsor's words, never how (ruling R-47); part of the requirement set"
      }
     ],
     [
@@ -10435,9 +10675,15 @@
      }
     ],
     [
+     "rdfs:comment",
+     {
+      "text": "the requirements one system under test must meet in one operational environment (R-14)"
+     }
+    ],
+    [
      "rdfs:label",
      {
-      "text": "requirement set (operational envelope): the requirements one system under test must meet in one operational environment (R-14)"
+      "text": "requirement set (operational envelope)"
      }
     ],
     [
@@ -10477,9 +10723,15 @@
      }
     ],
     [
+     "rdfs:comment",
+     {
+      "text": "the sponsor's approval of the requirement set, made by its signatory, dated after the set and before any session (sheet 10-01, R-50)"
+     }
+    ],
+    [
      "rdfs:label",
      {
-      "text": "requirement-set approval: the sponsor's approval of the requirement set, made by its signatory, dated after the set and before any session (sheet 10-01, R-50)"
+      "text": "requirement-set approval"
      }
     ],
     [
@@ -10515,13 +10767,13 @@
     [
      "rdfs:comment",
      {
-      "text": "no term: the actual result at one turn (SEVOCAB test execution, cited on term test); prose says response and the headword stays with the evidence it becomes"
+      "text": "what the system under test produced at one turn (the actual result). No term: the actual result at one turn (SEVOCAB test execution, cited on term test); prose says response and the headword stays with the evidence it becomes"
      }
     ],
     [
      "rdfs:label",
      {
-      "text": "response: what the system under test produced at one turn (the actual result)"
+      "text": "response"
      }
     ],
     [
@@ -10551,13 +10803,13 @@
     [
      "rdfs:comment",
      {
-      "text": "no term of its own: prov:Role; the subclasses name the terms (party terms of R-21, actor categories of R-23)"
+      "text": "a role in one evaluation: a party's (an organization's) or an actor's (a person's within the testing organization). No term of its own: prov:Role; the subclasses name the terms (party terms of R-21, actor categories of R-23)"
      }
     ],
     [
      "rdfs:label",
      {
-      "text": "a role in one evaluation: a party's (an organization's) or an actor's (a person's within the testing organization)"
+      "text": "role"
      }
     ],
     [
@@ -10627,9 +10879,15 @@
      }
     ],
     [
+     "rdfs:comment",
+     {
+      "text": "the contract (ISO 9000:2026 3.3.13) to perform OG-CAIE as a service, signed by the sponsor's signatory and the testing organization's authorized representative, each on behalf of their organization (R-21, R-23, R-50); accepts the proposal"
+     }
+    ],
+    [
      "rdfs:label",
      {
-      "text": "service agreement: the contract (ISO 9000:2026 3.3.13) to perform OG-CAIE as a service, signed by the sponsor's signatory and the testing organization's authorized representative, each on behalf of their organization (R-21, R-23, R-50); accepts the proposal"
+      "text": "service agreement"
      }
     ],
     [
@@ -10675,9 +10933,15 @@
      }
     ],
     [
+     "rdfs:comment",
+     {
+      "text": "one tester, one system under test, a sequence of turns; the test execution"
+     }
+    ],
+    [
      "rdfs:label",
      {
-      "text": "session (NIST AI 700-2): one tester, one system under test, a sequence of turns; the test execution"
+      "text": "session"
      }
     ],
     [
@@ -10700,13 +10964,13 @@
     [
      "rdfs:comment",
      {
-      "text": "no term: the sponsor's counterpart of the authorized representative, the acquirer's side of SEVOCAB's acceptance; neither a party role (held by an organization) nor an actor category (within the testing organization), so a sibling of both"
+      "text": "a named person acting on behalf of the sponsor organization, who signs the agreement, declares the sponsor's user interest, approves the requirement set and accepts the delivery (sheet 10-06, R-50). No term: the sponsor's counterpart of the authorized representative, the acquirer's side of SEVOCAB's acceptance; neither a party role (held by an organization) nor an actor category (within the testing organization), so a sibling of both"
      }
     ],
     [
      "rdfs:label",
      {
-      "text": "sponsor signatory: a named person acting on behalf of the sponsor organization, who signs the agreement, declares the sponsor's user interest, approves the requirement set and accepts the delivery (sheet 10-06, R-50)"
+      "text": "sponsor signatory role"
      }
     ],
     [
@@ -10739,9 +11003,15 @@
      }
     ],
     [
+     "rdfs:comment",
+     {
+      "text": "what an interviewed population said"
+     }
+    ],
+    [
      "rdfs:label",
      {
-      "text": "stakeholder input: what an interviewed population said"
+      "text": "stakeholder input"
      }
     ],
     [
@@ -10781,9 +11051,15 @@
      }
     ],
     [
+     "rdfs:comment",
+     {
+      "text": "what a representative says on behalf of an affected population, built from its interview when there was one (walkthrough B3, R-49)"
+     }
+    ],
+    [
      "rdfs:label",
      {
-      "text": "stakeholder representation: what a representative says on behalf of an affected population, built from its interview when there was one (walkthrough B3, R-49)"
+      "text": "stakeholder representation"
      }
     ],
     [
@@ -10823,9 +11099,15 @@
      }
     ],
     [
+     "rdfs:comment",
+     {
+      "text": "the sponsor's scope-of-work decisions under the contract, here one engagement decision per affected population (SEVOCAB statement of work; R-40)"
+     }
+    ],
+    [
      "rdfs:label",
      {
-      "text": "statement of work: the sponsor's scope-of-work decisions under the contract, here one engagement decision per affected population (SEVOCAB statement of work; R-40)"
+      "text": "statement of work"
      }
     ],
     [
@@ -10873,7 +11155,7 @@
     [
      "rdfs:label",
      {
-      "text": "a step of either cycle (the range of epo:step)"
+      "text": "step (of either cycle)"
      }
     ]
    ]
@@ -10919,9 +11201,15 @@
      }
     ],
     [
+     "rdfs:comment",
+     {
+      "text": "a state feedback policy that chooses the next probe from the trajectory so far, grounded in the DSO (R-13)"
+     }
+    ],
+    [
      "rdfs:label",
      {
-      "text": "test strategy (SEVOCAB 29119-2): a state feedback policy that chooses the next probe from the trajectory so far, grounded in the DSO (R-13)"
+      "text": "test strategy"
      }
     ],
     [
@@ -10971,6 +11259,18 @@
      {
       "text": "owl:Class"
      }
+    ],
+    [
+     "rdfs:comment",
+     {
+      "text": "the two values of sufficiency (ruling R-08): sufficient or insufficient"
+     }
+    ],
+    [
+     "rdfs:label",
+     {
+      "text": "sufficiency value"
+     }
     ]
    ]
   },
@@ -10990,9 +11290,15 @@
      }
     ],
     [
+     "rdfs:comment",
+     {
+      "text": "a person who provides specific knowledge to the evaluation team; the genus of the domain expert and the evaluation operator (R-10, R-23)"
+     }
+    ],
+    [
      "rdfs:label",
      {
-      "text": "technical expert (ISO 9000:2026 3.12.9): a person who provides specific knowledge to the evaluation team; the genus of the domain expert and the evaluation operator (R-10, R-23)"
+      "text": "technical expert role"
      }
     ],
     [
@@ -11056,9 +11362,15 @@
      }
     ],
     [
+     "rdfs:comment",
+     {
+      "text": "the test item provider's grant of access to the versioned test item under the agreement, for a period, under an instrument outside this agreement, in a named environment (sheet 10-04)"
+     }
+    ],
+    [
      "rdfs:label",
      {
-      "text": "test-item access: the test item provider's grant of access to the versioned test item under the agreement, for a period, under an instrument outside this agreement, in a named environment (sheet 10-04)"
+      "text": "test-item access"
      }
     ],
     [
@@ -11087,13 +11399,13 @@
     [
      "rdfs:comment",
      {
-      "text": "not disjoint with epo:EvaluationCustomerRole on purpose: the sponsor may also be the customer of the AI system it commissions the evaluation of (Z, sheet 08)"
+      "text": "receives the AI system under test as a product or a service; the sponsor may be one, and an affected population is one when it uses the system. Not disjoint with epo:EvaluationCustomerRole on purpose: the sponsor may also be the customer of the AI system it commissions the evaluation of (Z, sheet 08)"
      }
     ],
     [
      "rdfs:label",
      {
-      "text": "test item customer: receives the AI system under test as a product or a service; the sponsor may be one, and an affected population is one when it uses the system"
+      "text": "test item customer role"
      }
     ],
     [
@@ -11120,9 +11432,15 @@
      }
     ],
     [
+     "rdfs:comment",
+     {
+      "text": "provides, and is accountable for, the AI system under test as its provider (ISO/IEC 17000 first party, sheet 10-09); grants access to the test item (C4)"
+     }
+    ],
+    [
      "rdfs:label",
      {
-      "text": "test item provider: provides, and is accountable for, the AI system under test as its provider (ISO/IEC 17000 first party, sheet 10-09); grants access to the test item (C4)"
+      "text": "test item provider role"
      }
     ],
     [
@@ -11210,9 +11528,15 @@
      }
     ],
     [
+     "rdfs:comment",
+     {
+      "text": "SEVOCAB test plan: its objectives are acceptance criteria, its means are probes or a strategy that chooses them (R-13); derives from the requirement set and a DSO release, approved by a domain expert"
+     }
+    ],
+    [
      "rdfs:label",
      {
-      "text": "test plan (objectives: criteria; means: probes, or a strategy that chooses them)"
+      "text": "test plan"
      }
     ],
     [
@@ -11246,9 +11570,15 @@
      }
     ],
     [
+     "rdfs:comment",
+     {
+      "text": "a set of sessions run together, e.g. a robustness battery (R-18)"
+     }
+    ],
+    [
      "rdfs:label",
      {
-      "text": "test suite (SEVOCAB 29119-1): a set of sessions run together, e.g. a robustness battery (R-18)"
+      "text": "test suite"
      }
     ],
     [
@@ -11294,9 +11624,15 @@
      }
     ],
     [
+     "rdfs:comment",
+     {
+      "text": "the ordered prompt-response pairs of a session, the observable realization (IEC 60050-351 351-41-10, refined; R-13)"
+     }
+    ],
+    [
      "rdfs:label",
      {
-      "text": "trajectory: the ordered prompt-response pairs of a session, the observable realization (IEC 60050-351 351-41-10, refined; R-13)"
+      "text": "trajectory"
      }
     ],
     [
@@ -11338,13 +11674,13 @@
     [
      "rdfs:comment",
      {
-      "text": "no term by ruling R-13: a probe is applied at one turn of a session; turn is prose, session and trajectory are the headwords"
+      "text": "one probe applied within a session, producing one response. No term by ruling R-13: a probe is applied at one turn of a session; turn is prose, session and trajectory are the headwords"
      }
     ],
     [
      "rdfs:label",
      {
-      "text": "turn: one probe applied within a session, producing one response"
+      "text": "turn"
      }
     ],
     [
@@ -11380,13 +11716,13 @@
     [
      "rdfs:comment",
      {
-      "text": "no term: the declaration records the party fact that makes the sponsor's own activity second-party (term second-party conformity assessment activity); it is the fact's record, not a headword"
+      "text": "the sponsor's dated statement, made by its signatory, of whether it has a user interest in the test item (ISO/IEC 17000 4.4; sheet 10-07). No term: the declaration records the party fact that makes the sponsor's own activity second-party (term second-party conformity assessment activity); it is the fact's record, not a headword"
      }
     ],
     [
      "rdfs:label",
      {
-      "text": "user-interest declaration: the sponsor's dated statement, made by its signatory, of whether it has a user interest in the test item (ISO/IEC 17000 4.4; sheet 10-07)"
+      "text": "user-interest declaration"
      }
     ],
     [
@@ -13359,19 +13695,19 @@
     [
      "epo:ontologyDigest",
      {
-      "text": "ae92b5fa6b8b80a264a821b321f597472b4955e93f301ee4885c5b5eb993e002"
+      "text": "f6e5fae77beb870b86cde259a4156b570bf9e643d3babebe2a3ae949bd257ded"
      }
     ],
     [
-     "epo:queryDigest",
+     "epo:recordDigest",
      {
-      "text": "3ab9dc711479d53340c97c31be23dc071f5c8ed99a19378b4f1899e632325134"
+      "text": "a15ceee4f191bae902932487af1b336080100d43e6c4dbfd9de6af4401435b18"
      }
     ],
     [
      "epo:shapesDigest",
      {
-      "text": "04bc00dd72a98a154338412c1af0bb62673807880e00d38e6708febecba72eb1"
+      "text": "8dbf3ba216c84170ddd3e47ee220a55f7a43edade8e7a0ccd52f0596b00ab741"
      }
     ],
     [
@@ -14328,19 +14664,19 @@
     [
      "epo:ontologyDigest",
      {
-      "text": "ae92b5fa6b8b80a264a821b321f597472b4955e93f301ee4885c5b5eb993e002"
+      "text": "f6e5fae77beb870b86cde259a4156b570bf9e643d3babebe2a3ae949bd257ded"
      }
     ],
     [
      "epo:queryDigest",
      {
-      "text": "3ab9dc711479d53340c97c31be23dc071f5c8ed99a19378b4f1899e632325134"
+      "text": "ecc9688b862ffd77beae1e94d4cba1ae07701ca7521f2cff63b908da90eb9bb3"
      }
     ],
     [
      "epo:shapesDigest",
      {
-      "text": "04bc00dd72a98a154338412c1af0bb62673807880e00d38e6708febecba72eb1"
+      "text": "8dbf3ba216c84170ddd3e47ee220a55f7a43edade8e7a0ccd52f0596b00ab741"
      }
     ],
     [
@@ -14441,19 +14777,19 @@
     [
      "epo:ontologyDigest",
      {
-      "text": "ae92b5fa6b8b80a264a821b321f597472b4955e93f301ee4885c5b5eb993e002"
+      "text": "f6e5fae77beb870b86cde259a4156b570bf9e643d3babebe2a3ae949bd257ded"
      }
     ],
     [
      "epo:queryDigest",
      {
-      "text": "3ab9dc711479d53340c97c31be23dc071f5c8ed99a19378b4f1899e632325134"
+      "text": "ecc9688b862ffd77beae1e94d4cba1ae07701ca7521f2cff63b908da90eb9bb3"
      }
     ],
     [
      "epo:shapesDigest",
      {
-      "text": "04bc00dd72a98a154338412c1af0bb62673807880e00d38e6708febecba72eb1"
+      "text": "8dbf3ba216c84170ddd3e47ee220a55f7a43edade8e7a0ccd52f0596b00ab741"
      }
     ],
     [
@@ -52631,6 +52967,11 @@
   },
   {
    "rel": "targetClass",
+   "source": "https://w3id.org/og-caie/S7-CoverageComputation",
+   "target": "https://w3id.org/og-caie/epo#CoverageComputation"
+  },
+  {
+   "rel": "targetClass",
    "source": "https://w3id.org/og-caie/S7-Report",
    "target": "https://w3id.org/og-caie/epo#Report"
   },
@@ -65032,7 +65373,7 @@
   },
   {
    "cls": "shape",
-   "desc": "S0: every entity, activity and agent of a record is a member of exactly one record, a prov:Bundle, through ogc:inRecord (sheet 10-31): an item outside every record would escape the constraints anchored on it.",
+   "desc": "S0: a member's synthetic tag equals its record's (sheet 10-43; round four, KG 9): a synthetic record has no untagged member, and a member tagged synthetic sits in a record tagged so. S0: every entity, activity and agent of a record is a member of exactly one record, a prov:Bundle, through ogc:inRecord (sheet 10-31): an item outside every record would escape the constraints anchored on it. A member's synthetic tag is one boolean (sheet 10-43).",
    "id": "https://w3id.org/og-caie/S0-Member",
    "label": "S0-Member",
    "ogc": "ogc sparql \"DESCRIBE ogc:S0-Member\"",
@@ -65232,10 +65573,18 @@
   },
   {
    "cls": "shape",
-   "desc": "Targets epo:ConformanceVerdict. S7: the conformance verdict is asserted by a versioned software agent and judges the record it belongs to: its subject is that record (sheet 10-41; walkthrough, R-49). The verdict names the coverage query by its sha256 digest (sheet 10-18). The verdict names the ontology it ran by its sha256 digest (sheet 10-18). The verdict names the shapes it ran by their sha256 digest (tool qualification, sheet 10-18).",
+   "desc": "Targets epo:ConformanceVerdict. S7: the conformance verdict is asserted by a versioned software agent and judges the record it belongs to: its subject is that record (sheet 10-41; walkthrough, R-49). The verdict names the ontology it ran by its sha256 digest (sheet 10-18). The verdict names the record it judged by the sha256 digest of its canonical member triples as they stood at the verdict (round four, KG 8); `ogc doctor` recomputes it. The verdict names the shapes it ran by their sha256 digest (tool qualification, sheet 10-18).",
    "id": "https://w3id.org/og-caie/S7-ConformanceVerdict",
    "label": "S7-ConformanceVerdict",
    "ogc": "ogc sparql \"DESCRIBE ogc:S7-ConformanceVerdict\"",
+   "page": "../guarantees"
+  },
+  {
+   "cls": "shape",
+   "desc": "Targets epo:CoverageComputation. The coverage computation is a software agent's activity, the report assembler's. The coverage computation names the coverage query it ran by its sha256 digest (sheet 10-18; round four, KG 8: the query is the assembler's tool, not the checker's). The coverage computation names the ontology it ran by its sha256 digest (sheet 10-18). The coverage computation names the shapes it ran by their sha256 digest (sheet 10-18).",
+   "id": "https://w3id.org/og-caie/S7-CoverageComputation",
+   "label": "S7-CoverageComputation",
+   "ogc": "ogc sparql \"DESCRIBE ogc:S7-CoverageComputation\"",
    "page": "../guarantees"
   },
   {
@@ -65336,489 +65685,489 @@
   },
   {
    "cls": "kind",
-   "desc": "acceptance: the sponsor's acceptance of the delivery as performance of the agreement",
+   "desc": "the sponsor's acceptance of the delivery as performance of the agreement. No term: SEVOCAB acceptance is cited on step C6; the item is the sponsor's act and needs no headword of its own",
    "id": "https://w3id.org/og-caie/epo#Acceptance",
-   "label": "Acceptance",
+   "label": "acceptance",
    "ogc": "ogc sparql \"DESCRIBE epo:Acceptance\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "acceptance criterion",
+   "desc": "a verifiable criterion derived from a requirement, with its expected result, its weight and the weight's rationale (rulings R-05, R-12)",
    "id": "https://w3id.org/og-caie/epo#AcceptanceCriterion",
-   "label": "AcceptanceCriterion",
+   "label": "acceptance criterion",
    "ogc": "ogc sparql \"DESCRIBE epo:AcceptanceCriterion\"",
    "page": ""
   },
   {
    "cls": "role",
-   "desc": "an actor category: held by a named person within the testing organization (R-10, R-23)",
+   "desc": "held by a named person within the testing organization (R-10, R-23). No term of its own: the three actor categories are terms (authorized representative, technical expert with its two kinds, evaluation operator); the category of categories is not",
    "id": "https://w3id.org/og-caie/epo#ActorRole",
-   "label": "ActorRole",
+   "label": "actor category",
    "ogc": "ogc sparql \"DESCRIBE epo:ActorRole\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "how a population is affected by the test item",
+   "desc": "no term: the two values below say whether the population is a test item customer (term test item customer) or is affected indirectly (term stakeholder)",
    "id": "https://w3id.org/og-caie/epo#Affectedness",
-   "label": "Affectedness",
+   "label": "how a population is affected by the test item",
    "ogc": "ogc sparql \"DESCRIBE epo:Affectedness\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "appropriateness assessment: the domain expert's judgment that the requirement set is appropriate for the populations and the environment (R-08, R-21)",
+   "desc": "the domain expert's judgment that the requirement set is appropriate for the populations and the environment (R-08, R-21)",
    "id": "https://w3id.org/og-caie/epo#AppropriatenessAssessment",
-   "label": "AppropriatenessAssessment",
+   "label": "appropriateness assessment",
    "ogc": "ogc sparql \"DESCRIBE epo:AppropriatenessAssessment\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "AppropriatenessValue",
+   "desc": "the two values of appropriateness (ruling R-08): appropriate or inappropriate",
    "id": "https://w3id.org/og-caie/epo#AppropriatenessValue",
-   "label": "AppropriatenessValue",
+   "label": "appropriateness value",
    "ogc": "ogc sparql \"DESCRIBE epo:AppropriatenessValue\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "attestation",
+   "desc": "the domain expert's statement on one criterion: an EARL outcome with the appropriateness of the declared context and the sufficiency of the evidence (ruling R-08); aggregates determinations",
    "id": "https://w3id.org/og-caie/epo#Attestation",
-   "label": "Attestation",
+   "label": "attestation",
    "ogc": "ogc sparql \"DESCRIBE epo:Attestation\"",
    "page": ""
   },
   {
    "cls": "role",
-   "desc": "authorized representative: the testing organization's interface with its contractual counterparties (sheet 09; the term's IRI keeps its former local name authorized-representative)",
+   "desc": "the testing organization's interface with its contractual counterparties (sheet 09; the term's IRI keeps its former local name authorized-representative)",
    "id": "https://w3id.org/og-caie/epo#AuthorizedRepresentativeRole",
-   "label": "AuthorizedRepresentativeRole",
+   "label": "authorized representative role",
    "ogc": "ogc sparql \"DESCRIBE epo:AuthorizedRepresentativeRole\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "conformance verdict: the checker's automatic assertion that the record is correctly constructed to the shapes, traceable in both directions and covered; its subject is the record, and it precedes the final report (walkthrough, R-49; sheet 10-41, R-50). Carries the digests of the shapes, the ontology and the coverage query it ran (sheet 10-18)",
+   "desc": "the checker's automatic assertion that the record is correctly constructed to the shapes, traceable in both directions and covered; its subject is the record, and it precedes the final report (walkthrough, R-49; sheet 10-41, R-50). Carries the digests of the shapes and the ontology it ran and of the record it judged (sheet 10-18; round four, KG 8)",
    "id": "https://w3id.org/og-caie/epo#ConformanceVerdict",
-   "label": "ConformanceVerdict",
+   "label": "conformance verdict",
    "ogc": "ogc sparql \"DESCRIBE epo:ConformanceVerdict\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "automatic consistency check of a probe",
+   "desc": "the machine's assertion that a probe conforms to the DSO shapes, dated before any turn uses it (S3)",
    "id": "https://w3id.org/og-caie/epo#ConsistencyCheck",
-   "label": "ConsistencyCheck",
+   "label": "consistency check",
    "ogc": "ogc sparql \"DESCRIBE epo:ConsistencyCheck\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "coverage computation",
+   "desc": "the report assembler's automatic activity that recomputes coverage and the outcome rates over the record (queries/coverage.rq) and generates a report; carries the digests of the shapes, the ontology and the query it ran (S7-CoverageComputation)",
    "id": "https://w3id.org/og-caie/epo#CoverageComputation",
-   "label": "CoverageComputation",
+   "label": "coverage computation",
    "ogc": "ogc sparql \"DESCRIBE epo:CoverageComputation\"",
    "page": ""
   },
   {
    "cls": "role",
-   "desc": "customer (ISO 9000:2026 3.9.1): person or organization that receives a product or a service; the genus of the two customers below",
+   "desc": "person or organization that receives a product or a service; the genus of the two customers below",
    "id": "https://w3id.org/og-caie/epo#CustomerRole",
-   "label": "CustomerRole",
+   "label": "customer role",
    "ogc": "ogc sparql \"DESCRIBE epo:CustomerRole\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "delivery: the final report, its approval and the recommendation handed to the sponsor by the authorized representative under the agreement (R-24; sheets 10-02, 10-41): the report is the record's delivered export, the record itself is not delivered",
+   "desc": "the final report, its approval and the recommendation handed to the sponsor by the authorized representative under the agreement (R-24; sheets 10-02, 10-41): the report is the record's delivered export, the record itself is not delivered. No term: SEVOCAB delivery is cited on step C5; the item carries the final report, its approval and the recommendation, whose terms are performance, test coverage and guardrail",
    "id": "https://w3id.org/og-caie/epo#Delivery",
-   "label": "Delivery",
+   "label": "delivery",
    "ogc": "ogc sparql \"DESCRIBE epo:Delivery\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "determination (ISO 9000:2026 3.11.1; the paper's judgment): the ruling on one or more evidence items that a criterion's expected result was met, not met, or cannot be told (R-20); the codomain of evidence",
+   "desc": "the ruling on one or more evidence items that a criterion's expected result was met, not met, or cannot be told (R-20); the codomain of evidence",
    "id": "https://w3id.org/og-caie/epo#Determination",
-   "label": "Determination",
+   "label": "determination",
    "ogc": "ogc sparql \"DESCRIBE epo:Determination\"",
    "page": ""
   },
   {
    "cls": "role",
-   "desc": "domain expert: expert in the Domain-Specific Ontology (an alternative label of technical expert, R-10)",
+   "desc": "expert in the Domain-Specific Ontology (an alternative label of technical expert, R-10)",
    "id": "https://w3id.org/og-caie/epo#DomainExpertRole",
-   "label": "DomainExpertRole",
+   "label": "domain expert role",
    "ogc": "ogc sparql \"DESCRIBE epo:DomainExpertRole\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "DSO release",
+   "desc": "a versioned release of the Domain-Specific Ontology, approved by a domain expert before any probe derives from it (SCI-01)",
    "id": "https://w3id.org/og-caie/epo#DsoRelease",
-   "label": "DsoRelease",
+   "label": "DSO release",
    "ogc": "ogc sparql \"DESCRIBE epo:DsoRelease\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "how an affected population is engaged",
+   "desc": "no term: the two ways of engaging a population are values decided by the statement of work (R-40); the terms are statement of work and stakeholder",
    "id": "https://w3id.org/og-caie/epo#Engagement",
-   "label": "Engagement",
+   "label": "how an affected population is engaged",
    "ogc": "ogc sparql \"DESCRIBE epo:Engagement\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "engagement decision: for one affected population, interview or representation (R-40)",
+   "desc": "for one affected population, interview or representation (R-40)",
    "id": "https://w3id.org/og-caie/epo#EngagementDecision",
-   "label": "EngagementDecision",
+   "label": "engagement decision",
    "ogc": "ogc sparql \"DESCRIBE epo:EngagementDecision\"",
    "page": ""
   },
   {
    "cls": "role",
-   "desc": "evaluation customer (the sponsor): receives the evaluation as a service, signs the agreement, decides the statement of work, accepts the delivery",
+   "desc": "receives the evaluation as a service, signs the agreement, decides the statement of work, accepts the delivery",
    "id": "https://w3id.org/og-caie/epo#EvaluationCustomerRole",
-   "label": "EvaluationCustomerRole",
+   "label": "evaluation customer role",
    "ogc": "ogc sparql \"DESCRIBE epo:EvaluationCustomerRole\"",
    "page": ""
   },
   {
    "cls": "role",
-   "desc": "evaluation operator: expert in performing the tests the EPO specifies (R-23)",
+   "desc": "expert in performing the tests the EPO specifies (R-23)",
    "id": "https://w3id.org/og-caie/epo#EvaluationOperatorRole",
-   "label": "EvaluationOperatorRole",
+   "label": "evaluation operator role",
    "ogc": "ogc sparql \"DESCRIBE epo:EvaluationOperatorRole\"",
    "page": ""
   },
   {
    "cls": "role",
-   "desc": "evaluation service provider (the testing organization): provides the evaluation as a service; ISO/IEC 17000 third party when independent of the test item provider and without a user interest",
+   "desc": "provides the evaluation as a service; ISO/IEC 17000 third party when independent of the test item provider and without a user interest",
    "id": "https://w3id.org/og-caie/epo#EvaluationServiceProviderRole",
-   "label": "EvaluationServiceProviderRole",
+   "label": "evaluation service provider role",
    "ogc": "ogc sparql \"DESCRIBE epo:EvaluationServiceProviderRole\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "evidence: collected material (a response, a trajectory, or several) bearing on one criterion's expected result, under the test plan (R-18, R-20); the domain of a determination",
+   "desc": "collected material (a response, a trajectory, or several) bearing on one criterion's expected result, under the test plan (R-18, R-20); the domain of a determination",
    "id": "https://w3id.org/og-caie/epo#Evidence",
-   "label": "Evidence",
+   "label": "evidence",
    "ogc": "ogc sparql \"DESCRIBE epo:Evidence\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "FitnessValue",
+   "desc": "no term: the three-valued fitness a recommendation states (sheet 10-48); the recommendation names term guardrail, and the values are the report's own words",
    "id": "https://w3id.org/og-caie/epo#FitnessValue",
-   "label": "FitnessValue",
+   "label": "fitness value",
    "ogc": "ogc sparql \"DESCRIBE epo:FitnessValue\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "independence declaration: the testing organization's dated statement, made by its authorized representative, that it is independent of the test item provider (ISO/IEC 17000 4.5, 5.4; sheet 10-07)",
+   "desc": "the testing organization's dated statement, made by its authorized representative, that it is independent of the test item provider (ISO/IEC 17000 4.5, 5.4; sheet 10-07). No term: the declaration records the party fact that makes the testing organization's activity third-party (term third-party conformity assessment activity); it is the fact's record, not a headword",
    "id": "https://w3id.org/og-caie/epo#IndependenceDeclaration",
-   "label": "IndependenceDeclaration",
+   "label": "independence declaration",
    "ogc": "ogc sparql \"DESCRIBE epo:IndependenceDeclaration\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "the level at which independence between the roles is required (sheet 10-15, R-50)",
+   "desc": "the level at which independence between the roles is required (sheet 10-15, R-50). No term: three values on the record, each with its constraint in S0-Independence; the terms are the actor categories and third-party conformity assessment activity",
    "id": "https://w3id.org/og-caie/epo#IndependenceLevel",
-   "label": "IndependenceLevel",
+   "label": "independence level",
    "ogc": "ogc sparql \"DESCRIBE epo:IndependenceLevel\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "mission: the sponsor's purpose and its obligations towards the affected populations (ISO 9000:2026 3.4.11; R-37), the context the contract answers to",
+   "desc": "the sponsor's purpose and its obligations towards the affected populations (ISO 9000:2026 3.4.11; R-37), the context the contract answers to",
    "id": "https://w3id.org/og-caie/epo#Mission",
-   "label": "Mission",
+   "label": "mission",
    "ogc": "ogc sparql \"DESCRIBE epo:Mission\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "need: the sponsor's stated mission problem and measures of success (ISO 9000:2026 requirement: need or expectation that is stated)",
+   "desc": "the sponsor's stated mission problem and measures of success (ISO 9000:2026 requirement: need or expectation that is stated). No term: the sponsor's stated need is what step C1 records (SEBoK business or mission analysis); ISO 9000:2026 3.5.1 requirement is a stated need, but the headword requirement is reserved for what the test item must do (sheet 06-09)",
    "id": "https://w3id.org/og-caie/epo#Need",
-   "label": "Need",
+   "label": "need",
    "ogc": "ogc sparql \"DESCRIBE epo:Need\"",
    "page": ""
   },
   {
    "cls": "role",
-   "desc": "a party's role: held by an organization (R-21)",
+   "desc": "held by an organization (R-21)",
    "id": "https://w3id.org/og-caie/epo#PartyRole",
-   "label": "PartyRole",
+   "label": "party role",
    "ogc": "ogc sparql \"DESCRIBE epo:PartyRole\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "plan approval: the domain expert's approval of a test plan (R-21)",
+   "desc": "the domain expert's approval of a test plan (R-21). No term: the domain expert's approval of the test plan (term test plan); SEVOCAB has no entry for the approval itself",
    "id": "https://w3id.org/og-caie/epo#PlanApproval",
-   "label": "PlanApproval",
+   "label": "plan approval",
    "ogc": "ogc sparql \"DESCRIBE epo:PlanApproval\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "plan deviation: a recorded departure from the test plan with its reason, for a criterion left unplanned or a plan objective left without an attestation; the operator's, dated (sheet 10-16, R-50)",
+   "desc": "a recorded departure from the test plan with its reason, for a criterion left unplanned or a plan objective left without an attestation; the operator's, dated (sheet 10-16, R-50)",
    "id": "https://w3id.org/og-caie/epo#PlanDeviation",
-   "label": "PlanDeviation",
+   "label": "plan deviation",
    "ogc": "ogc sparql \"DESCRIBE epo:PlanDeviation\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "affected population: a population of persons affected by the test item (ISO 9000:2026 3.1.4 interested party), as its customers or indirectly through others' use of it; engaged by interview or by representation, with a responsible party for the engagement",
+   "desc": "a population of persons affected by the test item (ISO 9000:2026 3.1.4 interested party), as its customers or indirectly through others' use of it; engaged by interview or by representation, with a responsible party for the engagement",
    "id": "https://w3id.org/og-caie/epo#Population",
-   "label": "Population",
+   "label": "affected population",
    "ogc": "ogc sparql \"DESCRIBE epo:Population\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "probe",
+   "desc": "one prompt applied at a turn of a session; exercises one or more criteria and derives from a DSO release (R-13)",
    "id": "https://w3id.org/og-caie/epo#Probe",
-   "label": "Probe",
+   "label": "probe",
    "ogc": "ogc sparql \"DESCRIBE epo:Probe\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "probe derivation",
+   "desc": "the machine activity that derives probes from the DSO release and the requirement set. No term: the machine activity that derives probes from the DSO release and the requirement set (term probe names its output)",
    "id": "https://w3id.org/og-caie/epo#ProbeDerivation",
-   "label": "ProbeDerivation",
+   "label": "probe derivation",
    "ogc": "ogc sparql \"DESCRIBE epo:ProbeDerivation\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "proposal: the testing organization's response to the sponsor's need, offering the service",
+   "desc": "the testing organization's response to the sponsor's need, offering the service. No term: SEVOCAB proposal is cited on step C2 as a neighbour; the item is the testing organization's offer and needs no headword of its own",
    "id": "https://w3id.org/og-caie/epo#Proposal",
-   "label": "Proposal",
+   "label": "proposal",
    "ogc": "ogc sparql \"DESCRIBE epo:Proposal\"",
    "page": ""
   },
   {
    "cls": "role",
-   "desc": "provider (ISO 9000:2026 3.1.9): organization that provides a product or a service; the genus of the two providers below",
+   "desc": "organization that provides a product or a service; the genus of the two providers below",
    "id": "https://w3id.org/og-caie/epo#ProviderRole",
-   "label": "ProviderRole",
+   "label": "provider role",
    "ogc": "ogc sparql \"DESCRIBE epo:ProviderRole\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "recommendation",
+   "desc": "the evaluation operator's recommendation, stating a fitness, owned by the report approval and resting on the attestations (sheets 10-11, 10-48)",
    "id": "https://w3id.org/og-caie/epo#Recommendation",
-   "label": "Recommendation",
+   "label": "recommendation",
    "ogc": "ogc sparql \"DESCRIBE epo:Recommendation\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "report: coverage and performance recomputed over the record; a draft may carry flagged gaps, a final report (epo:draft false) rests on a passed verdict on the record (sheet 10-41)",
+   "desc": "coverage and performance recomputed over the record; a draft may carry flagged gaps, a final report (epo:draft false) rests on a passed verdict on the record (sheet 10-41)",
    "id": "https://w3id.org/og-caie/epo#Report",
-   "label": "Report",
+   "label": "report",
    "ogc": "ogc sparql \"DESCRIBE epo:Report\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "report approval: a domain expert's approval of the final report's contents after the machine verdict on the record (walkthrough, R-49; sheet 10-41); the approval owns the recommendation (sheet 10-11)",
+   "desc": "a domain expert's approval of the final report's contents after the machine verdict on the record (walkthrough, R-49; sheet 10-41); the approval owns the recommendation (sheet 10-11). No term: the approval is the domain expert's act on the report; the report and the technical expert are the terms",
    "id": "https://w3id.org/og-caie/epo#ReportApproval",
-   "label": "ReportApproval",
+   "label": "report approval",
    "ogc": "ogc sparql \"DESCRIBE epo:ReportApproval\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "requirement",
+   "desc": "what the test item must do, in the sponsor's words, never how (ruling R-47); part of the requirement set",
    "id": "https://w3id.org/og-caie/epo#Requirement",
-   "label": "Requirement",
+   "label": "requirement",
    "ogc": "ogc sparql \"DESCRIBE epo:Requirement\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "requirement set (operational envelope): the requirements one system under test must meet in one operational environment (R-14)",
+   "desc": "the requirements one system under test must meet in one operational environment (R-14)",
    "id": "https://w3id.org/og-caie/epo#RequirementSet",
-   "label": "RequirementSet",
+   "label": "requirement set (operational envelope)",
    "ogc": "ogc sparql \"DESCRIBE epo:RequirementSet\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "requirement-set approval: the sponsor's approval of the requirement set, made by its signatory, dated after the set and before any session (sheet 10-01, R-50)",
+   "desc": "the sponsor's approval of the requirement set, made by its signatory, dated after the set and before any session (sheet 10-01, R-50)",
    "id": "https://w3id.org/og-caie/epo#RequirementSetApproval",
-   "label": "RequirementSetApproval",
+   "label": "requirement-set approval",
    "ogc": "ogc sparql \"DESCRIBE epo:RequirementSetApproval\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "response: what the system under test produced at one turn (the actual result)",
+   "desc": "what the system under test produced at one turn (the actual result). No term: the actual result at one turn (SEVOCAB test execution, cited on term test); prose says response and the headword stays with the evidence it becomes",
    "id": "https://w3id.org/og-caie/epo#Response",
-   "label": "Response",
+   "label": "response",
    "ogc": "ogc sparql \"DESCRIBE epo:Response\"",
    "page": ""
   },
   {
    "cls": "role",
-   "desc": "a role in one evaluation: a party's (an organization's) or an actor's (a person's within the testing organization)",
+   "desc": "a role in one evaluation: a party's (an organization's) or an actor's (a person's within the testing organization). No term of its own: prov:Role; the subclasses name the terms (party terms of R-21, actor categories of R-23)",
    "id": "https://w3id.org/og-caie/epo#Role",
-   "label": "Role",
+   "label": "role",
    "ogc": "ogc sparql \"DESCRIBE epo:Role\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "service agreement: the contract (ISO 9000:2026 3.3.13) to perform OG-CAIE as a service, signed by the sponsor's signatory and the testing organization's authorized representative, each on behalf of their organization (R-21, R-23, R-50); accepts the proposal",
+   "desc": "the contract (ISO 9000:2026 3.3.13) to perform OG-CAIE as a service, signed by the sponsor's signatory and the testing organization's authorized representative, each on behalf of their organization (R-21, R-23, R-50); accepts the proposal",
    "id": "https://w3id.org/og-caie/epo#ServiceAgreement",
-   "label": "ServiceAgreement",
+   "label": "service agreement",
    "ogc": "ogc sparql \"DESCRIBE epo:ServiceAgreement\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "session (NIST AI 700-2): one tester, one system under test, a sequence of turns; the test execution",
+   "desc": "one tester, one system under test, a sequence of turns; the test execution",
    "id": "https://w3id.org/og-caie/epo#Session",
-   "label": "Session",
+   "label": "session",
    "ogc": "ogc sparql \"DESCRIBE epo:Session\"",
    "page": ""
   },
   {
    "cls": "role",
-   "desc": "sponsor signatory: a named person acting on behalf of the sponsor organization, who signs the agreement, declares the sponsor's user interest, approves the requirement set and accepts the delivery (sheet 10-06, R-50)",
+   "desc": "a named person acting on behalf of the sponsor organization, who signs the agreement, declares the sponsor's user interest, approves the requirement set and accepts the delivery (sheet 10-06, R-50). No term: the sponsor's counterpart of the authorized representative, the acquirer's side of SEVOCAB's acceptance; neither a party role (held by an organization) nor an actor category (within the testing organization), so a sibling of both",
    "id": "https://w3id.org/og-caie/epo#SponsorSignatoryRole",
-   "label": "SponsorSignatoryRole",
+   "label": "sponsor signatory role",
    "ogc": "ogc sparql \"DESCRIBE epo:SponsorSignatoryRole\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "stakeholder input: what an interviewed population said",
+   "desc": "what an interviewed population said",
    "id": "https://w3id.org/og-caie/epo#StakeholderInput",
-   "label": "StakeholderInput",
+   "label": "stakeholder input",
    "ogc": "ogc sparql \"DESCRIBE epo:StakeholderInput\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "stakeholder representation: what a representative says on behalf of an affected population, built from its interview when there was one (walkthrough B3, R-49)",
+   "desc": "what a representative says on behalf of an affected population, built from its interview when there was one (walkthrough B3, R-49)",
    "id": "https://w3id.org/og-caie/epo#StakeholderRepresentation",
-   "label": "StakeholderRepresentation",
+   "label": "stakeholder representation",
    "ogc": "ogc sparql \"DESCRIBE epo:StakeholderRepresentation\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "statement of work: the sponsor's scope-of-work decisions under the contract, here one engagement decision per affected population (SEVOCAB statement of work; R-40)",
+   "desc": "the sponsor's scope-of-work decisions under the contract, here one engagement decision per affected population (SEVOCAB statement of work; R-40)",
    "id": "https://w3id.org/og-caie/epo#StatementOfWork",
-   "label": "StatementOfWork",
+   "label": "statement of work",
    "ogc": "ogc sparql \"DESCRIBE epo:StatementOfWork\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "a step of either cycle (the range of epo:step)",
+   "desc": "no term: a structural superclass so that epo:step ranges over both cycles' steps without contradicting their disjointness (sheet 10)",
    "id": "https://w3id.org/og-caie/epo#Step",
-   "label": "Step",
+   "label": "step (of either cycle)",
    "ogc": "ogc sparql \"DESCRIBE epo:Step\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "test strategy (SEVOCAB 29119-2): a state feedback policy that chooses the next probe from the trajectory so far, grounded in the DSO (R-13)",
+   "desc": "a state feedback policy that chooses the next probe from the trajectory so far, grounded in the DSO (R-13)",
    "id": "https://w3id.org/og-caie/epo#Strategy",
-   "label": "Strategy",
+   "label": "test strategy",
    "ogc": "ogc sparql \"DESCRIBE epo:Strategy\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "SufficiencyValue",
+   "desc": "the two values of sufficiency (ruling R-08): sufficient or insufficient",
    "id": "https://w3id.org/og-caie/epo#SufficiencyValue",
-   "label": "SufficiencyValue",
+   "label": "sufficiency value",
    "ogc": "ogc sparql \"DESCRIBE epo:SufficiencyValue\"",
    "page": ""
   },
   {
    "cls": "role",
-   "desc": "technical expert (ISO 9000:2026 3.12.9): a person who provides specific knowledge to the evaluation team; the genus of the domain expert and the evaluation operator (R-10, R-23)",
+   "desc": "a person who provides specific knowledge to the evaluation team; the genus of the domain expert and the evaluation operator (R-10, R-23)",
    "id": "https://w3id.org/og-caie/epo#TechnicalExpertRole",
-   "label": "TechnicalExpertRole",
+   "label": "technical expert role",
    "ogc": "ogc sparql \"DESCRIBE epo:TechnicalExpertRole\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "test-item access: the test item provider's grant of access to the versioned test item under the agreement, for a period, under an instrument outside this agreement, in a named environment (sheet 10-04)",
+   "desc": "the test item provider's grant of access to the versioned test item under the agreement, for a period, under an instrument outside this agreement, in a named environment (sheet 10-04)",
    "id": "https://w3id.org/og-caie/epo#TestItemAccess",
-   "label": "TestItemAccess",
+   "label": "test-item access",
    "ogc": "ogc sparql \"DESCRIBE epo:TestItemAccess\"",
    "page": ""
   },
   {
    "cls": "role",
-   "desc": "test item customer: receives the AI system under test as a product or a service; the sponsor may be one, and an affected population is one when it uses the system",
+   "desc": "receives the AI system under test as a product or a service; the sponsor may be one, and an affected population is one when it uses the system. Not disjoint with epo:EvaluationCustomerRole on purpose: the sponsor may also be the customer of the AI system it commissions the evaluation of (Z, sheet 08)",
    "id": "https://w3id.org/og-caie/epo#TestItemCustomerRole",
-   "label": "TestItemCustomerRole",
+   "label": "test item customer role",
    "ogc": "ogc sparql \"DESCRIBE epo:TestItemCustomerRole\"",
    "page": ""
   },
   {
    "cls": "role",
-   "desc": "test item provider: provides, and is accountable for, the AI system under test as its provider (ISO/IEC 17000 first party, sheet 10-09); grants access to the test item (C4)",
+   "desc": "provides, and is accountable for, the AI system under test as its provider (ISO/IEC 17000 first party, sheet 10-09); grants access to the test item (C4)",
    "id": "https://w3id.org/og-caie/epo#TestItemProviderRole",
-   "label": "TestItemProviderRole",
+   "label": "test item provider role",
    "ogc": "ogc sparql \"DESCRIBE epo:TestItemProviderRole\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "test plan (objectives: criteria; means: probes, or a strategy that chooses them)",
+   "desc": "SEVOCAB test plan: its objectives are acceptance criteria, its means are probes or a strategy that chooses them (R-13); derives from the requirement set and a DSO release, approved by a domain expert",
    "id": "https://w3id.org/og-caie/epo#TestPlan",
-   "label": "TestPlan",
+   "label": "test plan",
    "ogc": "ogc sparql \"DESCRIBE epo:TestPlan\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "test suite (SEVOCAB 29119-1): a set of sessions run together, e.g. a robustness battery (R-18)",
+   "desc": "a set of sessions run together, e.g. a robustness battery (R-18)",
    "id": "https://w3id.org/og-caie/epo#TestSuite",
-   "label": "TestSuite",
+   "label": "test suite",
    "ogc": "ogc sparql \"DESCRIBE epo:TestSuite\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "trajectory: the ordered prompt-response pairs of a session, the observable realization (IEC 60050-351 351-41-10, refined; R-13)",
+   "desc": "the ordered prompt-response pairs of a session, the observable realization (IEC 60050-351 351-41-10, refined; R-13)",
    "id": "https://w3id.org/og-caie/epo#Trajectory",
-   "label": "Trajectory",
+   "label": "trajectory",
    "ogc": "ogc sparql \"DESCRIBE epo:Trajectory\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "turn: one probe applied within a session, producing one response",
+   "desc": "one probe applied within a session, producing one response. No term by ruling R-13: a probe is applied at one turn of a session; turn is prose, session and trajectory are the headwords",
    "id": "https://w3id.org/og-caie/epo#Turn",
-   "label": "Turn",
+   "label": "turn",
    "ogc": "ogc sparql \"DESCRIBE epo:Turn\"",
    "page": ""
   },
   {
    "cls": "kind",
-   "desc": "user-interest declaration: the sponsor's dated statement, made by its signatory, of whether it has a user interest in the test item (ISO/IEC 17000 4.4; sheet 10-07)",
+   "desc": "the sponsor's dated statement, made by its signatory, of whether it has a user interest in the test item (ISO/IEC 17000 4.4; sheet 10-07). No term: the declaration records the party fact that makes the sponsor's own activity second-party (term second-party conformity assessment activity); it is the fact's record, not a headword",
    "id": "https://w3id.org/og-caie/epo#UserInterestDeclaration",
-   "label": "UserInterestDeclaration",
+   "label": "user-interest declaration",
    "ogc": "ogc sparql \"DESCRIBE epo:UserInterestDeclaration\"",
    "page": ""
   },
@@ -71962,6 +72311,7 @@
     "https://w3id.org/og-caie/S6-Attestation",
     "https://w3id.org/og-caie/S6-Determination",
     "https://w3id.org/og-caie/S7-ConformanceVerdict",
+    "https://w3id.org/og-caie/S7-CoverageComputation",
     "https://w3id.org/og-caie/S7-Report",
     "https://w3id.org/og-caie/S7-ReportApproval",
     "https://w3id.org/og-caie/S8-Delivery",
@@ -72313,6 +72663,7 @@
     "https://w3id.org/og-caie/S6-Attestation",
     "https://w3id.org/og-caie/S6-Determination",
     "https://w3id.org/og-caie/S7-ConformanceVerdict",
+    "https://w3id.org/og-caie/S7-CoverageComputation",
     "https://w3id.org/og-caie/S7-Report",
     "https://w3id.org/og-caie/S7-ReportApproval",
     "https://w3id.org/og-caie/S8-Delivery",

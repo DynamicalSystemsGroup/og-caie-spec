@@ -269,7 +269,7 @@ epo:Evidence a owl:Class ; ogc:pinnedAt epo:evaluation ; rdfs:subClassOf prov:En
 epo:Determination a owl:Class ; rdfs:subClassOf earl:Assertion, prov:Entity ; rdfs:label "determination" ; ogc:term term:determination ;
     rdfs:comment "the ruling on one or more evidence items that a criterion's expected result was met, not met, or cannot be told (R-20); the codomain of evidence" .
 epo:ConformanceVerdict a owl:Class ; ogc:pinnedAt epo:evaluation ; rdfs:subClassOf earl:Assertion, prov:Entity ; rdfs:label "conformance verdict" ; ogc:term term:conformance ;
-    rdfs:comment "the checker's automatic assertion that the record is correctly constructed to the shapes, traceable in both directions and covered; its subject is the record, and it precedes the final report (walkthrough, R-49; sheet 10-41, R-50). Carries the digests of the shapes, the ontology and the coverage query it ran (sheet 10-18)" .
+    rdfs:comment "the checker's automatic assertion that the record is correctly constructed to the shapes, traceable in both directions and covered; its subject is the record, and it precedes the final report (walkthrough, R-49; sheet 10-41, R-50). Carries the digests of the shapes and the ontology it ran and of the record it judged (sheet 10-18; round four, KG 8)" .
 epo:ReportApproval a owl:Class ; ogc:pinnedAt epo:evaluation ; rdfs:subClassOf earl:Assertion, prov:Entity ; rdfs:label "report approval" ;
     rdfs:comment "a domain expert's approval of the final report's contents after the machine verdict on the record (walkthrough, R-49; sheet 10-41); the approval owns the recommendation (sheet 10-11). No term: the approval is the domain expert's act on the report; the report and the technical expert are the terms" .
 epo:Report a owl:Class ; ogc:pinnedAt epo:evaluation ; rdfs:subClassOf prov:Entity ; rdfs:label "report" ; ogc:term term:test-coverage, term:performance ;
@@ -297,7 +297,7 @@ epo:AppropriatenessAssessment a owl:Class ; rdfs:subClassOf earl:Assertion, prov
 epo:PlanApproval a owl:Class ; rdfs:subClassOf earl:Assertion, prov:Entity ; rdfs:label "plan approval" ;
     rdfs:comment "the domain expert's approval of a test plan (R-21). No term: the domain expert's approval of the test plan (term test plan); SEVOCAB has no entry for the approval itself" .
 epo:CoverageComputation a owl:Class ; rdfs:subClassOf prov:Activity ; rdfs:label "coverage computation" ; ogc:term term:test-coverage ;
-    rdfs:comment "the report assembler's automatic activity that recomputes coverage and the outcome rates over the record (queries/coverage.rq) and generates a report" .
+    rdfs:comment "the report assembler's automatic activity that recomputes coverage and the outcome rates over the record (queries/coverage.rq) and generates a report; carries the digests of the shapes, the ontology and the query it ran (S7-CoverageComputation)" .
 
 # ---- properties
 epo:version a owl:DatatypeProperty ; rdfs:label "version" ; rdfs:range xsd:string ; rdfs:comment "a DSO release's or a software agent's version; no domain, since both carry it (sheet 10)" .
@@ -359,9 +359,10 @@ epo:person a epo:IndependenceLevel ; rdfs:label "independence at the person leve
 epo:department a epo:IndependenceLevel ; rdfs:label "independence at the department level: the determiner and the operator, and the assessor and the author, act on behalf of different units" .
 epo:organization a epo:IndependenceLevel ; rdfs:label "independence at the organization level: the determiner and the operator, and the assessor and the author, act on behalf of different organizations" .
 epo:independenceLevel a owl:ObjectProperty ; rdfs:label "independence level" ; rdfs:domain prov:Bundle ; rdfs:range epo:IndependenceLevel ; rdfs:comment "on the record: the level at which independence is required and checked (sheet 10-15)" .
-epo:shapesDigest a owl:DatatypeProperty ; rdfs:label "shapes digest" ; rdfs:range xsd:string ; rdfs:comment "sha256 of shapes/epo.shapes.ttl as the checker ran it, on the conformance verdict and the coverage computation (tool qualification, sheet 10-18, R-50); ogc doctor compares it with the file" .
+epo:shapesDigest a owl:DatatypeProperty ; rdfs:label "shapes digest" ; rdfs:range xsd:string ; rdfs:comment "sha256 of shapes/epo.shapes.ttl as the checker and the assembler ran it, on the conformance verdict and the coverage computation (tool qualification, sheet 10-18, R-50); ogc doctor compares it with the file" .
 epo:ontologyDigest a owl:DatatypeProperty ; rdfs:label "ontology digest" ; rdfs:range xsd:string ; rdfs:comment "sha256 of vocabulary/epo.ttl as the checker ran it (sheet 10-18)" .
-epo:queryDigest a owl:DatatypeProperty ; rdfs:label "query digest" ; rdfs:range xsd:string ; rdfs:comment "sha256 of queries/coverage.rq as the assembler ran it (sheet 10-18)" .
+epo:queryDigest a owl:DatatypeProperty ; rdfs:label "query digest" ; rdfs:range xsd:string ; rdfs:comment "sha256 of queries/coverage.rq as the assembler ran it (sheet 10-18), on the coverage computation, whose tool the query is (S7-CoverageComputation; round four, KG 8)" .
+epo:recordDigest a owl:DatatypeProperty ; rdfs:label "record digest" ; rdfs:domain epo:ConformanceVerdict ; rdfs:range xsd:string ; rdfs:comment "on the conformance verdict: sha256 of the canonical N-Triples of the record's member triples dated no later than the verdict, the verdict itself excluded (round four, KG 8), the record as the checker judged it; computed by ogc.graph.record_digest, written by scripts/stamp_digests.py and the executor, required by S7-ConformanceVerdict and recomputed by `ogc doctor`" .
 # The record is a bundle (sheet 10-31, R-50): a prov:Bundle every item and
 # agent of the record is a member of through ogc:inRecord, so that two
 # records in one graph do not collide; every global constraint in the
