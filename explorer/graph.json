@@ -30786,6 +30786,12 @@
     [
      "ogc:checkedBy",
      {
+      "ref": "https://w3id.org/og-caie/S3-PlanDeviation"
+     }
+    ],
+    [
+     "ogc:checkedBy",
+     {
       "ref": "https://w3id.org/og-caie/S3-Probe"
      }
     ],
@@ -31518,6 +31524,12 @@
     [
      "ogc:checkedBy",
      {
+      "ref": "https://w3id.org/og-caie/S0-Member"
+     }
+    ],
+    [
+     "ogc:checkedBy",
+     {
       "ref": "https://w3id.org/og-caie/S0-Mission"
      }
     ],
@@ -31543,6 +31555,12 @@
      "ogc:checkedBy",
      {
       "ref": "https://w3id.org/og-caie/S0-Proposal"
+     }
+    ],
+    [
+     "ogc:checkedBy",
+     {
+      "ref": "https://w3id.org/og-caie/S0-Record"
      }
     ],
     [
@@ -31871,6 +31889,18 @@
      "ogc:checkedBy",
      {
       "ref": "https://w3id.org/og-caie/M5-Roles"
+     }
+    ],
+    [
+     "ogc:checkedBy",
+     {
+      "ref": "https://w3id.org/og-caie/S0-Independence"
+     }
+    ],
+    [
+     "ogc:checkedBy",
+     {
+      "ref": "https://w3id.org/og-caie/S0-Roles"
      }
     ],
     [
@@ -53204,6 +53234,11 @@
   {
    "rel": "checkedBy",
    "source": "https://w3id.org/og-caie/trace#SCI-04",
+   "target": "https://w3id.org/og-caie/S3-PlanDeviation"
+  },
+  {
+   "rel": "checkedBy",
+   "source": "https://w3id.org/og-caie/trace#SCI-04",
    "target": "https://w3id.org/og-caie/S3-Probe"
   },
   {
@@ -53639,6 +53674,11 @@
   {
    "rel": "checkedBy",
    "source": "https://w3id.org/og-caie/trace#SCI-10",
+   "target": "https://w3id.org/og-caie/S0-Member"
+  },
+  {
+   "rel": "checkedBy",
+   "source": "https://w3id.org/og-caie/trace#SCI-10",
    "target": "https://w3id.org/og-caie/S0-Mission"
   },
   {
@@ -53660,6 +53700,11 @@
    "rel": "checkedBy",
    "source": "https://w3id.org/og-caie/trace#SCI-10",
    "target": "https://w3id.org/og-caie/S0-Proposal"
+  },
+  {
+   "rel": "checkedBy",
+   "source": "https://w3id.org/og-caie/trace#SCI-10",
+   "target": "https://w3id.org/og-caie/S0-Record"
   },
   {
    "rel": "checkedBy",
@@ -53875,6 +53920,16 @@
    "rel": "checkedBy",
    "source": "https://w3id.org/og-caie/trace#SCI-12",
    "target": "https://w3id.org/og-caie/M5-Roles"
+  },
+  {
+   "rel": "checkedBy",
+   "source": "https://w3id.org/og-caie/trace#SCI-12",
+   "target": "https://w3id.org/og-caie/S0-Independence"
+  },
+  {
+   "rel": "checkedBy",
+   "source": "https://w3id.org/og-caie/trace#SCI-12",
+   "target": "https://w3id.org/og-caie/S0-Roles"
   },
   {
    "rel": "checkedBy",

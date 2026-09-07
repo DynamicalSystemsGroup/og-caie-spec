@@ -542,7 +542,8 @@ def render_record() -> str:
     for cx in sorted((ROOT / "counterexamples").glob("*.ttl")):
         d = Graph().parse(ROOT / "vocabulary" / "epo.ttl"); d.parse(ROOT / "model" / "og-caie.model.ttl"); d.parse(cx)
         ok, results, _ = validate(d, shacl_graph=shapes, advanced=True)
-        shapes_hit = sorted({str(s).rsplit("/", 1)[-1] for s in results.objects(None, SH.sourceShape)})
+        shapes_hit = sorted({str(next(shapes.subjects(SH.property, s), s) if not str(s).startswith(str(OGC)) else s).rsplit("/", 1)[-1]
+                             for s in results.objects(None, SH.sourceShape)})  # a property shape named by the node shape that owns it
         msgs = sorted({str(m) for m in results.objects(None, SH.resultMessage)})
         out.append(f"| `counterexamples/{cx.name}` | {ok} | {cell(', '.join(shapes_hit))} | {cell(' / '.join(msgs))} |")
     return "\n".join(out) + "\n"

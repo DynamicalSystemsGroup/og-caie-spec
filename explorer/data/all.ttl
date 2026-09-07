@@ -21,129 +21,6 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix xw: <https://w3id.org/og-caie/crosswalk#> .
 
-ogc:S0-Independence a sh:NodeShape ;
-    sh:sparql [ sh:message "S0 independence at the person level (sheet 10-15): the person who determines on evidence is not the operator of the session that evidence came from, unless a second determination on the same evidence by another person exists." ;
-            sh:select """
-            PREFIX epo: <https://w3id.org/og-caie/epo#>
-            PREFIX ogc: <https://w3id.org/og-caie/>
-            PREFIX prov: <http://www.w3.org/ns/prov#>
-            PREFIX earl: <http://www.w3.org/ns/earl#>
-            SELECT $this ?value WHERE {
-                $this epo:independenceLevel epo:person .
-                ?value a epo:Determination ; ogc:inRecord $this ; earl:assertedBy ?p ; prov:used ?e .
-                ?p a prov:Person .
-                ?e a epo:Evidence ; prov:wasDerivedFrom ?x . ?x prov:wasGeneratedBy/(epo:inSession)? ?s . ?s a epo:Session ; prov:wasAssociatedWith ?p .
-                FILTER NOT EXISTS { ?d2 a epo:Determination ; ogc:inRecord $this ; prov:used ?e ; earl:assertedBy ?q . ?q a prov:Person . FILTER(?q != ?p) }
-            }
-        """ ],
-        [ sh:message "S0 independence at the person level (sheet 10-15): the person who assesses the appropriateness of the requirement set is not attributed on the requirement set." ;
-            sh:select """
-            PREFIX epo: <https://w3id.org/og-caie/epo#>
-            PREFIX ogc: <https://w3id.org/og-caie/>
-            PREFIX prov: <http://www.w3.org/ns/prov#>
-            PREFIX earl: <http://www.w3.org/ns/earl#>
-            SELECT $this ?value WHERE {
-                $this epo:independenceLevel epo:person .
-                ?value a epo:AppropriatenessAssessment ; ogc:inRecord $this ; earl:subject ?rs ; earl:assertedBy ?p . ?rs prov:wasAttributedTo ?p .
-            }
-        """ ],
-        [ sh:message "S0 independence at the department or organization level (sheet 10-15): the determiner and the operator of the session behind the evidence, and the assessor and the author of the requirement set, act on behalf of different units (prov:actedOnBehalfOf); at the organization level the units are organizations." ;
-            sh:select """
-            PREFIX epo: <https://w3id.org/og-caie/epo#>
-            PREFIX ogc: <https://w3id.org/og-caie/>
-            PREFIX prov: <http://www.w3.org/ns/prov#>
-            PREFIX earl: <http://www.w3.org/ns/earl#>
-            SELECT $this ?value WHERE {
-                $this epo:independenceLevel ?level . FILTER(?level IN (epo:department, epo:organization))
-                {
-                    ?value a epo:Determination ; ogc:inRecord $this ; earl:assertedBy ?p ; prov:used ?e .
-                    ?e a epo:Evidence ; prov:wasDerivedFrom ?x . ?x prov:wasGeneratedBy/(epo:inSession)? ?s . ?s a epo:Session ; prov:wasAssociatedWith ?q . ?q a prov:Person .
-                }
-                UNION
-                {
-                    ?value a epo:AppropriatenessAssessment ; ogc:inRecord $this ; earl:subject ?rs ; earl:assertedBy ?p . ?rs prov:wasAttributedTo ?q . ?q a prov:Person .
-                }
-                FILTER NOT EXISTS { ?p prov:actedOnBehalfOf ?u1 . ?q prov:actedOnBehalfOf ?u2 . FILTER(?u1 != ?u2) FILTER(?level = epo:department || EXISTS { ?u1 a prov:Organization . ?u2 a prov:Organization }) }
-            }
-        """ ] ;
-    sh:targetClass prov:Bundle .
-
-ogc:S0-Member a sh:NodeShape ;
-    sh:sparql [ sh:message "S0: every entity, activity and agent of a record is a member of exactly one record, a prov:Bundle, through ogc:inRecord (sheet 10-31): an item outside every record would escape the constraints anchored on it." ;
-            sh:select """
-            PREFIX ogc: <https://w3id.org/og-caie/>
-            PREFIX prov: <http://www.w3.org/ns/prov#>
-            SELECT $this WHERE {
-                FILTER NOT EXISTS { $this a prov:Bundle }
-                { FILTER NOT EXISTS { $this ogc:inRecord ?r . ?r a prov:Bundle } }
-                UNION { $this ogc:inRecord ?r1 . $this ogc:inRecord ?r2 . FILTER(?r1 != ?r2) }
-            }
-        """ ] ;
-    sh:targetClass prov:Activity,
-        prov:Agent,
-        prov:Entity .
-
-ogc:S0-Record a sh:NodeShape ;
-    sh:property [ sh:message "The record carries a label." ;
-            sh:minCount 1 ;
-            sh:path rdfs:label ],
-        [ sh:in ( epo:person epo:department epo:organization ) ;
-            sh:maxCount 1 ;
-            sh:message "The record states the level at which independence between the roles is required: person, department or organization (sheet 10-15)." ;
-            sh:minCount 1 ;
-            sh:path epo:independenceLevel ],
-        [ sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:message "The synthetic tag is a boolean (sheet 10-43)." ;
-            sh:path ogc:synthetic ] ;
-    sh:targetClass prov:Bundle .
-
-ogc:S0-Roles a sh:NodeShape ;
-    sh:sparql [ sh:message "S0: a person holds at most one of the person roles: domain expert, evaluation operator, authorized representative, sponsor signatory (sheet 10-13; the disjointness axioms are on the role classes and do not reach persons)." ;
-            sh:select """
-            PREFIX epo: <https://w3id.org/og-caie/epo#>
-            SELECT $this ?value WHERE {
-                $this epo:role ?r1 ; epo:role ?value .
-                FILTER(?r1 != ?value)
-                FILTER(?r1 IN (epo:domainExpertRole, epo:evaluationOperatorRole, epo:accountExecutiveRole, epo:sponsorSignatoryRole))
-                FILTER(?value IN (epo:domainExpertRole, epo:evaluationOperatorRole, epo:accountExecutiveRole, epo:sponsorSignatoryRole))
-            }
-        """ ] ;
-    sh:targetClass prov:Person .
-
-ogc:S3-PlanDeviation a sh:NodeShape ;
-    sh:property [ sh:class epo:TestPlan ;
-            sh:maxCount 1 ;
-            sh:message "A deviation names the plan it departs from (sheet 10-16)." ;
-            sh:minCount 1 ;
-            sh:path epo:deviatesFrom ],
-        [ sh:class epo:AcceptanceCriterion ;
-            sh:maxCount 1 ;
-            sh:message "A deviation names the criterion it concerns (sheet 10-16)." ;
-            sh:minCount 1 ;
-            sh:path epo:concerns ],
-        [ sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:message "A deviation states its reason (sheet 10-16)." ;
-            sh:minCount 1 ;
-            sh:path epo:reason ],
-        [ sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path prov:generatedAtTime ] ;
-    sh:sparql [ sh:message "S3: a plan deviation is the evaluation operator's, and is an item of the plan step or the report step (the step is derived through the model graph, sheet 10-33)." ;
-            sh:select """
-            PREFIX epo: <https://w3id.org/og-caie/epo#>
-            PREFIX ogm: <https://w3id.org/og-caie/model#>
-            PREFIX prov: <http://www.w3.org/ns/prov#>
-            PREFIX sysml: <https://www.omg.org/spec/SysML#>
-            SELECT $this WHERE {
-                { FILTER NOT EXISTS { $this prov:wasAttributedTo ?p . ?p epo:role epo:evaluationOperatorRole } }
-                UNION { FILTER NOT EXISTS { $this a ?cls . ?kind ogm:realizes ?cls . ?p sysml:type ?kind ; sysml:direction "out" ; sysml:owner ?act . ?act ogm:realizes ?st . FILTER(?st IN (epo:plan, epo:report)) } }
-            }
-        """ ] ;
-    sh:targetClass epo:PlanDeviation .
-
 xw:auxiliary-assumption-contract a ogc:Crosswalk ;
     rdfs:label "auxiliary assumption, first layer (pinned at the contract)" ;
     ogc:also src:popper-1959 ;
@@ -839,6 +716,7 @@ tr:SCI-04 a ogc:Trace ;
     rdfs:label "SCI-04 PlanBeforeRuns" ;
     rdfs:comment "A test plan states its objectives and its means; every probe belongs to a plan, derives from the DSO release and passes a consistency check before any session." ;
     ogc:checkedBy ogc:S3-PlanApproval,
+        ogc:S3-PlanDeviation,
         ogc:S3-Probe,
         ogc:S3-Strategy,
         ogc:S3-TestPlan ;
@@ -962,11 +840,13 @@ tr:SCI-10 a ogc:Trace ;
     rdfs:comment "The sponsor, the testing organization and the accountable organization are named; the sponsor's mission and obligations towards the affected populations are recorded before the need, and its statement of work decides, per population, interview or representation; the agreement is signed by the sponsor and the authorized representative; every affected population is spoken for by a named representative on the team, and interviewed where the statement of work decided so." ;
     ogc:checkedBy ogc:M1-Obligation,
         ogc:M1-Parties,
+        ogc:S0-Member,
         ogc:S0-Mission,
         ogc:S0-Need,
         ogc:S0-Parties,
         ogc:S0-Population,
         ogc:S0-Proposal,
+        ogc:S0-Record,
         ogc:S0-StatementOfWork,
         ogc:S8-Delivery,
         ogc:S9-Acceptance ;
@@ -1022,6 +902,8 @@ tr:SCI-12 a ogc:Trace ;
     ogc:checkedBy ogc:M5-Cardinality,
         ogc:M5-PortsBelongToRoles,
         ogc:M5-Roles,
+        ogc:S0-Independence,
+        ogc:S0-Roles,
         ogc:S1-DsoRelease,
         ogc:S4-Session,
         ogc:S6-Attestation,
@@ -4098,6 +3980,68 @@ ogc:M5-Roles a sh:NodeShape ;
         """ ] ;
     sh:targetClass sysml:Package .
 
+ogc:S0-Independence a sh:NodeShape ;
+    sh:sparql [ sh:message "S0 independence at the person level (sheet 10-15): the person who determines on evidence is not the operator of the session that evidence came from, unless a second determination on the same evidence by another person exists." ;
+            sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX ogc: <https://w3id.org/og-caie/>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            PREFIX earl: <http://www.w3.org/ns/earl#>
+            SELECT $this ?value WHERE {
+                $this epo:independenceLevel epo:person .
+                ?value a epo:Determination ; ogc:inRecord $this ; earl:assertedBy ?p ; prov:used ?e .
+                ?p a prov:Person .
+                ?e a epo:Evidence ; prov:wasDerivedFrom ?x . ?x prov:wasGeneratedBy/(epo:inSession)? ?s . ?s a epo:Session ; prov:wasAssociatedWith ?p .
+                FILTER NOT EXISTS { ?d2 a epo:Determination ; ogc:inRecord $this ; prov:used ?e ; earl:assertedBy ?q . ?q a prov:Person . FILTER(?q != ?p) }
+            }
+        """ ],
+        [ sh:message "S0 independence at the person level (sheet 10-15): the person who assesses the appropriateness of the requirement set is not attributed on the requirement set." ;
+            sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX ogc: <https://w3id.org/og-caie/>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            PREFIX earl: <http://www.w3.org/ns/earl#>
+            SELECT $this ?value WHERE {
+                $this epo:independenceLevel epo:person .
+                ?value a epo:AppropriatenessAssessment ; ogc:inRecord $this ; earl:subject ?rs ; earl:assertedBy ?p . ?rs prov:wasAttributedTo ?p .
+            }
+        """ ],
+        [ sh:message "S0 independence at the department or organization level (sheet 10-15): the determiner and the operator of the session behind the evidence, and the assessor and the author of the requirement set, act on behalf of different units (prov:actedOnBehalfOf); at the organization level the units are organizations." ;
+            sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX ogc: <https://w3id.org/og-caie/>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            PREFIX earl: <http://www.w3.org/ns/earl#>
+            SELECT $this ?value WHERE {
+                $this epo:independenceLevel ?level . FILTER(?level IN (epo:department, epo:organization))
+                {
+                    ?value a epo:Determination ; ogc:inRecord $this ; earl:assertedBy ?p ; prov:used ?e .
+                    ?e a epo:Evidence ; prov:wasDerivedFrom ?x . ?x prov:wasGeneratedBy/(epo:inSession)? ?s . ?s a epo:Session ; prov:wasAssociatedWith ?q . ?q a prov:Person .
+                }
+                UNION
+                {
+                    ?value a epo:AppropriatenessAssessment ; ogc:inRecord $this ; earl:subject ?rs ; earl:assertedBy ?p . ?rs prov:wasAttributedTo ?q . ?q a prov:Person .
+                }
+                FILTER NOT EXISTS { ?p prov:actedOnBehalfOf ?u1 . ?q prov:actedOnBehalfOf ?u2 . FILTER(?u1 != ?u2) FILTER(?level = epo:department || EXISTS { ?u1 a prov:Organization . ?u2 a prov:Organization }) }
+            }
+        """ ] ;
+    sh:targetClass prov:Bundle .
+
+ogc:S0-Member a sh:NodeShape ;
+    sh:sparql [ sh:message "S0: every entity, activity and agent of a record is a member of exactly one record, a prov:Bundle, through ogc:inRecord (sheet 10-31): an item outside every record would escape the constraints anchored on it." ;
+            sh:select """
+            PREFIX ogc: <https://w3id.org/og-caie/>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            SELECT $this WHERE {
+                FILTER NOT EXISTS { $this a prov:Bundle }
+                { FILTER NOT EXISTS { $this ogc:inRecord ?r . ?r a prov:Bundle } }
+                UNION { $this ogc:inRecord ?r1 . $this ogc:inRecord ?r2 . FILTER(?r1 != ?r2) }
+            }
+        """ ] ;
+    sh:targetClass prov:Activity,
+        prov:Agent,
+        prov:Entity .
+
 ogc:S0-Mission a sh:NodeShape ;
     sh:property [ sh:class epo:Population ;
             sh:message "The mission names the affected populations it holds obligations towards (R-37)." ;
@@ -4156,6 +4100,34 @@ ogc:S0-Proposal a sh:NodeShape ;
         """ ] ;
     sh:targetClass epo:Proposal .
 
+ogc:S0-Record a sh:NodeShape ;
+    sh:property [ sh:message "The record carries a label." ;
+            sh:minCount 1 ;
+            sh:path rdfs:label ],
+        [ sh:in ( epo:person epo:department epo:organization ) ;
+            sh:maxCount 1 ;
+            sh:message "The record states the level at which independence between the roles is required: person, department or organization (sheet 10-15)." ;
+            sh:minCount 1 ;
+            sh:path epo:independenceLevel ],
+        [ sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:message "The synthetic tag is a boolean (sheet 10-43)." ;
+            sh:path ogc:synthetic ] ;
+    sh:targetClass prov:Bundle .
+
+ogc:S0-Roles a sh:NodeShape ;
+    sh:sparql [ sh:message "S0: a person holds at most one of the person roles: domain expert, evaluation operator, authorized representative, sponsor signatory (sheet 10-13; the disjointness axioms are on the role classes and do not reach persons)." ;
+            sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            SELECT $this ?value WHERE {
+                $this epo:role ?r1 ; epo:role ?value .
+                FILTER(?r1 != ?value)
+                FILTER(?r1 IN (epo:domainExpertRole, epo:evaluationOperatorRole, epo:accountExecutiveRole, epo:sponsorSignatoryRole))
+                FILTER(?value IN (epo:domainExpertRole, epo:evaluationOperatorRole, epo:accountExecutiveRole, epo:sponsorSignatoryRole))
+            }
+        """ ] ;
+    sh:targetClass prov:Person .
+
 ogc:S3-PlanApproval a sh:NodeShape ;
     sh:property [ sh:class epo:TestPlan ;
             sh:maxCount 1 ;
@@ -4183,6 +4155,39 @@ ogc:S3-PlanApproval a sh:NodeShape ;
             }
         """ ] ;
     sh:targetClass epo:PlanApproval .
+
+ogc:S3-PlanDeviation a sh:NodeShape ;
+    sh:property [ sh:class epo:TestPlan ;
+            sh:maxCount 1 ;
+            sh:message "A deviation names the plan it departs from (sheet 10-16)." ;
+            sh:minCount 1 ;
+            sh:path epo:deviatesFrom ],
+        [ sh:class epo:AcceptanceCriterion ;
+            sh:maxCount 1 ;
+            sh:message "A deviation names the criterion it concerns (sheet 10-16)." ;
+            sh:minCount 1 ;
+            sh:path epo:concerns ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:message "A deviation states its reason (sheet 10-16)." ;
+            sh:minCount 1 ;
+            sh:path epo:reason ],
+        [ sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path prov:generatedAtTime ] ;
+    sh:sparql [ sh:message "S3: a plan deviation is the evaluation operator's, and is an item of the plan step or the report step (the step is derived through the model graph, sheet 10-33)." ;
+            sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX ogm: <https://w3id.org/og-caie/model#>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            PREFIX sysml: <https://www.omg.org/spec/SysML#>
+            SELECT $this WHERE {
+                { FILTER NOT EXISTS { $this prov:wasAttributedTo ?p . ?p epo:role epo:evaluationOperatorRole } }
+                UNION { FILTER NOT EXISTS { $this a ?cls . ?kind ogm:realizes ?cls . ?p sysml:type ?kind ; sysml:direction "out" ; sysml:owner ?act . ?act ogm:realizes ?st . FILTER(?st IN (epo:plan, epo:report)) } }
+            }
+        """ ] ;
+    sh:targetClass epo:PlanDeviation .
 
 ogc:S3-Strategy a sh:NodeShape ;
     sh:property [ sh:datatype xsd:string ;
