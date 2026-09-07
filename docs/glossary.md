@@ -3,8 +3,8 @@
 The front page ends at the bridge from a plain account of science to the
 engineering standards for evaluation. This chapter gives the terms on the
 far side of that bridge their definitions: rigorous, cited verbatim, and not
-exhaustive. It lists exactly the terms this site uses. The full register is
-generated from the same graph for the accompanying paper.
+exhaustive. It lists exactly the terms this site uses; the full register is
+in the repository and the explorer.
 
 ## The map of the site
 

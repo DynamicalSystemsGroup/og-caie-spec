@@ -20,10 +20,10 @@ deployed AI system against the needs of a specific domain, written down as:
 ## Status (2026-09-06)
 
 - **Glossary: ratified.** 62 terms, 4 coined (DSO, EPO, CAIE, OG-CAIE),
-  settled through 47 rulings (R-01 to R-47) recorded verbatim in
+  settled through 48 rulings (R-01 to R-48) recorded verbatim in
   `rulings/adjudications.ttl`. 85 quotes are machine-located in
   content-hashed snapshots or, where the source is held locally, in its
-  committed digest, 47 verified by Z against the ISO screenshots or
+  committed digest, 48 verified by Z against the ISO screenshots or
   the browsing platforms; none pending. Concerns C-25, C-26, C-30, C-43, C-44 and C-45 are open.
 - **Both cycles are bound to the canon (R-31, R-32).** Each step cites the
   process step it matches: SEBoK's account of the ISO/IEC/IEEE 15288

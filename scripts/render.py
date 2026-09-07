@@ -113,10 +113,12 @@ def render_popper() -> str:
              "|---|---|---|---|"]
     for r in crosswalk_rows(g):
         terms = ", ".join(term_role(g, t) for t in sorted(g.objects(r, OGC.mapsTo), key=lambda t: str(g.value(t, SKOS.prefLabel)).lower()))
-        lines.append(f"| **{cell(g.value(r, RDFS.label))}**: \"{cell(g.value(r, OGC.quote))}\" | {terms} | {cell(g.value(r, OGC.where))} | {cell(g.value(r, OGC.checkable))} |")
-    src = g.value(crosswalk_rows(g)[0], OGC.cites)
+        lines.append(f"| **{cell(g.value(r, RDFS.label))}** | {terms} | {cell(g.value(r, OGC.where))} | {cell(g.value(r, OGC.checkable))} |")
     lines.append("")
-    lines.append(f"The definitions in the first column are the authors' own, as stated at their SciPy 2026 birds-of-a-feather session, after Popper (1959).")
+    lines.append("The elements in the first column, as the authors defined them at their SciPy 2026 birds-of-a-feather session, after Popper (1959):")
+    lines.append("")
+    for r in crosswalk_rows(g):
+        lines.append(f"- **{cell(g.value(r, RDFS.label))}**: {cell(g.value(r, OGC.quote))}")
     return "\n".join(lines) + "\n"
 
 
@@ -170,7 +172,7 @@ def _render_key_terms_bare() -> str:
             src = g.value(c, OGC.cites)
             label = str(g.value(src, RDFS.label)).split(" (")[0].split(", ")[0]
             quote = g.value(c, OGC.quote)
-            cite = f"{label}, {cell(g.value(c, OGC.locator))}" + (f': "{cell(quote)}" ({cell(g.value(c, OGC.quoteStatus))})' if quote else "")
+            cite = f"{label}, {cell(g.value(c, OGC.locator))}" + (f': "{cell(quote)}"' if quote else "")
         alts = sorted(str(a) for a in g.objects(t, SKOS.altLabel))
         rul = sorted(str(r).rsplit("#", 1)[-1] for r in g.objects(t, PROV.wasDerivedFrom))
         body = cell(g.value(t, SKOS.definition)) + (f" Source: {cite}." if cite else " Coined by the authors for this specification; it cites no source.")
@@ -395,7 +397,7 @@ def render_steps() -> str:
         src = g.value(c, OGC.cites)
         label = str(g.value(src, RDFS.label)).split(" (")[0].split(", ")[0]
         q = g.value(c, OGC.quote)
-        return f"{label}, {cell(g.value(c, OGC.locator))}" + (f': "{cell(q)}" ({cell(g.value(c, OGC.quoteStatus))})' if q else "")
+        return f"{label}, {cell(g.value(c, OGC.locator))}" + (f': "{cell(q)}"' if q else "")
 
     def table(cls, title):
         steps = sorted(g.subjects(RDF.type, cls), key=lambda x: str(g.value(x, RDFS.label)))

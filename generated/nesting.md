@@ -8,10 +8,10 @@ flowchart TB
     direction LR
     i_scope[scope] --> i_declareRequirements[declareRequirements] --> i_plan[plan] --> i_execute[execute] --> i_determineAndAttest[determineAndAttest] --> i_report[report]
   end
-  i_report -- "Recommendation, Report" --> o_deliver
-  o_access -- "TestItemAccess" --> i_execute
-  o_agree -- "ServiceAgreement" --> i_declareRequirements
-  o_agree -- "StatementOfWork" --> i_scope
+  i_report -- "Recommendation (from the evaluation operator), Report (from the coverage calculator)" --> o_deliver
+  o_access -- "TestItemAccess (from the accountable organization)" --> i_execute
+  o_agree -- "ServiceAgreement (from the account executive)" --> i_declareRequirements
+  o_agree -- "StatementOfWork (from the sponsor organization)" --> i_scope
   classDef black fill:#eceff1,stroke:#263238,stroke-width:2px;
   class o_fulfil black;
 ```

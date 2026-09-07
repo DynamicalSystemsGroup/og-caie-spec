@@ -217,6 +217,47 @@
     ]
    ]
   },
+  "cite:access:seeAlso:iso-iec-17000-2020:4-10-access": {
+   "in": [],
+   "out": [
+    [
+     "ogc:cites",
+     {
+      "ref": "https://w3id.org/og-caie/sources#iso-iec-17000-2020"
+     }
+    ],
+    [
+     "ogc:locator",
+     {
+      "text": "4.10 access"
+     }
+    ],
+    [
+     "ogc:quote",
+     {
+      "text": "opportunity for an applicant to obtain a conformity assessment service from a body under a conformity assessment scheme"
+     }
+    ],
+    [
+     "ogc:quoteStatus",
+     {
+      "text": "human"
+     }
+    ],
+    [
+     "ogc:verifiedBy",
+     {
+      "text": "rul:Z"
+     }
+    ],
+    [
+     "ogc:verifiedOn",
+     {
+      "text": "2026-09-06 (date)"
+     }
+    ]
+   ]
+  },
   "cite:access:seeAlso:iso-iec-17000-2020:4-2-object-of-conformity-assessment": {
    "in": [],
    "out": [
@@ -6870,7 +6911,7 @@
     [
      "ogc:quote",
      {
-      "text": "Context Matters!"
+      "text": "An auxiliary assumption of the second layer is a claim about the domain and the deployment setting, declared and approved before any test and held fixed while it runs."
      }
     ],
     [
@@ -9055,7 +9096,13 @@
     [
      "ogc:scopeNote",
      {
-      "text": "Ruling R-47 (sheet 06-09): the 29119-2 process whose output is the prepared test environment that step 4's test execution process presupposes; the environment itself is a thing and stays a neighbour."
+      "text": "Ruling R-47 (sheet 06-09) and R-48 (sheet 07-06): the accountable organization, the party that provides the test item, must provide access to it; the step is its duty, and the 29119-2 process names what that access establishes. The environment itself is a thing and stays a neighbour; ISO/IEC 17000 4.10 access is the applicant's side of the same fact."
+     }
+    ],
+    [
+     "ogc:seeAlso",
+     {
+      "ref": "cite:access:seeAlso:iso-iec-17000-2020:4-10-access"
      }
     ],
     [
@@ -11371,7 +11418,7 @@
     [
      "ogc:problem",
      {
-      "text": "Z, on tagging v0.2.0: \"i still need to work through the model step by step and validate all the individual blocks and wires. and need to make sure we get a computational demonstration of our epo guaranteeing a complete record with full traceability and coverage. that is still work to come.\" The M-shapes check that the wiring is well formed; nothing yet shows that every run of the process must yield a record conforming to S0 to S8."
+      "text": "Narrowed by R-48 (sheet 07-01): the executor chapter is the computational demonstration that the process yields a complete, traceable, coverable record for the runs it generates and that eight departures are each caught by a named check. What remains open is the human half: Z validates the model block by block and wire by wire on rulings sheet 05, regenerated from the model graph at every commit; the original wording, from the v0.2.0 tag, is kept in the register as history."
      }
     ],
     [
@@ -11413,7 +11460,7 @@
     [
      "rdfs:label",
      {
-      "text": "the revised model is a draft: block-by-block validation and the end-state demonstration are still to come"
+      "text": "the model is a draft until Z validates it block by block and wire by wire (the human half); the computational half, the end-state demonstration, is done"
      }
     ]
    ]
@@ -12699,6 +12746,59 @@
      "rdfs:label",
      {
       "text": "round one of the simulated user test: fifteen findings that needed a judgment (rulings sheet 06)"
+     }
+    ]
+   ]
+  },
+  "https://w3id.org/og-caie/rulings#C-54": {
+   "in": [],
+   "out": [
+    [
+     "ogc:problem",
+     {
+      "text": "The human reader and the citation auditor reported on the restructured site; nine findings needed the adjudicator (the open concern C-30 against the conclusion's claim, the bridge's second-layer definition, record versus evaluation record, the nesting view's layout, the bridge table's height, C4's canon, the SEVOCAB absence checks, the unpublished paper, the older pending items), and the adjudicator added three directions: status tags out of the primary text, an audit of the ontology's terminological box with a focus mode in the explorer, and a BibTeX works-cited with per-chapter citations and an aggregate appendix."
+     }
+    ],
+    [
+     "ogc:severity",
+     {
+      "text": "H"
+     }
+    ],
+    [
+     "ogc:status",
+     {
+      "text": "ruled"
+     }
+    ],
+    [
+     "ogc:surfacedHow",
+     {
+      "text": "rulings sheet 07, from the round-two reviewers"
+     }
+    ],
+    [
+     "ogc:surfacedOn",
+     {
+      "text": "2026-09-06 (date)"
+     }
+    ],
+    [
+     "prov:wasGeneratedBy",
+     {
+      "text": "rul:user-test-1-2026-09-06"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "ogc:Concern"
+     }
+    ],
+    [
+     "rdfs:label",
+     {
+      "text": "round two of the simulated user test: nine findings needing a judgment, and three broader directions (rulings sheet 07)"
      }
     ]
    ]
@@ -15178,6 +15278,59 @@
      "ogc:verbatim",
      {
       "text": "rulings: 6-1: a as recommended. 6-2: don't cite the deck, site the public event. the BoF at SciPy 2026 is on the public record. you can reference it as a fact about events and what transpired there rather than a citation to a private artifact. there is a blog going live on the hi site soon about it which we can add as an additional citation later. 6-3: reorganize to make more judicious use of info blocks. balance info blocks with standard prose (and headers effecting outline) and code blocks which demonstrable pull content (see techniques in the vendor fraud example). 6-4: rework the rulings content so it doesn't read as messages i sent to an assistant. the intents should be preserved but the tone should shift to a more formal register. 6-5: define terms on first use. you can look at the conversations around the scipy-proceeding paper i wrote. look at the discussions with the reviewer and the fixes we made and they approved for guidance. 6-6: a as recommended. 6-7: a as recommended. 6-8: a as recommended. 6-9: dig in deeper to make sure we align with process canon. shouldn't seem like a stretch. our posture is implementation of standards not relitagating them. our contribution is application to contextual AI eval domain and executable spec implementation not standards authoring. 6-10: drop citations and own the coinage. 6-11: a as recommended. 6-12: a as recommended. 6-13: a as recommended. 6-14: tick them. 6-15: align the code and the appendix more clearly"
+     }
+    ],
+    [
+     "prov:generatedAtTime",
+     {
+      "text": "2026-09-06 (date)"
+     }
+    ],
+    [
+     "prov:wasAttributedTo",
+     {
+      "text": "rul:Z"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "ogc:Ruling"
+     }
+    ]
+   ]
+  },
+  "https://w3id.org/og-caie/rulings#R-48": {
+   "in": [],
+   "out": [
+    [
+     "ogc:changeNote",
+     {
+      "text": "07-01: C-30 narrowed. 07-02: the crosswalk's second-layer quote is a definition in the register's words. 07-03: record and evaluation record by subclassing (tbox audit). 07-04: the nesting view labels each boundary wire with the part that supplies it. 07-05: the bridge's quotations move below the table. 07-06: C4 carries ISO/IEC 17000 4.10 access as a neighbour and a scope note on the accountable organization's duty; the headword goes to sheet 08. 07-07: citation traceability research. 07-08: references to the paper purged. 07-09: the block-and-wire walkthrough. Tags out of the primary tables. TBox audit, explorer focus mode, bibliography: separate slices of the plan."
+     }
+    ],
+    [
+     "ogc:order",
+     {
+      "text": "48"
+     }
+    ],
+    [
+     "ogc:resolves",
+     {
+      "ref": "https://w3id.org/og-caie/rulings#C-54"
+     }
+    ],
+    [
+     "ogc:rulingText",
+     {
+      "text": "Round two of the simulated user test is adjudicated (sheet 07). C-30 is narrowed to its human half, the block-by-block and wire-by-wire validation, the executor chapter being the computational half. The bridge's second-layer row carries a definition in the register's clinical words; the slogan that leaked in from the informal record belongs to the prose. Record is the abstract term and evaluation record its specialization, by subclassing; specializations are made explicit throughout the vocabulary, and hover definitions are used for clarity only, never for every term. The nesting view keeps its vertical alignment and shows that access to the test item comes from a different actor. The bridge table's quotations move to a paragraph below it. The accountable organization's duty to provide access is made explicit; whether accountable organization is the right headword is reconsidered. Citation traceability for the terms grounded outside the standards is reviewed and tightened with NIST and academic sources. References to the unpublished paper are purged: the site is the novel content and the paper will cite it. The open blocks and wires are walked through one at a time; sheet 05 is regenerated first, the model having been refined since. Status tags such as human and machine leave the primary tables for the explorer and the tool, on the principle that the graph's detail is shared only where it helps the reader. The ontology's terminological box is audited and cleaned: SKOS matches, subclassing and disjointness where they belong, disconnected content joined. The explorer gains a focus mode on a node's neighbourhood. A BibTeX works-cited is kept: citations close each chapter and a new appendix aggregates them for the whole project."
+     }
+    ],
+    [
+     "ogc:verbatim",
+     {
+      "text": "7-1: as recommended. 7-2: context matters belongs in the prose not in the records. it leaked in due to the informal and formal mixing in the chat based data collection and rulings. we're trying to keep the canonical data in a more clinical register now. 7-3: record takes a more abstract definition and the evaluation record is a special case. use subclassing. look more carefully at our definitions and use subclassing more explicitly where terms are specialization of other terms; knowledge graphs are designed for this kind of thing. however we do not need to force all terms into the mouseover. just because we can give a term a mouse over doesn't mean we should. its important that is a tool for clarity for the reader, not a distraction. 7-4: i like the vertical alignment. only caveat is that access to the test item comes from a different actor. 7-5: accept recommendation. 7-6: make sure its clear the accountable organization is must provide access. we can reconsider whether \"accountable organization\" is the right headword. i can see how that may create confusion. 7-7: review and revise as needed to improve cite source traceability. NIST report plus relevant academic citations should make clean traces to the concept. if its a bit weak research how to tighten it up. 7-8: i think we should either identity the explicit already published paper or purge the references. most likely this refers to the paper i gave you that is work in progress for all intents and purposes our new content drafted there can be treated as novel in this website and the paper will site this instead. the executables and ontologies are much richer and more capable of rigor than a pdf ever will be. 7-9: walk me through the open questions in the block and wire are one at a time with popups. while i do still want to validation on the spec, the specific records in sheet 5 may be out of date since we've been refining and tightening our model through tests. additional comments: a lot of our tables have tags like (human) or (machine); these are distacting, this level of detail is reserved for attributes you can inspect in the knowledge graph explorer, it does no need to be in the primary text. this principle holds broadly. just because you can share information from the knowledge graph doesnt mean you should. we're leaning on the appendices and the repo to support readers who want to dig deeper, so the primary material can be an easier read. the ontology tbox needs auditing and potentially some clean up. where appropriate we can use skos match, skos closematch, and other tools for interrelating content. we also can use subclassing and disjointness axioms, also look for disconnected content and make sure we're not missing relationships which will improve navagibility. also add to the explorer the ability to focus on a node (thus highlighting only its local neighborhood; we have that in other graph viewers its useful). make sure we have a bibtex workcited. you can put citations at the bottom of each chapter and make a new appendix which contains the aggregate citations for the whole project. you may need to make a new plan"
      }
     ],
     [
@@ -19644,7 +19797,7 @@
     [
      "skos:definition",
      {
-      "text": "The ruling, made on one or more evidence items, that a criterion's expected result was met, was not met, or cannot be told. It is the ruling made on evidence, recorded with an EARL outcome of passed, failed or cannot tell, made by machine or by a named person, and it is what an attestation aggregates for a criterion. The accompanying paper calls it a judgment."
+      "text": "The ruling, made on one or more evidence items, that a criterion's expected result was met, was not met, or cannot be told. It is the ruling made on evidence, recorded with an EARL outcome of passed, failed or cannot tell, made by machine or by a named person, and it is what an attestation aggregates for a criterion."
      }
     ],
     [
@@ -36791,6 +36944,11 @@
   },
   {
    "rel": "cites",
+   "source": "cite:access:seeAlso:iso-iec-17000-2020:4-10-access",
+   "target": "https://w3id.org/og-caie/sources#iso-iec-17000-2020"
+  },
+  {
+   "rel": "cites",
    "source": "cite:access:seeAlso:iso-iec-17000-2020:4-2-object-of-conformity-assessment",
    "target": "https://w3id.org/og-caie/sources#iso-iec-17000-2020"
   },
@@ -38062,6 +38220,11 @@
   {
    "rel": "seeAlso",
    "source": "https://w3id.org/og-caie/epo#access",
+   "target": "cite:access:seeAlso:iso-iec-17000-2020:4-10-access"
+  },
+  {
+   "rel": "seeAlso",
+   "source": "https://w3id.org/og-caie/epo#access",
    "target": "cite:access:seeAlso:iso-iec-17000-2020:4-2-object-of-conformity-assessment"
   },
   {
@@ -38678,6 +38841,11 @@
    "rel": "resolves",
    "source": "https://w3id.org/og-caie/rulings#R-47",
    "target": "https://w3id.org/og-caie/rulings#C-53"
+  },
+  {
+   "rel": "resolves",
+   "source": "https://w3id.org/og-caie/rulings#R-48",
+   "target": "https://w3id.org/og-caie/rulings#C-54"
   },
   {
    "rel": "type",
@@ -43161,6 +43329,14 @@
   },
   {
    "cls": "citation",
+   "desc": "“opportunity for an applicant to obtain a conformity assessment service from a body under a conformity assessment scheme” [human]",
+   "id": "cite:access:seeAlso:iso-iec-17000-2020:4-10-access",
+   "label": "iso-iec-17000-2020 4.10 access",
+   "ogc": "ogc steps",
+   "page": ""
+  },
+  {
+   "cls": "citation",
    "desc": "“entity to which specified requirements apply” [human]",
    "id": "cite:access:seeAlso:iso-iec-17000-2020:4-2-object-of-conformity-assessment",
    "label": "iso-iec-17000-2020 4.2 object of conformity ass…",
@@ -44513,7 +44689,7 @@
   },
   {
    "cls": "crosswalk",
-   "desc": "“Context Matters!” Where: The requirement set declaring this test item in this environment, and the DSO release, both declared and approved before any session. Checkable: Declared and timestamped before testing; every attestation says whether that declared context was appropriate.",
+   "desc": "“An auxiliary assumption of the second layer is a claim about the domain and the deployment setting, declared and approved before any test and held fixed while it runs.” Where: The requirement set declaring this test item in this environment, and the DSO release, both declared and approved before any session. Checkable: Declared and timestamped before testing; every attestation says whether that declared context was appropriate.",
    "id": "https://w3id.org/og-caie/crosswalk#auxiliary-assumption-evaluation",
    "label": "row 3: auxiliary assumption, second layer (pinn…",
    "ogc": "ogc crosswalk --popper",
@@ -45241,7 +45417,7 @@
   },
   {
    "cls": "concern",
-   "desc": "the revised model is a draft: block-by-block validation and the end-state demonstration are still to come (H, open). Z, on tagging v0.2.0: \"i still need to work through the model step by step and validate all the individual blocks and wires. and need to make sure we get a computational demonstration of our epo guaranteeing a complete record with full traceability and coverage. that is still work to come.\" The M-shapes check that the wiring is well formed; nothing yet shows that every run of the process must yield a record conforming to S0 to S8.",
+   "desc": "the model is a draft until Z validates it block by block and wire by wire (the human half); the computational half, the end-state demonstration, is done (H, open). Narrowed by R-48 (sheet 07-01): the executor chapter is the computational demonstration that the process yields a complete, traceable, coverable record for the runs it generates and that eight departures are each caught by a named check. What remains open is the human half: Z validates the model block by block and wire by wire on rulings sheet 05, regenerated from the model graph at every commit; the original wording, from the v0.2.0 tag, is kept in the register as history.",
    "id": "https://w3id.org/og-caie/rulings#C-30",
    "label": "C-30",
    "ogc": "ogc concern C-30",
@@ -45429,6 +45605,14 @@
    "id": "https://w3id.org/og-caie/rulings#C-53",
    "label": "C-53",
    "ogc": "ogc concern C-53",
+   "page": "../rulings"
+  },
+  {
+   "cls": "concern",
+   "desc": "round two of the simulated user test: nine findings needing a judgment, and three broader directions (rulings sheet 07) (H, ruled). The human reader and the citation auditor reported on the restructured site; nine findings needed the adjudicator (the open concern C-30 against the conclusion's claim, the bridge's second-layer definition, record versus evaluation record, the nesting view's layout, the bridge table's height, C4's canon, the SEVOCAB absence checks, the unpublished paper, the older pending items), and the adjudicator added three directions: status tags out of the primary text, an audit of the ontology's terminological box with a focus mode in the explorer, and a BibTeX works-cited with per-chapter citations and an aggregate appendix.",
+   "id": "https://w3id.org/og-caie/rulings#C-54",
+   "label": "C-54",
+   "ogc": "ogc concern C-54",
    "page": "../rulings"
   },
   {
@@ -45805,6 +45989,14 @@
    "id": "https://w3id.org/og-caie/rulings#R-47",
    "label": "R-47",
    "ogc": "ogc ruling R-47",
+   "page": "../rulings"
+  },
+  {
+   "cls": "ruling",
+   "desc": "Round two of the simulated user test is adjudicated (sheet 07). C-30 is narrowed to its human half, the block-by-block and wire-by-wire validation, the executor chapter being the computational half. The bridge's second-layer row carries a definition in the register's clinical words; the slogan that leaked in from the informal record belongs to the prose. Record is the abstract term and evaluation record its specialization, by subclassing; specializations are made explicit throughout the vocabulary, and hover definitions are used for clarity only, never for every term. The nesting view keeps its vertical alignment and shows that access to the test item comes from a different actor. The bridge table's quotations move to a paragraph below it. The accountable organization's duty to provide access is made explicit; whether accountable organization is the right headword is reconsidered. Citation traceability for the terms grounded outside the standards is reviewed and tightened with NIST and academic sources. References to the unpublished paper are purged: the site is the novel content and the paper will cite it. The open blocks and wires are walked through one at a time; sheet 05 is regenerated first, the model having been refined since. Status tags such as human and machine leave the primary tables for the explorer and the tool, on the principle that the graph's detail is shared only where it helps the reader. The ontology's terminological box is audited and cleaned: SKOS matches, subclassing and disjointness where they belong, disconnected content joined. The explorer gains a focus mode on a node's neighbourhood. A BibTeX works-cited is kept: citations close each chapter and a new appendix aggregates them for the whole project.",
+   "id": "https://w3id.org/og-caie/rulings#R-48",
+   "label": "R-48",
+   "ogc": "ogc ruling R-48",
    "page": "../rulings"
   },
   {
@@ -46449,7 +46641,7 @@
   },
   {
    "cls": "term",
-   "desc": "The ruling, made on one or more evidence items, that a criterion's expected result was met, was not met, or cannot be told. It is the ruling made on evidence, recorded with an EARL outcome of passed, failed or cannot tell, made by machine or by a named person, and it is what an attestation aggregates for a criterion. The accompanying paper calls it a judgment.",
+   "desc": "The ruling, made on one or more evidence items, that a criterion's expected result was met, was not met, or cannot be told. It is the ruling made on evidence, recorded with an EARL outcome of passed, failed or cannot tell, made by machine or by a named person, and it is what an attestation aggregates for a criterion.",
    "id": "https://w3id.org/og-caie/terms#determination",
    "label": "determination",
    "ogc": "ogc term determination",
@@ -48486,6 +48678,7 @@
     "cite:acceptance-criteria:canonical:sevocab:acceptance-criteria-p-4",
     "cite:acceptance-criteria:seeAlso:incose-gtwr-v4:c7-verifiable-p-2",
     "cite:access:canonical:sevocab:test-environment-and-data-management-process-p-434-iso-iec-ieee-29119-2-2021-3-37",
+    "cite:access:seeAlso:iso-iec-17000-2020:4-10-access",
     "cite:access:seeAlso:iso-iec-17000-2020:4-2-object-of-conformity-assessment",
     "cite:access:seeAlso:sevocab:test-environment-p-434-iso-iec-ieee-29119-2-2021-3-34",
     "cite:access:seeAlso:sevocab:test-item-transmittal-report-p-435-iso-iec-ieee-24765-2017",
@@ -48758,6 +48951,7 @@
     "https://w3id.org/og-caie/rulings#C-51",
     "https://w3id.org/og-caie/rulings#C-52",
     "https://w3id.org/og-caie/rulings#C-53",
+    "https://w3id.org/og-caie/rulings#C-54",
     "https://w3id.org/og-caie/rulings#R-01",
     "https://w3id.org/og-caie/rulings#R-02",
     "https://w3id.org/og-caie/rulings#R-03",
@@ -48805,6 +48999,7 @@
     "https://w3id.org/og-caie/rulings#R-45",
     "https://w3id.org/og-caie/rulings#R-46",
     "https://w3id.org/og-caie/rulings#R-47",
+    "https://w3id.org/og-caie/rulings#R-48",
     "https://w3id.org/og-caie/terms#acceptance-criteria",
     "https://w3id.org/og-caie/terms#account-executive",
     "https://w3id.org/og-caie/terms#appropriateness",
@@ -49389,6 +49584,7 @@
     "cite:acceptance-criteria:canonical:sevocab:acceptance-criteria-p-4",
     "cite:acceptance-criteria:seeAlso:incose-gtwr-v4:c7-verifiable-p-2",
     "cite:access:canonical:sevocab:test-environment-and-data-management-process-p-434-iso-iec-ieee-29119-2-2021-3-37",
+    "cite:access:seeAlso:iso-iec-17000-2020:4-10-access",
     "cite:access:seeAlso:iso-iec-17000-2020:4-2-object-of-conformity-assessment",
     "cite:access:seeAlso:sevocab:test-environment-p-434-iso-iec-ieee-29119-2-2021-3-34",
     "cite:access:seeAlso:sevocab:test-item-transmittal-report-p-435-iso-iec-ieee-24765-2017",
@@ -49673,6 +49869,7 @@
     "https://w3id.org/og-caie/rulings#C-51",
     "https://w3id.org/og-caie/rulings#C-52",
     "https://w3id.org/og-caie/rulings#C-53",
+    "https://w3id.org/og-caie/rulings#C-54",
     "https://w3id.org/og-caie/rulings#R-01",
     "https://w3id.org/og-caie/rulings#R-02",
     "https://w3id.org/og-caie/rulings#R-03",
@@ -49720,6 +49917,7 @@
     "https://w3id.org/og-caie/rulings#R-45",
     "https://w3id.org/og-caie/rulings#R-46",
     "https://w3id.org/og-caie/rulings#R-47",
+    "https://w3id.org/og-caie/rulings#R-48",
     "https://w3id.org/og-caie/run/measles#R1",
     "https://w3id.org/og-caie/run/measles#a1",
     "https://w3id.org/og-caie/run/measles#a2",

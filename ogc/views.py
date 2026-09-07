@@ -253,8 +253,18 @@ def nesting(g: Graph) -> str:
     for a, b, kind in crossing:
         bundles.setdefault((a, b), []).append(kind)
     order = item_order(g)
+    supplier: dict[str, str] = {}
+    for pd in g.subjects(RDF.type, SYS.PortDefinition):
+        item = item_of_port_def(g, pd)
+        parts = sorted({name(g, g.value(p, SYS.owner)) for p in g.subjects(SYS.type, pd)
+                        if (p, RDF.type, SYS.PortUsage) in g and g.value(p, SYS.isConjugated) is None and g.value(p, SYS.isEnd) is None
+                        and (g.value(p, SYS.owner), RDF.type, SYS.PartDefinition) in g})
+        if parts:
+            supplier[item] = parts[0]
     for (a, b), kinds in sorted(bundles.items()):
-        lines.append(f'  {a} -- "{", ".join(sorted(set(kinds), key=lambda n: (order.get(n, len(order)), n)))}" --> {b}')
+        named = [f"{k} (from the {re.sub(r'(?<!^)(?=[A-Z])', ' ', supplier[k]).lower()})" if k in supplier else k
+                 for k in sorted(set(kinds), key=lambda n: (order.get(n, len(order)), n))]
+        lines.append(f'  {a} -- "{", ".join(named)}" --> {b}')
     lines.append("  classDef black fill:#eceff1,stroke:#263238,stroke-width:2px;")
     for st in typed:
         lines.append(f"  class o_{st} black;")

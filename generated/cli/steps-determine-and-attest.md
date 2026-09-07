@@ -1,6 +1,6 @@
 $ uv run -q ogc steps
 # ogc steps @ <sha>
-(74 lines before this omitted; run the command for all)
+(75 lines before this omitted; run the command for all)
 ## 5 determine and attest: determinations on evidence; attestations by the domain expert
   matches: iso-iec-17000-2020 7.2 decision  [human]
     "conclusion, based on the results of review, that fulfilment of specified requirements has

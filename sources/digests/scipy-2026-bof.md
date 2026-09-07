@@ -10,7 +10,7 @@ wording (the source they named: Popper 1959):
 - "Evidence is an accepted result of observation or experiment."
 - "In practice, however, falsification also depends on auxiliary assumptions and methodological judgments."
 - "Falsifiability is the property of excluding at least one possible empirical outcome."
-- "Context Matters!"
+- "An auxiliary assumption of the second layer is a claim about the domain and the deployment setting, declared and approved before any test and held fixed while it runs." (the session's slide put it in two words, "Context Matters!"; the definition is the authors' statement of what those words meant)
 
 The Humane Intelligence and Dynamical Systems Group logos shown at the
 session are reproduced at `assets/hi-dsg-collaboration.png`.

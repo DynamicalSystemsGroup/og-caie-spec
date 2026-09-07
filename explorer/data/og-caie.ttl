@@ -10,7 +10,7 @@
 # canonical definition from the highest-ranked source that defines it
 # (ISO 9000:2026, then SEVOCAB, then NIST AI 700-2, then W3C for binding
 # only), with a verbatim quote and a locator. skos:definition is the
-# narrative reading: plain language, no citations, liftable into the paper.
+# narrative reading: plain language, no citations.
 # ogc:class is adopted (used as the source defines it), refined (a typed
 # anchor plus an altLabel keeping the source's word) or coined (exactly
 # four). ogc:quoteStatus: machine (located in the snapshot by the tests),
@@ -71,7 +71,7 @@ term:objective-evidence a skos:Concept ; skos:inScheme ogc:Glossary ;
 term:determination a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "determination"@en ;
     skos:altLabel "judgment"@en ;
-    skos:definition "The ruling, made on one or more evidence items, that a criterion's expected result was met, was not met, or cannot be told. It is the ruling made on evidence, recorded with an EARL outcome of passed, failed or cannot tell, made by machine or by a named person, and it is what an attestation aggregates for a criterion. The accompanying paper calls it a judgment."@en ;
+    skos:definition "The ruling, made on one or more evidence items, that a criterion's expected result was met, was not met, or cannot be told. It is the ruling made on evidence, recorded with an EARL outcome of passed, failed or cannot tell, made by machine or by a named person, and it is what an attestation aggregates for a criterion."@en ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.11.1" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-29.png" ;
                     ogc:quote "activity to find out one or more characteristics and their characteristic values" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
