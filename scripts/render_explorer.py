@@ -24,13 +24,17 @@ citations get ids computed from what they cite, and no timestamp is
 written. The gate runs this and diffs explorer/.
 
 Links are the graph's own predicates between two nodes, labelled by the
-predicate's local name. Four derived links are added, each labelled by
-name so a reader can tell them apart: `carries` (a seam to the item kind
-its supplier port def carries, the reading ogc/views.py uses), `in` and
-`out` (a model step to the item kind of a parameter), `then` (the
-successions between steps) and `corresponds` (a model step or item def to
-the EPO step or class of the same name, the binding the record relies on
-through epo:step).
+predicate's local name, with short labels for the SKOS mappings of the
+tbox audit (sheet 08): `broader`, `narrower` and `related` between terms;
+`exact`, `close`, `broad` and `related-match` from a term to a standard's
+own concept (a clause node in the src: namespace, family clause); `term`
+from an EPO class to the glossary term that names it. Four derived links
+are added, each labelled by name so a reader can tell them apart:
+`carries` (a seam to the item kind its supplier port def carries, the
+reading ogc/views.py uses), `in` and `out` (a model step to the item kind
+of a parameter), `then` (the successions between steps) and `corresponds`
+(a model step or item def to the EPO step or class of the same name, the
+binding the record relies on through epo:step).
 """
 from __future__ import annotations
 
@@ -67,6 +71,7 @@ FAMILIES = [
     ("term", "#1e88e5", "circle", 7, "glossary term"),
     ("citation", "#64b5f6", "circle", 3.5, "citation (canonical or neighbour)"),
     ("source", "#ab47bc", "circle", 8, "source"),
+    ("clause", "#ce93d8", "circle", 4.5, "a standard's own concept (clause or entry a term maps to)"),
     ("concern", "#fb8c00", "circle", 6, "concern"),
     ("ruling", "#43a047", "circle", 6, "ruling"),
     ("sci", "#fdd835", "circle", 9, "essential (SCI)"),
@@ -88,6 +93,8 @@ FAMILIES = [
     ("agent", "#ffe082", "circle", 7, "agent (measles run)"),
 ]
 LABEL_MAX = 48
+# Short labels for the SKOS mappings and the class-to-term back-link (tbox audit, sheet 08); every other predicate keeps its local name.
+LINK_LABELS = {"exactMatch": "exact", "closeMatch": "close", "broadMatch": "broad", "relatedMatch": "related-match", "term": "term"}
 
 
 # --- helpers ---------------------------------------------------------------
@@ -178,6 +185,12 @@ class Builder:
         for s in sorted(g.subjects(RDF.type, OGC.Source), key=str):
             desc = f"{one(g, s, RDFS.label)} Rank {one(g, s, OGC.rank)}, posture {one(g, s, OGC.posture)}."
             self.add(s, "source", local(s), desc, f"ogc source {local(s)}", self.page("glossary"))
+        # the standards' own concepts (tbox audit, sheet 08): one node per clause or entry a term maps to
+        for c in sorted(g.subjects(RDF.type, OGC.SourceConcept), key=str):
+            label = one(g, c, RDFS.label) or local(c)
+            mapped = sorted(one(g, t, SKOS.prefLabel) for p in (SKOS.exactMatch, SKOS.closeMatch, SKOS.broadMatch, SKOS.relatedMatch) for t in g.subjects(p, c))
+            desc = f"{label}: the concept of the source itself, at locator {one(g, c, OGC.locator)}. Terms that map to it: {', '.join(mapped) or '(none)'}."
+            self.add(c, "clause", label, desc, f"ogc sparql {shell(f'DESCRIBE src:{local(c)}')}", self.page("glossary"))
         # citations are blank nodes: give each an id from what it cites, in a stable order
         seen: dict[str, int] = {}
         for subj in sorted(set(g.subjects(OGC.canonical, None)) | set(g.subjects(OGC.seeAlso, None)), key=str):
@@ -238,13 +251,19 @@ class Builder:
             for st in sorted(g.subjects(RDF.type, cls), key=str):
                 label = one(g, st, RDFS.label)
                 self.add(st, "step", label.split(":", 1)[0], label, "ogc steps", self.page("glossary"))
+        # the role classes sit under epo:Role (tbox audit, sheet 08): they and their individuals are the role family, not item kinds
+        role_classes = {c for c in g.subjects(RDF.type, OWL.Class) if EPO.Role in g.transitive_objects(c, RDFS.subClassOf)}
         for k in sorted(g.subjects(RDF.type, OWL.Class), key=str):
-            if not str(k).startswith(str(EPO)) or k in (EPO.EpoStep, EPO.ContractingStep, EPO.Layer, EPO.Role):
+            if not str(k).startswith(str(EPO)) or k in (EPO.EpoStep, EPO.ContractingStep, EPO.Layer, EPO.Role) or k in role_classes:
                 continue
             self.add(k, "kind", local(k), one(g, k, RDFS.label) or local(k), f"ogc sparql {shell(f'DESCRIBE epo:{local(k)}')}")
-        for cls, fam in ((EPO.Layer, "layer"), (EPO.Role, "role")):
+        for x in sorted(g.subjects(RDF.type, EPO.Layer), key=str):
+            self.add(x, "layer", local(x), one(g, x, RDFS.label), f"ogc sparql {shell(f'DESCRIBE epo:{local(x)}')}")
+        for cls in sorted(role_classes, key=str):
+            self.add(cls, "role", local(cls), one(g, cls, RDFS.label) or one(g, cls, RDFS.comment) or local(cls), f"ogc sparql {shell(f'DESCRIBE epo:{local(cls)}')}")
+        for cls in sorted(role_classes, key=str):
             for x in sorted(g.subjects(RDF.type, cls), key=str):
-                self.add(x, fam, local(x), one(g, x, RDFS.label), f"ogc sparql {shell(f'DESCRIBE epo:{local(x)}')}")
+                self.add(x, "role", local(x), one(g, x, RDFS.label), f"ogc sparql {shell(f'DESCRIBE epo:{local(x)}')}")
 
     # -- the model: parts, ports, seams, the obligation, the two cycles and their steps, item defs
     def model(self):
@@ -350,7 +369,7 @@ class Builder:
                 detail[sid]["out"].append((qname(p), obj(o)))
             if oid is not None and sid != oid:
                 if sid is not None:
-                    links.add((sid, oid, local(p)))
+                    links.add((sid, oid, LINK_LABELS.get(local(p), local(p))))
                 elif isinstance(s, BNode):
                     detail[oid]["in"].append((qname(p), {"text": bnode_text(s, skip=o)}))
                 else:

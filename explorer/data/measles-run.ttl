@@ -7,7 +7,7 @@
 @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
 
 # The evaluation record of the paper's measles chatbot example (hypothetical,
-# after the 2019 Clark County outbreak). Four parties, a need, a proposal, one service agreement,
+# after the 2019 Clark County outbreak). Four parties (the sponsor also the test item customer), a need, a proposal, one service agreement,
 # one requirement, three acceptance criteria, one probe, one response, two
 # attestations, one report, one recommendation, one delivery and its acceptance. a3 is untested:
 # coverage is 3/4 by weight, not 1. Timestamps are illustrative; only their
@@ -18,13 +18,14 @@ run:record a prov:Entity ;
     skos:note "Synthetic case (ruling R-23). The persons named recognise the roles of real people at Humane Intelligence; no attestation, determination or signature in this record was made by them. The case is a simplified synthetic walkthrough of the process." .
 
 # ---- parties (rulings R-21, R-23) and machines
-run:county-public-health-office a prov:Agent, prov:Organization ; rdfs:label "county public-health office (sponsor)" ;
-    epo:role epo:sponsorRole ; epo:isAccountable false .
-run:chatbot-vendor a prov:Agent, prov:Organization ; rdfs:label "chatbot vendor (accountable for the test item)" ;
+run:county-public-health-office a prov:Agent, prov:Organization ; rdfs:label "county public-health office (sponsor: evaluation customer, and test item customer as the chatbot's deployer)" ;
+    epo:role epo:sponsorRole ; epo:role epo:testItemCustomerRole ; epo:isAccountable false ;
+    epo:actsOnBehalfOf run:county-residents ; epo:actsOnBehalfOf run:commuters .
+run:chatbot-vendor a prov:Agent, prov:Organization ; rdfs:label "chatbot vendor (test item provider)" ;
     epo:role epo:accountableOrganizationRole .
-run:humane-intelligence a prov:Agent, prov:Organization ; rdfs:label "Humane Intelligence (testing organization)" ;
+run:humane-intelligence a prov:Agent, prov:Organization ; rdfs:label "Humane Intelligence (testing organization: evaluation service provider)" ;
     epo:role epo:testingOrganizationRole ; epo:independentOfAccountable true .
-run:mala a prov:Agent, prov:Person ; rdfs:label "Mala (account executive)" ;
+run:mala a prov:Agent, prov:Person ; rdfs:label "Mala (authorized representative)" ;
     epo:role epo:accountExecutiveRole ; prov:actedOnBehalfOf run:humane-intelligence ;
     skos:note "synthetic role-holder; see run:record" .
 run:annie a prov:Agent, prov:Person ; rdfs:label "Annie (domain expert)" ;
@@ -33,9 +34,12 @@ run:annie a prov:Agent, prov:Person ; rdfs:label "Annie (domain expert)" ;
 run:theo a prov:Agent, prov:Person ; rdfs:label "Theo (evaluation operator)" ;
     epo:role epo:evaluationOperatorRole ; prov:actedOnBehalfOf run:humane-intelligence ;
     skos:note "synthetic role-holder; see run:record" .
-run:county-residents a prov:Agent, epo:Population ; rdfs:label "county residents (affected population, represented)" ;
+run:county-residents a prov:Agent, epo:Population ; rdfs:label "county residents (affected population, represented by Annie; test item customers, and affected indirectly through others' use)" ;
+    epo:affectedAs epo:asCustomer ; epo:affectedAs epo:indirectly ;
     epo:representedBy run:annie .
-run:commuters a prov:Agent, epo:Population ; rdfs:label "commuters through the county (affected population, interviewed)" .
+run:commuters a prov:Agent, epo:Population ; rdfs:label "commuters through the county (affected population, interviewed by Theo; test item customers)" ;
+    epo:affectedAs epo:asCustomer ;
+    epo:responsibleParty run:theo .
 run:chatbot-v1 a prov:Agent, prov:SoftwareAgent, earl:TestSubject ; rdfs:label "public-health chatbot" ; epo:version "v1" ;
     prov:actedOnBehalfOf run:chatbot-vendor .
 run:probe-deriver a prov:Agent, prov:SoftwareAgent ; rdfs:label "probe deriver" ; epo:version "0.1" ; prov:actedOnBehalfOf run:humane-intelligence .

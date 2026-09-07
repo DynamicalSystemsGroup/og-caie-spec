@@ -34,7 +34,7 @@ tr:SCI-04 a ogc:Trace ; rdfs:label "SCI-04 PlanBeforeRuns" ;
     ogc:page "evaluation" ;
     rdfs:comment "A test plan states its objectives and its means; every probe belongs to a plan, derives from the DSO release and passes a consistency check before any session." ;
     ogc:checkedBy ogc:S3-Probe, ogc:S3-TestPlan, ogc:S3-Strategy, ogc:S3-PlanApproval ; ogc:tag "machine" ;
-    ogc:usesTerm term:probe, term:scenario, term:conformance, term:domain-specific-ontology, term:test-plan, term:test-strategy ;
+    ogc:usesTerm term:probe, term:test-case, term:scenario, term:conformance, term:domain-specific-ontology, term:test-plan, term:test-strategy ;
     ogc:restsOn src:sevocab, src:w3c-shacl, src:iec-60050-351, rul:R-12, rul:R-13 .
 tr:SCI-05 a ogc:Trace ; rdfs:label "SCI-05 EvidenceFromNamedRuns" ;
     ogc:page "evaluation" ;
@@ -53,7 +53,7 @@ tr:SCI-07 a ogc:Trace ; rdfs:label "SCI-07 CoverageRecomputable" ;
     ogc:page "guarantees" ;
     rdfs:comment "Coverage is recomputable from a conformant record: a criterion counts as covered only with an attestation behind it." ;
     ogc:checkedBy ogc:S7-Report ; ogc:tag "machine" ;
-    ogc:usesTerm term:test-coverage, term:conformance, term:conformity, term:verification, term:evaluation-record ;
+    ogc:usesTerm term:test-coverage, term:conformance, term:conformity, term:verification, term:record, term:evaluation-record ;
     ogc:restsOn src:sevocab, rul:R-01, rul:R-04 .
 tr:SCI-08 a ogc:Trace ; rdfs:label "SCI-08 CoverageAndPerformanceKeptApart" ;
     ogc:page "guarantees" ;
@@ -71,7 +71,7 @@ tr:SCI-10 a ogc:Trace ; rdfs:label "SCI-10 PartiesNamedAndAgreed" ;
     ogc:page "contracting" ;
     rdfs:comment "The sponsor, the testing organization and the accountable organization are named; the sponsor's mission and obligations towards the affected populations are recorded before the need, and its statement of work decides, per population, interview or representation; the agreement is signed by the sponsor and the account executive; every affected population is interviewed or represented by a named domain expert." ;
     ogc:checkedBy ogc:M1-Parties, ogc:M1-Obligation, ogc:S0-Parties, ogc:S0-Population, ogc:S0-StatementOfWork, ogc:S0-Mission, ogc:S0-Need, ogc:S0-Proposal, ogc:S8-Delivery, ogc:S9-Acceptance ; ogc:tag "machine" ;
-    ogc:usesTerm term:organization, term:customer, term:provider, term:mission, term:statement-of-work, term:first-party-conformity-assessment-activity, term:second-party-conformity-assessment-activity, term:third-party-conformity-assessment-activity, term:contract, term:stakeholder, term:account-executive ;
+    ogc:usesTerm term:organization, term:customer, term:provider, term:evaluation-customer, term:test-item-customer, term:evaluation-service-provider, term:test-item-provider, term:mission, term:statement-of-work, term:first-party-conformity-assessment-activity, term:second-party-conformity-assessment-activity, term:third-party-conformity-assessment-activity, term:contract, term:stakeholder, term:account-executive ;
     ogc:restsOn src:iso-9000-2026, src:iso-iec-17000-2020, rul:R-21, rul:R-23 .
 tr:SCI-11 a ogc:Trace ; rdfs:label "SCI-11 EndStateGuaranteed" ;
     ogc:page "guarantees" ;

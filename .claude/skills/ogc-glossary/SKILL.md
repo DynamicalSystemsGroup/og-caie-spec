@@ -47,7 +47,17 @@ and filter values are case-insensitive too.
 2. Three classes: adopted (used as the source defines it), refined (a typed
    anchor, specializes / corresponds / synonym, keeping the source's word as
    an altLabel), coined (exactly four: DSO, EPO, CAIE, OG-CAIE).
-   `ogc list --class coined`.
+   `ogc list --class coined`. The anchor is also stated in SKOS (sheet 08):
+   each term maps to the standard's own concept, a clause node in `src:`
+   with its locator (adopted `skos:exactMatch`, specializes
+   `skos:broadMatch`, corresponds `skos:closeMatch`, synonym
+   `skos:relatedMatch`), and terms relate within the glossary by
+   `skos:broader`, `skos:narrower` and `skos:related` (record is broader
+   than evaluation record; provider and customer each have two narrower
+   terms, evaluation service provider and test item provider, evaluation
+   customer and test item customer); every EPO class names its term by
+   `ogc:term`. `ogc term <term>` prints broader, narrower, related, matches
+   and the EPO classes naming it; the explorer draws them as links.
 3. Every canonical citation of an adopted or refined term carries a
    verbatim quote with a status: machine (located in a content-hashed
    snapshot by the tests), human (verified by a named person on a date,

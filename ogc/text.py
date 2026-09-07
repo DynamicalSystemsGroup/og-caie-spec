@@ -72,6 +72,13 @@ def term(t: dict, meta: dict | None = None) -> list[str]:
         L += ["scope note:"] + wrap(t["scope_note"])
     if t["binding"]:
         L.append(f"binding: {t['binding']}")
+    for key in ("broader", "narrower", "related"):  # the glossary's own relations (tbox audit, sheet 08)
+        if t.get(key):
+            L.append(f"{key}: " + "; ".join(f"{r['term']} ({r['local']})" for r in t[key]))
+    if t.get("matches"):
+        L.append("matches: " + "; ".join(f"{m['relation']} {m['concept']}" for m in t["matches"]))
+    if t.get("classes"):
+        L.append("EPO classes naming it: " + ", ".join(t["classes"]))
     if t["rulings"]:
         L.append("derives from rulings: " + "; ".join(f"{r['id']} ({r['label']})" if r["label"] else r["id"] for r in t["rulings"]))
     if t["concerns"]:

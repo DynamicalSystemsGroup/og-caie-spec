@@ -5,6 +5,7 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
 # The OG-CAIE glossary. Terms are used, not owned: each term cites exactly one
 # canonical definition from the highest-ranked source that defines it
@@ -28,6 +29,11 @@ term:requirement a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.5.1" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-11.png" ;
                     ogc:quote "need or expectation that is stated, generally implied or obligatory" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
+    skos:narrower term:acceptance-criteria ;
+    skos:narrower term:guardrail ;
+    skos:narrower term:operational-envelope ;
+    skos:related term:conformity ;
+    skos:related term:expected-results ;
     ogc:binding "sysml RequirementDefinition; epo:Requirement" .
 
 term:conformity a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -38,6 +44,9 @@ term:conformity a skos:Concept ; skos:inScheme ogc:Glossary ;
                     ogc:quote "fulfilment of a requirement" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:scopeNote "Ruling R-16: conformity is fulfilment of a requirement (ISO 9000:2026). Its deprecated synonym conformance is reclaimed, deliberately, for the special case of a record correctly constructed to the EPO's shapes." ;
     prov:wasDerivedFrom rul:R-16 ;
+    skos:narrower term:conformance ;
+    skos:related term:requirement ;
+    skos:related term:attestation ;
     ogc:binding "earl:outcome earl:passed on an attestation: the system fulfilled the criterion" .
 
 term:conformance a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -52,6 +61,9 @@ term:conformance a skos:Concept ; skos:inScheme ogc:Glossary ;
                   ogc:quote "A focus node conforms to a shape if and only if the set of result of the validation of the focus node against the shape is empty and no failure has been reported by it." ; ogc:quoteStatus "machine" ] ;
     ogc:scopeNote "Ruling R-16: ISO 9000:2026 deprecates this word as a synonym of conformity; this specification reclaims it on purpose, and says so, not as a synonym but for a special case: the correctly constructed record, whose conformance is fulfilment of the EPO's record-keeping requirements and so a conformity in its own right. Two reasons. It separates fulfilling a requirement of the system (conformity, attested by a person) from satisfying the record-keeping requirements of the EPO (conformance, checked by machine). And it avoids SHACL's own word for the check, validation, which by this specification's split is verification." ;
     prov:wasDerivedFrom rul:R-16 ;
+    skos:broader term:conformity ;
+    skos:related term:verification ;
+    skos:related term:evaluation-record ;
     ogc:binding "sh:conforms true on the validation report of the record against shapes/epo.shapes.ttl; sysml part def ConformanceChecker" .
 
 term:objective-evidence a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -66,6 +78,10 @@ term:objective-evidence a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:scopeNote "Rulings R-18 and R-20: evidence exists at probe, session or suite level and maps to an expected result; it is the domain, and the determination on it is the codomain." ;
     prov:wasDerivedFrom rul:R-18 ;
     prov:wasDerivedFrom rul:R-20 ;
+    skos:related term:determination ;
+    skos:related term:sufficiency ;
+    skos:related term:session ;
+    skos:related term:trajectory ;
     ogc:binding "epo:Evidence (bears on one criterion, under a test plan) derived from epo:Response or epo:Trajectory" .
 
 term:determination a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -78,6 +94,10 @@ term:determination a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "test result, p. 438" ; ogc:pdfPage 438 ;
                   ogc:quote "indication of whether a specific test case has passed or failed, i.e. if the actual results correspond to the expected results or if deviations were observed" ; ogc:quoteStatus "machine" ] ;
     prov:wasDerivedFrom rul:R-20 ;
+    skos:related term:objective-evidence ;
+    skos:related term:outcome ;
+    skos:related term:attestation ;
+    skos:related term:test ;
     ogc:binding "epo:Determination, an earl:Assertion and prov:Activity; earl:outcome passed, failed or cantTell; sysml item def Determination" .
 
 term:test-suite a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -90,6 +110,8 @@ term:test-suite a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "robustness, p. 363 (ISO/IEC 25059:2023)" ; ogc:pdfPage 363 ;
                   ogc:quote "degree to which an AI system can maintain its level of functional correctness under any circumstances" ; ogc:quoteStatus "machine" ] ;
     prov:wasDerivedFrom rul:R-18 ;
+    skos:related term:session ;
+    skos:related term:repeatability ;
     ogc:binding "epo:TestSuite, a prov:Activity grouping epo:Session activities" .
 
 term:verification a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -100,6 +122,8 @@ term:verification a skos:Concept ; skos:inScheme ogc:Glossary ;
                     ogc:quote "confirmation, through the provision of objective evidence, that specified requirements have been fulfilled" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "verification, p. 470" ; ogc:pdfPage 470 ;
                   ogc:quote "confirmation, through the provision of objective evidence, that specified requirements have been fulfilled" ; ogc:quoteStatus "machine" ] ;
+    skos:related term:conformance ;
+    skos:related term:validation ;
     ogc:binding "SHACL shapes S1-S8 (machine); SCI requirements tagged machine" .
 
 term:validation a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -110,6 +134,9 @@ term:validation a skos:Concept ; skos:inScheme ogc:Glossary ;
                     ogc:quote "confirmation, through the provision of objective evidence, that the requirements for a specific intended use or application have been fulfilled" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "validation, p. 464" ; ogc:pdfPage 464 ;
                   ogc:quote "confirmation, through the provision of objective evidence, that the requirements for a specific intended use or application have been fulfilled" ; ogc:quoteStatus "machine" ] ;
+    skos:related term:verification ;
+    skos:related term:attestation ;
+    skos:related term:appropriateness ;
     ogc:binding "epo:Attestation (human); SCI requirements tagged human" .
 
 term:test a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -120,25 +147,38 @@ term:test a skos:Concept ; skos:inScheme ogc:Glossary ;
                     ogc:quote "determination according to requirements for a specific intended use or application" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "test execution, p. 434" ; ogc:pdfPage 434 ;
                   ogc:quote "process of running a test on the test item, producing actual results" ; ogc:quoteStatus "machine" ] ;
+    skos:narrower term:session ;
+    skos:related term:determination ;
+    skos:related term:test-item ;
     ogc:binding "epo:Session with its epo:Turn activities (test execution; each turn's epo:Response is the actual result)" .
 
 term:record a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "record"@en ;
-    skos:definition "A document stating results achieved or giving evidence of activities performed. The evaluation record is the record of one evaluation."@en ;
+    skos:definition "A document stating results achieved or giving evidence of activities performed: any document that records what was done or what was found, in the most general sense the standard gives the word. The evaluation record is its special case here, the record of one evaluation; the DSO release, the test plan and the report are records too, each in its own right."@en ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.8.12" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-23.png" ;
                     ogc:quote "document stating results achieved or providing evidence of activities performed" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
-    ogc:binding "prov:Bundle" .
+    ogc:scopeNote "Ruling R-48 (sheet 07-03): record is the abstract term and evaluation record its specialization, by subclassing; the narrower relation below says so." ;
+    prov:wasDerivedFrom rul:R-48 ;
+    skos:narrower term:evaluation-record ;
+    skos:related term:objective-evidence ;
+    ogc:binding "prov:Bundle; any prov:Entity of the record" .
 
 term:stakeholder a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "stakeholder"@en ;
     skos:altLabel "interested party"@en ;
-    skos:definition "A person or organization that can affect, be affected by, or believe itself affected by a decision or activity. The sponsor, the evaluators and the domain experts are the stakeholders named in this specification."@en ;
+    skos:definition "A person or organization that can affect, be affected by, or believe itself affected by a decision or activity. The parties (the sponsor, the testing organization, the test item provider), the people who act for them, and the affected populations are the stakeholders named in this specification; customers and providers are kinds of interested party in the standard's own examples."@en ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.1.4" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-02.png" ;
                     ogc:quote "person or organization that can affect, be affected by, or perceive itself to be affected by a decision or activity" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "stakeholder, p. 403" ; ogc:pdfPage 403 ;
                   ogc:quote "individual or organization having a right, share, claim, or interest in a system or in its possession of characteristics that meet their needs and expectations" ; ogc:quoteStatus "machine" ] ;
+    skos:narrower term:customer ;
+    skos:narrower term:provider ;
+    skos:related term:organization ;
+    skos:related term:mission ;
+    skos:related term:test-item-customer ;
+    skos:related term:statement-of-work ;
     ogc:binding "sysml part defs Sponsor, Evaluator, DomainExpert; prov:Person, prov:Organization" .
 
 term:performance a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -147,6 +187,8 @@ term:performance a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.7.3" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-17.png" ;
                     ogc:quote "measurable result" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
+    skos:related term:test-coverage ;
+    skos:related term:measurement-uncertainty ;
     ogc:binding "epo:Report passRate, failRate, cantTellRate" .
 
 term:technical-expert a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -158,6 +200,9 @@ term:technical-expert a skos:Concept ; skos:inScheme ogc:Glossary ;
                     ogc:quote "person who provides specific knowledge or expertise to the audit team" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:scopeNote "Ruling R-10: the ISO entry is marked <audit>; here the team is an evaluation team, not an audit team, and both the domain expert and the evaluation operator are technical experts on it (R-23 names the second). Assessors of the assessment are out of scope (R-11)." ;
     prov:wasDerivedFrom rul:R-10 ;
+    skos:narrower term:evaluation-operator ;
+    skos:related term:evaluation-team ;
+    skos:related term:domain-specific-ontology ;
     ogc:binding "sysml part defs DomainExpert and EvaluationOperator; prov:Person" .
 
 term:acceptance-criteria a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -169,6 +214,10 @@ term:acceptance-criteria a skos:Concept ; skos:inScheme ogc:Glossary ;
                     ogc:quote "criteria that a system or component is required to satisfy to be accepted by a user, customer, or other authorized entity" ; ogc:quoteStatus "machine" ] ;
     ogc:seeAlso [ ogc:cites src:incose-gtwr-v4 ; ogc:locator "C7 Verifiable, p. 2" ; ogc:pdfPage 2 ;
                   ogc:quote "The requirement statement is structured and worded such that its realization can be verified to the approving authority's satisfaction." ; ogc:quoteStatus "machine" ] ;
+    skos:broader term:requirement ;
+    skos:related term:expected-results ;
+    skos:related term:test-coverage ;
+    skos:related term:test-plan ;
     ogc:binding "epo:AcceptanceCriterion; sysml item def AcceptanceCriterion (weight, minPassRate)" .
 
 term:requirements-traceability a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -183,6 +232,8 @@ term:requirements-traceability a skos:Concept ; skos:inScheme ogc:Glossary ;
                   ogc:quote "property of a measurement result whereby the result can be related to a reference through a documented unbroken chain of calibrations, each contributing to the measurement uncertainty" ; ogc:quoteStatus "machine" ] ;
     ogc:scopeNote "Ruling R-15: requirements traceability and metrological traceability are kept distinct, but they are in principle the same idea at different levels of abstraction once both are done computationally over knowledge graphs. Here computational instruments measure computational systems, so the metrological sense still applies: the chain from a reported number back to the record is an unbroken documented chain, and the pass rate it reaches carries a measurement uncertainty." ;
     prov:wasDerivedFrom rul:R-15 ;
+    skos:related term:evaluation-record ;
+    skos:related term:test-coverage ;
     ogc:binding "the chain requirement, acceptance criterion, test plan, probe, turn, evidence, attestation in the record; queries/traceback.rq" .
 
 term:test-coverage a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -194,6 +245,11 @@ term:test-coverage a skos:Concept ; skos:inScheme ogc:Glossary ;
                     ogc:quote "degree, expressed as a percentage, to which specified test coverage items have been exercised by a test case or test cases" ; ogc:quoteStatus "machine" ] ;
     ogc:scopeNote "Ruling R-01: coverage relates requirements to the abstract tests that cover them. The acceptance criterion is the coverage item and the probe is the test case; the concrete applications of a probe during a case produce evidence, which is rolled up by attestation. Coverage counts criteria with an attested outcome; it does not count evidence." ;
     prov:wasDerivedFrom rul:R-01 ;
+    skos:related term:acceptance-criteria ;
+    skos:related term:performance ;
+    skos:related term:risk-based-testing ;
+    skos:related term:requirements-traceability ;
+    skos:related term:deployment-sensitivity ;
     ogc:binding "queries/coverage.rq; epo:Report coverage" .
 
 term:test-case a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -202,6 +258,9 @@ term:test-case a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "test case, p. 432" ; ogc:pdfPage 432 ;
                     ogc:quote "set of test inputs, execution conditions, and expected results developed for a particular objective, such as to exercise a particular program path or to verify compliance with a specific requirement" ; ogc:quoteStatus "machine" ] ;
+    skos:narrower term:probe ;
+    skos:related term:scenario ;
+    skos:related term:expected-results ;
     ogc:binding "epo:Probe" .
 
 term:test-item a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -223,6 +282,11 @@ term:test-item a skos:Concept ; skos:inScheme ogc:Glossary ;
                   ogc:quote "entity to which specified requirements apply" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:scopeNote "Ruling R-19: the only standard definition of the phrase system under test is a 1999 performance-measurement one (ISO/IEC 14756), so the headword is test item (29119-2), from the same family as test case, test plan and test strategy; the systems-engineering reading is system-of-interest (15288) and the AI-evaluation reading is NIST's application. The phrase system under test stays in prose and in the model as the alternative label." ;
     prov:wasDerivedFrom rul:R-19 ;
+    skos:related term:test-item-provider ;
+    skos:related term:test-item-customer ;
+    skos:related term:operational-envelope ;
+    skos:related term:non-deterministic-system ;
+    skos:related term:test ;
     ogc:binding "sysml part def TestItem; earl:TestSubject and prov:SoftwareAgent; epo:systemUnderTest on the requirement set" .
 
 term:operational-environment a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -233,6 +297,7 @@ term:operational-environment a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "operational environment, p. 282" ; ogc:pdfPage 282 ;
                     ogc:quote "physical context, setting, and circumstances used to support the in-service operation of a system" ; ogc:quoteStatus "machine" ] ;
     prov:wasDerivedFrom rul:R-02 ;
+    skos:related term:operational-envelope ;
     ogc:binding "epo:RequirementSet declares it; sysml item def RequirementSet" .
 
 term:scenario a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -245,6 +310,8 @@ term:scenario a skos:Concept ; skos:inScheme ogc:Glossary ;
                   ogc:quote "The context in which structured AI evaluation activities are performed." ; ogc:quoteStatus "machine" ] ;
     ogc:seeAlso [ ogc:cites src:sevocab ; ogc:locator "test scenario, p. 438 (ISO/IEC TR 29119-11:2020, testing of AI-based systems)" ; ogc:pdfPage 438 ;
                   ogc:quote "situation or setting for a test item used as the basis for generating test cases" ; ogc:quoteStatus "machine" ] ;
+    skos:related term:probe ;
+    skos:related term:test-case ;
     ogc:binding "epo:Probe carries the scenario text" .
 
 term:risk-based-testing a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -253,6 +320,8 @@ term:risk-based-testing a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "risk-based testing, p. 362" ; ogc:pdfPage 362 ;
                     ogc:quote "testing in which the management, selection, prioritization, and use of testing activities and resources are consciously based on corresponding types and levels of analyzed risk" ; ogc:quoteStatus "machine" ] ;
+    skos:related term:deployment-sensitivity ;
+    skos:related term:test-coverage ;
     ogc:binding "epo:weight on AcceptanceCriterion" .
 
 term:evaluation a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -264,6 +333,9 @@ term:evaluation a skos:Concept ; skos:inScheme ogc:Glossary ;
                     ogc:quote "systematic determination of the extent to which an entity meets its specified criteria" ; ogc:quoteStatus "machine" ] ;
     ogc:seeAlso [ ogc:cites src:nist-ai-100-1 ; ogc:locator "Section 3, p. 35" ; ogc:pdfPage 40 ;
                   ogc:quote "Test, Evaluation, Verification, and Validation (TEVV) tasks are performed throughout the AI lifecycle." ; ogc:quoteStatus "machine" ] ;
+    skos:narrower term:contextual-ai-evaluation ;
+    skos:related term:evaluation-team ;
+    skos:related term:monitoring ;
     ogc:binding "sysml part def OgCaieEvaluation; action def EvaluationProcess" .
 
 term:test-plan a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -273,6 +345,9 @@ term:test-plan a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "test plan, p. 437" ; ogc:pdfPage 437 ;
                     ogc:quote "detailed description of test objectives to be achieved and the means and schedule for achieving them, organized to coordinate testing activities for some test item or set of test items" ; ogc:quoteStatus "machine" ] ;
     prov:wasDerivedFrom rul:R-12 ;
+    skos:related term:test-strategy ;
+    skos:related term:probe ;
+    skos:related term:acceptance-criteria ;
     ogc:binding "epo:TestPlan, a prov:Entity; sysml item def TestPlan" .
 
 term:expected-results a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -283,6 +358,10 @@ term:expected-results a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "expected results, p. 160" ; ogc:pdfPage 160 ;
                     ogc:quote "observable predicted behavior of the test item under specified conditions based on its specification or another source" ; ogc:quoteStatus "machine" ] ;
     prov:wasDerivedFrom rul:R-12 ;
+    skos:related term:acceptance-criteria ;
+    skos:related term:outcome ;
+    skos:related term:requirement ;
+    skos:related term:test-case ;
     ogc:binding "epo:expectedResult on AcceptanceCriterion; sysml attribute expectedResultStated" .
 
 term:session a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -292,6 +371,11 @@ term:session a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:canonical [ ogc:cites src:nist-ai-700-2 ; ogc:locator "Appendix A, Session, p. 17" ; ogc:pdfPage 24 ;
                     ogc:quote "A single unit of ARIA testing, consisting of a pairing of one tester and one application." ; ogc:quoteStatus "machine" ] ;
     prov:wasDerivedFrom rul:R-13 ;
+    skos:broader term:test ;
+    skos:related term:dialogue ;
+    skos:related term:trajectory ;
+    skos:related term:test-suite ;
+    skos:related term:objective-evidence ;
     ogc:binding "epo:Session, a prov:Activity (the test execution); sysml item def Session" .
 
 term:dialogue a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -302,6 +386,8 @@ term:dialogue a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:canonical [ ogc:cites src:nist-ai-700-2 ; ogc:locator "Appendix A, Dialogue, p. 16" ; ogc:pdfPage 23 ;
                     ogc:quote "A set of prompts to, and responses by, an application." ; ogc:quoteStatus "machine" ] ;
     prov:wasDerivedFrom rul:R-13 ;
+    skos:related term:trajectory ;
+    skos:related term:session ;
     ogc:binding "epo:Trajectory holds the dialogue as ordered turns" .
 
 term:trajectory a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -316,6 +402,10 @@ term:trajectory a skos:Concept ; skos:inScheme ogc:Glossary ;
                   ogc:quote "In case of discrete-time variables the describing equations are xi+1 = f (xi, ui) state equation vi = g (xi, ui) output equation" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:scopeNote "Ruling R-13: the IEC trajectory runs through the hidden state x; what the record holds is the input-output realization, which specializes it to what is observable." ;
     prov:wasDerivedFrom rul:R-13 ;
+    skos:related term:dialogue ;
+    skos:related term:session ;
+    skos:related term:test-strategy ;
+    skos:related term:objective-evidence ;
     ogc:binding "epo:Trajectory, a prov:Entity generated by a Session; ordered epo:Turn activities" .
 
 term:test-strategy a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -334,6 +424,9 @@ term:test-strategy a skos:Concept ; skos:inScheme ogc:Glossary ;
                   ogc:quote "type of unscripted experience-based testing in which the tester spontaneously designs and executes tests based on the tester's existing relevant knowledge, prior exploration of the test item (including the results of previous tests)" ; ogc:quoteStatus "machine" ] ;
     ogc:scopeNote "Ruling R-13: anchored to output feedback because the record only ever holds outputs; the memory operator with the DSO as model is the observer. Semantic state feedback is the authors' framing, kept as an alternative label." ;
     prov:wasDerivedFrom rul:R-13 ;
+    skos:related term:test-plan ;
+    skos:related term:trajectory ;
+    skos:related term:red-teaming ;
     ogc:binding "epo:Strategy, a prov:Plan; a TestPlan's means alongside listed probes" .
 
 term:non-deterministic-system a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -347,6 +440,8 @@ term:non-deterministic-system a skos:Concept ; skos:inScheme ogc:Glossary ;
                   ogc:quote "system whose behavior is described in terms of probabilities, such that its outputs cannot be perfectly predicted" ; ogc:quoteStatus "machine" ] ;
     ogc:scopeNote "Ruling R-13: the sensitivity the authors describe, a small change of input producing a large change of output especially when a trajectory is continued, is stated here in prose; no term is coined for it." ;
     prov:wasDerivedFrom rul:R-13 ;
+    skos:related term:test-item ;
+    skos:related term:repeatability ;
     ogc:binding "sysml part def SystemUnderTest; earl:TestSubject" .
 
 term:repeatability a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -360,6 +455,10 @@ term:repeatability a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:seeAlso [ ogc:cites src:nist-tn-1297 ; ogc:locator "Appendix D.1.1.2, p. 14" ; ogc:pdfPage 19 ;
                   ogc:quote "closeness of the agreement between the results of successive measurements of the same measurand carried out under the same conditions of measurement" ; ogc:quoteStatus "machine" ] ;
     prov:wasDerivedFrom rul:R-13 ;
+    skos:related term:reproducibility ;
+    skos:related term:non-deterministic-system ;
+    skos:related term:measurement-uncertainty ;
+    skos:related term:test-suite ;
     ogc:binding "replicate epo:Session activities under one Strategy against one SUT version; minPassRate on the criterion" .
 
 term:reproducibility a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -373,6 +472,7 @@ term:reproducibility a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:seeAlso [ ogc:cites src:nist-tn-1297 ; ogc:locator "Appendix D.1.1.3, p. 14" ; ogc:pdfPage 19 ;
                   ogc:quote "closeness of the agreement between the results of measurements of the same measurand carried out under changed conditions of measurement" ; ogc:quoteStatus "machine" ] ;
     prov:wasDerivedFrom rul:R-13 ;
+    skos:related term:repeatability ;
     ogc:binding "the record's fixed frame: requirement set, DSO release, test plan, session protocol" .
 
 term:measurement-uncertainty a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -383,6 +483,8 @@ term:measurement-uncertainty a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:canonical [ ogc:cites src:jcgm-200-2012 ; ogc:locator "2.26 measurement uncertainty, p. 41" ; ogc:pdfPage 41 ;
                     ogc:quote "non-negative parameter characterizing the dispersion of the quantity values being attributed to a measurand, based on the information used" ; ogc:quoteStatus "machine" ] ;
     prov:wasDerivedFrom rul:R-13 ;
+    skos:related term:repeatability ;
+    skos:related term:performance ;
     ogc:binding "epo:Report passRate carries an uncertainty when estimated from replicates; coverage does not" .
 
 # ------------------------------------------------------------ NIST AI 700-2
@@ -393,6 +495,9 @@ term:red-teaming a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:nist-ai-700-2 ; ogc:locator "Appendix A, Red teaming, p. 17" ; ogc:pdfPage 24 ;
                     ogc:quote "Testing level which evaluates whether applications adhere to guardrails in response to adversarial prompting or stress testing by human testers." ; ogc:quoteStatus "machine" ] ;
+    skos:related term:test-strategy ;
+    skos:related term:evaluation-operator ;
+    skos:related term:guardrail ;
     ogc:binding "sysml part def EvaluationOperator (red teamer); epo:Session with a prov:Person in the evaluation operator role" .
 
 term:guardrail a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -401,6 +506,8 @@ term:guardrail a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:nist-ai-700-2 ; ogc:locator "Appendix A, Guardrail, p. 17" ; ogc:pdfPage 24 ;
                     ogc:quote "An application requirement specifying both 1) permitted information that can be shared with a user, and 2) prohibited information that should be withheld from a user." ; ogc:quoteStatus "machine" ] ;
+    skos:broader term:requirement ;
+    skos:related term:red-teaming ;
     ogc:binding "epo:Recommendation targets a guardrail" .
 
 # --------------------------------------------------------- reserve sources
@@ -412,6 +519,12 @@ term:attestation a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "7.3" ;
                     ogc:quote "issue of a statement, based on a decision, that fulfilment of specified requirements has been demonstrated" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
+    skos:related term:determination ;
+    skos:related term:appropriateness ;
+    skos:related term:sufficiency ;
+    skos:related term:validation ;
+    skos:related term:conformity ;
+    skos:related term:outcome ;
     ogc:binding "epo:Attestation, an earl:Assertion and a prov:Activity; aggregates the determinations for a criterion, each bound to its evidence and through it to the test plan" .
 
 term:appropriateness a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -425,6 +538,9 @@ term:appropriateness a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:seeAlso [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.11.2 review" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-30.png" ;
                   ogc:quote "determination of the suitability, adequacy or effectiveness of an object to achieve established objectives" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     prov:wasDerivedFrom rul:R-08 ;
+    skos:related term:attestation ;
+    skos:related term:sufficiency ;
+    skos:related term:validation ;
     ogc:binding "epo:appropriateness on Attestation; sysml enum Appropriateness" .
 
 term:sufficiency a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -436,6 +552,9 @@ term:sufficiency a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:seeAlso [ ogc:cites src:isa-500 ; ogc:locator "paragraph 5(f)" ; ogc:pdfPage 2 ;
                   ogc:quote "The measure of the quantity of audit evidence." ; ogc:quoteStatus "machine" ] ;
     prov:wasDerivedFrom rul:R-08 ;
+    skos:related term:attestation ;
+    skos:related term:appropriateness ;
+    skos:related term:objective-evidence ;
     ogc:binding "epo:sufficiency on Attestation; sysml enum Sufficiency; closure rule in shape S6" .
 
 term:ontology a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -444,6 +563,9 @@ term:ontology a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:gruber-1993 ; ogc:locator "Section 1, p. 2 (author copy)" ; ogc:pdfPage 2 ;
                     ogc:quote "An ontology is an explicit specification of a conceptualization." ; ogc:quoteStatus "machine" ] ;
+    skos:narrower term:domain-specific-ontology ;
+    skos:narrower term:evaluation-process-ontology ;
+    skos:related term:knowledge-graph ;
     ogc:binding "OWL/RDFS vocabulary plus SHACL shapes" .
 
 term:knowledge-graph a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -452,6 +574,8 @@ term:knowledge-graph a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:hogan-2021 ; ogc:locator "Section 1, p. 2 (arXiv v3)" ; ogc:pdfPage 2 ;
                     ogc:quote "a graph of data intended to accumulate and convey knowledge of the real world, whose nodes represent entities of interest and whose edges represent relations between these entities" ; ogc:quoteStatus "machine" ] ;
+    skos:narrower term:authoritative-reference ;
+    skos:related term:ontology ;
     ogc:binding "an RDF data graph conforming to the DSO" .
 
 term:outcome a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -465,6 +589,9 @@ term:outcome a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:scopeNote "Ruling R-47 (sheet 06-06): the canonical definition is SEVOCAB's test result; EARL supplies the binding, not the definition." ;
     ogc:seeAlso [ ogc:cites src:nist-ai-700-2 ; ogc:locator "Section 3.1 Validity Risk Assessment, p. 5" ; ogc:pdfPage 12 ;
                   ogc:quote "Unable to Determine" ; ogc:quoteStatus "machine" ] ;
+    skos:related term:determination ;
+    skos:related term:attestation ;
+    skos:related term:expected-results ;
     ogc:binding "earl:outcome with earl:passed, earl:failed, earl:cantTell, earl:inapplicable, earl:untested; sysml enum Outcome" .
 
 # ------------------------------------------------------------------ refined
@@ -477,6 +604,9 @@ term:probe a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:anchorRelation "specializes" ;
     ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "test case, p. 432 (fragment of the entry)" ; ogc:pdfPage 432 ;
                     ogc:quote "set of test inputs, execution conditions, and expected results developed for a particular objective" ; ogc:quoteStatus "machine" ] ;
+    skos:broader term:test-case ;
+    skos:related term:scenario ;
+    skos:related term:test-plan ;
     ogc:binding "epo:Probe, a prov:Entity; sysml item def Probe" .
 
 term:deployment-sensitivity a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -488,6 +618,8 @@ term:deployment-sensitivity a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "risk-based testing, p. 362 (fragment of the entry)" ; ogc:pdfPage 362 ;
                     ogc:quote "prioritization, and use of testing activities and resources are consciously based on corresponding types and levels of analyzed risk" ; ogc:quoteStatus "machine" ] ;
     prov:wasDerivedFrom rul:R-05 ;
+    skos:related term:risk-based-testing ;
+    skos:related term:test-coverage ;
     ogc:binding "epo:weight; sysml attribute weight on AcceptanceCriterion" .
 
 term:evaluation-record a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -502,6 +634,10 @@ term:evaluation-record a skos:Concept ; skos:inScheme ogc:Glossary ;
                   ogc:quote "chronological record of relevant details about the execution of tests" ; ogc:quoteStatus "machine" ] ;
     ogc:scopeNote "Ruling R-17. Downward: requirement to acceptance criteria to test plan to probes (shapes S2, S3). Upward: attestation to evidence to turn to probe to criterion to requirement (shapes S6, S8; queries/traceback.rq). Coverage: the weighted share of criteria with an attested outcome (shape S7; queries/coverage.rq)." ;
     prov:wasDerivedFrom rul:R-17 ;
+    skos:broader term:record ;
+    skos:related term:requirements-traceability ;
+    skos:related term:conformance ;
+    skos:related term:evaluation-process-ontology ;
     ogc:binding "track/measles-run.ttl; a prov:Bundle" .
 
 term:operational-envelope a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -515,6 +651,9 @@ term:operational-envelope a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:scopeNote "Rulings R-03 and R-14: a house label for the requirement set bound to one system under test in one operational environment; not a coinage. Two evaluations are comparable only when they share an envelope." ;
     prov:wasDerivedFrom rul:R-03 ;
     prov:wasDerivedFrom rul:R-14 ;
+    skos:broader term:requirement ;
+    skos:related term:operational-environment ;
+    skos:related term:test-item ;
     ogc:binding "epo:RequirementSet with epo:environment and epo:systemUnderTest; sysml item def RequirementSet" .
 
 term:authoritative-reference a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -525,6 +664,8 @@ term:authoritative-reference a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:anchorRelation "corresponds" ;
     ogc:canonical [ ogc:cites src:hogan-2021 ; ogc:locator "Section 1, p. 2 (arXiv v3) (fragment of the entry)" ; ogc:pdfPage 2 ;
                     ogc:quote "a graph of data intended to accumulate and convey knowledge of the real world" ; ogc:quoteStatus "machine" ] ;
+    skos:broader term:knowledge-graph ;
+    skos:related term:domain-specific-ontology ;
     ogc:binding "an RDF data graph that conforms to the DSO release" .
 
 # ------------------------------------------------------------------- coined
@@ -536,6 +677,10 @@ term:domain-specific-ontology a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:class "coined" ;
     ogc:coinedBy "Zargham and Hollek, for this specification (ruling R-47, sheet 06-10)" ;
     prov:wasDerivedFrom rul:R-09 ;
+    skos:broader term:ontology ;
+    skos:related term:authoritative-reference ;
+    skos:related term:technical-expert ;
+    skos:related term:og-caie ;
     ogc:binding "epo:DsoRelease (version, approvedBy); sysml item def DsoRelease" .
 
 term:evaluation-process-ontology a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -552,6 +697,9 @@ term:evaluation-process-ontology a skos:Concept ; skos:inScheme ogc:Glossary ;
                   ogc:quote "Conformity assessment is explained in Annex A as a series of functions. Activities contributing to any of these functions can be described as conformity assessment activities." ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:scopeNote "Rulings R-31 and R-32: the steps are not invented. Each step in vocabulary/epo.ttl cites the process step it matches: the contracting lifecycle (need, propose, agree, access, deliver, accept) matches the ISO/IEC/IEEE 15288 agreement processes, ISO/IEC 17000 access, scheme and acceptance, ISO 9000 contract and the 29119-2 test environment and completion report; scope and declare requirements match the ISO/IEC/IEEE 15288 acquisition, stakeholder needs definition and system requirements definition processes as SEBoK describes them; plan, execute and report match the ISO/IEC/IEEE 29119-2 test strategy and planning, test execution and test completion processes as SEVOCAB defines them; determine and attest matches ISO/IEC 17000's review, decision and attestation. The EPO operationalizes those steps as executable checks." ;
     prov:wasDerivedFrom rul:R-09 ; prov:wasDerivedFrom rul:R-31 ;
+    skos:broader term:ontology ;
+    skos:related term:og-caie ;
+    skos:related term:evaluation-record ;
     ogc:binding "vocabulary/epo.ttl; sysml action def EvaluationProcess" .
 
 term:contextual-ai-evaluation a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -561,6 +709,8 @@ term:contextual-ai-evaluation a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:class "coined" ;
     ogc:coinedBy "Zargham and Hollek, for this specification (ruling R-47, sheet 06-10)" ;
     prov:wasDerivedFrom rul:R-29 ;
+    skos:broader term:evaluation ;
+    skos:narrower term:og-caie ;
     ogc:binding "the scope of the specification; no node of its own" .
 
 term:og-caie a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -570,6 +720,9 @@ term:og-caie a skos:Concept ; skos:inScheme ogc:Glossary ;
     ogc:class "coined" ;
     ogc:coinedBy "Zargham and Hollek, for this specification (ruling R-47, sheet 06-10)" ;
     prov:wasDerivedFrom rul:R-09 ; prov:wasDerivedFrom rul:R-29 ;
+    skos:broader term:contextual-ai-evaluation ;
+    skos:related term:evaluation-process-ontology ;
+    skos:related term:domain-specific-ontology ;
     ogc:binding "sysml package OGCAIE; part def OgCaieEvaluation" .
 
 # ---------------------------------------------------------------------------
@@ -578,76 +731,170 @@ term:og-caie a skos:Concept ; skos:inScheme ogc:Glossary ;
 
 term:organization a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "organization"@en ;
-    skos:definition "A person or group of people with its own functions, responsibilities and authorities. Three organizations are parties to every OG-CAIE evaluation: the sponsor organization that commissions it, the testing organization that performs it, and the organization accountable for the test item. Any two of them may be the same organization, and the record says whether they are."@en ;
+    skos:definition "A person or group of people with its own functions, responsibilities and authorities. Three organizations are parties to every OG-CAIE evaluation: the sponsor organization that commissions it, the testing organization that performs it (the evaluation service provider), and the test item provider accountable for the AI system under test. Any two of them may be the same organization, and the record says whether they are."@en ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.1.1" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-01.png" ;
                     ogc:quote "person or group of people that has its own functions with responsibilities, authorities and relationships to achieve its objectives" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     prov:wasDerivedFrom rul:R-21 ;
+    skos:narrower term:provider ;
+    skos:related term:customer ;
+    skos:related term:stakeholder ;
     ogc:binding "sysml part def Organization; prov:Organization" .
 
 term:customer a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "customer"@en ;
-    skos:altLabel "sponsor organization"@en ; skos:altLabel "sponsor"@en ;
-    skos:definition "The organization that receives the evaluation as a service: the sponsor. It agrees the requirement set with the testing organization under a contract, and receives the report and the recommendation. It may or may not be the organization accountable for the test item."@en ;
+    skos:definition "A person or organization that receives a product or a service. Two products change hands around an OG-CAIE evaluation, so there are two customers: the evaluation customer, the sponsor, receives the evaluation as a service; the test item customer receives the AI system under test, as the sponsor sometimes does and as the affected populations do when they use it. The two may be the same organization, and the record says whether they are."@en ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.9.1" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-24.png" ;
                     ogc:quote "person or organization that can or does receive a product or a service that is intended for or required by this person or organization" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
-    ogc:scopeNote "Ruling R-21: the sponsor organization. When the sponsor is not the accountable organization, its position is that of a second party in ISO/IEC 17000's sense (it has a user interest in the test item)." ;
+    ogc:scopeNote "Ruling R-21 named the sponsor organization the customer; the tbox audit (sheet 08, on Z's instruction) keeps customer as ISO 9000's genus and makes its two specializations explicit as narrower terms: evaluation customer (the sponsor) and test item customer." ;
     prov:wasDerivedFrom rul:R-21 ;
-    ogc:binding "sysml part def SponsorOrganization; epo:sponsorRole on the service agreement, the report and the recommendation" .
+    skos:broader term:stakeholder ;
+    skos:narrower term:evaluation-customer ;
+    skos:narrower term:test-item-customer ;
+    skos:related term:organization ;
+    skos:related term:provider ;
+    ogc:binding "epo:CustomerRole, the genus of epo:EvaluationCustomerRole and epo:TestItemCustomerRole; sysml part def Organization" .
 
 term:provider a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "provider"@en ;
-    skos:altLabel "supplier"@en ; skos:altLabel "contractor"@en ; skos:altLabel "testing organization"@en ;
-    skos:definition "The organization that provides the evaluation as a service: the testing organization. Its account executive signs the contract, its evaluation team does the work, and its machines keep the record. Independent of the accountable organization, its activity is second-party when a sponsor with a user interest commissions it (ISO/IEC 17000 4.4, Note 2) and third-party when no interested party does."@en ;
+    skos:altLabel "supplier"@en ; skos:altLabel "contractor"@en ;
+    skos:definition "An organization that provides a product or a service. Two products change hands around an OG-CAIE evaluation, so there are two providers: the evaluation service provider, the testing organization, provides the evaluation as a service; the test item provider provides, and is accountable for, the AI system under test. They are different organizations when the evaluation is independent, and the record states that fact rather than assuming it."@en ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.1.9" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-03.png" ;
                     ogc:quote "organization that provides a product or a service" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
-    ogc:scopeNote "Ruling R-21: the testing organization. ISO 9000:2026 3.1.9 Note 2 says a provider in a contractual situation is sometimes called a contractor, hence the altLabel." ;
+    ogc:scopeNote "Ruling R-21 named the testing organization the provider; the tbox audit (sheet 08, on Z's instruction) keeps provider as ISO 9000's genus and makes its two specializations explicit as narrower terms: evaluation service provider (the testing organization) and test item provider (the accountable organization). ISO 9000:2026 3.1.9 Note 2 says a provider in a contractual situation is sometimes called a contractor, hence the altLabel." ;
     prov:wasDerivedFrom rul:R-21 ;
-    ogc:binding "sysml part def TestingOrganization; epo:testingOrganizationRole on the service agreement" .
+    skos:broader term:organization ;
+    skos:broader term:stakeholder ;
+    skos:narrower term:evaluation-service-provider ;
+    skos:narrower term:test-item-provider ;
+    skos:related term:customer ;
+    ogc:binding "epo:ProviderRole, the genus of epo:EvaluationServiceProviderRole and epo:TestItemProviderRole; sysml part def Organization" .
+
+term:evaluation-service-provider a skos:Concept ; skos:inScheme ogc:Glossary ;
+    skos:prefLabel "evaluation service provider"@en ;
+    skos:altLabel "testing organization"@en ; skos:altLabel "provider (ISO 9000:2026 3.1.9, of the evaluation)"@en ;
+    skos:definition "The organization that provides the evaluation as a service: the testing organization. Its authorized representative signs the contract and delivers the report, its evaluation team does the work, and its machines keep the record. When it is independent of the test item provider and has no user interest in the test item, its activity is third-party in ISO/IEC 17000's sense; the record states that independence as a fact."@en ;
+    ogc:class "refined" ;
+    ogc:anchorRelation "specializes" ;
+    ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.1.9 provider" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-03.png" ;
+                    ogc:quote "organization that provides a product or a service" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
+    ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "4.5 third-party conformity assessment activity" ;
+                  ogc:quote "conformity assessment activity that is performed by a person or organization that is independent of the provider of the object of conformity assessment and has no user interest in the object" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
+    ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "4.6 conformity assessment body" ] ;
+    ogc:scopeNote "Tbox audit (sheet 08, on Z's instruction): the provider of the evaluation service, distinguished explicitly from the provider of the AI system under test. Ruling R-21 introduced the party under the headword provider." ;
+    prov:wasDerivedFrom rul:R-21 ; prov:wasDerivedFrom rul:R-48 ;
+    skos:broader term:provider ;
+    skos:related term:evaluation-customer ; skos:related term:third-party-conformity-assessment-activity ; skos:related term:evaluation-team ; skos:related term:account-executive ; skos:related term:contract ;
+    ogc:binding "epo:EvaluationServiceProviderRole; epo:testingOrganizationRole on the service agreement; sysml part def TestingOrganization" .
+
+term:test-item-provider a skos:Concept ; skos:inScheme ogc:Glossary ;
+    skos:prefLabel "test item provider"@en ;
+    skos:altLabel "accountable organization"@en ; skos:altLabel "provider (ISO 9000:2026 3.1.9, of the test item)"@en ;
+    skos:definition "The organization that provides, and is accountable for, the AI system under test: its vendor or its operator. It is a party to every evaluation because it grants access to the test item, but it does not perform the evaluation unless it is also the sponsor and the testing organization, and the record says so. In ISO/IEC 17000's terms it is the first party."@en ;
+    ogc:class "refined" ;
+    ogc:anchorRelation "specializes" ;
+    ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.1.9 provider" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-03.png" ;
+                    ogc:quote "organization that provides a product or a service" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
+    ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "4.3 first-party conformity assessment activity" ;
+                  ogc:quote "conformity assessment activity that is performed by the person or organization that provides or that is the object of conformity assessment" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
+    ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "4.2 object of conformity assessment" ;
+                  ogc:quote "entity to which specified requirements apply" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
+    ogc:scopeNote "Sheet 09 (block B4) and the tbox audit (sheet 08): the headword accountable organization becomes test item provider, kept as the alternative label; it specializes ISO 9000's provider, with ISO/IEC 17000's first party as the neighbour. Ruling R-48 (07-06) asked whether accountable organization was the right headword." ;
+    prov:wasDerivedFrom rul:R-21 ; prov:wasDerivedFrom rul:R-48 ;
+    skos:broader term:provider ;
+    skos:related term:test-item ; skos:related term:first-party-conformity-assessment-activity ; skos:related term:test-item-customer ; skos:related term:evaluation-service-provider ;
+    ogc:binding "epo:TestItemProviderRole; epo:accountableOrganizationRole on the test-item access; sysml part def AccountableOrganization" .
+
+term:evaluation-customer a skos:Concept ; skos:inScheme ogc:Glossary ;
+    skos:prefLabel "evaluation customer"@en ;
+    skos:altLabel "sponsor organization"@en ; skos:altLabel "sponsor"@en ; skos:altLabel "customer (ISO 9000:2026 3.9.1, of the evaluation)"@en ;
+    skos:definition "The organization that receives the evaluation as a service: the sponsor. It states its mission and its need, agrees the requirement set with the testing organization under a contract, decides the statement of work, and receives and accepts the report and the recommendation. It may also be the test item customer, and it may commission the evaluation on behalf of affected populations who are, or who are affected by, the test item's customers."@en ;
+    ogc:class "refined" ;
+    ogc:anchorRelation "specializes" ;
+    ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.9.1 customer" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-24.png" ;
+                    ogc:quote "person or organization that can or does receive a product or a service that is intended for or required by this person or organization" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
+    ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "4.4 second-party conformity assessment activity" ;
+                  ogc:quote "conformity assessment activity that is performed by a person or organization that has a user interest in the object of conformity assessment" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
+    ogc:scopeNote "Tbox audit (sheet 08, on Z's instruction): the customer of the evaluation service, distinguished explicitly from the customer of the AI system under test. Ruling R-21 introduced the party under the headword customer. When the sponsor is not the test item provider, its position is that of a second party in ISO/IEC 17000's sense." ;
+    prov:wasDerivedFrom rul:R-21 ; prov:wasDerivedFrom rul:R-48 ;
+    skos:broader term:customer ;
+    skos:related term:test-item-customer ; skos:related term:evaluation-service-provider ; skos:related term:second-party-conformity-assessment-activity ; skos:related term:mission ; skos:related term:statement-of-work ; skos:related term:contract ;
+    ogc:binding "epo:EvaluationCustomerRole; epo:sponsorRole on the service agreement, the statement of work, the delivery and the acceptance; epo:actsOnBehalfOf the affected populations; sysml part def SponsorOrganization" .
+
+term:test-item-customer a skos:Concept ; skos:inScheme ogc:Glossary ;
+    skos:altLabel "user of the test item"@en ; skos:altLabel "customer (ISO 9000:2026 3.9.1, of the test item)"@en ;
+    skos:prefLabel "test item customer"@en ;
+    skos:definition "A person or organization that receives the AI system under test as a product or a service: its users, and the organization that deploys it. An affected population is a test item customer when it uses the system; other populations are affected indirectly, through other stakeholders' use. The sponsor is a test item customer when it is the deploying organization, and may commission the evaluation on behalf of the populations who are."@en ;
+    ogc:class "refined" ;
+    ogc:anchorRelation "specializes" ;
+    ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.9.1 customer" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-24.png" ;
+                    ogc:quote "person or organization that can or does receive a product or a service that is intended for or required by this person or organization" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
+    ogc:seeAlso [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.1.4 interested party" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-02.png" ;
+                  ogc:quote "person or organization that can affect, be affected by, or perceive itself to be affected by a decision or activity" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
+    ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "4.4 second-party conformity assessment activity" ;
+                  ogc:quote "conformity assessment activity that is performed by a person or organization that has a user interest in the object of conformity assessment" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
+    ogc:scopeNote "Tbox audit (sheet 08, on Z's instruction): the customer of the AI system under test, distinguished explicitly from the customer of the evaluation. The affected populations of ruling R-21 are its customers or are affected through them; the record says which (epo:affectedAs)." ;
+    prov:wasDerivedFrom rul:R-21 ; prov:wasDerivedFrom rul:R-48 ;
+    skos:broader term:customer ;
+    skos:related term:evaluation-customer ; skos:related term:test-item-provider ; skos:related term:stakeholder ; skos:related term:test-item ;
+    ogc:binding "epo:TestItemCustomerRole; epo:testItemCustomerRole on the sponsor when it deploys the test item; epo:affectedAs epo:asCustomer on an affected population" .
 
 term:first-party-conformity-assessment-activity a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "first-party conformity assessment activity"@en ;
-    skos:altLabel "first party"@en ; skos:altLabel "accountable organization"@en ;
-    skos:definition "Evaluation performed by the organization that provides or is accountable for the test item. In OG-CAIE the accountable organization is a party to every evaluation, since it grants access to the test item, but it does not perform the evaluation unless it is also the sponsor and the testing organization, and the record says so."@en ;
+    skos:altLabel "first party"@en ;
+    skos:definition "Evaluation performed by the organization that provides or is accountable for the test item: the test item provider. In OG-CAIE the test item provider is a party to every evaluation, since it grants access to the test item, but it does not perform the evaluation unless it is also the sponsor and the testing organization, and the record says so."@en ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "4.3 first-party conformity assessment activity" ;
                     ogc:quote "conformity assessment activity that is performed by the person or organization that provides or that is the object of conformity assessment" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
-    ogc:scopeNote "Ruling R-21: the organization accountable for the test item. ISO/IEC 17000 4.3 Note 1: the first-, second- and third-party descriptors are not the legal identification of the parties to a contract; the contract here is between the sponsor and the testing organization. Concern C-25 asks whether the three party terms stay three adopted headwords." ;
+    ogc:scopeNote "Ruling R-21: the organization accountable for the test item, whose headword is now test item provider (sheet 08). ISO/IEC 17000 4.3 Note 1: the first-, second- and third-party descriptors are not the legal identification of the parties to a contract; the contract here is between the sponsor and the testing organization. Concern C-25 asks whether the three party terms stay three adopted headwords." ;
     prov:wasDerivedFrom rul:R-21 ;
-    ogc:binding "sysml part def AccountableOrganization; epo:accountableOrganizationRole on the test-item access" .
+    skos:related term:test-item-provider ;
+    skos:related term:second-party-conformity-assessment-activity ;
+    skos:related term:third-party-conformity-assessment-activity ;
+    ogc:binding "epo:accountableOrganizationRole on the test-item access (the first party is the test item provider); sysml part def AccountableOrganization" .
 
 term:second-party-conformity-assessment-activity a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "second-party conformity assessment activity"@en ;
     skos:altLabel "second party"@en ;
-    skos:definition "Evaluation performed by, or on behalf of, an organization with a user interest in the test item: a purchaser, a regulator, a deploying agency. A sponsor that is not the accountable organization commissions the evaluation in this position."@en ;
+    skos:definition "Evaluation performed by, or on behalf of, an organization with a user interest in the test item: a purchaser, a regulator, a deploying agency. A sponsor that is not the test item provider commissions the evaluation in this position."@en ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "4.4 second-party conformity assessment activity" ;
                     ogc:quote "conformity assessment activity that is performed by a person or organization that has a user interest in the object of conformity assessment" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     prov:wasDerivedFrom rul:R-21 ;
-    ogc:binding "epo:sponsorRole when the sponsor is not the accountable organization (record fact, S0)" .
+    skos:related term:evaluation-customer ;
+    skos:related term:first-party-conformity-assessment-activity ;
+    skos:related term:third-party-conformity-assessment-activity ;
+    ogc:binding "epo:sponsorRole when the sponsor is not the test item provider (record fact epo:isAccountable, S0)" .
 
 term:third-party-conformity-assessment-activity a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "third-party conformity assessment activity"@en ;
     skos:altLabel "third party"@en ; skos:altLabel "independent testing"@en ;
-    skos:definition "Evaluation performed by an organization independent of the provider of the test item and with no user interest in it, and not on behalf of anyone who has one. Independence of the testing organization from the accountable organization is what makes an OG-CAIE result independent; the record states it as a fact about the parties rather than assuming it, and states separately whether the sponsor has a user interest."@en ;
+    skos:definition "Evaluation performed by an organization independent of the provider of the test item and with no user interest in it, and not on behalf of anyone who has one. Independence of the testing organization from the test item provider is what makes an OG-CAIE result independent; the record states it as a fact about the parties rather than assuming it, and states separately whether the sponsor has a user interest."@en ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "4.5 third-party conformity assessment activity" ;
                     ogc:quote "conformity assessment activity that is performed by a person or organization that is independent of the provider of the object of conformity assessment and has no user interest in the object" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     prov:wasDerivedFrom rul:R-21 ;
+    skos:related term:evaluation-service-provider ;
+    skos:related term:first-party-conformity-assessment-activity ;
+    skos:related term:second-party-conformity-assessment-activity ;
     ogc:binding "epo:independentOfAccountable on the testing organization (record fact, S0)" .
 
 term:contract a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "contract"@en ;
     skos:altLabel "service agreement"@en ; skos:altLabel "agreement"@en ;
-    skos:definition "The binding agreement between the sponsor organization and the testing organization to perform OG-CAIE as a service. It is signed by the sponsor and by the testing organization's account executive, precedes the requirement set, and is the first item the record holds."@en ;
+    skos:definition "The binding agreement between the sponsor organization and the testing organization to perform OG-CAIE as a service. It is signed by the sponsor and by the testing organization's authorized representative, precedes the requirement set, and is the first item the record holds."@en ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.3.13" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-38.png" ;
                     ogc:quote "binding agreement" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:scopeNote "Ruling R-27 closed concern C-24: the 2026 wording (3.3.13) is the 2015 wording (3.4.7), captured as screenshot 38. Ruling R-21 calls the agreement a contract to perform the OG-CAIE as a service." ;
     prov:wasDerivedFrom rul:R-21 ;
-    ogc:binding "sysml item def ServiceAgreement; epo:ServiceAgreement, attributed to the sponsor and the account executive" .
+    skos:related term:statement-of-work ;
+    skos:related term:evaluation-customer ;
+    skos:related term:evaluation-service-provider ;
+    skos:related term:account-executive ;
+    ogc:binding "sysml item def ServiceAgreement; epo:ServiceAgreement, signed by the sponsor and the authorized representative" .
 
 term:evaluation-team a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "evaluation team"@en ;
@@ -663,6 +910,10 @@ term:evaluation-team a skos:Concept ; skos:inScheme ogc:Glossary ;
                   ogc:quote "one or more individuals who jointly perform a process assessment" ; ogc:quoteStatus "machine" ] ;
     ogc:scopeNote "Ruling R-28 (concern C-31): anchored to the SQuaRE evaluator, the same family as the adopted term evaluation (ISO/IEC 25001), with ISO 9000:2026 audit team and SEVOCAB assessment team as the two neighbours. ISO 9000:2026 3.12.1 defines an audit as a systematic and independent process for obtaining evidence and evaluating it objectively, with no legal bearing; the connotation is the reader's, and it is avoided. Rulings R-10 and R-21: the technical experts are members, not support." ;
     prov:wasDerivedFrom rul:R-28 ;
+    skos:related term:technical-expert ;
+    skos:related term:evaluation-operator ;
+    skos:related term:evaluation-service-provider ;
+    skos:related term:evaluation ;
     ogc:binding "sysml part def EvaluationTeam inside TestingOrganization" .
 
 term:evaluation-operator a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -675,24 +926,29 @@ term:evaluation-operator a skos:Concept ; skos:inScheme ogc:Glossary ;
                     ogc:quote "entity that performs the operation of a system" ; ogc:quoteStatus "machine" ] ;
     ogc:scopeNote "Ruling R-23: the operator and the domain expert are abstract actor categories in distinct EPO slots; the system operated is the evaluation, not the test item. Replaces the label AI evaluation expert of ruling R-10, kept as an altLabel." ;
     prov:wasDerivedFrom rul:R-23 ;
+    skos:broader term:technical-expert ;
+    skos:related term:evaluation-team ;
+    skos:related term:red-teaming ;
     ogc:binding "sysml part def EvaluationOperator; epo:evaluationOperatorRole; prov:Person" .
 
 term:account-executive a skos:Concept ; skos:inScheme ogc:Glossary ;
-    skos:prefLabel "account executive"@en ;
-    skos:altLabel "signatory"@en ; skos:altLabel "top management"@en ;
-    skos:definition "The person who signs the contract for the testing organization and is its legal representative to the sponsor. The account executive reads the record and delivers the report and the recommendation to the sponsor, an activity of its own, and makes no determination and no attestation. An abstract actor category, filled by exactly one named person in each evaluation."@en ;
+    skos:prefLabel "authorized representative"@en ;
+    skos:altLabel "account executive"@en ; skos:altLabel "signatory"@en ;
+    skos:definition "The person who signs the contract for the testing organization and delivers the report and the recommendation to the sponsor: the organization's interface with its contractual counterparties. The authorized representative is not responsible for the determinations in the report; those belong to the technical experts, and the representative makes no determination and no attestation. An abstract actor category, filled by exactly one named person in each evaluation."@en ;
     ogc:class "refined" ;
-    ogc:anchorRelation "specializes" ;
-    ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.1.3" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-01.png" ;
-                    ogc:quote "person or group of people who directs and controls an organization at the highest level" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
-    ogc:scopeNote "Ruling R-23. Concern C-26: the anchor is provisional; the account executive is the person top management authorizes to sign for the organization." ;
-    prov:wasDerivedFrom rul:R-23 ;
-    ogc:binding "sysml part def AccountExecutive; epo:accountExecutiveRole on the service agreement and the report" .
+    ogc:anchorRelation "corresponds" ;
+    ogc:canonical [ ogc:cites src:sevocab ; ogc:locator "acceptance, p. 4 (ISO/IEC/IEEE 24748-5:2017, 3.1) (fragment of the entry)" ; ogc:pdfPage 4 ;
+                    ogc:quote "authorized representative of the acquirer" ; ogc:quoteStatus "machine" ] ;
+    ogc:seeAlso [ ogc:cites src:iso-iec-17000-2020 ; ogc:locator "4.3 first-party conformity assessment activity, Note 1 (the descriptors are not the legal identification of the parties to a contract)" ] ;
+    ogc:scopeNote "Sheet 09 (block B1) and the tbox audit (sheet 08): the headword account executive becomes authorized representative, kept as the alternative label; SEVOCAB's acceptance entry names the authorized representative of the acquirer, and here the phrase is read for the provider's side, the person authorized to sign and deliver for the testing organization. The earlier anchor, ISO 9000:2026 3.1.3 top management, leaves. Concern C-26 (the anchor was provisional) is answered by this entry and closes when Z records the ruling. Z on the role: not responsible for the determination in the report; the interface for the organization with its contractual counterparties. The term's IRI keeps its former local name." ;
+    prov:wasDerivedFrom rul:R-23 ; prov:wasDerivedFrom rul:R-48 ;
+    skos:related term:contract ; skos:related term:evaluation-service-provider ; skos:related term:evaluation-team ;
+    ogc:binding "epo:AuthorizedRepresentativeRole; epo:accountExecutiveRole on the service agreement and the delivery; sysml part def AccountExecutive" .
 
 term:monitoring a skos:Concept ; skos:inScheme ogc:Glossary ;
     skos:prefLabel "monitoring"@en ;
     skos:altLabel "surveillance (ISO/IEC 17000 8.1)"@en ; skos:altLabel "re-evaluation"@en ;
-    skos:definition "Determining the status of a system at different stages or times. After an evaluation, a sponsor may require the accountable organization to change the system per the findings and then require new testing to certify that the flagged issues were addressed; in conformity assessment that repeat is called surveillance. Observed in practice; not a step of the contracting lifecycle."@en ;
+    skos:definition "Determining the status of a system at different stages or times. After an evaluation, a sponsor may require the test item provider to change the system per the findings and then require new testing to certify that the flagged issues were addressed; in conformity assessment that repeat is called surveillance. Observed in practice; not a step of the contracting lifecycle."@en ;
     ogc:class "adopted" ;
     ogc:canonical [ ogc:cites src:iso-9000-2026 ; ogc:locator "3.11.3" ; ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-30.png" ;
                     ogc:quote "determining the status of a system, a process or an activity" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
@@ -700,6 +956,7 @@ term:monitoring a skos:Concept ; skos:inScheme ogc:Glossary ;
                   ogc:quote "systematic iteration of conformity assessment activities as a basis for maintaining the validity of the statement of conformity" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:scopeNote "Ruling R-36: the headword is ISO 9000's monitoring, the doctrine is ISO/IEC 17000's surveillance, kept as the alternative label with its clause so the concept stays mapped. Ruling R-35: narration in the Contracting chapter, outside the lifecycle." ;
     prov:wasDerivedFrom rul:R-36 ;
+    skos:related term:evaluation ;
     ogc:binding "narration in docs/contracting.md; no node of the record" .
 
 term:mission a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -713,6 +970,9 @@ term:mission a skos:Concept ; skos:inScheme ogc:Glossary ;
                   ogc:quote "intentions and direction of an organization as formally expressed by its top management" ; ogc:quoteStatus "human" ; ogc:verifiedBy rul:Z ; ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:scopeNote "Ruling R-37: a seam of its own from the sponsor, feeding the contract; the obligations towards the affected populations are the sponsor's mission and policy in ISO 9000's words, not a coinage." ;
     prov:wasDerivedFrom rul:R-37 ;
+    skos:related term:evaluation-customer ;
+    skos:related term:stakeholder ;
+    skos:related term:statement-of-work ;
     ogc:binding "sysml item def Mission, port def MissionWrite, seams missionSeam and missionToExecutiveSeam; epo:Mission with epo:regards the populations" .
 
 term:statement-of-work a skos:Concept ; skos:inScheme ogc:Glossary ;
@@ -724,5 +984,133 @@ term:statement-of-work a skos:Concept ; skos:inScheme ogc:Glossary ;
                     ogc:quote "statement of the expected outcomes and outline of the work required to achieve the outcomes" ; ogc:quoteStatus "machine" ] ;
     ogc:scopeNote "Ruling R-40: a boundary item between the contract and its fulfilment; the sponsor decides, per affected population, interview or representation; the record must show the decision and the evaluation must realize it." ;
     prov:wasDerivedFrom rul:R-40 ;
+    skos:related term:contract ;
+    skos:related term:mission ;
+    skos:related term:stakeholder ;
+    skos:related term:evaluation-customer ;
     ogc:binding "sysml item def StatementOfWork, port def StatementOfWorkWrite, seams statementOfWorkSeam and statementOfWorkToExecutiveSeam; epo:StatementOfWork with epo:decides engagement decisions" .
 
+# ---------------------------------------------------------------------------
+# The standards' own concepts, as SKOS mapping targets (tbox audit, sheet 08).
+# One node per clause or entry a canonical citation names, in the src:
+# namespace with its locator; a term maps to the clause its class and anchor
+# say: adopted = exactMatch, specializes = broadMatch, corresponds =
+# closeMatch, synonym = relatedMatch. Terms that share a clause meet here.
+# Generated once from the canonical citations; maintained by hand.
+# ---------------------------------------------------------------------------
+
+src:gruber-1993_section-1 a ogc:SourceConcept ; ogc:cites src:gruber-1993 ; ogc:locator "Section 1, p. 2 (author copy)" ; rdfs:label "Gruber 1993 Section 1, p. 2 (author copy)" .
+src:hawkins-2011_3.2 a ogc:SourceConcept ; ogc:cites src:hawkins-2011 ; ogc:locator "Section 3.2 Asserted context, p. 7" ; rdfs:label "Hawkins et al. 2011 Section 3.2 Asserted context, p. 7" .
+src:hawkins-2011_3.3 a ogc:SourceConcept ; ogc:cites src:hawkins-2011 ; ogc:locator "Section 3.3 Asserted solution, p. 10" ; rdfs:label "Hawkins et al. 2011 Section 3.3 Asserted solution, p. 10" .
+src:hogan-2021_section-1 a ogc:SourceConcept ; ogc:cites src:hogan-2021 ; ogc:locator "Section 1, p. 2 (arXiv v3)" ; rdfs:label "Hogan et al. 2021 Section 1, p. 2 (arXiv v3)" .
+src:iec-60050-351_351-41-10 a ogc:SourceConcept ; ogc:cites src:iec-60050-351 ; ogc:locator "351-41-10 trajectory" ; rdfs:label "IEC 60050-351 351-41-10 trajectory" .
+src:iso-9000-2026_3.1.1 a ogc:SourceConcept ; ogc:cites src:iso-9000-2026 ; ogc:locator "3.1.1" ; rdfs:label "ISO 9000:2026 3.1.1" .
+src:iso-9000-2026_3.1.4 a ogc:SourceConcept ; ogc:cites src:iso-9000-2026 ; ogc:locator "3.1.4" ; rdfs:label "ISO 9000:2026 3.1.4" .
+src:iso-9000-2026_3.1.9 a ogc:SourceConcept ; ogc:cites src:iso-9000-2026 ; ogc:locator "3.1.9 provider" ; rdfs:label "ISO 9000:2026 3.1.9 provider" .
+src:iso-9000-2026_3.11.1 a ogc:SourceConcept ; ogc:cites src:iso-9000-2026 ; ogc:locator "3.11.1" ; rdfs:label "ISO 9000:2026 3.11.1" .
+src:iso-9000-2026_3.11.12 a ogc:SourceConcept ; ogc:cites src:iso-9000-2026 ; ogc:locator "3.11.12" ; rdfs:label "ISO 9000:2026 3.11.12" .
+src:iso-9000-2026_3.11.13 a ogc:SourceConcept ; ogc:cites src:iso-9000-2026 ; ogc:locator "3.11.13" ; rdfs:label "ISO 9000:2026 3.11.13" .
+src:iso-9000-2026_3.11.14 a ogc:SourceConcept ; ogc:cites src:iso-9000-2026 ; ogc:locator "3.11.14" ; rdfs:label "ISO 9000:2026 3.11.14" .
+src:iso-9000-2026_3.11.3 a ogc:SourceConcept ; ogc:cites src:iso-9000-2026 ; ogc:locator "3.11.3" ; rdfs:label "ISO 9000:2026 3.11.3" .
+src:iso-9000-2026_3.12.9 a ogc:SourceConcept ; ogc:cites src:iso-9000-2026 ; ogc:locator "3.12.9" ; rdfs:label "ISO 9000:2026 3.12.9" .
+src:iso-9000-2026_3.3.13 a ogc:SourceConcept ; ogc:cites src:iso-9000-2026 ; ogc:locator "3.3.13" ; rdfs:label "ISO 9000:2026 3.3.13" .
+src:iso-9000-2026_3.4.11 a ogc:SourceConcept ; ogc:cites src:iso-9000-2026 ; ogc:locator "3.4.11" ; rdfs:label "ISO 9000:2026 3.4.11" .
+src:iso-9000-2026_3.5.1 a ogc:SourceConcept ; ogc:cites src:iso-9000-2026 ; ogc:locator "3.5.1 requirement" ; rdfs:label "ISO 9000:2026 3.5.1 requirement" .
+src:iso-9000-2026_3.5.9 a ogc:SourceConcept ; ogc:cites src:iso-9000-2026 ; ogc:locator "3.5.9" ; rdfs:label "ISO 9000:2026 3.5.9" .
+src:iso-9000-2026_3.7.3 a ogc:SourceConcept ; ogc:cites src:iso-9000-2026 ; ogc:locator "3.7.3" ; rdfs:label "ISO 9000:2026 3.7.3" .
+src:iso-9000-2026_3.8.12 a ogc:SourceConcept ; ogc:cites src:iso-9000-2026 ; ogc:locator "3.8.12 record" ; rdfs:label "ISO 9000:2026 3.8.12 record" .
+src:iso-9000-2026_3.8.6 a ogc:SourceConcept ; ogc:cites src:iso-9000-2026 ; ogc:locator "3.8.6" ; rdfs:label "ISO 9000:2026 3.8.6" .
+src:iso-9000-2026_3.9.1 a ogc:SourceConcept ; ogc:cites src:iso-9000-2026 ; ogc:locator "3.9.1 customer" ; rdfs:label "ISO 9000:2026 3.9.1 customer" .
+src:iso-iec-17000-2020_4.3 a ogc:SourceConcept ; ogc:cites src:iso-iec-17000-2020 ; ogc:locator "4.3 first-party conformity assessment activity" ; rdfs:label "ISO/IEC 17000:2020 4.3 first-party conformity assessment activity" .
+src:iso-iec-17000-2020_4.4 a ogc:SourceConcept ; ogc:cites src:iso-iec-17000-2020 ; ogc:locator "4.4 second-party conformity assessment activity" ; rdfs:label "ISO/IEC 17000:2020 4.4 second-party conformity assessment activity" .
+src:iso-iec-17000-2020_4.5 a ogc:SourceConcept ; ogc:cites src:iso-iec-17000-2020 ; ogc:locator "4.5 third-party conformity assessment activity" ; rdfs:label "ISO/IEC 17000:2020 4.5 third-party conformity assessment activity" .
+src:iso-iec-17000-2020_7.3 a ogc:SourceConcept ; ogc:cites src:iso-iec-17000-2020 ; ogc:locator "7.3" ; rdfs:label "ISO/IEC 17000:2020 7.3" .
+src:jcgm-200-2012_2.21 a ogc:SourceConcept ; ogc:cites src:jcgm-200-2012 ; ogc:locator "2.21 measurement repeatability, p. 40" ; rdfs:label "JCGM 200:2012 2.21 measurement repeatability, p. 40" .
+src:jcgm-200-2012_2.25 a ogc:SourceConcept ; ogc:cites src:jcgm-200-2012 ; ogc:locator "2.25 measurement reproducibility, p. 41" ; rdfs:label "JCGM 200:2012 2.25 measurement reproducibility, p. 41" .
+src:jcgm-200-2012_2.26 a ogc:SourceConcept ; ogc:cites src:jcgm-200-2012 ; ogc:locator "2.26 measurement uncertainty, p. 41" ; rdfs:label "JCGM 200:2012 2.26 measurement uncertainty, p. 41" .
+src:nist-ai-700-2_dialogue a ogc:SourceConcept ; ogc:cites src:nist-ai-700-2 ; ogc:locator "Appendix A, Dialogue, p. 16" ; rdfs:label "NIST AI 700-2 Appendix A, Dialogue, p. 16" .
+src:nist-ai-700-2_guardrail a ogc:SourceConcept ; ogc:cites src:nist-ai-700-2 ; ogc:locator "Appendix A, Guardrail, p. 17" ; rdfs:label "NIST AI 700-2 Appendix A, Guardrail, p. 17" .
+src:nist-ai-700-2_red-teaming a ogc:SourceConcept ; ogc:cites src:nist-ai-700-2 ; ogc:locator "Appendix A, Red teaming, p. 17" ; rdfs:label "NIST AI 700-2 Appendix A, Red teaming, p. 17" .
+src:nist-ai-700-2_session a ogc:SourceConcept ; ogc:cites src:nist-ai-700-2 ; ogc:locator "Appendix A, Session, p. 17" ; rdfs:label "NIST AI 700-2 Appendix A, Session, p. 17" .
+src:sevocab_acceptance a ogc:SourceConcept ; ogc:cites src:sevocab ; ogc:locator "acceptance, p. 4 (ISO/IEC/IEEE 24748-5:2017, 3.1)" ; rdfs:label "SEVOCAB acceptance, p. 4 (ISO/IEC/IEEE 24748-5:2017, 3.1)" .
+src:sevocab_acceptance-criteria a ogc:SourceConcept ; ogc:cites src:sevocab ; ogc:locator "acceptance criteria, p. 4" ; rdfs:label "SEVOCAB acceptance criteria, p. 4" .
+src:sevocab_evaluation a ogc:SourceConcept ; ogc:cites src:sevocab ; ogc:locator "evaluation, p. 155" ; rdfs:label "SEVOCAB evaluation, p. 155" .
+src:sevocab_evaluator a ogc:SourceConcept ; ogc:cites src:sevocab ; ogc:locator "evaluator, p. 157 (ISO/IEC 25000:2014, 4.18)" ; rdfs:label "SEVOCAB evaluator, p. 157 (ISO/IEC 25000:2014, 4.18)" .
+src:sevocab_expected-results a ogc:SourceConcept ; ogc:cites src:sevocab ; ogc:locator "expected results, p. 160" ; rdfs:label "SEVOCAB expected results, p. 160" .
+src:sevocab_non-deterministic-system a ogc:SourceConcept ; ogc:cites src:sevocab ; ogc:locator "non-deterministic system, p. 272 (ISO/IEC TR 29119-11:2020, testing of AI-based systems)" ; rdfs:label "SEVOCAB non-deterministic system, p. 272 (ISO/IEC TR 29119-11:2020, testing of AI-based systems)" .
+src:sevocab_operational-environment a ogc:SourceConcept ; ogc:cites src:sevocab ; ogc:locator "operational environment, p. 282" ; rdfs:label "SEVOCAB operational environment, p. 282" .
+src:sevocab_operator a ogc:SourceConcept ; ogc:cites src:sevocab ; ogc:locator "operator, p. 283 (ISO/IEC/IEEE 12207:2026, 3.1.40)" ; rdfs:label "SEVOCAB operator, p. 283 (ISO/IEC/IEEE 12207:2026, 3.1.40)" .
+src:sevocab_requirements-traceability a ogc:SourceConcept ; ogc:cites src:sevocab ; ogc:locator "requirements traceability, p. 352" ; rdfs:label "SEVOCAB requirements traceability, p. 352" .
+src:sevocab_risk-based-testing a ogc:SourceConcept ; ogc:cites src:sevocab ; ogc:locator "risk-based testing, p. 362" ; rdfs:label "SEVOCAB risk-based testing, p. 362" .
+src:sevocab_scenario a ogc:SourceConcept ; ogc:cites src:sevocab ; ogc:locator "scenario, p. 369" ; rdfs:label "SEVOCAB scenario, p. 369" .
+src:sevocab_statement-of-work a ogc:SourceConcept ; ogc:cites src:sevocab ; ogc:locator "statement of work, p. 406" ; rdfs:label "SEVOCAB statement of work, p. 406" .
+src:sevocab_test-case a ogc:SourceConcept ; ogc:cites src:sevocab ; ogc:locator "test case, p. 432" ; rdfs:label "SEVOCAB test case, p. 432" .
+src:sevocab_test-coverage a ogc:SourceConcept ; ogc:cites src:sevocab ; ogc:locator "test coverage, p. 433" ; rdfs:label "SEVOCAB test coverage, p. 433" .
+src:sevocab_test-item a ogc:SourceConcept ; ogc:cites src:sevocab ; ogc:locator "test item, p. 435 (ISO/IEC/IEEE 29119-2:2021)" ; rdfs:label "SEVOCAB test item, p. 435 (ISO/IEC/IEEE 29119-2:2021)" .
+src:sevocab_test-plan a ogc:SourceConcept ; ogc:cites src:sevocab ; ogc:locator "test plan, p. 437" ; rdfs:label "SEVOCAB test plan, p. 437" .
+src:sevocab_test-result a ogc:SourceConcept ; ogc:cites src:sevocab ; ogc:locator "test result, p. 438" ; rdfs:label "SEVOCAB test result, p. 438" .
+src:sevocab_test-strategy a ogc:SourceConcept ; ogc:cites src:sevocab ; ogc:locator "test strategy, p. 439" ; rdfs:label "SEVOCAB test strategy, p. 439" .
+src:sevocab_test-suite a ogc:SourceConcept ; ogc:cites src:sevocab ; ogc:locator "test suite, p. 439" ; rdfs:label "SEVOCAB test suite, p. 439" .
+
+term:acceptance-criteria skos:exactMatch src:sevocab_acceptance-criteria .
+term:account-executive skos:closeMatch src:sevocab_acceptance .
+term:appropriateness skos:exactMatch src:hawkins-2011_3.2 .
+term:attestation skos:exactMatch src:iso-iec-17000-2020_7.3 .
+term:authoritative-reference skos:closeMatch src:hogan-2021_section-1 .
+term:conformance skos:broadMatch src:iso-9000-2026_3.5.9 .
+term:conformity skos:exactMatch src:iso-9000-2026_3.5.9 .
+term:contract skos:exactMatch src:iso-9000-2026_3.3.13 .
+term:customer skos:exactMatch src:iso-9000-2026_3.9.1 .
+term:deployment-sensitivity skos:broadMatch src:sevocab_risk-based-testing .
+term:determination skos:exactMatch src:iso-9000-2026_3.11.1 .
+term:dialogue skos:exactMatch src:nist-ai-700-2_dialogue .
+term:evaluation skos:exactMatch src:sevocab_evaluation .
+term:evaluation-customer skos:broadMatch src:iso-9000-2026_3.9.1 .
+term:evaluation-operator skos:broadMatch src:sevocab_operator .
+term:evaluation-record skos:broadMatch src:iso-9000-2026_3.8.12 .
+term:evaluation-service-provider skos:broadMatch src:iso-9000-2026_3.1.9 .
+term:evaluation-team skos:broadMatch src:sevocab_evaluator .
+term:expected-results skos:exactMatch src:sevocab_expected-results .
+term:first-party-conformity-assessment-activity skos:exactMatch src:iso-iec-17000-2020_4.3 .
+term:guardrail skos:exactMatch src:nist-ai-700-2_guardrail .
+term:knowledge-graph skos:exactMatch src:hogan-2021_section-1 .
+term:measurement-uncertainty skos:exactMatch src:jcgm-200-2012_2.26 .
+term:mission skos:exactMatch src:iso-9000-2026_3.4.11 .
+term:monitoring skos:exactMatch src:iso-9000-2026_3.11.3 .
+term:non-deterministic-system skos:exactMatch src:sevocab_non-deterministic-system .
+term:objective-evidence skos:exactMatch src:iso-9000-2026_3.8.6 .
+term:ontology skos:exactMatch src:gruber-1993_section-1 .
+term:operational-envelope skos:broadMatch src:iso-9000-2026_3.5.1 .
+term:operational-environment skos:exactMatch src:sevocab_operational-environment .
+term:organization skos:exactMatch src:iso-9000-2026_3.1.1 .
+term:outcome skos:exactMatch src:sevocab_test-result .
+term:performance skos:exactMatch src:iso-9000-2026_3.7.3 .
+term:probe skos:broadMatch src:sevocab_test-case .
+term:provider skos:exactMatch src:iso-9000-2026_3.1.9 .
+term:record skos:exactMatch src:iso-9000-2026_3.8.12 .
+term:red-teaming skos:exactMatch src:nist-ai-700-2_red-teaming .
+term:repeatability skos:exactMatch src:jcgm-200-2012_2.21 .
+term:reproducibility skos:exactMatch src:jcgm-200-2012_2.25 .
+term:requirement skos:exactMatch src:iso-9000-2026_3.5.1 .
+term:requirements-traceability skos:exactMatch src:sevocab_requirements-traceability .
+term:risk-based-testing skos:exactMatch src:sevocab_risk-based-testing .
+term:scenario skos:exactMatch src:sevocab_scenario .
+term:second-party-conformity-assessment-activity skos:exactMatch src:iso-iec-17000-2020_4.4 .
+term:session skos:exactMatch src:nist-ai-700-2_session .
+term:stakeholder skos:exactMatch src:iso-9000-2026_3.1.4 .
+term:statement-of-work skos:exactMatch src:sevocab_statement-of-work .
+term:sufficiency skos:exactMatch src:hawkins-2011_3.3 .
+term:technical-expert skos:exactMatch src:iso-9000-2026_3.12.9 .
+term:test skos:exactMatch src:iso-9000-2026_3.11.13 .
+term:test-case skos:exactMatch src:sevocab_test-case .
+term:test-coverage skos:exactMatch src:sevocab_test-coverage .
+term:test-item skos:exactMatch src:sevocab_test-item .
+term:test-item-customer skos:broadMatch src:iso-9000-2026_3.9.1 .
+term:test-item-provider skos:broadMatch src:iso-9000-2026_3.1.9 .
+term:test-plan skos:exactMatch src:sevocab_test-plan .
+term:test-strategy skos:broadMatch src:sevocab_test-strategy .
+term:test-suite skos:exactMatch src:sevocab_test-suite .
+term:third-party-conformity-assessment-activity skos:exactMatch src:iso-iec-17000-2020_4.5 .
+term:trajectory skos:broadMatch src:iec-60050-351_351-41-10 .
+term:validation skos:exactMatch src:iso-9000-2026_3.11.14 .
+term:verification skos:exactMatch src:iso-9000-2026_3.11.12 .
