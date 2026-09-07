@@ -268,7 +268,7 @@ def test_record_lists_every_stepped_item_by_step():
     for name in stepped:
         assert re.search(rf"^\S.*\s{re.escape(name)}\s", r.stdout, re.M), name
     assert "without a step" in r.stdout and any(x["item"] == "turn-1" and x["group"] == "no-step" for x in rows)
-    assert not any(x["item"] == "record" for x in rows)  # the record's own entity is not one of its items
+    assert [x["item"] for x in rows if x["group"] == "record"] == ["record"]  # the record's own entity heads the listing in its own section (round three, M7)
     who = next(x for x in rows if x["item"] == "attestation-1")
     assert who["who"] == ["Annie (domain expert)"] and who["when"] == "2026-08-11"
     assert any(x["item"] == "annie" and x["group"] == "party" for x in rows)
@@ -331,7 +331,7 @@ def _json(*cmd):
 
 
 def test_r2_finding_01_query_file_that_is_a_directory_is_a_usage_error():
-    for f in ("@", "@.", f"@{ROOT}"):
+    for f in ("@.", f"@{ROOT}"):  # a bare `@` is "no path after @" since round three (L6)
         r = run("sparql", f)
         assert r.returncode == 2 and "query file is a directory" in r.stderr and "Traceback" not in r.stderr, f
     r, d = _json("sparql", "@.")
@@ -500,8 +500,8 @@ def test_r2_finding_16_model_and_record_flags_only_where_they_matter():
     for cmd in (["term", "probe", "--model"], ["--record", "term", "probe"], ["list", "--record"], ["schema", "--model"], ["doctor", "--model"], ["shapes", "--record"]):
         r = run(*cmd)
         assert r.returncode == 2 and "--model and --record" in r.stderr and "sparql, record, execute, view and views" in r.stderr, (cmd, r.stderr)
-    for cmd in (["--model", "sparql", "ASK { ?s ?p ?o }"], ["record", "--record"], ["execute", "--model"], ["view", "nesting", "--model"], ["views", "--record"], ["sparql", "ASK { ?s ?p ?o }", "--record"]):
-        assert run(*cmd).returncode == 0, cmd
+    for cmd in (["--model", "sparql", "ASK { ?s ?p ?o }"], ["record", "--record"], ["execute", "--model"], ["view", "nesting", "--model"], ["views", "--model"], ["sparql", "ASK { ?s ?p ?o }", "--record"]):
+        assert run(*cmd).returncode == 0, cmd  # `views --record` left this list in round three (L2): views reads the model graph, not the record
     r, d = _json("term", "probe", "--record")
     assert r.returncode == 2 and d["_ogc"]["command"] == "term"
 
@@ -583,3 +583,219 @@ def test_r3_finding_h1_offset_without_limit_returns_rows_from_the_offset():
     assert "(2 rows)" in r.stdout, r.stdout[-200:]
     j = run("sparql", "SELECT ?s WHERE { ?s a ogc:Ruling } OFFSET 47", "--json")
     assert j.returncode == 0 and "Traceback" not in j.stderr
+
+
+# ---------------------------------------------------------------- the third machine-user review (2026-09-06), one test each
+
+def test_r3_finding_m1_model_query_without_the_flag_is_refused_with_a_hint():
+    for q in ("SELECT ?s WHERE { ?s a sysml:PartDefinition }", "SELECT ?n WHERE { ?p sysml:declaredName ?n }", "SELECT ?s WHERE { ?s ?p ?o FILTER(STRSTARTS(STR(?s), 'https://w3id.org/og-caie/model#')) }",
+              "DESCRIBE elmt:abc", "DESCRIBE ogm:assembly", "ASK { ?s a <https://www.omg.org/spec/SysML#PartDefinition> }"):
+        r = run("sparql", q)
+        assert r.returncode == 1 and "names the model graph" in r.stderr and "add --model" in r.stderr and r.stdout == "", (q, r.stdout, r.stderr)
+        assert run("sparql", q, "--model").returncode == 0, q
+    r, d = _json("sparql", "SELECT ?s WHERE { ?s a sysml:PartDefinition }")
+    assert r.returncode == 1 and "sysml:PartDefinition" in d["hint"] and d["_ogc"]["command"] == "sparql"
+    assert run("sparql", "SELECT ?s WHERE { ?s a epo:EpoStep }").returncode == 0  # the vocabulary answers this one
+
+
+def test_r3_finding_m2_curie_prefixes_are_case_insensitive():
+    for cmd in (["term", "TERM:PROBE"], ["term", "Term:probe"], ["define", "TERM:probe"], ["record", "RUN:MISSION-1"], ["ruling", "RUL:R-16"], ["concern", "Rul:C-30"],
+                ["sci", "TR:SCI-07"], ["source", "SRC:sevocab"], ["shape", "OGC:S0-Population"], ["quote", "EPO:scope"], ["verify", "TERM:probe"], ["check-word", "TERM:probe"]):
+        r = run(*cmd)
+        assert r.returncode == 0, (cmd, r.stdout, r.stderr)
+    assert "ids are case-insensitive, the prefix too" in " ".join(run("term", "--help").stdout.split())
+
+
+def test_r3_finding_m3_r49_derives_the_renamed_headwords_and_ruling_refs_carry_labels():
+    for term in ("authorized representative", "test item provider"):
+        r, d = _json("term", term)
+        ids = [x["id"] for x in d["rulings"]]
+        assert "R-49" in ids, (term, ids)
+        assert all(x["label"] for x in d["rulings"]), d["rulings"]
+        assert "R-49 (" in run("term", term).stdout
+    r, d = _json("ruling", "R-49")
+    assert "authorized representative" in d["derived_terms"] and "test item provider" in d["derived_terms"]
+    r, d = _json("term", "statement of work")
+    assert d["rulings"] == [{"id": "R-40", "label": "the sponsor's decision to interview or represent each affected population had no item of its own"}]
+
+
+def test_r3_finding_m4_a_curie_in_the_wrong_namespace_names_the_right_reader():
+    cases = [(["term", "rul:R-16"], "ogc ruling R-16"), (["term", "rul:C-26"], "ogc concern C-26"), (["define", "epo:StakeholderRepresentation"], "ogc epo StakeholderRepresentation"),
+             (["record", "term:probe"], "ogc term probe"), (["term", "run:mission-1"], "ogc record mission-1"), (["ruling", "term:probe"], "ogc term probe"),
+             (["sci", "src:sevocab"], "ogc source sevocab"), (["source", "tr:SCI-07"], "ogc sci SCI-07"), (["shape", "epo:S3-PlanApproval"], "under ogc:, not epo:; try `ogc shape S3-PlanApproval`"),
+             (["record", "ogc:S0-Layers"], "ogc shape S0-Layers"), (["term", "xw:falsifiability"], "ogc crosswalk --popper"), (["term", "elmt:abc"], "--model sparql"),
+             (["epo", "term:probe"], "ogc term probe"), (["find", "rul:R-16"], "ogc ruling R-16"), (["check-word", "run:mission-1"], "ogc record mission-1")]
+    for cmd, reader in cases:
+        r = run(*cmd)
+        assert r.returncode == 1 and reader in r.stdout and "candidate:" not in r.stdout, (cmd, r.stdout, r.stderr)
+        r, d = _json(*cmd)
+        assert r.returncode == 1 and reader in d["hint"] and d["candidates"] == [], cmd
+    assert "rul: is a ruling or concern" in run("term", "rul:R-16").stdout
+    assert run("term", "https://w3id.org/og-caie/rulings#R-16").returncode == 1 and "ogc ruling R-16" in run("term", "https://w3id.org/og-caie/rulings#R-16").stdout
+    assert run("shape", "ogc:S3-PlanApproval").returncode == 0 and run("quote", "epo:scope").returncode == 0 and run("verify", "src:sevocab").returncode == 0
+
+
+def test_r3_finding_m5_epo_reader_and_find_indexes_the_epo_labels():
+    sys.path.insert(0, str(ROOT))
+    from ogc import cli
+    assert "epo" in cli.build_parser().command_names and "epo" in run("--help").stdout
+    for name in ("StakeholderRepresentation", "epo:EngagementDecision", "ReportApproval", "conformanceverdict", "AuthorizedRepresentativeRole", "https://w3id.org/og-caie/epo#Report", "accountExecutiveRole"):
+        r = run("epo", name)
+        assert r.returncode == 0 and r.stdout.startswith("# ogc epo "), (name, r.stdout, r.stderr)
+    r, d = _json("epo", "StakeholderRepresentation")
+    assert d["id"] == "epo:StakeholderRepresentation" and d["kind"] == "class" and d["label"].startswith("stakeholder representation")
+    assert d["superclasses"] == ["prov:Entity"] and d["pinned_at"]["id"] == "epo:evaluation" and d["pinned_at"]["label"]
+    assert d["terms"] == [{"local": "stakeholder", "headword": "stakeholder"}]
+    r, d = _json("epo", "AuthorizedRepresentativeRole")
+    assert d["kind"] == "class" and d["terms"] == [{"local": "account-executive", "headword": "authorized representative"}]
+    assert set(d["disjoint_with"]) == {"epo:DomainExpertRole", "epo:EvaluationOperatorRole"} and "epo:accountExecutiveRole" in d["instances"]
+    assert d["superclasses"] == ["epo:ActorRole"] and d["pinned_at"] is None
+    r, d = _json("epo", "accountExecutiveRole")
+    assert d["kind"] == "role" and d["types"] == ["epo:AuthorizedRepresentativeRole"]
+    r, d = _json("epo", "ReportApproval")
+    assert d["terms"] == [] and d["comment"] and any(s["id"] == "S7-ReportApproval" for s in d["shapes"]) and any(s["id"] == "S8-Delivery" for s in d["shapes"])
+    assert all({"id", "file", "where"} <= set(s) for s in d["shapes"])
+    out = run("epo", "ConformanceVerdict").stdout
+    assert "pinned at: epo:evaluation" in out and "term: conformance (conformance)" in out and "superclasses: earl:Assertion, prov:Activity" in out and "shapes mentioning it" in out
+    r = run("epo", "scope")
+    assert r.returncode == 1 and "ogc quote scope" in r.stdout
+    r, d = _json("epo", "StakeholderRepresentatio")
+    assert r.returncode == 1 and "epo:StakeholderRepresentation" in d["candidates"]
+    assert run("epo", "").returncode == 2 and run("epo", "x", "--record").returncode == 2
+    rows = _json("find", "report approval")[1]["rows"]
+    hit = next(x for x in rows if x["via"] == "epo:ReportApproval")
+    assert hit["match"] == "exact" and hit["class"] == "epo class" and hit["local"] == "epo:ReportApproval"
+    out = run("find", "report approval").stdout
+    assert "epo:ReportApproval" in out and "ogc epo" in out
+    rows = _json("find", "authorized representative")[1]["rows"]
+    assert any(x["via"] == "epo:accountExecutiveRole" and x["class"] == "epo role" for x in rows) and rows[0]["via"] != "epo:accountExecutiveRole"  # the term ranks first
+    assert any(x["via"] == "epo:Probe" and x["match"] == "exact" for x in _json("find", "probe", "--no-quotes")[1]["rows"])  # labels only still indexes the EPO
+
+
+def test_r3_finding_m7_record_lists_its_own_entity_first():
+    rows = _json("record")[1]["rows"]
+    rg = load("track/measles-run.ttl")
+    subjects = {str(s).rsplit("#", 1)[-1] for s in rg.subjects() if str(s).startswith("https://w3id.org/og-caie/run/measles#")}
+    assert {x["item"] for x in rows} == subjects
+    assert rows[0]["item"] == "record" and rows[0]["group"] == "record" and rows[0]["label"].startswith("evaluation record")
+    out = run("record").stdout.splitlines()
+    assert out[1] == "## the record (1)" and out.index("## the record (1)") < next(i for i, l in enumerate(out) if l.startswith("## items by step"))
+    assert run("record", "record").returncode == 0 and "Synthetic case" in run("record", "record").stdout
+
+
+def test_r3_finding_l1_a_record_name_in_a_comment_is_not_a_reference():
+    for q in ("# run: in a comment\nSELECT ?s WHERE { ?s a ogc:Ruling } LIMIT 1", "SELECT ?s WHERE { ?s a ogc:Ruling } # see run:mission-1\nLIMIT 1", "# ?a a epo:Attestation\nSELECT ?s WHERE { ?s a ogc:Ruling } LIMIT 1",
+              "# sysml:PartDefinition\nSELECT ?s WHERE { ?s a ogc:Ruling } LIMIT 1"):
+        r = run("sparql", q)
+        assert r.returncode == 0 and "(1 rows)" in r.stdout, (q, r.stderr)
+    r = run("sparql", 'SELECT ?s WHERE { ?s rdfs:label "#" } # run:\nLIMIT 1')
+    assert r.returncode == 0
+    assert run("sparql", "SELECT ?s WHERE { ?s ?p <https://w3id.org/og-caie/run/measles#mission-1> } # a real reference").returncode == 1
+
+
+def test_r3_finding_l2_flags_only_where_they_change_the_answer():
+    for cmd in (["view", "contracting", "--record"], ["views", "--record"], ["execute", "--record"], ["record", "--model"], ["--record", "views"]):
+        r = run(*cmd)
+        assert r.returncode == 2 and r.stdout == "" and "--model" in r.stderr and "--record" in r.stderr, (cmd, r.stdout, r.stderr)
+        r, d = _json(*cmd)
+        assert r.returncode == 2 and d["error"] == "usage"
+    for cmd in (["record", "--record"], ["execute", "--model"], ["view", "nesting", "--model"], ["views", "--model"], ["sparql", "ASK { ?s ?p ?o }", "--record", "--model"]):
+        assert run(*cmd).returncode == 0, cmd
+    skill = SKILL.read_text()
+    assert "`--model` where the model graph is read" in skill and "`--record` where the record is read" in skill
+
+
+def test_r3_finding_l3_a_mutation_named_twice_is_a_usage_error():
+    r = run("execute", "--mutate", "skip-approval", "--mutate", "skip-approval")
+    assert r.returncode == 2 and "mutation named twice: skip-approval" in r.stderr and r.stdout == ""
+    r = run("execute", "--mutate", "skip-approval", "--mutate", "Skip-Approval")
+    assert r.returncode == 2 and "mutation named twice: skip-approval" in r.stderr
+    r, d = _json("execute", "--mutate", "skip-access", "--mutate", "skip-access")
+    assert r.returncode == 2 and d["error"] == "usage" and "skip-access" in d["hint"]
+    assert run("execute", "--mutate", "skip-approval", "--mutate", "skip-access").returncode == 1
+
+
+def test_r3_finding_l4_the_skill_names_every_mutation_the_executor_has():
+    sys.path.insert(0, str(ROOT))
+    from ogc import executor
+    skill = SKILL.read_text()
+    n = len(executor.MUTATIONS)
+    assert f"The {NUMBER_WORDS[n]} mutations of `execute`" in skill and "eight mutations" not in skill
+    for m in executor.MUTATIONS:
+        assert f"`{m}`" in skill, m
+    help_ = run("execute", "--help").stdout
+    for m in executor.MUTATIONS:
+        assert m in help_, m
+
+
+def test_r3_finding_l5_a_stray_argument_is_kept_apart_from_the_query():
+    q = "SELECT ?s WHERE { ?s a ogc:Ruling }"
+    r, d = _json("sparql", q, "extra")
+    assert r.returncode == 2 and d["error"] == "usage" and d["_ogc"]["args"] == q and "extra" in d["hint"] and "extra" not in d["_ogc"]["args"]
+    r, d = _json("term", "probe", "probe")
+    assert r.returncode == 2 and d["_ogc"]["args"] == "probe"
+    r, d = _json("term", "probe", "--bogus")
+    assert r.returncode == 2 and d["_ogc"]["args"] == "probe" and "--bogus" in d["hint"]
+
+
+def test_r3_finding_l6_a_bare_at_is_a_usage_error_not_the_working_directory():
+    for f in ("@", "@ ", "@  "):
+        r = run("sparql", f)
+        assert r.returncode == 2 and "no path after @" in r.stderr and "directory" not in r.stderr, (f, r.stderr)
+    r, d = _json("sparql", "@")
+    assert r.returncode == 2 and "no path after @" in d["hint"]
+    r = run("sparql", "@.")
+    assert r.returncode == 2 and "query file is a directory" in r.stderr
+
+
+def test_r3_finding_l7_an_empty_root_is_a_usage_error():
+    for cmd in (["--root", "", "term", "probe"], ["term", "probe", "--root", ""], ["--root=", "term", "probe"], ["--root", "  ", "schema"]):
+        r = run(*cmd)
+        assert r.returncode == 2 and "--root" in r.stderr and r.stdout == "", (cmd, r.stdout, r.stderr)
+        r, d = _json(*cmd)
+        assert r.returncode == 2 and d["error"] == "usage" and "--root" in d["hint"], cmd
+    assert run("--root", "/nonexistent/path", "term", "probe").returncode == 2
+
+
+def test_r3_finding_l8_the_header_is_the_canonical_form_of_the_invocation():
+    a, b = run("sparql", "ASK { ?s ?p ?o }", "--record", "--model"), run("--model", "--record", "sparql", "ASK { ?s ?p ?o }")
+    assert a.stdout.splitlines()[0] == b.stdout.splitlines()[0] and "--model --record" in a.stdout.splitlines()[0]
+    help_ = " ".join(run("--help").stdout.split())
+    assert "canonical form" in help_ and "canonical form" in " ".join(SKILL.read_text().split())
+
+
+def test_r3_finding_l9_who_and_when_derive_through_the_generating_activity():
+    r, d = _json("record", "report")
+    assert d["who"] == ["report assembler (queries/coverage.rq)"] and d["when"] == "2026-08-12" and d["via"] == "coverage-computation"
+    out = run("record", "report").stdout
+    assert "who: report assembler (queries/coverage.rq)   when: 2026-08-12   (via coverage-computation)" in out
+    rows = {x["item"]: x for x in _json("record")[1]["rows"]}
+    assert rows["probe-1"]["who"] == ["test driver"] and rows["probe-1"]["when"] == "2026-08-03" and rows["probe-1"]["via"] == "derivation-1"
+    assert rows["report"]["who"] == ["report assembler (queries/coverage.rq)"] and rows["report"]["via"] == "coverage-computation"
+    assert rows["attestation-1"]["via"] is None and rows["test-plan"]["via"] is None  # attributed directly
+    assert rows["turn-1"]["who"] is None and rows["annie"]["when"] is None  # nothing to derive from
+    listing = run("record").stdout
+    assert re.search(r"^probe-1\s+Probe\s+test driver \(via derivation-1\)\s+2026-08-03$", listing, re.M), listing
+    assert re.search(r"^report\s+Report\s+report assembler \(queries/coverage.rq\) \(via coverage-computation\)\s+2026-08-12$", listing, re.M)
+
+
+def test_r3_finding_l10_long_inputs_are_truncated_in_the_error_line():
+    long = "a" * 5000
+    r = run("term", long)
+    head, err = r.stdout.splitlines()[0], r.stdout.splitlines()[1]
+    assert r.returncode == 1 and long in head and long not in err and "..." in err and len(err) < 300, err
+    r, d = _json("term", long)
+    assert d["_ogc"]["args"] == long and long not in d["error"] and "..." in d["error"]
+    r = run("record", long)
+    assert long not in r.stdout.splitlines()[1] and "..." in r.stdout.splitlines()[1]
+    r = run("term", "probe")
+    assert "..." not in r.stdout.splitlines()[0]
+
+
+def test_r3_skill_corrections():
+    body = " ".join(SKILL.read_text().split("\n---\n", 1)[1].split())  # whitespace collapsed: the needles may straddle a line wrap
+    for needle in ("`ogc epo", "term labels and quotes and EPO class labels", "nothing else", "rulings/sheets/", "provenance the tool does not read", "sheet 10-40", "works cited",
+                   "`mutations`, `params`, `conforms`, `fired`, `missing`, `coverage`", "`term`, `definition`, `class`, `canonical`, `coined_by`, `status`, `resolved`",
+                   "`group`", "`via`", "`triples`, `referenced_by`", "`name`, `title`, `focus`, `leaves_out`, `mermaid`", "## the record", "## items by step", "## items without a step", "## parties and machines",
+                   "canonical form"):
+        assert needle in body, needle

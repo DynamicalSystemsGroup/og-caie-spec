@@ -15,6 +15,11 @@ def clip(s: str, n: int = CLIP) -> str:
     return s if WIDE or len(s) <= n else s[: n - 1] + "…"
 
 
+def short(s: str, n: int = CLIP) -> str:
+    """At most n characters, ending in three dots when cut: the echo of an argument in an error line (round three, L10)."""
+    return s if len(s) <= n else s[: n - 3] + "..."
+
+
 def cell(v) -> str:
     if v is None:
         return ""

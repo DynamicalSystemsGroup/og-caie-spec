@@ -42,22 +42,38 @@ def local(iri) -> str:
 _CURIE = re.compile(r"([A-Za-z_][\w.-]*):(\S+)")
 
 
-def bare(text: str) -> str:
-    """The local name behind the id forms the tool itself prints: a CURIE in a
-    known prefix (`term:probe`, `rul:R-16`, `run:mission-1`, `ogc:S0-Layers`)
-    or a full IRI in a known namespace, with or without angle brackets. Any
-    other text (a label, even one with a colon inside it) comes back
-    normalised and otherwise untouched."""
+def _split_id(text: str) -> tuple[str | None, str]:
+    """(prefix, local): the known prefix an id is under and the local name
+    behind it. A CURIE's prefix is taken in any case and lowercased (round
+    three, M2: the help promises case-insensitive ids); a full IRI in a known
+    namespace, with or without angle brackets, gives that namespace's prefix.
+    Any other text (a label, even one with a colon inside it) gives (None,
+    the text normalised)."""
     s = norm(text)
     if s.startswith("<") and s.endswith(">"):
         s = s[1:-1].strip()
     m = _CURIE.fullmatch(s)
-    if m and m.group(1) in PREFIXES:
-        return m.group(2)
-    for ns in sorted((str(v) for v in PREFIXES.values()), key=len, reverse=True):
+    if m and m.group(1).lower() in PREFIXES:
+        return m.group(1).lower(), m.group(2)
+    for k, ns in sorted(PREFIXES.items(), key=lambda kv: -len(str(kv[1]))):
+        ns = str(ns)
         if s.startswith(ns) and len(s) > len(ns):
-            return s[len(ns):]
-    return s
+            return k, s[len(ns):]
+    return None, s
+
+
+def bare(text: str) -> str:
+    """The local name behind the id forms the tool itself prints: a CURIE in a
+    known prefix (`term:probe`, `rul:R-16`, `run:mission-1`, `ogc:S0-Layers`;
+    the prefix in any case) or a full IRI in a known namespace, with or
+    without angle brackets. Any other text (a label, even one with a colon
+    inside it) comes back normalised and otherwise untouched."""
+    return _split_id(text)[1]
+
+
+def prefix_of(text: str) -> str | None:
+    """The known prefix a CURIE or IRI is under (lowercased), None for a label or a bare local name (round three, M4)."""
+    return _split_id(text)[0]
 
 
 def _tokens(s: str) -> set[str]:
@@ -115,9 +131,7 @@ def cite_status(g: Graph, c) -> str:
 
 
 def term_record(g: Graph, s) -> dict:
-    rulings = []
-    for r in sorted(g.objects(s, PROV.wasDerivedFrom), key=str):
-        rulings.append(dict(id=local(r), label=one(g, r, RDFS.label)))
+    rulings = [dict(id=local(r), label=ruling_label(g, r)) for r in sorted(g.objects(s, PROV.wasDerivedFrom), key=str)]
     concerns = sorted((dict(id=local(c), status=one(g, c, OGC.status), label=one(g, c, RDFS.label)) for c in g.subjects(OGC.concernsTerm, s)), key=lambda d: d["id"])
     sci = sorted(local(t) for t in g.subjects(OGC.usesTerm, s))
     xw = sorted(one(g, x, RDFS.label) for x in g.subjects(OGC.mapsTo, s))
@@ -127,6 +141,18 @@ def term_record(g: Graph, s) -> dict:
                 canonical=citation_record(g, canon) if canon is not None else {}, coined_by=one(g, s, OGC.coinedBy), see_also=sorted((citation_record(g, c) for c in g.objects(s, OGC.seeAlso)), key=lambda d: (d["source"], d["locator"])),
                 scope_note=norm(one(g, s, OGC.scopeNote)), binding=one(g, s, OGC.binding), rulings=rulings, concerns=concerns, sci=sci, crosswalk=xw,
                 **relations(g, s))
+
+
+def ruling_label(g: Graph, r) -> str:
+    """What a ruling is about, for a reference to it: the labels of the
+    concerns it resolves, joined as the rulings log joins them; failing those,
+    the first words of its formal text (round three, M3: a bare `R-49` told
+    the reader nothing)."""
+    labels = sorted(l for l in (one(g, c, RDFS.label) for c in g.objects(r, OGC.resolves)) if l)
+    if labels:
+        return " / ".join(labels)
+    words = norm(one(g, r, OGC.rulingText)).split()
+    return " ".join(words[:8]) + (" ..." if len(words) > 8 else "")
 
 
 MATCHES = (SKOS.exactMatch, SKOS.closeMatch, SKOS.broadMatch, SKOS.relatedMatch)
@@ -174,15 +200,19 @@ def resolve_term(g: Graph, text: str):
 
 
 def find(g: Graph, text: str, quotes: bool = True) -> list[dict]:
-    """Exact, then prefix, then substring over prefLabel and altLabel, then over quote text."""
+    """Exact, then prefix, then substring over prefLabel and altLabel, then
+    over quote text, then over the EPO's class and role labels (round three,
+    M5; a hit there says `via epo:<Name>` and is read by `ogc epo`). Nothing
+    else is indexed: not the rulings, the concerns, the sources or the record."""
     key = norm(text).lower()
     hits = {}
 
-    def put(t, rank, kpri, via):
+    def put(t, rank, kpri, via, **row):
         cur = hits.get(t)
         if cur is None or (rank, kpri) < (cur["rank"], cur["kpri"]):
-            hits[t] = dict(rank=rank, kpri=kpri, match=["exact", "prefix", "substring"][rank], via=via, pref=one(g, t, SKOS.prefLabel),
-                           local=local(t), **{"class": one(g, t, OGC["class"])}, source=local(g.value(g.value(t, OGC.canonical), OGC.cites)) if g.value(t, OGC.canonical) is not None else "")
+            hits[t] = dict(rank=rank, kpri=kpri, match=["exact", "prefix", "substring"][rank], via=via, **(row or dict(
+                pref=one(g, t, SKOS.prefLabel), local=local(t), **{"class": one(g, t, OGC["class"])},
+                source=local(g.value(g.value(t, OGC.canonical), OGC.cites)) if g.value(t, OGC.canonical) is not None else "")))
 
     def rank_of(l):
         return 0 if l == key else 1 if l.startswith(key) else 2 if key in l else None
@@ -201,6 +231,14 @@ def find(g: Graph, text: str, quotes: bool = True) -> list[dict]:
                 q = norm(one(g, c, OGC.quote)).lower()
                 if q and key in q:
                     put(t, 2, 2, f"quote:{local(g.value(c, OGC.cites))}")
+    for c, kind in epo_nodes(g):  # the EPO's labels: exact and prefix on the head before the colon, substring over the whole label
+        label = norm(one(g, c, RDFS.label))
+        head = label.split(":", 1)[0].strip().lower()
+        r = rank_of(head)
+        if r is None and key in label.lower():
+            r = 2
+        if r is not None:
+            put(c, r, 3, f"epo:{local(c)}", pref=head, local=f"epo:{local(c)}", **{"class": f"epo {kind}"}, source="")
     out = sorted(hits.values(), key=lambda d: (d["rank"], d["kpri"], d["pref"].lower()))
     for d in out:
         d.pop("kpri", None)
@@ -677,6 +715,87 @@ def shape_record(root: Path, sid: str) -> dict | None:
                 closed=one(g, hit, SH.closed) or None, properties=props, sparql=sparql)
 
 
+# ---------------------------------------------------------------- the EPO's classes and roles (round three, M5)
+
+OWL = URIRef("http://www.w3.org/2002/07/owl#")
+
+
+def _is_subclass(g: Graph, c, sup, seen=None) -> bool:
+    seen = seen or set()
+    if c == sup:
+        return True
+    for x in g.objects(c, RDFS.subClassOf):
+        if x not in seen:
+            seen.add(x)
+            if _is_subclass(g, x, sup, seen):
+                return True
+    return False
+
+
+def epo_nodes(g: Graph) -> list[tuple]:
+    """(node, kind) for what `ogc epo` reads: every `owl:Class` in the epo:
+    namespace (kind `class`) and every individual typed by a role class
+    (kind `role`, the role handles the record's agents fill). The steps are
+    left out: `ogc quote`, `ogc verify` and `ogc steps` read them."""
+    classes = {c for c in g.subjects(RDF.type, URIRef(str(OWL) + "Class")) if str(c).startswith(str(EPO))}
+    out = [(c, "class") for c in classes]
+    for c in classes:
+        if _is_subclass(g, c, EPO.Role):
+            out += [(i, "role") for i in g.subjects(RDF.type, c) if str(i).startswith(str(EPO)) and i not in classes]
+    return sorted(set(out), key=lambda x: str(x[0]))
+
+
+def resolve_epo(g: Graph, name: str):
+    """(node, kind, candidates): the EPO class or role whose local name is `name`, case-insensitive; else (None, None, near misses)."""
+    key = norm(name).lower()
+    nodes = epo_nodes(g)
+    hit = next(((n, k) for n, k in nodes if local(n).lower() == key), None)
+    if hit is not None:
+        return hit[0], hit[1], []
+    return None, None, [f"epo:{c}" for c in near(key, [local(n) for n, _ in nodes])]
+
+
+def _mentions(text: str, curie: str, iri: str) -> bool:
+    return bool(re.search(r"(?<![\w:])" + re.escape(curie) + r"(?![\w-])", text)) or iri in text
+
+
+def epo_record(g: Graph, root: Path, node, kind: str) -> dict:
+    """One EPO class or role: label, comment, superclasses (a role's types),
+    subclasses and instances, the layer it is pinned at, the terms it names
+    (with their headwords), the disjointness axioms in either direction, and
+    the node shapes whose targets, property paths or SPARQL bodies mention it
+    (the shapes' text searched for the CURIE and the IRI)."""
+    curie, iri = f"epo:{local(node)}", str(node)
+    pinned = g.value(node, OGC.pinnedAt)
+    sg, where = shapes_graph(root)
+    shapes = []
+    for s in sorted(where, key=str):
+        found = []
+        if any(_mentions(t, curie, iri) for t in _shape_targets(sg, s)) or any(_mentions(qname(sg, x), curie, iri) for t in sg.objects(s, SH.target) for x in [t]):
+            found.append("target")
+        props = []
+        for p in sg.objects(s, SH.property):
+            props.append(path_text(sg, sg.value(p, SH.path)))
+            props += [qname(sg, sg.value(p, k)) for k in (SH["class"], SH.hasValue) if sg.value(p, k) is not None]
+            props += [qname(sg, x) for x in rdf_list(sg, sg.value(p, SH["in"])) if isinstance(x, URIRef)]
+        if any(_mentions(t, curie, iri) for t in props):
+            found.append("property")
+        bodies = [one(sg, x, SH.select) for x in sg.objects(s, SH.sparql)] + [one(sg, t, SH.select) for t in sg.objects(s, SH.target)]
+        if any(_mentions(b, curie, iri) for b in bodies):
+            found.append("sparql")
+        if found:
+            shapes.append(dict(id=local(s), file=where[s], where=", ".join(found)))
+    return dict(id=curie, iri=iri, kind=kind, label=norm(one(g, node, RDFS.label)), comment=norm(one(g, node, RDFS.comment)) or None,
+                superclasses=sorted(qname(g, x) for x in g.objects(node, RDFS.subClassOf)) if kind == "class" else [],
+                types=sorted(qname(g, x) for x in g.objects(node, RDF.type)) if kind == "role" else [],
+                subclasses=sorted(qname(g, x) for x in g.subjects(RDFS.subClassOf, node)),
+                instances=sorted(qname(g, x) for x in g.subjects(RDF.type, node) if isinstance(x, URIRef)) if kind == "class" else [],
+                pinned_at=dict(id=qname(g, pinned), label=norm(one(g, pinned, RDFS.label))) if pinned is not None else None,
+                terms=sorted((dict(local=local(t), headword=one(g, t, SKOS.prefLabel)) for t in g.objects(node, OGC["term"])), key=lambda d: d["local"]),
+                disjoint_with=sorted({qname(g, x) for x in g.objects(node, URIRef(str(OWL) + "disjointWith"))} | {qname(g, x) for x in g.subjects(URIRef(str(OWL) + "disjointWith"), node)}),
+                shapes=shapes)
+
+
 # ---------------------------------------------------------------- blank nodes
 
 def bnode_labels(g: Graph, rounds: int = 3) -> dict:
@@ -746,27 +865,46 @@ def _who(g: Graph, n) -> list[str] | None:
     return sorted({_label(g, o) or local(o) for p in WHO for o in g.objects(n, p)}) or None
 
 
-def _when(g: Graph, n) -> str | None:
-    """The item's date (generated, started or ended at); None when the record carries none."""
-    for p in WHEN:
+def _when(g: Graph, n, preds=WHEN) -> str | None:
+    """The item's date (generated, started or ended at, in that order); None when the record carries none."""
+    for p in preds:
         v = g.value(n, p)
         if v is not None:
             return str(v)[:10]
     return None
 
 
+def attribution(g: Graph, n) -> dict:
+    """`who`, `when` and `via`: the item's own attribution and date, or, when
+    it carries none, the agent and the end time of the activity that
+    generated it (`prov:wasGeneratedBy`), named in `via` (round three, L9:
+    the report is generated by the coverage computation, which the report
+    assembler performed and ended at a time). `via` is None when nothing
+    was derived."""
+    who, when, via = _who(g, n), _when(g, n), None
+    if who is None or when is None:
+        act = next(iter(sorted(g.objects(n, PROV.wasGeneratedBy), key=str)), None)
+        if act is not None:
+            d_who = _who(g, act) if who is None else None
+            d_when = _when(g, act, [PROV.endedAtTime, PROV.generatedAtTime, PROV.startedAtTime]) if when is None else None
+            if d_who or d_when:
+                who, when, via = who or d_who, when or d_when, local(act)
+    return dict(who=who, when=when, via=via)
+
+
 def record_rows(g: Graph) -> list[dict]:
-    """One row per item of the record: the stepped items in step order (group
-    `step`), then the items without a step (`no-step`), then the parties and
-    machines (`party`). The record entity itself is left out."""
+    """One row per subject of the record: the record's own entity first
+    (group `record`; round three, M7), then the stepped items in step order
+    (`step`), then the items without a step (`no-step`), then the parties and
+    machines (`party`)."""
     heads = step_heads(g)
-    stepped, unstepped, parties = [], [], []
+    entity, stepped, unstepped, parties = [], [], [], []
     for n in record_subjects(g):
-        if set(g.objects(n, RDF.type)) == {PROV.Entity}:
-            continue  # run:record, the record's own entity, is not an item of it
-        row = dict(item=local(n), iri=str(n), **{"class": ", ".join(_classes(g, n))}, label=one(g, n, RDFS.label) or one(g, n, EPO.text), who=_who(g, n), when=_when(g, n))
+        row = dict(item=local(n), iri=str(n), **{"class": ", ".join(_classes(g, n))}, label=one(g, n, RDFS.label) or one(g, n, EPO.text), **attribution(g, n))
         st = g.value(n, EPO.step)
-        if (n, RDF.type, PROV.Agent) in g:
+        if set(g.objects(n, RDF.type)) == {PROV.Entity}:
+            entity.append(dict(group="record", step="", order=0, **row))  # run:record, the record's own entity
+        elif (n, RDF.type, PROV.Agent) in g:
             parties.append(dict(group="party", step="", order=0, **row))
         elif st is not None and str(st) in heads:
             order, head = heads[str(st)]
@@ -776,7 +914,7 @@ def record_rows(g: Graph) -> list[dict]:
     stepped.sort(key=lambda r: (r["order"], r["when"] or "", r["item"]))
     unstepped.sort(key=lambda r: (r["class"], r["item"]))
     parties.sort(key=lambda r: r["item"])
-    return stepped + unstepped + parties
+    return entity + stepped + unstepped + parties
 
 
 def resolve_record_item(g: Graph, name: str):
@@ -793,7 +931,9 @@ def record_item(g: Graph, n) -> dict:
     """Everything the record says about one item: every triple with it as
     subject (`triples`; a blank node's own triples inline, as `[ p o ; ... ]`),
     each object's label where it has one, and the triples that point at it
-    (`referenced_by`); `who` and `when` are None when the record carries none."""
+    (`referenced_by`); `who` and `when` are None when the record carries none
+    and nothing can be derived through `prov:wasGeneratedBy` (then `via` names
+    the generating activity)."""
     def render(o):
         if isinstance(o, BNode):
             inner = sorted((qname(g, p), render(x)) for p, x in g.predicate_objects(o))
@@ -806,4 +946,4 @@ def record_item(g: Graph, n) -> dict:
     heads = step_heads(g)
     st = g.value(n, EPO.step)
     return dict(item=local(n), iri=str(n), label=one(g, n, RDFS.label) or one(g, n, EPO.text), **{"class": ", ".join(_classes(g, n))},
-                step=heads[str(st)][1] if st is not None and str(st) in heads else "", who=_who(g, n), when=_when(g, n), triples=out, referenced_by=inn)
+                step=heads[str(st)][1] if st is not None and str(st) in heads else "", **attribution(g, n), triples=out, referenced_by=inn)

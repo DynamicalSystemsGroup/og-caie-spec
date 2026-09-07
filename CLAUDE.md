@@ -111,7 +111,7 @@ authors' earlier glossary work.
 
 ## Ask the graph, never grep it
 
-- `uv run -q ogc <command>` (schema, find, term, define, quote, verify,
+- `uv run -q ogc <command>` (schema, find, term, define, epo, quote, verify,
   list, source, sources, ruling, rulings, concern, concerns, sci, crosswalk,
   check-word, sparql, doctor) is the reader of the vocabulary, sources,
   rulings and essentials; the skill `.claude/skills/ogc-glossary/SKILL.md`
