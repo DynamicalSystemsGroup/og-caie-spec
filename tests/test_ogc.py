@@ -406,7 +406,7 @@ def test_r2_finding_06_sparql_header_is_re_runnable():
     assert r.returncode == 0 and "# the coined terms\\nSELECT" in head, head
     m = re.fullmatch(r"# ogc sparql (.*) #sha256:([0-9a-f]{12}) @ \S+", head)
     assert m and m.group(2) == hashlib.sha256(q.encode()).hexdigest()[:12]
-    again = run("sparql", m.group(1).replace("\\n", "\n"))
+    again = run("sparql", shlex.split(m.group(1))[0].replace("\\n", "\n"))  # the header is shell-quoted since round four (M4): split it as a shell would, then unescape
     assert again.stdout.splitlines()[1:] == r.stdout.splitlines()[1:] and "(4 rows)" in again.stdout
     assert json.loads(run("sparql", q, "--json").stdout)["_ogc"]["args"] == head[len("# ogc sparql "):].rsplit(" @ ", 1)[0]
     f = ROOT / ".cache" / "r2-finding-06.rq"
@@ -737,7 +737,7 @@ def test_r3_finding_l4_the_skill_names_every_mutation_the_executor_has():
 def test_r3_finding_l5_a_stray_argument_is_kept_apart_from_the_query():
     q = "SELECT ?s WHERE { ?s a ogc:Ruling }"
     r, d = _json("sparql", q, "extra")
-    assert r.returncode == 2 and d["error"] == "usage" and d["_ogc"]["args"] == q and "extra" in d["hint"] and "extra" not in d["_ogc"]["args"]
+    assert r.returncode == 2 and d["error"] == "usage" and d["_ogc"]["args"] == shlex.quote(q) and "extra" in d["hint"] and "extra" not in d["_ogc"]["args"]  # quoted since round four (M4)
     r, d = _json("term", "probe", "probe")
     assert r.returncode == 2 and d["_ogc"]["args"] == "probe"
     r, d = _json("term", "probe", "--bogus")
@@ -805,4 +805,280 @@ def test_r3_skill_corrections():
                    "`mutations`, `params`, `conforms`, `fired`, `missing`, `coverage`", "`term`, `definition`, `class`, `canonical`, `coined_by`, `status`, `resolved`",
                    "`group`", "`via`", "`triples`, `referenced_by`", "`name`, `title`, `focus`, `leaves_out`, `mermaid`", "## the record", "## items by step", "## items without a step", "## parties and machines",
                    "canonical form"):
+        assert needle in body, needle
+
+
+# ---------------------------------------------------------------- the fourth machine-user review (2026-09-07), one test each
+
+import os  # noqa: E402
+import shlex  # noqa: E402
+
+
+def _seeded(seed: int, *cmd):
+    """The tool in a subprocess under one PYTHONHASHSEED: what a set's iteration order could leak into (round four, H1)."""
+    return subprocess.run([sys.executable, "-m", "ogc", "--no-cache", *cmd], cwd=ROOT, capture_output=True, text=True, env=dict(os.environ, PYTHONHASHSEED=str(seed)))
+
+
+def _head_args(out: str) -> list[str]:
+    """The header line after `# `, without the commit stamp, split as a shell would."""
+    return shlex.split(out.splitlines()[0][2:].rsplit(" @ ", 1)[0])
+
+
+def test_r4_finding_h1_select_star_projects_in_query_order_under_any_hash_seed():
+    q = 'SELECT * WHERE { ?t a skos:Concept ; ogc:class ?c ; skos:prefLabel ?l ; ogc:anchorRelation ?r } LIMIT 2'
+    outs = [_seeded(s, "sparql", q).stdout for s in (1, 2, 3)]
+    assert outs[0] == outs[1] == outs[2]
+    assert outs[0].splitlines()[1].split() == ["t", "c", "l", "r"]  # the variables in the order the query names them
+    js = [_seeded(s, "sparql", q, "--json").stdout for s in (1, 2, 3)]
+    assert js[0] == js[1] == js[2] and list(json.loads(js[0])["rows"][0]) == ["t", "c", "l", "r"]
+    assert json.loads(run("sparql", "SELECT ?l ?t WHERE { ?t a skos:Concept ; skos:prefLabel ?l } LIMIT 1", "--json").stdout)["rows"][0].keys() == {"l", "t"}
+    assert run("sparql", "SELECT ?l ?t WHERE { ?t a skos:Concept ; skos:prefLabel ?l } LIMIT 1").stdout.splitlines()[1].split() == ["l", "t"]  # an explicit projection keeps its order
+
+
+def test_r4_finding_h2_an_argument_equal_to_the_command_name_survives_canonicalisation():
+    r = run("record", "record")
+    assert r.returncode == 0 and r.stdout.splitlines()[0].startswith("# ogc record record @") and "## record" in r.stdout
+    assert json.loads(run("record", "record", "--json").stdout)["_ogc"]["args"] == "record"
+    assert run("term", "term").stdout.splitlines()[0].startswith("# ogc term term @")
+    assert run("find", "record").stdout.splitlines()[0].startswith("# ogc find record @")
+    assert run("--no-cache", "record", "record").stdout.splitlines()[0].startswith("# ogc record record @")
+
+
+def test_r4_finding_h3_the_derived_step_is_ogc_derived_step_and_describe_agrees_with_record():
+    from ogc.graph import OGC as OGC_NS, load as load_all
+    rg = load_all(ROOT, record=True, cache=False)
+    assert not list(rg.subject_objects(EPO.step)) and len(list(rg.subject_objects(OGC_NS.derivedStep))) > 20  # the step is derived in memory under its own name
+    assert (OGC_NS.derivedStep, RDF.type, None) in rg and rg.value(OGC_NS.derivedStep, __import__("rdflib").RDFS.comment)  # declared where the tool loads it
+    described = run("sparql", "DESCRIBE ev:mission-1", "--record").stdout
+    assert "ogc:derivedStep epo:need" in described and "epo:step" not in described
+    r, d = _json("record", "mission-1")
+    assert d["step"] == "C1 need" and any(t["predicate"] == "ogc:derivedStep" and t["object"] == "epo:need" and t["label"] == "C1 need" for t in d["triples"])
+    out = run("record", "mission-1").stdout
+    assert "derived step C1 need (ogc:derivedStep)" in out.splitlines()[1] and "ogc:derivedStep epo:need  (C1 need)" in out
+    assert "(derived)" not in run("record", "annie").stdout.splitlines()[1]
+    r = run("sparql", "SELECT ?s WHERE { ?s ogc:derivedStep ?st }")
+    assert r.returncode == 1 and "add --record" in r.stderr  # a predicate that exists only with the record loaded
+    assert "(1 rows)" in run("sparql", "SELECT ?st WHERE { ev:mission-1 ogc:derivedStep ?st }", "--record").stdout
+    skill = SKILL.read_text()
+    assert "`ogc:derivedStep`" in skill and "vocabulary/derived.ttl" in skill and "no record file carries `epo:step`" in " ".join(skill.split())
+
+
+def test_r4_finding_m1_a_record_only_predicate_or_class_is_refused_without_the_flag():
+    for q in ("SELECT ?s WHERE { ?s epo:fitness ?o }", "SELECT ?s WHERE { ?s a prov:Bundle }", "SELECT ?s WHERE { ?s ogc:inRecord ?r }", "SELECT ?s WHERE { ?s ogc:synthetic true }",
+              "SELECT ?s WHERE { ?s earl:assertedBy ?a }", "SELECT ?s WHERE { ?s a prov:Organization }", "SELECT ?s WHERE { ?s epo:role ?r }",
+              "ASK { ?s <https://w3id.org/og-caie/epo#fitness> ?o }", "SELECT ?s WHERE { ?s rdf:type/rdfs:subClassOf* epo:Attestation }", "SELECT ?s WHERE { ?s epo:approvedBy|epo:signedBy ?who }"):
+        r = run("sparql", q)
+        assert r.returncode == 1 and "only in the record" in r.stderr and "add --record" in r.stderr and r.stdout == "", (q, r.stdout, r.stderr)
+        assert run("sparql", q, "--record").returncode == 0, q
+    for q in ("SELECT ?s WHERE { ?s ogc:canonical ?c }", "DESCRIBE epo:fitness", "SELECT ?p WHERE { epo:fitness ?p ?o }", "SELECT ?s WHERE { ?s a owl:Class } LIMIT 1", "# ?s epo:fitness ?o\nASK { ?s a ogc:Ruling }"):
+        assert run("sparql", q).returncode == 0, q  # the vocabulary answers these: a declaration as a subject is not a use, and a comment is not a reference
+    r, d = _json("sparql", "SELECT ?s WHERE { ?s epo:fitness ?o }")
+    assert r.returncode == 1 and "epo:fitness" in d["hint"] and d["error"] == "refused"
+
+
+def test_r4_finding_m2_bibkey_is_readable():
+    r, d = _json("source", "sevocab")
+    assert d["bibkey"] == "sevocab" and re.search(r"^bibkey: sevocab$", run("source", "sevocab").stdout, re.M)
+    rows = _json("sources")[1]["rows"]
+    assert rows and all(x["bibkey"] for x in rows) and next(x for x in rows if x["slug"] == "sevocab")["bibkey"] == "sevocab"
+    assert re.search(r"^slug\s+rank\s+posture\s+kind\s+bibkey\s+citations\s+snapshots\s+label", run("sources").stdout, re.M)
+    assert "bibkey" in SKILL.read_text() and "BibTeX" in SKILL.read_text()
+
+
+def test_r4_finding_m3_one_rule_for_an_epo_curie_in_term_define_and_quote():
+    for c in ("term", "define", "quote"):
+        r, d = _json(c, "epo:Probe")  # the class names the term probe by ogc:term
+        assert r.returncode == 0 and d["resolved"]["via"] == "epo:Probe", (c, d)
+        assert "resolved via epo:Probe" in run(c, "epo:Probe").stdout.splitlines()[1:3], c
+        r, d = _json(c, "EPO:StakeholderRepresentation")
+        assert r.returncode == 0 and d["resolved"]["via"] == "epo:StakeholderRepresentation", c
+        r, d = _json(c, "epo:ReportApproval")  # names no term
+        assert r.returncode == 1 and "names no term" in d["hint"] and "ogc epo ReportApproval" in d["hint"] and d["candidates"] == [], (c, d)
+        r, d = _json(c, "epo:NoSuchClass")
+        assert r.returncode == 1 and "ogc epo NoSuchClass" in d["hint"], c
+        assert "resolved via" not in run(c, "probe").stdout
+    assert _json("quote", "epo:scope")[1]["step"] == "1 scope"  # a step stays a step under quote
+    for c in ("term", "define"):
+        r = run(c, "epo:scope")
+        assert r.returncode == 1 and "ogc quote scope" in r.stdout, c
+    assert _json("term", "epo:Probe")[1]["local"] == "probe" and _json("define", "epo:Probe")[1]["term"] == "probe"
+
+
+def test_r4_finding_m4_arguments_with_whitespace_are_shell_quoted_in_the_header():
+    r = run("check-word", "system under test")
+    assert r.stdout.splitlines()[0].startswith("# ogc check-word 'system under test' @") and _head_args(r.stdout) == ["ogc", "check-word", "system under test"]
+    assert json.loads(run("check-word", "system under test", "--json").stdout)["_ogc"]["args"] == "'system under test'"
+    assert "'" not in run("term", "probe").stdout.splitlines()[0] and _head_args(run("list", "--class", "coined").stdout) == ["ogc", "list", "--class", "coined"]
+    q = "SELECT ?s WHERE { ?s a ogc:Ruling } LIMIT 1"
+    head = run("sparql", q).stdout.splitlines()[0]
+    m = re.fullmatch(r"# ogc sparql (.*) #sha256:[0-9a-f]{12} @ \S+", head)
+    assert shlex.split(m.group(1)) == [q]
+    assert _head_args(run("term", "it's").stdout) == ["ogc", "term", "it's"]  # an embedded quote survives
+    assert _head_args(run("term", "quoted \"word\"").stdout) == ["ogc", "term", 'quoted "word"']
+    assert "shell-quoted" in " ".join(SKILL.read_text().split())
+
+
+def test_r4_finding_m5_a_shape_names_the_executor_mutations_that_fire_it():
+    from ogc import executor
+    from test_executor import EXPECTED  # test_executor asserts the same map against the demonstration itself
+    assert executor.MUTATION_SHAPES == {m: e["fired"] for m, e in EXPECTED.items()}
+    assert set(executor.MUTATION_SHAPES) == set(executor.MUTATIONS)
+    r, d = _json("shape", "S6-Attestation")
+    assert d["counterexamples"] == ["attest-without-determination", "cherry-pick", "executive-attests", "unwire-evidence"]
+    assert "counterexamples (executor mutations): attest-without-determination, cherry-pick, executive-attests, unwire-evidence" in run("shape", "S6-Attestation").stdout
+    assert _json("shape", "S3-PlanApproval")[1]["counterexamples"] == [] and "counterexamples (executor mutations): (none)" in run("shape", "S3-PlanApproval").stdout
+    assert _json("shape", "S0-Layers")[1]["counterexamples"] == ["requirements-before-agreement"]
+    assert "counterexamples (executor mutations)" in SKILL.read_text()
+
+
+def test_r4_finding_m6_value_individuals_are_read_by_epo_and_indexed_by_find():
+    for name in ("fitWithConditions", "person", "department", "organization", "insufficient", "sufficient", "appropriate", "inappropriate", "interview", "representation", "epo:fitWithConditions", "FITWITHCONDITIONS"):
+        r = run("epo", name)
+        assert r.returncode == 0 and r.stdout.startswith("# ogc epo "), (name, r.stdout, r.stderr)
+    r, d = _json("epo", "fitWithConditions")
+    assert d["kind"] == "value" and d["types"] == ["epo:FitnessValue"] and d["label"].startswith("fit with conditions") and d["superclasses"] == [] and d["instances"] == []
+    out = run("epo", "fitWithConditions").stdout
+    assert "## epo:fitWithConditions  (value)" in out and "types: epo:FitnessValue" in out
+    r, d = _json("epo", "insufficient")
+    assert d["label"] == "" and d["types"] == ["epo:SufficiencyValue"]
+    assert "no label (an epo:SufficiencyValue)" in run("epo", "insufficient").stdout
+    assert _json("epo", "authorizedRepresentativeRole")[1]["kind"] == "role"  # the role handles keep their kind
+    assert run("epo", "need").returncode == 1 and "ogc quote need" in run("epo", "need").stdout  # a step is still not read here
+    rows = _json("find", "fit with conditions")[1]["rows"]
+    assert any(x["via"] == "epo:fitWithConditions" and x["class"] == "epo value" and x["match"] == "exact" for x in rows)
+    r, d = _json("epo", "fitWithCondition")
+    assert r.returncode == 1 and "epo:fitWithConditions (an epo:FitnessValue)" in d["candidates"]  # the miss hint names the class
+
+
+def test_r4_finding_m7_ruling_and_concern_cross_hint():
+    r = run("ruling", "C-30")
+    assert r.returncode == 1 and "C-30 is a concern; try `ogc concern C-30`" in r.stdout
+    r = run("concern", "R-16")
+    assert r.returncode == 1 and "R-16 is a ruling; try `ogc ruling R-16`" in r.stdout
+    assert "ogc concern C-30" in _json("ruling", "c30")[1]["hint"] and "ogc ruling R-16" in _json("concern", "rul:R-16")[1]["hint"]
+    assert "ogc concern" not in run("ruling", "R-999").stdout and "ogc ruling" not in run("concern", "C-999").stdout
+    assert "ogc concern" not in run("ruling", "C-999").stdout  # no such concern either: the plain id hint
+
+
+def test_r4_finding_m8_retired_identifiers_get_a_rename_hint():
+    cases = [(["term", "account-executive"], "renamed authorized representative (R-49, R-51); try `ogc term authorized-representative`"),
+             (["define", "account-executive"], "renamed authorized representative (R-49, R-51); try `ogc define authorized-representative`"),
+             (["quote", "account-executive"], "renamed authorized representative (R-49, R-51); try `ogc quote authorized-representative`"),
+             (["term", "accountExecutive"], "renamed authorized representative (R-49, R-51); try `ogc term authorized-representative`"),
+             (["term", "accountable-organization"], "renamed test item provider (R-49); try `ogc term test-item-provider`"),
+             (["epo", "AccountExecutive"], "renamed authorized representative (R-49, R-51); try `ogc epo AuthorizedRepresentativeRole`"),
+             (["epo", "accountExecutiveRole"], "renamed authorized representative (R-49, R-51); try `ogc epo authorizedRepresentativeRole`"),
+             (["epo", "AccountExecutiveRole"], "renamed authorized representative (R-49, R-51); try `ogc epo AuthorizedRepresentativeRole`"),
+             (["epo", "AccountableOrganization"], "renamed test item provider (R-49); try `ogc epo TestItemProviderRole`"),
+             (["find", "account-executive"], "renamed authorized representative (R-49, R-51); try `ogc term authorized-representative`"),
+             (["check-word", "account-executive"], "renamed authorized representative (R-49, R-51); try `ogc term authorized-representative`")]
+    for cmd, hint in cases:
+        r = run(*cmd)
+        assert r.returncode in (0, 1) and hint in r.stdout, (cmd, r.stdout, r.stderr)
+        assert hint in json.dumps(_json(*cmd)[1]), cmd
+    assert run("term", "account executive").returncode == 0  # the alternative label itself still resolves
+    assert "renamed" not in run("term", "no-such-term-xyz").stdout
+
+
+def test_r4_finding_m9_order_by_ties_are_broken_by_the_full_row():
+    q = "SELECT ?c ?l WHERE { ?t a skos:Concept ; ogc:class ?c ; skos:prefLabel ?l } ORDER BY ?c"
+    outs = [_seeded(s, "sparql", q).stdout for s in (1, 2, 3)]
+    assert outs[0] == outs[1] == outs[2]
+    rows = json.loads(run("sparql", q, "--json").stdout)["rows"]
+    assert [x["c"] for x in rows] == sorted(x["c"] for x in rows) and len(rows) > 10
+    for a, b in zip(rows, rows[1:]):
+        if a["c"] == b["c"]:
+            assert a["l"] <= b["l"], (a, b)  # within a tie, the full row orders
+    desc = json.loads(run("sparql", q.replace("ORDER BY ?c", "ORDER BY DESC(?c)"), "--json").stdout)["rows"]
+    assert [x["c"] for x in desc] == sorted((x["c"] for x in desc), reverse=True)
+    for a, b in zip(desc, desc[1:]):
+        if a["c"] == b["c"]:
+            assert a["l"] <= b["l"], (a, b)
+    outs = [_seeded(s, "sparql", q.replace("ORDER BY ?c", "ORDER BY STRLEN(?c) LIMIT 5")).stdout for s in (1, 2)]  # an expression, not a variable, still deterministic
+    assert outs[0] == outs[1]
+    assert "ORDER BY" in SKILL.read_text() and "ties" in SKILL.read_text()
+
+
+def test_r4_finding_m10_find_indexes_epo_local_names_and_hints_epo():
+    rows = _json("find", "PlanDeviation")[1]["rows"]
+    assert any(x["via"] == "epo:PlanDeviation" and x["match"] == "exact" for x in rows)
+    assert any(x["via"] == "epo:PlanDeviation" for x in _json("find", "plan deviation")[1]["rows"])
+    assert any(x["via"] == "epo:PlanDeviation" for x in _json("find", "plandeviation")[1]["rows"])
+    assert any(x["via"] == "epo:fitWithConditions" for x in _json("find", "fitWithConditions")[1]["rows"])
+    r = run("find", "NoSuchThingHere")
+    assert r.returncode == 1 and "looks like a local name" in r.stdout and "ogc epo NoSuchThingHere" in r.stdout
+    assert "looks like a local name" not in run("find", "no such thing here").stdout
+    assert "PlanDeviation" in run("find", "PlanDeviation").stdout and "ogc epo" in run("find", "PlanDeviation").stdout
+
+
+def test_r4_finding_l1_the_record_hint_for_an_epo_curie_names_the_class_reader():
+    r = run("record", "epo:Attestation")
+    line = r.stdout.splitlines()[1]
+    assert r.returncode == 1 and "is a class, not a record item" in line and "ogc epo Attestation" in line and "ogc record" in line and "step" not in line
+    assert "ogc epo Attestation" in _json("record", "epo:Attestation")[1]["hint"]
+
+
+def test_r4_finding_l2_the_long_id_echo_keeps_its_closing_quote():
+    long = "a" * 5000
+    err = run("term", long).stdout.splitlines()[1]
+    assert err.startswith("term 'aaaa") and "...': not found" in err and len(err) < 300
+    assert _json("term", long)[1]["error"].startswith("term 'aaa") and "...' not found" in _json("term", long)[1]["error"]
+    assert "...': not found" in run("record", long).stdout.splitlines()[1]
+
+
+def test_r4_finding_l3_implied_flags_are_not_echoed_in_the_header():
+    for implied, plain in ((["record", "--record"], ["record"]), (["execute", "--model", "--planned", "3"], ["execute", "--planned", "3"]), (["view", "nesting", "--model"], ["view", "nesting"]), (["--model", "views"], ["views"])):
+        a, b = run(*implied), run(*plain)
+        assert a.returncode == b.returncode == 0 and a.stdout.splitlines()[0] == b.stdout.splitlines()[0] and "--" not in a.stdout.splitlines()[0].split(" @ ")[0].replace("--planned", ""), implied
+        assert json.loads(run(*implied, "--json").stdout)["_ogc"]["args"] == json.loads(run(*plain, "--json").stdout)["_ogc"]["args"]
+    assert "--record" in run("sparql", "ASK { ?s ?p ?o }", "--record").stdout.splitlines()[0]  # where the flag changes the answer it stays
+
+
+def test_r4_finding_l4_the_executor_namespace_is_explained():
+    r = run("sparql", "SELECT ?s WHERE { ?s a ex:Attestation }")
+    assert r.returncode == 2 and "ex:" in r.stderr and "executor" in r.stderr and "ogc execute --turtle" in r.stderr and "Unknown namespace" not in r.stderr
+    r = run("term", "ex:probe")
+    assert r.returncode == 1 and "executor" in r.stdout and "ogc execute --turtle" in r.stdout
+    assert "executor" in _json("record", "ex:attestation-1")[1]["hint"]
+
+
+def test_r4_finding_l5_the_stale_label_and_file_name_are_gone():
+    assert "former local name" not in _json("epo", "AuthorizedRepresentativeRole")[1]["label"]
+    problem = _json("concern", "C-44")[1]["problem"]
+    assert "measles-run" not in problem and "track/measles-evaluation.ttl" in problem
+
+
+def test_r4_finding_l6_select_prints_curies_like_describe():
+    q = "SELECT ?t WHERE { ?t a skos:Concept ; skos:prefLabel ?l FILTER(STR(?l) = 'probe') }"
+    assert _json("sparql", q)[1]["rows"] == [{"t": "term:probe"}] and re.search(r"^term:probe\s*$", run("sparql", q).stdout, re.M)
+    rows = _json("sparql", "SELECT ?p WHERE { term:probe ?p ?o }")[1]["rows"]
+    assert rows and all(":" in x["p"] and not x["p"].startswith("http") for x in rows)
+    rows = _json("sparql", "SELECT ?u ?l WHERE { src:sevocab ogc:url ?u ; rdfs:label ?l }")[1]["rows"]
+    assert rows and rows[0]["u"].startswith("<http") and "SEVOCAB" in rows[0]["l"] and not rows[0]["l"].startswith(("\"", "<"))  # an IRI outside the prefixes is bracketed as DESCRIBE prints it; a literal stays its lexical form
+    assert "https://w3id.org/og-caie/terms#probe" not in run("sparql", q).stdout
+
+
+def test_r4_finding_l7_an_unknown_prefix_is_explained():
+    r = run("sparql", "SELECT ?s WHERE { ?s a Ev:Foo }")
+    assert r.returncode == 2 and "prefix Ev: is not declared" in r.stderr and "case-sensitive" in r.stderr and "ev:" in r.stderr and "Unknown namespace prefix" not in r.stderr
+    r, d = _json("sparql", "SELECT ?s WHERE { ?s a Ev:Foo }")
+    assert r.returncode == 2 and "prefix Ev: is not declared" in d["hint"]
+
+
+def test_r4_finding_l8_a_multiline_literal_cell_shows_its_first_line_and_the_count():
+    out = run("sparql", "SELECT ?sel WHERE { ogc:S0-Layers sh:sparql ?c . ?c sh:select ?sel } LIMIT 1").stdout
+    row = out.splitlines()[3].rstrip()
+    assert re.search(r" \[\+\d+ lines\]$", row) and len(row) <= 80, row
+    from ogc import text
+    assert text.cell("first line\nsecond\nthird") == "first line [+2 lines]"
+    long = text.cell("x" * 100 + "\ny")
+    assert long.endswith("… [+1 lines]") and len(long) <= 80
+
+
+def test_r4_skill_corrections():
+    body = " ".join(SKILL.read_text().split("\n---\n", 1)[1].split())
+    for needle in ("`bibkey`", "`slug`, `label`, `rank`, `kind`, `posture`, `url`, `bibkey`", "`slug`, `rank`, `posture`, `kind`, `bibkey`, `citations`, `snapshots`, `label`",
+                   "`steps`:", "`cycle`, `order`, `step`, `label`, `source`, `locator`, `quote`, `status`, `also`",
+                   "`ogc:derivedStep`", "vocabulary/derived.ttl", "counterexamples (executor mutations)", "`MUTATION_SHAPES`", "`quote` on an `epo:` CURIE",
+                   "ORDER BY", "ties", "shell-quoted", "provenance the tool does not read", "`counterexamples`", "renamed"):
         assert needle in body, needle

@@ -20,13 +20,21 @@ def short(s: str, n: int = CLIP) -> str:
     return s if len(s) <= n else s[: n - 3] + "..."
 
 
+def short_quoted(s: str, n: int = CLIP) -> str:
+    """`short`, keeping the closing quote when the text ends in one, so the echo of `term 'aaa...'` still closes (round four, L2)."""
+    if len(s) > n and s.endswith("'"):
+        return short(s[:-1], n - 1) + "'"
+    return short(s, n)
+
+
 def cell(v) -> str:
     if v is None:
         return ""
     s = ", ".join(str(x) for x in v) if isinstance(v, (list, tuple)) else str(v)
     lines = s.splitlines()
-    if len(lines) > 1:
-        s = f"{lines[0]} [+{len(lines) - 1} lines]"
+    if len(lines) > 1:  # the first line and how many follow; the count survives the clip (round four, L8)
+        mark = f" [+{len(lines) - 1} lines]"
+        return clip(lines[0], CLIP - len(mark)) + mark
     return clip(s)
 
 

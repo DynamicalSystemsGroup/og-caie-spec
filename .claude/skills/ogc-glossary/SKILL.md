@@ -22,10 +22,15 @@ the record; the tool is the only honest reader of it. Everything it prints
 is deterministic (sorted, no timestamps) and starts with
 `# ogc <command> <args> @ <git-sha>`, so a quoted answer is citable. The
 header is the canonical form of the invocation, not the keystrokes: `--root`
-and the global flags are dropped, `--model` and `--record` come last in that
-order wherever they were typed, whitespace is collapsed and newlines are
-escaped as `\n`; two invocations that differ only in those print the same
-header.
+and the global flags are dropped, a flag the command loads on its own
+(`--model` under `view`, `views` and `execute`, `--record` under `record`)
+is dropped, `--model` and `--record` come last in that order wherever they
+were typed, whitespace is collapsed, newlines are escaped as `\n`, and an
+argument holding whitespace or a quote is shell-quoted in single quotes, so
+the header after `# ` runs again as typed (`# ogc check-word 'system under
+test' @ ...`); two invocations that differ only in those print the same
+header. An argument equal to the command word stays (`ogc record record`
+prints `# ogc record record`).
 
 Run it from the repo as `uv run -q ogc ...` (`-q` keeps uv's warnings out
 of the transcript); `python -m ogc` is the same tool. From elsewhere, pass
@@ -268,10 +273,10 @@ Naming one twice is a usage error (`mutation named twice`, exit 2).
   present only under `--record`; the executor's own emitted record uses
   `ex:` for `evaluation/executed#` and is never loaded). `ogc schema`
   prints the whole prefix list.
-- The citation header is re-runnable: `# ogc sparql <query> #sha256:<12
-  hex> @ <sha>` carries the query as typed, with newlines escaped as `\n`
-  and comments intact (unescape `\n` to run it again), and the sha256 of
-  the query text; for `@file` it carries the path as typed and the sha256
+- The citation header is re-runnable: `# ogc sparql '<query>' #sha256:<12
+  hex> @ <sha>` carries the query as typed, shell-quoted, with newlines
+  escaped as `\n` and comments intact (unescape `\n` to run it again), and
+  the sha256 of the query text; for `@file` it carries the path as typed and the sha256
   of the file's content. `@` with a directory, or a bare `@`, is a usage
   error. Comments are stripped before the record and model checks, so an
   `ev:` or a `sysml:` inside a comment does not trigger a refusal.
@@ -279,10 +284,22 @@ Naming one twice is a usage error (`mutation named twice`, exit 2).
   `STR(?l) = "probe"` or `LCASE(STR(?l))`.
 - The determinism promise: rows are sorted when the query has no ORDER BY,
   and a LIMIT or OFFSET without ORDER BY is applied after that sort (to
-  rows for SELECT, to triples for CONSTRUCT and DESCRIBE); CONSTRUCT and
-  DESCRIBE print a fixed prefix set and sorted triples; blank nodes are
-  labelled by a hash of their neighbourhood, so a citation's label is the
-  same in every run and in every query. Outside the promise: blank nodes
+  rows for SELECT, to triples for CONSTRUCT and DESCRIBE); with ORDER BY
+  the engine's order stands and its ties are broken by the whole row (every
+  binding, by variable name), so two rows the conditions do not separate
+  come out in one order in every run; `SELECT *` projects the variables in
+  the order the query first names them; CONSTRUCT and DESCRIBE print a
+  fixed prefix set and sorted triples; blank nodes are labelled by a hash of
+  their neighbourhood, so a citation's label is the same in every run and in
+  every query.
+- SELECT prints IRIs as DESCRIBE does: a CURIE under the injected prefixes
+  (`term:probe`, `epo:Attestation`), angle brackets outside them; a literal
+  is printed as its lexical form, without quotes or language tag; a
+  multiline literal shows its first line and `[+N lines]`, the count
+  surviving the clip (`--wide` or `--json` for the whole text).
+- A prefix the query uses without declaring is refused as a usage error
+  that names it: the injected prefixes are case-sensitive (`Ev:` is not
+  `ev:`), and `ex:` is the executor's own namespace, never loaded (below). Outside the promise: blank nodes
   whose neighbourhoods are identical (they are numbered in arbitrary
   order), and NOW(), RAND(), BNODE(), UUID() and STRUUID().
 - Queries longer than 20,000 characters, SERVICE, GRAPH, FROM and update

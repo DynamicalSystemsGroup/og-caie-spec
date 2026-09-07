@@ -21,6 +21,7 @@ import argparse
 import hashlib
 import json
 import re
+import shlex
 import sys
 from collections import Counter
 from pathlib import Path
@@ -33,6 +34,7 @@ GLOBAL_FLAGS = ("--json", "--no-cache", "--wide")  # --model and --record change
 LOAD_CMDS = ("sparql", "record", "execute", "view", "views")  # the commands that read the model graph or the record; --model and --record apply only here
 MODEL_CMDS = ("sparql", "execute", "view", "views")  # where --model changes (or names) what is read; elsewhere it is a usage error (round three, L2)
 RECORD_CMDS = ("sparql", "record")  # where --record changes (or names) what is read
+IMPLIED = {"view": "--model", "views": "--model", "execute": "--model", "record": "--record"}  # the flag a command loads on its own; not echoed in the header (round four, L3)
 LOAD_HINT = ("--model and --record apply only to sparql, record, execute, view and views (the commands that read the model graph or the record): "
              "--model where the model graph is read (sparql, execute, view, views), --record where the record is read (sparql, record)")
 MODEL_NS = ("sysml", "sysx", "elmt", "ogm")  # the model graph's prefixes; a query naming one is refused without --model (round three, M1)
@@ -41,6 +43,8 @@ READERS = {  # a CURIE's prefix names what it is and the reader for it; the hint
     "ev": ("a record item", "ogc record {local}"), "src": ("a source", "ogc source {local}"), "tr": ("an essential", "ogc sci {local}"),
     "ogc": ("a shape (or the vocabulary itself)", "ogc shape {local}"), "xw": ("a Popper crosswalk row", "ogc crosswalk --popper"),
     **{k: ("the model graph, loaded by --model", "ogc --model sparql 'DESCRIBE {curie}'") for k in MODEL_NS}}
+EX_HINT = ("ex: is the executor's own namespace (https://w3id.org/og-caie/evaluation/executed#): the record `ogc execute --turtle` emits, "
+           "checked in memory and never loaded, so nothing in the loaded graphs answers it; the measles record is ev:, loaded by --record")  # round four, L4
 ECHO = 80  # an error line echoes at most this much of the argument, with three dots; the header keeps it whole (round three, L10)
 PARAM_FLAGS = ("requirements", "criteria", "planned", "sessions", "populations")  # ogc execute: the executor's parameters, in the order printed
 VERIFY_COLS = ["holder", "citation", "source", "posture", "locator", "status", "state", "where"]
@@ -81,12 +85,20 @@ class Parser(argparse.ArgumentParser):
         raise UsageError(message, self.format_usage())
 
 
+def quoted(a: str) -> str:
+    """An argument as the header prints it: newlines escaped as \\n, other
+    whitespace collapsed, and shell-quoted (single quotes) when it holds
+    whitespace or a quote, so the header runs again as typed (round four, M4)."""
+    a = re.sub(r"[ \t\f\v]+", " ", a.replace("\r\n", "\n").replace("\n", "\\n")).strip()
+    return shlex.quote(a) if a == "" or re.search(r"[\s'\"]", a) else a
+
+
 def argstr_of(argv: list[str], cmd: str) -> str:
     """The arguments as printed and hashed: without --root and the global flags,
-    the command word dropped, --model and --record moved to the end in that
-    order, newlines escaped as \\n so the line stays one line, other
-    whitespace collapsed."""
-    out, skip, loads = [], False, set()
+    the first command word dropped (a later argument equal to it stays, round
+    four H2), the flag the command implies dropped (L3), --model and --record
+    moved to the end in that order, each argument as `quoted` prints it."""
+    out, skip, loads, seen = [], False, set(), False
     for a in argv:
         if skip:
             skip = False
@@ -97,13 +109,17 @@ def argstr_of(argv: list[str], cmd: str) -> str:
         if a.startswith("--root="):
             continue
         if a in ("--model", "--record"):
-            loads.add(a)
+            if a != IMPLIED.get(cmd):
+                loads.add(a)
             continue
-        if a in GLOBAL_FLAGS or (a == cmd and not out):
+        if a in GLOBAL_FLAGS:
             continue
-        out.append(a.replace("\r\n", "\n").replace("\n", "\\n"))
+        if a == cmd and not seen:
+            seen = True
+            continue
+        out.append(quoted(a))
     out += sorted(loads)  # --model before --record, wherever they were typed
-    return re.sub(r"[ \t\f\v]+", " ", " ".join(out)).strip()
+    return " ".join(out).strip()
 
 
 def prescan(argv: list[str], names: list[str]) -> SimpleNamespace:
@@ -114,7 +130,15 @@ def prescan(argv: list[str], names: list[str]) -> SimpleNamespace:
             root = Path(argv[i + 1])
         elif a.startswith("--root="):
             root = Path(a.split("=", 1)[1])
-    cmd = next((a for a in argv if a in names), "ogc")
+    cmd, skip = "ogc", False
+    for a in argv:  # the first command word that is not --root's value
+        if skip:
+            skip = False
+        elif a == "--root":
+            skip = True
+        elif a in names:
+            cmd = a
+            break
     return SimpleNamespace(json="--json" in argv, root=(root or find_root()).resolve(), cmd=cmd, argstr=argstr_of(argv, cmd))
 
 
@@ -146,7 +170,7 @@ def envelope(args, error: str, hint: str, candidates=None) -> dict:
 
 def not_found(args, what: str, hint: str, candidates=None, state: str = "not found") -> int:
     """Exit 1: a name that did not resolve, a bad filter value, or a refused request; candidates are near misses, never the whole list."""
-    what = text.short(what, ECHO)
+    what = text.short_quoted(what, ECHO)
     if args.json:
         print(json.dumps(envelope(args, f"{what} {state}", hint, candidates), indent=2, ensure_ascii=False))
     else:
@@ -848,8 +872,27 @@ def record_reference(g, q: str) -> str | None:
     return None
 
 
+def _order_by_over_sorted_rows(ctx, part):
+    """rdflib's OrderBy (a stable sort per condition, last condition first)
+    over solutions first sorted by the whole row (every binding, by variable
+    name), so that rows the conditions do not separate come out in one order
+    in every run (round four, M9). Registered in CUSTOM_EVALS by `sparql`;
+    every other algebra part falls through to rdflib."""
+    if part.name != "OrderBy":
+        raise NotImplementedError
+    from rdflib.plugins.sparql.evaluate import evalPart
+    from rdflib.plugins.sparql.evalutils import _val
+    from rdflib.plugins.sparql.parserutils import value
+    res = sorted(evalPart(ctx, part.p), key=lambda b: sorted((str(k), str(v)) for k, v in b.items()))
+    for e in reversed(part.expr):
+        res = sorted(res, key=lambda x: _val(value(x, e.expr, variables=True)), reverse=bool(e.order and e.order == "DESC"))
+    return res
+
+
 def sparql(args, g, argstr: str) -> int:
-    from rdflib import BNode, Graph
+    from rdflib import BNode, Graph, URIRef
+    from rdflib.plugins.sparql import CUSTOM_EVALS
+    CUSTOM_EVALS["ogc-order-by"] = _order_by_over_sorted_rows
     from rdflib.plugins.sparql import prepareQuery
     from rdflib.plugins.sparql.parserutils import CompValue
     q = args.query
@@ -897,6 +940,10 @@ def sparql(args, g, argstr: str) -> int:
         return usage(args, "query too deep to parse; simplify it")
     except Exception as e:
         msg = str(e).splitlines()[0]
+        m = re.search(r"Unknown namespace prefix : (\S+)", msg)
+        if m:
+            p = m.group(1)
+            return usage(args, "query does not parse: " + (EX_HINT if p == "ex" else f"the prefix {p}: is not declared; the injected prefixes are case-sensitive ({', '.join(k + ':' for k in PREFIXES)}), and `ogc schema` prints them with their namespaces; declare any other with PREFIX"))
         msg = re.sub(r"\(at char (\d+)\)", lambda m: f"(at char {max(0, int(m.group(1)) - injected_chars)})", msg)
         m = re.search(r"\(line:(\d+), col:(\d+)\)", msg)
         if m:
@@ -935,6 +982,9 @@ def sparql(args, g, argstr: str) -> int:
         return seq[start:] if length is None else seq[start:start + int(length)]
     res = g.query(pq)
     labels = {}
+    nm = Graph(bind_namespaces="none")  # the fixed prefix set every rendering uses (round four, L6: SELECT prints CURIEs as DESCRIBE does)
+    for k, v in PREFIXES.items():
+        nm.bind(k, v, replace=True)
 
     def label(b):
         if not labels:
@@ -945,9 +995,6 @@ def sparql(args, g, argstr: str) -> int:
     if kind in ("ConstructQuery", "DescribeQuery"):
         out = res.graph
         fresh = {}
-        nm = Graph(bind_namespaces="none")
-        for k, v in PREFIXES.items():
-            nm.bind(k, v, replace=True)
 
         def n3(x):
             if isinstance(x, BNode):
@@ -958,15 +1005,27 @@ def sparql(args, g, argstr: str) -> int:
         triples = window(sorted(f"{n3(s)} {n3(p)} {n3(o)} ." for s, p, o in out))
         ttl = "\n".join([f"@prefix {k}: <{v}> ." for k, v in sorted(PREFIXES.items())] + [""] + triples) + "\n"
         return emit(args, "sparql", header, dict(triples=len(triples), turtle=ttl), lambda: ttl.rstrip("\n").splitlines() + [f"({len(triples)} triples)"])
-    cols = [str(v) for v in res.vars] if res.vars else []
+    engine = [str(v) for v in res.vars] if res.vars else []  # the engine's own order, which each result row follows
+    cols = list(engine)
+    if re.search(r"\bSELECT\s+(?:DISTINCT\s+|REDUCED\s+)?\*", bare_q, re.I):  # SELECT *: the engine's projection is a set, so its order changes with the hash seed (round four, H1); the variables go in the order the query names them
+        named = []
+        for m in re.finditer(r"[?$](\w+)", bare_q):
+            if m.group(1) not in named:
+                named.append(m.group(1))
+        cols = [v for v in named if v in cols] + sorted(v for v in cols if v not in named)
 
     def show(x):
         if x is None:
             return ""
         if isinstance(x, BNode):
             return "_:" + (label(x) or str(x))
+        if isinstance(x, URIRef):
+            return x.n3(nm.namespace_manager)
         return str(x)
-    rows = [dict(zip(cols, [show(x) for x in r])) for r in res]
+    rows = []
+    for r in res:
+        bound = dict(zip(engine, [show(x) for x in r]))
+        rows.append({c: bound.get(c, "") for c in cols})
     if "OrderBy" not in names:
         rows.sort(key=lambda r: tuple(r.get(c, "") for c in cols))
     rows = window(rows)
