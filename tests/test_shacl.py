@@ -25,6 +25,12 @@ SKOS = Namespace("http://www.w3.org/2004/02/skos/core#")
 RECORD = "track/measles-evaluation.ttl"
 EV = "https://w3id.org/og-caie/evaluation/measles#"
 NEW_SHAPES = ["S0-Independence", "S0-Member", "S0-Record", "S0-Roles", "S3-PlanDeviation", "S7-CoverageComputation"]  # sheet 10: 10-15, 10-31, 10-13, 10-16; round four, KG 8
+# Drift pass 4: the rules the readers found missing, each pinned to the one shape its counterexample fails on alone
+# (the contracting officer's findings 4 and 12, the QA reader's 9, 10 and 19).
+DRIFT_PASS_4 = {
+    "dso-approval-undated": "S1-DsoRelease",              # QA 9: the DSO approval is dated (epo:approvedAt)
+    "assessment-after-session": "S2-RequirementSet",      # QA 9: the appropriateness assessment precedes the sessions
+}
 
 
 def shapes():
@@ -75,6 +81,11 @@ def spec_shape(name):
 def test_every_new_shape_has_a_counterexample():
     covered = {s for spec in COUNTEREXAMPLES.values() for s in spec["shapes"]}
     assert set(NEW_SHAPES) <= covered, sorted(set(NEW_SHAPES) - covered)
+
+
+def test_drift_pass_4_counterexamples_fail_on_one_shape_each():
+    for name, shape in DRIFT_PASS_4.items():
+        assert COUNTEREXAMPLES[name]["shapes"] == [shape], name
 
 
 def test_every_shape_names_its_counterexamples_and_only_those():

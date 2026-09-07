@@ -1,5 +1,5 @@
-# Counterexample for S7-Report: the draft report stores the final report's rates, with no cannot-tell, while on its day one criterion was attested cannot tell: a report's numbers are recomputed over the attestations that existed when it was generated (sheet 10-48).
-# Must fail on ogc:S7-Report and nothing else.
+# Counterexample for S1-DsoRelease: the DSO release names who approved it and not when: an undated approval cannot be ordered against the representations that must precede it or the probes that must follow it (drift pass 4, QA 9).
+# Must fail on ogc:S1-DsoRelease and nothing else.
 # A copy of track/measles-evaluation.ttl with one change (sheet 10-19; written by scripts/render_counterexamples.py).
 @prefix ev:   <https://w3id.org/og-caie/evaluation/measles#> .
 @prefix epo:  <https://w3id.org/og-caie/epo#> .
@@ -152,7 +152,6 @@ ev:dso-apollo-sv-r1 a epo:DsoRelease ;
     rdfs:label "the standard vocabulary of infectious-disease epidemiology (Apollo-SV) plus the facts of the 2019 Clark County outbreak, release r1" ;
     epo:version "apollo-sv-r1" ;
     epo:approvedBy ev:annie ;
-    epo:approvedAt "2026-08-01T09:30:00Z"^^xsd:dateTime ;
     prov:wasAttributedTo ev:annie ;
     prov:generatedAtTime "2026-08-01T09:00:00Z"^^xsd:dateTime .
 
@@ -615,7 +614,7 @@ ev:report-draft a epo:Report ;
     epo:draft true ;
     epo:gaps "the enclosed-space criterion could not be told from one reply; the plan's place-by-place session is to be run before the final report" ;
     epo:coverage 1.0 ;
-    epo:passRate 0.8 ; epo:failRate 0.2 ; epo:cantTellRate 0.0 ;
+    epo:passRate 0.6 ; epo:failRate 0.2 ; epo:cantTellRate 0.2 ;
     prov:generatedAtTime "2026-08-11T11:00:00Z"^^xsd:dateTime .
 
 # ---- evaluation step 4, the follow-up: session 4, place by place, on the plan's fourth set of questions

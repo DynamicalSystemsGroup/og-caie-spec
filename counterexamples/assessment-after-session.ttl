@@ -1,5 +1,5 @@
-# Counterexample for S7-Report: the draft report stores the final report's rates, with no cannot-tell, while on its day one criterion was attested cannot tell: a report's numbers are recomputed over the attestations that existed when it was generated (sheet 10-48).
-# Must fail on ogc:S7-Report and nothing else.
+# Counterexample for S2-RequirementSet: the appropriateness assessment of the requirement set is dated 10 August, after the first three sessions had started: the envelope is judged appropriate before it is tested, as the plan is approved before its probes are used (drift pass 4, QA 9).
+# Must fail on ogc:S2-RequirementSet and nothing else.
 # A copy of track/measles-evaluation.ttl with one change (sheet 10-19; written by scripts/render_counterexamples.py).
 @prefix ev:   <https://w3id.org/og-caie/evaluation/measles#> .
 @prefix epo:  <https://w3id.org/og-caie/epo#> .
@@ -214,7 +214,7 @@ ev:appropriateness-assessment-1 a epo:AppropriatenessAssessment ;
     prov:wasDerivedFrom ev:stakeholder-input-1 ;
     epo:appropriateness epo:appropriate ;
     earl:result [ a earl:TestResult ; earl:outcome earl:passed ; earl:info "the envelope covers what residents and commuters need from a public information service during the outbreak: exposure, vaccination and whom to call" ] ;
-    prov:generatedAtTime "2026-08-02T10:00:00Z"^^xsd:dateTime .
+    prov:generatedAtTime "2026-08-10T15:30:00Z"^^xsd:dateTime .
 
 ev:requirement-set-approval-1 a epo:RequirementSetApproval ;
     rdfs:label "the county health officer approves the requirement set on behalf of the county" ;
@@ -615,7 +615,7 @@ ev:report-draft a epo:Report ;
     epo:draft true ;
     epo:gaps "the enclosed-space criterion could not be told from one reply; the plan's place-by-place session is to be run before the final report" ;
     epo:coverage 1.0 ;
-    epo:passRate 0.8 ; epo:failRate 0.2 ; epo:cantTellRate 0.0 ;
+    epo:passRate 0.6 ; epo:failRate 0.2 ; epo:cantTellRate 0.2 ;
     prov:generatedAtTime "2026-08-11T11:00:00Z"^^xsd:dateTime .
 
 # ---- evaluation step 4, the follow-up: session 4, place by place, on the plan's fourth set of questions

@@ -6245,6 +6245,12 @@
    "in": [],
    "out": [
     [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/access-without-period.ttl"
+     }
+    ],
+    [
      "rdf:type",
      {
       "text": "sh:NodeShape"
@@ -6304,6 +6310,18 @@
    "in": [],
    "out": [
     [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/expert-administers-tests.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/operator-determines-alone.ttl"
+     }
+    ],
+    [
      "rdf:type",
      {
       "text": "sh:NodeShape"
@@ -6339,6 +6357,12 @@
    "in": [],
    "out": [
     [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/requirements-before-agreement.ttl"
+     }
+    ],
+    [
      "rdf:type",
      {
       "text": "sh:NodeShape"
@@ -6361,6 +6385,18 @@
   "https://w3id.org/og-caie/S0-Member": {
    "in": [],
    "out": [
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/item-outside-record.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/member-untagged.ttl"
+     }
+    ],
     [
      "rdf:type",
      {
@@ -6461,6 +6497,24 @@
    "in": [],
    "out": [
     [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/independence-undeclared.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/provider-fact-contradicted.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/requirements-before-agreement.ttl"
+     }
+    ],
+    [
      "rdf:type",
      {
       "text": "sh:NodeShape"
@@ -6538,6 +6592,18 @@
    "in": [],
    "out": [
     [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/engagement-mismatch.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/population-unrepresented.ttl"
+     }
+    ],
+    [
      "rdf:type",
      {
       "text": "sh:NodeShape"
@@ -6596,6 +6662,12 @@
    "in": [],
    "out": [
     [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/record-without-level.ttl"
+     }
+    ],
+    [
      "rdf:type",
      {
       "text": "sh:NodeShape"
@@ -6631,6 +6703,12 @@
    "in": [],
    "out": [
     [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/one-person-team.ttl"
+     }
+    ],
+    [
      "rdf:type",
      {
       "text": "sh:NodeShape"
@@ -6653,6 +6731,12 @@
   "https://w3id.org/og-caie/S0-StatementOfWork": {
    "in": [],
    "out": [
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/statement-of-work-after-agreement.ttl"
+     }
+    ],
     [
      "rdf:type",
      {
@@ -6701,6 +6785,18 @@
    "in": [],
    "out": [
     [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/dso-approval-undated.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/dso-before-stakeholder-input.ttl"
+     }
+    ],
+    [
      "rdf:type",
      {
       "text": "sh:NodeShape"
@@ -6710,6 +6806,12 @@
      "sh:property",
      {
       "text": "[sh:class http://www.w3.org/ns/prov#Person; sh:message A DSO release is approved by a named pe…; sh:minCount 1; sh:path https://w3id.org/og-caie/epo#approvedBy]"
+     }
+    ],
+    [
+     "sh:property",
+     {
+      "text": "[sh:datatype http://www.w3.org/2001/XMLSchema#dateTi…; sh:maxCount 1; sh:message A DSO release's approval is dated (drif…; sh:minCount 1; sh:path https://w3id.org/og-caie/epo#approvedAt]"
      }
     ],
     [
@@ -6842,6 +6944,24 @@
    "in": [],
    "out": [
     [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/assessment-after-session.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/probe-before-requirements.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/requirement-set-unapproved.ttl"
+     }
+    ],
+    [
      "rdf:type",
      {
       "text": "sh:NodeShape"
@@ -6880,6 +7000,12 @@
     [
      "sh:sparql",
      {
+      "text": "[sh:message S2 order (drift pass 4, QA 9): the appr…; sh:select PREFIX epo: <https://w3id.org/og-caie/e…]"
+     }
+    ],
+    [
+     "sh:sparql",
+     {
       "text": "[sh:message S2: a domain expert has assessed the re…; sh:select PREFIX epo: <https://w3id.org/og-caie/e…]"
      }
     ],
@@ -6912,6 +7038,12 @@
   "https://w3id.org/og-caie/S3-PlanApproval": {
    "in": [],
    "out": [
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/plan-approved-after-session.ttl"
+     }
+    ],
     [
      "rdf:type",
      {
@@ -6953,6 +7085,12 @@
   "https://w3id.org/og-caie/S3-PlanDeviation": {
    "in": [],
    "out": [
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/deviation-by-expert.ttl"
+     }
+    ],
     [
      "rdf:type",
      {
@@ -7000,6 +7138,12 @@
   "https://w3id.org/og-caie/S3-Probe": {
    "in": [],
    "out": [
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/consistency-check-after-turn.ttl"
+     }
+    ],
     [
      "rdf:type",
      {
@@ -7089,6 +7233,12 @@
    "in": [],
    "out": [
     [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/deviation-unrecorded.ttl"
+     }
+    ],
+    [
      "rdf:type",
      {
       "text": "sh:NodeShape"
@@ -7147,6 +7297,18 @@
   "https://w3id.org/og-caie/S4-Session": {
    "in": [],
    "out": [
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/expert-administers-tests.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/session-on-another-item.ttl"
+     }
+    ],
     [
      "rdf:type",
      {
@@ -7359,6 +7521,48 @@
    "in": [],
    "out": [
     [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/attestation-before-determination.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/attestation-off-plan.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/attestation-off-turn.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/attestation-without-evidence.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/cherry-picked-determination.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/executive-attests.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/insufficient-yet-failed.ttl"
+     }
+    ],
+    [
      "rdf:type",
      {
       "text": "sh:NodeShape"
@@ -7531,6 +7735,12 @@
    "in": [],
    "out": [
     [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/verdict-without-digests.ttl"
+     }
+    ],
+    [
      "rdf:type",
      {
       "text": "sh:NodeShape"
@@ -7590,6 +7800,12 @@
    "in": [],
    "out": [
     [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/coverage-without-digests.ttl"
+     }
+    ],
+    [
      "rdf:type",
      {
       "text": "sh:NodeShape"
@@ -7642,6 +7858,42 @@
   "https://w3id.org/og-caie/S7-Report": {
    "in": [],
    "out": [
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/deviation-unrecorded.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/draft-rates-from-later.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/draft-without-gaps.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/final-report-without-verdict.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/report-coverage-misstated.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/report-rates-padded.ttl"
+     }
+    ],
     [
      "rdf:type",
      {
@@ -7732,6 +7984,12 @@
    "in": [],
    "out": [
     [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/draft-approved.ttl"
+     }
+    ],
+    [
      "rdf:type",
      {
       "text": "sh:NodeShape"
@@ -7772,6 +8030,12 @@
   "https://w3id.org/og-caie/S8-Delivery": {
    "in": [],
    "out": [
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/delivery-before-approval.ttl"
+     }
+    ],
     [
      "rdf:type",
      {
@@ -7825,6 +8089,30 @@
   "https://w3id.org/og-caie/S8-Recommendation": {
    "in": [],
    "out": [
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/attestation-without-evidence.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/fit-despite-failure.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/recommendation-unapproved.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/recommendation-untraced.ttl"
+     }
+    ],
     [
      "rdf:type",
      {
@@ -7914,6 +8202,24 @@
   "https://w3id.org/og-caie/S9-Acceptance": {
    "in": [],
    "out": [
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/acceptance-by-organization.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/draft-approved.ttl"
+     }
+    ],
+    [
+     "ogc:counterexample",
+     {
+      "text": "counterexamples/final-report-without-verdict.ttl"
+     }
+    ],
     [
      "rdf:type",
      {
@@ -9475,6 +9781,12 @@
   },
   "https://w3id.org/og-caie/epo#DsoRelease": {
    "in": [
+    [
+     "rdfs:domain",
+     {
+      "text": "epo:approvedAt"
+     }
+    ],
     [
      "rdfs:domain",
      {
@@ -13818,19 +14130,19 @@
     [
      "epo:ontologyDigest",
      {
-      "text": "d70a05edcb35683651a15ede28b102f37d76d70c0eedc678b51bb1be2fd5755e"
+      "text": "0a7cacfca8a29515a4349e93dd514a77eae575154831f60efa49ed40639533be"
      }
     ],
     [
      "epo:recordDigest",
      {
-      "text": "68377d985d60969e0b0f091550556dd9ef864011a40b4084093f72579caea2ea"
+      "text": "81ec5a38fe4479966fd7219d0baa5ddd6563b49f35ec94b3f19be8a4842109c3"
      }
     ],
     [
      "epo:shapesDigest",
      {
-      "text": "b73720e05518c1e01800bc4f9047d6022f3d8330641240a811b1effa25cd36c5"
+      "text": "3fa00f1459936636e66671f16548cdcbb8fd37d5b4f82b3e47b36ff7c9a3e07d"
      }
     ],
     [
@@ -14859,7 +15171,7 @@
     [
      "epo:ontologyDigest",
      {
-      "text": "d70a05edcb35683651a15ede28b102f37d76d70c0eedc678b51bb1be2fd5755e"
+      "text": "0a7cacfca8a29515a4349e93dd514a77eae575154831f60efa49ed40639533be"
      }
     ],
     [
@@ -14871,7 +15183,7 @@
     [
      "epo:shapesDigest",
      {
-      "text": "b73720e05518c1e01800bc4f9047d6022f3d8330641240a811b1effa25cd36c5"
+      "text": "3fa00f1459936636e66671f16548cdcbb8fd37d5b4f82b3e47b36ff7c9a3e07d"
      }
     ],
     [
@@ -14972,7 +15284,7 @@
     [
      "epo:ontologyDigest",
      {
-      "text": "d70a05edcb35683651a15ede28b102f37d76d70c0eedc678b51bb1be2fd5755e"
+      "text": "0a7cacfca8a29515a4349e93dd514a77eae575154831f60efa49ed40639533be"
      }
     ],
     [
@@ -14984,7 +15296,7 @@
     [
      "epo:shapesDigest",
      {
-      "text": "b73720e05518c1e01800bc4f9047d6022f3d8330641240a811b1effa25cd36c5"
+      "text": "3fa00f1459936636e66671f16548cdcbb8fd37d5b4f82b3e47b36ff7c9a3e07d"
      }
     ],
     [
@@ -15804,6 +16116,12 @@
   "https://w3id.org/og-caie/evaluation/measles#dso-apollo-sv-r1": {
    "in": [],
    "out": [
+    [
+     "epo:approvedAt",
+     {
+      "text": "2026-08-01T09:30:00+00:00 (dateTime)"
+     }
+    ],
     [
      "epo:approvedBy",
      {
@@ -66319,7 +66637,7 @@
   },
   {
    "cls": "shape",
-   "desc": "Targets epo:DsoRelease. S1 precondition (sheet 08, R-49): every affected population's representation is available before the DSO release is approved: the population's stakeholder representation was generated before the release's approval time (a population with no representation at all is S0's finding). S1: a probe derived from this DSO release was generated before the release was approved. S1: the DSO release is approved by a domain expert (R-21, R-23). A DSO release is approved by a named person.",
+   "desc": "Targets epo:DsoRelease. S1 precondition (sheet 08, R-49): every affected population's representation is available before the DSO release is approved: the population's stakeholder representation was generated before the release's approval time, epo:approvedAt (a population with no representation at all is S0's finding). S1: a probe derived from this DSO release was generated before the release was approved (epo:approvedAt). S1: the DSO release is approved by a domain expert (R-21, R-23). A DSO release is approved by a named person. A DSO release's approval is dated (drift pass 4, QA 9): epo:approvedAt is the time the rules on the release order against, not the time the release was generated.",
    "id": "https://w3id.org/og-caie/S1-DsoRelease",
    "label": "S1-DsoRelease",
    "ogc": "ogc sparql \"DESCRIBE ogc:S1-DsoRelease\"",
@@ -66343,7 +66661,7 @@
   },
   {
    "cls": "shape",
-   "desc": "Targets epo:RequirementSet. S2: a domain expert has assessed the requirement set as appropriate for the populations and the environment (R-08, R-21). S2: a probe run started, or a probe was generated, before the requirement set was declared. S2: the sponsor approves the requirement set (sheet 10-01): an approval attributed to the sponsor's signatory, dated after the set was declared and before any session of the record started. S2: the system under test the envelope binds is the one an access grant of the record names (sheet 10-17). The envelope names the one system under test it binds (R-14): this system, in this environment, must meet these requirements. The operational environment is stated. The requirement set is agreed under the service agreement (R-21).",
+   "desc": "Targets epo:RequirementSet. S2 order (drift pass 4, QA 9): the appropriateness assessment of the requirement set is dated before any session of the record started; the envelope is judged appropriate before it is tested, as the plan is approved before its probes are used (S3). S2: a domain expert has assessed the requirement set as appropriate for the populations and the environment (R-08, R-21). S2: a probe run started, or a probe was generated, before the requirement set was declared. S2: the sponsor approves the requirement set (sheet 10-01): an approval attributed to the sponsor's signatory, dated after the set was declared and before any session of the record started. S2: the system under test the envelope binds is the one an access grant of the record names (sheet 10-17). The envelope names the one system under test it binds (R-14): this system, in this environment, must meet these requirements. The operational environment is stated. The requirement set is agreed under the service agreement (R-21).",
    "id": "https://w3id.org/og-caie/S2-RequirementSet",
    "label": "S2-RequirementSet",
    "ogc": "ogc sparql \"DESCRIBE ogc:S2-RequirementSet\"",

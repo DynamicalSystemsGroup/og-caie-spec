@@ -48,6 +48,11 @@
 # everywhere. Every UNION branch therefore restates the triple patterns its
 # filters need; a global count is a subselect over OPTIONAL, never a
 # NOT EXISTS across branches.
+#
+# Every shape names the counterexamples that fail on it, by file
+# (ogc:counterexample, sheet 10-40; drift pass 4): the files of the table
+# scripts/render_counterexamples.py writes them from, kept equal to it by
+# tests/test_shacl.py, so that the counterexamples answer by query.
 
 # S0 <-> SCI-02, SCI-10: the record and its parties (rulings R-21, R-23, R-50;
 # the party model of sheet 08). The record is a bundle with a label and an
@@ -64,6 +69,7 @@
 # population is spoken for and, where decided, interviewed; a person holds
 # at most one of the four person roles.
 ogc:S0-Record a sh:NodeShape ;
+    ogc:counterexample "counterexamples/record-without-level.ttl" ;
     sh:targetClass prov:Bundle ;
     sh:property [ sh:path <http://www.w3.org/2000/01/rdf-schema#label> ; sh:minCount 1 ; sh:message "The record carries a label." ] ;
     sh:property [ sh:path epo:independenceLevel ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ( epo:person epo:department epo:organization ) ;
@@ -77,6 +83,7 @@ ogc:S0-Record a sh:NodeShape ;
 # prov:Entity, prov:Activity or prov:Agent), or an agent that holds a
 # role, carries a version, or is attributed an item.
 ogc:S0-Member a sh:NodeShape ;
+    ogc:counterexample "counterexamples/item-outside-record.ttl", "counterexamples/member-untagged.ttl" ;
     sh:target [ a sh:SPARQLTarget ;
         sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
@@ -113,6 +120,7 @@ ogc:S0-Member a sh:NodeShape ;
         """ ] .
 
 ogc:S0-Parties a sh:NodeShape ;
+    ogc:counterexample "counterexamples/independence-undeclared.ttl", "counterexamples/provider-fact-contradicted.ttl", "counterexamples/requirements-before-agreement.ttl" ;
     sh:targetClass epo:ServiceAgreement ;
     sh:property [ sh:path prov:generatedAtTime ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
     sh:property [ sh:path epo:accepts ; sh:minCount 1 ; sh:maxCount 1 ; sh:class epo:Proposal ;
@@ -210,6 +218,7 @@ ogc:S0-Parties a sh:NodeShape ;
         """ ] .
 
 ogc:S0-Roles a sh:NodeShape ;
+    ogc:counterexample "counterexamples/one-person-team.ttl" ;
     sh:targetClass prov:Person ;
     sh:sparql [
         sh:message "S0: a person holds at most one of the person roles: domain expert, evaluation operator, authorized representative, sponsor signatory (sheet 10-13; the disjointness axioms are on the role classes and do not reach persons)." ;
@@ -224,6 +233,7 @@ ogc:S0-Roles a sh:NodeShape ;
         """ ] .
 
 ogc:S0-Independence a sh:NodeShape ;
+    ogc:counterexample "counterexamples/expert-administers-tests.ttl", "counterexamples/operator-determines-alone.ttl" ;
     sh:targetClass prov:Bundle ;
     sh:sparql [
         sh:message "S0 independence at the person level (sheet 10-15): the person who determines on evidence is not the operator of the session that evidence came from, unless a second determination on the same evidence by another person exists." ;
@@ -274,6 +284,7 @@ ogc:S0-Independence a sh:NodeShape ;
         """ ] .
 
 ogc:S0-Access a sh:NodeShape ;
+    ogc:counterexample "counterexamples/access-without-period.ttl" ;
     sh:targetClass epo:TestItemAccess ;
     sh:property [ sh:path epo:grantsAccessTo ; sh:minCount 1 ; sh:maxCount 1 ; sh:class earl:TestSubject ;
                   sh:message "Access names the test item it is granted to." ] ;
@@ -298,6 +309,7 @@ ogc:S0-Access a sh:NodeShape ;
         """ ] .
 
 ogc:S0-Population a sh:NodeShape ;
+    ogc:counterexample "counterexamples/engagement-mismatch.ttl", "counterexamples/population-unrepresented.ttl" ;
     sh:targetClass epo:Population ;
     sh:sparql [
         sh:message "S0: every affected population is spoken for: a stakeholder representation attributed to the person who speaks for it (epo:representedBy); where the statement of work decided an interview, a stakeholder input attributed to the population exists, the representation derives from it, and the population names who engaged it (epo:responsibleParty, its own property, no longer implied by epo:representedBy; round four, KG 14) (R-21, R-40, R-49 series wiring; sheet 10-13)." ;
@@ -327,6 +339,7 @@ ogc:S0-Population a sh:NodeShape ;
         """ ] .
 
 ogc:S0-StatementOfWork a sh:NodeShape ;
+    ogc:counterexample "counterexamples/statement-of-work-after-agreement.ttl" ;
     sh:targetClass epo:StatementOfWork ;
     sh:property [ sh:path prov:generatedAtTime ; sh:minCount 1 ; sh:datatype xsd:dateTime ] ;
     sh:property [ sh:path epo:underAgreement ; sh:minCount 1 ; sh:maxCount 1 ; sh:class epo:ServiceAgreement ;
@@ -362,15 +375,19 @@ ogc:S0-StatementOfWork a sh:NodeShape ;
             }
         """ ] .
 
-# S1 <-> SCI-01: the DSO release is versioned, approved by a named person,
-# approved before any probe derived from it was generated, and approved only
-# once every affected population's representation is available to the domain
-# expert who approves it (sheet 08).
+# S1 <-> SCI-01: the DSO release is versioned, approved by a named person at
+# a stated time (epo:approvedAt, apart from when the release was generated;
+# drift pass 4, QA 9), approved before any probe derived from it was
+# generated, and approved only once every affected population's
+# representation is available to the domain expert who approves it (sheet 08).
 ogc:S1-DsoRelease a sh:NodeShape ;
+    ogc:counterexample "counterexamples/dso-approval-undated.ttl", "counterexamples/dso-before-stakeholder-input.ttl" ;
     sh:targetClass epo:DsoRelease ;
     sh:property [ sh:path epo:version ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ;
     sh:property [ sh:path epo:approvedBy ; sh:minCount 1 ; sh:class prov:Person ;
                   sh:message "A DSO release is approved by a named person." ] ;
+    sh:property [ sh:path epo:approvedAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ;
+                  sh:message "A DSO release's approval is dated (drift pass 4, QA 9): epo:approvedAt is the time the rules on the release order against, not the time the release was generated." ] ;
     sh:sparql [
         sh:message "S1: the DSO release is approved by a domain expert (R-21, R-23)." ;
         sh:select """
@@ -379,26 +396,26 @@ ogc:S1-DsoRelease a sh:NodeShape ;
         """ ] ;
     sh:property [ sh:path prov:generatedAtTime ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
     sh:sparql [
-        sh:message "S1 precondition (sheet 08, R-49): every affected population's representation is available before the DSO release is approved: the population's stakeholder representation was generated before the release's approval time (a population with no representation at all is S0's finding)." ;
+        sh:message "S1 precondition (sheet 08, R-49): every affected population's representation is available before the DSO release is approved: the population's stakeholder representation was generated before the release's approval time, epo:approvedAt (a population with no representation at all is S0's finding)." ;
         sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX ogc: <https://w3id.org/og-caie/>
             PREFIX prov: <http://www.w3.org/ns/prov#>
             SELECT $this ?value WHERE {
-                $this prov:generatedAtTime ?t0 ; ogc:inRecord ?rec .
+                $this epo:approvedAt ?t0 ; ogc:inRecord ?rec .
                 ?value a epo:Population ; ogc:inRecord ?rec .
                 ?rep a epo:StakeholderRepresentation ; ogc:inRecord ?rec ; epo:represents ?value .
                 FILTER NOT EXISTS { ?rep2 a epo:StakeholderRepresentation ; ogc:inRecord ?rec ; epo:represents ?value ; prov:generatedAtTime ?t1 . FILTER(?t1 < ?t0) }
             }
         """ ] ;
     sh:sparql [
-        sh:message "S1: a probe derived from this DSO release was generated before the release was approved." ;
+        sh:message "S1: a probe derived from this DSO release was generated before the release was approved (epo:approvedAt)." ;
         sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX ogc: <https://w3id.org/og-caie/>
             PREFIX prov: <http://www.w3.org/ns/prov#>
             SELECT $this WHERE {
-                $this prov:generatedAtTime ?t0 ; ogc:inRecord ?rec .
+                $this epo:approvedAt ?t0 ; ogc:inRecord ?rec .
                 ?p epo:derivedFromDso $this ; ogc:inRecord ?rec ; prov:generatedAtTime ?t1 .
                 FILTER(?t1 <= ?t0)
             }
@@ -411,6 +428,7 @@ ogc:S1-DsoRelease a sh:NodeShape ;
 # derives from a requirement and carries a positive weight with its rationale
 # and a date.
 ogc:S2-RequirementSet a sh:NodeShape ;
+    ogc:counterexample "counterexamples/assessment-after-session.ttl", "counterexamples/probe-before-requirements.ttl", "counterexamples/requirement-set-unapproved.ttl" ;
     sh:targetClass epo:RequirementSet ;
     sh:property [ sh:path epo:environment ; sh:minCount 1 ; sh:datatype xsd:string ;
                   sh:message "The operational environment is stated." ] ;
@@ -444,6 +462,20 @@ ogc:S2-RequirementSet a sh:NodeShape ;
                 UNION
                 { $this ogc:inRecord ?rec . ?ap a epo:RequirementSetApproval ; ogc:inRecord ?rec ; epo:approvesRequirementSet $this ; prov:generatedAtTime ?t1 .
                   ?value a epo:Session ; ogc:inRecord ?rec ; prov:startedAtTime ?t2 . FILTER(?t2 <= ?t1) }
+            }
+        """ ] ;
+    sh:sparql [
+        sh:message "S2 order (drift pass 4, QA 9): the appropriateness assessment of the requirement set is dated before any session of the record started; the envelope is judged appropriate before it is tested, as the plan is approved before its probes are used (S3)." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX ogc: <https://w3id.org/og-caie/>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            PREFIX earl: <http://www.w3.org/ns/earl#>
+            SELECT $this ?value WHERE {
+                $this ogc:inRecord ?rec .
+                ?a a epo:AppropriatenessAssessment ; ogc:inRecord ?rec ; earl:subject $this ; prov:generatedAtTime ?t1 .
+                ?value a epo:Session ; ogc:inRecord ?rec ; prov:startedAtTime ?t0 .
+                FILTER(?t0 <= ?t1)
             }
         """ ] ;
     sh:sparql [
@@ -505,6 +537,7 @@ ogc:S2-AcceptanceCriterion a sh:NodeShape ;
 # belongs to a plan, names the criteria it exercises, derives from a DSO
 # release, and passed an automatic consistency check.
 ogc:S3-TestPlan a sh:NodeShape ;
+    ogc:counterexample "counterexamples/deviation-unrecorded.ttl" ;
     sh:targetClass epo:TestPlan ;
     sh:property [ sh:path epo:objective ; sh:minCount 1 ; sh:class epo:AcceptanceCriterion ;
                   sh:message "A test plan states at least one objective, an acceptance criterion." ] ;
@@ -547,6 +580,7 @@ ogc:S3-TestPlan a sh:NodeShape ;
         """ ] .
 
 ogc:S3-PlanDeviation a sh:NodeShape ;
+    ogc:counterexample "counterexamples/deviation-by-expert.ttl" ;
     sh:targetClass epo:PlanDeviation ;
     sh:property [ sh:path epo:deviatesFrom ; sh:minCount 1 ; sh:maxCount 1 ; sh:class epo:TestPlan ;
                   sh:message "A deviation names the plan it departs from (sheet 10-16)." ] ;
@@ -577,6 +611,7 @@ ogc:S3-Strategy a sh:NodeShape ;
     sh:property [ sh:path prov:wasAttributedTo ; sh:minCount 1 ; sh:class prov:Person ] .
 
 ogc:S3-PlanApproval a sh:NodeShape ;
+    ogc:counterexample "counterexamples/plan-approved-after-session.ttl" ;
     sh:targetClass epo:PlanApproval ;
     sh:property [ sh:path epo:approves ; sh:minCount 1 ; sh:maxCount 1 ; sh:class epo:TestPlan ] ;
     sh:property [ sh:path prov:generatedAtTime ; sh:minCount 1 ; sh:datatype xsd:dateTime ] ;
@@ -603,6 +638,7 @@ ogc:S3-PlanApproval a sh:NodeShape ;
         """ ] .
 
 ogc:S3-Probe a sh:NodeShape ;
+    ogc:counterexample "counterexamples/consistency-check-after-turn.ttl" ;
     sh:targetClass epo:Probe ;
     sh:property [ sh:path epo:exercises ; sh:minCount 1 ; sh:class epo:AcceptanceCriterion ;
                   sh:message "A probe names at least one acceptance criterion it exercises." ] ;
@@ -655,6 +691,7 @@ ogc:S3-Probe a sh:NodeShape ;
 # from the session names that same agent as its subject. Sessions are
 # stateful, so evidence belongs to its turn.
 ogc:S4-Session a sh:NodeShape ;
+    ogc:counterexample "counterexamples/expert-administers-tests.ttl", "counterexamples/session-on-another-item.ttl" ;
     sh:targetClass epo:Session ;
     sh:property [ sh:path prov:startedAtTime ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
     sh:sparql [
@@ -840,6 +877,7 @@ ogc:S6-Determination a sh:NodeShape ;
 # give pass or fail); it accounts for every determination on its criterion
 # dated no later than it, or names what it left out and why (sheet 10-14).
 ogc:S6-Attestation a sh:NodeShape ;
+    ogc:counterexample "counterexamples/attestation-before-determination.ttl", "counterexamples/attestation-off-plan.ttl", "counterexamples/attestation-off-turn.ttl", "counterexamples/attestation-without-evidence.ttl", "counterexamples/cherry-picked-determination.ttl", "counterexamples/executive-attests.ttl", "counterexamples/insufficient-yet-failed.ttl" ;
     sh:targetClass epo:Attestation ;
     sh:property [ sh:path earl:test ; sh:minCount 1 ; sh:maxCount 1 ; sh:class epo:AcceptanceCriterion ] ;
     sh:property [ sh:path earl:assertedBy ; sh:minCount 1 ; sh:maxCount 1 ; sh:class prov:Person ;
@@ -942,6 +980,7 @@ ogc:S6-Attestation a sh:NodeShape ;
 # 10-18; round four, KG 8); the approval is a domain expert's, of a final
 # report, after that verdict.
 ogc:S7-Report a sh:NodeShape ;
+    ogc:counterexample "counterexamples/deviation-unrecorded.ttl", "counterexamples/draft-rates-from-later.ttl", "counterexamples/draft-without-gaps.ttl", "counterexamples/final-report-without-verdict.ttl", "counterexamples/report-coverage-misstated.ttl", "counterexamples/report-rates-padded.ttl" ;
     sh:targetClass epo:Report ;
     sh:property [ sh:path epo:coverage ; sh:minCount 1 ; sh:maxCount 1 ; sh:minInclusive 0 ; sh:maxInclusive 1 ] ;
     sh:property [ sh:path epo:passRate ; sh:minCount 1 ; sh:maxCount 1 ; sh:minInclusive 0 ; sh:maxInclusive 1 ] ;
@@ -1040,6 +1079,7 @@ ogc:S7-Report a sh:NodeShape ;
         """ ] .
 
 ogc:S7-ConformanceVerdict a sh:NodeShape ;
+    ogc:counterexample "counterexamples/verdict-without-digests.ttl" ;
     sh:targetClass epo:ConformanceVerdict ;
     sh:property [ sh:path earl:mode ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue earl:automatic ] ;
     sh:property [ sh:path prov:generatedAtTime ; sh:minCount 1 ; sh:datatype xsd:dateTime ] ;
@@ -1067,6 +1107,7 @@ ogc:S7-ConformanceVerdict a sh:NodeShape ;
 # shapes, the ontology and the coverage query, by their digests; it is the
 # automatic activity of a versioned software agent.
 ogc:S7-CoverageComputation a sh:NodeShape ;
+    ogc:counterexample "counterexamples/coverage-without-digests.ttl" ;
     sh:targetClass epo:CoverageComputation ;
     sh:property [ sh:path earl:mode ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue earl:automatic ] ;
     sh:property [ sh:path prov:endedAtTime ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
@@ -1080,6 +1121,7 @@ ogc:S7-CoverageComputation a sh:NodeShape ;
                   sh:message "The coverage computation names the coverage query it ran by its sha256 digest (sheet 10-18; round four, KG 8: the query is the assembler's tool, not the checker's)." ] .
 
 ogc:S7-ReportApproval a sh:NodeShape ;
+    ogc:counterexample "counterexamples/draft-approved.ttl" ;
     sh:targetClass epo:ReportApproval ;
     sh:property [ sh:path epo:approvesReport ; sh:minCount 1 ; sh:maxCount 1 ; sh:class epo:Report ] ;
     sh:property [ sh:path earl:mode ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue earl:manual ] ;
@@ -1107,6 +1149,7 @@ ogc:S7-ReportApproval a sh:NodeShape ;
 # why), and from at least one attestation, its evidence, the plan and the
 # DSO release.
 ogc:S8-Recommendation a sh:NodeShape ;
+    ogc:counterexample "counterexamples/attestation-without-evidence.ttl", "counterexamples/fit-despite-failure.ttl", "counterexamples/recommendation-unapproved.ttl", "counterexamples/recommendation-untraced.ttl" ;
     sh:targetClass epo:Recommendation ;
     sh:property [ sh:path prov:wasAttributedTo ; sh:minCount 1 ; sh:class prov:Person ;
                   sh:message "A recommendation is a named person's." ] ;
@@ -1194,6 +1237,7 @@ ogc:S8-Recommendation a sh:NodeShape ;
 # report, its approval and the recommendation, and goes to the sponsor
 # organization.
 ogc:S8-Delivery a sh:NodeShape ;
+    ogc:counterexample "counterexamples/delivery-before-approval.ttl" ;
     sh:targetClass epo:Delivery ;
     sh:property [ sh:path epo:deliveredTo ; sh:minCount 1 ; sh:maxCount 1 ; sh:class prov:Organization ] ;
     sh:property [ sh:path prov:generatedAtTime ; sh:minCount 1 ; sh:datatype xsd:dateTime ] ;
@@ -1291,6 +1335,7 @@ ogc:S0-Proposal a sh:NodeShape ;
         """ ] .
 
 ogc:S9-Acceptance a sh:NodeShape ;
+    ogc:counterexample "counterexamples/acceptance-by-organization.ttl", "counterexamples/draft-approved.ttl", "counterexamples/final-report-without-verdict.ttl" ;
     sh:targetClass epo:Acceptance ;
     sh:property [ sh:path epo:accepts ; sh:minCount 1 ; sh:maxCount 1 ; sh:class epo:Delivery ] ;
     sh:property [ sh:path prov:generatedAtTime ; sh:minCount 1 ; sh:datatype xsd:dateTime ] ;
@@ -1323,6 +1368,7 @@ ogc:S9-Acceptance a sh:NodeShape ;
         """ ] .
 
 ogc:S0-Layers a sh:NodeShape ;
+    ogc:counterexample "counterexamples/requirements-before-agreement.ttl" ;
     sh:targetClass epo:ServiceAgreement ;
     sh:sparql [
         sh:message "S0 two layers (R-32): every item of the record pinned at the contract is generated no later than the requirement set, and every item pinned within the evaluation no earlier than the agreement." ;

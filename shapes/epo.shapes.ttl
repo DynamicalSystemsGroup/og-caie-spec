@@ -48,6 +48,11 @@
 # everywhere. Every UNION branch therefore restates the triple patterns its
 # filters need; a global count is a subselect over OPTIONAL, never a
 # NOT EXISTS across branches.
+#
+# Every shape names the counterexamples that fail on it, by file
+# (ogc:counterexample, sheet 10-40; drift pass 4): the files of the table
+# scripts/render_counterexamples.py writes them from, kept equal to it by
+# tests/test_shacl.py, so that the counterexamples answer by query.
 
 # S0 <-> SCI-02, SCI-10: the record and its parties (rulings R-21, R-23, R-50;
 # the party model of sheet 08). The record is a bundle with a label and an
@@ -370,16 +375,19 @@ ogc:S0-StatementOfWork a sh:NodeShape ;
             }
         """ ] .
 
-# S1 <-> SCI-01: the DSO release is versioned, approved by a named person,
-# approved before any probe derived from it was generated, and approved only
-# once every affected population's representation is available to the domain
-# expert who approves it (sheet 08).
+# S1 <-> SCI-01: the DSO release is versioned, approved by a named person at
+# a stated time (epo:approvedAt, apart from when the release was generated;
+# drift pass 4, QA 9), approved before any probe derived from it was
+# generated, and approved only once every affected population's
+# representation is available to the domain expert who approves it (sheet 08).
 ogc:S1-DsoRelease a sh:NodeShape ;
-    ogc:counterexample "counterexamples/dso-before-stakeholder-input.ttl" ;
+    ogc:counterexample "counterexamples/dso-approval-undated.ttl", "counterexamples/dso-before-stakeholder-input.ttl" ;
     sh:targetClass epo:DsoRelease ;
     sh:property [ sh:path epo:version ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ;
     sh:property [ sh:path epo:approvedBy ; sh:minCount 1 ; sh:class prov:Person ;
                   sh:message "A DSO release is approved by a named person." ] ;
+    sh:property [ sh:path epo:approvedAt ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ;
+                  sh:message "A DSO release's approval is dated (drift pass 4, QA 9): epo:approvedAt is the time the rules on the release order against, not the time the release was generated." ] ;
     sh:sparql [
         sh:message "S1: the DSO release is approved by a domain expert (R-21, R-23)." ;
         sh:select """
@@ -388,26 +396,26 @@ ogc:S1-DsoRelease a sh:NodeShape ;
         """ ] ;
     sh:property [ sh:path prov:generatedAtTime ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
     sh:sparql [
-        sh:message "S1 precondition (sheet 08, R-49): every affected population's representation is available before the DSO release is approved: the population's stakeholder representation was generated before the release's approval time (a population with no representation at all is S0's finding)." ;
+        sh:message "S1 precondition (sheet 08, R-49): every affected population's representation is available before the DSO release is approved: the population's stakeholder representation was generated before the release's approval time, epo:approvedAt (a population with no representation at all is S0's finding)." ;
         sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX ogc: <https://w3id.org/og-caie/>
             PREFIX prov: <http://www.w3.org/ns/prov#>
             SELECT $this ?value WHERE {
-                $this prov:generatedAtTime ?t0 ; ogc:inRecord ?rec .
+                $this epo:approvedAt ?t0 ; ogc:inRecord ?rec .
                 ?value a epo:Population ; ogc:inRecord ?rec .
                 ?rep a epo:StakeholderRepresentation ; ogc:inRecord ?rec ; epo:represents ?value .
                 FILTER NOT EXISTS { ?rep2 a epo:StakeholderRepresentation ; ogc:inRecord ?rec ; epo:represents ?value ; prov:generatedAtTime ?t1 . FILTER(?t1 < ?t0) }
             }
         """ ] ;
     sh:sparql [
-        sh:message "S1: a probe derived from this DSO release was generated before the release was approved." ;
+        sh:message "S1: a probe derived from this DSO release was generated before the release was approved (epo:approvedAt)." ;
         sh:select """
             PREFIX epo: <https://w3id.org/og-caie/epo#>
             PREFIX ogc: <https://w3id.org/og-caie/>
             PREFIX prov: <http://www.w3.org/ns/prov#>
             SELECT $this WHERE {
-                $this prov:generatedAtTime ?t0 ; ogc:inRecord ?rec .
+                $this epo:approvedAt ?t0 ; ogc:inRecord ?rec .
                 ?p epo:derivedFromDso $this ; ogc:inRecord ?rec ; prov:generatedAtTime ?t1 .
                 FILTER(?t1 <= ?t0)
             }
@@ -420,7 +428,7 @@ ogc:S1-DsoRelease a sh:NodeShape ;
 # derives from a requirement and carries a positive weight with its rationale
 # and a date.
 ogc:S2-RequirementSet a sh:NodeShape ;
-    ogc:counterexample "counterexamples/probe-before-requirements.ttl", "counterexamples/requirement-set-unapproved.ttl" ;
+    ogc:counterexample "counterexamples/assessment-after-session.ttl", "counterexamples/probe-before-requirements.ttl", "counterexamples/requirement-set-unapproved.ttl" ;
     sh:targetClass epo:RequirementSet ;
     sh:property [ sh:path epo:environment ; sh:minCount 1 ; sh:datatype xsd:string ;
                   sh:message "The operational environment is stated." ] ;
@@ -454,6 +462,20 @@ ogc:S2-RequirementSet a sh:NodeShape ;
                 UNION
                 { $this ogc:inRecord ?rec . ?ap a epo:RequirementSetApproval ; ogc:inRecord ?rec ; epo:approvesRequirementSet $this ; prov:generatedAtTime ?t1 .
                   ?value a epo:Session ; ogc:inRecord ?rec ; prov:startedAtTime ?t2 . FILTER(?t2 <= ?t1) }
+            }
+        """ ] ;
+    sh:sparql [
+        sh:message "S2 order (drift pass 4, QA 9): the appropriateness assessment of the requirement set is dated before any session of the record started; the envelope is judged appropriate before it is tested, as the plan is approved before its probes are used (S3)." ;
+        sh:select """
+            PREFIX epo: <https://w3id.org/og-caie/epo#>
+            PREFIX ogc: <https://w3id.org/og-caie/>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            PREFIX earl: <http://www.w3.org/ns/earl#>
+            SELECT $this ?value WHERE {
+                $this ogc:inRecord ?rec .
+                ?a a epo:AppropriatenessAssessment ; ogc:inRecord ?rec ; earl:subject $this ; prov:generatedAtTime ?t1 .
+                ?value a epo:Session ; ogc:inRecord ?rec ; prov:startedAtTime ?t0 .
+                FILTER(?t0 <= ?t1)
             }
         """ ] ;
     sh:sparql [

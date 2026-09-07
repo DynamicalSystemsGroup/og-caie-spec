@@ -288,6 +288,7 @@ def t_scope(r, i, p):
             g.add((rep, PROV.wasAttributedTo, r.agents["DomainExpert"]))
     d = r.new("DsoRelease", "dso", i, 2 * len(r.agents["AffectedPopulation"]) + 1)
     g.add((d, EPO.version, Literal("r1"))); g.add((d, EPO.approvedBy, r.agents["DomainExpert"])); by(r, d, "DsoRelease")
+    g.add((d, EPO.approvedAt, r.at(i, 2 * len(r.agents["AffectedPopulation"]) + 2)))  # approved after it was generated, every representation before it (S1; drift pass 4)
     return {"StakeholderInput", "StakeholderRepresentation", "DsoRelease"}
 
 

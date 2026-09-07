@@ -102,7 +102,7 @@ COUNTEREXAMPLES: dict[str, dict] = {
     "dso-before-stakeholder-input": dict(
         shapes=["S1-DsoRelease"],
         fault="the commuters' representation was generated after the DSO release was approved, so it was not available to the domain expert who approved the release (sheet 08, R-49).",
-        replace=[("    prov:wasAttributedTo ev:theo ;\n    prov:generatedAtTime \"2026-08-01T08:30:00Z\"", "    prov:wasAttributedTo ev:theo ;\n    prov:generatedAtTime \"2026-08-01T09:30:00Z\"")]),
+        replace=[("    prov:wasAttributedTo ev:theo ;\n    prov:generatedAtTime \"2026-08-01T08:30:00Z\"", "    prov:wasAttributedTo ev:theo ;\n    prov:generatedAtTime \"2026-08-01T09:45:00Z\"")]),
     "attestation-before-determination": dict(
         shapes=["S6-Attestation"],
         fault="determination-1 is dated after attestation-1, which aggregates it: an attestation is dated no earlier than its determinations (sheet 10-19).",
@@ -234,6 +234,16 @@ COUNTEREXAMPLES: dict[str, dict] = {
         shapes=["S8-Recommendation"],
         fault="the recommendation says fit to deploy while the vaccination question was attested failed: fit to deploy rests on no failed attestation (sheet 10-48).",
         replace=[("    epo:fitness epo:fitWithConditions ;", "    epo:fitness epo:fitToDeploy ;")]),
+    # ---- the faults of drift pass 4 (the contracting officer's and the QA reader's findings on the record rules)
+    "dso-approval-undated": dict(
+        shapes=["S1-DsoRelease"],
+        fault="the DSO release names who approved it and not when: an undated approval cannot be ordered against the representations that must precede it or the probes that must follow it (drift pass 4, QA 9).",
+        replace=[("    epo:approvedBy ev:annie ;\n    epo:approvedAt \"2026-08-01T09:30:00Z\"^^xsd:dateTime ;\n", "    epo:approvedBy ev:annie ;\n")]),
+    "assessment-after-session": dict(
+        shapes=["S2-RequirementSet"],
+        fault="the appropriateness assessment of the requirement set is dated 10 August, after the first three sessions had started: the envelope is judged appropriate before it is tested, as the plan is approved before its probes are used (drift pass 4, QA 9).",
+        replace=[("    earl:result [ a earl:TestResult ; earl:outcome earl:passed ; earl:info \"the envelope covers what residents and commuters need from a public information service during the outbreak: exposure, vaccination and whom to call\" ] ;\n    prov:generatedAtTime \"2026-08-02T10:00:00Z\"",
+                  "    earl:result [ a earl:TestResult ; earl:outcome earl:passed ; earl:info \"the envelope covers what residents and commuters need from a public information service during the outbreak: exposure, vaccination and whom to call\" ] ;\n    prov:generatedAtTime \"2026-08-10T15:30:00Z\"")]),
 }
 
 
