@@ -21557,6 +21557,12 @@
    "in": [],
    "out": [
     [
+     "ogc:bibkey",
+     {
+      "text": "gruber-1993"
+     }
+    ],
+    [
      "ogc:digest",
      {
       "text": "sources/digests/gruber-1993.md"
@@ -21650,6 +21656,12 @@
   "https://w3id.org/og-caie/sources#hawkins-2011": {
    "in": [],
    "out": [
+    [
+     "ogc:bibkey",
+     {
+      "text": "hawkins-2011"
+     }
+    ],
     [
      "ogc:digest",
      {
@@ -21774,6 +21786,12 @@
    "in": [],
    "out": [
     [
+     "ogc:bibkey",
+     {
+      "text": "hogan-2021"
+     }
+    ],
+    [
      "ogc:digest",
      {
       "text": "sources/digests/hogan-2021.md"
@@ -21868,6 +21886,12 @@
    "in": [],
    "out": [
     [
+     "ogc:bibkey",
+     {
+      "text": "iec-60050-351"
+     }
+    ],
+    [
      "ogc:digest",
      {
       "text": "sources/digests/iec-60050-351.md"
@@ -21956,6 +21980,12 @@
    "in": [],
    "out": [
     [
+     "ogc:bibkey",
+     {
+      "text": "incose-gtwr-v4"
+     }
+    ],
+    [
      "ogc:digest",
      {
       "text": "sources/digests/incose-gtwr-v4.md"
@@ -22015,6 +22045,12 @@
    "in": [],
    "out": [
     [
+     "ogc:bibkey",
+     {
+      "text": "isa-500"
+     }
+    ],
+    [
      "ogc:digest",
      {
       "text": "sources/digests/isa-500.md"
@@ -22073,6 +22109,12 @@
   "https://w3id.org/og-caie/sources#iso-9000-2026": {
    "in": [],
    "out": [
+    [
+     "ogc:bibkey",
+     {
+      "text": "iso-9000-2026"
+     }
+    ],
     [
      "ogc:digest",
      {
@@ -22866,6 +22908,12 @@
    "in": [],
    "out": [
     [
+     "ogc:bibkey",
+     {
+      "text": "iso-iec-17000-2020"
+     }
+    ],
+    [
      "ogc:digest",
      {
       "text": "sources/digests/iso-iec-17000-2020.md"
@@ -23041,6 +23089,12 @@
    "in": [],
    "out": [
     [
+     "ogc:bibkey",
+     {
+      "text": "jcgm-200-2012"
+     }
+    ],
+    [
      "ogc:digest",
      {
       "text": "sources/digests/jcgm-200-2012.md"
@@ -23193,6 +23247,12 @@
    "in": [],
    "out": [
     [
+     "ogc:bibkey",
+     {
+      "text": "nist-ai-100-1"
+     }
+    ],
+    [
      "ogc:digest",
      {
       "text": "sources/digests/nist-ai-100-1.md"
@@ -23257,6 +23317,12 @@
   "https://w3id.org/og-caie/sources#nist-ai-700-2": {
    "in": [],
    "out": [
+    [
+     "ogc:bibkey",
+     {
+      "text": "nist-ai-700-2"
+     }
+    ],
     [
      "ogc:digest",
      {
@@ -23468,6 +23534,12 @@
    "in": [],
    "out": [
     [
+     "ogc:bibkey",
+     {
+      "text": "nist-tn-1297"
+     }
+    ],
+    [
      "ogc:digest",
      {
       "text": "sources/digests/nist-tn-1297.md"
@@ -23533,6 +23605,12 @@
    "in": [],
    "out": [
     [
+     "ogc:bibkey",
+     {
+      "text": "popper-1959"
+     }
+    ],
+    [
      "ogc:digest",
      {
       "text": "sources/digests/popper-1959.md"
@@ -23586,6 +23664,12 @@
    "in": [],
    "out": [
     [
+     "ogc:bibkey",
+     {
+      "text": "scipy-2026-bof"
+     }
+    ],
+    [
      "ogc:digest",
      {
       "text": "sources/digests/scipy-2026-bof.md"
@@ -23638,6 +23722,12 @@
   "https://w3id.org/og-caie/sources#sebok-2-14": {
    "in": [],
    "out": [
+    [
+     "ogc:bibkey",
+     {
+      "text": "sebok-2-14"
+     }
+    ],
     [
      "ogc:digest",
      {
@@ -23703,6 +23793,12 @@
   "https://w3id.org/og-caie/sources#sevocab": {
    "in": [],
    "out": [
+    [
+     "ogc:bibkey",
+     {
+      "text": "sevocab"
+     }
+    ],
     [
      "ogc:digest",
      {
@@ -24448,6 +24544,12 @@
    "in": [],
    "out": [
     [
+     "ogc:bibkey",
+     {
+      "text": "w3c-earl"
+     }
+    ],
+    [
      "ogc:digest",
      {
       "text": "sources/digests/w3c.md"
@@ -24512,6 +24614,12 @@
   "https://w3id.org/og-caie/sources#w3c-prov-o": {
    "in": [],
    "out": [
+    [
+     "ogc:bibkey",
+     {
+      "text": "w3c-prov-o"
+     }
+    ],
     [
      "ogc:digest",
      {
@@ -24578,6 +24686,12 @@
    "in": [],
    "out": [
     [
+     "ogc:bibkey",
+     {
+      "text": "w3c-shacl"
+     }
+    ],
+    [
      "ogc:digest",
      {
       "text": "sources/digests/w3c.md"
@@ -24642,6 +24756,12 @@
   "https://w3id.org/og-caie/sources#w3c-skos": {
    "in": [],
    "out": [
+    [
+     "ogc:bibkey",
+     {
+      "text": "w3c-skos"
+     }
+    ],
     [
      "ogc:digest",
      {

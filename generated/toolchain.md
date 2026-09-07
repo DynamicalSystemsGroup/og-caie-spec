@@ -53,7 +53,7 @@ What the graphs are written in, counted over the committed Turtle files (`vocabu
 | `sysx` | `urn:opensysml:sysml:` | OpenSysML | the converter's own facts: the ends of a connection, the source text of a statement, a prefix keyword | 0 | 4 | 0 | <https://github.com/OpenMBEE/opensysml> |
 | `elmt` | `urn:sysmlv2:element:` | OpenSysML | the converter's element identifiers, one per model element | 0 | 0 | 647 | <https://github.com/OpenMBEE/opensysml> |
 | `expr` | `urn:opensysml:expr:` | OpenSysML | the converter's expression identifiers (end paths, multiplicity bounds) | 0 | 0 | 491 | <https://github.com/OpenMBEE/opensysml> |
-| `ogc` | `https://w3id.org/og-caie/` | this specification | the register: citation classes and properties, shapes' names, concerns, rulings, crosswalk rows, trace essentials | 6 | 50 | 113 | <https://w3id.org/og-caie/> |
+| `ogc` | `https://w3id.org/og-caie/` | this specification | the register: citation classes and properties, shapes' names, concerns, rulings, crosswalk rows, trace essentials | 6 | 51 | 114 | <https://w3id.org/og-caie/> |
 | `term` | `https://w3id.org/og-caie/terms#` | this specification | the glossary's terms | 0 | 0 | 66 | <https://w3id.org/og-caie/> |
 | `src` | `https://w3id.org/og-caie/sources#` | this specification | the source register | 0 | 0 | 77 | <https://w3id.org/og-caie/> |
 | `rul` | `https://w3id.org/og-caie/rulings#` | this specification | concerns and rulings | 0 | 0 | 113 | <https://w3id.org/og-caie/> |

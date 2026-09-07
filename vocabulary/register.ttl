@@ -50,6 +50,7 @@ ogc:checkedBy a owl:ObjectProperty ; rdfs:label "checkedBy" ; rdfs:comment "the 
 ogc:restsOn a owl:ObjectProperty ; rdfs:label "restsOn" ; rdfs:comment "the source an essential rests on" ; rdfs:domain ogc:Trace ; rdfs:range ogc:Source .
 ogc:page a owl:DatatypeProperty ; rdfs:label "page" ; rdfs:comment "the chapter an essential is rendered on" ; rdfs:domain ogc:Trace ; rdfs:range xsd:string .
 ogc:pinnedAt a owl:ObjectProperty ; rdfs:label "pinnedAt" ; rdfs:comment "the layer that fixes an item kind: the contract or the evaluation (R-32)" ; rdfs:domain owl:Class ; rdfs:range epo:Layer .
+ogc:bibkey a owl:DatatypeProperty ; rdfs:label "bibkey" ; rdfs:comment "the BibTeX key the works cited use for the source (sheet 10-40)" ; rdfs:domain ogc:Source ; rdfs:range xsd:string .
 ogc:rank a owl:DatatypeProperty ; rdfs:label "rank" ; rdfs:comment "the source's ordinal rank, 1 to 8, a heuristic for which definition wins when several sources define a term (sheet 10-46)" ; rdfs:domain ogc:Source ; rdfs:range xsd:string .
 ogc:kind a owl:DatatypeProperty ; rdfs:label "kind" ; rdfs:comment "pdf, web, html or event" ; rdfs:domain ogc:Source ; rdfs:range xsd:string .
 ogc:posture a owl:DatatypeProperty ; rdfs:label "posture" ; rdfs:comment "committed (the snapshot is in the repository), heldLocally (hashed, not redistributed) or citeOnly" ; rdfs:domain ogc:Source ; rdfs:range xsd:string .

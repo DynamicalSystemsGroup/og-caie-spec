@@ -29,6 +29,7 @@ import sys
 from pathlib import Path
 
 from rdflib import RDF, Graph, Namespace
+from rdflib.namespace import RDFS, SKOS
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
@@ -180,7 +181,7 @@ def entries(g: Graph | None = None) -> dict[str, tuple[str, dict]]:
     g = g or graph()
     out = {}
     for s in g.subjects(RDF.type, OGC.Source):
-        key = local(s)
+        key = str(g.value(s, OGC.bibkey) or local(s))  # the register names its own key (sheet 10-40)
         kind, fields, _who, extra = parse_label(str(g.value(s, RDFS.label)), str(g.value(s, OGC.kind)))
         url = g.value(s, OGC.url)
         if url is not None:
@@ -379,6 +380,42 @@ def render_cited_all(g: Graph | None = None) -> str:
     return "\n".join(lines) + "\n"
 
 
+DESIGNATION = re.compile(r"\(([^()]*?\b(?:ISO|IEC|IEEE|INCOSE|NRM|SEBoK)[^()]*)\)")
+THROUGH = ("sevocab", "sebok-2-14")
+
+
+def cited_through(g: Graph | None = None) -> dict[str, dict[str, set[str]]]:
+    """The standards quoted through the compilations (SEVOCAB, the SEBoK): every designation a locator names in
+    parentheses, with the terms and steps that cite it through which compilation (sheet 10, the professor's M14)."""
+    g = g or graph()
+    out: dict[str, dict[str, set[str]]] = {}
+    holders = set(g.subjects(RDF.type, SKOS.Concept)) | set(g.subjects(RDF.type, EPO.EpoStep)) | set(g.subjects(RDF.type, EPO.ContractingStep))
+    for h in holders:
+        for c in [g.value(h, OGC.canonical), *g.objects(h, OGC.seeAlso)]:
+            if c is None:
+                continue
+            via = local(g.value(c, OGC.cites))
+            if via not in THROUGH:
+                continue
+            for m in DESIGNATION.finditer(str(g.value(c, OGC.locator) or "")):
+                designation = m.group(1).split(",")[0].strip()
+                if designation.startswith("fragment") or designation.startswith("first sentence"):
+                    continue
+                name = str(g.value(h, SKOS.prefLabel) or g.value(h, RDFS.label) or local(h)).split(":")[0]
+                out.setdefault(designation, {}).setdefault(via, set()).add(name)
+    return out
+
+
+def render_cited_through(g: Graph | None = None) -> str:
+    rows = cited_through(g)
+    lines = ["| Standard | Through | Cited for |", "|---|---|---|"]
+    for designation in sorted(rows, key=str.lower):
+        for via in sorted(rows[designation]):
+            lines.append(f"| {designation} | {via} | {', '.join(sorted(rows[designation][via], key=str.lower))} |")
+    return ("The standards the compilations carry: every designation a SEVOCAB or SEBoK locator names, with what cites it through them. "
+            "These are cited at second hand and are not in the register; the compilation is.\n\n" + "\n".join(lines) + "\n")
+
+
 def main() -> int:
     g = _G()
     (ROOT / "references.bib").write_text(render_bib(g))
@@ -386,6 +423,7 @@ def main() -> int:
     for page in PAGES:
         (OUT / f"cited-{page}.md").write_text(render_cited(page, g))
     (OUT / "cited-all.md").write_text(render_cited_all(g))
+    (OUT / "cited-through.md").write_text(render_cited_through(g))
     return 0
 
 

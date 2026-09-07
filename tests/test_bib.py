@@ -129,3 +129,16 @@ def test_the_site_builds_without_a_citation_warning():  # needs the network once
     noisy = [l for l in out.splitlines() if ("⚠" in l or "warn" in l.lower() or "error" in l.lower())
              and re.search(r"cit|bib", l, re.I)]
     assert not noisy, noisy
+
+
+def test_every_source_names_its_bibtex_key_and_the_cited_through_list_regenerates():
+    """Sheet 10-40 (R-50): the register carries the key the bibliography uses; the standards quoted through
+    SEVOCAB and the SEBoK are listed from the locators (the professor's M14)."""
+    g = rb.graph()
+    for s in g.subjects(RDF.type, OGC.Source):
+        assert str(g.value(s, OGC.bibkey)) == rb.local(s), s
+    keys = set(rb.entries(g))
+    assert all(str(g.value(s, OGC.bibkey)) in keys for s in g.subjects(RDF.type, OGC.Source))
+    text = rb.render_cited_through(g)
+    assert text == (ROOT / "generated" / "cited-through.md").read_text()
+    assert "ISO/IEC/IEEE 29119-2:2021" in text and "| sevocab |" in text

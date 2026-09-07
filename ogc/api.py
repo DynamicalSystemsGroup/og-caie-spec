@@ -296,7 +296,7 @@ def source_record(g: Graph, slug: str) -> dict | None:
         if (x, RDF.type, OGC.Crosswalk) in g:
             cits.append(dict(term=f"crosswalk: {one(g, x, RDFS.label)}", citation="crosswalk", locator=one(g, x, OGC.locator), quote=one(g, x, OGC.quote), status=cite_status(g, x)))
     return dict(slug=slug, label=one(g, s, RDFS.label), rank=one(g, s, OGC.rank), kind=one(g, s, OGC.kind), posture=one(g, s, OGC.posture),
-                url=one(g, s, OGC.url), digest=one(g, s, OGC.digest), status=one(g, s, OGC.status), retrieval=one(g, s, OGC.retrievalNote),
+                url=one(g, s, OGC.url), bibkey=one(g, s, OGC.bibkey), digest=one(g, s, OGC.digest), status=one(g, s, OGC.status), retrieval=one(g, s, OGC.retrievalNote),
                 licence=one(g, s, OGC.licenceNote), permission=one(g, s, OGC.permissionStatement), snapshots=snaps,
                 citations=sorted(cits, key=lambda d: (d["term"].lower(), d["citation"], d["locator"])))
 

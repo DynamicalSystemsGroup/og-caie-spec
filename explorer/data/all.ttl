@@ -620,6 +620,7 @@ src:sevocab_operator a ogc:SourceConcept ;
 src:w3c-skos a prov:Entity,
         ogc:Source ;
     rdfs:label "W3C, SKOS Simple Knowledge Organization System Reference, Recommendation 18 August 2009" ;
+    ogc:bibkey "w3c-skos" ;
     ogc:digest "sources/digests/w3c.md" ;
     ogc:kind "html" ;
     ogc:licenceNote "W3C Document Licence" ;
@@ -5698,6 +5699,7 @@ src:jcgm-200-2012_2.26 a ogc:SourceConcept ;
 src:nist-ai-100-1 a prov:Entity,
         ogc:Source ;
     rdfs:label "NIST AI 100-1, Artificial Intelligence Risk Management Framework (AI RMF 1.0), January 2023" ;
+    ogc:bibkey "nist-ai-100-1" ;
     ogc:digest "sources/digests/nist-ai-100-1.md" ;
     ogc:kind "pdf" ;
     ogc:licenceNote "US Government work, public domain" ;
@@ -5830,6 +5832,7 @@ src:sevocab_test-suite a ogc:SourceConcept ;
 src:w3c-prov-o a prov:Entity,
         ogc:Source ;
     rdfs:label "W3C, PROV-O: The PROV Ontology, Recommendation 30 April 2013" ;
+    ogc:bibkey "w3c-prov-o" ;
     ogc:digest "sources/digests/w3c.md" ;
     ogc:kind "html" ;
     ogc:licenceNote "W3C Document Licence" ;
@@ -9515,6 +9518,7 @@ rul:R-49 a ogc:Ruling ;
 src:gruber-1993 a prov:Entity,
         ogc:Source ;
     rdfs:label "Gruber, A Translation Approach to Portable Ontology Specifications, Knowledge Acquisition 5(2), 1993 (author copy)" ;
+    ogc:bibkey "gruber-1993" ;
     ogc:digest "sources/digests/gruber-1993.md" ;
     ogc:kind "pdf" ;
     ogc:licenceNote "Academic Press copyright; author-hosted copy; held locally" ;
@@ -9532,6 +9536,7 @@ src:hogan-2021_section-1 a ogc:SourceConcept ;
 src:incose-gtwr-v4 a prov:Entity,
         ogc:Source ;
     rdfs:label "INCOSE Guide to Writing Requirements v4, Summary Sheet (INCOSE-TP-2010-006-04, June 2023)" ;
+    ogc:bibkey "incose-gtwr-v4" ;
     ogc:digest "sources/digests/incose-gtwr-v4.md" ;
     ogc:kind "pdf" ;
     ogc:licenceNote "INCOSE copyright restrictions; held locally" ;
@@ -9543,6 +9548,7 @@ src:incose-gtwr-v4 a prov:Entity,
 src:isa-500 a prov:Entity,
         ogc:Source ;
     rdfs:label "IAASB, International Standard on Auditing 500: Audit Evidence (2009 text, effective 15 December 2009; ISA 500 (Revised 2024), effective for periods beginning on or after 15 December 2026, keeps paragraphs 5(b) and 5(f))" ;
+    ogc:bibkey "isa-500" ;
     ogc:digest "sources/digests/isa-500.md" ;
     ogc:kind "pdf" ;
     ogc:licenceNote "IFAC copyright; freely downloadable; held locally" ;
@@ -9579,6 +9585,7 @@ src:sevocab_test-case a ogc:SourceConcept ;
 src:w3c-earl a prov:Entity,
         ogc:Source ;
     rdfs:label "W3C, Evaluation and Report Language (EARL) 1.0 Schema, Working Group Note 2 February 2017" ;
+    ogc:bibkey "w3c-earl" ;
     ogc:digest "sources/digests/w3c.md" ;
     ogc:kind "html" ;
     ogc:licenceNote "W3C Document Licence" ;
@@ -10694,6 +10701,7 @@ rul:user-test-1-2026-09-06 a prov:Activity ;
 src:hogan-2021 a prov:Entity,
         ogc:Source ;
     rdfs:label "Hogan et al., Knowledge Graphs, ACM Computing Surveys 54(4), 2021 (arXiv:2003.02320v3)" ;
+    ogc:bibkey "hogan-2021" ;
     ogc:digest "sources/digests/hogan-2021.md" ;
     ogc:kind "pdf" ;
     ogc:licenceNote "arXiv non-exclusive licence; held locally" ;
@@ -10716,6 +10724,7 @@ src:iso-9000-2026_3.9.1 a ogc:SourceConcept ;
 src:nist-tn-1297 a prov:Entity,
         ogc:Source ;
     rdfs:label "NIST Technical Note 1297, Guidelines for Evaluating and Expressing the Uncertainty of NIST Measurement Results, 1994 edition" ;
+    ogc:bibkey "nist-tn-1297" ;
     ogc:digest "sources/digests/nist-tn-1297.md" ;
     ogc:kind "pdf" ;
     ogc:licenceNote "US Government work, public domain" ;
@@ -10728,6 +10737,7 @@ src:nist-tn-1297 a prov:Entity,
 src:w3c-shacl a prov:Entity,
         ogc:Source ;
     rdfs:label "W3C, Shapes Constraint Language (SHACL), Recommendation 20 July 2017" ;
+    ogc:bibkey "w3c-shacl" ;
     ogc:digest "sources/digests/w3c.md" ;
     ogc:kind "html" ;
     ogc:licenceNote "W3C Document Licence" ;
@@ -11826,6 +11836,7 @@ ev:report a epo:Report ;
 src:hawkins-2011 a prov:Entity,
         ogc:Source ;
     rdfs:label "Hawkins, Kelly, Knight and Graydon, A New Approach to Creating Clear Safety Arguments, Safety-Critical Systems Symposium 2011 (author copy, University of York)" ;
+    ogc:bibkey "hawkins-2011" ;
     ogc:digest "sources/digests/hawkins-2011.md" ;
     ogc:kind "pdf" ;
     ogc:licenceNote "Springer proceedings; author-hosted copy; held locally" ;
@@ -12597,6 +12608,7 @@ epo:EpoStep a owl:Class ;
 src:iec-60050-351 a prov:Entity,
         ogc:Source ;
     rdfs:label "IEC 60050-351:2013 International Electrotechnical Vocabulary, Part 351: Control technology (Electropedia)" ;
+    ogc:bibkey "iec-60050-351" ;
     ogc:digest "sources/digests/iec-60050-351.md" ;
     ogc:kind "web" ;
     ogc:licenceNote "IEC copyright; Electropedia is publicly browsable; short attributed quotations only; quotes transcribed from the browser and verified by Z on 2026-09-06 (rulings sheet 02)" ;
@@ -12607,6 +12619,7 @@ src:iec-60050-351 a prov:Entity,
 src:popper-1959 a prov:Entity,
         ogc:Source ;
     rdfs:label "Popper, The Logic of Scientific Discovery, London: Hutchinson, 1959" ;
+    ogc:bibkey "popper-1959" ;
     ogc:digest "sources/digests/popper-1959.md" ;
     ogc:kind "web" ;
     ogc:licenceNote "cited as the canonical source named as the source of the definitions presented at the SciPy 2026 session; not quoted directly" ;
@@ -12855,6 +12868,7 @@ epo:RequirementSet a owl:Class ;
 src:scipy-2026-bof a prov:Entity,
         ogc:Source ;
     rdfs:label "Hollek and Zargham, Building Scientific Approaches to Generative AI, Birds-of-a-Feather session, SciPy 2026 (public event)" ;
+    ogc:bibkey "scipy-2026-bof" ;
     ogc:digest "sources/digests/scipy-2026-bof.md" ;
     ogc:kind "event" ;
     ogc:licenceNote "a public event on the conference record, cited as a fact about what was presented there; the definitions in the digest are the authors' own words as presented; the organization logos shown at the session are reproduced at assets/hi-dsg-collaboration.png with the organizations' agreement (ruling R-47, sheet 06-02)" ;
@@ -13390,6 +13404,7 @@ rul:sheet-01-walkthrough-2026-09-06 a prov:Activity ;
 src:jcgm-200-2012 a prov:Entity,
         ogc:Source ;
     rdfs:label "JCGM 200:2012 International vocabulary of metrology, basic and general concepts and associated terms (VIM), 3rd edition (BIPM)" ;
+    ogc:bibkey "jcgm-200-2012" ;
     ogc:digest "sources/digests/jcgm-200-2012.md" ;
     ogc:kind "pdf" ;
     ogc:licenceNote "JCGM copyright; freely downloadable from BIPM; held locally" ;
@@ -13402,6 +13417,7 @@ src:jcgm-200-2012 a prov:Entity,
 src:sebok-2-14 a prov:Entity,
         ogc:Source ;
     rdfs:label "Guide to the Systems Engineering Body of Knowledge (SEBoK) v2.14" ;
+    ogc:bibkey "sebok-2-14" ;
     ogc:digest "sources/digests/sebok-2-14.md" ;
     ogc:kind "pdf" ;
     ogc:licenceNote "CC BY-NC-SA; held locally per ruling R-04" ;
@@ -13785,6 +13801,7 @@ part def and port def should allow us to specify this in an abstract wiring diag
 src:nist-ai-700-2 a prov:Entity,
         ogc:Source ;
     rdfs:label "NIST AI 700-2, Assessing Risks and Impacts of AI (ARIA): ARIA 0.1 Pilot Evaluation Report (November 2025)" ;
+    ogc:bibkey "nist-ai-700-2" ;
     ogc:digest "sources/digests/nist-ai-700-2.md" ;
     ogc:kind "pdf" ;
     ogc:licenceNote "US Government work, public domain" ;
@@ -13868,6 +13885,7 @@ rul:model-revision-planning-2026-09-06 a prov:Activity ;
 src:iso-iec-17000-2020 a prov:Entity,
         ogc:Source ;
     rdfs:label "ISO/IEC 17000:2020(en) Conformity assessment — Vocabulary and general principles (Online Browsing Platform)" ;
+    ogc:bibkey "iso-iec-17000-2020" ;
     ogc:digest "sources/digests/iso-iec-17000-2020.md" ;
     ogc:kind "web" ;
     ogc:licenceNote "ISO copyright; the vocabulary is publicly browsable; short attributed quotations only (the party terms, object, access, scheme, specified requirement, testing, review, decision, attestation and its note, surveillance)" ;
@@ -13888,6 +13906,7 @@ elmt:OGCAIE__OgCaieEvaluation a sysml:PartDefinition ;
 src:iso-9000-2026 a prov:Entity,
         ogc:Source ;
     rdfs:label "ISO 9000:2026(en) Quality management — Fundamentals and vocabulary (Online Browsing Platform preview)" ;
+    ogc:bibkey "iso-9000-2026" ;
     ogc:digest "sources/digests/iso-9000-2026.md" ;
     ogc:kind "web" ;
     ogc:licenceNote "ISO copyright; the preview is publicly browsable; short attributed quotations only" ;
@@ -13992,6 +14011,7 @@ elmt:OGCAIE__OgCaieEvaluation__testingOrg a sysml:PartUsage ;
 src:sevocab a prov:Entity,
         ogc:Source ;
     rdfs:label "IEEE Computer Society, Software and Systems Engineering Vocabulary (SEVOCAB), PDF export (481 pp.)" ;
+    ogc:bibkey "sevocab" ;
     ogc:digest "sources/digests/sevocab.md" ;
     ogc:kind "pdf" ;
     ogc:licenceNote "Each definition may be copied provided the IEEE statement remains with it, and the ISO/IEC definitions provided their source is cited; the PDF itself is not redistributed" ;
