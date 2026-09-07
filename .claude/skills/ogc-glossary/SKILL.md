@@ -22,10 +22,15 @@ the record; the tool is the only honest reader of it. Everything it prints
 is deterministic (sorted, no timestamps) and starts with
 `# ogc <command> <args> @ <git-sha>`, so a quoted answer is citable. The
 header is the canonical form of the invocation, not the keystrokes: `--root`
-and the global flags are dropped, `--model` and `--record` come last in that
-order wherever they were typed, whitespace is collapsed and newlines are
-escaped as `\n`; two invocations that differ only in those print the same
-header.
+and the global flags are dropped, a flag the command loads on its own
+(`--model` under `view`, `views` and `execute`, `--record` under `record`)
+is dropped, `--model` and `--record` come last in that order wherever they
+were typed, whitespace is collapsed, newlines are escaped as `\n`, and an
+argument holding whitespace or a quote is shell-quoted in single quotes, so
+the header after `# ` runs again as typed (`# ogc check-word 'system under
+test' @ ...`); two invocations that differ only in those print the same
+header. An argument equal to the command word stays (`ogc record record`
+prints `# ogc record record`).
 
 Run it from the repo as `uv run -q ogc ...` (`-q` keeps uv's warnings out
 of the transcript); `python -m ogc` is the same tool. From elsewhere, pass
@@ -49,10 +54,28 @@ in any case, `TERM:PROBE` is `term:probe`) or the full IRI, with or without
 angle brackets. A CURIE under a prefix the command does not read is a miss
 (exit 1) whose hint names the reader that does: `ogc term rul:R-16` says
 try `ogc ruling R-16`, `ogc define epo:StakeholderRepresentation` says try
-`ogc epo StakeholderRepresentation`, `ogc record term:probe` says try `ogc
-term probe`; the shapes live under `ogc:`, so `ogc shape epo:S3-PlanApproval`
-is a miss too. Source slugs, view names, mutation names, shape ids and
-filter values are case-insensitive too. A miss lists up to eight near
+`ogc epo StakeholderRepresentation` when the class names no term, `ogc
+record term:probe` says try `ogc term probe`, `ogc record epo:Attestation`
+says the class is read by `ogc epo Attestation` and its instances are
+listed by `ogc record`; the shapes
+live under `ogc:`, so `ogc shape epo:S3-PlanApproval` is a miss too. An
+`ex:` id anywhere (`ogc term ex:probe`, `ogc record ex:attestation-1`) is
+a miss that explains the executor's namespace, never loaded. Source slugs, view names, mutation names, shape ids and
+filter values are case-insensitive too. One rule for `term`, `define` and
+`quote` on an `epo:` CURIE: a class or role that names a term by
+`ogc:term` resolves to that term and the answer says `resolved via
+epo:Probe` (`ogc term epo:Probe`, `ogc define epo:Probe`, `ogc quote
+epo:Probe` all read the term probe; in JSON `resolved.via`); a class that
+names no term (`epo:ReportApproval`) is a miss whose hint says so and
+points at `ogc epo`; a step (`epo:scope`) is read as a step by `quote` and
+refused by `term` and `define` with the step readers named. A retired
+identifier (`account-executive`, `accountExecutiveRole`,
+`AccountExecutive`, `accountable-organization`) is a miss whose hint is
+the rename: `renamed authorized representative (R-49, R-51); try ogc term
+authorized-representative` (the rulings are those whose texts name both
+the old label and the headword; `ogc epo` points at the class or the role
+individual), from `term`, `define`, `quote`, `find`, `check-word` and
+`epo`. A miss lists up to eight near
 misses (substring, shared word, edit distance), never the whole list; an
 argument longer than eighty characters is echoed cut, with three dots, in
 the error line (the header keeps it whole).
@@ -98,7 +121,10 @@ are a usage error (exit 2).
    `coined by:` and the tables show `(coined)` in the source column.
 4. Sources have a posture: committed (snapshot in the repo), heldLocally
    (hash committed, file not), citeOnly (no quote or a human-verified one).
-   `ogc sources` is the register, `ogc source <slug>` one entry.
+   `ogc sources` is the register, `ogc source <slug>` one entry; each
+   source names its BibTeX key, `bibkey`, the key the works cited use
+   (sheet 10-40): a `bibkey:` line in `ogc source`, a column in `ogc
+   sources`, the same key in both `--json` objects.
 5. seeAlso citations are neighbours, never definitions.
 6. Rulings are dated decisions in the register's words (`ogc:rulingText`),
    each keeping Z's message as sent in `ogc:verbatim` (R-47); refined and
@@ -128,9 +154,15 @@ are a usage error (exit 2).
     then `## items without a step` (the requirement, the engagement
     decisions, the trajectory, the consistency check), then `## parties and
     machines`. The step is derived, never asserted (sheet 10-33): no record
-    file carries `epo:step`; the tool derives it through the model graph
-    (the item's class is realized by an item kind, `ogm:realizes`, produced
-    by a step) and loads the model graph with the record for that. Every
+    file carries `epo:step`, and no item carries a step of its own; the
+    tool derives it through the model graph (the item's class is realized
+    by an item kind, `ogm:realizes`, produced by a step), loads the model
+    graph with the record for that, and holds the derived triple under its
+    own predicate, `ogc:derivedStep` (declared in `vocabulary/derived.ttl`,
+    loaded with the record), so that `ogc sparql 'DESCRIBE ev:mission-1'
+    --record` shows `ogc:derivedStep epo:need` and `ogc record mission-1`
+    shows the same triple, its heading saying `derived step C1 need
+    (ogc:derivedStep)`. Every
     row carries a `synthetic` flag (`tag` column `synthetic` in the text
     listing, the count in the `## the record` header; sheet 10-43): the
     measles evaluation is synthetic throughout. When an item carries no
@@ -138,7 +170,8 @@ are a usage error (exit 2).
     `prov:wasGeneratedBy` to the generating activity's agent and end time,
     and the listing says so: `report assembler (queries/coverage.rq) (via
     coverage-computation)`. `ogc record <local-name>` prints everything the
-    record says about one item, its derived step in the heading. `--record`
+    record says about one item, its derived step in the heading and among
+    the triples. `--record`
     adds the record to `sparql` (the `ev:` prefix).
 
 ## What is loaded
@@ -160,7 +193,9 @@ asked over.
 The files behind the tool are `vocabulary/og-caie.ttl`, `vocabulary/epo.ttl`,
 `vocabulary/crosswalk.ttl`, `sources/sources.ttl`,
 `rulings/adjudications.ttl`, `model/trace.ttl`, the four shape files under
-`shapes/`, `model/og-caie.model.ttl` and `track/measles-evaluation.ttl`.
+`shapes/`, `model/og-caie.model.ttl`, `vocabulary/derived.ttl` (the
+declaration of `ogc:derivedStep`, loaded with the record) and
+`track/measles-evaluation.ttl`.
 Never open these; they are what ogc reads. `ogc doctor` parses every one
 of them; `ogc shapes` and `ogc schema` count the shapes over all four
 shape files.
@@ -169,24 +204,36 @@ shape files.
 
 - `ogc schema`: the counts, the classes and properties in use, the prefixes.
 - `ogc find <text>`: what matches, exact then prefix then substring. It
-  indexes term labels and quotes and EPO class labels (the classes' and
-  roles' `rdfs:label` in `vocabulary/epo.ttl`) and nothing else: not the
-  rulings, the concerns, the sources or the record (`ogc rulings --grep`,
-  `ogc concerns`, `ogc sources` and `ogc record` search those). A quote hit
-  says `via quote:<source>`; an EPO hit says `via epo:<Name>`, its class
-  column reads `epo class` or `epo role`, and it is read with `ogc epo`,
-  not `ogc term`. `--no-quotes` restricts it to labels (and appears in the
-  printed args).
-- `ogc epo <class-or-role>`: one EPO class or role by local name, CURIE or
-  IRI (`ogc epo StakeholderRepresentation`, `ogc epo
-  AuthorizedRepresentativeRole`, `ogc epo authorizedRepresentativeRole`): its
-  label (in the EPO the class's `rdfs:label` is its definition), its
-  superclasses (a role's types), subclasses and instances, the layer it is
-  pinned at (`ogc:pinnedAt`, contract or evaluation), the term it names
-  (`ogc:term`) with that term's headword, the disjointness axioms, and the
-  node shapes whose targets, property paths or SPARQL bodies mention it. A
-  step (`scope`, `need`) is not read here: `ogc quote`, `ogc verify` and
-  `ogc steps` read the steps.
+  indexes term labels and quotes and EPO class labels (the classes', roles'
+  and values' `rdfs:label` in `vocabulary/epo.ttl`) and the EPO local
+  names, whole and split into words (`PlanDeviation`, `plandeviation` and
+  `plan deviation` all hit `epo:PlanDeviation` exactly), and nothing else:
+  not the rulings, the concerns, the sources or the record (`ogc rulings
+  --grep`, `ogc concerns`, `ogc sources` and `ogc record` search those). A
+  quote hit says `via quote:<source>`; an EPO hit says `via epo:<Name>`,
+  its class column reads `epo class`, `epo role` or `epo value`, and it is
+  read with `ogc epo`, not `ogc term`. A miss on camelCase text says it
+  looks like a local name and points at `ogc epo <text>`. `--no-quotes`
+  restricts it to labels (and appears in the printed args).
+- `ogc epo <class-role-or-value>`: one EPO class, role or value by local
+  name, CURIE or IRI (`ogc epo StakeholderRepresentation`, `ogc epo
+  AuthorizedRepresentativeRole`, `ogc epo authorizedRepresentativeRole`,
+  `ogc epo fitWithConditions`): its label (in the EPO the class's
+  `rdfs:label` is its definition), its superclasses (a role's or a value's
+  types), subclasses and instances, the layer it is pinned at
+  (`ogc:pinnedAt`, contract or evaluation), the term it names (`ogc:term`)
+  with that term's headword, the disjointness axioms, and the node shapes
+  whose targets, property paths or SPARQL bodies mention it. The values are
+  the individuals the record's items point at: fitness (`fitToDeploy`,
+  `fitWithConditions`, `notFit`), sufficiency (`sufficient`,
+  `insufficient`), appropriateness (`appropriate`, `inappropriate`),
+  independence level (`person`, `department`, `organization`), engagement
+  (`interview`, `representation`), affectedness and the two layers; `kind`
+  is `value`, and one without a label prints `no label (an
+  epo:SufficiencyValue)`, the miss hint naming a value's class the same
+  way. A step (`scope`) is not read here: `ogc quote`, `ogc verify` and
+  `ogc steps` read the steps (`need` is also the class Need, which is
+  read).
 
 ## Recipes
 
@@ -198,14 +245,15 @@ shape files.
 | Is each quote really where its citation says? | `ogc verify <term>`, `ogc verify <source-slug>`, `ogc verify <step>`, `ogc verify --all` (every citation: the terms', the steps' and the crosswalk rows'; summary line; in JSON a `summary`); the first column is `holder` (a term, a step or a crosswalk row), the second `citation` (canonical, seeAlso or crosswalk) |
 | Which quotes are pending, or in any one status or state? | `ogc verify --all --status pending` (the quote's tag: machine, human, pending, cite-only, authors); `ogc verify --all --state digest` (where it was located: verified, digest, human, pending, cite-only, authors, NOT FOUND); an empty answer prints `(none)` with exit 0 |
 | May I use this word in prose, and how do I mark it up? | `ogc check-word <word> [<word> ...]` (several words at once; quote multi-word ones; registered / alternative / retired; the `{term}` role to write; other terms the word lands on; concerns that mention it; empty words are refused) |
-| Every term a source supports, with the quotes | `ogc source <slug>`; the register: `ogc sources --rank 1`, `--posture heldLocally`, `--uncited` (not with `--rank 1`, `2` or `3`: a precedence-ranked source is cited by the terms defined from it, so the two exclude each other, exit 2) |
+| Every term a source supports, with the quotes | `ogc source <slug>` (rank, kind, posture, `bibkey`, url, digest, status, retrieval and licence notes, snapshots, then the citations); the register: `ogc sources --rank 1`, `--posture heldLocally`, `--uncited` (not with `--rank 1`, `2` or `3`: a precedence-ranked source is cited by the terms defined from it, so the two exclude each other, exit 2) |
 | The terms by class or by source | `ogc list --class refined`, `ogc list --source sevocab` (an unregistered slug exits 1 with the candidates) |
 | Why is it defined this way? | `ogc rulings --term <term>`; a substring over ruling texts, messages as sent and change notes: `ogc rulings --grep conformance`; one ruling, the decision and then the message as sent: `ogc ruling R-16` (`--json` carries `text` and `verbatim`) |
-| What was in doubt, and what is still open | `ogc concerns --open`, `ogc concerns --status ruled`, `ogc concerns --severity H`; `ogc concern C-25` (`--open` is `--status open`; with another `--status` the two exclude each other, exit 2) |
+| What was in doubt, and what is still open | `ogc concerns --open`, `ogc concerns --status ruled`, `ogc concerns --severity H`; `ogc concern C-25` (`--open` is `--status open`; with another `--status` the two exclude each other, exit 2). An id of the other kind is a miss that names the reader: `ogc ruling C-30` says try `ogc concern C-30`, `ogc concern R-16` says try `ogc ruling R-16` |
 | What must a scientific record contain? | `ogc sci`; one essential: `ogc sci SCI-07` |
 | Which canon step does each of the twelve steps match? | `ogc steps` |
 | What is this EPO class or role, what does it name, what checks it? | `ogc epo StakeholderRepresentation`, `ogc epo EngagementDecision`, `ogc epo ReportApproval`, `ogc epo ConformanceVerdict`, `ogc epo AuthorizedRepresentativeRole` (label, superclasses, pinned at, term and headword, disjoint with, shapes mentioning it; `--json` is one object with `id`, `kind`, `label`, `comment`, `superclasses`, `types`, `subclasses`, `instances`, `pinned_at`, `terms`, `disjoint_with`, `shapes`) |
 | What does a shape check, and over what? | `ogc shapes` (every node shape with its target and file, over all four shape files); `ogc shape S3-PlanApproval`, `ogc shape m1-parties`, `ogc shape RulingShape` (target, property constraints, each SPARQL constraint's message and its `sh:select` body, indented; in JSON `sparql` is a list of `message` and `select`, and `message` and `closed` are null when the shape has none) |
+| Which executor mutation makes this shape fire? | `ogc shape S6-Attestation` prints `counterexamples (executor mutations): attest-without-determination, cherry-pick, executive-attests, unwire-evidence` (`(none)` when no mutation reaches it, as for the shapes the model checks); in JSON `counterexamples`. The map is `MUTATION_SHAPES` in `ogc/executor.py`, mutation to the shapes it fires, held equal to the demonstration's own result by a test; run `ogc execute --mutate <name>` to see the shape fire |
 | The views of the model: what each brings into focus and leaves out | `ogc views` |
 | One view as mermaid, with its perspective (nesting, assemblage, contracting, evaluation) | `ogc view contracting` |
 | Execute the process from the model and run the checks over the emitted record; break one or more things | `ogc execute` (ends in `VERDICT: PASS` or `FAIL`, exit 1 on FAIL), `ogc execute --mutate skip-access`, `--mutate` repeated applies them in order, `ogc execute --turtle` |
@@ -246,6 +294,18 @@ Naming one twice is a usage error (`mutation named twice`, exit 2).
   `predicate`, `object`, `label`; `referenced_by` are `subject`,
   `predicate`, `label`).
 - `view`: `name`, `title`, `focus`, `leaves_out`, `mermaid`.
+- `source`: `slug`, `label`, `rank`, `kind`, `posture`, `url`, `bibkey`,
+  `digest`, `status`, `retrieval`, `licence`, `permission`, `snapshots`
+  (`file`, `hash`), `citations` (`term`, `citation`, `locator`, `quote`,
+  `status`); `sources`: rows of `slug`, `rank`, `posture`, `kind`,
+  `bibkey`, `citations`, `snapshots`, `label` (`citations` and `snapshots`
+  are counts).
+- `steps`: rows of `cycle`, `order`, `step`, `label`, `source`, `locator`,
+  `quote`, `status`, `also` (the seeAlso citations, each a citation record
+  with `source`, `locator`, `quote`, `status`); `step` is the local name
+  (`scope`, `acceptDelivery`), `label` the head and the definition.
+- `shape`: `id`, `iri`, `file`, `target`, `message`, `closed`,
+  `properties`, `sparql`, `counterexamples` (the mutation names).
 - `term`: the whole entry; its `rulings` are `id` and `label`, the label
   being the resolved concerns' labels or the first words of the ruling.
 
@@ -268,10 +328,10 @@ Naming one twice is a usage error (`mutation named twice`, exit 2).
   present only under `--record`; the executor's own emitted record uses
   `ex:` for `evaluation/executed#` and is never loaded). `ogc schema`
   prints the whole prefix list.
-- The citation header is re-runnable: `# ogc sparql <query> #sha256:<12
-  hex> @ <sha>` carries the query as typed, with newlines escaped as `\n`
-  and comments intact (unescape `\n` to run it again), and the sha256 of
-  the query text; for `@file` it carries the path as typed and the sha256
+- The citation header is re-runnable: `# ogc sparql '<query>' #sha256:<12
+  hex> @ <sha>` carries the query as typed, shell-quoted, with newlines
+  escaped as `\n` and comments intact (unescape `\n` to run it again), and
+  the sha256 of the query text; for `@file` it carries the path as typed and the sha256
   of the file's content. `@` with a directory, or a bare `@`, is a usage
   error. Comments are stripped before the record and model checks, so an
   `ev:` or a `sysml:` inside a comment does not trigger a refusal.
@@ -279,10 +339,22 @@ Naming one twice is a usage error (`mutation named twice`, exit 2).
   `STR(?l) = "probe"` or `LCASE(STR(?l))`.
 - The determinism promise: rows are sorted when the query has no ORDER BY,
   and a LIMIT or OFFSET without ORDER BY is applied after that sort (to
-  rows for SELECT, to triples for CONSTRUCT and DESCRIBE); CONSTRUCT and
-  DESCRIBE print a fixed prefix set and sorted triples; blank nodes are
-  labelled by a hash of their neighbourhood, so a citation's label is the
-  same in every run and in every query. Outside the promise: blank nodes
+  rows for SELECT, to triples for CONSTRUCT and DESCRIBE); with ORDER BY
+  the engine's order stands and its ties are broken by the whole row (every
+  binding, by variable name), so two rows the conditions do not separate
+  come out in one order in every run; `SELECT *` projects the variables in
+  the order the query first names them; CONSTRUCT and DESCRIBE print a
+  fixed prefix set and sorted triples; blank nodes are labelled by a hash of
+  their neighbourhood, so a citation's label is the same in every run and in
+  every query.
+- SELECT prints IRIs as DESCRIBE does: a CURIE under the injected prefixes
+  (`term:probe`, `epo:Attestation`), angle brackets outside them; a literal
+  is printed as its lexical form, without quotes or language tag; a
+  multiline literal shows its first line and `[+N lines]`, the count
+  surviving the clip (`--wide` or `--json` for the whole text).
+- A prefix the query uses without declaring is refused as a usage error
+  that names it: the injected prefixes are case-sensitive (`Ev:` is not
+  `ev:`), and `ex:` is the executor's own namespace, never loaded (below). Outside the promise: blank nodes
   whose neighbourhoods are identical (they are numbered in arbitrary
   order), and NOW(), RAND(), BNODE(), UUID() and STRUUID().
 - Queries longer than 20,000 characters, SERVICE, GRAPH, FROM and update

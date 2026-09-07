@@ -103,3 +103,8 @@ def test_the_executed_record_is_a_bundle_with_the_verdict_before_the_report(grap
     for k, v in digests(ROOT).items():
         assert str(g.value(ver, EPO[k])) == v
     assert not list(g.subject_objects(EPO.step))
+
+
+def test_mutation_shapes_map_equals_the_demonstration(demo):
+    """`ogc shape` names the mutations that fire a shape from a static map (round four, M5); the map is the demonstration's own result."""
+    assert executor.MUTATION_SHAPES == {name: demo["mutations"][name]["fired"] for name in executor.MUTATIONS}

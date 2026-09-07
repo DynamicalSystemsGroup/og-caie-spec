@@ -21,6 +21,7 @@ import argparse
 import hashlib
 import json
 import re
+import shlex
 import sys
 from collections import Counter
 from pathlib import Path
@@ -33,6 +34,7 @@ GLOBAL_FLAGS = ("--json", "--no-cache", "--wide")  # --model and --record change
 LOAD_CMDS = ("sparql", "record", "execute", "view", "views")  # the commands that read the model graph or the record; --model and --record apply only here
 MODEL_CMDS = ("sparql", "execute", "view", "views")  # where --model changes (or names) what is read; elsewhere it is a usage error (round three, L2)
 RECORD_CMDS = ("sparql", "record")  # where --record changes (or names) what is read
+IMPLIED = {"view": "--model", "views": "--model", "execute": "--model", "record": "--record"}  # the flag a command loads on its own; not echoed in the header (round four, L3)
 LOAD_HINT = ("--model and --record apply only to sparql, record, execute, view and views (the commands that read the model graph or the record): "
              "--model where the model graph is read (sparql, execute, view, views), --record where the record is read (sparql, record)")
 MODEL_NS = ("sysml", "sysx", "elmt", "ogm")  # the model graph's prefixes; a query naming one is refused without --model (round three, M1)
@@ -41,6 +43,8 @@ READERS = {  # a CURIE's prefix names what it is and the reader for it; the hint
     "ev": ("a record item", "ogc record {local}"), "src": ("a source", "ogc source {local}"), "tr": ("an essential", "ogc sci {local}"),
     "ogc": ("a shape (or the vocabulary itself)", "ogc shape {local}"), "xw": ("a Popper crosswalk row", "ogc crosswalk --popper"),
     **{k: ("the model graph, loaded by --model", "ogc --model sparql 'DESCRIBE {curie}'") for k in MODEL_NS}}
+EX_HINT = ("ex: is the executor's own namespace (https://w3id.org/og-caie/evaluation/executed#): the record `ogc execute --turtle` emits, "
+           "checked in memory and never loaded, so nothing in the loaded graphs answers it; the measles record is ev:, loaded by --record")  # round four, L4
 ECHO = 80  # an error line echoes at most this much of the argument, with three dots; the header keeps it whole (round three, L10)
 PARAM_FLAGS = ("requirements", "criteria", "planned", "sessions", "populations")  # ogc execute: the executor's parameters, in the order printed
 VERIFY_COLS = ["holder", "citation", "source", "posture", "locator", "status", "state", "where"]
@@ -81,12 +85,20 @@ class Parser(argparse.ArgumentParser):
         raise UsageError(message, self.format_usage())
 
 
+def quoted(a: str) -> str:
+    """An argument as the header prints it: newlines escaped as \\n, other
+    whitespace collapsed, and shell-quoted (single quotes) when it holds
+    whitespace or a quote, so the header runs again as typed (round four, M4)."""
+    a = re.sub(r"[ \t\f\v]+", " ", a.replace("\r\n", "\n").replace("\n", "\\n")).strip()
+    return shlex.quote(a) if a == "" or re.search(r"[\s'\"]", a) else a
+
+
 def argstr_of(argv: list[str], cmd: str) -> str:
     """The arguments as printed and hashed: without --root and the global flags,
-    the command word dropped, --model and --record moved to the end in that
-    order, newlines escaped as \\n so the line stays one line, other
-    whitespace collapsed."""
-    out, skip, loads = [], False, set()
+    the first command word dropped (a later argument equal to it stays, round
+    four H2), the flag the command implies dropped (L3), --model and --record
+    moved to the end in that order, each argument as `quoted` prints it."""
+    out, skip, loads, seen = [], False, set(), False
     for a in argv:
         if skip:
             skip = False
@@ -97,13 +109,17 @@ def argstr_of(argv: list[str], cmd: str) -> str:
         if a.startswith("--root="):
             continue
         if a in ("--model", "--record"):
-            loads.add(a)
+            if a != IMPLIED.get(cmd):
+                loads.add(a)
             continue
-        if a in GLOBAL_FLAGS or (a == cmd and not out):
+        if a in GLOBAL_FLAGS:
             continue
-        out.append(a.replace("\r\n", "\n").replace("\n", "\\n"))
+        if a == cmd and not seen:
+            seen = True
+            continue
+        out.append(quoted(a))
     out += sorted(loads)  # --model before --record, wherever they were typed
-    return re.sub(r"[ \t\f\v]+", " ", " ".join(out)).strip()
+    return " ".join(out).strip()
 
 
 def prescan(argv: list[str], names: list[str]) -> SimpleNamespace:
@@ -114,7 +130,15 @@ def prescan(argv: list[str], names: list[str]) -> SimpleNamespace:
             root = Path(argv[i + 1])
         elif a.startswith("--root="):
             root = Path(a.split("=", 1)[1])
-    cmd = next((a for a in argv if a in names), "ogc")
+    cmd, skip = "ogc", False
+    for a in argv:  # the first command word that is not --root's value
+        if skip:
+            skip = False
+        elif a == "--root":
+            skip = True
+        elif a in names:
+            cmd = a
+            break
     return SimpleNamespace(json="--json" in argv, root=(root or find_root()).resolve(), cmd=cmd, argstr=argstr_of(argv, cmd))
 
 
@@ -146,7 +170,7 @@ def envelope(args, error: str, hint: str, candidates=None) -> dict:
 
 def not_found(args, what: str, hint: str, candidates=None, state: str = "not found") -> int:
     """Exit 1: a name that did not resolve, a bad filter value, or a refused request; candidates are near misses, never the whole list."""
-    what = text.short(what, ECHO)
+    what = text.short_quoted(what, ECHO)
     if args.json:
         print(json.dumps(envelope(args, f"{what} {state}", hint, candidates), indent=2, ensure_ascii=False))
     else:
@@ -177,23 +201,27 @@ def refuse(args, msg: str) -> int:
     return 1
 
 
-def namespace_hint(prefix: str, value: str) -> str:
-    """What the prefix names and which reader takes it (round three, M4)."""
+def namespace_hint(prefix: str, value: str, what: str = "") -> str:
+    """What the prefix names and which reader takes it (round three, M4); `what` is the kind of id the command wanted."""
     local = api.bare(value)
-    what, reader = READERS.get(prefix, ("a vocabulary the tool does not read by id", "ogc sparql 'DESCRIBE {curie}'"))
+    kind, reader = READERS.get(prefix, ("a vocabulary the tool does not read by id", "ogc sparql 'DESCRIBE {curie}'"))
     if prefix == "rul" and local[:1].upper() == "C":
         reader = "ogc concern {local}"
+    if prefix == "epo" and what == "record item":  # round four, L1: the record reader names the class reader, and the listing, not the steps
+        return f"epo:{local} is a class, not a record item; the class is read by `ogc epo {local}`, and its instances in the record are listed by `ogc record` (their names are ev:)"
     if prefix == "epo":
         return f"epo: classes and roles are read by `ogc epo {local}` (steps by `ogc quote {local}`)"
-    return f"{prefix}: is {what}; try `{reader.format(local=local, curie=f'{prefix}:{local}')}`"
+    return f"{prefix}: is {kind}; try `{reader.format(local=local, curie=f'{prefix}:{local}')}`"
 
 
 def foreign(args, value, what: str, accepted: tuple) -> int:
     """rc 1 with the right reader named when `value` is a CURIE or IRI under a prefix this command does not read; 0 otherwise."""
+    if re.match(r"(?i)ex:\S", api.norm(value)) or api.norm(value).startswith("https://w3id.org/og-caie/evaluation/executed#"):  # round four, L4
+        return not_found(args, f"{what} '{api.norm(value)}'", EX_HINT)
     p = api.prefix_of(value)
     if p is None or p in accepted:
         return 0
-    return not_found(args, f"{what} '{api.norm(value)}'", namespace_hint(p, value))
+    return not_found(args, f"{what} '{api.norm(value)}'", namespace_hint(p, value, what))
 
 
 def need(args, value, what: str) -> int:
@@ -209,11 +237,17 @@ def resolve(args, g, t: str, steps: bool = False):
     the not-found report itself; returns (iri, meta, rc)."""
     if need(args, t, "a term (a local name, prefLabel, altLabel, term: CURIE or IRI" + ("; or " + STEP_HINT + ")" if steps else ")")):
         return None, {}, 2
-    rc = foreign(args, t, "term", ("term", "epo") if steps else ("term",))
+    if api.prefix_of(t) == "epo":
+        return resolve_epo_curie(args, g, api.norm(t), api.bare(t), steps)
+    rc = foreign(args, t, "term", ("term",))
     if rc:
         return None, {}, rc
     t = api.bare(t)
     iri, cands, meta = api.resolve_term(g, t)
+    if iri is None and not cands:
+        rn = api.rename_hint(g, t, args.cmd)  # a retired identifier (round four, M8)
+        if rn:
+            return None, meta, not_found(args, f"term '{t}'", rn)
     if iri is None and steps and not cands:
         st = api.resolve_step(g, t)
         if st is not None:
@@ -228,6 +262,27 @@ def resolve(args, g, t: str, steps: bool = False):
             hint += "; open concerns mention the word: " + ", ".join(f"{c['id']} ({c['label']})" for c in open_c)
         return None, meta, not_found(args, f"term '{t}'", hint, found)
     return iri, meta, 0
+
+
+def resolve_epo_curie(args, g, typed: str, local: str, steps: bool):
+    """One rule for `term`, `define` and `quote` on an epo: CURIE (round four,
+    M3): a step is read as a step under `quote` and refused elsewhere; a
+    class or role that names a term (`ogc:term`) resolves to that term with
+    `resolved via epo:X`; anything else is refused with the epo reader."""
+    st = api.resolve_step(g, local)
+    if st is not None:
+        head = api.one(g, st, api.RDFS.label).split(":", 1)[0]
+        if steps:
+            return st, dict(via=f"step:{head}", step=True), 0
+        return None, {}, not_found(args, f"term '{typed}'", f"epo:{api.local(st)} is the step {head}, read by `ogc quote {api.local(st)}`, `ogc verify {api.local(st)}` and `ogc steps`", state="is a step")
+    node, kind, cands = api.resolve_epo(g, local)
+    if node is None:
+        rn = api.rename_hint(g, local, "epo", epo=True)
+        return None, {}, not_found(args, f"term '{typed}'", rn or f"epo:{local} is not an EPO class, role or value; `ogc epo {local}` lists the near misses")
+    terms = sorted(g.objects(node, api.OGC["term"]), key=str)
+    if not terms:
+        return None, {}, not_found(args, f"term '{typed}'", f"epo:{api.local(node)} names no term (no ogc:term); the {kind} is read by `ogc epo {api.local(node)}`")
+    return terms[0], dict(via=f"epo:{api.local(node)}"), 0
 
 
 def pick(value, allowed: list[str]):
@@ -301,9 +356,9 @@ def build_parser() -> argparse.ArgumentParser:
         (["--severity"], dict(help=f"one of {', '.join(SEVERITIES)} (case-insensitive)")))
     add("sci", f"the essentials ({SCI_RANGE}): statement, tag, shapes, terms, sources", (["id"], dict(nargs="?", help=f"one essential, {SCI_RANGE}; " + id_hint("SCI-07") + "; tr: CURIE or IRI accepted; omitted: the table")))
     add("steps", "the twelve steps of the two cycles and the canon step each matches (R-31, R-32)")
-    add("epo", "one EPO class or role (vocabulary/epo.ttl): label, superclasses (a role's types), subclasses and instances, the layer it is pinned at, the term it names with its headword, the disjointness axioms, and the shapes whose targets, paths or SPARQL bodies mention it",
-        (["name"], dict(help="a class or role by local name, case-insensitive (StakeholderRepresentation, AuthorizedRepresentativeRole, authorizedRepresentativeRole; epo: CURIE or IRI accepted); a step is read by `ogc quote`")))
-    add("record", "the worked example's record, the measles evaluation (track/measles-evaluation.ttl): the record's own entity, then its items by step (derived through the model graph, sheet 10-33), C1..C6 then 1..6, with who and when; then the items without a step and the parties; every row tagged synthetic where the content is (sheet 10-43); with a name, everything the record says about that one item (R-47, closes C-44)",
+    add("epo", "one EPO class, role or value (vocabulary/epo.ttl): label, superclasses (a role's or value's types), subclasses and instances, the layer it is pinned at, the term it names with its headword, the disjointness axioms, and the shapes whose targets, paths or SPARQL bodies mention it",
+        (["name"], dict(help="a class, role or value by local name, case-insensitive (StakeholderRepresentation, AuthorizedRepresentativeRole, authorizedRepresentativeRole, fitWithConditions; epo: CURIE or IRI accepted); a step is read by `ogc quote`")))
+    add("record", "the worked example's record, the measles evaluation (track/measles-evaluation.ttl): the record's own entity, then its items by step (derived through the model graph as ogc:derivedStep, sheet 10-33), C1..C6 then 1..6, with who and when; then the items without a step and the parties; every row tagged synthetic where the content is (sheet 10-43); with a name, everything the record says about that one item, the derived step among its triples (R-47, closes C-44)",
         (["name"], dict(nargs="?", help="an item's local name, case-insensitive (mission-1, attestation-1, annie; ev: CURIE or IRI accepted); omitted: the listing")))
     add("execute", "execute the process from the model graph and run the checks over the emitted record (C-30); VERDICT: PASS when the record conforms, no item kind is missing and the traceback is non-empty, else FAIL and exit 1; " + CAP_NOTE,
         (["--mutate"], dict(action="append", metavar="NAME", help="break one thing in the emitted record before the checks; repeatable, applied in order; one of: " + ", ".join(sorted(MUTATIONS)))),
@@ -325,7 +380,7 @@ def build_parser() -> argparse.ArgumentParser:
         (["--status"], dict(help=f"only citations whose quote status is one of {', '.join(VERIFY_STATUSES)} (`ogc verify --all --status pending`: the quotes awaiting a named verification)")),
         (["--state"], dict(help=f"only citations located in one of the states {', '.join(VERIFY_STATES)}")))
     add("shapes", "the SHACL node shapes with their targets, from every shape file")
-    add("shape", "one node shape: target, property constraints (path, min, max, class, in, hasValue, datatype) and each SPARQL constraint's message with its sh:select body", (["id"], dict(help="a shape's local name, case-insensitive (S3-PlanApproval, m1-parties, RulingShape; ogc: CURIE or IRI accepted)")))
+    add("shape", "one node shape: target, property constraints (path, min, max, class, in, hasValue, datatype), each SPARQL constraint's message with its sh:select body, and the executor mutations that fire it (its counterexamples)", (["id"], dict(help="a shape's local name, case-insensitive (S3-PlanApproval, m1-parties, RulingShape; ogc: CURIE or IRI accepted)")))
     add("sparql", "raw SPARQL (SELECT, ASK, CONSTRUCT, DESCRIBE) with the prefixes injected; @file.rq reads a file; --model adds the model graph, --record the record (a query naming ev: or typing by a record class is refused without it)",
         (["query"], dict(help=f"the query text or @file.rq (at most {QUERY_MAX} characters); rows are sorted unless it has ORDER BY; no SERVICE, GRAPH or FROM")))
     add("doctor", "every file the tool reads parses, labels unambiguous, pins hold, quotes located; VERDICT line")
@@ -398,7 +453,10 @@ def main(argv=None) -> int:
         rows = api.find(g, key, quotes=not args.no_quotes)
         concerns = [x for x in api.concerns_mentioning(g, key) if x["status"] == "open"]
         if not rows:
-            hint = "no label, quote or EPO label matches exactly, by prefix, or by substring; try `ogc list`"
+            rn = api.rename_hint(g, key, "term")  # a retired identifier (round four, M8)
+            hint = rn or "no label, quote or EPO label matches exactly, by prefix, or by substring; try `ogc list`"
+            if not rn and re.fullmatch(r"[A-Za-z][A-Za-z0-9]*", key) and re.search(r"[a-z][A-Z]", key):  # camelCase, no spaces: a local name (round four, M10)
+                hint += f"; `{key}` looks like a local name; try `ogc epo {key}`"
             if concerns:
                 hint += "; open concerns mention the word: " + ", ".join(f"{x['id']} ({x['label']})" for x in concerns)
             return not_found(args, f"'{args.text}'", hint)
@@ -433,7 +491,7 @@ def main(argv=None) -> int:
         q = [dict(citation="canonical", **{k: v for k, v in t["canonical"].items() if k != "node"})] if t["canonical"].get("quote") else []
         q += [dict(citation="seeAlso", **{k: v for k, v in x.items() if k != "node"}) for x in t["see_also"] if x["quote"]]
         noq = [f"{x['source']} {x['locator']}" for x in [t["canonical"], *t["see_also"]] if x and not x.get("quote")]
-        return emit(args, c, argstr, dict(quotes=q, without_quote=noq), lambda: quote_lines(t["pref"], q, noq))
+        return emit(args, c, argstr, dict(quotes=q, without_quote=noq, resolved=meta), lambda: quote_lines(t["pref"], q, noq, meta))
 
     if c == "list":
         klass, rc = check_filter(args, "class", args.klass, CLASSES)
@@ -456,7 +514,7 @@ def main(argv=None) -> int:
             return not_found(args, f"source '{args.slug}'", "slugs are case-insensitive; try `ogc sources`", api.near(slug, api.source_slugs(g)))
 
         def lines():
-            L = [f"## {d['slug']}: {d['label']}", ""] + text.kv(d, ["rank", "kind", "posture", "url", "digest", "status", "retrieval", "licence", "permission"])
+            L = [f"## {d['slug']}: {d['label']}", ""] + text.kv(d, ["rank", "kind", "posture", "bibkey", "url", "digest", "status", "retrieval", "licence", "permission"])
             if d["snapshots"]:
                 L += ["snapshots:"] + [f"  {s['file']} {s['hash']}" for s in d["snapshots"]]
             L += ["", f"citations ({len(d['citations'])}):"]
@@ -477,7 +535,7 @@ def main(argv=None) -> int:
         if args.uncited and rank in PRECEDENCE_RANKS:
             return usage(args, f"{EXCLUDE}: --uncited and --rank {rank} (a source at rank 1, 2 or 3 is registered for the definitions terms take from it, so it is cited; uncited sources are found at rank 4, reserve or internal)")
         rows = api.sources_table(g, rank, posture, args.uncited)
-        return emit(args, c, argstr, rows, lambda: text.table(rows, ["slug", "rank", "posture", "kind", "citations", "snapshots", "label"]))
+        return emit(args, c, argstr, rows, lambda: text.table(rows, ["slug", "rank", "posture", "kind", "bibkey", "citations", "snapshots", "label"]))
 
     if c == "ruling":
         if need(args, args.id, "a ruling id"):
@@ -486,6 +544,9 @@ def main(argv=None) -> int:
             return 1
         d = api.ruling_record(g, api.bare(args.id))
         if d is None:
+            cid = api.norm_id(api.bare(args.id), "C")  # a concern's id typed to the ruling reader (round four, M7)
+            if cid and api.concern_record(g, cid) is not None:
+                return not_found(args, f"ruling '{args.id}'", f"{cid} is a concern; try `ogc concern {cid}`")
             return not_found(args, f"ruling '{args.id}'", f"ids look like R-16 ({ID_HINT}); try `ogc rulings`")
         return emit(args, c, argstr, d, lambda: [f"## {d['id']}  (order {d['order']}, {d['date']}, attributed to {d['attributed']})", "",
                                                  "resolves: " + "; ".join(f"{i} ({l})" for i, l in zip(d["resolves"], d["resolves_labels"])), "", "text:"] + ["  " + l for l in d["text"].splitlines()]
@@ -515,6 +576,9 @@ def main(argv=None) -> int:
             return 1
         d = api.concern_record(g, api.bare(args.id))
         if d is None:
+            rid = api.norm_id(api.bare(args.id), "R")  # a ruling's id typed to the concern reader (round four, M7)
+            if rid and api.ruling_record(g, rid) is not None:
+                return not_found(args, f"concern '{args.id}'", f"{rid} is a ruling; try `ogc ruling {rid}`")
             return not_found(args, f"concern '{args.id}'", f"ids look like C-24 ({id_hint('C-24')}); try `ogc concerns`")
         return emit(args, c, argstr, d, lambda: [f"## {d['id']}: {d['label']}", "", f"severity: {d['severity']}   status: {d['status']}   surfaced: {d['surfaced']} ({d['how']})",
                                                  f"terms: {', '.join(d['terms']) or '(none)'}", "", "problem:"] + text.wrap(d["problem"]) + ["", f"resolved by: {', '.join(d['resolved_by']) or '(open)'}"])
@@ -633,8 +697,8 @@ def verify(args, g, argstr: str) -> int:
     return emit(args, "verify", argstr, rows, lambda: text.table(rows, VERIFY_COLS))
 
 
-def quote_lines(name: str, q: list[dict], noq: list[str]) -> list[str]:
-    L = [f"{len(q)} verbatim quotes on {name}; {len(noq)} citations without a quote", ""]
+def quote_lines(name: str, q: list[dict], noq: list[str], meta: dict | None = None) -> list[str]:
+    L = [f"{len(q)} verbatim quotes on {name}; {len(noq)} citations without a quote"] + ([f"resolved via {meta['via']}"] if meta and meta.get("via") else []) + [""]
     for x in q:
         L += [f"[{x['citation']}] {x['source']} {x['locator']}  [{x['status']}]" + (f" verified by {x['verified_by']} on {x['verified_on']}" if x.get("verified_by") else "")] + text.wrap(f'"{x["quote"]}"') + [""]
     if noq:
@@ -643,9 +707,9 @@ def quote_lines(name: str, q: list[dict], noq: list[str]) -> list[str]:
 
 
 def epo(args, g, argstr: str) -> int:
-    if need(args, args.name, "an EPO class or role (a local name, epo: CURIE or IRI)"):
+    if need(args, args.name, "an EPO class, role or value (a local name, epo: CURIE or IRI)"):
         return 2
-    if foreign(args, args.name, "EPO class or role", ("epo",)):
+    if foreign(args, args.name, "EPO class, role or value", ("epo",)):
         return 1
     name = api.bare(args.name)
     node, kind, cands = api.resolve_epo(g, name)
@@ -653,12 +717,15 @@ def epo(args, g, argstr: str) -> int:
         st = api.resolve_step(g, name)
         if st is not None:
             head = api.one(g, st, api.RDFS.label).split(":", 1)[0]
-            return not_found(args, f"EPO class or role '{args.name}'", f"epo:{api.local(st)} is the step {head}, read by `ogc quote {api.local(st)}`, `ogc verify {api.local(st)}` and `ogc steps`", state="is a step")
-        return not_found(args, f"EPO class or role '{args.name}'", "local names are case-insensitive; the candidates are near misses; `ogc find <text>` searches the labels", cands)
+            return not_found(args, f"EPO class, role or value '{args.name}'", f"epo:{api.local(st)} is the step {head}, read by `ogc quote {api.local(st)}`, `ogc verify {api.local(st)}` and `ogc steps`", state="is a step")
+        rn = api.rename_hint(g, name, "epo", epo=True)  # a retired identifier (round four, M8)
+        if rn:
+            return not_found(args, f"EPO class, role or value '{args.name}'", rn)
+        return not_found(args, f"EPO class, role or value '{args.name}'", "local names are case-insensitive; the candidates are near misses; `ogc find <text>` searches the labels", cands)
     d = api.epo_record(g, args.root, node, kind)
 
     def lines():
-        L = [f"## {d['id']}  ({d['kind']})"] + text.wrap(d["label"])
+        L = [f"## {d['id']}  ({d['kind']})"] + (text.wrap(d["label"]) if d["label"] else [f"no label (an {d['types'][0] if d['types'] else 'individual'})"])  # a value may carry no label (round four, M6)
         if d["comment"]:
             L += text.wrap(d["comment"], "  note: ", "    ")
         L.append("")
@@ -699,7 +766,7 @@ def record(args, g, argstr: str) -> int:
     d = api.record_item(g, iri)
 
     def lines():
-        L = [f"## {d['item']}  ({d['class']})" + (f"  step {d['step']}" if d["step"] else "") + ("  synthetic" if d["synthetic"] else "")]
+        L = [f"## {d['item']}  ({d['class']})" + (f"  derived step {d['step']} (ogc:derivedStep)" if d["step"] else "") + ("  synthetic" if d["synthetic"] else "")]
         if d["label"]:
             L += text.wrap(d["label"])
         L += ["", f"who: {', '.join(d['who'] or []) or '(none)'}   when: {d['when'] or '(none)'}" + (f"   (via {d['via']})" if d["via"] else ""), "", f"triples ({len(d['triples'])}):"]
@@ -772,6 +839,7 @@ def shapes(args, c: str, argstr: str) -> int:
             L += text.wrap(d["message"], "message: ", "  ")
         if d["closed"]:
             L.append(f"closed: {d['closed']}")
+        L.append("counterexamples (executor mutations): " + (", ".join(d["counterexamples"]) or "(none)"))  # what `ogc execute --mutate <name>` breaks so that this shape fires (round four, M5)
         L += ["", f"property constraints ({len(d['properties'])}):"] + text.table(d["properties"], pcols)
         L += ["", f"sparql constraints ({len(d['sparql'])}):"]
         for x in d["sparql"]:
@@ -848,8 +916,72 @@ def record_reference(g, q: str) -> str | None:
     return None
 
 
+def _order_by_over_sorted_rows(ctx, part):
+    """rdflib's OrderBy (a stable sort per condition, last condition first)
+    over solutions first sorted by the whole row (every binding, by variable
+    name), so that rows the conditions do not separate come out in one order
+    in every run (round four, M9). Registered in CUSTOM_EVALS by `sparql`;
+    every other algebra part falls through to rdflib."""
+    if part.name != "OrderBy":
+        raise NotImplementedError
+    from rdflib.plugins.sparql.evaluate import evalPart
+    from rdflib.plugins.sparql.evalutils import _val
+    from rdflib.plugins.sparql.parserutils import value
+    res = sorted(evalPart(ctx, part.p), key=lambda b: sorted((str(k), str(v)) for k, v in b.items()))
+    for e in reversed(part.expr):
+        res = sorted(res, key=lambda x: _val(value(x, e.expr, variables=True)), reverse=bool(e.order and e.order == "DESC"))
+    return res
+
+
+def algebra_nodes(n):
+    """Every CompValue in a query's algebra, depth first."""
+    from rdflib.plugins.sparql.parserutils import CompValue
+    if isinstance(n, CompValue):
+        yield n
+        for v in n.values():
+            for x in (v if isinstance(v, list) else [v]):
+                if isinstance(x, CompValue):
+                    yield from algebra_nodes(x)
+
+
+def record_only_reference(g, root, pq, cache: bool = True):
+    """(what, curie) for the first predicate or class in the query's triple
+    patterns that occurs only in the record (round four, M1): a predicate in
+    predicate position, inside a property path too, or a class as the object
+    of `a`; None when every name has a use in the graphs loaded by default.
+    A name in subject or object position is not a use: `DESCRIBE epo:fitness`
+    reads the declaration, which the vocabulary holds."""
+    from rdflib import RDF, URIRef
+    from rdflib.paths import Path as SparqlPath
+    only = api.record_only(g, root, cache)
+    preds, classes = set(only["predicates"]), set(only["classes"])
+
+    def uris(p):
+        if isinstance(p, URIRef):
+            yield p
+        elif isinstance(p, SparqlPath):
+            for k in ("arg", "path"):
+                if getattr(p, k, None) is not None:
+                    yield from uris(getattr(p, k))
+            for v in getattr(p, "args", None) or ():
+                yield from uris(v)
+    def types(p) -> bool:  # `a`, or a sequence path that begins with it (rdf:type/rdfs:subClassOf*)
+        return p == RDF.type or (isinstance(p, SparqlPath) and bool(getattr(p, "args", None)) and types(p.args[0]))
+    for n in algebra_nodes(pq.algebra):
+        triples = n.get("triples")  # a missing part comes back as its own name, not None
+        for s, p, o in (triples if isinstance(triples, list) else []):
+            if types(p) and isinstance(o, URIRef) and api.qname(g, o) in classes:
+                return "a class", api.qname(g, o)
+            for u in uris(p):
+                if api.qname(g, u) in preds:
+                    return "a predicate", api.qname(g, u)
+    return None
+
+
 def sparql(args, g, argstr: str) -> int:
-    from rdflib import BNode, Graph
+    from rdflib import BNode, Graph, URIRef
+    from rdflib.plugins.sparql import CUSTOM_EVALS
+    CUSTOM_EVALS["ogc-order-by"] = _order_by_over_sorted_rows
     from rdflib.plugins.sparql import prepareQuery
     from rdflib.plugins.sparql.parserutils import CompValue
     q = args.query
@@ -897,6 +1029,10 @@ def sparql(args, g, argstr: str) -> int:
         return usage(args, "query too deep to parse; simplify it")
     except Exception as e:
         msg = str(e).splitlines()[0]
+        m = re.search(r"Unknown namespace prefix : (\S+)", msg)
+        if m:
+            p = m.group(1)
+            return usage(args, "query does not parse: " + (EX_HINT if p == "ex" else f"the prefix {p}: is not declared; the injected prefixes are case-sensitive ({', '.join(k + ':' for k in PREFIXES)}), and `ogc schema` prints them with their namespaces; declare any other with PREFIX"))
         msg = re.sub(r"\(at char (\d+)\)", lambda m: f"(at char {max(0, int(m.group(1)) - injected_chars)})", msg)
         m = re.search(r"\(line:(\d+), col:(\d+)\)", msg)
         if m:
@@ -905,15 +1041,11 @@ def sparql(args, g, argstr: str) -> int:
     kind = pq.algebra.name
     if kind not in ("SelectQuery", "AskQuery", "ConstructQuery", "DescribeQuery"):
         return usage(args, f"only SELECT, ASK, CONSTRUCT, and DESCRIBE are accepted (got {kind}); the tool is read-only")
-
-    def nodes(n):
-        if isinstance(n, CompValue):
-            yield n
-            for v in n.values():
-                for x in (v if isinstance(v, list) else [v]):
-                    if isinstance(x, CompValue):
-                        yield from nodes(x)
-    names = {n.name for n in nodes(pq.algebra)}
+    if not args.record:
+        ref = record_only_reference(g, args.root, pq, cache=not args.no_cache)
+        if ref:
+            return refuse(args, f"the query names {ref[0]} that occurs only in the record ({ref[1]}), which is not loaded; add --record to load track/measles-evaluation.ttl (the ev: namespace, the record's item kinds and the predicates only its items carry)")
+    names = {n.name for n in algebra_nodes(pq.algebra)}
     if "Graph" in names or pq.algebra.get("datasetClause"):
         return usage(args, "named graphs are not exposed: the files are merged into one graph; drop GRAPH, FROM and FROM NAMED")
     # Determinism: without ORDER BY the engine's order is arbitrary, so a LIMIT
@@ -935,6 +1067,9 @@ def sparql(args, g, argstr: str) -> int:
         return seq[start:] if length is None else seq[start:start + int(length)]
     res = g.query(pq)
     labels = {}
+    nm = Graph(bind_namespaces="none")  # the fixed prefix set every rendering uses (round four, L6: SELECT prints CURIEs as DESCRIBE does)
+    for k, v in PREFIXES.items():
+        nm.bind(k, v, replace=True)
 
     def label(b):
         if not labels:
@@ -945,9 +1080,6 @@ def sparql(args, g, argstr: str) -> int:
     if kind in ("ConstructQuery", "DescribeQuery"):
         out = res.graph
         fresh = {}
-        nm = Graph(bind_namespaces="none")
-        for k, v in PREFIXES.items():
-            nm.bind(k, v, replace=True)
 
         def n3(x):
             if isinstance(x, BNode):
@@ -958,15 +1090,27 @@ def sparql(args, g, argstr: str) -> int:
         triples = window(sorted(f"{n3(s)} {n3(p)} {n3(o)} ." for s, p, o in out))
         ttl = "\n".join([f"@prefix {k}: <{v}> ." for k, v in sorted(PREFIXES.items())] + [""] + triples) + "\n"
         return emit(args, "sparql", header, dict(triples=len(triples), turtle=ttl), lambda: ttl.rstrip("\n").splitlines() + [f"({len(triples)} triples)"])
-    cols = [str(v) for v in res.vars] if res.vars else []
+    engine = [str(v) for v in res.vars] if res.vars else []  # the engine's own order, which each result row follows
+    cols = list(engine)
+    if re.search(r"\bSELECT\s+(?:DISTINCT\s+|REDUCED\s+)?\*", bare_q, re.I):  # SELECT *: the engine's projection is a set, so its order changes with the hash seed (round four, H1); the variables go in the order the query names them
+        named = []
+        for m in re.finditer(r"[?$](\w+)", bare_q):
+            if m.group(1) not in named:
+                named.append(m.group(1))
+        cols = [v for v in named if v in cols] + sorted(v for v in cols if v not in named)
 
     def show(x):
         if x is None:
             return ""
         if isinstance(x, BNode):
             return "_:" + (label(x) or str(x))
+        if isinstance(x, URIRef):
+            return x.n3(nm.namespace_manager)
         return str(x)
-    rows = [dict(zip(cols, [show(x) for x in r])) for r in res]
+    rows = []
+    for r in res:
+        bound = dict(zip(engine, [show(x) for x in r]))
+        rows.append({c: bound.get(c, "") for c in cols})
     if "OrderBy" not in names:
         rows.sort(key=lambda r: tuple(r.get(c, "") for c in cols))
     rows = window(rows)

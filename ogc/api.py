@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import difflib
 import hashlib
+import json
 import re
 import textwrap
 import unicodedata
@@ -74,6 +75,51 @@ def bare(text: str) -> str:
 def prefix_of(text: str) -> str | None:
     """The known prefix a CURIE or IRI is under (lowercased), None for a label or a bare local name (round three, M4)."""
     return _split_id(text)[0]
+
+
+def split_words(s: str) -> str:
+    """The words of an identifier, lowercased: hyphens and underscores to
+    spaces, camelCase split (PlanDeviation -> plan deviation,
+    accountExecutiveRole -> account executive role)."""
+    s = re.sub(r"([a-z0-9])([A-Z])", r"\1 \2", s)
+    s = re.sub(r"([A-Z]+)([A-Z][a-z])", r"\1 \2", s)
+    return norm(re.sub(r"[-_]+", " ", s)).lower()
+
+
+RENAMED = ("account executive", "accountable organization")  # the former headwords (R-49): an identifier in their words gets a rename hint (round four, M8)
+
+
+def renamed(g: Graph, text: str) -> dict | None:
+    """The rename behind a retired identifier (round four, M8): its words, a
+    trailing `role` dropped, are one of the former headwords, kept as an
+    alternative label of the term that replaced it. The term, its local
+    name, the EPO class naming it and that class's role individual, and the
+    rulings whose texts name both the old label and the headword."""
+    words = split_words(bare(text))
+    old = next((o for o in RENAMED if words in (o, o + " role")), None)
+    if old is None:
+        return None
+    for s in concepts(g):
+        if any(norm(a).lower() == old for a in many(g, s, SKOS.altLabel)):
+            pref = one(g, s, SKOS.prefLabel)
+            texts = {r: " ".join(one(g, r, p) for p in (OGC.rulingText, OGC.verbatim, OGC.changeNote)).lower() for r in g.subjects(RDF.type, OGC.Ruling)}
+            rulings = sorted((local(r) for r, t in texts.items() if old in t and pref.lower() in t), key=lambda i: int(i.split("-")[1]))
+            classes = sorted((c for c in g.subjects(OGC["term"], s)), key=str)
+            roles = sorted((i for c in classes for i in g.subjects(RDF.type, c) if str(i).startswith(str(EPO))), key=str)
+            return dict(old=old, term=pref, local=local(s), rulings=rulings, epo_class=local(classes[0]) if classes else "", epo_role=local(roles[0]) if roles else "")
+    return None
+
+
+def rename_hint(g: Graph, text: str, cmd: str, epo: bool = False) -> str | None:
+    """`renamed <headword> (<rulings>); try ogc <cmd> <id>` for a retired identifier, None otherwise; under `epo` the id is the role individual when the identifier is a lower-case ...Role, else the class."""
+    d = renamed(g, text)
+    if d is None:
+        return None
+    target = d["local"]
+    if epo:
+        v = bare(text)
+        target = d["epo_role"] if v[:1].islower() and v.lower().endswith("role") and d["epo_role"] else d["epo_class"]
+    return f"renamed {d['term']} ({', '.join(d['rulings'])}); try `ogc {cmd} {target}`"
 
 
 def _tokens(s: str) -> set[str]:
@@ -231,12 +277,11 @@ def find(g: Graph, text: str, quotes: bool = True) -> list[dict]:
                 q = norm(one(g, c, OGC.quote)).lower()
                 if q and key in q:
                     put(t, 2, 2, f"quote:{local(g.value(c, OGC.cites))}")
-    for c, kind in epo_nodes(g):  # the EPO's labels: exact and prefix on the head before the colon, substring over the whole label
+    for c, kind in epo_nodes(g):  # the EPO's labels and local names: exact and prefix on the head before the colon, on the local name and on its words (PlanDeviation, plan deviation; round four, M10), substring over the whole label
         label = norm(one(g, c, RDFS.label))
-        head = label.split(":", 1)[0].strip().lower()
-        r = rank_of(head)
-        if r is None and key in label.lower():
-            r = 2
+        head = label.split(":", 1)[0].strip().lower() or local(c)
+        ranks = [x for x in (rank_of(n) for n in {head, local(c).lower(), split_words(local(c))}) if x is not None]
+        r = min(ranks) if ranks else (2 if key in label.lower() else None)
         if r is not None:
             put(c, r, 3, f"epo:{local(c)}", pref=head, local=f"epo:{local(c)}", **{"class": f"epo {kind}"}, source="")
     out = sorted(hits.values(), key=lambda d: (d["rank"], d["kpri"], d["pref"].lower()))
@@ -321,7 +366,7 @@ def sources_table(g: Graph, rank=None, posture=None, uncited=False) -> list[dict
             continue
         if uncited and counts[s] > 0:
             continue
-        rows.append(dict(slug=local(s), rank=r, posture=p, kind=one(g, s, OGC.kind), citations=counts[s],
+        rows.append(dict(slug=local(s), rank=r, posture=p, kind=one(g, s, OGC.kind), bibkey=one(g, s, OGC.bibkey), citations=counts[s],
                          snapshots=sum(1 for _ in g.objects(s, OGC.snapshot)), label=one(g, s, RDFS.label)))
     return rows
 
@@ -508,7 +553,9 @@ def check_word(g: Graph, word: str) -> dict:
     if retired:
         return dict(word=word, registered=False, retired=retired, also=[], quote_hits=quote_hits, concerns=concerns, advice="do not use in prose; " + retired)
     if not hits:
-        d = dict(word=word, registered=False, retired="", also=[], quote_hits=quote_hits, concerns=concerns, advice="not a registered label; plain English is free to use")
+        d = dict(word=word, registered=False, retired="", also=[], quote_hits=quote_hits, concerns=concerns, advice="not a registered label; plain English is free to use", renamed=rename_hint(g, word, "term"))
+        if d["renamed"]:
+            d["advice"] = d["renamed"]  # a retired identifier (round four, M8)
         if quote_hits:
             d["advice"] = "not a label here, but a cited source uses the word in a quote on " + ", ".join(f"{q['term']}" for q in quote_hits) + ": that term is the glossary's word for it"
         if any(c["status"] == "open" for c in concerns):
@@ -692,9 +739,12 @@ def shapes_table(root: Path) -> list[dict]:
 
 def shape_record(root: Path, sid: str) -> dict | None:
     """One node shape, case-insensitive on its local name: target, property
-    constraints (path, min, max, class, in, hasValue, datatype, message) and
-    each SPARQL constraint's message with its `sh:select` body; the shape's
-    own message and closed flag are None when absent."""
+    constraints (path, min, max, class, in, hasValue, datatype, message),
+    each SPARQL constraint's message with its `sh:select` body, and the
+    executor's mutations that fire it (`counterexamples`, from
+    ogc.executor.MUTATION_SHAPES; round four, M5); the shape's own message
+    and closed flag are None when absent."""
+    from .executor import MUTATION_SHAPES
     g, where = shapes_graph(root)
     key = norm(sid).lower()
     hit = next((s for s in sorted(where, key=str) if local(s).lower() == key), None)
@@ -712,7 +762,8 @@ def shape_record(root: Path, sid: str) -> dict | None:
     props.sort(key=lambda d: (d["path"], d["message"]))
     sparql = sorted((dict(message=one(g, x, SH.message), select=textwrap.dedent(one(g, x, SH.select)).strip()) for x in g.objects(hit, SH.sparql)), key=lambda d: (d["message"], d["select"]))
     return dict(id=local(hit), iri=str(hit), file=where[hit], target=_shape_targets(g, hit), message=one(g, hit, SH.message) or None,
-                closed=one(g, hit, SH.closed) or None, properties=props, sparql=sparql)
+                closed=one(g, hit, SH.closed) or None, properties=props, sparql=sparql,
+                counterexamples=sorted(m for m, fired in MUTATION_SHAPES.items() if local(hit) in fired))
 
 
 # ---------------------------------------------------------------- the EPO's classes and roles (round three, M5)
@@ -734,15 +785,20 @@ def _is_subclass(g: Graph, c, sup, seen=None) -> bool:
 
 def epo_nodes(g: Graph) -> list[tuple]:
     """(node, kind) for what `ogc epo` reads: every `owl:Class` in the epo:
-    namespace (kind `class`) and every individual typed by a role class
-    (kind `role`, the role handles the record's agents fill). The steps are
-    left out: `ogc quote`, `ogc verify` and `ogc steps` read them."""
+    namespace (kind `class`), every individual typed by a role class (kind
+    `role`, the role handles the record's agents fill) and every other
+    individual typed by an epo: class (kind `value`: the fitness,
+    sufficiency, appropriateness, independence, engagement, affectedness
+    and layer values; round four, M6). The steps are left out: `ogc quote`,
+    `ogc verify` and `ogc steps` read them."""
     classes = {c for c in g.subjects(RDF.type, URIRef(str(OWL) + "Class")) if str(c).startswith(str(EPO))}
     out = [(c, "class") for c in classes]
     for c in classes:
-        if _is_subclass(g, c, EPO.Role):
-            out += [(i, "role") for i in g.subjects(RDF.type, c) if str(i).startswith(str(EPO)) and i not in classes]
-    return sorted(set(out), key=lambda x: str(x[0]))
+        if c in (EPO.EpoStep, EPO.ContractingStep):
+            continue
+        kind = "role" if _is_subclass(g, c, EPO.Role) else "value"
+        out += [(i, kind) for i in g.subjects(RDF.type, c) if isinstance(i, URIRef) and str(i).startswith(str(EPO)) and i not in classes]
+    return sorted(set(out), key=lambda x: (str(x[0]), x[1]))
 
 
 def resolve_epo(g: Graph, name: str):
@@ -757,7 +813,8 @@ def resolve_epo(g: Graph, name: str):
         return hits[0][0], hits[0][1], []
     if hits:  # ambiguous in lower case: name the exact spellings
         return None, None, [f"epo:{local(n)}" for n, _ in hits]
-    return None, None, [f"epo:{c}" for c in near(key, [local(n) for n, _ in nodes])]
+    by_local = {local(n): (n, k) for n, k in nodes}
+    return None, None, [f"epo:{c}" + (f" (an {qname(g, g.value(by_local[c][0], RDF.type))})" if by_local[c][1] == "value" else "") for c in near(key, list(by_local))]  # a value's miss hint names its class (round four, M6)
 
 
 def _mentions(text: str, curie: str, iri: str) -> bool:
@@ -792,7 +849,7 @@ def epo_record(g: Graph, root: Path, node, kind: str) -> dict:
             shapes.append(dict(id=local(s), file=where[s], where=", ".join(found)))
     return dict(id=curie, iri=iri, kind=kind, label=norm(one(g, node, RDFS.label)), comment=norm(one(g, node, RDFS.comment)) or None,
                 superclasses=sorted(qname(g, x) for x in g.objects(node, RDFS.subClassOf)) if kind == "class" else [],
-                types=sorted(qname(g, x) for x in g.objects(node, RDF.type)) if kind == "role" else [],
+                types=sorted(qname(g, x) for x in g.objects(node, RDF.type)) if kind != "class" else [],
                 subclasses=sorted(qname(g, x) for x in g.subjects(RDFS.subClassOf, node)),
                 instances=sorted(qname(g, x) for x in g.subjects(RDF.type, node) if isinstance(x, URIRef)) if kind == "class" else [],
                 pinned_at=dict(id=qname(g, pinned), label=norm(one(g, pinned, RDFS.label))) if pinned is not None else None,
@@ -847,6 +904,38 @@ def record_classes(g: Graph) -> set[str]:
     return {local(c) for c in g.subjects(RDF.type, OWL_CLASS) if str(c).startswith(str(EPO)) and c not in typed}
 
 
+def record_only(g: Graph, root: Path, cache: bool = True) -> dict[str, list[str]]:
+    """The predicates and the classes that occur in the record and nowhere in
+    the graph loaded by default, as CURIEs (round four, M1): what a query
+    without --record names when its empty answer would be a lie. The set
+    difference is computed once per checkout state and cached under
+    .cache/, keyed on the files as the graph cache is; `ogc:derivedStep`,
+    derived in memory whenever the record is loaded, is always in it."""
+    from .graph import RECORD_FILE, SOURCE_FILES, _key
+    if not (root / RECORD_FILE).exists():
+        return {"predicates": [], "classes": []}
+    paths = [root / f for f in SOURCE_FILES] + [root / RECORD_FILE]
+    cp = root / ".cache" / f"ogc-record-only-{_key(paths)}.json"
+    if cache and cp.exists():
+        try:
+            return json.loads(cp.read_text())
+        except Exception:
+            pass
+    rec = Graph().parse(root / RECORD_FILE)
+    preds = (set(rec.predicates()) - set(g.predicates())) | {OGC.derivedStep}
+    classes = set(rec.objects(None, RDF.type)) - set(g.objects(None, RDF.type))
+    out = {"predicates": sorted(qname(g, x) for x in preds), "classes": sorted(qname(g, x) for x in classes)}
+    if cache:
+        try:
+            cp.parent.mkdir(exist_ok=True)
+            for old in cp.parent.glob("ogc-record-only-*.json"):
+                old.unlink()
+            cp.write_text(json.dumps(out))
+        except Exception:
+            pass
+    return out
+
+
 def step_heads(g: Graph) -> dict:
     """Step IRI -> (order, head) as the two cycles order them: C1..C6 (1..6), then 1..6 (11..16), the order `ogc steps` prints."""
     return {str(EPO[r["step"]]): (r["order"], r["label"].split(":", 1)[0]) for r in steps_table(g)}
@@ -898,9 +987,9 @@ def attribution(g: Graph, n) -> dict:
 
 
 def _step(g: Graph, n, heads: dict):
-    """(order, head) of the item's derived step (sheet 10-33: `epo:step` is added in memory by ogc.graph.infer_steps through the
+    """(order, head) of the item's derived step (sheet 10-33: `ogc:derivedStep` is added in memory by ogc.graph.infer_steps through the
     model graph); a kind two steps may produce is listed at the earlier; (None, "") when no step derives."""
-    found = sorted(heads[str(st)] for st in g.objects(n, EPO.step) if str(st) in heads)
+    found = sorted(heads[str(st)] for st in g.objects(n, OGC.derivedStep) if str(st) in heads)
     return found[0] if found else (None, "")
 
 
@@ -943,7 +1032,9 @@ def resolve_record_item(g: Graph, name: str):
 def record_item(g: Graph, n) -> dict:
     """Everything the record says about one item: every triple with it as
     subject (`triples`; a blank node's own triples inline, as `[ p o ; ... ]`),
-    each object's label where it has one, and the triples that point at it
+    each object's label where it has one (the derived step among them, under
+    `ogc:derivedStep`, as a DESCRIBE over the loaded graph shows it; round
+    four, H3), and the triples that point at it
     (`referenced_by`); `who` and `when` are None when the record carries none
     and nothing can be derived through `prov:wasGeneratedBy` (then `via` names
     the generating activity)."""
@@ -956,6 +1047,5 @@ def record_item(g: Graph, n) -> dict:
     out.sort(key=lambda t: (t["predicate"] != "rdf:type", t["predicate"], t["object"]))
     inn = [dict(subject=qname(g, s), predicate=qname(g, p), label=_label(g, s)) for s, p in g.subject_predicates(n) if isinstance(s, URIRef)]
     inn.sort(key=lambda t: (t["predicate"], t["subject"]))
-    out = [t for t in out if t["predicate"] != "epo:step"]  # derived in memory, not the record's own triple (sheet 10-33); the step is the `step` key
     return dict(item=local(n), iri=str(n), label=one(g, n, RDFS.label) or one(g, n, EPO.text), **{"class": ", ".join(_classes(g, n))},
                 step=_step(g, n, step_heads(g))[1], **attribution(g, n), synthetic=str(g.value(n, OGC.synthetic)).lower() == "true", triples=out, referenced_by=inn)

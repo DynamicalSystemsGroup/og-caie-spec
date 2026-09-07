@@ -1,5 +1,5 @@
 $ uv run -q ogc term 'statement of work'
-# ogc term statement of work @ <sha>
+# ogc term 'statement of work' @ <sha>
 ## statement of work  (statement-of-work)
 
   The sponsor's decisions about the work to be performed under the contract; here, for each

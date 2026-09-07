@@ -330,7 +330,7 @@ class Builder:
             is_agent = (n, RDF.type, PROV.Agent) in g
             label = one(g, n, RDFS.label) or one(g, n, EPO.text) or local(n)
             desc = f"{label} Types: {', '.join(types)}." + (f" {one(g, n, SKOS.note)}" if one(g, n, SKOS.note) else "")
-            steps = {str(s) for s in g.objects(n, EPO.step)}  # derived in memory through the model graph (sheet 10-33)
+            steps = {str(s) for s in g.objects(n, OGC.derivedStep)}  # derived in memory through the model graph (sheet 10-33; round four, H3)
             page = self.page("contracting") if steps & contracting else self.page("guarantees")
             cmd = f"ogc record {shell(local(n))}"  # the reader of the record (ruling R-47, closing C-44): everything the record says about this item
             synthetic = str(g.value(n, OGC.synthetic)).lower() == "true"  # sheet 10-43: the page can include or exclude synthetic content

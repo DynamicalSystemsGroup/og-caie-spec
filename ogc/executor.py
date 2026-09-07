@@ -564,6 +564,21 @@ MUTATIONS = {
     "cherry-pick": ("an attestation drops one of its determinations without saying why", m_cherry_pick),  # sheet 10-14
 }
 
+MUTATION_SHAPES = {  # the shapes each mutation fires, as the demonstration finds them (tests/test_executor.py holds the map to the demonstration's result); `ogc shape` prints the inverse as its counterexamples (round four, M5)
+    "skip-assessment": ["S2-RequirementSet"],
+    "skip-approval": [],
+    "skip-access": ["S2-RequirementSet"],
+    "unwire-evidence": ["S5-Evidence", "S6-Attestation"],
+    "executive-attests": ["S6-Attestation"],
+    "attest-without-determination": ["S6-Attestation", "S8-Recommendation"],
+    "requirements-before-agreement": ["S0-Layers", "S0-Parties"],
+    "engagement-mismatch": ["S0-Population"],
+    "skip-report-approval": ["S8-Delivery", "S8-Recommendation", "S9-Acceptance"],
+    "pad-pass-rate": ["S7-Report"],
+    "one-person-team": ["S0-Roles"],
+    "cherry-pick": ["S6-Attestation"],
+}
+
 
 # --- the checks ---------------------------------------------------------------
 
