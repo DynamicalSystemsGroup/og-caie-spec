@@ -1193,3 +1193,22 @@ rul:C-58 a ogc:Concern ;
     ogc:surfacedHow "Z, after directing Claude to draft the marketing-whitepaper primer, entertaining whether it becomes a page in the docs app" ;
     prov:wasGeneratedBy rul:marketing-primer-2026-09-07 .
 
+rul:coverage-untested-proposal-2026-09-09 a prov:Activity ;
+    rdfs:label "Julie works through C-57's blocking behavior against S6, SCI-02 and the model's unwired untested outcome, in conversation with Claude Code" ;
+    prov:wasAssociatedWith rul:Julie ;
+    prov:endedAtTime "2026-09-09"^^xsd:date .
+
+rul:C-59 a ogc:Concern ;
+    rdfs:label "coverage below one blocks every final report regardless of weight; propose EARL's untested as a recorded state so a final report can carry a named shortfall" ;
+    ogc:problem """A final report requires full coverage (sheet 10-48, C-57), and S6 grounds every determination in at least one evidence item, so a criterion nobody reviewed has no determination and no attestation: it is uncovered, and the report stays a draft, not approved or delivered. Membership in the coverage denominator is binary and blocking regardless of weight: a low-consequence criterion left unreviewed when the rater budget runs out blocks the final report exactly as hard as the highest-consequence one, and once coverage reaches one, weight does no further work on the reported numbers (performance is an unweighted pass/fail/cantTell count over the covered criteria, term:performance, kept apart from term:test-coverage on purpose). Amending the envelope mid-evaluation to drop the unreviewed criterion would clear the block but breaks pre-registration (SCI-02) and reads as p-hacking. The Outcome enum already carries untested as a fifth EARL value (model/og-caie.sysml, doc'd as "a criterion with no attestation yet"), not yet wired into S7 or the coverage computation. Proposed: switch untested on for a criterion nobody reviewed, carrying a reason; a final report may then carry coverage below one with every shortfall named and typed untested rather than cantTell; fit to deploy is refused over an untested criterion exactly as over a failed one, so the strongest verdict available is fit with conditions naming them; weight then does the job it was designed for, since consequence is what the conditions are read against. Rules on C-57 from the other side: C-57 is the shape gap, that S7 does not yet refuse a final report below coverage one; this is whether coverage one should be the requirement at all, or whether untested plus named conditions is the more honest final state.
+
+Julie's message as sent, unedited: "A final report requires full coverage (sheet 10-48, C-57), and \"cannot tell\" is a ruling on evidence (S6: a determination rests on at least one evidence item), so a criterion nobody reviewed has no state at all: it is uncovered and the report stays a draft, which is not approved or delivered. Membership in the envelope is therefore binary and blocking regardless of weight: a low-consequence criterion left unreviewed because the rater budget ran out blocks the final report as hard as the highest-consequence one, and weights have no effect on the reported numbers once coverage reaches one (performance is an unweighted count; the fitness rule ignores weight). One option: amending the envelope mid-evaluation. This would fix the block but breaks the pre-registration principle (SCI-02) and reads as p-hacking. Proposed: switch on EARL's untested as a recorded state for a criterion nobody reviewed, carrying a reason; a final report may then carry coverage below one with every shortfall named; \"fit to deploy\" is refused over an untested criterion as it is over a failed one, so the strongest verdict is \"fit with conditions\" naming them. Weights then do the work they were designed for: the shortfall is weighted by consequence. Rules on C-57 from the other side.\"""" ;
+    ogc:severity "M" ;
+    ogc:status "open" ;
+    ogc:surfacedOn "2026-09-09"^^xsd:date ;
+    ogc:surfacedHow "Julie, reasoning through C-57's fix against S6 and SCI-02 pre-registration, in conversation with Claude Code" ;
+    ogc:concernsTerm term:test-coverage ;
+    ogc:concernsTerm term:performance ;
+    ogc:concernsTerm term:outcome ;
+    prov:wasGeneratedBy rul:coverage-untested-proposal-2026-09-09 .
+

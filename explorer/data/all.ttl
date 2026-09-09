@@ -1000,9 +1000,19 @@ rul:C-58 a ogc:Concern ;
     ogc:surfacedHow "Z, after directing Claude to draft the marketing-whitepaper primer, entertaining whether it becomes a page in the docs app" ;
     ogc:surfacedOn "2026-09-07"^^xsd:date .
 
-rul:Julie a prov:Agent,
-        prov:Person ;
-    rdfs:label "Julie Hollek (Humane Intelligence), co-author" .
+rul:C-59 a ogc:Concern ;
+    rdfs:label "coverage below one blocks every final report regardless of weight; propose EARL's untested as a recorded state so a final report can carry a named shortfall" ;
+    prov:wasGeneratedBy rul:coverage-untested-proposal-2026-09-09 ;
+    ogc:concernsTerm term:outcome,
+        term:performance,
+        term:test-coverage ;
+    ogc:problem """A final report requires full coverage (sheet 10-48, C-57), and S6 grounds every determination in at least one evidence item, so a criterion nobody reviewed has no determination and no attestation: it is uncovered, and the report stays a draft, not approved or delivered. Membership in the coverage denominator is binary and blocking regardless of weight: a low-consequence criterion left unreviewed when the rater budget runs out blocks the final report exactly as hard as the highest-consequence one, and once coverage reaches one, weight does no further work on the reported numbers (performance is an unweighted pass/fail/cantTell count over the covered criteria, term:performance, kept apart from term:test-coverage on purpose). Amending the envelope mid-evaluation to drop the unreviewed criterion would clear the block but breaks pre-registration (SCI-02) and reads as p-hacking. The Outcome enum already carries untested as a fifth EARL value (model/og-caie.sysml, doc'd as "a criterion with no attestation yet"), not yet wired into S7 or the coverage computation. Proposed: switch untested on for a criterion nobody reviewed, carrying a reason; a final report may then carry coverage below one with every shortfall named and typed untested rather than cantTell; fit to deploy is refused over an untested criterion exactly as over a failed one, so the strongest verdict available is fit with conditions naming them; weight then does the job it was designed for, since consequence is what the conditions are read against. Rules on C-57 from the other side: C-57 is the shape gap, that S7 does not yet refuse a final report below coverage one; this is whether coverage one should be the requirement at all, or whether untested plus named conditions is the more honest final state.
+
+Julie's message as sent, unedited: "A final report requires full coverage (sheet 10-48, C-57), and "cannot tell" is a ruling on evidence (S6: a determination rests on at least one evidence item), so a criterion nobody reviewed has no state at all: it is uncovered and the report stays a draft, which is not approved or delivered. Membership in the envelope is therefore binary and blocking regardless of weight: a low-consequence criterion left unreviewed because the rater budget ran out blocks the final report as hard as the highest-consequence one, and weights have no effect on the reported numbers once coverage reaches one (performance is an unweighted count; the fitness rule ignores weight). One option: amending the envelope mid-evaluation. This would fix the block but breaks the pre-registration principle (SCI-02) and reads as p-hacking. Proposed: switch on EARL's untested as a recorded state for a criterion nobody reviewed, carrying a reason; a final report may then carry coverage below one with every shortfall named; "fit to deploy" is refused over an untested criterion as it is over a failed one, so the strongest verdict is "fit with conditions" naming them. Weights then do the work they were designed for: the shortfall is weighted by consequence. Rules on C-57 from the other side.\"""" ;
+    ogc:severity "M" ;
+    ogc:status "open" ;
+    ogc:surfacedHow "Julie, reasoning through C-57's fix against S6 and SCI-02 pre-registration, in conversation with Claude Code" ;
+    ogc:surfacedOn "2026-09-09"^^xsd:date .
 
 rul:R-06 a ogc:Ruling ;
     prov:generatedAtTime "2026-09-05"^^xsd:date ;
@@ -6543,6 +6553,10 @@ rul:C-55 a ogc:Concern ;
     ogc:surfacedHow "the walkthrough popups, sheet 09" ;
     ogc:surfacedOn "2026-09-06"^^xsd:date .
 
+rul:Julie a prov:Agent,
+        prov:Person ;
+    rdfs:label "Julie Hollek (Humane Intelligence), co-author" .
+
 rul:R-04 a ogc:Ruling ;
     prov:generatedAtTime "2026-09-05"^^xsd:date ;
     prov:wasAttributedTo rul:Z ;
@@ -6691,6 +6705,11 @@ rul:R-40 a ogc:Ruling ;
     ogc:resolves rul:C-46 ;
     ogc:rulingText "In the example, one of the boundary items between the contract and the fulfilment of the evaluation contract covers the sponsor's decision that the commuters needed to be interviewed while the residents could simply be represented. This is the kind of judgement call that affects the scope of work: whether expert representation is accepted or interviews and documented stakeholder-needs input are required. The example case splits across two affected stakeholder groups to show that both options are valid and traceable under the EPO. In practice representation is the most common, with stakeholder interviews reserved for extenuating circumstances because of the increased level of effort, generally for under-represented stakeholders or under-documented stakeholder needs." ;
     ogc:verbatim "in the example one one of the boundary items between the contract and the fulfillment of the evaluation contract should cover the sponsors decision that the commuters needed to be interviewed but that the residents could simply be represented. this is the kind of judgement call that effects scope of work (whether or not we accept expert representation or require interviews and documented stakeholder needs input). in our example case we split across two affected stakeholder groups so we can show that both options are valid and traceable under out EPO. in practice the most common is represented with stakeholder interviews reserved for extenuating circumstances due to the increase in level of effort. generally reserved for underrepresent stakeholders or underdocumented stakeholder needs." .
+
+rul:coverage-untested-proposal-2026-09-09 a prov:Activity ;
+    rdfs:label "Julie works through C-57's blocking behavior against S6, SCI-02 and the model's unwired untested outcome, in conversation with Claude Code" ;
+    prov:endedAtTime "2026-09-09"^^xsd:date ;
+    prov:wasAssociatedWith rul:Julie .
 
 rul:marketing-primer-2026-09-07 a prov:Activity ;
     rdfs:label "Z and Claude select a term shortlist and a simplified process description to align Z and Julie before drafting an OG-CAIE marketing whitepaper, published as a private primer outside the repository" ;
@@ -13583,49 +13602,6 @@ term:organization a skos:Concept ;
             ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
     ogc:class "adopted" .
 
-term:outcome a skos:Concept ;
-    skos:definition "The result recorded for a judgment: passed, failed or cannot tell, the three EARL values the record uses (EARL also allows inapplicable and untested). Not binary on purpose."@en ;
-    skos:exactMatch src:sevocab_test-result ;
-    skos:inScheme ogc:Glossary ;
-    skos:prefLabel "outcome"@en ;
-    skos:related term:attestation,
-        term:determination,
-        term:expected-results ;
-    ogc:binding "earl:outcome with earl:passed, earl:failed, earl:cantTell, earl:inapplicable, earl:untested; sysml enum Outcome" ;
-    ogc:canonical [ ogc:cites src:sevocab ;
-            ogc:locator "test result, p. 438 (ISO/IEC/IEEE 29119-2:2021, 3.56)" ;
-            ogc:pdfPage 438 ;
-            ogc:quote "indication of whether a specific test case has passed or failed, i.e. if the actual results correspond to the expected results or if deviations were observed" ;
-            ogc:quoteStatus "machine" ] ;
-    ogc:class "adopted" ;
-    ogc:scopeNote "Ruling R-47 (sheet 06-06): the canonical definition is SEVOCAB's test result; EARL supplies the binding, not the definition." ;
-    ogc:seeAlso [ ogc:cites src:w3c-earl ;
-            ogc:locator "Section 2.7 OutcomeValue Class" ;
-            ogc:quote "a value or expression that describes a resulting condition from carrying out the test" ;
-            ogc:quoteStatus "machine" ],
-        [ ogc:cites src:nist-ai-700-2 ;
-            ogc:locator "Section 3.1 Validity Risk Assessment, p. 5 (one of the four annotation values, a fragment)" ;
-            ogc:pdfPage 12 ;
-            ogc:quote "Unable to Determine" ;
-            ogc:quoteStatus "machine" ] .
-
-term:performance a skos:Concept ;
-    skos:definition "A measurable result. Here: how the system did on what was exercised, reported as the pass, fail and cannot-tell fractions of the covered criteria. Never merged with coverage."@en ;
-    skos:exactMatch src:iso-9000-2026_3.7.3 ;
-    skos:inScheme ogc:Glossary ;
-    skos:prefLabel "performance"@en ;
-    skos:related term:measurement-uncertainty,
-        term:test-coverage ;
-    ogc:binding "epo:Report passRate, failRate, cantTellRate" ;
-    ogc:canonical [ ogc:cites src:iso-9000-2026 ;
-            ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-17.png" ;
-            ogc:locator "3.7.3" ;
-            ogc:quote "measurable result" ;
-            ogc:quoteStatus "human" ;
-            ogc:verifiedBy rul:Z ;
-            ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
-    ogc:class "adopted" .
-
 term:repeatability a skos:Concept ;
     skos:definition "How closely results agree when the same measurement is repeated under the same conditions: same system version, same procedure, same operator or policy, same session protocol, over a short period. Replicate sessions under repeatability conditions are what turn a probe into a pass rate."@en ;
     skos:exactMatch src:sevocab_repeatability ;
@@ -13978,6 +13954,49 @@ rul:R-48 a ogc:Ruling ;
     ogc:resolves rul:C-54 ;
     ogc:rulingText "Round two of the simulated user test is adjudicated (sheet 07). C-30 is narrowed to its human half, the block-by-block and wire-by-wire validation, the executor chapter being the computational half. The bridge's second-layer row carries a definition in the register's clinical words; the slogan that leaked in from the informal record belongs to the prose. Record is the abstract term and evaluation record its specialization, by subclassing; specializations are made explicit throughout the vocabulary, and hover definitions are used for clarity only, never for every term. The nesting view keeps its vertical alignment and shows that access to the test item comes from a different actor. The bridge table's quotations move to a paragraph below it. The accountable organization's duty to provide access is made explicit; whether accountable organization is the right headword is reconsidered. Citation traceability for the terms grounded outside the standards is reviewed and tightened with NIST and academic sources. References to the unpublished paper are purged: the site is the novel content and the paper will cite it. The open blocks and wires are walked through one at a time; sheet 05 is regenerated first, the model having been refined since. Status tags such as human and machine leave the primary tables for the explorer and the tool, on the principle that the graph's detail is shared only where it helps the reader. The ontology's terminological box is audited and cleaned: SKOS matches, subclassing and disjointness where they belong, disconnected content joined. The explorer gains a focus mode on a node's neighbourhood. A BibTeX works-cited is kept: citations close each chapter and a new appendix aggregates them for the whole project." ;
     ogc:verbatim "7-1: as recommended. 7-2: context matters belongs in the prose not in the records. it leaked in due to the informal and formal mixing in the chat based data collection and rulings. we're trying to keep the canonical data in a more clinical register now. 7-3: record takes a more abstract definition and the evaluation record is a special case. use subclassing. look more carefully at our definitions and use subclassing more explicitly where terms are specialization of other terms; knowledge graphs are designed for this kind of thing. however we do not need to force all terms into the mouseover. just because we can give a term a mouse over doesn't mean we should. its important that is a tool for clarity for the reader, not a distraction. 7-4: i like the vertical alignment. only caveat is that access to the test item comes from a different actor. 7-5: accept recommendation. 7-6: make sure its clear the accountable organization is must provide access. we can reconsider whether \"accountable organization\" is the right headword. i can see how that may create confusion. 7-7: review and revise as needed to improve cite source traceability. NIST report plus relevant academic citations should make clean traces to the concept. if its a bit weak research how to tighten it up. 7-8: i think we should either identity the explicit already published paper or purge the references. most likely this refers to the paper i gave you that is work in progress for all intents and purposes our new content drafted there can be treated as novel in this website and the paper will site this instead. the executables and ontologies are much richer and more capable of rigor than a pdf ever will be. 7-9: walk me through the open questions in the block and wire are one at a time with popups. while i do still want to validation on the spec, the specific records in sheet 5 may be out of date since we've been refining and tightening our model through tests. additional comments: a lot of our tables have tags like (human) or (machine); these are distacting, this level of detail is reserved for attributes you can inspect in the knowledge graph explorer, it does no need to be in the primary text. this principle holds broadly. just because you can share information from the knowledge graph doesnt mean you should. we're leaning on the appendices and the repo to support readers who want to dig deeper, so the primary material can be an easier read. the ontology tbox needs auditing and potentially some clean up. where appropriate we can use skos match, skos closematch, and other tools for interrelating content. we also can use subclassing and disjointness axioms, also look for disconnected content and make sure we're not missing relationships which will improve navagibility. also add to the explorer the ability to focus on a node (thus highlighting only its local neighborhood; we have that in other graph viewers its useful). make sure we have a bibtex workcited. you can put citations at the bottom of each chapter and make a new appendix which contains the aggregate citations for the whole project. you may need to make a new plan" .
+
+term:outcome a skos:Concept ;
+    skos:definition "The result recorded for a judgment: passed, failed or cannot tell, the three EARL values the record uses (EARL also allows inapplicable and untested). Not binary on purpose."@en ;
+    skos:exactMatch src:sevocab_test-result ;
+    skos:inScheme ogc:Glossary ;
+    skos:prefLabel "outcome"@en ;
+    skos:related term:attestation,
+        term:determination,
+        term:expected-results ;
+    ogc:binding "earl:outcome with earl:passed, earl:failed, earl:cantTell, earl:inapplicable, earl:untested; sysml enum Outcome" ;
+    ogc:canonical [ ogc:cites src:sevocab ;
+            ogc:locator "test result, p. 438 (ISO/IEC/IEEE 29119-2:2021, 3.56)" ;
+            ogc:pdfPage 438 ;
+            ogc:quote "indication of whether a specific test case has passed or failed, i.e. if the actual results correspond to the expected results or if deviations were observed" ;
+            ogc:quoteStatus "machine" ] ;
+    ogc:class "adopted" ;
+    ogc:scopeNote "Ruling R-47 (sheet 06-06): the canonical definition is SEVOCAB's test result; EARL supplies the binding, not the definition." ;
+    ogc:seeAlso [ ogc:cites src:w3c-earl ;
+            ogc:locator "Section 2.7 OutcomeValue Class" ;
+            ogc:quote "a value or expression that describes a resulting condition from carrying out the test" ;
+            ogc:quoteStatus "machine" ],
+        [ ogc:cites src:nist-ai-700-2 ;
+            ogc:locator "Section 3.1 Validity Risk Assessment, p. 5 (one of the four annotation values, a fragment)" ;
+            ogc:pdfPage 12 ;
+            ogc:quote "Unable to Determine" ;
+            ogc:quoteStatus "machine" ] .
+
+term:performance a skos:Concept ;
+    skos:definition "A measurable result. Here: how the system did on what was exercised, reported as the pass, fail and cannot-tell fractions of the covered criteria. Never merged with coverage."@en ;
+    skos:exactMatch src:iso-9000-2026_3.7.3 ;
+    skos:inScheme ogc:Glossary ;
+    skos:prefLabel "performance"@en ;
+    skos:related term:measurement-uncertainty,
+        term:test-coverage ;
+    ogc:binding "epo:Report passRate, failRate, cantTellRate" ;
+    ogc:canonical [ ogc:cites src:iso-9000-2026 ;
+            ogc:file "sources/local/iso-9000-2026/iso-9000-2026-obp-17.png" ;
+            ogc:locator "3.7.3" ;
+            ogc:quote "measurable result" ;
+            ogc:quoteStatus "human" ;
+            ogc:verifiedBy rul:Z ;
+            ogc:verifiedOn "2026-09-06"^^xsd:date ] ;
+    ogc:class "adopted" .
 
 term:requirements-traceability a skos:Concept ;
     skos:definition "The documented path linking what was required to how it was tested and what was found, so a coverage claim can be checked by anyone holding the record."@en ;
@@ -15468,27 +15487,6 @@ term:stakeholder a skos:Concept ;
             ogc:quote "individual or organization having a right, share, claim, or interest in a system or in its possession of characteristics that meet their needs and expectations" ;
             ogc:quoteStatus "machine" ] .
 
-term:test-coverage a skos:Concept ;
-    skos:altLabel "coverage"@en ;
-    skos:definition "How much of the declared acceptance criteria the evaluation actually reached, as a share weighted by deployment sensitivity. It says how much was evaluated, not how well the system did."@en ;
-    skos:exactMatch src:sevocab_test-coverage ;
-    skos:inScheme ogc:Glossary ;
-    skos:prefLabel "test coverage"@en ;
-    skos:related term:acceptance-criteria,
-        term:deployment-sensitivity,
-        term:performance,
-        term:requirements-traceability,
-        term:risk-based-testing ;
-    prov:wasDerivedFrom rul:R-01 ;
-    ogc:binding "queries/coverage.rq; epo:Report coverage" ;
-    ogc:canonical [ ogc:cites src:sevocab ;
-            ogc:locator "test coverage, p. 433 (ISO/IEC/IEEE 29119-2:2021, 3.28)" ;
-            ogc:pdfPage 433 ;
-            ogc:quote "degree, expressed as a percentage, to which specified test coverage items have been exercised by a test case or test cases" ;
-            ogc:quoteStatus "machine" ] ;
-    ogc:class "adopted" ;
-    ogc:scopeNote "Ruling R-01: coverage relates requirements to the abstract tests that cover them. The acceptance criterion is the coverage item and the probe is the test case; the concrete applications of a probe during a case produce evidence, which is rolled up by attestation. Coverage counts criteria with an attested outcome; it does not count evidence." .
-
 elmt:OGCAIE__EvaluationProcess__execute a sysml:ActionUsage ;
     ogm:realizes epo:execute ;
     sysml:declaredName "execute" ;
@@ -15509,6 +15507,27 @@ Part definitions and port definitions specify this as an abstract wiring diagram
     ogc:verbatim """switched you into plan mode so you can work. note that we want to introduce some explicit stakeholders: there are going to be affected stakeholders and there is going to be the organization responsible for the system under test (test item) and there is the organization performing the testing, there may also be an organization sponsoring the testing who is not the organization operating the test item. effected stakeholders are populations of actors where as the sponsor org, the org doing the testing and the org accountable for the system under test (test item) are concrete single entities. the the requirements are established and agreed upon by the the sponsor org and the org doing the testing (this is viewed as a contract to perform the OG-CAIE as a service), the organization that owns the system under test may or may not be the sponsor and members of the affected stakeholder classes may or may not be interviewed as part of the requirements development process. most often the interests of affected stakeholders are represented in the requirements on the basis of input from the domainexpert who is employed in the selection of the domain specific ontology and in the appropriateness assessment of the requirements; they may also participate in developing or approving test plans, and the interpretation of evidence collected to and attestations to the conformity (or not) of the system under test with regard to those requirements under those test plans. this Domain expert role is distinct from the expert role responsible for administering the tests and gathering the evidence per the test plan.
 
 part def and port def should allow us to specify this in an abstract wiring diagram before we test it out be creating concrete walk throughs that exercise the specification by providing a simple concrete demo case""" .
+
+term:test-coverage a skos:Concept ;
+    skos:altLabel "coverage"@en ;
+    skos:definition "How much of the declared acceptance criteria the evaluation actually reached, as a share weighted by deployment sensitivity. It says how much was evaluated, not how well the system did."@en ;
+    skos:exactMatch src:sevocab_test-coverage ;
+    skos:inScheme ogc:Glossary ;
+    skos:prefLabel "test coverage"@en ;
+    skos:related term:acceptance-criteria,
+        term:deployment-sensitivity,
+        term:performance,
+        term:requirements-traceability,
+        term:risk-based-testing ;
+    prov:wasDerivedFrom rul:R-01 ;
+    ogc:binding "queries/coverage.rq; epo:Report coverage" ;
+    ogc:canonical [ ogc:cites src:sevocab ;
+            ogc:locator "test coverage, p. 433 (ISO/IEC/IEEE 29119-2:2021, 3.28)" ;
+            ogc:pdfPage 433 ;
+            ogc:quote "degree, expressed as a percentage, to which specified test coverage items have been exercised by a test case or test cases" ;
+            ogc:quoteStatus "machine" ] ;
+    ogc:class "adopted" ;
+    ogc:scopeNote "Ruling R-01: coverage relates requirements to the abstract tests that cover them. The acceptance criterion is the coverage item and the probe is the test case; the concrete applications of a probe during a case produce evidence, which is rolled up by attestation. Coverage counts criteria with an attested outcome; it does not count evidence." .
 
 src:nist-ai-700-2 a prov:Entity,
         ogc:Source ;

@@ -24321,6 +24321,77 @@
     ]
    ]
   },
+  "https://w3id.org/og-caie/rulings#C-59": {
+   "in": [],
+   "out": [
+    [
+     "ogc:concernsTerm",
+     {
+      "ref": "https://w3id.org/og-caie/terms#outcome"
+     }
+    ],
+    [
+     "ogc:concernsTerm",
+     {
+      "ref": "https://w3id.org/og-caie/terms#performance"
+     }
+    ],
+    [
+     "ogc:concernsTerm",
+     {
+      "ref": "https://w3id.org/og-caie/terms#test-coverage"
+     }
+    ],
+    [
+     "ogc:problem",
+     {
+      "text": "A final report requires full coverage (sheet 10-48, C-57), and S6 grounds every determination in at least one evidence item, so a criterion nobody reviewed has no determination and no attestation: it is uncovered, and the report stays a draft, not approved or delivered. Membership in the coverage denominator is binary and blocking regardless of weight: a low-consequence criterion left unreviewed when the rater budget runs out blocks the final report exactly as hard as the highest-consequence one, and once coverage reaches one, weight does no further work on the reported numbers (performance is an unweighted pass/fail/cantTell count over the covered criteria, term:performance, kept apart from term:test-coverage on purpose). Amending the envelope mid-evaluation to drop the unreviewed criterion would clear the block but breaks pre-registration (SCI-02) and reads as p-hacking. The Outcome enum already carries untested as a fifth EARL value (model/og-caie.sysml, doc'd as \"a criterion with no attestation yet\"), not yet wired into S7 or the coverage computation. Proposed: switch untested on for a criterion nobody reviewed, carrying a reason; a final report may then carry coverage below one with every shortfall named and typed untested rather than cantTell; fit to deploy is refused over an untested criterion exactly as over a failed one, so the strongest verdict available is fit with conditions naming them; weight then does the job it was designed for, since consequence is what the conditions are read against. Rules on C-57 from the other side: C-57 is the shape gap, that S7 does not yet refuse a final report below coverage one; this is whether coverage one should be the requirement at all, or whether untested plus named conditions is the more honest final state.\n\nJulie's message as sent, unedited: \"A final report requires full coverage (sheet 10-48, C-57), and \"cannot tell\" is a ruling on evidence (S6: a determination rests on at least one evidence item), so a criterion nobody reviewed has no state at all: it is uncovered and the report stays a draft, which is not approved or delivered. Membership in the envelope is therefore binary and blocking regardless of weight: a low-consequence criterion left unreviewed because the rater budget ran out blocks the final report as hard as the highest-consequence one, and weights have no effect on the reported numbers once coverage reaches one (performance is an unweighted count; the fitness rule ignores weight). One option: amending the envelope mid-evaluation. This would fix the block but breaks the pre-registration principle (SCI-02) and reads as p-hacking. Proposed: switch on EARL's untested as a recorded state for a criterion nobody reviewed, carrying a reason; a final report may then carry coverage below one with every shortfall named; \"fit to deploy\" is refused over an untested criterion as it is over a failed one, so the strongest verdict is \"fit with conditions\" naming them. Weights then do the work they were designed for: the shortfall is weighted by consequence. Rules on C-57 from the other side.\""
+     }
+    ],
+    [
+     "ogc:severity",
+     {
+      "text": "M"
+     }
+    ],
+    [
+     "ogc:status",
+     {
+      "text": "open"
+     }
+    ],
+    [
+     "ogc:surfacedHow",
+     {
+      "text": "Julie, reasoning through C-57's fix against S6 and SCI-02 pre-registration, in conversation with Claude Code"
+     }
+    ],
+    [
+     "ogc:surfacedOn",
+     {
+      "text": "2026-09-09 (date)"
+     }
+    ],
+    [
+     "prov:wasGeneratedBy",
+     {
+      "text": "rul:coverage-untested-proposal-2026-09-09"
+     }
+    ],
+    [
+     "rdf:type",
+     {
+      "text": "ogc:Concern"
+     }
+    ],
+    [
+     "rdfs:label",
+     {
+      "text": "coverage below one blocks every final report regardless of weight; propose EARL's untested as a recorded state so a final report can carry a named shortfall"
+     }
+    ]
+   ]
+  },
   "https://w3id.org/og-caie/rulings#R-01": {
    "in": [],
    "out": [
@@ -59108,6 +59179,21 @@
    "target": "https://w3id.org/og-caie/terms#statement-of-work"
   },
   {
+   "rel": "concernsTerm",
+   "source": "https://w3id.org/og-caie/rulings#C-59",
+   "target": "https://w3id.org/og-caie/terms#outcome"
+  },
+  {
+   "rel": "concernsTerm",
+   "source": "https://w3id.org/og-caie/rulings#C-59",
+   "target": "https://w3id.org/og-caie/terms#performance"
+  },
+  {
+   "rel": "concernsTerm",
+   "source": "https://w3id.org/og-caie/rulings#C-59",
+   "target": "https://w3id.org/og-caie/terms#test-coverage"
+  },
+  {
    "rel": "resolves",
    "source": "https://w3id.org/og-caie/rulings#R-01",
    "target": "https://w3id.org/og-caie/rulings#C-01"
@@ -69271,6 +69357,14 @@
    "page": "../rulings"
   },
   {
+   "cls": "concern",
+   "desc": "coverage below one blocks every final report regardless of weight; propose EARL's untested as a recorded state so a final report can carry a named shortfall (M, open). A final report requires full coverage (sheet 10-48, C-57), and S6 grounds every determination in at least one evidence item, so a criterion nobody reviewed has no determination and no attestation: it is uncovered, and the report stays a draft, not approved or delivered. Membership in the coverage denominator is binary and blocking regardless of weight: a low-consequence criterion left unreviewed when the rater budget runs out blocks the final report exactly as hard as the highest-consequence one, and once coverage reaches one, weight does no further work on the reported numbers (performance is an unweighted pass/fail/cantTell count over the covered criteria, term:performance, kept apart from term:test-coverage on purpose). Amending the envelope mid-evaluation to drop the unreviewed criterion would clear the block but breaks pre-registration (SCI-02) and reads as p-hacking. The Outcome enum already carries untested as a fifth EARL value (model/og-caie.sysml, doc'd as \"a criterion with no attestation yet\"), not yet wired into S7 or the coverage computation. Proposed: switch untested on for a criterion nobody reviewed, carrying a reason; a final report may then carry coverage below one with every shortfall named and typed untested rather than cantTell; fit to deploy is refused over an untested criterion exactly as over a failed one, so the strongest verdict available is fit with conditions naming them; weight then does the job it was designed for, since consequence is what the conditions are read against. Rules on C-57 from the other side: C-57 is the shape gap, that S7 does not yet refuse a final report below coverage one; this is whether coverage one should be the requirement at all, or whether untested plus named conditions is the more honest final state. Julie's message as sent, unedited: \"A final report requires full coverage (sheet 10-48, C-57), and \"cannot tell\" is a ruling on evidence (S6: a determination rests on at least one evidence item), so a criterion nobody reviewed has no state at all: it is uncovered and the report stays a draft, which is not approved or delivered. Membership in the envelope is therefore binary and blocking regardless of weight: a low-consequence criterion left unreviewed because the rater budget ran out blocks the final report as hard as the highest-consequence one, and weights have no effect on the reported numbers once coverage reaches one (performance is an unweighted count; the fitness rule ignores weight). One option: amending the envelope mid-evaluation. This would fix the block but breaks the pre-registration principle (SCI-02) and reads as p-hacking. Proposed: switch on EARL's untested as a recorded state for a criterion nobody reviewed, carrying a reason; a final report may then carry coverage below one with every shortfall named; \"fit to deploy\" is refused over an untested criterion as it is over a failed one, so the strongest verdict is \"fit with conditions\" naming them. Weights then do the work they were designed for: the shortfall is weighted by consequence. Rules on C-57 from the other side.\"",
+   "id": "https://w3id.org/og-caie/rulings#C-59",
+   "label": "C-59",
+   "ogc": "ogc concern C-59",
+   "page": "../rulings"
+  },
+  {
    "cls": "ruling",
    "desc": "SEVOCAB test coverage (ISO/IEC/IEEE 29119-2:2021 3.28) is adopted. The distinction between the abstract tests that cover requirements and the concrete applications of those tests during a case, which produce the evidence, is recorded as a scope note rather than as a term.",
    "id": "https://w3id.org/og-caie/rulings#R-01",
@@ -73062,6 +73156,7 @@
     "https://w3id.org/og-caie/rulings#C-56",
     "https://w3id.org/og-caie/rulings#C-57",
     "https://w3id.org/og-caie/rulings#C-58",
+    "https://w3id.org/og-caie/rulings#C-59",
     "https://w3id.org/og-caie/rulings#R-01",
     "https://w3id.org/og-caie/rulings#R-02",
     "https://w3id.org/og-caie/rulings#R-03",
@@ -73144,6 +73239,8 @@
     "https://w3id.org/og-caie/terms#operational-envelope",
     "https://w3id.org/og-caie/terms#operational-environment",
     "https://w3id.org/og-caie/terms#organization",
+    "https://w3id.org/og-caie/terms#outcome",
+    "https://w3id.org/og-caie/terms#performance",
     "https://w3id.org/og-caie/terms#probe",
     "https://w3id.org/og-caie/terms#provider",
     "https://w3id.org/og-caie/terms#recommendation",
@@ -74321,6 +74418,7 @@
     "https://w3id.org/og-caie/rulings#C-56",
     "https://w3id.org/og-caie/rulings#C-57",
     "https://w3id.org/og-caie/rulings#C-58",
+    "https://w3id.org/og-caie/rulings#C-59",
     "https://w3id.org/og-caie/rulings#R-01",
     "https://w3id.org/og-caie/rulings#R-02",
     "https://w3id.org/og-caie/rulings#R-03",
